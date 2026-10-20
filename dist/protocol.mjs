@@ -196,14 +196,14 @@ export class WQVClient {
   async close() {
     const previous = this.signal; this.signal = null;
     try {
-      if (this.connected && this.adapter.opened) {
+      if (this.connected && this.adapter.opened && !this.adapter.readError) {
         if (!this.isPrimary && !this.turnIsOurs) await this.read(500, true);
         if (this.isPrimary || this.turnIsOurs) await this.disconnect();
       }
     } catch (error) { this.log('info', tr("Closing session: {0}", error)); }
     finally {
       this.connected = false; this.signal = previous;
-      if (this.adapter.opened) { await this.adapter.pauseReader(); await this.resetLinkSpeed(); }
+      if (this.adapter.opened && !this.adapter.readError) { await this.adapter.pauseReader(); await this.resetLinkSpeed(); }
     }
   }
   async receiveSCEPFile(frame) {

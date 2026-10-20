@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { crc16, encodeFrame, FrameDecoder, identifyWatch } from '../dist/irda.mjs';
 import { SigmaTel, withTimeout } from '../dist/sigmatel.mjs';
+import { WQVClient } from '../dist/protocol.mjs';
 
 const bytes = s => Uint8Array.from(Buffer.from(s.replaceAll(' ', ''), 'hex'));
 const actualReply = bytes('01 19 36 66 be 04 3a 18 38 01 02 00 8c 04 00 43 41 53 49 4f 20 57 49 43 20 32 34 31 31 2f 49 52');
@@ -183,4 +184,82 @@ test('non-final frames keep reception running, and another receive can restart i
   assert.equal(await adapter.receiveFrame(5), null);
   assert.equal(adapter.readPending, true);
   await adapter.close();
+});
+
+function stuckFIFO(device, { failClear = false, stillBusy = false } = {}) {
+  const read = device.controlTransferIn.bind(device), write = device.controlTransferOut.bind(device);
+  let poll = 0, cleared = false;
+  const writes = [];
+  device.controlTransferIn = async (setup, count) => {
+    if (setup.index !== 5) return read(setup, count);
+    const data = cleared ? stillBusy ? [0x10, 1, 0] : [0xc4, 0, 0] : [0x10, ++poll === 1 ? 20 : 21, 0];
+    return { status: 'ok', data: new DataView(Uint8Array.from(data).buffer) };
+  };
+  device.controlTransferOut = async setup => {
+    assert.equal(device.pending, null, 'Stop USB IN before touching FIFO controls');
+    writes.push([setup.index, setup.value]);
+    if (setup.index === 5) {
+      assert.ok(device.registerValues.get(3) & 8, 'Demodulator must be powered down during FIFO clear');
+      if (setup.value === 8 && failClear) throw new Error('FIFO clear USB write failed');
+      if (setup.value === 0) cleared = true;
+    }
+    return write(setup);
+  };
+  return writes;
+}
+
+test('FIFO growth triggers PAD-5 recovery, discards stale replies and ends the old session', async () => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); await adapter.setupSIR(); await adapter.setSIRSpeed(115200);
+  device.registerValues.set(3, 0x46); // Preserve RXSLOW and TX power bits.
+  adapter.decoder.frames.push({ address: 0xfe, control: 0x51, data: new Uint8Array() });
+  adapter.decoder.feed(bytes('c0 fe 10 7d'));
+  adapter.startReader();
+  const originalRead = device.controlTransferIn, originalWrite = device.controlTransferOut;
+  const writes = stuckFIFO(device), client = new WQVClient(adapter);
+  client.connected = true;
+  await assert.rejects(client.send(bytes('01 02')), /FIFO was cleared/);
+  assert.deepEqual(writes, [[3, 0x4e], [5, 8], [5, 0], [3, 0x46]]);
+  assert.equal(adapter.fifoRecoveries, 1); assert.equal(adapter.configured, false); assert.equal(adapter.baud, null);
+  assert.equal(adapter.decoder.frames.length, 0); assert.equal(adapter.decoder.body, null);
+  assert.equal(adapter.readPending, false); assert.equal(device.pending, null);
+  // Recovery never changes the baud divider or MODE, and never replays OUT.
+  assert.equal(device.registerValues.get(2), 9); assert.equal(device.registerValues.get(1), 0x2a);
+  const count = device.events.filter(e => e === 'write').length;
+  await assert.rejects(adapter.sendFrame(0xff, 0x3f, bytes('01')), /FIFO was cleared/);
+  await assert.rejects(adapter.receiveFrame(), /FIFO was cleared/);
+  await client.close(); assert.equal(client.connected, false);
+  assert.equal(device.events.filter(e => e === 'write').length, count);
+  await adapter.close();
+  // Reopening creates a fresh transport; normal setup still starts at9600.
+  device.controlTransferIn = originalRead; device.controlTransferOut = originalWrite;
+  const next = new SigmaTel(device); await next.open(); await next.setupSIR();
+  await next.sendFrame(0xff, 0x3f, bytes('01'));
+  assert.equal(next.baud, 9600); assert.equal(device.registerValues.get(1), 0x2a);
+  await next.close();
+});
+
+test('a FIFO drain timeout recovers even when its byte count does not grow', async t => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); await adapter.setupSIR();
+  const writes = stuckFIFO(device);
+  const now = performance.now(); let tick = 0;
+  t.mock.method(performance, 'now', () => now + tick++ * 2000);
+  await assert.rejects(adapter.sendFrame(0xff, 0x3f, bytes('01')), /FIFO was cleared/);
+  assert.deepEqual(writes, [[3, 8], [5, 8], [5, 0], [3, 0]]);
+  assert.equal(adapter.fifoRecoveries, 1); await adapter.close();
+});
+
+test('failed FIFO clears restore RX and remain failed instead of reporting recovery', async () => {
+  for (const options of [{ failClear: true }, { stillBusy: true }]) {
+    const device = new FakeDevice(), adapter = new SigmaTel(device);
+    await adapter.open(); await adapter.setupSIR(); device.registerValues.set(3, 0x42);
+    const writes = stuckFIFO(device, options);
+    await assert.rejects(adapter.sendFrame(0xff, 0x3f, bytes('01')), /FIFO recovery failed/);
+    assert.deepEqual(writes, [[3, 0x4a], [5, 8], [5, 0], [3, 0x42]]);
+    assert.equal(device.registerValues.get(3), 0x42);
+    assert.equal(adapter.fifoRecoveries, 0); assert.equal(adapter.configured, false);
+    await assert.rejects(adapter.receiveFrame(), /FIFO recovery failed/);
+    await adapter.close();
+  }
 });

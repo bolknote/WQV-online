@@ -21,7 +21,8 @@ export class SigmaTel {
     if (device.vendorId !== VID || device.productId !== PID) throw new LocalizedError(tr("A SigmaTel STIr4200 (066f:4200) is required."));
     this.device = device; this.log = log; this.update = update;
     this.rawLog = rawLog;
-    this.decoder = new FrameDecoder(); this.rxBytes = 0; this.txFrames = 0; this.switches = 0;
+    this.decoder = new FrameDecoder({ recoverFrames: true });
+    this.rxBytes = 0; this.txFrames = 0; this.switches = 0; this.fifoRecoveries = 0;
     this.claimed = false; this.configured = false; this.closing = false; this.baud = null;
     this.readerTask = null; this.readerActive = false; this.readPending = false; this.readError = null;
   }
@@ -109,7 +110,7 @@ export class SigmaTel {
       const [actual] = await this.registers(2, 1, true);
       if (actual !== SIR_CLOCK.get(baud)) throw new LocalizedError(tr('The SigmaTel baud-rate register did not accept {0} bit/s.', baud));
       this.baud = baud;
-      this.decoder.body = null; this.decoder.escaped = false;
+      this.decoder.reset();
       this.log('info', tr('Infrared speed: {0} bit/s.', baud));
       if (resume) this.startReader();
     } catch (error) {
@@ -131,7 +132,9 @@ export class SigmaTel {
           finally { this.readPending = false; }
           if (result.data?.byteLength) {
             const data = new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength).slice();
+            const recovered = this.decoder.recoveredFrames;
             this.rxBytes += data.length; this.decoder.feed(data);
+            if (this.decoder.recoveredFrames !== recovered) this.log('info', tr('Frames recovered after CRC recheck: {0}.', this.decoder.recoveredFrames - recovered));
             if (this.rawLog) this.log('usb-rx', tr("{0} bytes: {1}", data.length, hex(data)));
             this.update();
           }
@@ -181,6 +184,40 @@ export class SigmaTel {
       this.log('ok', tr("Receive cycle {0}/2 finished; the adapter responds after stopping the reader.", round + 1));
     }
   }
+  async abortFIFO() {
+    // A reset discards bytes. End this transfer even if the USB adapter
+    // recovers; the old IrLAP sequence and any queued replies are stale.
+    this.configured = false;
+    try {
+      await this.pauseReader(); this.assertOpen();
+      const [control] = await this.registers(3, 1, true);
+      let failure;
+      try {
+        // PAD-5 0x144de: power down the demodulator while clearing the
+        // shared FIFO. Preserve CTRL1 and never echo FIFO status bits.
+        await this.writeRegister(3, control | 0x08);
+        await this.writeRegister(5, 0x08);
+      } catch (error) { failure = error; }
+      // Release the clear latch and restore the original control state,
+      // including when an earlier USB write failed.
+      try { await this.writeRegister(5, 0); } catch (error) { failure ??= error; }
+      try { await this.writeRegister(3, control); } catch (error) { failure ??= error; }
+      if (failure) throw failure;
+      const [status, low, high] = await this.registers(5, 3, true);
+      if ((low | ((high & 0x1f) << 8)) || ((status & 0x10) && !(status & 4))) {
+        throw new LocalizedError(tr('The SigmaTel FIFO is still busy after clearing.'));
+      }
+      this.fifoRecoveries++;
+      this.log('info', tr('The SigmaTel FIFO was cleared; the current watch session has ended.'));
+      this.readError = new LocalizedError(tr('Transfer interrupted. The FIFO was cleared. Reconnect in WQV Link and restart IR → PC on the watch.'));
+    } catch (error) {
+      this.readError = new LocalizedError(tr('FIFO recovery failed: {0}. Unplug and reconnect the USB adapter.', error));
+    } finally {
+      this.baud = null; this.decoder.reset(); this.decoder.frames.length = 0;
+      this.update();
+    }
+    throw this.readError;
+  }
   async sendFrame(address, control, data, bof = 11) {
     this.assertOpen();
     await this.pauseReader();
@@ -195,12 +232,16 @@ export class SigmaTel {
     this.txFrames++; this.update();
     this.log('tx', `IrDA ${hex([address, control])} · ${hex(data)}`);
     const deadline = performance.now() + wire.length * 10000 / (this.baud || 9600) + 1000;
+    let previousCount = Infinity;
     while (performance.now() < deadline) {
-      const [status] = await this.registers(5, 3, true);
+      const [status, low, high] = await this.registers(5, 3, true);
       if (!(status & 0x10) || (status & 4)) { this.startReader(); return; }
+      const count = low | ((high & 0x1f) << 8);
+      if (count > previousCount) break;
+      previousCount = count;
       await sleep(2);
     }
-    throw new LocalizedError(tr("The SigmaTel transmit FIFO did not empty."));
+    await this.abortFIFO();
   }
   async receiveFrame(timeout = 100) {
     this.assertOpen();

@@ -57,24 +57,57 @@ export function encodeFrame(address, control, data = new Uint8Array(), bof = 11)
 }
 
 export class FrameDecoder {
-  constructor() { this.body = null; this.escaped = false; this.badCRC = 0; this.frames = []; }
+  constructor({ recoverFrames = false } = {}) {
+    this.recoverFrames = recoverFrames; this.badCRC = 0; this.recoveredFrames = 0; this.frames = [];
+    this.reset();
+  }
+  reset() { this.body = null; this.escaped = false; this.pad5Escapes = []; }
+  valid(body) {
+    return body.length >= 4 && crc16(body.slice(0, -2)) === (body.at(-2) | (body.at(-1) << 8));
+  }
+  recover(body) {
+    // PAD-5 stirusb.sys 1.23: SIR escapes at 0x133e4 and CRC retry at
+    // 0x1367e. Its NDIS-specific edge flag is unavailable here, so check
+    // both edges and reject different candidates that pass CRC.
+    const variants = [body], candidates = new Map();
+    if (this.pad5Escapes.length) {
+      const alternate = body.slice();
+      for (const [offset, byte] of this.pad5Escapes) alternate[offset] = byte;
+      variants.push(alternate);
+    }
+    const check = candidate => {
+      if (this.valid(candidate)) candidates.set(hex(candidate), candidate);
+    };
+    for (const variant of variants) {
+      if (variant !== body) check(variant);
+      if (variant.length >= 5) { check(variant.slice(1)); check(variant.slice(0, -1)); }
+    }
+    return candidates.size === 1 ? candidates.values().next().value : null;
+  }
   feed(bytes) {
     for (let byte of bytes) {
-      if (byte === 0xc0) { this.body = []; this.escaped = false; continue; }
+      if (byte === 0xc0) { this.reset(); this.body = []; continue; }
       if (this.body === null) continue;
       if (byte === 0xc1) {
         if (this.body.length >= 4 && !this.escaped) {
-          const b = this.body;
-          if (crc16(b.slice(0, -2)) === (b.at(-2) | (b.at(-1) << 8))) {
+          let b = this.body;
+          if (!this.valid(b)) {
+            b = this.recoverFrames ? this.recover(b) : null;
+            if (b) this.recoveredFrames++; else this.badCRC++;
+          }
+          if (b) {
             this.frames.push({ address: b[0], control: b[1], data: Uint8Array.from(b.slice(2, -2)) });
-          } else this.badCRC++;
+          }
         }
-        this.body = null; this.escaped = false; continue;
+        this.reset(); continue;
       }
-      if (this.escaped) { byte ^= 0x20; this.escaped = false; }
+      if (this.escaped) {
+        if (this.recoverFrames && (byte === 0xf0 || byte === 0xf8)) this.pad5Escapes.push([this.body.length, byte === 0xf0 ? 0xc0 : 0xc1]);
+        byte ^= 0x20; this.escaped = false;
+      }
       else if (byte === 0x7d) { this.escaped = true; continue; }
       this.body.push(byte);
-      if (this.body.length > 4096) { this.body = null; this.escaped = false; }
+      if (this.body.length > 4096) this.reset();
     }
   }
 }

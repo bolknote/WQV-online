@@ -59,6 +59,15 @@ Some JPEGs returned by the watch lose their restart interval marker. The app
 repairs these for viewing and export without recompressing the image, while
 keeping the original file.
 
+The SigmaTel receiver can recover a few known framing faults by checking CRC
+again after correcting an escape sequence or removing one stray edge byte.
+Ambiguous frames and frames that still fail CRC are dropped. The Connection
+tab counts recovered frames separately from rejected CRC errors.
+
+If the transmit FIFO stalls, the app tries the PAD-5 recovery sequence and
+ends the current transfer. Click **Connect USB…** again and restart **IR → PC**
+on the watch before retrying. Completed photos stay in the collection.
+
 Photos and calendar backups stay in this browser. There is no account, upload
 server or analytics. Keep a ZIP export if you want a copy outside browser
 storage. The hosted app and a localhost copy have separate collections.
@@ -109,3 +118,5 @@ copyright and license are preserved in [third-party-notices.txt](third-party-not
 The Linux [STIr4200 driver](https://github.com/torvalds/linux/blob/v4.16/drivers/staging/irda/drivers/stir4200.c)
 was a reference for the adapter's registers and USB framing. Additional watch
 commands were worked out from Casio's original PC software.
+Frame and FIFO recovery behavior was also checked against Casio's original
+PAD-5 driver, `stirusb.sys` 1.23.

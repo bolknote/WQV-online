@@ -70,6 +70,8 @@ function update() {
   $('title-connection').textContent = S.client?.connected ? tr("WQV-{0} connected", S.client.model) : connected ? 'IrDA / USB' : tr("Offline");
   $('tx-count').textContent = source?.txFrames ?? 0; $('rx-count').textContent = source?.rxBytes ?? 0;
   $('crc-count').textContent = source?.decoder.badCRC ?? 0; $('switch-count').textContent = source?.switches ?? 0;
+  $('recovered-count').textContent = source?.decoder.recoveredFrames ?? 0;
+  $('fifo-recovery-count').textContent = source?.fifoRecoveries ?? 0;
   $('ir-mode').textContent = S.adapter?.configured ? tr('SIR · {0} bit/s', S.adapter.baud) : '—';
   $('send-holidays').disabled = !S.calendar || !connected || busy;
   $('export-holidays').disabled = !S.calendar;
@@ -499,7 +501,8 @@ function saveReport() {
   const a = S.adapter || S.lastAdapter;
   const report = { format: 'wqv-webusb-diagnostics-v1', version: '0.2', savedAt: stamp(),
     environment: { secureContext: isSecureContext, webUSB: Boolean(navigator.usb), userAgent: navigator.userAgent, language: getLanguage() },
-    tests: S.tests, counters: a ? { txFrames: a.txFrames, rxBytes: a.rxBytes, switches: a.switches, badCRC: a.decoder.badCRC, baud: a.baud } : null,
+    tests: S.tests, counters: a ? { txFrames: a.txFrames, rxBytes: a.rxBytes, switches: a.switches,
+      badCRC: a.decoder.badCRC, recoveredFrames: a.decoder.recoveredFrames, fifoRecoveries: a.fifoRecoveries, baud: a.baud } : null,
     events: S.events.map(event => ({ ...event, message: formatText(event.message) })) };
   downloadFile(JSON.stringify(report, null, 2), 'WQV-Link-report-' + stamp().replace(/[:.]/g, '-') + '.json', 'application/json');
 }
