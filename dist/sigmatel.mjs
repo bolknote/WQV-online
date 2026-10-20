@@ -4,6 +4,7 @@ import { tr, LocalizedError } from './i18n.mjs';
 import { FrameDecoder, encodeFrame, hex, sleep } from './irda.mjs';
 
 export const VID = 0x066f, PID = 0x4200;
+const SIR_CLOCK = new Map([[9600, 0x77], [19200, 0x3b], [38400, 0x1d], [57600, 0x13], [115200, 0x09]]);
 
 export function withTimeout(promise, ms, operation) {
   let timer;
@@ -21,7 +22,7 @@ export class SigmaTel {
     this.device = device; this.log = log; this.update = update;
     this.rawLog = rawLog;
     this.decoder = new FrameDecoder(); this.rxBytes = 0; this.txFrames = 0; this.switches = 0;
-    this.claimed = false; this.configured = false; this.closing = false;
+    this.claimed = false; this.configured = false; this.closing = false; this.baud = null;
     this.readerTask = null; this.readerActive = false; this.readPending = false; this.readError = null;
   }
   get opened() { return this.device.opened && this.claimed && !this.closing; }
@@ -82,16 +83,39 @@ export class SigmaTel {
   }
   async setupSIR() {
     this.assertOpen();
-    if (this.configured) return;
+    if (this.configured) return this.setSIRSpeed(9600);
     await this.pauseReader();
     for (const [direction, endpoint] of [['out', this.outEndpoint], ['in', this.inEndpoint]]) {
       await this.io(this.device.clearHalt(direction, endpoint), tr("clearing USB endpoint {0}", direction));
     }
     for (const [index, value] of [[1, 0x20], [3, 1], [8, 0x15], [2, 0x77], [1, 0x2a],
       [3, 0x80], [3, 0], [4, 0x20], [5, 8], [5, 0]]) await this.writeRegister(index, value);
-    this.configured = true;
+    this.configured = true; this.baud = 9600;
     this.log('ok', tr("Infrared port configured: SIR, 9600 bit/s."));
     await this.registers();
+  }
+  async setSIRSpeed(baud) {
+    this.assertOpen();
+    if (!SIR_CLOCK.has(baud)) throw new RangeError('Unsupported SIR speed: ' + baud);
+    if (!this.configured) throw new LocalizedError(tr('The infrared port has not been configured.'));
+    if (this.baud === baud) return;
+    const resume = Boolean(this.readerTask);
+    await this.pauseReader();
+    try {
+      // Linux stir4200 change_speed(): stop the shared FIFO reader before
+      // resetting the modulator, then apply the documented PDCLK divisor.
+      for (const [index, value] of [[3, 1], [8, 0x15], [2, SIR_CLOCK.get(baud)],
+        [1, 0x2a], [3, 0x80], [3, 0], [4, 0x20]]) await this.writeRegister(index, value);
+      const [actual] = await this.registers(2, 1, true);
+      if (actual !== SIR_CLOCK.get(baud)) throw new LocalizedError(tr('The SigmaTel baud-rate register did not accept {0} bit/s.', baud));
+      this.baud = baud;
+      this.decoder.body = null; this.decoder.escaped = false;
+      this.log('info', tr('Infrared speed: {0} bit/s.', baud));
+      if (resume) this.startReader();
+    } catch (error) {
+      this.configured = false; this.baud = null;
+      throw error;
+    } finally { this.update(); }
   }
   startReader() {
     this.assertOpen();
@@ -112,18 +136,22 @@ export class SigmaTel {
             this.update();
           }
           if (result.status !== 'ok') throw new LocalizedError(`USB IN: ${result.status}.`);
+          // A final/poll frame hands the half-duplex link back to us. Do not
+          // queue another USB read just to cancel it for the next transmit:
+          // Chromium can leave that fast resubmission pending after release.
+          if (this.decoder.frames.some(frame => frame.control & 0x10)) break;
         }
       } catch (error) {
         // releaseInterface/close explicitly abort the pending endpoint request.
         if (this.readerActive && !this.closing) {
           this.readError = error; this.log('error', tr("USB receive: {0}", error));
         }
-      } finally { this.readerActive = false; this.readPending = false; }
+      } finally { this.readerActive = false; this.readPending = false; this.readerTask = null; }
     })();
   }
   async pauseReader() {
     const task = this.readerTask;
-    if (!task) return;
+    if (!task) { if (this.readError) throw this.readError; return; }
     this.readerActive = false;
     if (this.readPending && this.device.opened && this.claimed && !this.closing) {
       const start = performance.now();
@@ -166,7 +194,7 @@ export class SigmaTel {
     }
     this.txFrames++; this.update();
     this.log('tx', `IrDA ${hex([address, control])} · ${hex(data)}`);
-    const deadline = performance.now() + wire.length * 10000 / 9600 + 1000;
+    const deadline = performance.now() + wire.length * 10000 / (this.baud || 9600) + 1000;
     while (performance.now() < deadline) {
       const [status] = await this.registers(5, 3, true);
       if (!(status & 0x10) || (status & 4)) { this.startReader(); return; }
@@ -182,6 +210,9 @@ export class SigmaTel {
       if (this.readError) throw this.readError;
       if (this.decoder.frames.length) return this.decoder.frames.shift();
       if (performance.now() >= deadline) return null;
+      // A caller may need another frame after consuming a final frame (for
+      // example when the watch initiates discovery after a role change).
+      if (!this.readerTask) this.startReader();
       if (previous !== this.rxBytes && this.decoder.body !== null) {
         deadline = Math.min(limit, Math.max(deadline, performance.now() + 50));
       }

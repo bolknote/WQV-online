@@ -2,7 +2,7 @@ import { tr, LocalizedError } from './i18n.mjs';
 // Browser port of wqv_protocol.py, including the flow-control/disconnect fixes
 // tested with the actual WQV-3. WQV Blink portions: Roger Braunstein, MIT.
 // See third-party-notices.txt. This module has no DOM or native bridge.
-import { hex, sleep } from './irda.mjs';
+import { hex, sleep, baudMask, selectBaudRate, linkParameters } from './irda.mjs';
 import { LIMIT, b, ascii, text, fromHex as hx, concat, equal, starts, u16, PRIMARY, SECONDARY,
   parseCommand, makeCommand, attribute, packSCEP, unpackSCEP, pduSize, extractUPF,
   jpegFromUPF, jpegInfo, queryResponse, queryCommand, putCommand, sha256, toHex, checkWatchJPEG } from './formats.mjs';
@@ -12,13 +12,21 @@ const random = max => crypto.getRandomValues(new Uint32Array(1))[0] % max;
 const stackID = () => crypto.getRandomValues(new Uint8Array(4)).map(v => v & 0x3e);
 
 export class WQVClient {
-  constructor(adapter, { signal = null, log = () => {}, progress = () => {} } = {}) {
+  constructor(adapter, { signal = null, log = () => {}, progress = () => {}, maxBaud = 115200 } = {}) {
     this.adapter = adapter; this.signal = signal; this.log = log; this.progress = progress;
     this.ourPort = 0xff; this.watchPort = 0xfe; this.upper = 1; this.lower = 0; this.session = 0;
     this.lastSent = null; this.lastIFrame = null; this.lastRX = 0;
     this.connected = false; this.isPrimary = true; this.turnIsOurs = true;
     this.txCredits = 1; this.rxCredits = 14; this.appBuffer = new Uint8Array();
     this.primaryID = PRIMARY; this.secondaryID = SECONDARY; this.model = null; this.peerID = null;
+    this.localBaudRates = baudMask(maxBaud);
+  }
+  async applyLinkSpeed(baud) {
+    await this.adapter.setSIRSpeed(baud);
+    this.log('info', tr('IrLAP negotiated {0} bit/s.', baud));
+  }
+  async resetLinkSpeed() {
+    if (this.adapter.opened && this.adapter.configured) await this.adapter.setSIRSpeed(9600);
   }
   check() { this.signal?.throwIfAborted(); this.adapter.assertOpen(); }
   seq({ data = false, upper = false, lower = false } = {}) {
@@ -101,10 +109,12 @@ export class WQVClient {
     this.peerID = response.slice(1, 5); this.model = text(response).includes('2411/IR') ? 3 : 10;
     this.progress(tr("Connecting to watch"), `Casio WQV-${this.model}, IrLAP / IrCOMM`);
     this.watchPort = 2 * (random(0x7e) + 1); this.ourPort = this.watchPort + 1;
-    const parameters = hx('01010282010183013f84010f85018086028003080107');
+    const parameters = linkParameters(this.localBaudRates);
     await this.send(concat(source, this.peerID, b(this.watchPort), parameters), 0x93, 0xff);
     const accepted = await this.read();
     if (accepted.address !== this.watchPort || accepted.control !== 0x73 || !starts(accepted.data, concat(this.peerID, source))) throw new LocalizedError(tr("The watch did not accept the IrLAP connection parameters."));
+    const { baud } = selectBaudRate(accepted.data.subarray(8), this.localBaudRates);
+    await this.applyLinkSpeed(baud);
     this.connected = true; this.upper = 1; this.lower = 0;
     await this.send(hx('80030100'), this.seq({ data: true }));
     this.expect(await this.dataFrame(), { exact: hx('83008100') });
@@ -118,10 +128,22 @@ export class WQVClient {
     this.log('ok', tr("Casio WQV-{0} session opened.", this.model));
   }
   async closeLink() {
-    await this.send(b(0x83, this.session, 2, 1), this.seq({ data: true, lower: true }));
-    await this.read(2000, true);
-    await this.send(new Uint8Array(), this.seq({ lower: true })); await this.read(2000, true);
-    await this.send(new Uint8Array(), 0x53); await this.read(2000, true); this.connected = false;
+    try {
+      await this.send(b(0x83, this.session, 2, 1), this.seq({ data: true, lower: true }));
+      await this.read(2000, true);
+      await this.send(new Uint8Array(), this.seq({ lower: true })); await this.read(2000, true);
+      await this.send(new Uint8Array(), 0x53); await this.read(2000, true);
+    } finally { this.connected = false; await this.resetLinkSpeed(); }
+  }
+  async acceptSecondaryLink(frame, localID) {
+    if (frame.control !== 0x93 || frame.data.length < 12 || !starts(frame.data, concat(this.peerID, localID))) throw new LocalizedError(tr("No connection parameters from the watch."));
+    const { baud, commonRates } = selectBaudRate(frame.data.subarray(9), this.localBaudRates);
+    this.ourPort = frame.data[8]; this.watchPort = this.ourPort + 1;
+    // The final UA is sent at discovery speed. sendFrame waits for the FIFO
+    // to drain before returning, so the port changes speed only afterwards.
+    await this.send(concat(localID, this.peerID, linkParameters(commonRates, true)), 0x73);
+    await this.applyLinkSpeed(baud);
+    this.connected = true; this.rxCredits = 14;
   }
   async switchToReceive(command = 1) {
     await this.send(concat(b(3, this.session, 0, 0, command), this.model === 10 ? b(0, 0) : b()), this.seq({ data: true, lower: true }));
@@ -140,10 +162,7 @@ export class WQVClient {
       if (starts(frame.data, concat(b(1), this.peerID, hx('ffffffff01ff')))) break;
     }
     frame = await this.read();
-    if (frame.control !== 0x93 || !starts(frame.data, this.peerID)) throw new LocalizedError(tr("No connection parameters from the watch."));
-    this.ourPort = frame.data[8]; this.watchPort = this.ourPort + 1;
-    await this.send(concat(localID, this.peerID, hx('01010282010183013f84010f85018086028003080104')), 0x73);
-    this.connected = true; this.rxCredits = 14;
+    await this.acceptSecondaryLink(frame, localID);
     this.expect(await this.dataFrame(), { prefix: hx('80010100') });
     await this.send(hx('81008100'), this.seq({ data: true, upper: true }));
     let negotiation = 0, ready = false;
@@ -172,7 +191,7 @@ export class WQVClient {
       await this.send(b(), 0x53);
       const frame = await this.read(1000, true);
       if (frame?.control === 0x53) await this.send(b(), 0x73);
-    } finally { this.connected = false; }
+    } finally { this.connected = false; await this.resetLinkSpeed(); }
   }
   async close() {
     const previous = this.signal; this.signal = null;
@@ -184,7 +203,7 @@ export class WQVClient {
     } catch (error) { this.log('info', tr("Closing session: {0}", error)); }
     finally {
       this.connected = false; this.signal = previous;
-      if (this.adapter.opened) await this.adapter.pauseReader();
+      if (this.adapter.opened) { await this.adapter.pauseReader(); await this.resetLinkSpeed(); }
     }
   }
   async receiveSCEPFile(frame) {

@@ -38,7 +38,7 @@ class FakeDevice {
       { direction: 'out', type: 'bulk', endpointNumber: 1, packetSize: 64 },
     ],
   }] }] };
-  events = []; pending = null; claimed = false;
+  events = []; pending = null; claimed = false; registerValues = new Map();
   async open() { this.opened = true; this.events.push('open'); }
   async claimInterface(i) { assert.equal(i, 0); this.claimed = true; this.events.push('claim'); }
   async releaseInterface(i) {
@@ -49,11 +49,12 @@ class FakeDevice {
     assert.equal(setup.request, 1); assert.equal(setup.requestType, 'vendor');
     assert.ok(this.claimed);
     this.events.push('registers');
-    return { status: 'ok', data: new DataView(new Uint8Array(count).buffer) };
+    return { status: 'ok', data: new DataView(Uint8Array.from({ length: count }, (_, i) => this.registerValues.get(setup.index + i) || 0).buffer) };
   }
   async controlTransferOut(setup) {
     assert.equal(setup.request, 3); assert.equal(setup.requestType, 'vendor');
-    this.events.push(`register-${setup.index}`); return { status: 'ok', bytesWritten: 0 };
+    this.events.push(`register-${setup.index}`); this.registerValues.set(setup.index, setup.value);
+    return { status: 'ok', bytesWritten: 0 };
   }
   async clearHalt() { this.events.push('clear'); }
   transferIn(endpoint, size) {
@@ -118,4 +119,68 @@ test('stopping an unfinished USB open also closes the eventually opened handle',
 });
 test('a hung browser operation has a bounded wait', async () => {
   await assert.rejects(withTimeout(new Promise(() => {}), 5, 'test operation'), /Timeout/);
+});
+
+test('SigmaTel stops the reader for a speed change and uses the documented SIR clock values', async () => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); await adapter.setupSIR(); adapter.startReader();
+  device.events.length = 0;
+  for (const [baud, clock] of [[115200, 0x09], [57600, 0x13], [38400, 0x1d], [19200, 0x3b], [9600, 0x77]]) {
+    await adapter.setSIRSpeed(baud);
+    assert.equal(adapter.baud, baud);
+    assert.equal(device.registerValues.get(2), clock);
+    assert.equal(adapter.readPending, true);
+  }
+  assert.ok(device.events.indexOf('release') < device.events.indexOf('register-2'));
+  const before = device.events.slice();
+  await assert.rejects(adapter.setSIRSpeed(48000), RangeError);
+  assert.deepEqual(device.events, before, 'Unsupported rates must not touch the device');
+  await adapter.close();
+});
+
+test('a failed clock-register readback does not advertise a configured adapter', async () => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); await adapter.setupSIR();
+  const read = device.controlTransferIn.bind(device);
+  device.controlTransferIn = async (setup, count) => setup.index === 2 ?
+    { status: 'ok', data: new DataView(Uint8Array.of(0x77).buffer) } : read(setup, count);
+  await assert.rejects(adapter.setSIRSpeed(115200), /register did not accept/);
+  assert.equal(adapter.configured, false); assert.equal(adapter.baud, null);
+  await adapter.close();
+});
+
+test('a final frame stops reception without resubmitting a read that release might not cancel', async () => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); adapter.startReader();
+  const pending = device.pending; device.pending = null;
+  const wire = encodeFrame(0xfe, 0x51);
+  pending.resolve({ status: 'ok', data: new DataView(wire.buffer) });
+  await Promise.resolve(); await Promise.resolve();
+  assert.equal(adapter.readPending, false);
+  assert.equal(adapter.readerTask, null);
+  assert.equal(device.pending, null, 'No new USB read after the peer gives back the turn');
+  assert.equal((await adapter.receiveFrame()).control, 0x51);
+  // Reproduce the Chromium cancellation failure: this method must not be
+  // needed at all between a complete final reply and the following transmit.
+  device.releaseInterface = async () => { throw new Error('Pending read cannot be cancelled'); };
+  await adapter.sendFrame(0xff, 0x10, bytes('83 04 01 00 0e'));
+  assert.equal(adapter.txFrames, 1);
+  assert.equal(adapter.readPending, true, 'The next transmit restarts reception');
+  await adapter.close();
+});
+
+test('non-final frames keep reception running, and another receive can restart it after a final frame', async () => {
+  const device = new FakeDevice(), adapter = new SigmaTel(device);
+  await adapter.open(); adapter.startReader();
+  for (const control of [0x20, 0x32]) {
+    const pending = device.pending; device.pending = null;
+    const wire = encodeFrame(0xfe, control, bytes('01 02 03'));
+    pending.resolve({ status: 'ok', data: new DataView(wire.buffer) });
+    await Promise.resolve(); await Promise.resolve();
+    assert.equal((await adapter.receiveFrame()).control, control);
+    assert.equal(adapter.readPending, control === 0x20);
+  }
+  assert.equal(await adapter.receiveFrame(5), null);
+  assert.equal(adapter.readPending, true);
+  await adapter.close();
 });

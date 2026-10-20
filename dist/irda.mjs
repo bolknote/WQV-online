@@ -3,6 +3,39 @@ import { tr, LocalizedError } from './i18n.mjs';
 export const hex = bytes => Array.from(bytes, b => b.toString(16).padStart(2, '0')).join(' ');
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// IrLAP PI 0x01 is a little-endian bit set. Discovery always uses 9600;
+// connected peers use the fastest rate in the intersection of their offers.
+export const SIR_RATES = Object.freeze([9600, 19200, 38400, 57600, 115200]);
+export function baudMask(maximum) {
+  if (!SIR_RATES.includes(maximum)) throw new RangeError('Unsupported SIR speed: ' + maximum);
+  return SIR_RATES.reduce((bits, rate, index) => bits | (rate <= maximum ? 2 << index : 0), 0);
+}
+export function peerBaudRates(parameters) {
+  let rates = null;
+  for (let offset = 0; offset < parameters.length;) {
+    if (offset + 2 > parameters.length) throw new LocalizedError(tr('Truncated IrLAP connection parameters.'));
+    const kind = parameters[offset++], size = parameters[offset++];
+    if (!size || offset + size > parameters.length) throw new LocalizedError(tr('Truncated IrLAP connection parameters.'));
+    if (kind === 1) {
+      if (rates !== null || size > 2) throw new LocalizedError(tr('Invalid IrLAP baud-rate parameter.'));
+      rates = parameters[offset] | (size === 2 ? parameters[offset + 1] << 8 : 0);
+    }
+    offset += size;
+  }
+  if (!rates) throw new LocalizedError(tr('The watch did not provide any IrLAP baud rates.'));
+  return rates;
+}
+export function selectBaudRate(parameters, localRates) {
+  const peerRates = peerBaudRates(parameters), commonRates = peerRates & localRates & 0x3e;
+  const baud = SIR_RATES.findLast((_, index) => commonRates & (2 << index));
+  if (!baud) throw new LocalizedError(tr('No common IrLAP baud rate.'));
+  return { baud, commonRates, peerRates };
+}
+export function linkParameters(rates, secondary = false) {
+  return Uint8Array.of(1, 1, rates, 0x82, 1, 1, 0x83, 1, 0x3f, 0x84, 1, 0x0f,
+    0x85, 1, 0x80, 0x86, 2, 0x80, 3, 8, 1, secondary ? 4 : 7);
+}
+
 export function crc16(bytes) {
   let crc = 0xffff;
   for (const byte of bytes) {

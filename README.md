@@ -35,6 +35,12 @@ work yet.** WQV-10 and other operating systems have not been tested.
 If the watch leaves transfer mode, enter IR → PC again. Another application
 using the adapter must release it before the browser can connect.
 
+Discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
+fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
+watch takes over to send photos, and returns to 9600 after disconnecting.
+The Connection tab and transfer log show the current speed. Photo downloads at
+115200 have been checked with the WQV-3 and SigmaTel adapter.
+
 ## Photos and settings
 
 - Download individual photos or the whole collection. The arrow buttons browse
