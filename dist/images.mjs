@@ -1,3 +1,4 @@
+import { tr, LocalizedError } from './i18n.mjs';
 import { LIMIT, checkWatchJPEG, makeUPF, jpegFromUPF, loadArchive, sha256, packSCEP, putCommand, toHex } from './formats.mjs';
 import { normalizeWatchJPEG } from './jpeg.mjs';
 
@@ -10,9 +11,9 @@ export async function readableImage(image) {
 export async function prepareRaster(blob, { fit = 'cover', quality = 0.7, rotate = 0 } = {}) {
   let bitmap;
   try { bitmap = await createImageBitmap(blob); }
-  catch { throw new Error('Браузер не смог открыть картинку. Используй JPEG, PNG или WebP.'); }
+  catch { throw new LocalizedError(tr("The browser could not open this image. Use JPEG, PNG or WebP.")); }
   try {
-    if (bitmap.width * bitmap.height > 100000000) throw new Error('Изображение слишком большое. Уменьши его перед импортом.');
+    if (bitmap.width * bitmap.height > 100000000) throw new LocalizedError(tr("The image is too large. Resize it before importing."));
     const source = document.createElement('canvas'), swapped = rotate % 180 !== 0;
     source.width = swapped ? bitmap.height : bitmap.width; source.height = swapped ? bitmap.width : bitmap.height;
     const sc = source.getContext('2d'); sc.translate(source.width / 2, source.height / 2); sc.rotate(rotate * Math.PI / 180);
@@ -23,20 +24,20 @@ export async function prepareRaster(blob, { fit = 'cover', quality = 0.7, rotate
     const w = source.width * scale, h = source.height * scale;
     ctx.drawImage(source, (176 - w) / 2, (144 - h) / 2, w, h);
     const blobJPEG = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', Math.min(0.85, Math.max(0.3, quality))));
-    if (!blobJPEG) throw new Error('Не удалось подготовить JPEG.');
+    if (!blobJPEG) throw new LocalizedError(tr("Could not prepare the JPEG."));
     const jpeg = new Uint8Array(await blobJPEG.arrayBuffer()); checkWatchJPEG(jpeg); return normalizeWatchJPEG(jpeg).jpeg;
   } finally { bitmap.close(); }
 }
 export async function imageFromFile(file, options = {}) {
-  if (file.size > 32 * 1024 * 1024) throw new Error('Для импорта выбери файл меньше 32 МБ.');
+  if (file.size > 32 * 1024 * 1024) throw new LocalizedError(tr("Choose a file smaller than 32 MB to import."));
   const extension = file.name.toLowerCase().split('.').at(-1);
   let upf, jpeg, archive = null;
   if (extension === 'wqv') {
-    if (file.size > LIMIT * 3) throw new Error('Архив WQV слишком большой.');
-    try { archive = JSON.parse(await file.text()); } catch { throw new Error('Неверный файл архива WQV.'); }
+    if (file.size > LIMIT * 3) throw new LocalizedError(tr("The WQV archive is too large."));
+    try { archive = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("Invalid WQV archive file.")); }
     upf = await loadArchive(archive); jpeg = jpegFromUPF(upf);
   } else if (extension === 'upf') {
-    if (file.size > LIMIT) throw new Error('Файл UPF слишком большой.');
+    if (file.size > LIMIT) throw new LocalizedError(tr("The UPF file is too large."));
     upf = new Uint8Array(await file.arrayBuffer()); jpeg = jpegFromUPF(upf); checkWatchJPEG(jpeg);
   } else {
     const original = new Uint8Array(await file.arrayBuffer());
@@ -59,11 +60,11 @@ export class LocalStore {
     }); return this;
   }
   async request(store, mode, action) {
-    if (!this.db) throw new Error('Хранилище браузера недоступно. Экспортируй файлы перед закрытием вкладки.');
+    if (!this.db) throw new LocalizedError(tr("Browser storage is unavailable. Export your files before closing this tab."));
     return new Promise((resolve, reject) => {
       const tx = this.db.transaction(store, mode), request = action(tx.objectStore(store)); let value;
       request.onsuccess = () => { value = request.result; }; request.onerror = () => reject(request.error);
-      tx.oncomplete = () => resolve(value); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error || new Error('Хранилище прервало запись.'));
+      tx.oncomplete = () => resolve(value); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error || new LocalizedError(tr("The storage write was interrupted.")));
     });
   }
   images() { return this.request('images', 'readonly', s => s.getAll()); }

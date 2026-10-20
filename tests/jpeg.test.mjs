@@ -28,14 +28,14 @@ test('the exact WQV-3 failure (DRI dropped, RST retained) recovers the same comp
 test('inconsistent restart intervals and out-of-order markers are rejected', () => {
   const badInterval = original.slice();
   for (let p = 0; p < badInterval.length - 6; p++) if (badInterval[p] === 255 && badInterval[p + 1] === 0xdd) { badInterval[p + 5] = 10; break; }
-  assert.throws(() => normalizeWatchJPEG(badInterval), /интервал/);
+  assert.throws(() => normalizeWatchJPEG(badInterval), /interval/);
   const badSequence = original.slice();
   for (let p = 0; p < badSequence.length - 1; p++) if (badSequence[p] === 255 && badSequence[p + 1] === 0xd0) { badSequence[p + 1] = 0xd2; break; }
-  assert.throws(() => normalizeWatchJPEG(badSequence), /порядок/);
+  assert.throws(() => normalizeWatchJPEG(badSequence), /order/);
 });
 test('a complete JPEG header and EOI cannot hide truncated image data', () => {
   const valid = normalizeWatchJPEG(original).jpeg;
   const truncated = new Uint8Array(valid.length - 100);
   truncated.set(valid.slice(0, -102)); truncated.set([255, 0xd9], truncated.length - 2);
-  assert.throws(() => normalizeWatchJPEG(truncated), /обрезано|оборваны|Хаффмана/);
+  assert.throws(() => normalizeWatchJPEG(truncated), /truncated|Huffman/);
 });

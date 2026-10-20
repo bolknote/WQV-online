@@ -19,15 +19,15 @@ test('browser UPF and SCEP encoders match the tested native implementation byte 
 });
 test('out of order and truncated image segments are rejected before being published', () => {
   const parts = fixtures.packets.map(hx);
-  assert.throws(() => f.unpackSCEP(concat(parts[1], parts[0], ...parts.slice(2))), /порядок/);
-  assert.throws(() => f.unpackSCEP(concat(...parts.slice(0, -1))), /Незавершённый/);
-  assert.throws(() => f.jpegFromUPF(hx(fixtures.upf).slice(0, -3)), /Обрезанные/);
+  assert.throws(() => f.unpackSCEP(concat(parts[1], parts[0], ...parts.slice(2))), /order/);
+  assert.throws(() => f.unpackSCEP(concat(...parts.slice(0, -1))), /Incomplete/);
+  assert.throws(() => f.jpegFromUPF(hx(fixtures.upf).slice(0, -3)), /Truncated/);
 });
 test('an image archive checksum is validated before upload', async () => {
   const upf = hx(fixtures.upf), jpeg = f.jpegFromUPF(upf);
   const archive = { format: 'casio-wqv-transfer-v1', model: 3, jpeg_sha256: await f.sha256(jpeg), packets: f.packSCEP(f.putCommand(upf, 'MC000001.UPF')).map(f.toHex) };
   assert.deepEqual(await f.loadArchive(archive), upf);
-  await assert.rejects(f.loadArchive({ ...archive, jpeg_sha256: '0'.repeat(64) }), /Контрольная/);
+  await assert.rejects(f.loadArchive({ ...archive, jpeg_sha256: '0'.repeat(64) }), /checksum/);
 });
 test('clock command includes the sixth field with the correct weekday and validates real dates', () => {
   assert.deepEqual(clockPayload('2000-01-01T00:00'), b(7, 0, 1, 1, 0, 0, 6));

@@ -1,3 +1,5 @@
+import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
+  getLanguage, setLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
@@ -12,10 +14,10 @@ const S = {
   device: null, adapter: null, lastAdapter: null, client: null, active: null, maintenance: null, idleTimer: null,
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
+  operationResult: null, storageFailed: false,
 };
 const supported = Boolean(navigator.usb && isSecureContext);
 const stamp = () => new Date().toISOString();
-function quantity(n, words) { const last = n % 10, teen = n % 100; return n + ' ' + words[teen >= 11 && teen <= 14 ? 2 : last === 1 ? 0 : last >= 2 && last <= 4 ? 1 : 2]; }
 let logTimer = null, updateTimer = null;
 
 function log(level, message) {
@@ -27,11 +29,12 @@ function renderLog() {
   logTimer = null;
   const verbose = $('raw-log').checked;
   const visible = S.events.filter(e => verbose || !['tx-frame', 'rx-frame', 'tx', 'usb-rx', 'switch'].includes(e.level));
-  $('log').textContent = visible.slice(-250).map(e => new Date(e.at).toLocaleTimeString('ru-RU') + '  ' + e.level.toUpperCase().padEnd(7) + ' ' + e.message).join('\n');
+  $('log').textContent = visible.slice(-250).map(e => new Date(e.at).toLocaleTimeString(locale()) + '  ' + e.level.toUpperCase().padEnd(7) + ' ' + formatText(e.message)).join('\n');
   $('log').scrollTop = $('log').scrollHeight;
 }
 function result(state, heading, detail = '', ratio = null) {
-  $('result-heading').textContent = heading; $('result-detail').textContent = detail;
+  S.operationResult = [state, heading, detail, ratio];
+  $('result-heading').textContent = formatText(heading); $('result-detail').textContent = formatText(detail);
   $('result-heading').closest('.operation-bar').dataset.state = state;
   $('result-icon').textContent = { success: '●', error: '!', working: '◌', idle: '●' }[state] || '●';
   $('progress').hidden = state !== 'working';
@@ -43,6 +46,7 @@ function update() {
   clearTimeout(updateTimer); updateTimer = null;
   const connected = Boolean(S.adapter?.opened), busy = Boolean(S.active), source = S.adapter || S.lastAdapter;
   const info = S.device ? describeUSBDevice(S.device) : null;
+  $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected;
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
   document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy; });
@@ -53,20 +57,20 @@ function update() {
   $('remote-stop').disabled = !connected || (busy && !S.fast);
   $('stop').hidden = !busy;
   $('adapter-label').textContent = info?.label || 'USB IrDA';
-  $('adapter-label').title = info?.label || 'Выбери USB IrDA-адаптер';
+  $('adapter-label').title = info?.label || tr("Choose a USB IrDA adapter");
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
-  $('adapter-support').textContent = info ? info.supported ? 'Поддерживается' : 'Не реализована' : '—';
+  $('adapter-support').textContent = info ? info.supported ? tr("Supported") : tr("Not implemented") : '—';
   $('endpoints').textContent = connected ? 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
   $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : '—';
-  $('connection-badge').textContent = info && !info.supported ? 'Не поддерживается' : connected ? 'USB подключён' : 'USB не подключён';
+  $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
   $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported));
   $('power-led').classList.toggle('on', connected);
-  $('power-led').title = connected ? info.label + ' подключён' : 'USB не подключён';
-  $('title-connection').textContent = S.client?.connected ? 'WQV-' + S.client.model + ' на связи' : connected ? 'IrDA / USB' : 'автономно';
+  $('power-led').title = connected ? tr("{0} connected", info.label) : tr("USB not connected");
+  $('title-connection').textContent = S.client?.connected ? tr("WQV-{0} connected", S.client.model) : connected ? 'IrDA / USB' : tr("Offline");
   $('tx-count').textContent = source?.txFrames ?? 0; $('rx-count').textContent = source?.rxBytes ?? 0;
   $('crc-count').textContent = source?.decoder.badCRC ?? 0; $('switch-count').textContent = source?.switches ?? 0;
-  $('ir-mode').textContent = S.adapter?.configured ? 'SIR · 9600 бит/с' : '—';
+  $('ir-mode').textContent = S.adapter?.configured ? tr("SIR · 9600 bit/s") : '—';
   $('send-holidays').disabled = !S.calendar || !connected || busy;
   $('export-holidays').disabled = !S.calendar;
   $('original-backup').disabled = !S.holidayBackup;
@@ -110,8 +114,22 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', 'Casio WQV-3 / WebUSB.\n\nОбмен поддерживается с SigmaTel STIr4200 (066f:4200). У других устройств можно увидеть имя и USB ID; работа с ними пока не реализована.\n\nПодключи USB и включи на часах IR → ПК. ИК-окна должны быть напротив друг друга, на расстоянии 5–10 см.\n\nСнимки: текущий снимок, вся коллекция, импорт JPEG / PNG / UPF / WQV, запись и экспорт. Стрелки управляют просмотром на часах.\n\n«Удалить локальную копию…» удаляет выбранный снимок только из этого браузера. На WQV-3 удаление выполняется кнопками часов: VISUAL DATABANK → выбрать снимок B/E → F → удерживать A около секунды → DEL → PAGE → YES. Меню выбираются B/E и подтверждаются F.\n\nЧасы: дата и время, синхронизация с компьютером. Праздники: чтение, редактирование и запись календаря 2000–2039.\n\nСнимки и резервные копии хранятся только в этом браузере. Сохрани ZIP для независимой копии. Команды удаления снимков с часов и управления будильником не найдены.\n\nОформление вдохновлено Casio CASSIOPEIA и Pocket PC 2000.');
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nPhoto transfer works with the SigmaTel STIr4200 (066f:4200). Other adapters can show their name and USB ID, but their transport is not implemented yet.\n\nConnect USB and select IR → PC on the watch. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPhotos: download one photo or the whole collection, import JPEG / PNG / UPF / WQV, upload and export. The arrow buttons browse photos on the watch.\n\n“Delete local copy…” only removes the selected photo from this browser. To delete a photo on the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select menu items and F to confirm.\n\nClock: set the date and time, or sync with the computer. Holidays: read, edit and write the 2000–2039 calendar.\n\nPhotos and backups stay in this browser. Export a ZIP for a separate copy. Commands for deleting photos from the watch and setting its alarm have not been found.\n\nThe interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
+
+function showOptions() {
+  closeMenus();
+  const dialog = $('options-dialog');
+  const selected = dialog.querySelector('input[value="' + getLanguage() + '"]');
+  selected.checked = true;
+  dialog.showModal(); selected.focus();
+}
+for (const id of ['menu-options', 'start-options']) $(id).addEventListener('click', showOptions);
+$('options-accept').addEventListener('click', () => {
+  const language = $('options-dialog').querySelector('input[name="display-language"]:checked').value;
+  $('options-dialog').close(); setLanguage(language);
+});
+$('options-cancel').addEventListener('click', () => $('options-dialog').close());
 
 async function closeClient() {
   clearTimeout(S.idleTimer); S.idleTimer = null;
@@ -125,7 +143,7 @@ function scheduleKeepAlive() {
     if (S.active || !S.client?.connected) return;
     const client = S.client; client.signal = null;
     S.maintenance = client.primaryExchange().catch(async error => {
-      log('info', 'Связь с часами прервана: ' + error.message);
+      log('info', tr("Watch connection lost: {0}", error));
       client.connected = false;
       if (S.client === client) S.client = null;
       if (S.adapter?.opened) { try { await S.adapter.pauseReader(); } catch {} }
@@ -148,20 +166,20 @@ async function run(task, { keep = true } = {}) {
   try { await S.maintenance; controller.signal.throwIfAborted(); await task(controller.signal); }
   catch (error) {
     if (controller.signal.aborted || error.name === 'AbortError') {
-      log('info', 'Операция отменена.'); result('idle', 'Операция отменена', 'Уже полученные снимки сохранены. Для продолжения можно снова подключить USB.');
+      log('info', tr("Operation cancelled.")); result('idle', tr("Operation cancelled"), tr("Photos already received have been saved. Reconnect USB to continue."));
     } else if (error.name === 'NotFoundError' && !S.adapter) {
-      result('idle', 'USB-устройство не выбрано', 'Нажми «Подключить USB…» и выбери ИК-адаптер.');
+      result('idle', tr("No USB device selected"), tr("Click “Connect USB…” and choose an infrared adapter."));
     } else {
-      log('error', error.name + ': ' + error.message); record('lastError', { name: error.name, message: error.message });
-      result('error', 'Операция не завершена', error.message);
+      log('error', tr('{0}: {1}', error.name, error)); record('lastError', { name: error.name, message: error.message });
+      result('error', tr("Operation did not finish"), error);
     }
-    try { await closeClient(); } catch (closeError) { log('error', closeError.message); }
+    try { await closeClient(); } catch (closeError) { log('error', closeError); }
     if (S.adapter) {
       const adapter = S.adapter; S.lastAdapter = adapter; S.adapter = null;
-      try { await adapter.close(); } catch (closeError) { log('error', closeError.message); }
+      try { await adapter.close(); } catch (closeError) { log('error', closeError); }
     }
   } finally {
-    if (!keep || !S.client?.connected) { try { await closeClient(); } catch (error) { log('error', error.message); } }
+    if (!keep || !S.client?.connected) { try { await closeClient(); } catch (error) { log('error', error); } }
     if (S.client) S.client.signal = null;
     if (S.active === controller) S.active = null;
     S.fast = false; update(); scheduleKeepAlive();
@@ -169,46 +187,46 @@ async function run(task, { keep = true } = {}) {
   }
 }
 $('connect').addEventListener('click', () => run(async signal => {
-  result('working', 'Выбери USB IrDA-адаптер', 'Название и поддержка будут определены по выбранному устройству.');
+  result('working', tr("Choose a USB IrDA adapter"), tr("The selected device supplies its name and USB ID."));
   const device = await navigator.usb.requestDevice({ filters: [] });
   signal.throwIfAborted();
   S.device = device; S.lastAdapter = null;
   const info = describeUSBDevice(device); update();
   if (!info.supported) {
     record('usb', { passed: false, supported: false, description: info });
-    log('info', info.label + ': нет подходящего драйвера. USB-обмен не запускался.');
-    result('idle', 'Адаптер не поддерживается', info.label + '. Обмен для этого USB ID пока не реализован.');
+    log('info', tr("{0}: no matching driver. No USB communication was started.", info.label));
+    result('idle', tr("Adapter not supported"), tr("{0}. Communication with this USB ID is not implemented yet.", info.label));
     return;
   }
   S.adapter = createAdapter(device, { log, update: updateSoon, rawLog: $('raw-log').checked }); S.lastAdapter = S.adapter;
   const description = await S.adapter.open(); signal.throwIfAborted();
-  record('usb', { passed: true, description }); log('ok', info.label + ' открыт через WebUSB.');
-  result('success', 'USB-адаптер подключён', info.label + '. Включи на WQV-3 режим IR → ПК и выбери операцию.');
+  record('usb', { passed: true, description }); log('ok', tr("{0} opened through WebUSB.", info.label));
+  result('success', tr("USB adapter connected"), tr("{0}. Select IR → PC on the WQV-3, then choose an operation.", info.label));
 }));
 $('disconnect').addEventListener('click', () => run(async () => {
   await closeClient(); const adapter = S.adapter;
   if (adapter) { await adapter.close(); S.lastAdapter = adapter; } S.adapter = null; S.device = null;
-  result('idle', 'USB-соединение закрыто', 'Коллекция остаётся в браузере.'); log('info', 'USB-соединение закрыто.');
+  result('idle', tr("USB connection closed"), tr("Your collection stays in this browser.")); log('info', tr("USB connection closed."));
 }, { keep: false }));
 $('stop').addEventListener('click', async () => {
   S.active?.abort(); clearTimeout(S.idleTimer);
-  if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('error', error.message); } }
+  if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('error', error); } }
 });
 $('find-watch').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal);
-  result('success', 'Casio WQV-' + client.model + ' на связи', 'Можно управлять просмотром, временем и календарём или передавать снимки.');
+  result('success', tr("Casio WQV-{0} connected", client.model), tr("Browse photos, set the clock, edit the calendar or transfer images."));
 }));
 $('test-usb').addEventListener('click', () => run(async signal => {
-  await closeClient(); result('working', 'Проверка USB-приёма', 'Два цикла остановки и возобновления чтения.');
-  await S.adapter.testTurnaround(signal); record('turnaround', { passed: true }); result('success', 'USB-обмен исправен', 'Оба цикла завершены; адаптер отвечает.');
+  await closeClient(); result('working', tr("Testing USB reception"), tr("Two cycles of stopping and restarting the reader."));
+  await S.adapter.testTurnaround(signal); record('turnaround', { passed: true }); result('success', tr("USB communication is working"), tr("Both cycles finished; the adapter is responding."));
 }, { keep: false }));
 $('registers').addEventListener('click', () => run(async () => {
-  const raw = await S.adapter.registers(); result('success', 'Регистры адаптера прочитаны', Array.from(raw, v => v.toString(16).padStart(2, '0')).join(' '));
+  const raw = await S.adapter.registers(); result('success', tr("Adapter registers read"), Array.from(raw, v => v.toString(16).padStart(2, '0')).join(' '));
 }));
 $('capabilities').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal), capabilities = await client.capabilities();
   $('capabilities-output').hidden = false; $('capabilities-output').textContent = JSON.stringify(capabilities, null, 2);
-  record('capabilities', { passed: true, capabilities }); result('success', 'Возможности часов получены', 'RIMG — изображения, RINF — сведения, RCMD — команды.');
+  record('capabilities', { passed: true, capabilities }); result('success', tr("Watch capabilities received"), tr("RIMG — images, RINF — information, RCMD — commands."));
 }, { keep: false }));
 
 function imageURL(image) {
@@ -216,34 +234,37 @@ function imageURL(image) {
   return S.urls.get(image.id);
 }
 function renderGallery() {
-  $('photo-count').textContent = quantity(S.images.length, ['снимок', 'снимка', 'снимков']);
+  $('photo-count').textContent = quantity(S.images.length, "photos");
   if (S.images.length) {
     const fragment = document.createDocumentFragment();
     for (const image of S.images) {
       const button = document.createElement('button'); button.className = 'thumbnail'; button.setAttribute('aria-pressed', String(image.id === S.selected));
-      button.title = image.name; button.setAttribute('aria-label', 'Снимок ' + image.name);
+      button.title = image.name; button.setAttribute('aria-label', tr("Photo {0}", image.name));
       const img = document.createElement('img'); img.src = imageURL(image); img.alt = ''; img.width = 88; img.height = 72;
       const label = document.createElement('span'); label.textContent = image.name;
       button.append(img, label); button.addEventListener('click', () => { S.selected = image.id; renderGallery(); }); fragment.append(button);
     }
     $('gallery').replaceChildren(fragment);
-  } else $('gallery').replaceChildren(emptyGallery.cloneNode(true));
+  } else {
+    $('gallery').replaceChildren(emptyGallery.cloneNode(true));
+    translateDOM($('gallery'));
+  }
   const image = selected(); $('preview').hidden = !image || Boolean(image.jpegError); $('preview-empty').hidden = Boolean(image) && !image.jpegError;
   if (image) {
     $('preview').src = imageURL(image); $('preview').alt = image.name;
     $('selected-name').textContent = image.name;
-    $('selected-details').textContent = image.jpegError || (((image.previewJPEG || image.jpeg).length / 1024).toFixed(1) + ' КБ · ' + (image.source === 'import' ? 'импорт' : 'с часов') + (image.jpegRepaired ? ' · JPEG восстановлен' : ''));
-    $('upload-ready').textContent = '176 × 144 · baseline JPEG · 4:2:0' + (image.previewJPEG ? ' · перезапуски убраны без потерь' : '');
+    $('selected-details').textContent = formatText(image.jpegError || tr("{0} KB · {1}{2}", formatNumber((image.previewJPEG || image.jpeg).length / 1024, { minimumFractionDigits: 1, maximumFractionDigits: 1 }), image.source === "import" ? tr("imported") : tr("from watch"), image.jpegRepaired ? tr(" · JPEG repaired") : ""));
+    $('upload-ready').textContent = `176 × 144 · baseline JPEG · 4:2:0${image.previewJPEG ? tr(" · restart markers removed without loss") : ""}`;
   } else {
-    $('preview').removeAttribute('src'); $('preview').alt = 'Выбранный снимок';
-    $('selected-name').textContent = '—'; $('selected-details').textContent = 'Выбери снимок в альбоме';
-    $('upload-ready').textContent = 'Выбери снимок в альбоме или импортируй картинку.';
+    $('preview').removeAttribute('src'); $('preview').alt = tr("Selected photo");
+    $('selected-name').textContent = '—'; $('selected-details').textContent = tr("Choose a photo in the collection");
+    $('upload-ready').textContent = tr("Choose a photo in the collection or import an image.");
   }
   update();
 }
 $('delete-local-image').addEventListener('click', async () => {
   const image = selected(); if (!image || S.active) return;
-  const confirmed = await showDialog('Удалить локальную копию', 'Удалить «' + image.name + '» из коллекции этого браузера?\n\nСнимок на часах и уже сохранённые файлы останутся. Удаление локальной копии нельзя отменить.', 'Удалить копию', true);
+  const confirmed = await showDialog(tr("Delete local copy"), tr("Delete “{0}” from this browser's collection?\n\nThe photo on the watch and any exported files will stay. Deleting the local copy cannot be undone.", image.name), tr("Delete copy"), true);
   if (!confirmed || S.active) return;
   const index = S.images.findIndex(item => item.id === image.id); if (index < 0) return;
   const operation = new AbortController(); S.active = operation; update();
@@ -252,11 +273,11 @@ $('delete-local-image').addEventListener('click', async () => {
     S.images.splice(index, 1);
     S.selected = S.images[Math.min(index, S.images.length - 1)]?.id ?? null;
     if (S.urls.has(image.id)) { URL.revokeObjectURL(S.urls.get(image.id)); S.urls.delete(image.id); }
-    log('info', 'Удалена локальная копия «' + image.name + '».');
-    result('success', 'Локальная копия удалена', 'Снимок на часах и сохранённые файлы остались.');
+    log('info', tr("Deleted the local copy of “{0}”.", image.name));
+    result('success', tr("Local copy deleted"), tr("The photo on the watch and exported files have been kept."));
   } catch (error) {
-    log('error', 'Не удалось удалить локальную копию: ' + error.message);
-    result('error', 'Локальная копия не удалена', error.message);
+    log('error', tr("Could not delete the local copy: {0}", error));
+    result('error', tr("Local copy was not deleted"), error);
   } finally {
     if (S.active === operation) S.active = null;
     renderGallery(); scheduleKeepAlive();
@@ -264,12 +285,12 @@ $('delete-local-image').addEventListener('click', async () => {
 });
 async function addImage(image) {
   image = await readableImage(image);
-  if (image.jpegRepaired) log('info', image.name + ': восстановлен JPEG с потерянным интервалом перезапуска. Исходные UPF и WQV сохранены.');
+  if (image.jpegRepaired) log('info', tr("{0}: repaired a JPEG with a missing restart interval. Original UPF and WQV files have been kept.", image.name));
   if (S.urls.has(image.id)) { URL.revokeObjectURL(S.urls.get(image.id)); S.urls.delete(image.id); }
   const existing = S.images.findIndex(i => i.id === image.id);
   if (existing >= 0) S.images[existing] = image; else S.images.push(image);
   S.selected = image.id;
-  try { await store.saveImage(image); } catch (error) { $('storage-label').textContent = 'только эта вкладка'; log('error', error.message); }
+  try { await store.saveImage(image); } catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('error', error); }
   renderGallery();
 }
 async function receive(current) {
@@ -277,7 +298,7 @@ async function receive(current) {
     const client = await ensureClient(signal);
     const images = await client.download({ current, onImage: addImage });
     record(current ? 'downloadCurrent' : 'downloadAll', { passed: true, count: images.length });
-    result('success', 'Получено: ' + quantity(images.length, ['снимок', 'снимка', 'снимков']), 'JPEG, UPF и WQV-архивы сохранены в коллекции этого браузера.');
+    result('success', tr("Received: {0}", quantity(images.length, "photos")), tr("JPEG, UPF and WQV files have been saved in this browser's collection."));
   }, { keep: false });
 }
 $('download-current').addEventListener('click', () => receive(true));
@@ -286,24 +307,24 @@ function triggerImport() { closeMenus(); switchTab('photos'); $('image-files').c
 $('import-images').addEventListener('click', triggerImport); $('menu-import').addEventListener('click', triggerImport);
 $('image-files').addEventListener('change', async event => {
   const files = Array.from(event.target.files); event.target.value = '';
-  if (files.length > 100) { await showDialog('Импорт', 'Выбери не больше 100 файлов за один раз.'); return; }
+  if (files.length > 100) { await showDialog(tr("Import"), tr("Choose no more than 100 files at a time.")); return; }
   await run(async signal => {
     for (let i = 0; i < files.length; i++) {
-      signal.throwIfAborted(); result('working', 'Импорт снимков', files[i].name, i / files.length);
+      signal.throwIfAborted(); result('working', tr("Importing photos"), files[i].name, i / files.length);
       const image = await imageFromFile(files[i], { fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
-      await addImage(image); log('ok', 'Импортирован ' + files[i].name + ' (' + image.jpeg.length + ' байт JPEG).');
+      await addImage(image); log('ok', tr("Imported {0} ({1} bytes of JPEG data).", files[i].name, image.jpeg.length));
     }
-    result('success', 'Импорт завершён', files.length + ' файлов подготовлено для WQV-3.');
+    result('success', tr("Import complete"), tr("Ready for WQV-3: {0}.", quantity(files.length, "files")));
   });
 });
 $('prepare-quality').addEventListener('input', () => { $('quality-value').value = $('prepare-quality').value + '%'; });
 $('rotate-image').addEventListener('click', () => run(async signal => {
   const image = selected(); if (!image) return;
-  result('working', 'Подготовка снимка', 'Поворот на 90° и сохранение JPEG 176 × 144.');
+  result('working', tr("Preparing photo"), tr("Rotating 90° and saving a 176 × 144 JPEG."));
   const jpeg = await prepareRaster(new Blob([image.previewJPEG || image.jpeg], { type: 'image/jpeg' }), { rotate: 90, fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
   signal.throwIfAborted();
   await addImage(await imageFromFile(new File([jpeg], image.name + '_rotated.jpg', { type: 'image/jpeg' })));
-  result('success', 'Снимок повёрнут', 'Подготовлена новая копия для записи на часы.');
+  result('success', tr("Photo rotated"), tr("A new copy is ready to send to the watch."));
 }));
 function downloadFile(data, name, type = 'application/octet-stream') {
   const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type }));
@@ -332,26 +353,26 @@ function exportCollection() {
 $('export-all').addEventListener('click', exportCollection); $('menu-export').addEventListener('click', exportCollection);
 $('upload-image').addEventListener('click', () => run(async signal => {
   const image = selected(), filename = $('upload-name').value.trim().toUpperCase();
-  if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new Error('Имя файла: 8 символов ASCII и .UPF, например MC000001.UPF.');
+  if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr("Use 8 ASCII characters and .UPF, for example MC000001.UPF."));
   const client = await ensureClient(signal), upf = image.previewJPEG ? makeUPF(image.previewJPEG) : image.upf;
   const accepted = await client.upload(upf, filename);
   record('upload', { passed: true, filename: accepted, sha256: image.jpegSHA256 || image.id });
-  log('ok', 'На часы отправлен снимок ' + accepted);
-  result('success', 'Снимок записан на часы', accepted);
+  log('ok', tr("Sent photo {0} to the watch", accepted));
+  result('success', tr("Photo saved on the watch"), accepted);
 }, { keep: false }));
 for (const [id, command] of [['remote-back', 3], ['remote-forward', 2]]) $(id).addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal); await client.control(b(command));
-  record('navigation', { passed: true, command }); result('success', 'Просмотр на часах переключён', command === 2 ? 'Следующий снимок.' : 'Предыдущий снимок.');
+  record('navigation', { passed: true, command }); result('success', tr("Watch display changed"), command === 2 ? tr("Next photo.") : tr("Previous photo."));
 }));
 for (const [id, direction] of [['remote-fast-back', 'back'], ['remote-fast-forward', 'forward']]) $(id).addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal); S.fast = true; S.stopFast = false; update();
-  result('working', 'Быстрое листание', 'Листание автоматически остановится через секунду.');
+  result('working', tr("Fast browsing"), tr("Browsing will stop automatically after one second."));
   await client.fastScroll(direction, { duration: 1000, stop: () => S.stopFast });
-  record('fastScroll', { passed: true, direction }); result('success', 'Листание остановлено', 'Часы подтвердили команду остановки.');
+  record('fastScroll', { passed: true, direction }); result('success', tr("Browsing stopped"), tr("The watch acknowledged the stop command."));
 }));
 $('remote-stop').addEventListener('click', () => {
   if (S.fast) { S.stopFast = true; return; }
-  run(async signal => { const client = await ensureClient(signal); await client.control(b(6)); result('success', 'Листание остановлено'); });
+  run(async signal => { const client = await ensureClient(signal); await client.control(b(6)); result('success', tr("Browsing stopped")); });
 });
 
 function localDateTime(date = new Date()) {
@@ -360,32 +381,39 @@ function localDateTime(date = new Date()) {
 }
 function fillClock() { const [date, time] = localDateTime().split('T'); $('clock-date').value = date; $('clock-time').value = time; }
 function tickClock() {
-  const now = new Date(); $('pc-clock').textContent = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-  $('desktop-time').textContent = now.toLocaleTimeString('ru-RU', { hour12: false });
-  $('desktop-date').textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const now = new Date(); $('pc-clock').textContent = now.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit' });
+  $('desktop-time').textContent = now.toLocaleTimeString(locale(), { hour12: false });
+  $('desktop-date').textContent = now.toLocaleDateString(locale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('desktop-zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 $('fill-clock').addEventListener('click', fillClock);
 $('set-clock').addEventListener('click', () => run(async signal => {
   const value = $('clock-date').value + 'T' + $('clock-time').value, payload = clockPayload(value);
   const client = await ensureClient(signal); await client.control(payload);
-  record('clock', { passed: true, value }); result('success', 'Дата и время установлены', value.replace('T', ' ') + ' · секунды сброшены в 00.');
+  record('clock', { passed: true, value }); result('success', tr("Date and time set"), tr("{0} · seconds reset to 00.", value.replace("T", " ")));
 }));
 $('sync-clock').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal), target = Math.floor(Date.now() / 60000) * 60000 + 60000;
   let lastPoll = 0;
   while (Date.now() < target) {
     signal.throwIfAborted(); const left = Math.ceil((target - Date.now()) / 1000);
-    result('working', 'Ожидание начала минуты', 'Синхронизация через ' + left + ' с. Часы должны оставаться напротив адаптера.', 1 - (target - Date.now()) / 60000);
+    result('working', tr("Waiting for the next minute"), tr("Sync in {0} s. Keep the watch facing the adapter.", left), 1 - (target - Date.now()) / 60000);
     if (Date.now() - lastPoll > 400 && target - Date.now() > 250) { await client.primaryExchange(); lastPoll = Date.now(); }
     await sleep(Math.max(1, Math.min(50, target - Date.now())));
   }
   const value = localDateTime(new Date(target)); await client.control(clockPayload(value)); fillClock();
-  record('clockSync', { passed: true, value }); result('success', 'Время синхронизировано', value.replace('T', ' ') + ' · отправлено в начале минуты.');
+  record('clockSync', { passed: true, value }); result('success', tr("Time synchronized"), tr("{0} · sent at the start of the minute.", value.replace("T", " ")));
 }));
 
-const monthNames = Array.from({ length: 12 }, (_, i) => new Date(2000, i, 1).toLocaleString('ru-RU', { month: 'long' }));
-for (const [i, month] of monthNames.entries()) $('calendar-month').add(new Option(month[0].toUpperCase() + month.slice(1), i + 1));
+function renderMonthNames() {
+  const selectedMonth = $('calendar-month').value || new Date().getMonth() + 1;
+  const names = Array.from({ length: 12 }, (_, i) => {
+    const month = new Date(2000, i, 1).toLocaleString(locale(), { month: 'long' });
+    return new Option(month[0].toUpperCase() + month.slice(1), i + 1);
+  });
+  $('calendar-month').replaceChildren(...names); $('calendar-month').value = selectedMonth;
+}
+renderMonthNames();
 for (let y = FIRST_YEAR; y <= LAST_YEAR; y++) $('calendar-year').add(new Option(y, y));
 $('calendar-month').value = new Date().getMonth() + 1; $('calendar-year').value = Math.max(FIRST_YEAR, Math.min(LAST_YEAR, new Date().getFullYear()));
 function renderCalendar() {
@@ -397,7 +425,7 @@ function renderCalendar() {
     else {
       const marked = Boolean(S.calendar?.get(year, month, day));
       button.textContent = day; button.dataset.day = day; button.disabled = !S.calendar || Boolean(S.active);
-      button.setAttribute('aria-label', new Date(Date.UTC(year, month - 1, day)).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })); button.setAttribute('aria-pressed', String(marked));
+      button.setAttribute('aria-label', new Date(Date.UTC(year, month - 1, day)).toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })); button.setAttribute('aria-pressed', String(marked));
       button.classList.toggle('holiday', marked);
       button.classList.toggle('today', today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day);
       button.addEventListener('click', () => { S.calendar.set(year, month, day, !S.calendar.get(year, month, day)); renderCalendar(); });
@@ -406,8 +434,8 @@ function renderCalendar() {
   }
   $('calendar-grid').replaceChildren(fragment);
   const dirty = S.calendar && S.baseline && !equal(S.calendar.raw, S.baseline);
-  $('holiday-state').textContent = !S.calendar ? 'Не считан с часов' : dirty ? 'Есть изменения' : S.calendarOrigin;
-  $('holiday-count').textContent = S.calendar ? quantity(S.calendar.count(year), ['день', 'дня', 'дней']) + ' в ' + year : '—';
+  $('holiday-state').textContent = !S.calendar ? tr("Not read from watch") : dirty ? tr("Unsaved changes") : S.calendarOrigin;
+  $('holiday-count').textContent = S.calendar ? tr("{0} in {1}", quantity(S.calendar.count(year), "days"), year) : '—';
   update();
 }
 for (const id of ['calendar-month', 'calendar-year']) $(id).addEventListener('change', renderCalendar);
@@ -419,32 +447,32 @@ for (const [id, delta] of [['month-back', -1], ['month-forward', 1]]) $(id).addE
 });
 async function rememberCalendar(calendar, origin) {
   S.calendar = calendar; S.baseline = calendar.raw.slice(); S.calendarOrigin = origin;
-  try { await store.set('calendar', calendar.backup()); } catch (error) { log('error', error.message); }
+  try { await store.set('calendar', calendar.backup()); } catch (error) { log('error', error); }
   renderCalendar();
 }
 async function saveHolidayBackup(calendar) {
   S.holidayBackup = calendar.backup();
-  try { await store.set('holidayBackup', S.holidayBackup); } catch (error) { log('error', error.message); }
+  try { await store.set('holidayBackup', S.holidayBackup); } catch (error) { log('error', error); }
 }
 $('read-holidays').addEventListener('click', () => run(async signal => {
-  const client = await ensureClient(signal); result('working', 'Чтение календаря', 'Отметки за 2000–2039 годы.');
-  const calendar = await client.control(b(9)); await saveHolidayBackup(calendar); await rememberCalendar(calendar, 'Считан с часов');
+  const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr("Holiday marks for 2000–2039."));
+  const calendar = await client.control(b(9)); await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
   record('holidayRead', { passed: true, sha256: await sha256(calendar.raw), count: calendar.count() });
-  result('success', 'Календарь считан', calendar.count() + ' отмеченных дат. Исходная копия сохранена в браузере.');
+  result('success', tr("Calendar received"), tr("Marked dates: {0}. The original backup is saved in this browser.", calendar.count()));
 }));
 $('send-holidays').addEventListener('click', async () => {
   if (!S.calendar || S.active) return;
   const desired = new HolidayCalendar(S.calendar.raw);
-  if (!await showDialog('Запись календаря', 'Заменить на часах все отметки праздников за 2000–2039 годы?\n\nВ новом календаре отмечено дат: ' + desired.count() + '. Изменятся также другие месяцы.\n\nПеред записью будет считана и сохранена резервная копия текущего календаря часов.', 'Записать', true)) return;
+  if (!await showDialog(tr("Write calendar"), tr("Replace all holiday marks on the watch for 2000–2039?\n\nThe new calendar has {0} marked dates. Other months will change too.\n\nThe watch's current calendar will be read and backed up before writing.", desired.count()), tr("Write"), true)) return;
   await run(async signal => {
-    const client = await ensureClient(signal); result('working', 'Резервная копия календаря', 'Считываю исходные отметки перед записью.');
+    const client = await ensureClient(signal); result('working', tr("Backing up calendar"), tr("Reading the original holiday marks before writing."));
     const original = await client.control(b(9)); await saveHolidayBackup(original);
-    await client.control(desired.command()); result('working', 'Проверка календаря', 'Считываю записанные отметки обратно.');
+    await client.control(desired.command()); result('working', tr("Checking calendar"), tr("Reading the saved holiday marks back from the watch."));
     const actual = await client.control(b(9));
-    if (!equal(actual.raw, desired.raw)) throw new Error('Прочитанный календарь отличается от отправленного. Исходная копия сохранена; проверь журнал.');
-    await rememberCalendar(actual, 'Проверен после записи');
+    if (!equal(actual.raw, desired.raw)) throw new LocalizedError(tr("The calendar read back differs from the one sent. The original backup is saved; check the log."));
+    await rememberCalendar(actual, tr("Verified after writing"));
     record('holidayWrite', { passed: true, sha256: await sha256(actual.raw), count: actual.count() });
-    result('success', 'Календарь записан и проверен', 'Все 1840 байт совпали при чтении обратно.');
+    result('success', tr("Calendar written and verified"), tr("All 1840 bytes matched when read back."));
   });
 });
 $('mark-weekdays').addEventListener('click', () => {
@@ -460,45 +488,57 @@ $('import-holidays').addEventListener('click', () => $('holiday-file').click());
 $('holiday-file').addEventListener('change', event => {
   const file = event.target.files[0]; event.target.value = ''; if (!file) return;
   run(async signal => {
-    if (file.size > 20000) throw new Error('Файл календаря слишком большой.');
-    let backup; try { backup = JSON.parse(await file.text()); } catch { throw new Error('Файл не содержит календарь JSON.'); }
+    if (file.size > 20000) throw new LocalizedError(tr("The calendar file is too large."));
+    let backup; try { backup = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("The file does not contain a JSON calendar.")); }
     signal.throwIfAborted(); const calendar = HolidayCalendar.fromBackup(backup);
-    await rememberCalendar(calendar, 'Из резервной копии'); result('success', 'Календарь открыт', 'На часах ничего не изменено. Для применения нажми «Записать на часы…».');
+    await rememberCalendar(calendar, tr("From backup")); result('success', tr("Calendar opened"), tr("Nothing on the watch has changed. Click “Write to watch…” to apply this calendar."));
   });
 });
 
 function saveReport() {
   const a = S.adapter || S.lastAdapter;
   const report = { format: 'wqv-webusb-diagnostics-v1', version: '0.2', savedAt: stamp(),
-    environment: { secureContext: isSecureContext, webUSB: Boolean(navigator.usb), userAgent: navigator.userAgent },
-    tests: S.tests, counters: a ? { txFrames: a.txFrames, rxBytes: a.rxBytes, switches: a.switches, badCRC: a.decoder.badCRC } : null, events: S.events };
+    environment: { secureContext: isSecureContext, webUSB: Boolean(navigator.usb), userAgent: navigator.userAgent, language: getLanguage() },
+    tests: S.tests, counters: a ? { txFrames: a.txFrames, rxBytes: a.rxBytes, switches: a.switches, badCRC: a.decoder.badCRC } : null,
+    events: S.events.map(event => ({ ...event, message: formatText(event.message) })) };
   downloadFile(JSON.stringify(report, null, 2), 'WQV-Link-report-' + stamp().replace(/[:.]/g, '-') + '.json', 'application/json');
 }
 $('save-log').addEventListener('click', saveReport); $('menu-report').addEventListener('click', saveReport);
-$('clear-log').addEventListener('click', () => { S.events.length = 0; log('info', 'Журнал очищен.'); });
+$('clear-log').addEventListener('click', () => { S.events.length = 0; log('info', tr("Log cleared.")); });
 $('raw-log').addEventListener('change', () => { if (S.adapter) S.adapter.rawLog = $('raw-log').checked; renderLog(); });
 if (navigator.usb) navigator.usb.addEventListener('disconnect', event => {
   if (event.device !== S.device) return;
   S.active?.abort(); clearTimeout(S.idleTimer); S.lastAdapter = S.adapter; S.adapter = null; S.device = null;
   if (S.client) S.client.connected = false; S.client = null;
-  result('idle', 'USB-адаптер извлечён', 'Подключи USB IrDA-адаптер снова.'); log('info', 'USB-адаптер извлечён.'); update();
+  result('idle', tr("USB adapter unplugged"), tr("Reconnect the USB IrDA adapter.")); log('info', tr("USB adapter unplugged.")); update();
 });
 window.addEventListener('pagehide', () => { clearTimeout(S.idleTimer); S.active?.abort(); S.adapter?.close().catch(() => {}); });
-fillClock(); tickClock(); setInterval(tickClock, 1000); renderCalendar(); update();
+function compatibilityText() {
+  return !isSecureContext ? tr("Open the page over localhost or HTTPS to use WebUSB.") : tr("This browser has no WebUSB. Open the page in Chrome, Edge or an Opera version with WebUSB.");
+}
+function applyLanguage() {
+  const scroll = $('gallery').scrollTop;
+  translateDOM(); renderMonthNames(); renderGallery(); renderCalendar(); tickClock(); renderLog();
+  $('gallery').scrollTop = scroll;
+  if (S.operationResult) result(...S.operationResult);
+  if (!supported) $('compatibility').textContent = compatibilityText();
+}
+onLanguageChange(applyLanguage);
+fillClock(); applyLanguage(); setInterval(tickClock, 1000);
 if (!supported) {
   $('compatibility').hidden = false;
-  $('compatibility').textContent = !isSecureContext ? 'Для WebUSB открой страницу через localhost или HTTPS.' : 'В этом браузере нет WebUSB. Открой страницу в Chrome, Edge или поддерживающей WebUSB Opera.';
-  log('info', $('compatibility').textContent);
-} else log('ok', 'WQV Link 0.2 · WebUSB доступен.');
+  $('compatibility').textContent = compatibilityText();
+  log('info', compatibilityText());
+} else log('ok', tr("WQV Link 0.2 · WebUSB is available."));
 try {
   await store.open();
   for (const image of (await store.images()).sort((a, c) => a.receivedAt.localeCompare(c.receivedAt))) {
     try { const checked = await readableImage(image); S.images.push(checked); await store.saveImage(checked); }
-    catch (error) { log('error', image.name + ': ' + error.message); S.images.push({ ...image, jpegError: error.message }); }
+    catch (error) { log('error', tr('{0}: {1}', image.name, error)); S.images.push({ ...image, jpegError: error }); }
   }
   if (S.images.length) { S.selected = S.images[0].id; renderGallery(); }
   const calendar = await store.get('calendar'), backup = await store.get('holidayBackup');
-  if (calendar) { S.calendar = HolidayCalendar.fromBackup(calendar); S.baseline = S.calendar.raw.slice(); S.calendarOrigin = 'Локальная копия'; }
+  if (calendar) { S.calendar = HolidayCalendar.fromBackup(calendar); S.baseline = S.calendar.raw.slice(); S.calendarOrigin = tr("Local copy"); }
   if (backup) S.holidayBackup = backup;
   renderCalendar();
-} catch (error) { $('storage-label').textContent = 'только эта вкладка'; log('info', 'Хранилище браузера: ' + error.message); }
+} catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('info', tr("Browser storage: {0}", error)); }

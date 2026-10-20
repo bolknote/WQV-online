@@ -11,5 +11,6 @@
 <path d="M2 3h2v1h1v2H4v1H2V6H1V4h1zM11 3h4v4h-4zM7 12h2v1h1v2H9v1H7v-1H6v-2h1z"/>
 </g>
 </symbol>
+<symbol id="settings" viewBox="0 0 16 16"><path fill="#344961" d="M1 3h14v2H1zM1 8h14v2H1zM1 13h14v2H1z"/><path fill="#fff" stroke="#344961" d="M4 1h3v6H4zM10 6h3v6h-3zM3 11h3v4H3z"/><path fill="#76a4bd" d="M5 2h1v4H5zM11 7h1v4h-1zM4 12h1v2H4z"/></symbol>
 <use href="#photos"/>
 </svg>

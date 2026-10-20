@@ -16,8 +16,9 @@ itself as “IrDA/USB Bridge.” No Windows virtual machine or kernel driver is
 needed for this setup.
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
-Safari and Firefox cannot connect to the adapter. The interface is currently
-in Russian.
+Safari and Firefox cannot connect to the adapter. The app starts in English.
+Choose **Tools → Options…** to switch to Russian. It remembers your choice in
+this browser, and switching languages keeps your current photo and connection.
 
 Other infrared adapters need their own USB transport code. **ARK3116T does not
 work yet.** WQV-10 and other operating systems have not been tested.
@@ -25,7 +26,7 @@ work yet.** WQV-10 and other operating systems have not been tested.
 ## Connect the watch
 
 1. Plug in the SigmaTel adapter and open [the app](https://bolknote.github.io/WQV-online/).
-2. Click **Подключить USB…** (“Connect USB”) and choose the adapter.
+2. Click **Connect USB…** and choose the adapter.
 3. On the watch, select **IR → PC**, then **F / REMOTE**. Face its infrared
    window toward the adapter, about 5–10 cm apart.
 4. Download the current photo or the whole collection. You can also import

@@ -13,7 +13,7 @@ test('the USB device supplies its display name; the USB ID selects support', () 
 });
 test('an adapter without product strings is identified by its real USB ID', () => {
   const info = describeUSBDevice({ vendorId: 0x18ec, productId: 0x3118, productName: '  ' });
-  assert.equal(info.label, 'USB-устройство · 18ec:3118');
+  assert.equal(info.label, 'USB device · 18ec:3118');
   assert.equal(info.supported, false);
 });
 test('selecting another adapter never opens it or sends SigmaTel commands', () => {

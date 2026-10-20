@@ -117,5 +117,5 @@ test('stopping an unfinished USB open also closes the eventually opened handle',
   assert.equal(device.opened, false);
 });
 test('a hung browser operation has a bounded wait', async () => {
-  await assert.rejects(withTimeout(new Promise(() => {}), 5, 'test operation'), /Тайм-аут/);
+  await assert.rejects(withTimeout(new Promise(() => {}), 5, 'test operation'), /Timeout/);
 });

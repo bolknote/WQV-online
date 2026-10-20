@@ -1,3 +1,4 @@
+import { tr, LocalizedError } from './i18n.mjs';
 // STIr4200 register sequence / USB framing from the tested native utility.
 // Reference: Linux v4.16 drivers/staging/irda/drivers/stir4200.c.
 import { FrameDecoder, encodeFrame, hex, sleep } from './irda.mjs';
@@ -9,14 +10,14 @@ export function withTimeout(promise, ms, operation) {
   return Promise.race([
     promise,
     new Promise((_, reject) => {
-      timer = setTimeout(() => reject(new Error(`Тайм-аут: ${operation}. Отключи соединение и подключись снова.`)), ms);
+      timer = setTimeout(() => reject(new LocalizedError(tr("Timeout: {0}. Disconnect and reconnect USB.", operation))), ms);
     }),
   ]).finally(() => clearTimeout(timer));
 }
 
 export class SigmaTel {
   constructor(device, { log = () => {}, update = () => {}, rawLog = false } = {}) {
-    if (device.vendorId !== VID || device.productId !== PID) throw new Error('Нужен SigmaTel STIr4200 (066f:4200).');
+    if (device.vendorId !== VID || device.productId !== PID) throw new LocalizedError(tr("A SigmaTel STIr4200 (066f:4200) is required."));
     this.device = device; this.log = log; this.update = update;
     this.rawLog = rawLog;
     this.decoder = new FrameDecoder(); this.rxBytes = 0; this.txFrames = 0; this.switches = 0;
@@ -24,35 +25,35 @@ export class SigmaTel {
     this.readerTask = null; this.readerActive = false; this.readPending = false; this.readError = null;
   }
   get opened() { return this.device.opened && this.claimed && !this.closing; }
-  assertOpen() { if (!this.opened) throw new DOMException('Соединение с адаптером закрыто.', 'AbortError'); }
+  assertOpen() { if (!this.opened) throw new DOMException(tr("The adapter connection is closed."), 'AbortError'); }
   async io(promise, operation, ms = 3000) {
     try { return await withTimeout(promise, ms, operation); }
-    catch (error) { this.log('error', `${operation}: ${error.message}`); throw error; }
+    catch (error) { this.log('error', tr('{0}: {1}', operation, error)); throw error; }
   }
   async open() {
-    await this.io(this.device.open(), 'открытие USB');
+    await this.io(this.device.open(), tr("opening USB"));
     if (this.closing) {
       await this.device.close();
-      throw new DOMException('Подключение остановлено.', 'AbortError');
+      throw new DOMException(tr("Connection cancelled."), 'AbortError');
     }
     if (this.device.configuration?.configurationValue !== 1) {
-      await this.io(this.device.selectConfiguration(1), 'выбор конфигурации 1');
+      await this.io(this.device.selectConfiguration(1), tr("selecting configuration 1"));
     }
     const iface = this.device.configuration.interfaces.find(i => i.interfaceNumber === 0);
     const alternate = iface?.alternates.find(a => a.alternateSetting === 0);
     const input = alternate?.endpoints.find(e => e.direction === 'in' && e.type === 'bulk');
     const output = alternate?.endpoints.find(e => e.direction === 'out' && e.type === 'bulk');
-    if (!input || !output) throw new Error('У интерфейса 0 не найдены ожидаемые bulk-каналы.');
+    if (!input || !output) throw new LocalizedError(tr("The expected bulk endpoints were not found on interface 0."));
     this.inEndpoint = input.endpointNumber; this.outEndpoint = output.endpointNumber;
-    await this.io(this.device.claimInterface(0), 'захват USB-интерфейса 0');
+    await this.io(this.device.claimInterface(0), tr("claiming USB interface 0"));
     if (this.closing) {
       await this.device.close();
-      throw new DOMException('Подключение остановлено.', 'AbortError');
+      throw new DOMException(tr("Connection cancelled."), 'AbortError');
     }
     this.claimed = true;
-    this.log('ok', `Интерфейс 0 открыт: OUT ${this.outEndpoint}, IN ${this.inEndpoint}.`);
+    this.log('ok', tr("Interface 0 opened: OUT {0}, IN {1}.", this.outEndpoint, this.inEndpoint));
     this.description = {
-      name: this.device.productName?.trim() || this.device.manufacturerName?.trim() || 'USB-устройство',
+      name: this.device.productName?.trim() || this.device.manufacturerName?.trim() || tr("USB device"),
       usbId: this.device.vendorId.toString(16).padStart(4, '0') + ':' + this.device.productId.toString(16).padStart(4, '0'),
       configuration: 1, interface: 0, interfaceClass: alternate.interfaceClass,
       inEndpoint: this.inEndpoint, outEndpoint: this.outEndpoint, packetSize: input.packetSize,
@@ -64,37 +65,37 @@ export class SigmaTel {
     this.assertOpen();
     const result = await this.io(this.device.controlTransferIn({
       requestType: 'vendor', recipient: 'device', request: 1, value: 0, index: start,
-    }, count), 'чтение регистров SigmaTel');
+    }, count), tr("reading SigmaTel registers"));
     if (result.status !== 'ok' || !result.data || result.data.byteLength !== count) {
-      throw new Error(`Неполный ответ регистров: ${result.status}, ${result.data?.byteLength ?? 0}/${count} байт.`);
+      throw new LocalizedError(tr("Incomplete register reply: {0}, {1}/{2} bytes.", result.status, result.data?.byteLength ?? 0, count));
     }
     const bytes = new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength).slice();
-    if (!quiet) this.log('info', `Регистры ${start}–${start + count - 1}: ${hex(bytes)}`);
+    if (!quiet) this.log('info', tr("Registers {0}–{1}: {2}", start, start + count - 1, hex(bytes)));
     return bytes;
   }
   async writeRegister(index, value) {
     this.assertOpen();
     const result = await this.io(this.device.controlTransferOut({
       requestType: 'vendor', recipient: 'device', request: 3, value, index,
-    }), `запись регистра ${index}`);
-    if (result.status !== 'ok') throw new Error(`Регистр ${index}: ${result.status}.`);
+    }), tr("writing register {0}", index));
+    if (result.status !== 'ok') throw new LocalizedError(tr("Register {0}: {1}.", index, result.status));
   }
   async setupSIR() {
     this.assertOpen();
     if (this.configured) return;
     await this.pauseReader();
     for (const [direction, endpoint] of [['out', this.outEndpoint], ['in', this.inEndpoint]]) {
-      await this.io(this.device.clearHalt(direction, endpoint), `очистка USB-канала ${direction}`);
+      await this.io(this.device.clearHalt(direction, endpoint), tr("clearing USB endpoint {0}", direction));
     }
     for (const [index, value] of [[1, 0x20], [3, 1], [8, 0x15], [2, 0x77], [1, 0x2a],
       [3, 0x80], [3, 0], [4, 0x20], [5, 8], [5, 0]]) await this.writeRegister(index, value);
     this.configured = true;
-    this.log('ok', 'ИК-порт настроен: SIR, 9600 бит/с.');
+    this.log('ok', tr("Infrared port configured: SIR, 9600 bit/s."));
     await this.registers();
   }
   startReader() {
     this.assertOpen();
-    if (this.readerTask) throw new Error('Предыдущее USB-чтение ещё не остановлено.');
+    if (this.readerTask) throw new LocalizedError(tr("The previous USB read has not stopped yet."));
     if (this.readError) throw this.readError;
     this.readerActive = true;
     this.readerTask = (async () => {
@@ -107,15 +108,15 @@ export class SigmaTel {
           if (result.data?.byteLength) {
             const data = new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength).slice();
             this.rxBytes += data.length; this.decoder.feed(data);
-            if (this.rawLog) this.log('usb-rx', `${data.length} байт: ${hex(data)}`);
+            if (this.rawLog) this.log('usb-rx', tr("{0} bytes: {1}", data.length, hex(data)));
             this.update();
           }
-          if (result.status !== 'ok') throw new Error(`USB IN: ${result.status}.`);
+          if (result.status !== 'ok') throw new LocalizedError(`USB IN: ${result.status}.`);
         }
       } catch (error) {
         // releaseInterface/close explicitly abort the pending endpoint request.
         if (this.readerActive && !this.closing) {
-          this.readError = error; this.log('error', `Приём USB: ${error.message}`);
+          this.readError = error; this.log('error', tr("USB receive: {0}", error));
         }
       } finally { this.readerActive = false; this.readPending = false; }
     })();
@@ -128,15 +129,15 @@ export class SigmaTel {
       const start = performance.now();
       // WebUSB has no cancelTransfer. Release aborts all transfers on this
       // interface; claiming it again does not perform a USB device reset.
-      await this.io(this.device.releaseInterface(0), 'остановка ожидающего USB-чтения');
+      await this.io(this.device.releaseInterface(0), tr("stopping the pending USB read"));
       this.claimed = false;
-      await this.io(task, 'завершение USB-чтения');
+      await this.io(task, tr("finishing USB read"));
       if (this.closing) return;
-      await this.io(this.device.claimInterface(0), 'повторный захват USB-интерфейса');
+      await this.io(this.device.claimInterface(0), tr("reclaiming USB interface"));
       this.claimed = true; this.switches++;
-      this.log('switch', `Приём остановлен через release/claim за ${(performance.now() - start).toFixed(1)} мс.`);
+      this.log('switch', tr("Receiver stopped through release/claim in {0} ms.", (performance.now() - start).toFixed(1)));
       this.update();
-    } else await this.io(task, 'завершение USB-чтения');
+    } else await this.io(task, tr("finishing USB read"));
     this.readerTask = null;
     if (this.readError) throw this.readError;
   }
@@ -149,7 +150,7 @@ export class SigmaTel {
       signal?.throwIfAborted();
       await this.pauseReader();
       await this.registers();
-      this.log('ok', `Цикл приёма ${round + 1}/2 завершён; адаптер отвечает после остановки чтения.`);
+      this.log('ok', tr("Receive cycle {0}/2 finished; the adapter responds after stopping the reader.", round + 1));
     }
   }
   async sendFrame(address, control, data, bof = 11) {
@@ -157,11 +158,11 @@ export class SigmaTel {
     await this.pauseReader();
     this.assertOpen();
     const wire = encodeFrame(address, control, data, bof);
-    if (wire.length + 4 >= 4096) throw new Error('Пакет превышает размер FIFO SigmaTel.');
+    if (wire.length + 4 >= 4096) throw new LocalizedError(tr("The packet exceeds the SigmaTel FIFO size."));
     const packet = Uint8Array.of(0x55, 0xaa, wire.length & 255, wire.length >>> 8, ...wire);
-    const result = await this.io(this.device.transferOut(this.outEndpoint, packet), 'отправка USB-пакета');
+    const result = await this.io(this.device.transferOut(this.outEndpoint, packet), tr("sending USB packet"));
     if (result.status !== 'ok' || result.bytesWritten !== packet.length) {
-      throw new Error(`USB OUT: ${result.status}, ${result.bytesWritten}/${packet.length} байт.`);
+      throw new LocalizedError(tr("USB OUT: {0}, {1}/{2} bytes.", result.status, result.bytesWritten, packet.length));
     }
     this.txFrames++; this.update();
     this.log('tx', `IrDA ${hex([address, control])} · ${hex(data)}`);
@@ -171,7 +172,7 @@ export class SigmaTel {
       if (!(status & 0x10) || (status & 4)) { this.startReader(); return; }
       await sleep(2);
     }
-    throw new Error('Передающий FIFO SigmaTel не освободился.');
+    throw new LocalizedError(tr("The SigmaTel transmit FIFO did not empty."));
   }
   async receiveFrame(timeout = 100) {
     this.assertOpen();
@@ -193,7 +194,7 @@ export class SigmaTel {
     this.closing = true; this.readerActive = false; this.configured = false;
     this.closeTask = (async () => {
       try {
-        if (this.device.opened) await this.io(this.device.close(), 'закрытие USB', 4000);
+        if (this.device.opened) await this.io(this.device.close(), tr("closing USB"), 4000);
       } finally { this.claimed = false; this.update(); }
     })();
     return this.closeTask;

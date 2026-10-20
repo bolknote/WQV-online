@@ -1,3 +1,4 @@
+import { tr, LocalizedError } from './i18n.mjs';
 // IrDA SIR framing and Casio discovery, ported from the tested wqv_usb.py.
 export const hex = bytes => Array.from(bytes, b => b.toString(16).padStart(2, '0')).join(' ');
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -56,9 +57,9 @@ export function identifyWatch(frame, source) {
 }
 
 export async function discover(adapter, { signal, seconds = 10, progress = () => {} } = {}) {
-  if (!(seconds > 0 && seconds <= 30)) throw new Error('Поиск должен длиться от 1 до 30 секунд.');
+  if (!(seconds > 0 && seconds <= 30)) throw new LocalizedError(tr("Discovery must take between 1 and 30 seconds."));
   const source = crypto.getRandomValues(new Uint8Array(4)).map(b => b & 0x3e);
-  adapter.log('info', `Новый запрос обнаружения: ${hex(source)}`);
+  adapter.log('info', tr("New discovery request: {0}", hex(source)));
   const deadline = performance.now() + seconds * 1000;
   const check = () => {
     signal?.throwIfAborted();

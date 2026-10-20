@@ -1,3 +1,4 @@
+import { tr, LocalizedError } from './i18n.mjs';
 // Browser port of wqv_protocol.py, including the flow-control/disconnect fixes
 // tested with the actual WQV-3. WQV Blink portions: Roger Braunstein, MIT.
 // See third-party-notices.txt. This module has no DOM or native bridge.
@@ -40,7 +41,7 @@ export class WQVClient {
       this.check();
       if (performance.now() >= deadline) {
         if (optional) return null;
-        if (retries >= 2 || !this.connected || !this.lastSent) throw new Error(`Часы не ответили. Проверь IR → ПК и направление ИК-окон (ошибок CRC: ${this.adapter.decoder.badCRC}).`);
+        if (retries >= 2 || !this.connected || !this.lastSent) throw new LocalizedError(tr("The watch did not respond. Check IR → PC mode and infrared alignment (CRC errors: {0}).", this.adapter.decoder.badCRC));
         if (this.isPrimary) {
           const { address, control, data } = this.lastSent;
           await this.send(data, control, address);
@@ -61,11 +62,11 @@ export class WQVClient {
     }
   }
   expect(frame, { prefix, exact, ack = false } = {}) {
-    if (!frame) throw new Error('Нет ожидаемого ответа часов.');
-    if (frame.address !== this.watchPort) throw new Error(`Пакет от другого IrDA-устройства: ${frame.address.toString(16)}.`);
-    if (ack && ((frame.control & 15) !== 1 || frame.data.length)) throw new Error('Ожидалось подтверждение IrLAP.');
-    if (prefix && !starts(frame.data, prefix)) throw new Error(`Неверный ответ: ${hex(frame.data.slice(0, 40))}; ожидался ${hex(prefix)}.`);
-    if (exact && !equal(frame.data, exact)) throw new Error(`Неверный ответ: ${hex(frame.data.slice(0, 40))}; ожидался ${hex(exact)}.`);
+    if (!frame) throw new LocalizedError(tr("No expected reply from the watch."));
+    if (frame.address !== this.watchPort) throw new LocalizedError(tr("Packet from another IrDA device: {0}.", frame.address.toString(16)));
+    if (ack && ((frame.control & 15) !== 1 || frame.data.length)) throw new LocalizedError(tr("Expected an IrLAP acknowledgement."));
+    if (prefix && !starts(frame.data, prefix)) throw new LocalizedError(tr("Invalid reply: {0}; expected {1}.", hex(frame.data.slice(0, 40)), hex(prefix)));
+    if (exact && !equal(frame.data, exact)) throw new LocalizedError(tr("Invalid reply: {0}; expected {1}.", hex(frame.data.slice(0, 40)), hex(exact)));
     return frame.data;
   }
   async dataFrame(timeout = 12000) {
@@ -74,17 +75,17 @@ export class WQVClient {
       const frame = await this.read(Math.min(1000, deadline - performance.now()), true);
       if (!frame) { if (this.isPrimary) await this.send(); retries++; continue; }
       if (frame.address !== this.watchPort) continue;
-      if (frame.control === 0x53) throw new Error('Часы завершили соединение.');
+      if (frame.control === 0x53) throw new LocalizedError(tr("The watch closed the connection."));
       if (frame.data.length) return frame;
       if ((frame.control & 15) === 1) await this.send();
     }
-    throw new Error('Часы перестали передавать данные.');
+    throw new LocalizedError(tr("The watch stopped sending data."));
   }
   async openPrimary(timeout = 15000) {
     await this.adapter.setupSIR();
     const source = stackID(), deadline = performance.now() + timeout;
     let response = null;
-    this.progress('Поиск часов', 'Включи на часах IR → ПК.');
+    this.progress(tr("Finding watch"), tr("Select IR → PC on the watch."));
     while (performance.now() < deadline && !response) {
       for (let slot = 0; slot < 6; slot++) {
         this.check();
@@ -96,14 +97,14 @@ export class WQVClient {
         if (performance.now() >= deadline) break;
       }
     }
-    if (!response) throw new Error('WQV-3 не найдены. Включи IR → ПК и направь часы на адаптер.');
+    if (!response) throw new LocalizedError(tr("WQV-3 not found. Select IR → PC and face the watch toward the adapter."));
     this.peerID = response.slice(1, 5); this.model = text(response).includes('2411/IR') ? 3 : 10;
-    this.progress('Соединение с часами', `Casio WQV-${this.model}, IrLAP / IrCOMM`);
+    this.progress(tr("Connecting to watch"), `Casio WQV-${this.model}, IrLAP / IrCOMM`);
     this.watchPort = 2 * (random(0x7e) + 1); this.ourPort = this.watchPort + 1;
     const parameters = hx('01010282010183013f84010f85018086028003080107');
     await this.send(concat(source, this.peerID, b(this.watchPort), parameters), 0x93, 0xff);
     const accepted = await this.read();
-    if (accepted.address !== this.watchPort || accepted.control !== 0x73 || !starts(accepted.data, concat(this.peerID, source))) throw new Error('Часы не приняли параметры соединения IrLAP.');
+    if (accepted.address !== this.watchPort || accepted.control !== 0x73 || !starts(accepted.data, concat(this.peerID, source))) throw new LocalizedError(tr("The watch did not accept the IrLAP connection parameters."));
     this.connected = true; this.upper = 1; this.lower = 0;
     await this.send(hx('80030100'), this.seq({ data: true }));
     this.expect(await this.dataFrame(), { exact: hx('83008100') });
@@ -114,7 +115,7 @@ export class WQVClient {
     this.expect(await this.dataFrame(), { prefix: b(0x80 | this.session, 3) });
     await this.send(new Uint8Array(), this.seq({ upper: true }));
     await this.read(2000, true);
-    this.log('ok', `Сеанс Casio WQV-${this.model} открыт.`);
+    this.log('ok', tr("Casio WQV-{0} session opened.", this.model));
   }
   async closeLink() {
     await this.send(b(0x83, this.session, 2, 1), this.seq({ data: true, lower: true }));
@@ -131,7 +132,7 @@ export class WQVClient {
     this.isPrimary = false; this.ourPort = 0xfe; this.watchPort = 0xff;
     this.upper = 1; this.lower = 0; this.lastIFrame = null;
     let frame = await this.read(5000);
-    if (frame.control !== 0x3f || !starts(frame.data, concat(b(1), this.peerID))) throw new Error('Нет запроса от часов после смены ролей.');
+    if (frame.control !== 0x3f || !starts(frame.data, concat(b(1), this.peerID))) throw new LocalizedError(tr("No request from the watch after changing roles."));
     const localID = stackID();
     await this.send(concat(b(1), localID, this.peerID, hx('010500842500'), ascii('WEB-WQV\0')), 0xbf);
     while (true) {
@@ -139,7 +140,7 @@ export class WQVClient {
       if (starts(frame.data, concat(b(1), this.peerID, hx('ffffffff01ff')))) break;
     }
     frame = await this.read();
-    if (frame.control !== 0x93 || !starts(frame.data, this.peerID)) throw new Error('Нет параметров соединения от часов.');
+    if (frame.control !== 0x93 || !starts(frame.data, this.peerID)) throw new LocalizedError(tr("No connection parameters from the watch."));
     this.ourPort = frame.data[8]; this.watchPort = this.ourPort + 1;
     await this.send(concat(localID, this.peerID, hx('01010282010183013f84010f85018086028003080104')), 0x73);
     this.connected = true; this.rxCredits = 14;
@@ -154,12 +155,12 @@ export class WQVClient {
       }
       if (starts(data, hx('000184'))) {
         const replies = [hx('01008400000100050100000009'), hx('0100840000010005020006000106010101')];
-        if (negotiation >= replies.length) throw new Error('Неожиданный дополнительный запрос IAS.');
+        if (negotiation >= replies.length) throw new LocalizedError(tr("Unexpected additional IAS request."));
         await this.send(replies[negotiation++], this.seq({ data: true, upper: true, lower: true }));
       } else if ((frame.control & 15) === 1) await this.send();
-      else throw new Error(`Неверный пакет согласования IrCOMM: ${hex(data)}.`);
+      else throw new LocalizedError(tr("Invalid IrCOMM negotiation packet: {0}.", hex(data)));
     }
-    if (!ready) throw new Error('Не удалось установить соединение IrCOMM.');
+    if (!ready) throw new LocalizedError(tr("Could not establish an IrCOMM connection."));
     for (const prefix of [b(this.session, 3, 0, 3), b(this.session, 3, 0, 12)]) {
       // The watch can poll with an empty RR before its service parameters.
       this.expect(await this.dataFrame(), { prefix }); this.rxCredits--;
@@ -180,7 +181,7 @@ export class WQVClient {
         if (!this.isPrimary && !this.turnIsOurs) await this.read(500, true);
         if (this.isPrimary || this.turnIsOurs) await this.disconnect();
       }
-    } catch (error) { this.log('info', `Завершение сеанса: ${error.message}`); }
+    } catch (error) { this.log('info', tr("Closing session: {0}", error)); }
     finally {
       this.connected = false; this.signal = previous;
       if (this.adapter.opened) await this.adapter.pauseReader();
@@ -190,21 +191,21 @@ export class WQVClient {
     let stream = b(), position = 0; const packets = [];
     while (true) {
       const data = this.expect(frame, { prefix: b(this.session, 3) });
-      if (data.length < 3) throw new Error('Обрезанный пакет TinyTP.');
+      if (data.length < 3) throw new LocalizedError(tr("Truncated TinyTP packet."));
       if (data.length > 3) {
         this.rxCredits--; const controls = data[3];
-        if (data.length < 4 + controls) throw new Error('Обрезанные управляющие байты IrCOMM.');
+        if (data.length < 4 + controls) throw new LocalizedError(tr("Truncated IrCOMM control bytes."));
         const payload = data.slice(4 + controls); packets.push(payload); stream = concat(stream, payload);
-        this.progress('Приём снимка', `${stream.length} байт получено`, null);
+        this.progress(tr("Receiving photo"), tr("{0} bytes received", stream.length), null);
       }
-      if (stream.length > LIMIT) throw new Error('Снимок превышает лимит размера.');
+      if (stream.length > LIMIT) throw new LocalizedError(tr("The photo exceeds the size limit."));
       let complete = false;
       while (position < stream.length) {
         const view = stream.subarray(position), size = pduSize(view);
         if (size === null || view.length < size) break;
         const offset = view[3] === 255 ? 6 : 4;
         complete = Boolean(view[offset + 1] & 0x80); position += size;
-        if (complete) { if (position !== stream.length) throw new Error('Лишние данные после снимка.'); break; }
+        if (complete) { if (position !== stream.length) throw new LocalizedError(tr("Extra data after the photo.")); break; }
       }
       if (this.rxCredits <= 6) {
         await this.send(b(3, this.session, 6), this.seq({ data: true, upper: true, lower: true })); this.rxCredits += 6;
@@ -224,7 +225,7 @@ export class WQVClient {
     await this.send(b(), this.seq({ upper: true }));
     for (const command of ['RIMG', 'RINF', 'RCMD']) {
       const data = this.expect(await this.dataFrame(), { prefix: b(this.session, 3, 0, 0) }); this.rxCredits--;
-      if (text(data.slice(-4)) !== command) throw new Error('Неверная последовательность запросов характеристик.');
+      if (text(data.slice(-4)) !== command) throw new LocalizedError(tr("Invalid capabilities request sequence."));
       await this.send(queryResponse(data), this.seq({ data: true, upper: true, lower: true }));
       this.expect(await this.dataFrame(), { exact: b(this.session, 3, 1) });
       await this.send(b(), this.seq({ upper: true }));
@@ -234,8 +235,8 @@ export class WQVClient {
       const frame = await this.dataFrame();
       const data = this.expect(frame, { prefix: b(this.session, 3, 0, 0, 0) });
       if (starts(data, b(this.session, 3, 0, 0, 0, 0x30))) { await this.disconnect(); break; }
-      if (!starts(data, b(this.session, 3, 0, 0, 0, 0x20))) throw new Error('Неожиданный пакет передачи снимка.');
-      this.progress(`Приём снимка ${images.length + 1}`, 'Не двигай часы и адаптер.');
+      if (!starts(data, b(this.session, 3, 0, 0, 0, 0x20))) throw new LocalizedError(tr("Unexpected photo transfer packet."));
+      this.progress(tr("Receiving photo {0}", images.length + 1), tr("Keep the watch and adapter still."));
       const { packets, command } = await this.receiveSCEPFile(frame), fields = parseCommand(command);
       const nameBytes = fields.attributes.FIL0 || ascii('WQV.UPF');
       const filename = text(nameBytes).replace(/[\0 ]+$/g, ''), upf = extractUPF(command), jpeg = jpegFromUPF(upf);
@@ -245,7 +246,7 @@ export class WQVClient {
       const image = { id: digest, name: filename.replace(/\.UPF$/i, ''), jpeg, upf, archive,
         width: info.width, height: info.height, receivedAt: new Date().toISOString() };
       await onImage(image); images.push(image);
-      this.log('ok', `Снимок ${images.length}: ${filename}, ${info.width}×${info.height}, ${jpeg.length} байт.`);
+      this.log('ok', tr("Photo {0}: {1}, {2}×{3}, {4} bytes.", images.length, filename, info.width, info.height, jpeg.length));
       const reply = makeCommand([attribute('RPL0', nameBytes, true)], { id: fields.id, reply: 0x40, destination: fields.source, source: fields.destination });
       this.expect(await this.read(), { ack: true });
       await this.send(concat(b(3, this.session, 0, 0), packSCEP(reply)[0]), this.seq({ data: true, lower: true }));
@@ -261,22 +262,22 @@ export class WQVClient {
     return this.receiveCollection(options);
   }
   primaryIngest(frame) {
-    if (frame.address !== this.watchPort) throw new Error('Пакет от другого соединения IrDA.');
-    if ([0x53, 0x1f].includes(frame.control)) throw new Error('Часы завершили соединение.');
+    if (frame.address !== this.watchPort) throw new LocalizedError(tr("Packet from another IrDA connection."));
+    if ([0x53, 0x1f].includes(frame.control)) throw new LocalizedError(tr("The watch closed the connection."));
     if (!(frame.control & 1)) {
       const sequence = (frame.control >> 1) & 7;
-      if (sequence !== this.upper >> 1) throw new Error('Нарушена последовательность IrLAP.');
+      if (sequence !== this.upper >> 1) throw new LocalizedError(tr("IrLAP frames are out of sequence."));
       this.upper = 2 * ((sequence + 1) & 7) + 1;
       const data = frame.data;
       if (starts(data, b(this.session, 3)) && data.length >= 3) {
         this.txCredits += data[2] & 0x7f;
         if (data.length > 3) {
           this.rxCredits--; const controls = data[3];
-          if (4 + controls > data.length) throw new Error('Обрезанные параметры IrCOMM.');
+          if (4 + controls > data.length) throw new LocalizedError(tr("Truncated IrCOMM parameters."));
           this.appBuffer = concat(this.appBuffer, data.slice(4 + controls));
-          if (this.appBuffer.length > LIMIT) throw new Error('Слишком большой поток IrCOMM.');
+          if (this.appBuffer.length > LIMIT) throw new LocalizedError(tr("The IrCOMM stream is too large."));
         }
-      } else if (data.length) throw new Error(`Неожиданные данные сервиса IrLMP: ${hex(data)}.`);
+      } else if (data.length) throw new LocalizedError(tr("Unexpected IrLMP service data: {0}.", hex(data)));
       return true;
     }
     return false;
@@ -290,14 +291,14 @@ export class WQVClient {
       else {
         const expected = ((this.lower >> 1) + 1) & 7;
         if ((frame.control & 15) === 1 && (frame.control >> 5) === expected) return;
-        throw new Error('Часы не подтвердили отправленный кадр.');
+        throw new LocalizedError(tr("The watch did not acknowledge the sent frame."));
       }
     }
-    throw new Error('Слишком много кадров IrLAP без подтверждения.');
+    throw new LocalizedError(tr("Too many IrLAP frames without acknowledgement."));
   }
   async primarySend(application = b(), controls = b()) {
     for (let i = 0; i < 12 && !this.txCredits; i++) await this.primaryExchange();
-    if (!this.txCredits) throw new Error('Часы не выдают разрешения на передачу TinyTP.');
+    if (!this.txCredits) throw new LocalizedError(tr("The watch is not granting TinyTP transmit credits."));
     this.txCredits--; const grant = this.rxCredits <= 6 ? 6 : 0; this.rxCredits += grant;
     await this.primaryExchange(concat(b(3, this.session, grant, controls.length), controls, application));
   }
@@ -307,14 +308,14 @@ export class WQVClient {
       if (stream.length >= 4) {
         if (starts(stream, b(0, 0x11)) || starts(stream, b(0, 0x30))) length = 4 + stream[3];
         else if (starts(stream, b(0, 0x20, 3))) length = stream[3] === 255 ? (stream.length >= 6 ? 6 + u16(stream, 4) : null) : 4 + stream[3];
-        else throw new Error(`Неверное начало потока SCEP: ${hex(stream.slice(0, 32))}.`);
+        else throw new LocalizedError(tr("Invalid start of SCEP stream: {0}.", hex(stream.slice(0, 32))));
         if (length !== null && stream.length >= length) {
           const packet = stream.slice(0, length); this.appBuffer = stream.slice(length); return packet;
         }
       }
       await this.primaryExchange();
     }
-    throw new Error('Не получен полный ответ SCEP.');
+    throw new LocalizedError(tr("No complete SCEP reply received."));
   }
   async openSender() {
     if (!this.connected) await this.openPrimary();
@@ -323,7 +324,7 @@ export class WQVClient {
     const info = concat(hx('1004'), this.primaryID, new Uint8Array(8), ascii('\x11fr:1\r\nid:WEB WQV\r\n'));
     await this.primarySend(concat(hx('0010000101'), b(info.length), info, hx('10020000')));
     const response = await this.primarySCEP();
-    if (!starts(response, hx('001101')) || response.length < 22) throw new Error('Часы отклонили соединение IrTran-P.');
+    if (!starts(response, hx('001101')) || response.length < 22) throw new LocalizedError(tr("The watch rejected the IrTran-P connection."));
     this.primaryID = response.slice(6, 14); this.secondaryID = response.slice(14, 22);
   }
   async senderCommand(command) {
@@ -331,19 +332,19 @@ export class WQVClient {
     const total = pdus.reduce((n, p) => n + p.length, 0);
     for (const pdu of pdus) for (let pos = 0; pos < pdu.length; pos += 380) {
       const part = pdu.slice(pos, pos + 380); await this.primarySend(part); sent += part.length;
-      this.progress('Передача на часы', `${sent} / ${total} байт`, sent / total);
+      this.progress(tr("Sending to watch"), tr("{0} / {1} bytes", sent, total), sent / total);
     }
     const parts = [];
     while (true) {
       const packet = await this.primarySCEP();
-      if (!starts(packet, b(0, 0x20, 3))) throw new Error('Ожидался ответ на команду IrTran-P.');
+      if (!starts(packet, b(0, 0x20, 3))) throw new LocalizedError(tr("Expected an IrTran-P command reply."));
       parts.push(packet); const offset = packet[3] === 255 ? 6 : 4;
       if (packet[offset + 1] & 0x80) {
         const response = parseCommand(unpackSCEP(concat(...parts)));
-        if (response.id !== request.id || ![0x40, 0x80].includes(response.reply)) throw new Error('Не совпал идентификатор ответа IrTran-P.');
+        if (response.id !== request.id || ![0x40, 0x80].includes(response.reply)) throw new LocalizedError(tr("The IrTran-P reply ID does not match."));
         return response;
       }
-      if (parts.length > 4096) throw new Error('Слишком длинный ответ IrTran-P.');
+      if (parts.length > 4096) throw new LocalizedError(tr("The IrTran-P reply is too long."));
     }
   }
   async capabilities() {
@@ -358,32 +359,32 @@ export class WQVClient {
     checkWatchJPEG(jpegFromUPF(upf));
     await this.openSender();
     const response = await this.senderCommand(putCommand(upf, filename, { destination: this.secondaryID, source: this.primaryID }));
-    if (response.reply !== 0x40 || !response.attributes.RPL0) throw new Error('Часы отклонили изображение.');
+    if (response.reply !== 0x40 || !response.attributes.RPL0) throw new LocalizedError(tr("The watch rejected the image."));
     await this.primarySend(hx('0030200100')); await this.disconnect(); return text(response.attributes.RPL0).replace(/\0+$/, '');
   }
   async control(command) {
     if (!this.connected) await this.openPrimary();
-    if (!this.isPrimary) throw new Error('Для управления нужен новый сеанс с часами.');
-    if (!command.length || ![2, 3, 4, 5, 6, 7, 8, 9].includes(command[0])) throw new Error('Неизвестная команда управления.');
-    if (this.appBuffer.length) throw new Error('В предыдущем ответе остались данные. Подключись к часам снова.');
+    if (!this.isPrimary) throw new LocalizedError(tr("Start a new watch session to use remote controls."));
+    if (!command.length || ![2, 3, 4, 5, 6, 7, 8, 9].includes(command[0])) throw new LocalizedError(tr("Unknown remote control command."));
+    if (this.appBuffer.length) throw new LocalizedError(tr("Data remains from the previous reply. Reconnect to the watch."));
     for (let pos = 0; pos < command.length; pos += 380) {
       await this.primarySend(command.slice(pos, pos + 380));
-      if (command.length > 380) this.progress('Запись календаря', `${Math.min(pos + 380, command.length)} / ${command.length} байт`, Math.min(pos + 380, command.length) / command.length);
+      if (command.length > 380) this.progress(tr("Write calendar"), tr("{0} / {1} bytes", Math.min(pos + 380, command.length), command.length), Math.min(pos + 380, command.length) / command.length);
     }
     const needed = command[0] === 9 ? CALENDAR_SIZE + 3 : 1, deadline = performance.now() + 15000;
     while (this.appBuffer.length < needed && performance.now() < deadline) await this.primaryExchange();
-    if (this.appBuffer.length < needed) throw new Error('Не получен полный ответ на команду управления.');
+    if (this.appBuffer.length < needed) throw new LocalizedError(tr("No complete remote control reply received."));
     const reply = this.appBuffer; this.appBuffer = b();
-    this.log('control', `Команда ${command[0].toString(16).padStart(2, '0')}, ответ ${reply.length} байт: ${hex(reply.slice(0, 20))}`);
+    this.log('control', tr("Command {0}, reply {1} bytes: {2}", command[0].toString(16).padStart(2, '0'), reply.length, hex(reply.slice(0, 20))));
     if (command[0] === 9) {
-      if (reply.length !== CALENDAR_SIZE + 3 || u16(reply, 1) !== CALENDAR_SIZE) throw new Error(`Неверный размер календаря: ${hex(reply.slice(0, 6))}.`);
+      if (reply.length !== CALENDAR_SIZE + 3 || u16(reply, 1) !== CALENDAR_SIZE) throw new LocalizedError(tr("Invalid calendar size: {0}.", hex(reply.slice(0, 6))));
       return new HolidayCalendar(reply.slice(3));
     }
-    if (reply[0] !== 0x0d) throw new Error(`Часы не подтвердили команду: ${hex(reply)}.`);
+    if (reply[0] !== 0x0d) throw new LocalizedError(tr("The watch did not acknowledge the command: {0}.", hex(reply)));
     return reply;
   }
   async fastScroll(direction, { duration = 1000, stop = () => false } = {}) {
-    if (!['forward', 'back'].includes(direction)) throw new Error('Неверное направление листания.');
+    if (!['forward', 'back'].includes(direction)) throw new LocalizedError(tr("Invalid browsing direction."));
     await this.control(b(direction === 'forward' ? 4 : 5));
     const deadline = performance.now() + Math.min(3000, Math.max(100, duration));
     try {
