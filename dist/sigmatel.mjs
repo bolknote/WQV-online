@@ -23,7 +23,7 @@ export class SigmaTel {
     this.rawLog = rawLog;
     this.decoder = new FrameDecoder({ recoverFrames: true });
     this.rxBytes = 0; this.txFrames = 0; this.switches = 0; this.fifoRecoveries = 0;
-    this.claimed = false; this.configured = false; this.closing = false; this.baud = null;
+    this.claimed = false; this.configured = false; this.closing = false; this.baud = null; this.revision = null;
     this.readerTask = null; this.readerActive = false; this.readPending = false; this.readError = null;
   }
   get opened() { return this.device.opened && this.claimed && !this.closing; }
@@ -60,7 +60,7 @@ export class SigmaTel {
       configuration: 1, interface: 0, interfaceClass: alternate.interfaceClass,
       inEndpoint: this.inEndpoint, outEndpoint: this.outEndpoint, packetSize: input.packetSize,
     };
-    await this.registers();
+    this.revision = (await this.registers())[3] & 7; // CTRL2 revision ID, bits 2:0.
     return this.description;
   }
   async registers(start = 1, count = 9, quiet = false) {
@@ -122,6 +122,7 @@ export class SigmaTel {
     this.assertOpen();
     if (this.readerTask) throw new LocalizedError(tr("The previous USB read has not stopped yet."));
     if (this.readError) throw this.readError;
+    this.decoder.emptyReads = 0;
     this.readerActive = true;
     this.readerTask = (async () => {
       try {
@@ -130,15 +131,25 @@ export class SigmaTel {
           let result;
           try { result = await this.device.transferIn(this.inEndpoint, 64); }
           finally { this.readPending = false; }
-          if (result.data?.byteLength) {
-            const data = new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength).slice();
-            const recovered = this.decoder.recoveredFrames;
+          if (!this.readerActive || !this.opened) break;
+          if (result.status !== 'ok') throw new LocalizedError(`USB IN: ${result.status}.`);
+          const data = result.data && new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength).slice();
+          const recovered = this.decoder.recoveredFrames, badCRC = this.decoder.badCRC;
+          const partial = Boolean(this.decoder.body?.length);
+          if (data?.length) {
             this.rxBytes += data.length; this.decoder.feed(data);
-            if (this.decoder.recoveredFrames !== recovered) this.log('info', tr('Frames recovered after CRC recheck: {0}.', this.decoder.recoveredFrames - recovered));
-            if (this.rawLog) this.log('usb-rx', tr("{0} bytes: {1}", data.length, hex(data)));
+          } else if (data) {
+            // PAD-5 closes a frame on one empty read for revisions <= 6,
+            // or two consecutive empty reads for revision 7 above 9600.
+            const requiredReads = !this.configured || this.baud === null || this.revision === null ? 0 :
+              this.revision <= 6 ? 1 : this.baud > 9600 ? 2 : 0;
+            this.decoder.emptyRead(requiredReads);
+          }
+          if (this.decoder.recoveredFrames !== recovered) this.log('info', tr('Frames recovered after CRC recheck: {0}.', this.decoder.recoveredFrames - recovered));
+          if (this.rawLog && data && (data.length || partial)) this.log('usb-rx', tr("{0} bytes: {1}", data.length, hex(data)));
+          if (data?.length || this.decoder.recoveredFrames !== recovered || this.decoder.badCRC !== badCRC) {
             this.update();
           }
-          if (result.status !== 'ok') throw new LocalizedError(`USB IN: ${result.status}.`);
           // A final/poll frame hands the half-duplex link back to us. Do not
           // queue another USB read just to cancel it for the next transmit:
           // Chromium can leave that fast resubmission pending after release.

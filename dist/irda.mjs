@@ -61,14 +61,15 @@ export class FrameDecoder {
     this.recoverFrames = recoverFrames; this.badCRC = 0; this.recoveredFrames = 0; this.frames = [];
     this.reset();
   }
-  reset() { this.body = null; this.escaped = false; this.pad5Escapes = []; }
+  reset() { this.body = null; this.escaped = false; this.pad5Escapes = []; this.emptyReads = 0; }
   valid(body) {
     return body.length >= 4 && crc16(body.slice(0, -2)) === (body.at(-2) | (body.at(-1) << 8));
   }
-  recover(body) {
+  recover(body, { trailingOnly = false } = {}) {
     // PAD-5 stirusb.sys 1.23: SIR escapes at 0x133e4 and CRC retry at
-    // 0x1367e. Its NDIS-specific edge flag is unavailable here, so check
-    // both edges and reject different candidates that pass CRC.
+    // 0x1367e. Its receive-slot flag is unavailable here, so check
+    // both edges after an EOF. An idle completion supplies the flag's meaning:
+    // only the trailing byte may be a damaged EOF. Reject ambiguous candidates.
     const variants = [body], candidates = new Map();
     if (this.pad5Escapes.length) {
       const alternate = body.slice();
@@ -80,26 +81,42 @@ export class FrameDecoder {
     };
     for (const variant of variants) {
       if (variant !== body) check(variant);
-      if (variant.length >= 5) { check(variant.slice(1)); check(variant.slice(0, -1)); }
+      if (variant.length >= 5) {
+        if (!trailingOnly) check(variant.slice(1));
+        check(variant.slice(0, -1));
+      }
     }
     return candidates.size === 1 ? candidates.values().next().value : null;
   }
+  finishFrame({ missingEOF = false } = {}) {
+    if (this.body?.length >= 4 && !this.escaped) {
+      let body = this.body;
+      const badCRC = !this.valid(body);
+      if (badCRC) {
+        body = this.recoverFrames ? this.recover(body, { trailingOnly: missingEOF }) : null;
+        if (!body) this.badCRC++;
+      }
+      if (body) {
+        if (badCRC || missingEOF) this.recoveredFrames++;
+        this.frames.push({ address: body[0], control: body[1], data: Uint8Array.from(body.slice(2, -2)) });
+      }
+    }
+    this.reset();
+  }
+  emptyRead(requiredReads) {
+    // PAD-5 0x132d0 / 0x132fa: completion inside SIR data, not after a
+    // dangling escape or BOF. The transport supplies the revision/rate rule.
+    // Only successful zero-length reads qualify, never a timeout or cancel.
+    if (!this.recoverFrames || !requiredReads || !this.body?.length || this.escaped) return;
+    if (++this.emptyReads >= requiredReads) this.finishFrame({ missingEOF: true });
+  }
   feed(bytes) {
+    if (bytes.length) this.emptyReads = 0;
     for (let byte of bytes) {
       if (byte === 0xc0) { this.reset(); this.body = []; continue; }
       if (this.body === null) continue;
       if (byte === 0xc1) {
-        if (this.body.length >= 4 && !this.escaped) {
-          let b = this.body;
-          if (!this.valid(b)) {
-            b = this.recoverFrames ? this.recover(b) : null;
-            if (b) this.recoveredFrames++; else this.badCRC++;
-          }
-          if (b) {
-            this.frames.push({ address: b[0], control: b[1], data: Uint8Array.from(b.slice(2, -2)) });
-          }
-        }
-        this.reset(); continue;
+        this.finishFrame(); continue;
       }
       if (this.escaped) {
         if (this.recoverFrames && (byte === 0xf0 || byte === 0xf8)) this.pad5Escapes.push([this.body.length, byte === 0xf0 ? 0xc0 : 0xc1]);

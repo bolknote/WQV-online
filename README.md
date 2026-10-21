@@ -64,6 +64,12 @@ again after correcting an escape sequence or removing one stray edge byte.
 Ambiguous frames and frames that still fail CRC are dropped. The Connection
 tab counts recovered frames separately from rejected CRC errors.
 
+The receiver also uses PAD-5's empty-read rule when an end marker is damaged
+or missing: one empty USB read on chip revisions up to 6, or two in a row on
+revision 7 above 9600 bit/s. It checks the full frame first, then tries removing
+the last byte. A timeout or a cancelled USB read never completes a frame.
+This path has software tests; checking it with the watch is still pending.
+
 If the transmit FIFO stalls, the app tries the PAD-5 recovery sequence and
 ends the current transfer. Click **Connect USB…** again and restart **IR → PC**
 on the watch before retrying. Completed photos stay in the collection.

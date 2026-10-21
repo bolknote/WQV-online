@@ -1,0 +1,311 @@
+{
+  "source": {
+    "driver": "Casio PAD-5 stirusb.sys 1.23",
+    "sha256": "7b75d5fbceb335ecbf42d7fd8b2a5ee5e5d447cc7a3f63e4e674d0fc3418a225",
+    "parser": "0x131f6",
+    "idleFlagWrites": [
+      "0x132d0",
+      "0x132fa"
+    ],
+    "crcRetry": "0x136b4",
+    "method": "Expected frames from interpreted original x86 instructions; scripted reads, no hardware"
+  },
+  "cases": [
+    {
+      "name": "EOF-C1-corrupted-to-81",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f968181",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "extra-trailing-23-without-EOF",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f968123",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "missing-EOF-but-no-extra-byte",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "nonempty-read-clears-empty-read-marker",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de1",
+        "",
+        "7d5d434153494f9681c1"
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 0
+    },
+    {
+      "name": "leading-and-trailing-errors-not-recovered",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0e0fe107de07de17d5d434153494f968181",
+        "",
+        ""
+      ],
+      "accepted": [],
+      "badCRC": 1,
+      "recovered": 0
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 5,
+      "baud": 9600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 5,
+      "baud": 19200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 5,
+      "baud": 38400,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 5,
+      "baud": 57600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 5,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 6,
+      "baud": 9600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 6,
+      "baud": 19200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 6,
+      "baud": 38400,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 6,
+      "baud": 57600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 6,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 7,
+      "baud": 9600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [],
+      "badCRC": 0,
+      "recovered": 0
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 7,
+      "baud": 19200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 7,
+      "baud": 38400,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 7,
+      "baud": 57600,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    },
+    {
+      "name": "damaged-EOF-E1",
+      "revision": 7,
+      "baud": 115200,
+      "reads": [
+        "c0fe107de07de17d5d434153494f9681e1",
+        "",
+        ""
+      ],
+      "accepted": [
+        "fe10c0c17d434153494f"
+      ],
+      "badCRC": 0,
+      "recovered": 1
+    }
+  ]
+}

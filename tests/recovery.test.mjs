@@ -66,3 +66,107 @@ test('recovery cannot combine stale bytes across a reset or an oversized frame',
   assert.equal(d.body, null); assert.equal(d.pad5Escapes.length, 0);
   d.feed(wire(golden)); assert.deepEqual(d.frames, [expected]); assert.equal(d.recoveredFrames, 0);
 });
+
+test('a damaged EOF is removed after two consecutive empty reads, with the original FCS', () => {
+  // Original PAD-5 0x132fa -> 0x136b4, revision 7 at 115200.
+  // C1 -> E1 or 81 changes one bit without inserting a wire byte.
+  for (const eof of [0xe1, 0x81]) {
+    const raw = wire(golden); raw[raw.length - 1] = eof;
+    const d = decode(raw);
+    d.emptyRead(2); assert.equal(d.frames.length, 0);
+    d.emptyRead(2);
+    assert.deepEqual(d.frames, [expected]);
+    assert.equal(d.recoveredFrames, 1); assert.equal(d.badCRC, 0);
+    assert.equal(d.body, null); assert.equal(d.emptyReads, 0);
+  }
+});
+
+test('a missing EOF with valid CRC keeps every data byte and is counted as recovery once', () => {
+  const d = decode(wire(golden).slice(0, -1));
+  d.emptyRead(2); d.emptyRead(2);
+  assert.deepEqual(d.frames, [expected]); assert.equal(d.recoveredFrames, 1);
+  d.emptyRead(2); d.feed(bytes('c1')); // A late EOF cannot duplicate the frame.
+  assert.equal(d.frames.length, 1); assert.equal(d.recoveredFrames, 1);
+  d.feed(wire(golden));
+  assert.deepEqual(d.frames, [expected, expected]); assert.equal(d.recoveredFrames, 1);
+});
+
+test('idle completion checks only the trailing edge and rejects corrupt data and FCS', () => {
+  for (const body of [
+    '23' + golden, // Removing the first byte would pass, but is not the idle rule.
+    'fe10c0c07d434153494f9681e1',
+    golden.slice(0, -2) + '80e1',
+    golden + '23e1',
+  ]) {
+    const d = decode(wire(body).slice(0, -1));
+    d.emptyRead(2); d.emptyRead(2);
+    assert.equal(d.frames.length, 0); assert.equal(d.badCRC, 1);
+    assert.equal(d.recoveredFrames, 0); assert.equal(d.body, null);
+    d.feed(wire('e0' + golden));
+    assert.deepEqual(d.frames, [expected], 'No stale trailing-edge flag leaks into the next frame');
+  }
+});
+
+test('the idle rule can select the trailing candidate when the two edges would disagree', () => {
+  // Both edge candidates pass CRC (see the normal-EOF ambiguity fixture above).
+  const d = decode(wire('30100042af5417').slice(0, -1));
+  d.emptyRead(2); d.emptyRead(2);
+  assert.deepEqual(d.frames, [{ address: 0x30, control: 0x10, data: bytes('0042') }]);
+  assert.equal(d.recoveredFrames, 1); assert.equal(d.badCRC, 0);
+});
+
+test('one idle read at every USB split preserves a complete frame without recovery', () => {
+  const raw = wire(golden);
+  for (let split = 1; split < raw.length; split++) {
+    const d = decode(raw.slice(0, split));
+    d.emptyRead(2); d.feed(raw.slice(split));
+    assert.deepEqual(d.frames, [expected], `USB split ${split}`);
+    assert.equal(d.recoveredFrames, 0); assert.equal(d.badCRC, 0);
+  }
+  const damaged = raw.slice(); damaged[damaged.length - 1] = 0xe1;
+  const split = 5, d = decode(damaged.slice(0, split));
+  d.emptyRead(2); d.feed(damaged.slice(split)); d.emptyRead(2);
+  assert.equal(d.frames.length, 0, 'Nonempty reads restart the two-read count');
+  d.emptyRead(2); assert.deepEqual(d.frames, [expected]);
+});
+
+test('an unfinished escape or a BOF never becomes an idle-completed frame', () => {
+  const data = bytes('434153494f7d'), raw = encodeFrame(0xfe, 0x10, data, 1);
+  const split = raw.indexOf(0x7d) + 1, d = decode(raw.slice(0, split));
+  const pending = d.body.slice();
+  for (let i = 0; i < 4; i++) d.emptyRead(2);
+  assert.deepEqual(d.body, pending); assert.equal(d.escaped, true);
+  assert.equal(d.badCRC, 0); assert.equal(d.emptyReads, 0);
+  d.feed(raw.slice(split));
+  assert.deepEqual(d.frames, [{ address: 0xfe, control: 0x10, data }]);
+  assert.equal(d.recoveredFrames, 0);
+  const bof = decode(bytes('c0c0'));
+  for (let i = 0; i < 4; i++) bof.emptyRead(2);
+  assert.deepEqual(bof.body, []); assert.equal(bof.frames.length, 0);
+});
+
+test('idle completion requires recovery opt-in and an enabled transport rule', () => {
+  const raw = wire(golden).slice(0, -1);
+  for (const [enabled, requiredReads] of [[false, 2], [true, 0]]) {
+    const d = decode(raw, enabled);
+    for (let i = 0; i < 4; i++) d.emptyRead(requiredReads);
+    assert.equal(d.frames.length, 0); assert.equal(d.body.length, golden.length / 2);
+    assert.equal(d.badCRC, 0); assert.equal(d.recoveredFrames, 0);
+    d.feed(bytes('c1')); assert.deepEqual(d.frames, [expected]);
+    assert.equal(d.recoveredFrames, 0);
+  }
+  const d = decode(raw);
+  d.feed(new Uint8Array()); d.feed(new Uint8Array());
+  assert.equal(d.emptyReads, 0, 'Only the transport reports a successful empty read');
+  d.emptyRead(2); d.reset(); d.feed(raw); d.emptyRead(2);
+  assert.equal(d.frames.length, 0, 'A decoder reset clears the previous idle-read count');
+  d.emptyRead(2); assert.deepEqual(d.frames, [expected]);
+});
+
+test('PAD-5 alternative escapes can be combined with a damaged EOF after idle', () => {
+  const raw = wire(golden, true); raw[raw.length - 1] = 0xe1;
+  const d = decode(raw);
+  d.emptyRead(2); d.emptyRead(2);
+  assert.deepEqual(d.frames, [expected]); assert.equal(d.recoveredFrames, 1);
+  assert.equal(d.badCRC, 0);
+});
