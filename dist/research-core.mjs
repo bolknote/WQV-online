@@ -21,7 +21,7 @@ export function snapshot(value) {
   return value ?? null;
 }
 
-export function captureUSB(device, record, state = () => ({})) {
+export function captureUSB(device, record, state = () => ({}), { receiveOnly = false } = {}) {
   let sequence = 0;
   return new Proxy(device, { get(target, key) {
     const value = Reflect.get(target, key, target);
@@ -30,6 +30,7 @@ export function captureUSB(device, record, state = () => ({})) {
       const id = ++sequence;
       record('usb-call', { id, operation: String(key), args: snapshot(args), ...state() });
       try {
+        if (receiveOnly && key === 'transferOut') throw new Error('USB bulk OUT is disabled in listen mode.');
         const result = await value.apply(target, args);
         record('usb-result', { id, operation: String(key), status: result?.status ?? null,
           data: result?.data ? snapshot(result.data) : null, bytesWritten: result?.bytesWritten ?? null, ...state() });
@@ -165,6 +166,14 @@ export function attemptFiles(attempt, events) {
     { name: 'usb-in.bin', data: joinBytes(rx) }, { name: 'usb-out-requested.bin', data: joinBytes(tx) },
     { name: 'response.bin', data: joinBytes(reply) },
     { name: 'before-command.bin', data: joinBytes(beforeCommand) },
-    { name: 'README.txt', data: encoder.encode('events.jsonl is the authoritative trace: timestamps, USB boundaries, empty reads, control transfers, status and errors are preserved.\nusb-in.bin concatenates original bulk-IN bytes before CRC recovery; it includes discovery and negotiation.\nusb-out-requested.bin concatenates requested bulk-OUT buffers, including SigmaTel headers. Check bytesWritten/status in events.jsonl for short or failed writes.\nframes.jsonl contains decoded frames, including duplicates and echoes seen by the protocol reader. After a protocol error the page listens passively until the response deadline, without further polls or application commands.\nresponse.bin contains accepted IrCOMM application payloads after the single command, without interpretation. before-command.bin contains unsolicited application data seen before the command. Raw discarded/invalid or unrecognized frames remain in usb-in.bin and events.jsonl.\nA reply is not proof of the command meaning. No reply is not proof the command is unused. A failed/interrupted capture may be incomplete; pendingUSBCalls lists unresolved calls.\n') },
+    { name: 'README.txt', data: encoder.encode(attempt.kind === 'listen' ?
+      'PASSIVE LISTENING: no discovery, watch commands, polls or acknowledgements are sent. USB bulk OUT is blocked; USB control writes configure the local SigmaTel receiver only.\n' +
+      'attempt.json identifies the user-selected watch mode, fixed baud rate and capture window. These are test settings, not an automatically identified protocol.\n' +
+      'usb-in.bin concatenates the exact bulk-IN bytes returned by SigmaTel, before any frame parsing. USB bytes are not a recording of optical pulse timings. Unknown data and CRC failures are preserved.\n' +
+      'events.jsonl is the authoritative trace: UTC and monotonic timestamps, USB transfer IDs and boundaries, baud rate, empty reads, control transfers, errors and manual SEND markers. A SEND marker records a click on this page, not the exact physical button press on the watch.\n' +
+      'frames.jsonl contains optional IrDA frames that pass the unmodified CRC check. No CRC recovery, byte removal or damaged-EOF completion is used. Other formats remain in the raw stream. response.bin and before-command.bin are empty because no application session is opened.\n' +
+      'No received bytes does not establish that the watch sent nothing: the selected rate or optical format may be wrong, or the adapter may not have delivered the data.\n' +
+      'The original stream includes reads completing during USB shutdown; the capture counters count reads processed before the window ended. pendingUSBCalls lists unresolved calls, including a read not yet cancelled by USB close. A failed/interrupted capture or live export may be incomplete.\n' :
+      'events.jsonl is the authoritative trace: timestamps, USB boundaries, empty reads, control transfers, status and errors are preserved.\nusb-in.bin concatenates original bulk-IN bytes before CRC recovery; it includes discovery and negotiation.\nusb-out-requested.bin concatenates requested bulk-OUT buffers, including SigmaTel headers. Check bytesWritten/status in events.jsonl for short or failed writes.\nframes.jsonl contains decoded frames, including duplicates and echoes seen by the protocol reader. After a protocol error the page listens passively until the response deadline, without further polls or application commands.\nresponse.bin contains accepted IrCOMM application payloads after the single command, without interpretation. before-command.bin contains unsolicited application data seen before the command. Raw discarded/invalid or unrecognized frames remain in usb-in.bin and events.jsonl.\nA reply is not proof of the command meaning. No reply is not proof the command is unused. A failed/interrupted capture may be incomplete; pendingUSBCalls lists unresolved calls.\n') },
   ];
 }

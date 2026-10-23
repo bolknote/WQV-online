@@ -1,15 +1,67 @@
-# Command research
+# IR research
 
 Open [`research.html`](https://bolknote.github.io/WQV-online/research.html), or
 run `python3 serve.py --port 8766` and visit
 `http://127.0.0.1:8766/research.html` in Chrome, Edge or Opera.
-The normal photo app stays at the site's root.
+The normal photo app stays at the site's root. Use **Listen** for passive
+capture or **Commands** for the existing command probes. The page remembers
+this choice, but never starts a recording or connects to the watch on reload.
 
 This page is for the WQV-3 and SigmaTel STIr4200 (`066f:4200`). It uses the same
 USB transport and speed negotiation as the main app. It does not contact a
 server or start a watch connection on load.
 
-## The steps
+## Passive listening
+
+1. Choose a watch mode: **WATCH SEND**, **OTHERS SEND** or **SWAN SEND**.
+   This is a label for the experiment; the page does not change or detect the
+   watch's mode.
+2. Choose a fixed **9600**, **38400** or **115200 bit/s** rate and a capture
+   window of **2–120 seconds**. Each rate is a separate manual experiment.
+3. Release SigmaTel in any other app, then click **Prepare SigmaTel USB…**.
+   The page opens USB, initializes SIR and sets the chosen rate. This uses
+   local adapter control requests; no infrared frame is transmitted. It does
+   not start reading until you click **Start recording**.
+4. On the watch, exit the previous transfer session, select the matching SEND
+   mode and an image, and face it toward the adapter. Tick the readiness box.
+5. Click **Start recording**, then press the final SEND button on the watch.
+   Optionally click **Mark SEND press** on the page to add a timestamped event.
+   The marker records the page click, not the exact physical watch button press.
+6. Wait for the window to end, or click **Stop**. The page closes USB and keeps
+   the trace. Add screen observations, export the ZIP, and manually choose the
+   next experiment. Restart the watch's transfer mode before every attempt.
+
+The listener reads USB bulk IN directly and keeps reading after poll/final
+frames. It sends no discovery, connection setup, application commands, polls
+or acknowledgements, and blocks USB bulk OUT. It keeps a single fixed speed
+throughout the capture. A peer waiting for a reply may therefore stop after
+its initial requests; that is a useful capture, not a complete photo transfer.
+
+Original USB bytes are recorded before decoding. An optional strict IrDA
+decoder supplies CRC-valid frames for convenience; it does not remove bytes,
+repair escapes, recover bad CRCs or complete damaged end markers on empty reads.
+Unknown formats and incomplete frames remain in `usb-in.bin`. These are bytes
+delivered by SigmaTel, not raw optical pulse timings. An empty recording
+cannot establish that the watch sent nothing or that the mode is unsupported.
+
+Listening attempts have `kind: "listen"`, format `wqv-listen-research-v1`, the
+selected `watchMode` and `baud`, window/start/end times and byte/frame counters.
+`watch-send-mark` events carry the manual SEND markers. `response.bin` and
+`before-command.bin` are empty because no application session is opened.
+Read completions during shutdown remain in the original USB trace; counters
+cover the reads processed before the capture window ended. Stop/deadline
+returns even if a read is pending, and USB close cancels that browser request.
+If closing fails, the export lists the unresolved call in `pendingUSBCalls`.
+
+The listener has software tests for no bulk transmission, all three speed
+settings, unmodified raw exports, strict CRC, continued reception after final
+frames, manual Stop, endpoint errors and deadline completion with a pending
+USB read. Its first hardware capture is still pending.
+
+## Command steps
+
+Select **Commands** before following these steps. The previous command
+position and saved attempts are retained when switching modes.
 
 The order is `AA`, `AD`, `0B`, `AB`, `AC`, `AE`, `AF`, `A8`, `A9`, `B0`.
 Each request contains exactly one application byte, with no parameters.
@@ -83,7 +135,7 @@ Each attempt folder in the ZIP contains:
 | `response.bin` | Complete accepted IrCOMM application payload received after the probe, without interpreting or repairing its contents. |
 | `before-command.bin` | Unsolicited application bytes received while preparing to send; these are not counted as a response to the command. |
 
-`commandAttempted` records that the single send was attempted. `commandSent`
+For command attempts, `commandAttempted` records that the single send was attempted. `commandSent`
 means the transport's send operation completed, not that the watch understood
 or executed it. Errors and raw USB results must be checked alongside these flags.
 An empty `response.bin` is also a result.

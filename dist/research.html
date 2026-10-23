@@ -1,32 +1,38 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WQV Link · Command research</title>
+<title>WQV Link · IR research</title>
 <link rel="icon" href="./icons.svg"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./research.css">
 <script type="module" src="./research.mjs"></script>
 </head><body>
-<div class="desktop-caption"><span>CASIO WRIST CAMERA</span><span>COMMAND RESEARCH</span></div>
+<div class="desktop-caption"><span>CASIO WRIST CAMERA</span><span>IR RESEARCH</span></div>
 <main class="cassiopeia">
 <header class="case-brand"><span class="casio">CASIO</span><span class="case-label">CASSIOPEIA</span><span class="case-model">WQV-3 / WEBUSB</span></header>
 <div class="screen">
-<header class="titlebar"><span class="app-title" data-text="Command research">Command research</span><a href="./" data-text="Back to WQV Link">Back to WQV Link</a><label><span data-text="Language">Language</span> <select id="language" aria-label="Language"><option value="en">English</option><option value="ru">Русский</option></select></label></header>
+<header class="titlebar"><span class="app-title" data-text="IR research">IR research</span><a href="./" data-text="Back to WQV Link">Back to WQV Link</a><label><span data-text="Language">Language</span> <select id="language" aria-label="Language"><option value="en">English</option><option value="ru">Русский</option></select></label></header>
 <div class="research-body">
-<p class="research-notice" data-text="The unknown commands may change watch data or settings. Their effects are not established. Each step sends one command with no parameters; this is not a firmware reader.">The unknown commands may change watch data or settings. Their effects are not established. Each step sends one command with no parameters; this is not a firmware reader.</p>
-<div class="research-grid">
-<aside><h2 data-text="Steps">Steps</h2><ol id="steps"></ol><button id="restart-plan" disabled data-text="Start from AA">Start from AA</button><p class="small-note" data-text="AA is a control request. AD exists in Casio Link 3. The remaining codes are guesses from gaps or neighboring numbers.">AA is a control request. AD exists in Casio Link 3. The remaining codes are guesses from gaps or neighboring numbers.</p></aside>
+<nav class="research-modes" aria-label="Research mode"><button id="mode-listen" aria-pressed="true" disabled data-text="Listen">Listen</button><button id="mode-commands" aria-pressed="false" disabled data-text="Commands">Commands</button></nav>
+<p id="research-notice" class="research-notice">No watch connection starts automatically.</p>
+<div id="research-grid" class="research-grid listening">
+<aside id="command-sidebar" hidden><h2 data-text="Steps">Steps</h2><ol id="steps"></ol><button id="restart-plan" disabled data-text="Start from AA">Start from AA</button><p class="small-note" data-text="AA is a control request. AD exists in Casio Link 3. The remaining codes are guesses from gaps or neighboring numbers.">AA is a control request. AD exists in Casio Link 3. The remaining codes are guesses from gaps or neighboring numbers.</p></aside>
 <section aria-labelledby="step-heading">
 <h1 id="step-heading"></h1><p id="step-evidence"></p>
+<fieldset id="listen-settings"><legend data-text="Capture setup">Capture setup</legend>
+<div class="research-buttons"><label><span data-text="Watch mode">Watch mode</span> <select id="watch-mode" disabled><option value="watch-send">WATCH SEND</option><option value="others-send">OTHERS SEND</option><option value="swan-send">SWAN SEND</option></select></label>
+<label><span data-text="Fixed speed">Fixed speed</span> <select id="listen-baud" disabled><option value="9600">9600 bit/s</option><option value="38400">38400 bit/s</option><option value="115200">115200 bit/s</option></select></label></div>
+<p class="small-note" data-text="Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.">Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.</p>
+</fieldset>
 <fieldset><legend data-text="1. Prepare USB first">1. Prepare USB first</legend>
 <p data-text="Disconnect this adapter in other apps. Prepare USB before enabling transfer mode on the watch. No watch command is sent during preparation.">Disconnect this adapter in other apps. Prepare USB before enabling transfer mode on the watch. No watch command is sent during preparation.</p>
 <div class="research-buttons"><button id="prepare" disabled data-text="Prepare SigmaTel USB…">Prepare SigmaTel USB…</button><button id="disconnect" disabled data-text="Release USB">Release USB</button><span id="usb-state"></span></div>
 </fieldset>
-<fieldset><legend data-text="2. Reset the watch, then run this step">2. Reset the watch, then run this step</legend>
-<p data-text="Exit the previous transfer session on the watch. Select IR → PC → F / REMOTE again and face the watch toward the adapter. No factory reset is needed.">Exit the previous transfer session on the watch. Select IR → PC → F / REMOTE again and face the watch toward the adapter. No factory reset is needed.</p>
-<label class="research-ready"><input id="watch-ready" type="checkbox" disabled><span data-text="I restarted IR → PC for this step; the watch is ready now.">I restarted IR → PC for this step; the watch is ready now.</span></label>
-<div class="research-buttons"><label><span data-text="Response window, seconds">Response window, seconds</span> <input id="response-seconds" type="number" min="2" max="30" value="5"></label><button id="send" disabled></button><button id="stop" disabled data-text="Stop">Stop</button></div>
-<p class="small-note" data-text="One application command, no automatic retransmission. Normal IrDA discovery, negotiation and acknowledgements are still sent. The page stops after the response window and releases USB; it does not advance to another command.">One application command, no automatic retransmission. Normal IrDA discovery, negotiation and acknowledgements are still sent. The page stops after the response window and releases USB; it does not advance to another command.</p>
+<fieldset><legend id="run-heading"></legend>
+<p id="watch-instructions"></p>
+<label class="research-ready"><input id="watch-ready" type="checkbox" disabled><span id="ready-label"></span></label>
+<div class="research-buttons"><label><span id="window-label"></span> <input id="response-seconds" type="number" min="2" max="120" value="20"></label><button id="send" disabled></button><button id="stop" disabled data-text="Stop">Stop</button><button id="mark-send" hidden disabled data-text="Mark SEND press">Mark SEND press</button></div>
+<p id="run-note" class="small-note"></p>
 </fieldset>
-<div class="research-buttons navigation"><button id="retry" disabled data-text="Retry this step">Retry this step</button><button id="skip" disabled data-text="Skip step →">Skip step →</button><button id="next" disabled data-text="Next step →">Next step →</button></div>
+<div id="command-navigation" class="research-buttons navigation"><button id="retry" disabled data-text="Retry this step">Retry this step</button><button id="skip" disabled data-text="Skip step →">Skip step →</button><button id="next" disabled data-text="Next step →">Next step →</button></div>
 <p id="status" role="status" aria-live="polite" data-text="Opening the local journal…">Opening the local journal…</p>
 <div id="capture-stats" class="small-note"></div>
 </section></div>

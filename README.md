@@ -81,17 +81,26 @@ storage. The hosted app and a localhost copy have separate collections.
 Deleting a local photo only removes that browser copy. Deleting a photo from
 the watch still takes the watch's buttons; the app's Help menu has the steps.
 
-## Command research
+## IR research
 
 There is a separate [research page](https://bolknote.github.io/WQV-online/research.html)
-for trying the remaining command candidates one at a time. Prepare USB first,
-restart transfer mode on the watch, then send the selected command. Moving to
-the next step is manual. Each attempt keeps its original USB bytes and can be
-exported as a ZIP, including failed or interrupted attempts.
+with two modes. **Listen** records what SigmaTel receives at a fixed 9600,
+38400 or 115200 bit/s. Choose WATCH SEND, OTHERS SEND or SWAN SEND, prepare USB,
+then start recording before pressing SEND on the watch. It sends no discovery,
+commands or acknowledgements. Every recording and speed change is manual.
 
-The effects of the unknown codes are not established. The page has software
-tests; those probes have not been checked on the watch. See the
-[research notes](docs/command-research.md) for the request list and log format.
+**Commands** keeps the existing step-by-step command probes. Prepare USB first,
+restart IR → PC on the watch, then send the selected command. Moving to the
+next step is manual. Each attempt keeps its original USB bytes and can be
+exported as a ZIP, including failed or interrupted attempts. Both modes use
+the same local research journal; previous recordings remain available.
+
+Listen keeps unknown bytes and failed CRC frames in the original stream.
+Its optional frame decoder uses strict IrDA CRC checks without recovery.
+The selected mode and speed are test settings, not detected capabilities.
+The new listener has software tests; hardware validation is pending. The effects
+of the unknown command codes are not established. See the
+[research notes](docs/command-research.md) for instructions and the log format.
 
 ## Run locally
 
