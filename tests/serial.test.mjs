@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { serialSettings, sendSerialBytes, probeSerial, finishSerialCapture, xmodemCandidates } from '../dist/serial-core.mjs';
+import { ManualSerialTrigger, serialSettings, sendSerialBytes, probeSerial, finishSerialCapture, xmodemCandidates } from '../dist/serial-core.mjs';
 import { captureUSB, attemptFiles } from '../dist/research-core.mjs';
 import { SigmaTel } from '../dist/sigmatel.mjs';
 import { b, concat, fromHex, toHex } from '../dist/formats.mjs';
@@ -75,7 +75,8 @@ async function prepare({ passive = false } = {}) {
 test('serial probes require a valid preset, watch mode and idle 9600 receiver before touching data endpoints', async () => {
   assert.equal(serialSettings(settings).probeHex, '15');
   assert.equal(serialSettings({ ...settings, probe: 'cr' }).repeatMs, 0);
-  for (const bad of [{ probe: 'aa' }, { watchMode: 'pc-remote' }, { watchMode: 'swan-receive' }, { durationMs: 0 }, { durationMs: NaN }, { durationMs: 120001 }]) {
+  assert.equal(serialSettings({ ...settings, watchMode: 'swan-receive', transmission: 'manual' }).repeatMs, 0);
+  for (const bad of [{ probe: 'aa' }, { watchMode: 'pc-remote' }, { watchMode: 'swan-receive' }, { transmission: 'bad' }, { durationMs: 0 }, { durationMs: NaN }, { durationMs: 120001 }]) {
     assert.throws(() => serialSettings({ ...settings, ...bad }), RangeError);
   }
   const { device, adapter, record } = await prepare();
@@ -136,9 +137,67 @@ test('unsolicited bytes before the probe prevent any transmission; unknown bytes
   const { adapter, device, events, record } = await prepare();
   const received = fromHex('c1e1230006'); device.enqueue(received);
   const result = await probeSerial(adapter, settings, { record }); await adapter.close();
-  assert.equal(result.status, 'captured'); assert.equal(result.rxBeforeProbe, received.length);
+  assert.equal(result.status, 'probe-not-sent'); assert.equal(result.probeNotSentReason, 'received-before-probe');
+  assert.equal(result.rxBeforeProbe, received.length);
   assert.equal(result.rxAfterProbe, 0); assert.equal(result.txAttempts, 0); assert.equal(device.writes.length, 0);
   assert.deepEqual(attemptFiles({ kind: 'serial' }, events).find(file => file.name === 'usb-in.bin').data, received);
+  assert.equal(finishSerialCapture(result, events).status, 'probe-not-sent');
+});
+
+test('manual probe keeps early FF bytes, sends once after a click and preserves the before/after boundary', async () => {
+  const { adapter, device, events, record } = await prepare();
+  const manualTrigger = new ManualSerialTrigger();
+  assert.equal(manualTrigger.request(), false, 'No request before recording');
+  const before = fromHex('ffffffff'), after = fromHex('15e123'); device.enqueue(before);
+  device.onTransmit = () => { assert.equal(manualTrigger.request(), false); device.enqueue(after); };
+  const run = probeSerial(adapter, { ...settings, watchMode: 'swan-receive', transmission: 'manual' }, { record, manualTrigger });
+  while (!adapter.serialStats.rxBytes) await sleep(2);
+  assert.equal(device.writes.length, 0); assert.equal(adapter.serialStats.probePausedByRX, false);
+  assert.equal(manualTrigger.request(), true); record('serial-manual-send-request', { dataHex: '15' });
+  assert.equal(manualTrigger.request(), false, 'No duplicate queued request');
+  const result = await run; await adapter.close();
+  assert.equal(result.status, 'captured'); assert.equal(result.txCompleted, 1); assert.equal(result.txSerialBytes, 1);
+  assert.equal(result.repeatMs, 0); assert.equal(result.probeNotSentReason, null);
+  assert.equal(result.rxBeforeProbe, before.length); assert.equal(result.rxAfterProbe, after.length);
+  assert.deepEqual(device.writes.map(write => toHex(write.bytes)), ['55aa010015']);
+  const final = finishSerialCapture(result, events);
+  assert.equal(final.rxBeforeProbe, before.length); assert.equal(final.rxAfterProbe, after.length);
+  const files = new Map(attemptFiles({ kind: 'serial' }, events).map(file => [file.name, file.data]));
+  assert.deepEqual(files.get('usb-in.bin'), concat(before, after));
+  assert.deepEqual(files.get('serial-out-completed.bin'), b(0x15));
+  assert.equal(manualTrigger.state, 'closed'); assert.equal(manualTrigger.request(), false);
+});
+
+test('manual capture never sends without a click, even after early received bytes', async () => {
+  const { adapter, device, events, record } = await prepare(); const manualTrigger = new ManualSerialTrigger();
+  device.enqueue(b(0xff));
+  const result = await probeSerial(adapter, { ...settings, transmission: 'manual' }, { record, manualTrigger });
+  await adapter.close();
+  assert.equal(result.status, 'probe-not-sent'); assert.equal(result.probeNotSentReason, 'manual-send-not-requested');
+  assert.equal(result.rxBytes, 1); assert.equal(device.writes.length, 0);
+  assert.equal(finishSerialCapture(result, events).status, 'probe-not-sent');
+});
+
+test('a queued manual request cannot cancel a pending read or transmit after Stop', async () => {
+  const { adapter, device, events, record } = await prepare(); const manualTrigger = new ManualSerialTrigger();
+  device.blocked = true; const controller = new AbortController();
+  const run = probeSerial(adapter, { ...settings, transmission: 'manual' }, { record, manualTrigger, signal: controller.signal });
+  while (!device.pending) await sleep(2);
+  assert.equal(manualTrigger.request(), true); controller.abort();
+  const result = await run; await adapter.close();
+  assert.equal(result.status, 'interrupted'); assert.equal(result.probeNotSentReason, 'pending-usb-read');
+  assert.equal(device.writes.length, 0); assert.equal(manualTrigger.request(), false);
+  assert.equal(device.releases, 0); assert.ok(events.some(e => e.kind === 'usb-error' && e.operation === 'transferIn'));
+});
+
+test('manual pending read expires without reporting a completed probe', async () => {
+  const { adapter, device, record } = await prepare(); const manualTrigger = new ManualSerialTrigger(); device.blocked = true;
+  const run = probeSerial(adapter, { ...settings, transmission: 'manual' }, { record, manualTrigger });
+  while (!device.pending) await sleep(2);
+  assert.equal(manualTrigger.request(), true);
+  const result = await run; await adapter.close();
+  assert.equal(result.status, 'probe-not-sent'); assert.equal(result.probeNotSentReason, 'pending-usb-read');
+  assert.equal(result.txAttempts, 0); assert.equal(manualTrigger.request(), false);
 });
 
 test('Enter is sent exactly once even when no reply arrives', async () => {

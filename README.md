@@ -95,9 +95,11 @@ and answers searches from the watch. It records any request to connect and
 stops there. It sends no application commands and does not accept a connection.
 
 **Serial bytes** tests the WonderWave/WonderWitch lead at 9600 bit/s, 8N1.
-It sends plain `15` (XMODEM NAK) every two seconds until any byte arrives,
-or sends `0D` (Enter) once. There is also a listen-only control. No IrLAP
-framing or XMODEM acknowledgements are added. Each probe starts manually;
+Start recording, activate the chosen watch mode, then send `15` (XMODEM NAK)
+or `0D` (Enter) with a separate button. The default is one byte per capture,
+with no automatic repeats. SWAN RECEIVE is available with its own instructions.
+There is also a listen-only control and an optional automatic setting for SEND
+modes. No IrLAP framing or XMODEM acknowledgements are added;
 raw bytes and possible local echo are kept in the ZIP. These are protocol
 hypotheses, not identified Casio commands.
 

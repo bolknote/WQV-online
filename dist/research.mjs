@@ -6,10 +6,20 @@ import { PROBE_PLAN, ManualSteps, ResearchClient, captureUSB, attemptFiles } fro
 import { openResearchStore, Journal } from './research-store.mjs';
 import { LISTEN_RATES, LISTEN_MODES, listenSettings, listen } from './listen-core.mjs';
 import { DISCOVERY_MODES, discoverySettings, discoverXID } from './discovery-core.mjs';
-import { SERIAL_PROBES, serialSettings, probeSerial, finishSerialCapture } from './serial-core.mjs';
+import { SERIAL_PROBES, SERIAL_MODES, ManualSerialTrigger, serialSettings, probeSerial, finishSerialCapture } from './serial-core.mjs';
 
 const $ = id => document.getElementById(id);
 const ru = {
+  'Send probe': 'Отправка пробы', 'Manually, once': 'Вручную, один раз', Automatically: 'Автоматически',
+  'Send {hex} once': 'Отправить {hex} один раз',
+  '15 (NAK) is sent once when you click the send button during recording. No XMODEM block is acknowledged.': '15 (NAK) отправляется один раз по кнопке во время записи. Блоки XMODEM не подтверждаются.',
+  'Start recording, activate the selected watch mode and mark the button press. Then click Send once. Earlier RX bytes are kept and do not cancel your explicit send. No retransmissions or acknowledgements follow.': 'Начните запись, включите выбранный режим часов и отметьте нажатие. Затем нажмите «Отправить один раз». Ранее принятые байты сохраняются и не отменяют вашу ручную отправку. Повторов и подтверждений нет.',
+  'Recording. Activate the selected watch mode, then send the probe with the separate button.': 'Идёт запись. Включите выбранный режим часов, затем отправьте пробу отдельной кнопкой.',
+  'Single-byte probe queued. Waiting for the current USB read to finish.': 'Однобайтовая проба запрошена. Ожидаем завершения текущего чтения USB.',
+  'USB transmission completed. Recording continues.': 'Передача USB завершена. Запись продолжается.',
+  'Bytes arrived before the automatic probe. Nothing was sent; the received bytes are preserved.': 'Байты пришли до автоматической пробы. Ничего не отправлено; принятые байты сохранены.',
+  'The manual send button was not pressed. Nothing was sent; all received bytes are preserved.': 'Кнопка ручной отправки не была нажата. Ничего не отправлено; все принятые байты сохранены.',
+  'Serial bytes captured. Check the before/after probe counters and save the ZIP.': 'Сырые байты сохранены. Проверьте счётчики до и после пробы и сохраните ZIP.',
   '2. Start recording, then activate RECEIVE on the watch': '2. Начните запись, затем включите RECEIVE на часах',
   'Select IR → SWAN → RECEIVE on the watch and face it toward SigmaTel. Start recording here before the final button that activates reception. No photo selection is needed.': 'Выберите на часах IR → SWAN → RECEIVE и поставьте их напротив SigmaTel. Начните запись здесь перед последним нажатием, которое включает приём. Выбирать снимок не нужно.',
   'The watch is facing the adapter. I am ready to start recording, then activate RECEIVE.': 'Часы напротив адаптера. Я готов начать запись и затем включить RECEIVE.',
@@ -120,7 +130,7 @@ let position = {};
 try { position = JSON.parse(localStorage.getItem('wqv-research.position') || '{}'); } catch {}
 const plan = new ManualSteps(position.index, position.done);
 const RESEARCH_MODES = ['listen', 'discovery', 'serial', 'commands'];
-let mode = 'listen', selectedWatchMode = 'watch-send', selectedBaud = 9600, selectedSerialProbe = 'nak';
+let mode = 'listen', selectedWatchMode = 'watch-send', selectedBaud = 9600, selectedSerialProbe = 'nak', selectedSerialTransmission = 'manual';
 try {
   const savedMode = localStorage.getItem('wqv-research.mode');
   if (RESEARCH_MODES.includes(savedMode)) mode = savedMode;
@@ -129,17 +139,25 @@ try {
   if (LISTEN_RATES.includes(saved.baud)) selectedBaud = saved.baud;
   const serialProbe = localStorage.getItem('wqv-research.serial-probe');
   if (SERIAL_PROBES.some(item => item.id === serialProbe)) selectedSerialProbe = serialProbe;
+  const transmission = localStorage.getItem('wqv-research.serial-transmission');
+  if (['manual', 'automatic'].includes(transmission)) selectedSerialTransmission = transmission;
 } catch {}
 const requested = new URL(location.href).searchParams;
 const requestedMode = requested.get('mode');
 if (RESEARCH_MODES.includes(requestedMode)) mode = requestedMode;
-if (mode === 'listen' && LISTEN_MODES.includes(requested.get('watch'))) selectedWatchMode = requested.get('watch');
+const allowedWatchModes = mode === 'serial' ? SERIAL_MODES : mode === 'discovery' ? DISCOVERY_MODES : LISTEN_MODES;
+if (allowedWatchModes.includes(requested.get('watch'))) selectedWatchMode = requested.get('watch');
 if (mode === 'listen' && LISTEN_RATES.includes(Number(requested.get('baud')))) selectedBaud = Number(requested.get('baud'));
-if (mode === 'serial') selectedWatchMode = 'swan-send';
-else if (mode !== 'listen' && selectedWatchMode === 'swan-receive') selectedWatchMode = 'swan-send';
+if (mode === 'serial') {
+  if (!SERIAL_MODES.includes(selectedWatchMode)) selectedWatchMode = 'swan-send';
+  if (SERIAL_PROBES.some(item => item.id === requested.get('probe'))) selectedSerialProbe = requested.get('probe');
+  if (['manual', 'automatic'].includes(requested.get('trigger'))) selectedSerialTransmission = requested.get('trigger');
+  if (selectedWatchMode === 'swan-receive') selectedSerialTransmission = 'manual';
+} else if (mode !== 'listen' && selectedWatchMode === 'swan-receive') selectedWatchMode = 'swan-send';
 else if (mode === 'listen' && !LISTEN_MODES.includes(selectedWatchMode)) selectedWatchMode = 'watch-send';
 $('watch-mode').value = selectedWatchMode; $('listen-baud').value = selectedBaud;
 $('serial-probe').value = selectedSerialProbe;
+$('serial-transmission').value = selectedSerialTransmission;
 $('response-seconds').value = mode === 'commands' ? 5 : 20;
 const isListening = () => mode === 'listen';
 const isDiscovery = () => mode === 'discovery';
@@ -148,6 +166,7 @@ const isCapture = () => mode !== 'commands';
 const isRecordingAttempt = attempt => ['listen', 'discovery', 'serial'].includes(attempt?.kind);
 const watchModeName = value => value.replaceAll('-', ' ').toUpperCase();
 let store, adapter, client, controller, journal, active, busy = false, storageFailed = false, attempts = [], releasePageLock;
+let manualTrigger;
 let statusKey = 'Opening the local journal…', statusDetail = '', statusError = false;
 const journals = new Map();
 
@@ -162,19 +181,21 @@ function savePosition() {
 function render() {
   const ready = Boolean(adapter?.opened), passive = isListening(), discovery = isDiscovery(), serial = isSerial(), capture = isCapture(), done = !capture && plan.state === 'done';
   const pcRemote = discovery && selectedWatchMode === 'pc-remote';
-  const swanReceive = passive && selectedWatchMode === 'swan-receive';
+  const swanReceive = (passive || serial) && selectedWatchMode === 'swan-receive';
+  const manualSerial = serial && selectedSerialTransmission === 'manual';
   document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   for (const option of RESEARCH_MODES) $('mode-' + option).setAttribute('aria-pressed', String(mode === option));
-  for (const id of [...RESEARCH_MODES.map(option => 'mode-' + option), 'watch-mode', 'listen-baud', 'serial-probe']) $(id).disabled = !store || busy || ready;
+  for (const id of [...RESEARCH_MODES.map(option => 'mode-' + option), 'watch-mode', 'listen-baud', 'serial-probe', 'serial-transmission']) $(id).disabled = !store || busy || ready;
   $('listen-settings').hidden = !capture; $('command-sidebar').hidden = capture; $('command-navigation').hidden = capture;
   $('listen-rate-setting').hidden = discovery || serial; $('discovery-rate').hidden = !discovery;
   $('serial-settings').hidden = !serial; $('serial-rate').hidden = !serial;
   $('serial-next').disabled = !store || busy || ready || SERIAL_PROBES.at(-1).id === selectedSerialProbe;
-  $('serial-probe-note').textContent = t(selectedSerialProbe === 'nak' ? '15 (NAK) repeats every 2 seconds while no bytes arrive. The first received byte stops further transmissions. No XMODEM block is acknowledged.' : selectedSerialProbe === 'cr' ?
+  $('serial-probe-note').textContent = t(selectedSerialProbe === 'nak' ? manualSerial ? '15 (NAK) is sent once when you click the send button during recording. No XMODEM block is acknowledged.' : '15 (NAK) repeats every 2 seconds while no bytes arrive. The first received byte stops further transmissions. No XMODEM block is acknowledged.' : selectedSerialProbe === 'cr' ?
     '0D (Enter) is sent once. This opens the WonderWitch shell in the original guide; its effect on Casio SWAN is unknown.' : 'Receives plain serial bytes at 9600 bit/s without transmitting anything. No IrDA decoder or CRC recovery is used.');
   $('pc-remote-mode').hidden = !discovery; $('pc-remote-mode').disabled = !discovery;
-  $('swan-receive-mode').hidden = !passive; $('swan-receive-mode').disabled = !passive;
+  $('swan-receive-mode').hidden = !(passive || serial); $('swan-receive-mode').disabled = !(passive || serial);
+  $('serial-automatic').disabled = swanReceive;
   $('capture-setup-note').textContent = t(serial ? 'Fixed 9600 bit/s, 8N1. Each probe is a separate manual experiment; restart the watch mode between probes.' : discovery ? 'Fixed 9600 bit/s. One watch mode per attempt. Discovery stops on an incoming connection request; each new attempt starts manually.' :
     'Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.');
   $('research-grid').classList.toggle('listening', capture);
@@ -189,7 +210,7 @@ function render() {
   $('ready-label').textContent = t(swanReceive ? 'The watch is facing the adapter. I am ready to start recording, then activate RECEIVE.' : capture && !pcRemote ? 'The watch is facing the adapter. I am ready to start recording, then press SEND.' : 'I restarted IR → PC for this step; the watch is ready now.');
   $('window-label').textContent = t(capture ? 'Capture window, seconds' : 'Response window, seconds');
   $('response-seconds').max = capture ? 120 : 30;
-  $('run-note').textContent = t(swanReceive ? 'Only listens for bytes from the watch, including any receiver handshake. Use Mark RECEIVE press to record when you activate reception.' : serial ? selectedSerialProbe === 'listen' ? 'Receives plain serial bytes at 9600 bit/s without transmitting anything. No IrDA decoder or CRC recovery is used.' : 'The first probe byte is sent after 0.5 seconds. Any incoming byte stops further transmissions; recording continues. No file or firmware data is sent.' : pcRemote ? 'PC / REMOTE is a reception control. Only XID discovery frames are sent, at a fixed 9600 bit/s; no application command is sent.' : discovery ? 'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.' : passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
+  $('run-note').textContent = t(serial ? selectedSerialProbe === 'listen' ? 'Receives plain serial bytes at 9600 bit/s without transmitting anything. No IrDA decoder or CRC recovery is used.' : manualSerial ? 'Start recording, activate the selected watch mode and mark the button press. Then click Send once. Earlier RX bytes are kept and do not cancel your explicit send. No retransmissions or acknowledgements follow.' : 'The first probe byte is sent after 0.5 seconds. Any incoming byte stops further transmissions; recording continues. No file or firmware data is sent.' : swanReceive ? 'Only listens for bytes from the watch, including any receiver handshake. Use Mark RECEIVE press to record when you activate reception.' : pcRemote ? 'PC / REMOTE is a reception control. Only XID discovery frames are sent, at a fixed 9600 bit/s; no application command is sent.' : discovery ? 'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.' : passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
     'One application command, no automatic retransmission. Normal IrDA discovery, negotiation and acknowledgements are still sent. The page stops after the response window and releases USB; it does not advance to another command.');
   $('steps').replaceChildren(...PROBE_PLAN.map((step, i) => {
     const li = document.createElement('li'); li.textContent = codeHex(step.code);
@@ -208,6 +229,7 @@ function render() {
   $('mark-send').hidden = !capture || pcRemote;
   $('mark-send').textContent = t(swanReceive ? 'Mark RECEIVE press' : 'Mark SEND press');
   $('mark-send').disabled = !busy || active?.status !== 'running' || active?.kind === 'command';
+  drawManualProbe();
   $('next').disabled = busy || ready || !done || plan.index === PROBE_PLAN.length - 1 || storageFailed;
   $('skip').disabled = !store || busy || ready || plan.index === PROBE_PLAN.length - 1;
   $('retry').disabled = busy || ready || !done;
@@ -221,11 +243,20 @@ function render() {
   $('storage-state').textContent = t('Saved locally in this browser. A page reload does not start any command.');
   status(statusKey, statusDetail, statusError);
 }
+function drawManualProbe() {
+  const probe = SERIAL_PROBES.find(item => item.id === selectedSerialProbe);
+  $('serial-send-once').hidden = !isSerial() || selectedSerialTransmission !== 'manual' || !probe.hex;
+  $('serial-send-once').textContent = t('Send {hex} once').replace('{hex}', probe.hex.toUpperCase());
+  $('serial-send-once').disabled = !busy || active?.status !== 'running' || manualTrigger?.state !== 'waiting' || storageFailed;
+}
 function drawCapture() {
+  drawManualProbe();
   if (!journal) return;
   const a = adapter;
   const c = a?.serialStats ?? a?.passiveStats ?? a?.discoveryStats ?? active?.counters;
   const usb = a?.usbStats ?? active?.usbCounters ?? c;
+  if (active?.status === 'running' && active.transmission === 'manual' && c?.txCompleted &&
+      statusKey === 'Single-byte probe queued. Waiting for the current USB read to finish.') status('USB transmission completed. Recording continues.');
   $('capture-stats').textContent = `${t('Events')}: ${journal.events.length} · ${t('Saved')}: ${journal.saved}` +
     (isRecordingAttempt(active) ? ` · ${active?.baud} bit/s · RX ${usb?.rxBytes ?? 0} B · ${t('USB reads')}: ${usb?.readCount ?? 0} · ${t('With data')}: ${usb?.nonemptyReads ?? 0} · ${t('Empty reads')}: ${usb?.emptyReads ?? 0} · ${t(active.watchMode === 'swan-receive' ? 'RECEIVE markers' : 'SEND markers')}: ${active.watchMode === 'swan-receive' ? active.receiveMarkers ?? 0 : active.sendMarkers ?? 0}` +
       (active?.kind === 'serial' ? ` · ${t('TX attempts')}: ${c?.txAttempts ?? 0} · ${t('TX completed')}: ${c?.txCompleted ?? 0} · ${t('Before probe')}: ${c?.rxBeforeProbe ?? 0} B · ${t('After probe')}: ${c?.rxAfterProbe ?? 0} B` :
@@ -265,7 +296,7 @@ function showReport() {
   const result = attempt.result;
   $('reply').textContent = JSON.stringify(isRecordingAttempt(attempt) ? {
     status: attempt.status, watchMode: attempt.watchMode, baud: attempt.baud,
-    ...(attempt.kind === 'serial' ? { probe: attempt.probe, probeHex: attempt.probeHex } : {}), result,
+    ...(attempt.kind === 'serial' ? { probe: attempt.probe, probeHex: attempt.probeHex, transmission: attempt.transmission ?? 'automatic' } : {}), result,
     usbCounters: attempt.usbCounters ?? null,
     sendMarkers: attempt.sendMarkers ?? 0, ...(attempt.watchMode === 'swan-receive' ? { receiveMarkers: attempt.receiveMarkers ?? 0 } : {}), error: attempt.error ?? null, cleanupError: attempt.cleanupError ?? null,
   } : { status: attempt.status, commandHex: attempt.commandHex,
@@ -281,7 +312,7 @@ async function saveActive() {
 async function prepare({ reset = false } = {}) {
   if (busy || adapter?.opened || !isCapture() && plan.state !== 'idle' || storageFailed) return;
   const passive = isListening(), discovery = isDiscovery(), serial = isSerial(), capture = isCapture();
-  const settings = serial ? serialSettings({ probe: selectedSerialProbe, watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) :
+  const settings = serial ? serialSettings({ probe: selectedSerialProbe, watchMode: selectedWatchMode, transmission: selectedSerialTransmission, durationMs: Number($('response-seconds').value) * 1000 }) :
     discovery ? discoverySettings({ watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) :
     passive ? listenSettings({ baud: selectedBaud, watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) : null;
   active = null; journal = null; $('capture-stats').textContent = ''; $('recent').textContent = '—';
@@ -295,7 +326,7 @@ async function prepare({ reset = false } = {}) {
       format: serial ? 'wqv-serial-research-v1' : discovery ? 'wqv-discovery-research-v1' : passive ? 'wqv-listen-research-v1' : 'wqv-command-research-v1', createdAt: new Date().toISOString(),
       ...(capture ? { watchMode: settings.watchMode, baud: settings.baud, sendMarkers: 0 } : { commandHex: codeHex(plan.step.code).toLowerCase(), step: plan.index }),
       ...(settings?.watchMode === 'swan-receive' ? { receiveMarkers: 0 } : {}),
-      ...(serial ? { probe: settings.probe, probeHex: settings.probeHex, repeatMs: settings.repeatMs, framing: 'raw-sir-8n1' } : {}),
+      ...(serial ? { probe: settings.probe, probeHex: settings.probeHex, transmission: settings.transmission, repeatMs: settings.repeatMs, framing: 'raw-sir-8n1' } : {}),
       status: 'preparing', notes: '',
       device: { vendorId: device.vendorId, productId: device.productId, productName: device.productName,
         manufacturerName: device.manufacturerName, serialNumber: device.serialNumber, deviceVersionMajor: device.deviceVersionMajor,
@@ -303,7 +334,8 @@ async function prepare({ reset = false } = {}) {
       request: { parametersHex: '', usbReset: reset, applicationTransmissions: serial ? null : capture ? 0 : 1, automaticRetransmission: false,
         ...(capture ? { discovery, acknowledgements: false, bulkOutAllowed: discovery || serial && Boolean(settings.probeHex), acceptingConnections: false } : {}),
         ...(serial ? { serialProbe: settings.probe, probeHex: settings.probeHex, repeatMs: settings.repeatMs,
-          irlap: false, stopTransmittingOnAnyRX: true, automaticAcknowledgements: false } : {}) },
+          transmission: settings.transmission, manualSingleProbe: settings.transmission === 'manual',
+          irlap: false, stopTransmittingOnAnyRX: settings.transmission === 'automatic' && Boolean(settings.probeHex), automaticAcknowledgements: false } : {}) },
       capture: { originalUSBBytes: true, syntheticData: false, automaticNextStep: false } };
     await saveActive();
     journal = new Journal(store, active, storageError); journals.set(active.id, journal);
@@ -329,7 +361,7 @@ async function prepare({ reset = false } = {}) {
     }
     active.status = 'prepared'; active.adapter = adapter.description; active.chipRevision = adapter.revision;
     await journal.drain(); await saveActive();
-    status(passive && settings.watchMode === 'swan-receive' ? 'USB ready. Select IR → SWAN → RECEIVE, then start recording before activating reception on the watch.' : discovery && settings.watchMode === 'pc-remote' ? 'USB ready. Restart IR → PC → F / REMOTE, tick the checkbox and start discovery.' : capture ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
+    status(capture && settings.watchMode === 'swan-receive' ? 'USB ready. Select IR → SWAN → RECEIVE, then start recording before activating reception on the watch.' : discovery && settings.watchMode === 'pc-remote' ? 'USB ready. Restart IR → PC → F / REMOTE, tick the checkbox and start discovery.' : capture ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
       'USB ready. Now restart IR → PC on the watch, tick the checkbox and send this command.');
   } catch (error) {
     if (active?.status === 'preparing') { active.status = 'preparation-error'; active.error = String(error); }
@@ -373,9 +405,10 @@ async function run() {
     await saveActive();
     journal.record('watch-ready', { [capture ? 'captureWindowMs' : 'responseWindowMs']: seconds * 1000 });
     if (serial) {
-      status('Serial recording started. Now press SEND on the watch.', `${watchModeName(active.watchMode)} · ${active.probeHex.toUpperCase() || t('Listen only')} · 9600 bit/s`);
-      active.result = await probeSerial(adapter, { probe: active.probe, watchMode: active.watchMode, durationMs: seconds * 1000 },
-        { signal: controller.signal, record: journal.record });
+      manualTrigger = active.transmission === 'manual' ? new ManualSerialTrigger() : null;
+      status(active.transmission === 'manual' && active.probeHex ? 'Recording. Activate the selected watch mode, then send the probe with the separate button.' : active.watchMode === 'swan-receive' ? 'Recording. Now activate RECEIVE on the watch.' : 'Serial recording started. Now press SEND on the watch.', `${watchModeName(active.watchMode)} · ${active.probeHex.toUpperCase() || t('Listen only')} · 9600 bit/s`);
+      active.result = await probeSerial(adapter, { probe: active.probe, watchMode: active.watchMode, transmission: active.transmission, durationMs: seconds * 1000 },
+        { signal: controller.signal, record: journal.record, manualTrigger: manualTrigger ?? undefined });
     } else if (discovery) {
       status(active.watchMode === 'pc-remote' ? 'Active discovery. Waiting for a PC / REMOTE reply.' : 'Active discovery. Now press SEND on the watch.', watchModeName(active.watchMode));
       active.result = await discoverXID(adapter, { watchMode: active.watchMode, durationMs: seconds * 1000 },
@@ -394,7 +427,7 @@ async function run() {
     active.status = controller.signal.aborted ? 'interrupted' : 'error'; active.error = String(error);
     journal.record('step-error', { error: String(error), stack: error.stack });
   } finally {
-    clearTimeout(timer);
+    clearTimeout(timer); manualTrigger?.close();
     // Deliberately do not send a teardown application command after a probe.
     // The user restarts IR → PC manually; only the USB connection is closed.
     try { await adapter.close(); }
@@ -419,8 +452,8 @@ async function run() {
     if (!storageFailed) {
       status(capture ? active.status === 'error' ? 'Recording ended with an error. USB data received so far is kept.' :
         active.status === 'interrupted' ? 'Recording interrupted. All USB data received so far is kept.' :
-        serial ? ({ captured: 'Serial bytes captured. Further transmissions stopped; save the ZIP to inspect the original stream.',
-          'probe-not-sent': 'The probe was not sent. A pending USB read may have prevented transmission; this is not a watch response test.',
+        serial ? ({ captured: 'Serial bytes captured. Check the before/after probe counters and save the ZIP.',
+          'probe-not-sent': active.result?.probeNotSentReason === 'received-before-probe' ? 'Bytes arrived before the automatic probe. Nothing was sent; the received bytes are preserved.' : active.result?.probeNotSentReason === 'manual-send-not-requested' ? 'The manual send button was not pressed. Nothing was sent; all received bytes are preserved.' : 'The probe was not sent. A pending USB read may have prevented transmission; this is not a watch response test.',
           'byte-limit': 'The capture reached its byte limit. All delivered bytes are preserved.' })[active.status] ?? 'Serial test finished. No USB bytes received; check TX completion before interpreting silence.' :
         discovery ? ({ 'connection-request': 'The peer requested a connection. The request was saved; no connection was accepted.',
           'peer-found': 'Peer discovered. Save the ZIP to inspect its identity and replies.',
@@ -469,11 +502,20 @@ $('reset-prepare').onclick = () => prepare({ reset: true }).catch(error => statu
 $('disconnect').onclick = () => release().catch(error => status(String(error), '', true));
 $('send').onclick = () => run().catch(error => status(String(error), '', true));
 $('stop').onclick = () => { journal?.record('manual-stop'); controller?.abort(new DOMException('Stopped by user.', 'AbortError')); adapter?.close().catch(() => {}); };
+$('serial-send-once').onclick = () => {
+  if (!busy || active?.kind !== 'serial' || active.status !== 'running' || storageFailed || !manualTrigger?.request()) return;
+  journal.record('serial-manual-send-request', { dataHex: active.probeHex, rxBytesAtRequest: adapter.serialStats?.rxBytes ?? 0 });
+  status('Single-byte probe queued. Waiting for the current USB read to finish.'); drawManualProbe();
+};
 $('watch-ready').onchange = render;
 for (const nextMode of RESEARCH_MODES) $('mode-' + nextMode).onclick = () => {
   if (busy || adapter?.opened) return;
   mode = nextMode; $('watch-ready').checked = false; $('response-seconds').value = isCapture() ? 20 : 5;
-  if (isSerial()) { selectedWatchMode = 'swan-send'; $('watch-mode').value = selectedWatchMode; }
+  if (isSerial()) {
+    if (!SERIAL_MODES.includes(selectedWatchMode)) selectedWatchMode = 'swan-send';
+    if (selectedWatchMode === 'swan-receive') selectedSerialTransmission = 'manual';
+    $('watch-mode').value = selectedWatchMode; $('serial-transmission').value = selectedSerialTransmission;
+  }
   else if (!isListening() && selectedWatchMode === 'swan-receive') { selectedWatchMode = 'swan-send'; $('watch-mode').value = selectedWatchMode; }
   else if (!isDiscovery() && !LISTEN_MODES.includes(selectedWatchMode)) { selectedWatchMode = 'watch-send'; $('watch-mode').value = selectedWatchMode; }
   try { localStorage.setItem('wqv-research.mode', mode); } catch {}
@@ -486,9 +528,16 @@ function selectSerialProbe(value) {
   status('Prepare USB. Keep the watch out of transfer mode until the adapter is ready.'); render();
 }
 $('serial-probe').onchange = () => selectSerialProbe($('serial-probe').value);
+$('serial-transmission').onchange = () => {
+  if (busy || adapter?.opened) return;
+  selectedSerialTransmission = $('serial-transmission').value;
+  try { localStorage.setItem('wqv-research.serial-transmission', selectedSerialTransmission); } catch {}
+  render();
+};
 $('serial-next').onclick = () => selectSerialProbe(SERIAL_PROBES[SERIAL_PROBES.findIndex(item => item.id === selectedSerialProbe) + 1]?.id);
 for (const id of ['watch-mode', 'listen-baud']) $(id).onchange = () => {
   selectedWatchMode = $('watch-mode').value; selectedBaud = Number($('listen-baud').value); $('watch-ready').checked = false;
+  if (isSerial() && selectedWatchMode === 'swan-receive') { selectedSerialTransmission = 'manual'; $('serial-transmission').value = 'manual'; }
   try { localStorage.setItem('wqv-research.listen', JSON.stringify({ watchMode: selectedWatchMode, baud: selectedBaud })); } catch {}
   render();
 };

@@ -7,7 +7,26 @@ export const SERIAL_PROBES = Object.freeze([
   { id: 'cr', name: 'Enter / CR', hex: '0d', repeatMs: 0 },
   { id: 'listen', name: 'Listen only', hex: '', repeatMs: 0 },
 ].map(Object.freeze));
-export const SERIAL_MODES = Object.freeze(['swan-send', 'watch-send', 'others-send']);
+export const SERIAL_MODES = Object.freeze(['swan-send', 'swan-receive', 'watch-send', 'others-send']);
+
+// One explicit click per capture. The reader consumes it only between USB reads.
+export class ManualSerialTrigger {
+  state = 'inactive';
+  requested = false;
+  arm() {
+    if (this.state !== 'inactive') throw new Error('Use a new manual trigger for each capture.');
+    this.state = 'waiting';
+  }
+  request() {
+    if (this.state !== 'waiting') return false;
+    this.requested = true; this.state = 'queued'; return true;
+  }
+  take() {
+    if (this.state !== 'queued') return false;
+    this.state = 'used'; return true;
+  }
+  close() { this.state = 'closed'; }
+}
 
 function joinChunks(chunks) {
   const bytes = new Uint8Array(chunks.reduce((sum, chunk) => sum + chunk.length, 0));
@@ -16,11 +35,14 @@ function joinChunks(chunks) {
   return bytes;
 }
 
-export function serialSettings({ probe, watchMode, durationMs }) {
+export function serialSettings({ probe, watchMode, durationMs, transmission = 'automatic' }) {
   const selected = SERIAL_PROBES.find(item => item.id === probe);
   if (!selected || !SERIAL_MODES.includes(watchMode)) throw new RangeError('Invalid serial probe or watch mode.');
+  if (!['automatic', 'manual'].includes(transmission)) throw new RangeError('Invalid serial transmission mode.');
+  if (watchMode === 'swan-receive' && selected.hex && transmission !== 'manual') throw new RangeError('SWAN RECEIVE requires a manual probe.');
   if (!Number.isFinite(durationMs) || durationMs < 2000 || durationMs > 120000) throw new RangeError('The capture window must be between 2 and 120 seconds.');
-  return { probe, watchMode, baud: 9600, durationMs, probeHex: selected.hex, repeatMs: selected.repeatMs, initialDelayMs: 500 };
+  return { probe, watchMode, baud: 9600, durationMs, transmission, probeHex: selected.hex,
+    repeatMs: transmission === 'manual' ? 0 : selected.repeatMs, initialDelayMs: transmission === 'manual' ? null : 500 };
 }
 
 // These are complete checksum-XMODEM block candidates, not identified peers.
@@ -66,12 +88,15 @@ export async function sendSerialBytes(adapter, bytes, { record = () => {}, alive
   return false;
 }
 
-export async function probeSerial(adapter, settings, { signal, record = () => {} } = {}) {
+export async function probeSerial(adapter, settings, { signal, record = () => {}, manualTrigger } = {}) {
   const options = serialSettings(settings);
   signal?.throwIfAborted(); adapter.assertOpen();
   if (!adapter.configured || adapter.baud !== 9600 || adapter.readerTask || adapter.readPending) throw new Error('Prepare an idle 9600 bit/s receiver before serial research.');
-  const { durationMs, watchMode, probe, probeHex, repeatMs, initialDelayMs } = options;
+  const { durationMs, probe, probeHex, repeatMs, initialDelayMs, transmission } = options;
+  const manual = transmission === 'manual';
   const bytesToSend = fromHex(probeHex), chunks = [];
+  if (manual && bytesToSend.length && !(manualTrigger instanceof ManualSerialTrigger)) throw new TypeError('A manual trigger is required.');
+  if (manual && bytesToSend.length) manualTrigger.arm();
   const counters = adapter.serialStats = { rxBytes: 0, rxBeforeProbe: 0, rxAfterProbe: 0, readCount: 0,
     nonemptyReads: 0, emptyReads: 0, txAttempts: 0, txCompleted: 0, txSerialBytes: 0, probePausedByRX: false };
   const started = performance.now(), deadline = started + durationMs;
@@ -83,6 +108,7 @@ export async function probeSerial(adapter, settings, { signal, record = () => {}
     if (cause === 'deadline' && transmitting) {
       reason = 'error'; error = { name: 'USBTransmitTimeout', message: 'Raw SIR transmission did not finish before the capture deadline.' };
     }
+    manualTrigger?.close();
     record('serial-ending', { reason }); finish({ ended: true });
     adapter.close().catch(caught => record('cleanup-error', { error: String(caught) }));
   };
@@ -90,14 +116,15 @@ export async function probeSerial(adapter, settings, { signal, record = () => {}
   const abort = () => end('interrupted');
   signal?.addEventListener('abort', abort, { once: true });
   const timer = setTimeout(() => end('deadline'), durationMs);
-  record('serial-start', { ...options, framing: 'raw-sir-8n1', usbHeader: '55aa', stopTransmittingOnAnyRX: true,
+  record('serial-start', { ...options, framing: 'raw-sir-8n1', usbHeader: '55aa', stopTransmittingOnAnyRX: !manual && Boolean(bytesToSend.length),
     irlap: false, automaticAcknowledgements: false });
   try {
     while (!reason && performance.now() < deadline) {
       signal?.throwIfAborted(); adapter.assertOpen();
-      if (bytesToSend.length && !counters.probePausedByRX && performance.now() >= due) {
+      if (bytesToSend.length && (manual ? manualTrigger.take() : !counters.probePausedByRX && performance.now() >= due)) {
         counters.txAttempts++; transmitting = true;
-        record('serial-tx-attempt', { probe, dataHex: probeHex, number: counters.txAttempts, baud: 9600 });
+        record('serial-tx-attempt', { probe, dataHex: probeHex, number: counters.txAttempts, baud: 9600, transmission,
+          rxBytesBeforeAttempt: counters.rxBytes });
         const sent = await wait(sendSerialBytes(adapter, bytesToSend, { record, alive: () => !reason }));
         transmitting = false;
         if (sent.ended) break;
@@ -121,8 +148,10 @@ export async function probeSerial(adapter, settings, { signal, record = () => {}
         const offset = counters.rxBytes;
         chunks.push(bytes); counters.rxBytes += bytes.length; counters.nonemptyReads++;
         counters[counters.txCompleted ? 'rxAfterProbe' : 'rxBeforeProbe'] += bytes.length;
-        if (!counters.probePausedByRX) record('serial-probe-paused', { reason: 'received-bytes', offset, beforeProbe: !counters.txCompleted });
-        counters.probePausedByRX = true;
+        if (!manual && bytesToSend.length) {
+          if (!counters.probePausedByRX) record('serial-probe-paused', { reason: 'received-bytes', offset, beforeProbe: !counters.txCompleted });
+          counters.probePausedByRX = true;
+        }
         record('serial-rx', { offset, dataHex: toHex(bytes), afterProbe: Boolean(counters.txCompleted) });
         if (counters.rxBytes >= LIMIT) { end('byte-limit'); break; }
       } else {
@@ -133,12 +162,17 @@ export async function probeSerial(adapter, settings, { signal, record = () => {}
   } catch (caught) {
     if (!reason) { reason = signal?.aborted ? 'interrupted' : 'error'; error = { name: caught.name, message: caught.message }; }
   } finally {
+    manualTrigger?.close();
     clearTimeout(timer); signal?.removeEventListener('abort', abort);
   }
   const received = joinChunks(chunks);
+  const probeNotSentReason = !bytesToSend.length || counters.txCompleted ? null : counters.txAttempts ? 'transmission-not-completed' :
+    manual ? manualTrigger.requested ? 'pending-usb-read' : 'manual-send-not-requested' :
+      counters.probePausedByRX ? 'received-before-probe' : 'pending-usb-read';
   const result = { ...options, ...counters,
     status: ['interrupted', 'error'].includes(reason) ? reason : reason === 'byte-limit' ? 'byte-limit' :
-      received.length ? 'captured' : bytesToSend.length && !counters.txCompleted ? 'probe-not-sent' : 'no-data',
+      probeNotSentReason ? 'probe-not-sent' : received.length ? 'captured' : 'no-data',
+    probeNotSentReason,
     elapsedMs: performance.now() - started, xmodemCandidates: xmodemCandidates(received), error,
     framing: 'raw-sir-8n1', irlap: false, crcRecovery: false, automaticAcknowledgements: false };
   record('serial-finished', result);
@@ -160,6 +194,6 @@ export function finishSerialCapture(result, events) {
   const received = joinChunks(chunks);
   return { ...result, processedWindowRxBytes: result.rxBytes, rxBytes: received.length,
     rxBeforeProbe, rxAfterProbe, readCount, nonemptyReads, emptyReads,
-    status: received.length && ['no-data', 'probe-not-sent'].includes(result.status) ? 'captured' : result.status,
+    status: received.length && result.status === 'no-data' ? 'captured' : result.status,
     xmodemCandidates: xmodemCandidates(received) };
 }

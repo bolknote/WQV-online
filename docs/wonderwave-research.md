@@ -80,10 +80,23 @@ errors; two additional NAK/listen runs were also empty. These tests did not
 confirm checksum XMODEM or a terminal handshake. The user then verified that
 the normal WQV Link page could communicate with the watch using this adapter.
 
-The next passive experiment is **SWAN RECEIVE**: capture before activating
-reception to look for any initial bytes from the watch in that role. A working
-normal PC connection is already established; it need not be repeated before
-this capture.
+Later captures received only `FF`: ten bytes before the first XID write,
+four before a planned NAK, and a single byte 9.591 seconds into a listen-only
+recording. The user confirmed that the first two used **SWAN RECEIVE** on the
+watch, despite their old SWAN SEND page labels. The NAK attempt actually sent
+nothing: early RX stopped the automatic probe. These bytes are not an XID or
+XMODEM response. A 20-second control without the watch had 7,503 successful
+reads, all empty; a subsequent capture started before watch activation was
+also reported as `no-data`. The relation between `FF` and watch activation has
+not been reproduced.
+
+The serial page now has a separate single-byte send button, allowing capture
+before watch activation and an explicit probe afterwards. Early bytes remain
+in the trace. It also labels SWAN RECEIVE correctly, records RECEIVE marks and
+keeps an unsent probe classified as `probe-not-sent` even when RX contains data.
+No hardware result from this revised manual-send experiment is available yet.
+A working normal PC connection is already established; it need not be repeated
+before this capture.
 
 For SWAN, use a separate 9600-bit/s capture for each deliberately
 chosen raw-byte probe, restarting the watch mode between attempts. Preserve

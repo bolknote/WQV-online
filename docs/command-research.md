@@ -106,21 +106,32 @@ This mode uses fixed **9600 bit/s, 8N1**. It sends bytes through SigmaTel SIR,
 without IrLAP discovery, packet headers, escaping, frame CRC or acknowledgements.
 The [WonderWave sources](wonderwave-research.md) explain the hypotheses.
 
-1. Choose **SWAN SEND** and **15 · XMODEM NAK**. WATCH SEND and OTHERS SEND
-   remain available as separate experiments.
+1. Choose the actual watch mode and **15 · XMODEM NAK**. SWAN SEND, SWAN
+   RECEIVE, WATCH SEND and OTHERS SEND are separate experiments. **Manually,
+   once** is the default send setting; SWAN RECEIVE requires it for active probes.
 2. Click **Prepare SigmaTel USB…** before turning on the watch's transfer mode.
    Preparation sends no infrared data.
-3. Restart **IR → SWAN → SEND** on the watch, choose a photo and face the
-   watch toward SigmaTel. Tick readiness. Start the test on the page, then
-   press the final SEND button on the watch.
-4. NAK starts after a 500 ms listening interval and repeats every two seconds
-   while no bytes arrive. **Any incoming byte stops further transmissions**,
-   including a possible local echo. The page then only records until the
-   deadline or **Stop**. It never acknowledges an XMODEM block.
+3. Select the corresponding watch mode and face the watch toward SigmaTel.
+   Choose a photo for SEND; RECEIVE needs no photo selection. Tick readiness,
+   start the recording, then press the watch's final button and mark that press
+   on the page.
+4. Click **Send 15 once** while recording. It queues exactly one byte, sent
+   between completed USB reads. Earlier RX bytes stay in the original stream
+   and do not cancel your explicit request. It never repeats or acknowledges
+   an XMODEM block. The button is disabled once requested; a queued request
+   cannot outlive Stop or the deadline. The trace distinguishes the button
+   press, USB write and confirmed FIFO drain.
 5. Save the ZIP and note exactly what appeared on the watch. After USB is
    released, **Next probe →** selects Enter (`0D`, sent once), then a listen-only
    control. It never prepares USB or starts another attempt. Restart the watch
    mode before each probe.
+
+The optional **Automatically** setting keeps the earlier experiment for SEND
+modes: NAK starts after 500 ms and repeats every two seconds while silent;
+CR is sent once. Any incoming byte, including possible echo, cancels all later
+automatic transmissions. If bytes arrive before the first probe, the result
+is `probe-not-sent` with reason `received-before-probe`, even if RX is nonempty.
+Listen-only blocks bulk OUT in both send settings.
 
 The sender interleaves reads and writes without release/claim or a background
 reader. A read that never completes can prevent the probe from being sent;
@@ -129,12 +140,15 @@ at the deadline is an error. USB OUT success and an empty FIFO do not establish
 that the watch received the optical signal.
 
 Attempts use `kind: "serial"` and `wqv-serial-research-v1`, with the preset,
-exact byte, repetition interval, USB counters, TX attempts/completions and byte
+exact byte, manual/automatic setting, repetition interval, USB counters, TX attempts/completions and byte
 counts before/after a completed probe. The original `usb-in.bin` includes echo,
 unrecognized data and reads completed during close. No IrDA decoder or CRC
 recovery is used. `serial-out-requested.bin` and `serial-out-completed.bin`
 contain logical bytes before SigmaTel's USB wrapper; use the USB trace to
 distinguish requested, short, failed and FIFO-confirmed writes.
+`probeNotSentReason` distinguishes a missing manual click from early RX or a
+pending USB read. Before/after RX counts describe USB completions relative to
+a completed probe; they do not timestamp the original optical arrivals.
 
 The result scans for complete checksum-XMODEM blocks: SOH, sequence/complement,
 128 data bytes and an 8-bit additive checksum. It keeps stream offsets and
