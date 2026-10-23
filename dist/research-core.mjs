@@ -21,7 +21,7 @@ export function snapshot(value) {
   return value ?? null;
 }
 
-export function captureUSB(device, record, state = () => ({}), { receiveOnly = false } = {}) {
+export function captureUSB(device, record, state = () => ({}), { receiveOnly = false, counters } = {}) {
   let sequence = 0;
   return new Proxy(device, { get(target, key) {
     const value = Reflect.get(target, key, target);
@@ -32,6 +32,11 @@ export function captureUSB(device, record, state = () => ({}), { receiveOnly = f
       try {
         if (receiveOnly && key === 'transferOut') throw new Error('USB bulk OUT is disabled in listen mode.');
         const result = await value.apply(target, args);
+        if (counters && key === 'transferIn' && result?.status === 'ok' && result.data) {
+          counters.readCount++;
+          if (result.data.byteLength) counters.nonemptyReads++; else counters.emptyReads++;
+          counters.rxBytes += result.data.byteLength;
+        }
         record('usb-result', { id, operation: String(key), status: result?.status ?? null,
           data: result?.data ? snapshot(result.data) : null, bytesWritten: result?.bytesWritten ?? null, ...state() });
         return result;
@@ -166,7 +171,12 @@ export function attemptFiles(attempt, events) {
     { name: 'usb-in.bin', data: joinBytes(rx) }, { name: 'usb-out-requested.bin', data: joinBytes(tx) },
     { name: 'response.bin', data: joinBytes(reply) },
     { name: 'before-command.bin', data: joinBytes(beforeCommand) },
-    { name: 'README.txt', data: encoder.encode(attempt.kind === 'listen' ?
+    { name: 'README.txt', data: encoder.encode(attempt.kind === 'discovery' ?
+      'ACTIVE DISCOVERY: fixed 9600 bit/s. Only XID search commands and XID replies are transmitted. Each completed search has six slots and a final slot FF advertising WEB-WQV with hints 84 25 and ASCII charset 00. These are the identity hints used by the working PC receiver, not proof of OTHERS/SWAN compatibility.\n' +
+      'An incoming search interrupts our search to avoid competing with the peer. Incoming XID frames are answered once per observed peer cycle in the current slot. An SNRM addressed to us is saved and ends the experiment; no connection is accepted and no application command, IAS reply, photo transfer or speed negotiation is sent.\n' +
+      'The selected watch mode is a manual label, not an automatic identification. The trace includes the generated local device ID, peer IDs, names and service hints. CRC recovery is disabled. Echoes with our source ID are counted separately.\n' +
+      'events.jsonl is the authoritative USB trace, including empty reads, errors, timestamps, transfer boundaries, configuration requests and SEND markers. usb-in.bin contains original bulk-IN bytes before decoding; usb-out-requested.bin contains requested bulk-OUT buffers including SigmaTel headers. Check completion status and bytesWritten to establish transmission. frames.jsonl contains strict CRC-valid received frames and completed transmitted XIDs.\n' +
+      'response.bin and before-command.bin are empty because no application session is opened. An empty recording does not establish the cause of silence. USB counters include successful reads completing during close; pendingUSBCalls lists unresolved requests. Interrupted, failed or live exports may be incomplete.\n' : attempt.kind === 'listen' ?
       'PASSIVE LISTENING: no discovery, watch commands, polls or acknowledgements are sent. USB bulk OUT is blocked; USB control writes configure the local SigmaTel receiver only.\n' +
       'attempt.json identifies the user-selected watch mode, fixed baud rate and capture window. These are test settings, not an automatically identified protocol.\n' +
       'usb-in.bin concatenates the exact bulk-IN bytes returned by SigmaTel, before any frame parsing. USB bytes are not a recording of optical pulse timings. Unknown data and CRC failures are preserved.\n' +

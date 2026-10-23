@@ -84,22 +84,28 @@ the watch still takes the watch's buttons; the app's Help menu has the steps.
 ## IR research
 
 There is a separate [research page](https://bolknote.github.io/WQV-online/research.html)
-with two modes. **Listen** records what SigmaTel receives at a fixed 9600,
+with three modes. **Listen** records what SigmaTel receives at a fixed 9600,
 38400 or 115200 bit/s. Choose WATCH SEND, OTHERS SEND or SWAN SEND, prepare USB,
 then start recording before pressing SEND on the watch. It sends no discovery,
 commands or acknowledgements. Every recording and speed change is manual.
 
+**Discovery** tests whether the watch is waiting for another device to speak.
+It sends complete XID searches at 9600 bit/s, advertises itself as WEB-WQV,
+and answers searches from the watch. It records any request to connect and
+stops there. It sends no application commands and does not accept a connection.
+
 **Commands** keeps the existing step-by-step command probes. Prepare USB first,
 restart IR → PC on the watch, then send the selected command. Moving to the
 next step is manual. Each attempt keeps its original USB bytes and can be
-exported as a ZIP, including failed or interrupted attempts. Both modes use
+exported as a ZIP, including failed or interrupted attempts. All three modes use
 the same local research journal; previous recordings remain available.
 
-Listen keeps unknown bytes and failed CRC frames in the original stream.
-Its optional frame decoder uses strict IrDA CRC checks without recovery.
+Listen and Discovery keep unknown bytes and failed CRC frames in the original
+stream. Their frame decoders use strict IrDA CRC checks without recovery.
 The selected mode and speed are test settings, not detected capabilities.
-The new listener has software tests; hardware validation is pending. The effects
-of the unknown command codes are not established. See the
+The first passive captures returned no USB bytes. Discovery has software tests;
+its first watch test is pending. The effects of the unknown command codes are
+not established. See the
 [research notes](docs/command-research.md) for instructions and the log format.
 
 ## Run locally

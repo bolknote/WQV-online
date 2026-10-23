@@ -4,12 +4,68 @@ Open [`research.html`](https://bolknote.github.io/WQV-online/research.html), or
 run `python3 serve.py --port 8766` and visit
 `http://127.0.0.1:8766/research.html` in Chrome, Edge or Opera.
 The normal photo app stays at the site's root. Use **Listen** for passive
-capture or **Commands** for the existing command probes. The page remembers
+capture, **Discovery** for active device discovery, or **Commands** for the
+existing command probes. The page remembers
 this choice, but never starts a recording or connects to the watch on reload.
 
 This page is for the WQV-3 and SigmaTel STIr4200 (`066f:4200`). It uses the same
-USB transport and speed negotiation as the main app. It does not contact a
+USB transport as the main app. It does not contact a
 server or start a watch connection on load.
+
+## Active discovery
+
+Open [`research.html?mode=discovery`](https://bolknote.github.io/WQV-online/research.html?mode=discovery).
+
+1. Select **Discovery** and one watch mode: **WATCH SEND**, **OTHERS SEND** or
+   **SWAN SEND**. The rate is fixed at **9600 bit/s** and the window defaults to
+   20 seconds (2–120 seconds allowed).
+2. Release the adapter in other apps and click **Prepare SigmaTel USB…**.
+   Preparation configures the adapter without transmitting an infrared frame.
+3. Restart the selected SEND mode on the watch, choose a photo and face the
+   watch toward SigmaTel. Tick the readiness box.
+4. Click **Start discovery**, then press the final SEND button on the watch.
+   **Mark SEND press** adds a manual timestamp to the journal.
+5. Save the attempt ZIP and note any changes on the watch screen. Restart the
+   watch's transfer mode before the next attempt; all steps are manual.
+
+The test listens for 500 ms, then sends six XID slots (0–5) and the final FF
+slot. The final packet advertises the generated local ID, name **WEB-WQV**,
+service hints **84 25**, and ASCII charset **00**. These hints match the
+working PC receiver in `switchToReceive`; their suitability for the other
+watch modes has not been established. Completed searches are followed by a
+two-second listening interval before another cycle.
+
+When a peer searches, the test yields its own search and answers in the current
+valid slot, once per observed peer cycle. The final peer slot is recorded,
+without a late reply. If an **SNRM connection request addressed to our local
+ID** arrives, it is recorded and the experiment ends. No UA, IAS response,
+IrCOMM session, application command or photo transfer is sent. There is no
+speed change. Each transmitted frame is an XID command or response.
+
+The packet layout and final identity slot follow the Linux IrDA
+`irlap_send_discovery_xid_frame` implementation; yielding to a peer search
+also avoids two devices continuing competing discovery cycles. This is a
+small diagnostic, not a complete IrLAP implementation.
+
+Attempts have `kind: "discovery"` and format `wqv-discovery-research-v1`.
+The result distinguishes `no-data`, `data-no-peer`, `peer-found` and
+`connection-request`, as well as errors and interruption. It includes the
+local ID, peer IDs, names, hints, completed cycles and XID counters. Echoes
+with our source ID are counted separately and never treated as a discovered
+peer. Unknown device names are retained; there is no Casio-only name filter.
+
+`usb-in.bin` and `usb-out-requested.bin` keep the original streams, including
+unrecognized bytes, corrupt frames and failed transmit requests. Received
+frames use strict CRC checks without recovery. The same journal and ZIP format
+are used in all modes; previous captures remain available. **USB reads**,
+**With data** and **Empty reads** count successful bulk-IN completions, including
+any completing during close. Zero received bytes does not identify the cause
+of silence. Connection requests are saved but are not accepted by this test.
+
+Software tests cover the complete slot cycle, replies in peer slots, yielding
+to another search, a non-Casio peer name, stopping at SNRM, echoes, foreign
+addresses, bad CRC preservation, manual Stop, a failed transmit and deadline
+cleanup. Positive reception from a watch in this mode has not yet been tested.
 
 ## Passive listening
 
@@ -56,7 +112,9 @@ If closing fails, the export lists the unresolved call in `pendingUSBCalls`.
 The listener has software tests for no bulk transmission, all three speed
 settings, unmodified raw exports, strict CRC, continued reception after final
 frames, manual Stop, endpoint errors and deadline completion with a pending
-USB read. Its first hardware capture is still pending.
+USB read. Seven passive captures on 2026-10-23 (SWAN SEND at 9600, OTHERS SEND
+at 9600 and 115200) completed with no USB bytes. This does not establish the
+cause or validate reception of an actual watch transmission.
 
 ## Command steps
 

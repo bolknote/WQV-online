@@ -5,10 +5,24 @@ import { zipFiles } from './zip.mjs';
 import { PROBE_PLAN, ManualSteps, ResearchClient, captureUSB, attemptFiles } from './research-core.mjs';
 import { openResearchStore, Journal } from './research-store.mjs';
 import { LISTEN_RATES, LISTEN_MODES, listenSettings, listen } from './listen-core.mjs';
+import { discoverySettings, discoverXID } from './discovery-core.mjs';
 
 const $ = id => document.getElementById(id);
 const ru = {
-  'IR research': 'Исследование ИК', Listen: 'Слушать', Commands: 'Команды',
+  'IR research': 'Исследование ИК', Listen: 'Слушать', Commands: 'Команды', Discovery: 'Обнаружение',
+  'Active discovery': 'Активное обнаружение',
+  'Sends complete XID searches at 9600 bit/s and answers peer searches. No application commands are sent. Connection requests are recorded but not accepted.': 'Отправляет полные поисковые циклы XID на 9600 бит/с и отвечает на поиск другого устройства. Прикладные команды не отправляются. Запросы соединения записываются, но не принимаются.',
+  'Advertises WEB-WQV using the same service hints as our PC receiver. Records peer names, XID replies and connection requests with the original USB bytes.': 'Представляется как WEB-WQV с теми же признаками служб, что у нашего приёмника для ПК. Сохраняет имена устройств, ответы XID, запросы соединения и исходные байты USB.',
+  'Fixed 9600 bit/s. One watch mode per attempt. Discovery stops on an incoming connection request; each new attempt starts manually.': 'Фиксированные 9600 бит/с. Одна попытка — один режим часов. При входящем запросе соединения тест останавливается; следующая попытка запускается вручную.',
+  'Start discovery': 'Начать обнаружение',
+  'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.': 'Шесть поисковых слотов и завершающий пакет с именем, затем ожидание ответа. Отвечает на входящий поиск; останавливается до принятия соединения. Отметки SEND помогут сопоставить события.',
+  'Active discovery. Now press SEND on the watch.': 'Идёт активное обнаружение. Теперь нажмите SEND на часах.',
+  'Discovery finished. No USB bytes received; the cause of silence is still unknown.': 'Обнаружение завершено. По USB не получено ни одного байта; причина тишины пока неизвестна.',
+  'Discovery finished. USB bytes were received, but no addressed peer XID was recognized.': 'Обнаружение завершено. Байты USB получены, но адресованный нам XID другого устройства не распознан.',
+  'Peer discovered. Save the ZIP to inspect its identity and replies.': 'Устройство обнаружено. Сохраните ZIP, чтобы изучить его имя и ответы.',
+  'The peer requested a connection. The request was saved; no connection was accepted.': 'Устройство запросило соединение. Запрос сохранён; соединение не принималось.',
+  'USB reads': 'Чтений USB', 'With data': 'С данными', 'Search cycles': 'Поисковых циклов',
+  'XID replies': 'Ответов XID', 'XID replies sent': 'Отправлено ответов XID',
   'Capture setup': 'Настройка записи', 'Watch mode': 'Режим часов', 'Fixed speed': 'Фиксированная скорость',
   'Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.': 'Для каждой записи выберите один режим и скорость. Страница сама не переключает скорость и не начинает следующую запись.',
   'Passive listening': 'Пассивное прослушивание',
@@ -75,16 +89,20 @@ try { position = JSON.parse(localStorage.getItem('wqv-research.position') || '{}
 const plan = new ManualSteps(position.index, position.done);
 let mode = 'listen', selectedWatchMode = 'watch-send', selectedBaud = 9600;
 try {
-  if (localStorage.getItem('wqv-research.mode') === 'commands') mode = 'commands';
+  const savedMode = localStorage.getItem('wqv-research.mode');
+  if (['listen', 'discovery', 'commands'].includes(savedMode)) mode = savedMode;
   const saved = JSON.parse(localStorage.getItem('wqv-research.listen') || '{}');
   if (LISTEN_MODES.includes(saved.watchMode)) selectedWatchMode = saved.watchMode;
   if (LISTEN_RATES.includes(saved.baud)) selectedBaud = saved.baud;
 } catch {}
 const requestedMode = new URL(location.href).searchParams.get('mode');
-if (['listen', 'commands'].includes(requestedMode)) mode = requestedMode;
+if (['listen', 'discovery', 'commands'].includes(requestedMode)) mode = requestedMode;
 $('watch-mode').value = selectedWatchMode; $('listen-baud').value = selectedBaud;
-$('response-seconds').value = mode === 'listen' ? 20 : 5;
+$('response-seconds').value = mode === 'commands' ? 5 : 20;
 const isListening = () => mode === 'listen';
+const isDiscovery = () => mode === 'discovery';
+const isCapture = () => mode !== 'commands';
+const isRecordingAttempt = attempt => ['listen', 'discovery'].includes(attempt?.kind);
 const watchModeName = value => value.replaceAll('-', ' ').toUpperCase();
 let store, adapter, client, controller, journal, active, busy = false, storageFailed = false, attempts = [], releasePageLock;
 let statusKey = 'Opening the local journal…', statusDetail = '', statusError = false;
@@ -99,26 +117,28 @@ function savePosition() {
   try { localStorage.setItem('wqv-research.position', JSON.stringify({ index: plan.index, done: plan.state === 'done' })); } catch {}
 }
 function render() {
-  const ready = Boolean(adapter?.opened), passive = isListening(), done = !passive && plan.state === 'done';
+  const ready = Boolean(adapter?.opened), passive = isListening(), discovery = isDiscovery(), capture = isCapture(), done = !capture && plan.state === 'done';
   document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
-  $('mode-listen').setAttribute('aria-pressed', String(passive));
-  $('mode-commands').setAttribute('aria-pressed', String(!passive));
-  for (const id of ['mode-listen', 'mode-commands', 'watch-mode', 'listen-baud']) $(id).disabled = !store || busy || ready;
-  $('listen-settings').hidden = !passive; $('command-sidebar').hidden = passive; $('command-navigation').hidden = passive;
-  $('research-grid').classList.toggle('listening', passive);
+  for (const option of ['listen', 'discovery', 'commands']) $('mode-' + option).setAttribute('aria-pressed', String(mode === option));
+  for (const id of ['mode-listen', 'mode-discovery', 'mode-commands', 'watch-mode', 'listen-baud']) $(id).disabled = !store || busy || ready;
+  $('listen-settings').hidden = !capture; $('command-sidebar').hidden = capture; $('command-navigation').hidden = capture;
+  $('listen-rate-setting').hidden = discovery; $('discovery-rate').hidden = !discovery;
+  $('capture-setup-note').textContent = t(discovery ? 'Fixed 9600 bit/s. One watch mode per attempt. Discovery stops on an incoming connection request; each new attempt starts manually.' :
+    'Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.');
+  $('research-grid').classList.toggle('listening', capture);
   $('research-notice').classList.toggle('passive', passive);
-  $('research-notice').textContent = t(passive ? 'Listen only. The receiver sends no discovery, commands or acknowledgements. USB bulk OUT is blocked.' :
+  $('research-notice').textContent = t(discovery ? 'Sends complete XID searches at 9600 bit/s and answers peer searches. No application commands are sent. Connection requests are recorded but not accepted.' : passive ? 'Listen only. The receiver sends no discovery, commands or acknowledgements. USB bulk OUT is blocked.' :
     'The unknown commands may change watch data or settings. Their effects are not established. Each step sends one command with no parameters; this is not a firmware reader.');
-  $('step-heading').textContent = passive ? t('Passive listening') : `${t('Step')} ${plan.index + 1} / ${PROBE_PLAN.length} · ${codeHex(plan.step.code)}`;
-  $('step-evidence').textContent = t(passive ? 'Records every byte delivered by SigmaTel. IrDA frames are shown only if their original CRC is valid; raw data is always kept.' : evidence[plan.step.evidence]);
-  $('run-heading').textContent = t(passive ? '2. Start recording, then press SEND on the watch' : '2. Reset the watch, then run this step');
-  $('watch-instructions').textContent = passive ? t('Restart the watch transfer mode. Select {mode} and an image, then face the watch toward the adapter. Start recording here before pressing the final SEND button on the watch.').replace('{mode}', watchModeName(selectedWatchMode)) :
+  $('step-heading').textContent = discovery ? t('Active discovery') : passive ? t('Passive listening') : `${t('Step')} ${plan.index + 1} / ${PROBE_PLAN.length} · ${codeHex(plan.step.code)}`;
+  $('step-evidence').textContent = t(discovery ? 'Advertises WEB-WQV using the same service hints as our PC receiver. Records peer names, XID replies and connection requests with the original USB bytes.' : passive ? 'Records every byte delivered by SigmaTel. IrDA frames are shown only if their original CRC is valid; raw data is always kept.' : evidence[plan.step.evidence]);
+  $('run-heading').textContent = t(capture ? '2. Start recording, then press SEND on the watch' : '2. Reset the watch, then run this step');
+  $('watch-instructions').textContent = capture ? t('Restart the watch transfer mode. Select {mode} and an image, then face the watch toward the adapter. Start recording here before pressing the final SEND button on the watch.').replace('{mode}', watchModeName(selectedWatchMode)) :
     t('Exit the previous transfer session on the watch. Select IR → PC → F / REMOTE again and face the watch toward the adapter. No factory reset is needed.');
-  $('ready-label').textContent = t(passive ? 'The watch is facing the adapter. I am ready to start recording, then press SEND.' : 'I restarted IR → PC for this step; the watch is ready now.');
-  $('window-label').textContent = t(passive ? 'Capture window, seconds' : 'Response window, seconds');
-  $('response-seconds').max = passive ? 120 : 30;
-  $('run-note').textContent = t(passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
+  $('ready-label').textContent = t(capture ? 'The watch is facing the adapter. I am ready to start recording, then press SEND.' : 'I restarted IR → PC for this step; the watch is ready now.');
+  $('window-label').textContent = t(capture ? 'Capture window, seconds' : 'Response window, seconds');
+  $('response-seconds').max = capture ? 120 : 30;
+  $('run-note').textContent = t(discovery ? 'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.' : passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
     'One application command, no automatic retransmission. Normal IrDA discovery, negotiation and acknowledgements are still sent. The page stops after the response window and releases USB; it does not advance to another command.');
   $('steps').replaceChildren(...PROBE_PLAN.map((step, i) => {
     const li = document.createElement('li'); li.textContent = codeHex(step.code);
@@ -130,11 +150,11 @@ function render() {
   $('disconnect').disabled = busy || !ready;
   $('watch-ready').disabled = !ready || busy || done;
   $('response-seconds').disabled = busy || ready && done;
-  $('send').textContent = passive ? t('Start recording') : t('Watch ready — send') + ' ' + codeHex(plan.step.code);
+  $('send').textContent = discovery ? t('Start discovery') : passive ? t('Start recording') : t('Watch ready — send') + ' ' + codeHex(plan.step.code);
   $('send').disabled = !ready || busy || done || storageFailed || !$('watch-ready').checked;
   $('stop').disabled = !busy || !adapter;
-  $('mark-send').hidden = !passive;
-  $('mark-send').disabled = !busy || active?.status !== 'running' || active?.kind !== 'listen';
+  $('mark-send').hidden = !capture;
+  $('mark-send').disabled = !busy || active?.status !== 'running' || active?.kind === 'command';
   $('next').disabled = busy || ready || !done || plan.index === PROBE_PLAN.length - 1 || storageFailed;
   $('skip').disabled = !store || busy || ready || plan.index === PROBE_PLAN.length - 1;
   $('retry').disabled = busy || ready || !done;
@@ -151,9 +171,11 @@ function render() {
 function drawCapture() {
   if (!journal) return;
   const a = adapter;
-  const c = a?.passiveStats ?? active?.counters;
+  const c = a?.passiveStats ?? a?.discoveryStats ?? active?.counters;
+  const usb = a?.usbStats ?? active?.usbCounters ?? c;
   $('capture-stats').textContent = `${t('Events')}: ${journal.events.length} · ${t('Saved')}: ${journal.saved}` +
-    (active?.kind === 'listen' ? ` · ${active.baud} bit/s · RX ${c?.rxBytes ?? 0} B · ${t('CRC-valid frames')}: ${c?.validFrames ?? 0} · CRC ${c?.badCRC ?? 0} · ${t('Empty reads')}: ${c?.emptyReads ?? 0} · ${t('SEND markers')}: ${active.sendMarkers ?? 0}` :
+    (isRecordingAttempt(active) ? ` · ${active?.baud} bit/s · RX ${usb?.rxBytes ?? 0} B · ${t('USB reads')}: ${usb?.readCount ?? 0} · ${t('With data')}: ${usb?.nonemptyReads ?? 0} · ${t('Empty reads')}: ${usb?.emptyReads ?? 0} · ${t('CRC-valid frames')}: ${c?.validFrames ?? 0} · CRC ${a?.decoder.badCRC ?? c?.badCRC ?? 0} · ${t('SEND markers')}: ${active?.sendMarkers ?? 0}` +
+      (active?.kind === 'discovery' ? ` · TX ${a?.txFrames ?? c?.txFrames ?? 0} · ${t('Search cycles')}: ${c?.completedCycles ?? 0} · ${t('XID replies')}: ${c?.xidResponses ?? 0} · ${t('XID replies sent')}: ${c?.xidRepliesSent ?? 0}` : '') :
       a ? ` · ${a.baud ?? '—'} bit/s · RX ${a.rxBytes} B · CRC ${a.decoder.badCRC} · recovered ${a.decoder.recoveredFrames}` : '');
   $('recent').textContent = journal.events.slice(-14).map(event => JSON.stringify(event)).join('\n');
 }
@@ -173,7 +195,7 @@ async function refreshAttempts(selected = $('attempts').value) {
 function showAttemptOptions(selected) {
   $('attempts').replaceChildren(...attempts.map(attempt => {
     const option = document.createElement('option'); option.value = attempt.id;
-    const label = attempt.kind === 'listen' ? `${t('Listen')} · ${watchModeName(attempt.watchMode)} · ${attempt.baud}` : attempt.commandHex.toUpperCase();
+    const label = isRecordingAttempt(attempt) ? `${t(attempt.kind === 'discovery' ? 'Discovery' : 'Listen')} · ${watchModeName(attempt.watchMode)} · ${attempt.baud}` : attempt.commandHex.toUpperCase();
     option.textContent = `${attempt.createdAt.slice(0, 19).replace('T', ' ')} UTC · ${label} · ${attempt.status}`;
     return option;
   }));
@@ -186,8 +208,9 @@ function showReport() {
   const attempt = selectedAttempt();
   if (!attempt) { $('reply').textContent = '—'; return; }
   const result = attempt.result;
-  $('reply').textContent = JSON.stringify(attempt.kind === 'listen' ? {
+  $('reply').textContent = JSON.stringify(isRecordingAttempt(attempt) ? {
     status: attempt.status, watchMode: attempt.watchMode, baud: attempt.baud, result,
+    usbCounters: attempt.usbCounters ?? null,
     sendMarkers: attempt.sendMarkers ?? 0, error: attempt.error ?? null, cleanupError: attempt.cleanupError ?? null,
   } : { status: attempt.status, commandHex: attempt.commandHex,
     commandAttempted: result?.commandAttempted ?? false, commandSent: result?.commandSent ?? false, responseBytes: result?.responseBytes ?? 0,
@@ -200,9 +223,10 @@ async function saveActive() {
   catch (error) { storageError(error); throw error; }
 }
 async function prepare() {
-  if (busy || adapter?.opened || !isListening() && plan.state !== 'idle' || storageFailed) return;
-  const passive = isListening();
-  const settings = passive ? listenSettings({ baud: selectedBaud, watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) : null;
+  if (busy || adapter?.opened || !isCapture() && plan.state !== 'idle' || storageFailed) return;
+  const passive = isListening(), discovery = isDiscovery(), capture = isCapture();
+  const settings = discovery ? discoverySettings({ watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) :
+    passive ? listenSettings({ baud: selectedBaud, watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) : null;
   active = null; journal = null; $('capture-stats').textContent = ''; $('recent').textContent = '—';
   busy = true; client = null; $('watch-ready').checked = false; controller = new AbortController(); render();
   try {
@@ -210,34 +234,35 @@ async function prepare() {
     const device = devices.find(d => d.vendorId === 0x066f && d.productId === 0x4200) ||
       await navigator.usb.requestDevice({ filters: [{ vendorId: 0x066f, productId: 0x4200 }] });
     controller.signal.throwIfAborted();
-    active = { id: crypto.randomUUID(), kind: passive ? 'listen' : 'command',
-      format: passive ? 'wqv-listen-research-v1' : 'wqv-command-research-v1', createdAt: new Date().toISOString(),
-      ...(passive ? { watchMode: settings.watchMode, baud: settings.baud, sendMarkers: 0 } : { commandHex: codeHex(plan.step.code).toLowerCase(), step: plan.index }),
+    active = { id: crypto.randomUUID(), kind: discovery ? 'discovery' : passive ? 'listen' : 'command',
+      format: discovery ? 'wqv-discovery-research-v1' : passive ? 'wqv-listen-research-v1' : 'wqv-command-research-v1', createdAt: new Date().toISOString(),
+      ...(capture ? { watchMode: settings.watchMode, baud: settings.baud, sendMarkers: 0 } : { commandHex: codeHex(plan.step.code).toLowerCase(), step: plan.index }),
       status: 'preparing', notes: '',
       device: { vendorId: device.vendorId, productId: device.productId, productName: device.productName,
         manufacturerName: device.manufacturerName, serialNumber: device.serialNumber, deviceVersionMajor: device.deviceVersionMajor,
         deviceVersionMinor: device.deviceVersionMinor, deviceVersionSubminor: device.deviceVersionSubminor },
-      request: { parametersHex: '', applicationTransmissions: passive ? 0 : 1, automaticRetransmission: false,
-        ...(passive ? { discovery: false, acknowledgements: false, bulkOutAllowed: false } : {}) },
+      request: { parametersHex: '', applicationTransmissions: capture ? 0 : 1, automaticRetransmission: false,
+        ...(capture ? { discovery, acknowledgements: false, bulkOutAllowed: discovery, acceptingConnections: false } : {}) },
       capture: { originalUSBBytes: true, syntheticData: false, automaticNextStep: false } };
     await saveActive();
     journal = new Journal(store, active, storageError); journals.set(active.id, journal);
     const record = journal.record;
-    record('attempt-prepared', passive ? settings : { commandHex: active.commandHex });
+    record('attempt-prepared', capture ? settings : { commandHex: active.commandHex });
     const attempt = active;
+    const usbCounters = { readCount: 0, nonemptyReads: 0, emptyReads: 0, rxBytes: 0 };
     let transport;
-    transport = new SigmaTel(captureUSB(device, record, () => ({ baud: transport?.baud ?? null, phase: attempt.status }), { receiveOnly: passive }),
+    transport = new SigmaTel(captureUSB(device, record, () => ({ baud: transport?.baud ?? null, phase: attempt.status }), { receiveOnly: passive, counters: usbCounters }),
       { log: (level, message) => record('log', { level, message: String(message) }) });
-    adapter = transport;
+    adapter = transport; adapter.usbStats = usbCounters;
     await adapter.open(); controller.signal.throwIfAborted();
-    if (passive) {
+    if (capture) {
       await adapter.setupSIR(); controller.signal.throwIfAborted();
       await adapter.setSIRSpeed(settings.baud); controller.signal.throwIfAborted();
-      record('listen-armed', { baud: adapter.baud, watchMode: settings.watchMode });
+      record(discovery ? 'discovery-armed' : 'listen-armed', { baud: adapter.baud, watchMode: settings.watchMode });
     }
     active.status = 'prepared'; active.adapter = adapter.description; active.chipRevision = adapter.revision;
     await journal.drain(); await saveActive();
-    status(passive ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
+    status(capture ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
       'USB ready. Now restart IR → PC on the watch, tick the checkbox and send this command.');
   } catch (error) {
     if (active?.status === 'preparing') { active.status = 'preparation-error'; active.error = String(error); }
@@ -257,30 +282,34 @@ async function release() {
   busy = true; render();
   try {
     await adapter.close();
-    if (active.status === 'prepared') active.status = active.kind === 'listen' ? 'released-without-recording' : 'released-without-command';
+    if (active.status === 'prepared') active.status = active.kind === 'command' ? 'released-without-command' : 'released-without-recording';
     journal.record('usb-released'); await journal.drain(); await saveActive();
-    status(isListening() ? 'USB released. Choose the next mode and speed when ready.' : 'USB released. Restart IR → PC before a new attempt.');
+    status(isCapture() ? 'USB released. Choose the next mode and speed when ready.' : 'USB released. Restart IR → PC before a new attempt.');
   } catch (error) { journal.record('cleanup-error', { error: String(error) }); status(String(error), '', true); }
   finally { adapter = null; busy = false; $('watch-ready').checked = false; await refreshAttempts(active.id); }
 }
 async function run() {
-  const passive = isListening();
-  if (busy || !adapter?.opened || !$('watch-ready').checked || !passive && plan.state !== 'idle' || storageFailed) return;
+  const passive = isListening(), discovery = isDiscovery(), capture = isCapture();
+  if (busy || !adapter?.opened || !$('watch-ready').checked || !capture && plan.state !== 'idle' || storageFailed) return;
   const seconds = Number($('response-seconds').value);
-  if (!$('response-seconds').checkValidity() || !Number.isFinite(seconds) || seconds < 2 || seconds > (passive ? 120 : 30)) { $('response-seconds').reportValidity(); return; }
-  if (!passive) plan.begin();
+  if (!$('response-seconds').checkValidity() || !Number.isFinite(seconds) || seconds < 2 || seconds > (capture ? 120 : 30)) { $('response-seconds').reportValidity(); return; }
+  if (!capture) plan.begin();
   busy = true; controller = new AbortController(); $('watch-ready').checked = false;
   active.status = 'running'; active.startedAt = new Date().toISOString();
-  if (passive) active.captureWindowMs = seconds * 1000; else active.responseWindowMs = seconds * 1000;
+  if (capture) active.captureWindowMs = seconds * 1000; else active.responseWindowMs = seconds * 1000;
   active.notes = $('notes').value; showAttemptOptions(active.id);
-  const timer = passive ? null : setTimeout(() => { controller.abort(new Error('Overall step timeout (50 seconds).')); adapter?.close().catch(() => {}); }, 50000);
-  if (!passive) client = new ResearchClient(adapter, { signal: controller.signal, record: journal.record,
+  const timer = capture ? null : setTimeout(() => { controller.abort(new Error('Overall step timeout (50 seconds).')); adapter?.close().catch(() => {}); }, 50000);
+  if (!capture) client = new ResearchClient(adapter, { signal: controller.signal, record: journal.record,
     log: (level, message) => journal.record('log', { level, message: String(message) }),
     progress: (heading, detail) => status(String(heading), String(detail ?? '')) });
   try {
     await saveActive();
-    journal.record('watch-ready', { [passive ? 'captureWindowMs' : 'responseWindowMs']: seconds * 1000 });
-    if (passive) {
+    journal.record('watch-ready', { [capture ? 'captureWindowMs' : 'responseWindowMs']: seconds * 1000 });
+    if (discovery) {
+      status('Active discovery. Now press SEND on the watch.', watchModeName(active.watchMode));
+      active.result = await discoverXID(adapter, { watchMode: active.watchMode, durationMs: seconds * 1000 },
+        { signal: controller.signal, record: journal.record });
+    } else if (passive) {
       status('Recording. Now press SEND on the watch.', `${watchModeName(active.watchMode)} · ${active.baud} bit/s`);
       active.result = await listen(adapter, { baud: active.baud, watchMode: active.watchMode, durationMs: seconds * 1000 },
         { signal: controller.signal, record: journal.record });
@@ -302,16 +331,21 @@ async function run() {
     active.finishedAt = new Date().toISOString();
     active.captureMayBeIncomplete = ['interrupted', 'error'].includes(active.status) || Boolean(active.cleanupError);
     active.counters = { rxBytes: adapter.rxBytes, txFrames: adapter.txFrames, badCRC: adapter.decoder.badCRC,
-      recoveredFrames: adapter.decoder.recoveredFrames, fifoRecoveries: adapter.fifoRecoveries, ...adapter.passiveStats };
-    if (!passive && !active.result && client.probing) active.result = { commandAttempted: client.commandAttempted, commandSent: client.commandSent,
+      recoveredFrames: adapter.decoder.recoveredFrames, fifoRecoveries: adapter.fifoRecoveries, ...adapter.passiveStats, ...adapter.discoveryStats };
+    active.usbCounters = { ...adapter.usbStats };
+    if (discovery && active.result) Object.assign(active.result, active.usbCounters);
+    if (!capture && !active.result && client.probing) active.result = { commandAttempted: client.commandAttempted, commandSent: client.commandSent,
       responseHex: toHex(client.appBuffer), responseBytes: client.appBuffer.length };
     journal.record('step-finished', { status: active.status, counters: active.counters });
     if (!storageFailed) { try { await journal.drain(); await saveActive(); } catch {} }
-    if (!passive) { plan.finish(); savePosition(); }
+    if (!capture) { plan.finish(); savePosition(); }
     busy = false; adapter = null;
     if (!storageFailed) {
-      status(passive ? active.status === 'error' ? 'Recording ended with an error. USB data received so far is kept.' :
+      status(capture ? active.status === 'error' ? 'Recording ended with an error. USB data received so far is kept.' :
         active.status === 'interrupted' ? 'Recording interrupted. All USB data received so far is kept.' :
+        discovery ? ({ 'connection-request': 'The peer requested a connection. The request was saved; no connection was accepted.',
+          'peer-found': 'Peer discovered. Save the ZIP to inspect its identity and replies.',
+          'data-no-peer': 'Discovery finished. USB bytes were received, but no addressed peer XID was recognized.' })[active.status] ?? 'Discovery finished. No USB bytes received; the cause of silence is still unknown.' :
         active.status === 'no-data' ? 'Recording finished with no bytes delivered by SigmaTel. Check the watch mode, speed and alignment before retrying.' :
           'Recording finished. USB released. Each new recording starts manually.' :
         active.status === 'interrupted' ? 'Step interrupted. Raw data received so far is kept.' :
@@ -343,7 +377,7 @@ async function exportAttempts(all) {
       const events = live ? live.events.slice() : await store.events(attempt.id);
       const meta = { ...attempt, exportedAt: new Date().toISOString(), snapshot: attempt.status === 'running',
         storageError: live?.error ? String(live.error) : null };
-      const label = attempt.kind === 'listen' ? `listen-${attempt.watchMode}-${attempt.baud}` : attempt.commandHex;
+      const label = isRecordingAttempt(attempt) ? `${attempt.kind}-${attempt.watchMode}-${attempt.baud}` : attempt.commandHex;
       const folder = `${attempt.createdAt.replace(/[:.]/g, '-')}-${label}-${attempt.id}`;
       for (const file of attemptFiles(meta, events)) files.push({ ...file, name: `${folder}/${file.name}` });
     }
@@ -356,9 +390,9 @@ $('disconnect').onclick = () => release().catch(error => status(String(error), '
 $('send').onclick = () => run().catch(error => status(String(error), '', true));
 $('stop').onclick = () => { journal?.record('manual-stop'); controller?.abort(new DOMException('Stopped by user.', 'AbortError')); adapter?.close().catch(() => {}); };
 $('watch-ready').onchange = render;
-for (const nextMode of ['listen', 'commands']) $('mode-' + nextMode).onclick = () => {
+for (const nextMode of ['listen', 'discovery', 'commands']) $('mode-' + nextMode).onclick = () => {
   if (busy || adapter?.opened) return;
-  mode = nextMode; $('watch-ready').checked = false; $('response-seconds').value = isListening() ? 20 : 5;
+  mode = nextMode; $('watch-ready').checked = false; $('response-seconds').value = isCapture() ? 20 : 5;
   try { localStorage.setItem('wqv-research.mode', mode); } catch {}
   status('Prepare USB. Keep the watch out of transfer mode until the adapter is ready.'); render();
 };
@@ -368,7 +402,7 @@ for (const id of ['watch-mode', 'listen-baud']) $(id).onchange = () => {
   render();
 };
 $('mark-send').onclick = () => {
-  if (!busy || active?.kind !== 'listen' || active.status !== 'running') return;
+  if (!busy || !isRecordingAttempt(active) || active.status !== 'running') return;
   active.sendMarkers++; journal.record('watch-send-mark', { watchMode: active.watchMode, baud: active.baud, marker: active.sendMarkers });
   showReport(); drawCapture();
 };
