@@ -229,7 +229,7 @@ export class SigmaTel {
     }
     throw this.readError;
   }
-  async sendFrame(address, control, data, bof = 11) {
+  async sendFrame(address, control, data, bof = 11, { receive = true } = {}) {
     this.assertOpen();
     await this.pauseReader();
     this.assertOpen();
@@ -246,7 +246,7 @@ export class SigmaTel {
     let previousCount = Infinity;
     while (performance.now() < deadline) {
       const [status, low, high] = await this.registers(5, 3, true);
-      if (!(status & 0x10) || (status & 4)) { this.startReader(); return; }
+      if (!(status & 0x10) || (status & 4)) { if (receive) this.startReader(); return; }
       const count = low | ((high & 0x1f) << 8);
       if (count > previousCount) break;
       previousCount = count;

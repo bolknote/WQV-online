@@ -18,7 +18,7 @@ class DiscoveryUSB {
       { direction: 'out', type: 'bulk', endpointNumber: 1, packetSize: 64 },
     ],
   }] }] };
-  registers = new Map([[4, 7]]); frames = []; queue = []; pending = null; onTransmit = () => {}; blocked = false;
+  registers = new Map([[4, 7]]); frames = []; queue = []; pending = null; onTransmit = () => {}; blocked = false; releases = 0;
   async open() { this.opened = true; }
   async claimInterface() {}
   async clearHalt() {}
@@ -28,6 +28,7 @@ class DiscoveryUSB {
   }
   async controlTransferOut(setup) { this.registers.set(setup.index, setup.index === 4 ? setup.value | 7 : setup.value); return { status: 'ok' }; }
   async transferOut(endpoint, bytes) {
+    assert.equal(this.pending, null, 'Discovery transmits between completed reads, without cancelling bulk IN');
     assert.equal(endpoint, 1); assert.deepEqual(bytes.slice(0, 2), b(0x55, 0xaa));
     assert.equal(bytes[2] | bytes[3] << 8, bytes.length - 4);
     const decoder = new FrameDecoder(); decoder.feed(bytes.slice(4));
@@ -56,7 +57,7 @@ class DiscoveryUSB {
     const { reject, timer } = this.pending; this.pending = null; clearTimeout(timer);
     reject(new DOMException('Cancelled', 'AbortError'));
   }
-  async releaseInterface() { this.cancel(); }
+  async releaseInterface() { this.releases++; this.cancel(); }
   async close() { this.opened = false; this.cancel(); }
 }
 
@@ -104,6 +105,7 @@ test('an unanswered search completes six slots and FF, keeps 9600 and reports ac
   const result = await discoverXID(adapter, settings, { record, localID: LOCAL });
   await adapter.close();
   assert.equal(result.status, 'no-data'); assert.equal(result.completedCycles, 1); assert.equal(result.txFrames, 7);
+  assert.equal(device.releases, 0, 'Discovery never uses release/claim to stop a background reader');
   assert.deepEqual(device.frames.map(frame => parseXID(frame).slot), [0, 1, 2, 3, 4, 5, 255]);
   assert.ok(device.frames.every(frame => frame.control === 0x3f && frame.address === 0xff));
   assert.ok(adapter.usbStats.readCount > 0); assert.equal(adapter.usbStats.nonemptyReads, 0);
@@ -189,6 +191,7 @@ test('the deadline closes USB even when bulk IN never completes a read', async (
   const { adapter, device, events, record } = await prepare(); device.blocked = true;
   const result = await discoverXID(adapter, settings, { record, localID: LOCAL }); await adapter.close();
   assert.equal(result.status, 'no-data'); assert.equal(adapter.usbStats.readCount, 0);
-  assert.equal(result.completedCycles, 1); assert.equal(device.pending, null);
+  assert.equal(result.completedCycles, 0); assert.equal(result.txFrames, 0); assert.equal(device.pending, null);
+  assert.equal(device.releases, 0);
   assert.deepEqual(JSON.parse(new TextDecoder().decode(attemptFiles({ kind: 'discovery' }, events)[0].data)).pendingUSBCalls, []);
 });

@@ -35,6 +35,12 @@ working PC receiver in `switchToReceive`; their suitability for the other
 watch modes has not been established. Completed searches are followed by a
 two-second listening interval before another cycle.
 
+Discovery interleaves individual USB reads and XID writes. It does not run
+the photo app's background reader or use release/claim between slots. The
+first hardware attempt exposed a Chromium receive-stop timeout before any
+XID could be sent; this separate read loop avoids that transition. The normal
+photo transport still starts its background reader after each transmission.
+
 When a peer searches, the test yields its own search and answers in the current
 valid slot, once per observed peer cycle. The final peer slot is recorded,
 without a late reply. If an **SNRM connection request addressed to our local

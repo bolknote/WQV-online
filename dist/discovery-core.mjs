@@ -72,7 +72,10 @@ export async function discoverXID(adapter, settings, { signal, record = () => {}
     if (gap > 0) await sleep(gap);
     if (reason || performance.now() >= deadline) return false;
     record('xid-send-attempt', { purpose, address: frame.address, control: frame.control, dataHex: toHex(frame.data) });
-    await adapter.sendFrame(frame.address, frame.control, frame.data);
+    // This experiment owns one USB read at a time. Transmit only between
+    // completed reads and do not start the normal background reader: stopping
+    // its rapid empty-read resubmissions can hang release/claim in Chromium.
+    await adapter.sendFrame(frame.address, frame.control, frame.data, 11, { receive: false });
     record('tx-frame', { ...frame, data: undefined, dataHex: toHex(frame.data), phase: 'discovery', purpose, baud: 9600 });
     return true;
   };
@@ -83,16 +86,28 @@ export async function discoverXID(adapter, settings, { signal, record = () => {}
       signal?.throwIfAborted(); adapter.assertOpen();
       const now = performance.now();
       if (slot === null && now >= nextCycle) { slot = 0; due = now; record('discovery-cycle-start'); }
-      if (slot !== null && now >= due && now - lastRX >= 10) {
+      if (slot !== null && now >= due && now - lastRX >= (decoder.body?.length ? 100 : 10)) {
         if (await send(xidFrame(localID, { slot }), slot === 255 ? 'cycle-end' : 'search-slot')) {
           if (slot === 255) { counters.completedCycles++; slot = null; nextCycle = performance.now() + 2000; }
           else { slot = slot === 5 ? 255 : slot + 1; due = performance.now() + 100; }
         }
       }
       if (reason) break;
-      const frame = await adapter.receiveFrame(Math.max(1, Math.min(40, deadline - performance.now())));
-      if (!frame) continue;
-      lastRX = performance.now(); counters.validFrames++;
+      const frame = decoder.frames.shift();
+      if (!frame) {
+        adapter.readPending = true;
+        let result;
+        try { result = await adapter.device.transferIn(adapter.inEndpoint, 64); }
+        finally { adapter.readPending = false; }
+        if (reason) break;
+        if (result.status !== 'ok' || !result.data) throw new Error(`USB IN: ${result.status}, missing or failed data buffer.`);
+        const bytes = new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength);
+        adapter.rxBytes += bytes.length;
+        if (bytes.length) { lastRX = performance.now(); decoder.feed(bytes); }
+        else await sleep(2);
+        continue;
+      }
+      counters.validFrames++;
       record('rx-frame', { address: frame.address, control: frame.control, dataHex: toHex(frame.data),
         phase: 'discovery', baud: 9600, decoder: 'irda-crc-strict', recovered: false });
       const xid = parseXID(frame);
