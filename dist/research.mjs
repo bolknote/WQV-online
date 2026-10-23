@@ -48,6 +48,9 @@ const ru = {
   '1. Prepare USB first': '1. Сначала подготовьте USB',
   'Disconnect this adapter in other apps. Prepare USB before enabling transfer mode on the watch. No watch command is sent during preparation.': 'Отключите адаптер в других программах. Подготовьте USB до включения обмена на часах. При подготовке команды часам не отправляются.',
   'Prepare SigmaTel USB…': 'Подготовить SigmaTel USB…', 'Release USB': 'Освободить USB',
+  'Reset SigmaTel USB…': 'Сбросить SigmaTel USB…',
+  'If USB transfers stall, release USB and try Reset SigmaTel USB. Restart the watch transfer mode afterwards. If the reset does not help, unplug and reconnect the adapter.': 'Если передачи USB зависают, освободите USB и попробуйте сбросить SigmaTel. После этого заново включите обмен на часах. Если сброс не помог, выньте и снова подключите адаптер.',
+  'USB XID transmission did not complete before the capture deadline.': 'Передача XID через USB не завершилась до конца записи.',
   '2. Reset the watch, then run this step': '2. Перезапустите обмен на часах и выполните шаг',
   'Exit the previous transfer session on the watch. Select IR → PC → F / REMOTE again and face the watch toward the adapter. No factory reset is needed.': 'Выйдите из предыдущего сеанса обмена на часах. Снова выберите IR → ПК → F / REMOTE и поставьте часы напротив адаптера. Сброс к заводским настройкам не нужен.',
   'I restarted IR → PC for this step; the watch is ready now.': 'Я заново включил IR → ПК для этого шага; часы готовы сейчас.',
@@ -147,6 +150,7 @@ function render() {
     return li;
   }));
   $('prepare').disabled = !store || busy || ready || done || storageFailed || !navigator.usb;
+  $('reset-prepare').disabled = $('prepare').disabled;
   $('disconnect').disabled = busy || !ready;
   $('watch-ready').disabled = !ready || busy || done;
   $('response-seconds').disabled = busy || ready && done;
@@ -222,7 +226,7 @@ async function saveActive() {
   try { await store.save(active); }
   catch (error) { storageError(error); throw error; }
 }
-async function prepare() {
+async function prepare({ reset = false } = {}) {
   if (busy || adapter?.opened || !isCapture() && plan.state !== 'idle' || storageFailed) return;
   const passive = isListening(), discovery = isDiscovery(), capture = isCapture();
   const settings = discovery ? discoverySettings({ watchMode: selectedWatchMode, durationMs: Number($('response-seconds').value) * 1000 }) :
@@ -241,7 +245,7 @@ async function prepare() {
       device: { vendorId: device.vendorId, productId: device.productId, productName: device.productName,
         manufacturerName: device.manufacturerName, serialNumber: device.serialNumber, deviceVersionMajor: device.deviceVersionMajor,
         deviceVersionMinor: device.deviceVersionMinor, deviceVersionSubminor: device.deviceVersionSubminor },
-      request: { parametersHex: '', applicationTransmissions: capture ? 0 : 1, automaticRetransmission: false,
+      request: { parametersHex: '', usbReset: reset, applicationTransmissions: capture ? 0 : 1, automaticRetransmission: false,
         ...(capture ? { discovery, acknowledgements: false, bulkOutAllowed: discovery, acceptingConnections: false } : {}) },
       capture: { originalUSBBytes: true, syntheticData: false, automaticNextStep: false } };
     await saveActive();
@@ -254,6 +258,11 @@ async function prepare() {
     transport = new SigmaTel(captureUSB(device, record, () => ({ baud: transport?.baud ?? null, phase: attempt.status }), { receiveOnly: passive, counters: usbCounters }),
       { log: (level, message) => record('log', { level, message: String(message) }) });
     adapter = transport; adapter.usbStats = usbCounters;
+    if (reset) {
+      record('usb-reset-request');
+      await adapter.io(adapter.device.open(), 'opening USB for reset'); controller.signal.throwIfAborted();
+      await adapter.io(adapter.device.reset(), 'resetting SigmaTel USB'); controller.signal.throwIfAborted();
+    }
     await adapter.open(); controller.signal.throwIfAborted();
     if (capture) {
       await adapter.setupSIR(); controller.signal.throwIfAborted();
@@ -350,7 +359,7 @@ async function run() {
           'Recording finished. USB released. Each new recording starts manually.' :
         active.status === 'interrupted' ? 'Step interrupted. Raw data received so far is kept.' :
           'Step finished. Reset the watch transfer session before continuing. The next step is manual.',
-      active.error ?? active.result?.error?.message ?? '', active.status === 'error' || Boolean(active.cleanupError));
+      t(active.error ?? active.result?.error?.message ?? ''), active.status === 'error' || Boolean(active.cleanupError));
       await refreshAttempts(active.id);
     } else { attempts = [...attempts.filter(attempt => attempt.id !== active.id), active]; showAttemptOptions(active.id); }
     drawCapture(); render();
@@ -386,6 +395,7 @@ async function exportAttempts(all) {
 }
 
 $('prepare').onclick = () => prepare().catch(error => status(String(error), '', true));
+$('reset-prepare').onclick = () => prepare({ reset: true }).catch(error => status(String(error), '', true));
 $('disconnect').onclick = () => release().catch(error => status(String(error), '', true));
 $('send').onclick = () => run().catch(error => status(String(error), '', true));
 $('stop').onclick = () => { journal?.record('manual-stop'); controller?.abort(new DOMException('Stopped by user.', 'AbortError')); adapter?.close().catch(() => {}); };

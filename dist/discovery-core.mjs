@@ -55,10 +55,13 @@ export async function discoverXID(adapter, settings, { signal, record = () => {}
     xidRepliesSent: 0, completedCycles: 0, echoFrames: 0, connectionRequests: 0 };
   const peers = new Map(), replies = new Map();
   const started = performance.now(), deadline = started + durationMs;
-  let nextCycle = started + 500, slot = null, due = 0, lastRX = -Infinity, reason = null, error = null;
+  let nextCycle = started + 500, slot = null, due = 0, lastRX = -Infinity, reason = null, error = null, transmitting = false;
   const end = cause => {
     if (reason) return;
     reason = cause;
+    if (cause === 'deadline' && transmitting) {
+      reason = 'error'; error = { name: 'USBTransmitTimeout', message: 'USB XID transmission did not complete before the capture deadline.' };
+    }
     // Closing aborts a pending WebUSB read or write. The caller awaits the
     // same bounded close operation before saving the finished journal.
     record('discovery-ending', { reason });
@@ -75,7 +78,9 @@ export async function discoverXID(adapter, settings, { signal, record = () => {}
     // This experiment owns one USB read at a time. Transmit only between
     // completed reads and do not start the normal background reader: stopping
     // its rapid empty-read resubmissions can hang release/claim in Chromium.
-    await adapter.sendFrame(frame.address, frame.control, frame.data, 11, { receive: false });
+    transmitting = true;
+    try { await adapter.sendFrame(frame.address, frame.control, frame.data, 11, { receive: false }); }
+    finally { transmitting = false; }
     record('tx-frame', { ...frame, data: undefined, dataHex: toHex(frame.data), phase: 'discovery', purpose, baud: 9600 });
     return true;
   };

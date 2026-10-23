@@ -195,3 +195,15 @@ test('the deadline closes USB even when bulk IN never completes a read', async (
   assert.equal(device.releases, 0);
   assert.deepEqual(JSON.parse(new TextDecoder().decode(attemptFiles({ kind: 'discovery' }, events)[0].data)).pendingUSBCalls, []);
 });
+
+test('a pending USB transmit at the deadline is an error, not evidence of a silent watch', async () => {
+  const { adapter, device, events, record } = await prepare();
+  let cancelOut;
+  device.transferOut = () => new Promise((_, reject) => { cancelOut = reject; });
+  const close = device.close.bind(device);
+  device.close = async () => { await close(); cancelOut?.(new DOMException('Cancelled', 'AbortError')); };
+  const result = await discoverXID(adapter, settings, { record, localID: LOCAL }); await adapter.close();
+  assert.equal(result.status, 'error'); assert.equal(result.error.name, 'USBTransmitTimeout');
+  assert.equal(result.txFrames, 0); assert.equal(result.completedCycles, 0);
+  assert.ok(events.some(event => event.kind === 'usb-error' && event.operation === 'transferOut'));
+});

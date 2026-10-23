@@ -41,6 +41,14 @@ first hardware attempt exposed a Chromium receive-stop timeout before any
 XID could be sent; this separate read loop avoids that transition. The normal
 photo transport still starts its background reader after each transmission.
 
+**Reset SigmaTel USB…** performs a WebUSB device reset before preparation.
+The request and its outcome are included in the trace. A successful reset
+does not prove that bulk transmission has recovered. If the XID write still
+stalls, physically reconnect the adapter before testing the watch again.
+A capture deadline reached during a transmit is reported as an error, not
+as a silent watch. Check `txFrames`, completed cycles and the USB completion
+records before interpreting missing replies.
+
 When a peer searches, the test yields its own search and answers in the current
 valid slot, once per observed peer cycle. The final peer slot is recorded,
 without a late reply. If an **SNRM connection request addressed to our local
