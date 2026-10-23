@@ -81,6 +81,18 @@ storage. The hosted app and a localhost copy have separate collections.
 Deleting a local photo only removes that browser copy. Deleting a photo from
 the watch still takes the watch's buttons; the app's Help menu has the steps.
 
+## Command research
+
+There is a separate [research page](https://bolknote.github.io/WQV-online/research.html)
+for trying the remaining command candidates one at a time. Prepare USB first,
+restart transfer mode on the watch, then send the selected command. Moving to
+the next step is manual. Each attempt keeps its original USB bytes and can be
+exported as a ZIP, including failed or interrupted attempts.
+
+The effects of the unknown codes are not established. The page has software
+tests; those probes have not been checked on the watch. See the
+[research notes](docs/command-research.md) for the request list and log format.
+
 ## Run locally
 
 The app is plain HTML, CSS and JavaScript. There are no packages to install and
