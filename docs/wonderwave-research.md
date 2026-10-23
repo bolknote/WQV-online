@@ -73,7 +73,7 @@ Software tests cover framing, repeated NAK, one-shot CR, stopping TX on any
 incoming byte, pending USB operations, FIFO failure and checksum-block detection.
 The watch handshake remains unverified on hardware.
 
-On 23 October, three 20-second SWAN SEND runs completed: ten NAK writes,
+On 23 October, three 20-second captures labelled SWAN SEND completed: ten NAK writes,
 one CR write, and a listen-only control. All returned zero USB bytes after
 22,460 successful reads in total. The writes and FIFO checks completed without
 errors; two additional NAK/listen runs were also empty. These tests did not
@@ -94,9 +94,20 @@ The serial page now has a separate single-byte send button, allowing capture
 before watch activation and an explicit probe afterwards. Early bytes remain
 in the trace. It also labels SWAN RECEIVE correctly, records RECEIVE marks and
 keeps an unsent probe classified as `probe-not-sent` even when RX contains data.
-No hardware result from this revised manual-send experiment is available yet.
-A working normal PC connection is already established; it need not be repeated
-before this capture.
+The revised manual experiment was then run twice in SWAN RECEIVE at 9600:
+one `15` and one `0D`. Each completed USB OUT and the FIFO drain check. Each
+received a single `FF` in its first USB read, before the RECEIVE marker and
+before the probe; neither received any byte after the completed probe. Neither
+test had a USB error or an unresolved request. Their result does not identify
+an XMODEM or terminal handshake, and USB/FIFO completion alone does not prove
+that the watch received the optical signal.
+The normal WQV Link PC connection had already been verified with the same
+adapter.
+
+The [search for the camera application](swan-camera-link.md) found Casio's own
+2001 FAQ describing SWAN support as planned and not yet usable, plus an
+exhibition caption naming Wrist Camera Link. No console ROM or source was
+obtained, so no Casio handshake bytes could be extracted from it.
 
 For SWAN, use a separate 9600-bit/s capture for each deliberately
 chosen raw-byte probe, restarting the watch mode between attempts. Preserve
