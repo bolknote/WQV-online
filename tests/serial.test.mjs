@@ -75,7 +75,7 @@ async function prepare({ passive = false } = {}) {
 test('serial probes require a valid preset, watch mode and idle 9600 receiver before touching data endpoints', async () => {
   assert.equal(serialSettings(settings).probeHex, '15');
   assert.equal(serialSettings({ ...settings, probe: 'cr' }).repeatMs, 0);
-  for (const bad of [{ probe: 'aa' }, { watchMode: 'pc-remote' }, { durationMs: 0 }, { durationMs: NaN }, { durationMs: 120001 }]) {
+  for (const bad of [{ probe: 'aa' }, { watchMode: 'pc-remote' }, { watchMode: 'swan-receive' }, { durationMs: 0 }, { durationMs: NaN }, { durationMs: 120001 }]) {
     assert.throws(() => serialSettings({ ...settings, ...bad }), RangeError);
   }
   const { device, adapter, record } = await prepare();

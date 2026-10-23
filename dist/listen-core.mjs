@@ -2,7 +2,7 @@ import { FrameDecoder, sleep } from './irda.mjs';
 import { toHex } from './formats.mjs';
 
 export const LISTEN_RATES = Object.freeze([9600, 38400, 115200]);
-export const LISTEN_MODES = Object.freeze(['watch-send', 'others-send', 'swan-send']);
+export const LISTEN_MODES = Object.freeze(['watch-send', 'others-send', 'swan-send', 'swan-receive']);
 
 export function listenSettings({ baud, watchMode, durationMs }) {
   if (!LISTEN_RATES.includes(baud)) throw new RangeError('Invalid listening speed.');
@@ -13,7 +13,7 @@ export function listenSettings({ baud, watchMode, durationMs }) {
   return { baud, watchMode, durationMs };
 }
 
-// The caller prepares the receiver before the user enables SEND on the watch.
+// Prepare the receiver before the user activates SEND or RECEIVE on the watch.
 // Read bulk IN directly: the normal half-duplex reader stops at a poll/final
 // frame, whereas a passive recording must keep reading without replying.
 export async function listen(adapter, settings, { signal, record = () => {} } = {}) {

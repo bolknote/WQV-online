@@ -89,7 +89,7 @@ test('XID encoding includes identity only in replies and the final search slot; 
 test('discovery validates setup and an already cancelled experiment before any USB traffic', async () => {
   assert.deepEqual(discoverySettings(settings), { ...settings, baud: 9600 });
   assert.equal(discoverySettings({ ...settings, watchMode: 'pc-remote' }).watchMode, 'pc-remote');
-  for (const bad of [{ durationMs: 1999 }, { durationMs: NaN }, { durationMs: 120001 }, { watchMode: 'unknown' }]) {
+  for (const bad of [{ durationMs: 1999 }, { durationMs: NaN }, { durationMs: 120001 }, { watchMode: 'unknown' }, { watchMode: 'swan-receive' }]) {
     assert.throws(() => discoverySettings({ ...settings, ...bad }));
   }
   const { adapter, device, record } = await prepare();

@@ -73,8 +73,19 @@ Software tests cover framing, repeated NAK, one-shot CR, stopping TX on any
 incoming byte, pending USB operations, FIFO failure and checksum-block detection.
 The watch handshake remains unverified on hardware.
 
-Start with a reception control in PC / REMOTE on the same adapter and watch
-position. For SWAN, use a separate 9600-bit/s capture for each deliberately
+On 23 October, three 20-second SWAN SEND runs completed: ten NAK writes,
+one CR write, and a listen-only control. All returned zero USB bytes after
+22,460 successful reads in total. The writes and FIFO checks completed without
+errors; two additional NAK/listen runs were also empty. These tests did not
+confirm checksum XMODEM or a terminal handshake. The user then verified that
+the normal WQV Link page could communicate with the watch using this adapter.
+
+The next passive experiment is **SWAN RECEIVE**: capture before activating
+reception to look for any initial bytes from the watch in that role. A working
+normal PC connection is already established; it need not be repeated before
+this capture.
+
+For SWAN, use a separate 9600-bit/s capture for each deliberately
 chosen raw-byte probe, restarting the watch mode between attempts. Preserve
 requested USB writes, completion status, all incoming bytes and screen notes.
 `15` is a source-backed XMODEM receiver-start hypothesis; `0D` is a confirmed

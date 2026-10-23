@@ -76,6 +76,20 @@ test('each listening rate configures only the receiver and blocks all bulk OUT c
   }
 });
 
+test('SWAN RECEIVE captures possible receiver invitations without sending a byte or losing unknown data', async () => {
+  const { device, adapter, events, record } = await prepare(), controller = new AbortController();
+  const setup = { ...settings(), watchMode: 'swan-receive' };
+  assert.deepEqual(listenSettings(setup), setup);
+  const run = listen(adapter, setup, { signal: controller.signal, record });
+  const incoming = fromHex('15 43 0d c1 e1');
+  await device.deliver(incoming.slice(0, 2)); await device.deliver(incoming.slice(2));
+  controller.abort(); const result = await run; await adapter.close();
+  assert.equal(result.watchMode, 'swan-receive'); assert.equal(result.rxBytes, incoming.length);
+  assert.equal(result.txFrames, 0); assert.ok(device.calls.every(call => call === 'in'));
+  assert.ok(events.some(event => event.kind === 'listen-start' && event.watchMode === 'swan-receive' && !event.transmitting));
+  assert.deepEqual(attemptFiles({ kind: 'listen', watchMode: 'swan-receive' }, events).find(file => file.name === 'usb-in.bin').data, incoming);
+});
+
 test('passive capture keeps unknown bytes, split frames and bad CRC, without answering poll frames or repairing EOF', async () => {
   const { device, adapter, events, record } = await prepare(115200), controller = new AbortController();
   const run = listen(adapter, settings(115200), { signal: controller.signal, record });

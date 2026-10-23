@@ -4,7 +4,7 @@ import { LISTEN_MODES } from './listen-core.mjs';
 
 const BROADCAST = b(255, 255, 255, 255);
 const SLOT_COUNTS = [1, 6, 8, 16];
-export const DISCOVERY_MODES = Object.freeze([...LISTEN_MODES, 'pc-remote']);
+export const DISCOVERY_MODES = Object.freeze([...LISTEN_MODES.filter(mode => mode.endsWith('-send')), 'pc-remote']);
 // The same computer / IrCOMM / OBEX hints used by our working PC receiver.
 const IDENTITY = concat(b(0x84, 0x25, 0), ascii('WEB-WQV'));
 

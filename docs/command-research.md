@@ -90,8 +90,10 @@ cleanup. Positive reception from a watch in this mode has not yet been verified.
 One 60-second WATCH SEND run on 23 October completed 147 XID writes (21
 cycles) and 21,010 successful USB reads, all empty. There were no CRC errors
 because no bytes arrived. The watch showed a small SEND label; that observation
-alone does not confirm that infrared transmission started. A PC / REMOTE
-reception control is prepared but has not been run.
+alone does not confirm that infrared transmission started. The dedicated
+XID-only PC / REMOTE control has not been run. The user subsequently verified
+successful watch communication through the normal WQV Link page on the same
+adapter; repeating that normal-PC hardware control is unnecessary.
 
 WonderWave also supported direct serial communication through WonderWitch.
 The [WonderWave research notes](wonderwave-research.md) describe recovered
@@ -142,7 +144,8 @@ does not identify a Casio protocol. `response.bin`, `before-command.bin` and
 
 ## Passive listening
 
-1. Choose a watch mode: **WATCH SEND**, **OTHERS SEND** or **SWAN SEND**.
+1. Choose a watch mode: **WATCH SEND**, **OTHERS SEND**, **SWAN SEND** or
+   **SWAN RECEIVE**.
    This is a label for the experiment; the page does not change or detect the
    watch's mode.
 2. Choose a fixed **9600**, **38400** or **115200 bit/s** rate and a capture
@@ -151,14 +154,24 @@ does not identify a Casio protocol. `response.bin`, `before-command.bin` and
    The page opens USB, initializes SIR and sets the chosen rate. This uses
    local adapter control requests; no infrared frame is transmitted. It does
    not start reading until you click **Start recording**.
-4. On the watch, exit the previous transfer session, select the matching SEND
-   mode and an image, and face it toward the adapter. Tick the readiness box.
-5. Click **Start recording**, then press the final SEND button on the watch.
-   Optionally click **Mark SEND press** on the page to add a timestamped event.
+4. On the watch, exit the previous transfer session and select the matching
+   mode. For SEND, choose an image. Face the watch toward the adapter and tick
+   the readiness box.
+5. Click **Start recording**, then activate SEND or RECEIVE on the watch.
+   Optionally use the matching **Mark** button on the page to add a timestamped event.
    The marker records the page click, not the exact physical watch button press.
 6. Wait for the window to end, or click **Stop**. The page closes USB and keeps
    the trace. Add screen observations, export the ZIP, and manually choose the
    next experiment. Restart the watch's transfer mode before every attempt.
+
+For **SWAN RECEIVE**, use
+[`research.html?mode=listen&watch=swan-receive&baud=9600`](https://bolknote.github.io/WQV-online/research.html?mode=listen&watch=swan-receive&baud=9600).
+Prepare USB, select **IR → SWAN → RECEIVE** on the watch, and begin recording
+before the final button that activates reception. No photo selection is
+needed. **Mark RECEIVE press** records that action in the journal. This tests
+whether the watch initiates an exchange in the receiving role. It does not
+assume that the watch uses XMODEM. Other fixed speeds remain separate manual
+experiments. The RECEIVE option is available only in passive Listen.
 
 The listener reads USB bulk IN directly and keeps reading after poll/final
 frames. It sends no discovery, connection setup, application commands, polls
@@ -175,7 +188,8 @@ cannot establish that the watch sent nothing or that the mode is unsupported.
 
 Listening attempts have `kind: "listen"`, format `wqv-listen-research-v1`, the
 selected `watchMode` and `baud`, window/start/end times and byte/frame counters.
-`watch-send-mark` events carry the manual SEND markers. `response.bin` and
+`watch-send-mark` and `watch-receive-mark` events carry the manual action markers.
+SWAN RECEIVE attempts also have a `receiveMarkers` count. `response.bin` and
 `before-command.bin` are empty because no application session is opened.
 Read completions during shutdown remain in the original USB trace; counters
 cover the reads processed before the capture window ended. Stop/deadline

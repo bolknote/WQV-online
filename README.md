@@ -85,8 +85,8 @@ the watch still takes the watch's buttons; the app's Help menu has the steps.
 
 There is a separate [research page](https://bolknote.github.io/WQV-online/research.html)
 with four modes. **Listen** records what SigmaTel receives at a fixed 9600,
-38400 or 115200 bit/s. Choose WATCH SEND, OTHERS SEND or SWAN SEND, prepare USB,
-then start recording before pressing SEND on the watch. It sends no discovery,
+38400 or 115200 bit/s. Choose WATCH SEND, OTHERS SEND, SWAN SEND or SWAN RECEIVE,
+prepare USB, then start recording before activating that mode on the watch. It sends no discovery,
 commands or acknowledgements. Every recording and speed change is manual.
 
 **Discovery** tests whether the watch is waiting for another device to speak.
