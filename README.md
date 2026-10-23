@@ -103,10 +103,12 @@ the same local research journal; previous recordings remain available.
 Listen and Discovery keep unknown bytes and failed CRC frames in the original
 stream. Their frame decoders use strict IrDA CRC checks without recovery.
 The selected mode and speed are test settings, not detected capabilities.
-The first passive captures returned no USB bytes. Discovery has software tests;
-its first watch test is pending. The effects of the unknown command codes are
-not established. See the
+The first passive captures and a WATCH SEND discovery run returned no USB
+bytes. Reception in the research modes is still unverified. The effects of
+the unknown command codes are not established. See the
 [research notes](docs/command-research.md) for instructions and the log format.
+There are also [WonderWave notes](docs/wonderwave-research.md) with recovered
+WonderWitch serial-transfer sources and what they might tell us about SWAN mode.
 
 ## Run locally
 

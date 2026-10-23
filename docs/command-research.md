@@ -84,7 +84,17 @@ of silence. Connection requests are saved but are not accepted by this test.
 Software tests cover the complete slot cycle, replies in peer slots, yielding
 to another search, a non-Casio peer name, stopping at SNRM, echoes, foreign
 addresses, bad CRC preservation, manual Stop, a failed transmit and deadline
-cleanup. Positive reception from a watch in this mode has not yet been tested.
+cleanup. Positive reception from a watch in this mode has not yet been verified.
+
+One 60-second WATCH SEND run on 23 October completed 147 XID writes (21
+cycles) and 21,010 successful USB reads, all empty. There were no CRC errors
+because no bytes arrived. The watch showed a small SEND label; that observation
+alone does not confirm that infrared transmission started. A PC / REMOTE
+reception control is prepared but has not been run.
+
+WonderWave also supported direct serial communication through WonderWitch.
+The [WonderWave research notes](wonderwave-research.md) describe recovered
+source code, the known byte sequences and the remaining gap to Casio SWAN mode.
 
 ## Passive listening
 
