@@ -67,7 +67,11 @@ Active Discovery sends XID frames. It cannot test a peer waiting for a raw
 serial byte. A raw-serial experiment would need a separate transmit path:
 the SigmaTel USB `55 AA` length wrapper is still required, but `sendFrame()`
 adds IrLAP address/control fields, CRC and delimiters that a serial experiment
-must not insert. This path has not been implemented or tested on hardware.
+must not insert. The [Serial bytes mode](command-research.md#raw-serial-probes)
+now implements this path with manual probes and original-byte exports.
+Software tests cover framing, repeated NAK, one-shot CR, stopping TX on any
+incoming byte, pending USB operations, FIFO failure and checksum-block detection.
+The watch handshake remains unverified on hardware.
 
 Start with a reception control in PC / REMOTE on the same adapter and watch
 position. For SWAN, use a separate 9600-bit/s capture for each deliberately

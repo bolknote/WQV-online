@@ -150,7 +150,7 @@ export class ResearchClient extends WQVClient {
 
 export function attemptFiles(attempt, events) {
   const encoder = new TextEncoder();
-  const rx = [], tx = [], reply = [], beforeCommand = [], frames = [];
+  const rx = [], tx = [], serialRequested = [], serialCompleted = [], reply = [], beforeCommand = [], frames = [];
   const pending = new Set();
   for (const event of events) {
     if (event.kind === 'usb-call') {
@@ -162,6 +162,8 @@ export function attemptFiles(attempt, events) {
     if (event.kind === 'application-rx') reply.push(fromHex(event.dataHex));
     if (event.kind === 'application-before-command') beforeCommand.push(fromHex(event.dataHex));
     if (event.kind === 'rx-frame' || event.kind === 'tx-frame') frames.push(event);
+    if (event.kind === 'serial-tx-attempt') serialRequested.push(fromHex(event.dataHex));
+    if (event.kind === 'serial-tx-complete') serialCompleted.push(fromHex(event.dataHex));
   }
   const json = value => encoder.encode(JSON.stringify(value, null, 2) + '\n');
   const jsonl = rows => encoder.encode(rows.map(row => JSON.stringify(row) + '\n').join(''));
@@ -171,7 +173,17 @@ export function attemptFiles(attempt, events) {
     { name: 'usb-in.bin', data: joinBytes(rx) }, { name: 'usb-out-requested.bin', data: joinBytes(tx) },
     { name: 'response.bin', data: joinBytes(reply) },
     { name: 'before-command.bin', data: joinBytes(beforeCommand) },
-    { name: 'README.txt', data: encoder.encode(attempt.kind === 'discovery' ?
+    ...(attempt.kind === 'serial' ? [
+      { name: 'serial-out-requested.bin', data: joinBytes(serialRequested) },
+      { name: 'serial-out-completed.bin', data: joinBytes(serialCompleted) },
+    ] : []),
+    { name: 'README.txt', data: encoder.encode(attempt.kind === 'serial' ?
+      'RAW SERIAL EXPERIMENT: fixed 9600 bit/s, 8N1. The selected bytes go directly through the SigmaTel SIR path with only its USB 55 AA length header. No IrLAP address/control fields, escaping, frame CRC, discovery, polls, XMODEM ACKs or application session are added.\n' +
+      'NAK (15) repeats at 2-second intervals while no data arrives; CR (0D) is sent once. Each begins after 500 ms. Listen-only transmits nothing. Any received byte, including possible local echo, stops further transmissions; capture continues until Stop/deadline. Probe selection and the next attempt are manual. These probes are hypotheses from WonderWitch sources, not identified Casio commands.\n' +
+      'events.jsonl is the authoritative trace, including empty reads, timestamps, USB transfer boundaries, failures, setup, pending calls and SEND markers. usb-in.bin preserves ALL delivered bytes without decoding, CRC recovery or echo removal. The final result and XMODEM candidate scan include successful reads completed during USB close. USB bytes are not optical pulse timings.\n' +
+      'usb-out-requested.bin contains requested USB buffers including SigmaTel headers. serial-out-requested.bin contains only requested logical serial bytes. serial-out-completed.bin contains bytes for which USB OUT and FIFO drain checks both completed; neither USB success nor an empty FIFO proves optical delivery to the watch. Check status/bytesWritten and serial-tx-usb-complete events for writes that succeeded before a FIFO error.\n' +
+      'No IrCOMM application response is decoded: response.bin, before-command.bin and frames.jsonl are empty. Check usb-in.bin for replies. XMODEM candidates have a complete SOH/sequence/inverse/128-byte-data/8-bit-checksum layout; a candidate is not proof of peer identity or full file compatibility. No ACK is sent after a candidate.\n' +
+      'A no-data result is inconclusive. probe-not-sent means USB reads prevented the planned probe from being sent. Pending writes, deadline failures, byte-limit captures and interrupted runs are not successful negative watch tests. Late/unresolved calls are listed in pendingUSBCalls; live exports may be incomplete.\n' : attempt.kind === 'discovery' ?
       'ACTIVE DISCOVERY: fixed 9600 bit/s. Only XID search commands and XID replies are transmitted. Each completed search has six slots and a final slot FF advertising WEB-WQV with hints 84 25 and ASCII charset 00. These are the identity hints used by the working PC receiver, not proof of OTHERS/SWAN compatibility.\n' +
       'An incoming search interrupts our search to avoid competing with the peer. Incoming XID frames are answered once per observed peer cycle in the current slot. An SNRM addressed to us is saved and ends the experiment; no connection is accepted and no application command, IAS reply, photo transfer or speed negotiation is sent.\n' +
       'The selected watch mode is a manual label, not an automatic identification. The trace includes the generated local device ID, peer IDs, names and service hints. CRC recovery is disabled. Echoes with our source ID are counted separately.\n' +

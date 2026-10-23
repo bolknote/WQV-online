@@ -5,7 +5,8 @@ run `python3 serve.py --port 8766` and visit
 `http://127.0.0.1:8766/research.html` in Chrome, Edge or Opera.
 The normal photo app stays at the site's root. Use **Listen** for passive
 capture, **Discovery** for active device discovery, or **Commands** for the
-existing command probes. The page remembers
+existing command probes. **Serial bytes** tests plain byte exchange suggested
+by the WonderWave sources. The page remembers
 this choice, but never starts a recording or connects to the watch on reload.
 
 This page is for the WQV-3 and SigmaTel STIr4200 (`066f:4200`). It uses the same
@@ -95,6 +96,49 @@ reception control is prepared but has not been run.
 WonderWave also supported direct serial communication through WonderWitch.
 The [WonderWave research notes](wonderwave-research.md) describe recovered
 source code, the known byte sequences and the remaining gap to Casio SWAN mode.
+
+## Raw serial probes
+
+Open [`research.html?mode=serial`](https://bolknote.github.io/WQV-online/research.html?mode=serial).
+This mode uses fixed **9600 bit/s, 8N1**. It sends bytes through SigmaTel SIR,
+without IrLAP discovery, packet headers, escaping, frame CRC or acknowledgements.
+The [WonderWave sources](wonderwave-research.md) explain the hypotheses.
+
+1. Choose **SWAN SEND** and **15 · XMODEM NAK**. WATCH SEND and OTHERS SEND
+   remain available as separate experiments.
+2. Click **Prepare SigmaTel USB…** before turning on the watch's transfer mode.
+   Preparation sends no infrared data.
+3. Restart **IR → SWAN → SEND** on the watch, choose a photo and face the
+   watch toward SigmaTel. Tick readiness. Start the test on the page, then
+   press the final SEND button on the watch.
+4. NAK starts after a 500 ms listening interval and repeats every two seconds
+   while no bytes arrive. **Any incoming byte stops further transmissions**,
+   including a possible local echo. The page then only records until the
+   deadline or **Stop**. It never acknowledges an XMODEM block.
+5. Save the ZIP and note exactly what appeared on the watch. After USB is
+   released, **Next probe →** selects Enter (`0D`, sent once), then a listen-only
+   control. It never prepares USB or starts another attempt. Restart the watch
+   mode before each probe.
+
+The sender interleaves reads and writes without release/claim or a background
+reader. A read that never completes can prevent the probe from being sent;
+that result is `probe-not-sent`, not a negative watch response. A stalled write
+at the deadline is an error. USB OUT success and an empty FIFO do not establish
+that the watch received the optical signal.
+
+Attempts use `kind: "serial"` and `wqv-serial-research-v1`, with the preset,
+exact byte, repetition interval, USB counters, TX attempts/completions and byte
+counts before/after a completed probe. The original `usb-in.bin` includes echo,
+unrecognized data and reads completed during close. No IrDA decoder or CRC
+recovery is used. `serial-out-requested.bin` and `serial-out-completed.bin`
+contain logical bytes before SigmaTel's USB wrapper; use the USB trace to
+distinguish requested, short, failed and FIFO-confirmed writes.
+
+The result scans for complete checksum-XMODEM blocks: SOH, sequence/complement,
+128 data bytes and an 8-bit additive checksum. It keeps stream offsets and
+reports at most 32 candidates, without deleting any raw data. A match alone
+does not identify a Casio protocol. `response.bin`, `before-command.bin` and
+`frames.jsonl` stay empty because no IrCOMM session is opened.
 
 ## Passive listening
 
