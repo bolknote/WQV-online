@@ -5,12 +5,16 @@ import { zipFiles } from './zip.mjs';
 import { PROBE_PLAN, ManualSteps, ResearchClient, captureUSB, attemptFiles } from './research-core.mjs';
 import { openResearchStore, Journal } from './research-store.mjs';
 import { LISTEN_RATES, LISTEN_MODES, listenSettings, listen } from './listen-core.mjs';
-import { discoverySettings, discoverXID } from './discovery-core.mjs';
+import { DISCOVERY_MODES, discoverySettings, discoverXID } from './discovery-core.mjs';
 
 const $ = id => document.getElementById(id);
 const ru = {
   'IR research': 'Исследование ИК', Listen: 'Слушать', Commands: 'Команды', Discovery: 'Обнаружение',
   'Active discovery': 'Активное обнаружение',
+  '2. Prepare PC / REMOTE, then start discovery': '2. Включите PC / REMOTE и начните обнаружение',
+  'Active discovery. Waiting for a PC / REMOTE reply.': 'Идёт активное обнаружение. Ожидаем ответ в режиме PC / REMOTE.',
+  'USB ready. Restart IR → PC → F / REMOTE, tick the checkbox and start discovery.': 'USB готов. Заново включите IR → ПК → F / REMOTE, отметьте готовность и начните обнаружение.',
+  'PC / REMOTE is a reception control. Only XID discovery frames are sent, at a fixed 9600 bit/s; no application command is sent.': 'PC / REMOTE — контроль приёма. Передаются только поисковые кадры XID на фиксированных 9600 бит/с; прикладные команды не отправляются.',
   'Sends complete XID searches at 9600 bit/s and answers peer searches. No application commands are sent. Connection requests are recorded but not accepted.': 'Отправляет полные поисковые циклы XID на 9600 бит/с и отвечает на поиск другого устройства. Прикладные команды не отправляются. Запросы соединения записываются, но не принимаются.',
   'Advertises WEB-WQV using the same service hints as our PC receiver. Records peer names, XID replies and connection requests with the original USB bytes.': 'Представляется как WEB-WQV с теми же признаками служб, что у нашего приёмника для ПК. Сохраняет имена устройств, ответы XID, запросы соединения и исходные байты USB.',
   'Fixed 9600 bit/s. One watch mode per attempt. Discovery stops on an incoming connection request; each new attempt starts manually.': 'Фиксированные 9600 бит/с. Одна попытка — один режим часов. При входящем запросе соединения тест останавливается; следующая попытка запускается вручную.',
@@ -95,11 +99,12 @@ try {
   const savedMode = localStorage.getItem('wqv-research.mode');
   if (['listen', 'discovery', 'commands'].includes(savedMode)) mode = savedMode;
   const saved = JSON.parse(localStorage.getItem('wqv-research.listen') || '{}');
-  if (LISTEN_MODES.includes(saved.watchMode)) selectedWatchMode = saved.watchMode;
+  if (DISCOVERY_MODES.includes(saved.watchMode)) selectedWatchMode = saved.watchMode;
   if (LISTEN_RATES.includes(saved.baud)) selectedBaud = saved.baud;
 } catch {}
 const requestedMode = new URL(location.href).searchParams.get('mode');
 if (['listen', 'discovery', 'commands'].includes(requestedMode)) mode = requestedMode;
+if (mode === 'listen' && !LISTEN_MODES.includes(selectedWatchMode)) selectedWatchMode = 'watch-send';
 $('watch-mode').value = selectedWatchMode; $('listen-baud').value = selectedBaud;
 $('response-seconds').value = mode === 'commands' ? 5 : 20;
 const isListening = () => mode === 'listen';
@@ -121,12 +126,14 @@ function savePosition() {
 }
 function render() {
   const ready = Boolean(adapter?.opened), passive = isListening(), discovery = isDiscovery(), capture = isCapture(), done = !capture && plan.state === 'done';
+  const pcRemote = discovery && selectedWatchMode === 'pc-remote';
   document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   for (const option of ['listen', 'discovery', 'commands']) $('mode-' + option).setAttribute('aria-pressed', String(mode === option));
   for (const id of ['mode-listen', 'mode-discovery', 'mode-commands', 'watch-mode', 'listen-baud']) $(id).disabled = !store || busy || ready;
   $('listen-settings').hidden = !capture; $('command-sidebar').hidden = capture; $('command-navigation').hidden = capture;
   $('listen-rate-setting').hidden = discovery; $('discovery-rate').hidden = !discovery;
+  $('pc-remote-mode').hidden = !discovery; $('pc-remote-mode').disabled = !discovery;
   $('capture-setup-note').textContent = t(discovery ? 'Fixed 9600 bit/s. One watch mode per attempt. Discovery stops on an incoming connection request; each new attempt starts manually.' :
     'Choose one mode and speed per recording. The page never switches speed or starts another recording automatically.');
   $('research-grid').classList.toggle('listening', capture);
@@ -135,13 +142,13 @@ function render() {
     'The unknown commands may change watch data or settings. Their effects are not established. Each step sends one command with no parameters; this is not a firmware reader.');
   $('step-heading').textContent = discovery ? t('Active discovery') : passive ? t('Passive listening') : `${t('Step')} ${plan.index + 1} / ${PROBE_PLAN.length} · ${codeHex(plan.step.code)}`;
   $('step-evidence').textContent = t(discovery ? 'Advertises WEB-WQV using the same service hints as our PC receiver. Records peer names, XID replies and connection requests with the original USB bytes.' : passive ? 'Records every byte delivered by SigmaTel. IrDA frames are shown only if their original CRC is valid; raw data is always kept.' : evidence[plan.step.evidence]);
-  $('run-heading').textContent = t(capture ? '2. Start recording, then press SEND on the watch' : '2. Reset the watch, then run this step');
-  $('watch-instructions').textContent = capture ? t('Restart the watch transfer mode. Select {mode} and an image, then face the watch toward the adapter. Start recording here before pressing the final SEND button on the watch.').replace('{mode}', watchModeName(selectedWatchMode)) :
+  $('run-heading').textContent = t(pcRemote ? '2. Prepare PC / REMOTE, then start discovery' : capture ? '2. Start recording, then press SEND on the watch' : '2. Reset the watch, then run this step');
+  $('watch-instructions').textContent = capture && !pcRemote ? t('Restart the watch transfer mode. Select {mode} and an image, then face the watch toward the adapter. Start recording here before pressing the final SEND button on the watch.').replace('{mode}', watchModeName(selectedWatchMode)) :
     t('Exit the previous transfer session on the watch. Select IR → PC → F / REMOTE again and face the watch toward the adapter. No factory reset is needed.');
-  $('ready-label').textContent = t(capture ? 'The watch is facing the adapter. I am ready to start recording, then press SEND.' : 'I restarted IR → PC for this step; the watch is ready now.');
+  $('ready-label').textContent = t(capture && !pcRemote ? 'The watch is facing the adapter. I am ready to start recording, then press SEND.' : 'I restarted IR → PC for this step; the watch is ready now.');
   $('window-label').textContent = t(capture ? 'Capture window, seconds' : 'Response window, seconds');
   $('response-seconds').max = capture ? 120 : 30;
-  $('run-note').textContent = t(discovery ? 'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.' : passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
+  $('run-note').textContent = t(pcRemote ? 'PC / REMOTE is a reception control. Only XID discovery frames are sent, at a fixed 9600 bit/s; no application command is sent.' : discovery ? 'Six search slots and a final identity packet, followed by a listening interval. Answers incoming searches; stops before accepting a connection. Mark SEND presses to help match events.' : passive ? 'The speed stays fixed. No packets are sent back to the watch. You can mark SEND presses in the log; the marker records your click on this page.' :
     'One application command, no automatic retransmission. Normal IrDA discovery, negotiation and acknowledgements are still sent. The page stops after the response window and releases USB; it does not advance to another command.');
   $('steps').replaceChildren(...PROBE_PLAN.map((step, i) => {
     const li = document.createElement('li'); li.textContent = codeHex(step.code);
@@ -157,7 +164,7 @@ function render() {
   $('send').textContent = discovery ? t('Start discovery') : passive ? t('Start recording') : t('Watch ready — send') + ' ' + codeHex(plan.step.code);
   $('send').disabled = !ready || busy || done || storageFailed || !$('watch-ready').checked;
   $('stop').disabled = !busy || !adapter;
-  $('mark-send').hidden = !capture;
+  $('mark-send').hidden = !capture || pcRemote;
   $('mark-send').disabled = !busy || active?.status !== 'running' || active?.kind === 'command';
   $('next').disabled = busy || ready || !done || plan.index === PROBE_PLAN.length - 1 || storageFailed;
   $('skip').disabled = !store || busy || ready || plan.index === PROBE_PLAN.length - 1;
@@ -271,7 +278,7 @@ async function prepare({ reset = false } = {}) {
     }
     active.status = 'prepared'; active.adapter = adapter.description; active.chipRevision = adapter.revision;
     await journal.drain(); await saveActive();
-    status(capture ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
+    status(discovery && settings.watchMode === 'pc-remote' ? 'USB ready. Restart IR → PC → F / REMOTE, tick the checkbox and start discovery.' : capture ? 'USB ready. Prepare the selected SEND mode on the watch, then start recording before sending the image.' :
       'USB ready. Now restart IR → PC on the watch, tick the checkbox and send this command.');
   } catch (error) {
     if (active?.status === 'preparing') { active.status = 'preparation-error'; active.error = String(error); }
@@ -315,7 +322,7 @@ async function run() {
     await saveActive();
     journal.record('watch-ready', { [capture ? 'captureWindowMs' : 'responseWindowMs']: seconds * 1000 });
     if (discovery) {
-      status('Active discovery. Now press SEND on the watch.', watchModeName(active.watchMode));
+      status(active.watchMode === 'pc-remote' ? 'Active discovery. Waiting for a PC / REMOTE reply.' : 'Active discovery. Now press SEND on the watch.', watchModeName(active.watchMode));
       active.result = await discoverXID(adapter, { watchMode: active.watchMode, durationMs: seconds * 1000 },
         { signal: controller.signal, record: journal.record });
     } else if (passive) {
@@ -403,6 +410,7 @@ $('watch-ready').onchange = render;
 for (const nextMode of ['listen', 'discovery', 'commands']) $('mode-' + nextMode).onclick = () => {
   if (busy || adapter?.opened) return;
   mode = nextMode; $('watch-ready').checked = false; $('response-seconds').value = isCapture() ? 20 : 5;
+  if (!isDiscovery() && !LISTEN_MODES.includes(selectedWatchMode)) { selectedWatchMode = 'watch-send'; $('watch-mode').value = selectedWatchMode; }
   try { localStorage.setItem('wqv-research.mode', mode); } catch {}
   status('Prepare USB. Keep the watch out of transfer mode until the adapter is ready.'); render();
 };

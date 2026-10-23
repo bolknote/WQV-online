@@ -28,6 +28,11 @@ Open [`research.html?mode=discovery`](https://bolknote.github.io/WQV-online/rese
 5. Save the attempt ZIP and note any changes on the watch screen. Restart the
    watch's transfer mode before the next attempt; all steps are manual.
 
+**PC / REMOTE** is also available in Discovery as a reception control. Prepare
+USB first, restart **IR → PC → F / REMOTE** on the watch, then tick readiness
+and start discovery. It uses the same XID-only exchange, without a photo or
+service command. Passive Listen keeps its three SEND modes.
+
 The test listens for 500 ms, then sends six XID slots (0–5) and the final FF
 slot. The final packet advertises the generated local ID, name **WEB-WQV**,
 service hints **84 25**, and ASCII charset **00**. These hints match the
