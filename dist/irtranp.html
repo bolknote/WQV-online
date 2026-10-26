@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WQV Link · OTHERS / IrTran-P</title>
+<link rel="icon" href="./icons.svg"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./research.css">
+<link rel="stylesheet" href="./irtranp-suite.css">
+<script type="module" src="./irtranp.mjs"></script>
+</head><body>
+<div class="desktop-caption"><span>CASIO WRIST CAMERA</span><span>IRTRAN-P RESEARCH</span></div>
+<main class="cassiopeia">
+<header class="case-brand"><span class="casio">CASIO</span><span class="case-label">CASSIOPEIA</span><span class="case-model">OTHERS / WEBUSB</span></header>
+<div class="screen">
+<header class="titlebar"><span class="app-title">IrTran-P</span><a href="./research.html" data-text="IR research">IR research</a><label><span data-text="Language">Language</span> <select id="language" aria-label="Language"><option value="en">English</option><option value="ru">Русский</option></select></label></header>
+<div class="research-body">
+<p class="research-notice passive" data-text="Test OTHERS mode step by step. Every USB byte and protocol reply is saved locally.">Test OTHERS mode step by step. Every USB byte and protocol reply is saved locally.</p>
+<div class="research-grid listening"><section>
+<h1 data-text="OTHERS / IrTran-P research">OTHERS / IrTran-P research</h1>
+<fieldset class="suite-panel"><legend data-text="Test series">Test series</legend>
+<div class="research-buttons"><label><span data-text="Plan">Plan</span> <select id="suite-plan">
+<option value="multiple-wince211" data-text="Two photos: Windows CE 2.11 transport">Two photos: Windows CE 2.11 transport</option>
+<option value="multiple-csi" data-text="Two photos: CSI packet size">Two photos: CSI packet size</option>
+<option value="metadata" data-text="Metadata: send and read back">Metadata: send and read back</option><option value="operations" data-text="Multiple files, cancellation and fast upload">Multiple files, cancellation and fast upload</option><option value="single-controls" data-text="One at a time: exact photos 10 and 11">One at a time: exact photos 10 and 11</option><option value="selection" data-text="SEND screen: passive recording">SEND screen: passive recording</option><option value="receive" data-text="Photos: profiles, speed and repeatability">Photos: profiles, speed and repeatability</option><option value="connection" data-text="RECEIVE: IAS and capabilities">RECEIVE: IAS and capabilities</option><option value="full" data-text="Full comparison">Full comparison</option></select></label><button id="suite-new" disabled data-text="New series">New series</button></div>
+<div class="research-buttons"><label><span data-text="Series">Series</span> <select id="suite-select"><option value="" data-text="Single test">Single test</option></select></label><button id="suite-export" disabled data-text="Save series ZIP…">Save series ZIP…</button><button id="all-export" disabled data-text="Save all attempts ZIP…">Save all attempts ZIP…</button></div>
+<div id="suite-current" hidden>
+<p id="suite-progress" class="suite-progress"></p>
+<p class="small-note" data-text="Each step is manual. Leave the watch transfer mode and prepare it again between steps. Use the same photo throughout image comparisons.">Each step is manual. Leave the watch transfer mode and prepare it again between steps. Use the same photo throughout image comparisons.</p>
+<div class="research-buttons"><button id="suite-retry" disabled data-text="Repeat step">Repeat step</button><button id="suite-next" disabled data-text="Next step">Next step</button><input id="skip-reason" type="text" maxlength="1000" aria-label="Reason for skipping" data-placeholder="Reason for skipping"><button id="suite-skip" disabled data-text="Skip step">Skip step</button></div>
+<div class="suite-table-wrap"><table class="suite-table"><thead><tr><th data-text="Step">Step</th><th data-text="Test">Test</th><th data-text="Watch mode">Watch mode</th><th data-text="Speed limit">Speed limit</th><th data-text="Image capabilities">Image capabilities</th><th data-text="Frame recovery">Frame recovery</th><th data-text="Attempts">Attempts</th><th data-text="Result">Result</th><th data-text="Repeat step">Repeat step</th></tr></thead><tbody id="suite-steps"></tbody></table></div>
+</div></fieldset>
+<label><span data-text="Test">Test</span> <select id="test"><option value="listen-selection" data-text="SEND screen: listen only">SEND screen: listen only</option><option value="ias" selected data-text="Connect and read IAS">Connect and read IAS</option><option value="csi" data-text="CSI capability queries">CSI capability queries</option><option value="sender" data-text="Send a watch photo back">Send a watch photo back</option><option value="active-receiver" data-text="Connect, then receive an image">Connect, then receive an image</option><option value="receiver" data-text="CSI image receiver">CSI image receiver</option></select></label>
+<label id="image-profile-field" hidden><span data-text="Image capabilities">Image capabilities</span> <select id="image-profile"><option value="csi" data-text="CSI: 640 × 480">CSI: 640 × 480</option><option value="nokia-original" data-text="Nokia: original image size">Nokia: original image size</option></select></label>
+<div class="research-buttons"><label><span id="speed-label" data-text="Speed limit">Speed limit</span> <select id="max-baud"><option value="9600">9600 bit/s</option><option value="38400">38400 bit/s</option><option value="115200" selected>115200 bit/s</option></select></label><label id="recovery-field"><span data-text="Frame recovery">Frame recovery</span> <select id="frame-recovery"><option value="auto" data-text="Current defaults">Current defaults</option><option value="strict" data-text="Strict CRC only">Strict CRC only</option><option value="pad5" data-text="PAD-5 data and end marker">PAD-5 data and end marker</option><option value="pad5-bof" data-text="PAD-5 and damaged start marker">PAD-5 and damaged start marker</option></select></label></div>
+<p id="test-summary" class="small-note"></p>
+<p id="profile-note" class="small-note" hidden data-text="Only the image capability reply changes. Device identity and connection settings stay the same. Local capture limit: 128 KiB.">Only the image capability reply changes. Device identity and connection settings stay the same. Local capture limit: 128 KiB.</p>
+<fieldset id="feature-panel" hidden><legend data-text="Current feature test">Current feature test</legend>
+<p id="feature-instructions"></p><p id="feature-label" class="suite-progress"></p>
+<div class="feature-preview-list">
+<figure id="feature-preview-card" hidden><img id="feature-preview" width="176" height="144" alt="Numbered test image"><figcaption id="feature-preview-caption"></figcaption></figure>
+<figure id="feature-preview-card-secondary" hidden><img id="feature-preview-secondary" width="176" height="144" alt="Second numbered test image"><figcaption id="feature-preview-caption-secondary"></figcaption></figure>
+</div><p id="feature-readback-note" class="small-note" hidden></p>
+<p class="small-note" data-text="Writes add test photos to the watch. File dates do not set its clock. Start and advance every step manually.">Writes add test photos to the watch. File dates do not set its clock. Start and advance every step manually.</p>
+<details><summary data-text="Exact test values">Exact test values</summary><pre id="feature-details" class="feature-details"></pre></details></fieldset>
+<fieldset id="upload-settings" hidden><legend data-text="Photo to send">Photo to send</legend>
+<div class="research-buttons"><label><span data-text="Test image">Test image</span> <select id="upload-probe"><option value="original" data-text="Original watch UPF">Original watch UPF</option></select></label><button id="create-probe" hidden data-text="Create numbered test image">Create numbered test image</button></div>
+<p id="upload-original-note" class="small-note" data-text="Use a UPF received from this watch. Its bytes are sent unchanged. This adds the selected number of copies to the watch.">Use a UPF received from this watch. Its bytes are sent unchanged. This adds the selected number of copies to the watch.</p>
+<div class="research-buttons"><button id="send-last" data-text="Use last received photo">Use last received photo</button><label><span data-text="Open UPF…">Open UPF…</span> <input id="send-file" type="file" accept=".upf"></label></div>
+<p id="upload-source" class="small-note"></p>
+<div class="research-buttons"><label><span id="copy-count-label" data-text="Copies">Copies</span> <select id="copy-count"><option value="1" data-text="One copy">One copy</option><option value="2" data-text="Two copies in one connection">Two copies in one connection</option></select></label><label><span data-text="SCEP PUT packets">SCEP PUT packets</span> <select id="send-pdu"><option value="512" selected data-text="Split at 512 bytes">Split at 512 bytes</option><option value="0" data-text="CSI: use peer limit">CSI: use peer limit</option></select></label></div>
+</fieldset>
+<fieldset><legend data-text="1. Prepare USB first">1. Prepare USB first</legend>
+<p data-text="Disconnect SigmaTel in other apps. Keep the watch out of transfer mode until USB is ready.">Disconnect SigmaTel in other apps. Keep the watch out of transfer mode until USB is ready.</p>
+<div class="research-buttons"><button id="prepare" disabled data-text="Prepare SigmaTel USB…">Prepare SigmaTel USB…</button><button id="reset" disabled data-text="Reset SigmaTel USB…">Reset SigmaTel USB…</button><button id="release" disabled data-text="Release USB">Release USB</button><span id="usb-state">—</span></div>
+</fieldset>
+<fieldset><legend data-text="2. Set the watch mode">2. Set the watch mode</legend>
+<label><span data-text="Watch mode">Watch mode</span> <select id="watch-mode"><option value="others-receive">OTHERS RECEIVE</option><option value="others-send">OTHERS SEND</option></select></label>
+<p id="watch-instructions"></p>
+<label class="research-ready"><input id="ready" type="checkbox" disabled><span id="ready-text">The watch is positioned. I will press its front button after starting the test.</span></label>
+<div class="research-buttons"><label><span data-text="Test window, seconds">Test window, seconds</span> <input id="seconds" type="number" min="2" max="120" value="60"></label>
+<button id="start" disabled data-text="Start receiver">Start receiver</button><button id="stop" disabled data-text="Stop">Stop</button><button id="mark" disabled data-text="Mark watch button press">Mark watch button press</button></div>
+<fieldset id="selection-markers" hidden><legend data-text="Mark what is on the watch">Mark what is on the watch</legend>
+<p class="small-note" data-text="First front press opens the SEND image-selection screen. Side buttons choose an image. The next front press starts transmission. Mark each action here; page timestamps are approximate.">First front press opens the SEND image-selection screen. Side buttons choose an image. The next front press starts transmission. Mark each action here; page timestamps are approximate.</p>
+<div class="research-buttons"><button id="mark-selection" disabled data-text="Selection screen opened">Selection screen opened</button><button id="mark-previous" disabled data-text="Previous image">Previous image</button><button id="mark-next" disabled data-text="Next image">Next image</button><button id="mark-transmit" disabled data-text="Final SEND pressed">Final SEND pressed</button><label><span data-text="Frame label on watch (optional)">Frame label on watch (optional)</span> <input id="frame-label" type="text" maxlength="80"></label></div>
+</fieldset>
+<p id="speed-note" class="small-note"></p>
+</fieldset>
+<p id="status" role="status" aria-live="polite"></p><p id="stats" class="small-note"></p>
+<div id="received" class="research-buttons"></div>
+<div id="attempt-analysis" class="attempt-analysis" hidden><h2 data-text="Protocol evidence">Protocol evidence</h2><p id="analysis-verdict"></p><ol id="analysis-layers" class="analysis-layers"></ol><div id="analysis-files"></div><p id="analysis-timing" class="small-note"></p></div>
+</section></div>
+<section class="research-results"><h2 data-text="Raw results">Raw results</h2>
+<div class="research-buttons"><label><span data-text="Attempt">Attempt</span> <select id="attempts" aria-label="Attempt"></select></label><button id="export" disabled data-text="Save attempt ZIP…">Save attempt ZIP…</button></div>
+<pre id="result" tabindex="0">—</pre>
+<label for="notes" data-text="What happened on the watch?">What happened on the watch?</label><textarea id="notes" rows="2"></textarea><button id="save-notes" disabled data-text="Save notes">Save notes</button>
+<details><summary data-text="Recent events (exports include every event)">Recent events (exports include every event)</summary><pre id="events" tabindex="0">—</pre></details>
+</section>
+</div><footer class="operation-bar"><span>IrTran-P · SigmaTel 066f:4200</span></footer>
+</div><footer class="case-footer"><span class="speaker-grille" aria-hidden="true"></span><span>WQV RESEARCH</span></footer>
+</main></body></html>

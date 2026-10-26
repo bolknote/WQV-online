@@ -1,0 +1,9 @@
+{
+  "source": "Nokia 9210 Imaging.sis from All_Nokia_9210_data_v413.sis",
+  "method": "Static reconstruction of the original ARM Thumb reply generator; not a hardware capture",
+  "librarySHA256": "4b19c821af64df55d5369629a7c8a6d86c3d2d158cd5a9bd8b117f2ac1f34cbb",
+  "originalGeometryBranchVA": "100004ac",
+  "RIMG": "0201ffffffff05ffffffff",
+  "RINF": "10ffff11ffff",
+  "RCMD": "2000010001"
+}

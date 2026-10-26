@@ -163,7 +163,7 @@ const isListening = () => mode === 'listen';
 const isDiscovery = () => mode === 'discovery';
 const isSerial = () => mode === 'serial';
 const isCapture = () => mode !== 'commands';
-const isRecordingAttempt = attempt => ['listen', 'discovery', 'serial'].includes(attempt?.kind);
+const isRecordingAttempt = attempt => ['listen', 'discovery', 'serial', 'irtranp'].includes(attempt?.kind);
 const watchModeName = value => value.replaceAll('-', ' ').toUpperCase();
 let store, adapter, client, controller, journal, active, busy = false, storageFailed = false, attempts = [], releasePageLock;
 let manualTrigger;
@@ -281,7 +281,7 @@ async function refreshAttempts(selected = $('attempts').value) {
 function showAttemptOptions(selected) {
   $('attempts').replaceChildren(...attempts.map(attempt => {
     const option = document.createElement('option'); option.value = attempt.id;
-    const label = isRecordingAttempt(attempt) ? `${t(attempt.kind === 'serial' ? 'Serial bytes' : attempt.kind === 'discovery' ? 'Discovery' : 'Listen')} · ${watchModeName(attempt.watchMode)} · ${attempt.baud}${attempt.kind === 'serial' ? ' · ' + (attempt.probeHex?.toUpperCase() || t('Listen only')) : ''}` : attempt.commandHex.toUpperCase();
+    const label = isRecordingAttempt(attempt) ? `${t(attempt.kind === 'irtranp' ? 'IrTran-P' : attempt.kind === 'serial' ? 'Serial bytes' : attempt.kind === 'discovery' ? 'Discovery' : 'Listen')} · ${watchModeName(attempt.watchMode)} · ${attempt.baud}${attempt.kind === 'serial' ? ' · ' + (attempt.probeHex?.toUpperCase() || t('Listen only')) : ''}` : attempt.commandHex.toUpperCase();
     option.textContent = `${attempt.createdAt.slice(0, 19).replace('T', ' ')} UTC · ${label} · ${attempt.status}`;
     return option;
   }));

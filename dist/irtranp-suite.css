@@ -1,0 +1,14 @@
+.suite-panel{background:#e9ece9}.suite-progress{font-weight:bold;color:#244b73}.suite-table-wrap{overflow:auto}.suite-table{width:100%;border-collapse:collapse;font-size:11px;background:#fff}.suite-table th,.suite-table td{text-align:left;padding:7px 9px;border:1px solid #a5afb5;white-space:nowrap}.suite-table th{background:#dfe5e7;color:#40586b}.suite-table tr[aria-current=step]{background:#d2dfeb}.suite-table tr.skipped{color:#6f7476}.suite-table input{width:100%}#skip-reason{min-width:180px;flex:1}#frame-label{width:150px}.attempt-analysis{border-top:1px solid #a5afb5;margin-top:20px;padding-top:12px}.analysis-layers{display:flex;flex-wrap:wrap;gap:6px;padding:0;list-style:none}.analysis-layers li{border:1px solid #9da8ae;background:#e3e6e5;padding:5px 9px;color:#65737c}.analysis-layers li.observed{background:#dbe8d6;border-color:#77916e;color:#2d4c24}#analysis-files{font-family:monospace;font-size:11px;overflow-wrap:anywhere;user-select:text}#analysis-files p{margin:7px 0}.research-grid .suite-panel legend{font-weight:bold}#selection-markers{background:#e4ecec}.suite-table td:last-child{white-space:normal;min-width:120px}@media(max-width:700px){.suite-table{font-size:10px}.analysis-layers{gap:4px}.suite-panel .research-buttons>label{width:100%}.suite-panel select{max-width:100%}}
+.attempt-analysis #analysis-files p{white-space:pre-line}
+.suite-table td:nth-last-child(2){white-space:normal;min-width:95px}.suite-table td:last-child{min-width:0}.suite-table button{font-size:inherit;padding:4px 7px;white-space:nowrap}
+#upload-source{overflow-wrap:anywhere;white-space:pre-line}
+.feature-details { max-height: 18rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.feature-preview-list { display: flex; flex-wrap: wrap; gap: 16px; }
+.feature-preview-list figure { margin: 0; }
+.feature-preview-list img { display: block; border: 2px solid #7f8994; image-rendering: pixelated; max-width: 100%; height: auto; }
+.feature-preview-list figcaption { margin-top: 5px; color: #244b73; }
+#feature-label { font-size: 1.2rem; }
+#feature-instructions { max-width: min(90ch, 100%); overflow-wrap: anywhere; }
+.suite-table-wrap { max-height: 18rem; }
+.suite-table th { position: sticky; top: 0; z-index: 1; }
+#analysis-files pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 18rem; overflow: auto; }

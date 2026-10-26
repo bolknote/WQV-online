@@ -1,6 +1,6 @@
-export function openResearchStore() {
+export function openResearchStore(name = 'wqv-command-research') {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('wqv-command-research', 1);
+    const request = indexedDB.open(name, 1);
     request.onupgradeneeded = () => {
       request.result.createObjectStore('attempts', { keyPath: 'id' });
       request.result.createObjectStore('events', { keyPath: ['attemptId', 'seq'] });

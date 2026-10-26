@@ -1,0 +1,83 @@
+{
+  "method": "Original routine execution in Unicorn; synthetic inputs; not hardware timing",
+  "sourceHashes": {
+    "wonderswan": "81c0adf1390c8e9f72d42de898392180c6445c594eb31fb66da62a8adc08072c",
+    "pocketstation": "971d44974eb878a71d3cd2ec083ae770ffb2530849e22a9cfac6e72ac2dc96cf"
+  },
+  "vectors": [
+    {
+      "name": "ws-preset",
+      "variant": 1,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "00",
+      "wireHex": "55ff0001fe11ee00ff00ff00ff00ff01fe00ff32cd01fe00ff00ff00ff01fe00ff47b8",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver",
+        "PocketStation ARM sender/receiver and IR gate writes"
+      ]
+    },
+    {
+      "name": "pocket-preset",
+      "variant": 1,
+      "headerHex": "210000000001003201000000",
+      "payloadHex": "00",
+      "wireHex": "55ff0001fe21de00ff00ff00ff00ff01fe00ff32cd01fe00ff00ff00ff01fe00ff57a8",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver",
+        "PocketStation ARM sender/receiver and IR gate writes"
+      ]
+    },
+    {
+      "name": "unpaired-preset",
+      "variant": 2,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "00",
+      "wireHex": "55ff0002fd110000000001003201000000010048",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver"
+      ]
+    },
+    {
+      "name": "special-bytes-1",
+      "variant": 1,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "00c0c17d55ff1580",
+      "wireHex": "55ff0001fe11ee00ff00ff00ff00ff01fe00ff32cd01fe00ff00ff00ff08f700ffc03fc13e7d8255aaff0015ea807f35ca",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver",
+        "PocketStation ARM sender/receiver and IR gate writes"
+      ]
+    },
+    {
+      "name": "128-bytes-1",
+      "variant": 1,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "80a5caef14395e83a8cdf2173c6186abd0f51a3f6489aed3f81d42678cb1d6fb20456a8fb4d9fe23486d92b7dc01264b7095badf04294e7398bde2072c51769bc0e50a2f54799ec3e80d32577ca1c6eb10355a7fa4c9ee13385d82a7ccf1163b6085aacff4193e6388add2f71c41668bb0d5fa1f44698eb3d8fd22476c91b6db",
+      "wireHex": "55ff0001fe11ee00ff00ff00ff00ff01fe00ff32cd01fe00ff00ff00ff807f807fa55aca35ef1014eb39c65ea1837ca857cd32f20d17e83cc3619e8679ab54d02ff50a1ae53fc0649b8976ae51d32cf8071de242bd67988c73b14ed629fb0420df45ba6a958f70b44bd926fe0123dc48b76d92926db748dc2301fe26d94bb4708f956aba45df2004fb29d64eb1738c9867bd42e21d07f82cd351ae76899b64c03fe51a0af52fd054ab79869e61c33ce8170df232cd57a87c83a15ec639eb1410ef35ca5aa57f80a45bc936ee1113ec38c75da2827da758cc33f10e16e93bc4609f857aaa55cf30f40b19e63ec1639c8877ad52d22df7081ce341be66998b74b04fd52afa051fe044bb69968e71b34cd827fd0222dd47b86c93916eb649db248679",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver",
+        "PocketStation ARM sender/receiver and IR gate writes"
+      ]
+    },
+    {
+      "name": "special-bytes-2",
+      "variant": 2,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "00c0c17d55ff1580",
+      "wireHex": "55ff0002fd1100000000010032010000000800c0c17d55ff158036",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver"
+      ]
+    },
+    {
+      "name": "128-bytes-2",
+      "variant": 2,
+      "headerHex": "110000000001003201000000",
+      "payloadHex": "80a5caef14395e83a8cdf2173c6186abd0f51a3f6489aed3f81d42678cb1d6fb20456a8fb4d9fe23486d92b7dc01264b7095badf04294e7398bde2072c51769bc0e50a2f54799ec3e80d32577ca1c6eb10355a7fa4c9ee13385d82a7ccf1163b6085aacff4193e6388add2f71c41668bb0d5fa1f44698eb3d8fd22476c91b6db",
+      "wireHex": "55ff0002fd1100000000010032010000008080a5caef14395e83a8cdf2173c6186abd0f51a3f6489aed3f81d42678cb1d6fb20456a8fb4d9fe23486d92b7dc01264b7095badf04294e7398bde2072c51769bc0e50a2f54799ec3e80d32577ca1c6eb10355a7fa4c9ee13385d82a7ccf1163b6085aacff4193e6388add2f71c41668bb0d5fa1f44698eb3d8fd22476c91b6db87",
+      "verifiedBy": [
+        "Tag Tamers x86 sender/receiver"
+      ]
+    }
+  ]
+}

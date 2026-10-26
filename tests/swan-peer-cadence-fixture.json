@@ -1,0 +1,6 @@
+{
+  "sourceAttempt": "94d6d41f-eb2d-4b44-9e19-074c5a70fe98",
+  "sourceArchiveSHA256": "4b8de9d5c4277295121ffe8ceba2ed584a0256f922404e0902d7ec6b4cf2519d",
+  "firstDataUSBCompletionMs": [6062.5, 6578.3, 7117.8, 7676.8, 8691.9, 9231.1, 9790.4, 10805.1, 11344.3, 11903.9, 12918.6, 13457.8, 14019.9, 15032, 15583.2, 16142.6, 17157.4, 17696.7, 18268.5, 19270.7, 19810, 20369.3],
+  "note": "USB completion times, not optical timing. Payload changes in that source are not replayed."
+}

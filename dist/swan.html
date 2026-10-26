@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WQV Link · SWAN packet research</title>
+<link rel="icon" href="./icons.svg"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./research.css"><link rel="stylesheet" href="./swan.css">
+<script type="module" src="./swan.mjs"></script>
+</head><body>
+<div class="desktop-caption"><span>CASIO WRIST CAMERA</span><span>SWAN / WONDERWAVE</span></div>
+<main class="cassiopeia">
+<header class="case-brand"><span class="casio">CASIO</span><span class="case-label">CASSIOPEIA</span><span class="case-model">WQV-3 / WEBUSB</span></header>
+<div class="screen">
+<header class="titlebar"><span class="app-title" data-text="SWAN packet research">SWAN packet research</span><a href="./research.html" data-text="Back to IR research">Back to IR research</a><label><span data-text="Language">Language</span> <select id="language" aria-label="Language"><option value="en">English</option><option value="ru">Русский</option></select></label></header>
+<div class="research-body">
+<p class="research-notice" data-text="Digimon packet format · applicability to WQV-3 unverified. Each packet is sent once, by a separate click. All RX bytes are kept, including possible echo.">Digimon packet format · applicability to WQV-3 unverified. Each packet is sent once, by a separate click. All RX bytes are kept, including possible echo.</p>
+<p><a href="./swan-listen.html" data-text="Passive speed comparison · 9600 / 38400">Passive speed comparison · 9600 / 38400</a></p>
+<div class="research-grid packet-layout">
+<aside><h2 data-text="Manual steps">Manual steps</h2><ol id="plan"></ol><p class="small-note" data-text="Restart SWAN RECEIVE between watch tests. Changing a step never starts it.">Restart SWAN RECEIVE between watch tests. Changing a step never starts it.</p></aside>
+<section aria-labelledby="step-heading"><h1 id="step-heading"></h1><p id="step-note"></p>
+<p class="small-note" data-text="9600 bit/s · 8N1 · raw SIR · no automatic replies">9600 bit/s · 8N1 · raw SIR · no automatic replies</p>
+<details id="packet-editor"><summary data-text="Packet fields">Packet fields</summary>
+<p class="small-note" data-text="Preset identity bytes are zero; the cartridge ID is from Tag Tamers. Payload 00 is synthetic. These are framing probes, not known watch commands.">Preset identity bytes are zero; the cartridge ID is from Tag Tamers. Payload 00 is synthetic. These are framing probes, not known watch commands.</p>
+<label><span data-text="Transport selector">Transport selector</span> <select id="variant"><option value="1" data-text="01 · paired">01 · paired</option><option value="2" data-text="02 · unpaired body">02 · unpaired body</option></select></label>
+<label><span data-text="Header · 12 bytes">Header · 12 bytes</span><input id="header" spellcheck="false" autocomplete="off"></label>
+<label><span data-text="Payload · 1–128 bytes">Payload · 1–128 bytes</span><textarea id="payload" rows="2" spellcheck="false"></textarea></label><button id="restore" data-text="Restore this preset">Restore this preset</button>
+</details>
+<p id="packet-size"></p><pre id="frame-preview" class="research-hex" tabindex="0"></pre>
+<fieldset><legend data-text="1. Prepare the adapter">1. Prepare the adapter</legend>
+<p data-text="Disconnect SigmaTel in other apps. Prepare USB before activating the watch; preparation sends no packet.">Disconnect SigmaTel in other apps. Prepare USB before activating the watch; preparation sends no packet.</p>
+<div class="research-buttons"><button id="prepare" disabled data-text="Prepare SigmaTel USB…">Prepare SigmaTel USB…</button><button id="reset" disabled data-text="Reset SigmaTel USB…">Reset SigmaTel USB…</button><button id="release" disabled data-text="Release USB">Release USB</button><span id="usb-state">—</span></div></fieldset>
+<fieldset><legend data-text="2. Record, activate the watch, send once">2. Record, activate the watch, send once</legend>
+<label class="research-ready"><input id="ready" type="checkbox" disabled><span id="ready-label"></span></label>
+<div class="research-buttons"><label><span data-text="Recording window (seconds)">Recording window (seconds)</span> <input id="seconds" type="number" min="2" max="120" value="30"></label><button id="start" disabled data-text="Start recording">Start recording</button><button id="send-packet" disabled data-text="Send packet once">Send packet once</button><button id="stop" disabled data-text="Stop">Stop</button></div>
+<p class="small-note" data-text="For watch steps, start recording before the final button that activates RECEIVE. Then activate RECEIVE and click Send packet once immediately.">For watch steps, start recording before the final button that activates RECEIVE. Then activate RECEIVE and click Send packet once immediately.</p>
+</fieldset>
+<div class="research-buttons navigation"><button id="previous" disabled data-text="← Previous step">← Previous step</button><button id="next" disabled data-text="Next step →">Next step →</button></div>
+<p id="status" role="status" aria-live="polite" data-text="Opening the journal…">Opening the journal…</p><p id="stats" class="small-note"></p><p id="summary"></p>
+</section></div>
+<section class="research-results" aria-labelledby="results-heading"><h2 id="results-heading" data-text="Raw results">Raw results</h2>
+<div class="research-buttons"><label><span data-text="Attempt">Attempt</span> <select id="attempts"></select></label><button id="export" disabled data-text="Save attempt ZIP…">Save attempt ZIP…</button><button id="export-all" disabled data-text="Save all attempts ZIP…">Save all attempts ZIP…</button></div>
+<p class="small-note" data-text="ZIPs include original USB RX/TX, every event, the planned packet and packet/echo annotations. Everything stays in this browser. An RX match alone does not identify its source.">ZIPs include original USB RX/TX, every event, the planned packet and packet/echo annotations. Everything stays in this browser. An RX match alone does not identify its source.</p>
+<label for="notes" data-text="What happened on the watch?">What happened on the watch?</label><textarea id="notes" rows="3"></textarea><button id="save-notes" disabled data-text="Save notes">Save notes</button>
+<details><summary data-text="Attempt details">Attempt details</summary><pre id="result" tabindex="0">—</pre></details>
+<details><summary data-text="Recent events">Recent events</summary><pre id="events" tabindex="0">—</pre></details>
+</section></div><footer class="operation-bar"><span data-text="Manual steps · SigmaTel 066f:4200 · no automatic progression">Manual steps · SigmaTel 066f:4200 · no automatic progression</span></footer>
+</div><footer class="case-footer"><span class="speaker-grille" aria-hidden="true"></span><span>SWAN RESEARCH</span></footer>
+</main></body></html>

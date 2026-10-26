@@ -1,0 +1,250 @@
+{
+  "qos": {
+    "method": "Original retail MIPS machine code, relocated COFF; bounded memory-only Python MIPS interpretation, no API stubs",
+    "librarySHA256": "b65dea3628c9c311c424e5673ee2ccaefe42d97c9cf50fb9b8871a0c6b1e2951",
+    "member": "obj\\MIPS\\R4100\\CE\\retail\\irlap.obj",
+    "function": {
+      "name": "NegotiateQosParms",
+      "section": 33,
+      "offset": 0
+    },
+    "sourceCapture": "30def0dd-d039-4083-b004-0a490428487d",
+    "cases": [
+      {
+        "name": "Actual captured SNRM and UA",
+        "localMasks": [
+          2,
+          1,
+          63,
+          15,
+          128,
+          896,
+          7
+        ],
+        "remoteMasks": [
+          2,
+          1,
+          63,
+          1,
+          128,
+          3,
+          7
+        ],
+        "result": {
+          "baud": 9600,
+          "disconnectSeconds": 12,
+          "thresholdSeconds": 3,
+          "remoteMaxTurnMilliseconds": 500,
+          "remoteDataBytes": 256,
+          "remoteWindow": 1,
+          "boFsIncludingStart": 1,
+          "remoteMinTurnMicroseconds": 5000,
+          "selectedParameterMasks": [
+            2,
+            1,
+            4,
+            1,
+            128,
+            2,
+            4
+          ],
+          "executedInstructions": 993
+        }
+      },
+      {
+        "name": "Same QoS with synthetic common baud mask",
+        "localMasks": [
+          32,
+          1,
+          63,
+          15,
+          128,
+          896,
+          7
+        ],
+        "remoteMasks": [
+          32,
+          1,
+          63,
+          1,
+          128,
+          3,
+          7
+        ],
+        "result": {
+          "baud": 115200,
+          "disconnectSeconds": 12,
+          "thresholdSeconds": 3,
+          "remoteMaxTurnMilliseconds": 500,
+          "remoteDataBytes": 2048,
+          "remoteWindow": 1,
+          "boFsIncludingStart": 1,
+          "remoteMinTurnMicroseconds": 5000,
+          "selectedParameterMasks": [
+            32,
+            1,
+            32,
+            1,
+            128,
+            2,
+            4
+          ],
+          "executedInstructions": 523
+        }
+      },
+      {
+        "name": "Same QoS with synthetic common baud mask",
+        "localMasks": [
+          8,
+          1,
+          63,
+          15,
+          128,
+          896,
+          7
+        ],
+        "remoteMasks": [
+          8,
+          1,
+          63,
+          1,
+          128,
+          3,
+          7
+        ],
+        "result": {
+          "baud": 38400,
+          "disconnectSeconds": 12,
+          "thresholdSeconds": 3,
+          "remoteMaxTurnMilliseconds": 500,
+          "remoteDataBytes": 1024,
+          "remoteWindow": 1,
+          "boFsIncludingStart": 1,
+          "remoteMinTurnMicroseconds": 5000,
+          "selectedParameterMasks": [
+            8,
+            1,
+            16,
+            1,
+            128,
+            2,
+            4
+          ],
+          "executedInstructions": 754
+        }
+      }
+    ]
+  },
+  "turn": {
+    "method": "Original XmitTxMsgList MIPS instructions, bounded Python interpretation; explicit queue and send stubs",
+    "librarySHA256": "b65dea3628c9c311c424e5673ee2ccaefe42d97c9cf50fb9b8871a0c6b1e2951",
+    "member": "obj\\MIPS\\R4100\\CE\\retail\\irlap.obj",
+    "function": {
+      "name": "XmitTxMsgList",
+      "section": 20,
+      "offset": 0
+    },
+    "cases": [
+      {
+        "queuedData": true,
+        "remoteBusy": false,
+        "localBusy": false,
+        "calls": [
+          {
+            "call": "SendIFrame",
+            "sequence": 3,
+            "poll": 1,
+            "messagePointer": "0x20001000",
+            "receiveSequence": 7
+          }
+        ],
+        "executedInstructions": 89
+      },
+      {
+        "queuedData": false,
+        "remoteBusy": false,
+        "localBusy": false,
+        "calls": [
+          {
+            "call": "SendRR_RNR",
+            "receiveSequence": 7,
+            "localBusy": false
+          }
+        ],
+        "executedInstructions": 49
+      },
+      {
+        "queuedData": true,
+        "remoteBusy": true,
+        "localBusy": false,
+        "calls": [
+          {
+            "call": "SendRR_RNR",
+            "receiveSequence": 7,
+            "localBusy": false
+          }
+        ],
+        "executedInstructions": 38
+      },
+      {
+        "queuedData": true,
+        "remoteBusy": false,
+        "localBusy": true,
+        "calls": [
+          {
+            "call": "SendRR_RNR",
+            "receiveSequence": 7,
+            "localBusy": true
+          }
+        ],
+        "executedInstructions": 43
+      }
+    ]
+  },
+  "tinytp": {
+    "method": "Original FormatAndSendDataReq MIPS instructions; memory-only execution, reference-count and lower-send stubs",
+    "librarySHA256": "aaabc8de178291d46d7e346598038f45bb45708a96add8f6dd041569b63d5fc7",
+    "member": "obj\\MIPS\\R4100\\CE\\retail\\irlmp.obj",
+    "function": {
+      "name": "FormatAndSendDataReq",
+      "section": 25,
+      "offset": 0
+    },
+    "cases": [
+      {
+        "ircomm9Wire": true,
+        "grant": 0,
+        "send": {
+          "call": "IrlapDown",
+          "headerHex": "03090000",
+          "dataHex": "0010000101"
+        },
+        "remainingTxCredits": 1,
+        "executedInstructions": 94
+      },
+      {
+        "ircomm9Wire": true,
+        "grant": 4,
+        "send": {
+          "call": "IrlapDown",
+          "headerHex": "03090400",
+          "dataHex": "6578616d706c65"
+        },
+        "remainingTxCredits": 1,
+        "executedInstructions": 94
+      },
+      {
+        "ircomm9Wire": false,
+        "grant": 4,
+        "send": {
+          "call": "IrlapDown",
+          "headerHex": "030904",
+          "dataHex": ""
+        },
+        "remainingTxCredits": 2,
+        "executedInstructions": 85
+      }
+    ]
+  },
+  "source": "Original Microsoft Windows CE 2.11 Platform Builder retail MIPS COFF functions, interpreted offline; explicit stubs described per record."
+}

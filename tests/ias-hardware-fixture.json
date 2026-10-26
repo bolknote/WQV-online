@@ -1,0 +1,108 @@
+{
+  "sourceArchive": "WQV-IrTranP-2026-10-24T06-00-49-310Z.zip",
+  "attemptID": "1a285feb-f0e7-4b9c-b13f-cfcc152a4529",
+  "localID": "9695b82e",
+  "peerID": "193666be",
+  "rawUSBHex": "ffffffffffffffffffffc0febf01193666be9695b82e0102008c0400434153494f2057494320323431312f49526ef0c1ffffffffffffffffffffc07073193666be9695b82e01013e82010183013f8401018501808601030801075cd1c1c07030810081009e42c1c0703189dfc1e070520100840000010001020003000107a83dc1",
+  "responseGroups": [
+    {
+      "tx": {
+        "address": 255,
+        "control": 63,
+        "dataHex": "019695b82effffffff010200"
+      },
+      "usbInChunks": [
+        "ffffff",
+        "ff",
+        "ffff",
+        "ff",
+        "ffffff",
+        "c0febf",
+        "011936",
+        "66be",
+        "96",
+        "95b82e",
+        "0102",
+        "00",
+        "8c04",
+        "00",
+        "4341",
+        "53",
+        "494f20",
+        "5749",
+        "43",
+        "203234",
+        "3131",
+        "2f",
+        "49526e",
+        "f0c1"
+      ]
+    },
+    {
+      "tx": {
+        "address": 255,
+        "control": 147,
+        "dataHex": "9695b82e193666be7001013e82010183013f84010f85018086028003080107"
+      },
+      "usbInChunks": [
+        "ff",
+        "ff",
+        "ffff",
+        "ffff",
+        "ff",
+        "ffff",
+        "ffc0",
+        "707319",
+        "3666",
+        "be96",
+        "95",
+        "b82e",
+        "0101",
+        "3e8201",
+        "018301",
+        "3f84",
+        "01",
+        "0185",
+        "018086",
+        "0103",
+        "08",
+        "0107",
+        "5cd1c1"
+      ]
+    },
+    {
+      "tx": {
+        "address": 113,
+        "control": 16,
+        "dataHex": "80010100"
+      },
+      "usbInChunks": [
+        "c0703081008100",
+        "9e42c1"
+      ]
+    },
+    {
+      "tx": {
+        "address": 113,
+        "control": 49,
+        "dataHex": ""
+      },
+      "usbInChunks": [
+        "c0703189dfc1"
+      ]
+    },
+    {
+      "tx": {
+        "address": 113,
+        "control": 50,
+        "dataHex": "0001840b497244413a4972434f4d4d0a506172616d6574657273"
+      },
+      "usbInChunks": [
+        "e070520100840000010001020003",
+        "0001",
+        "07a83d",
+        "c1"
+      ]
+    }
+  ]
+}

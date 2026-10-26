@@ -57,11 +57,12 @@ export function encodeFrame(address, control, data = new Uint8Array(), bof = 11)
 }
 
 export class FrameDecoder {
-  constructor({ recoverFrames = false } = {}) {
-    this.recoverFrames = recoverFrames; this.badCRC = 0; this.recoveredFrames = 0; this.frames = [];
+  constructor({ recoverFrames = false, recoverBOF = false } = {}) {
+    this.recoverFrames = recoverFrames; this.recoverBOF = recoverBOF;
+    this.badCRC = 0; this.recoveredFrames = 0; this.recoveredBOF = 0; this.rejectedBOF = 0; this.frames = [];
     this.reset();
   }
-  reset() { this.body = null; this.escaped = false; this.pad5Escapes = []; this.emptyReads = 0; }
+  reset() { this.body = null; this.escaped = false; this.pad5Escapes = []; this.emptyReads = 0; this.bofCandidate = false; }
   valid(body) {
     return body.length >= 4 && crc16(body.slice(0, -2)) === (body.at(-2) | (body.at(-1) << 8));
   }
@@ -89,6 +90,18 @@ export class FrameDecoder {
     return candidates.size === 1 ? candidates.values().next().value : null;
   }
   finishFrame({ missingEOF = false } = {}) {
+    if (this.bofCandidate) {
+      // Observed WQV IAS replies: E0/81 [unchanged body + valid FCS] C1.
+      // These are only candidates outside an existing frame. Require a real
+      // EOF and the original CRC; never combine this with edge-byte removal,
+      // alternative escapes, or idle completion. Raw USB bytes stay intact.
+      if (!missingEOF && this.body?.length >= 4 && !this.escaped && this.valid(this.body)) {
+        const body = this.body;
+        this.frames.push({ address: body[0], control: body[1], data: Uint8Array.from(body.slice(2, -2)) });
+        this.recoveredFrames++; this.recoveredBOF++;
+      } else if (this.body?.length >= 4) this.rejectedBOF++;
+      this.reset(); return;
+    }
     if (this.body?.length >= 4 && !this.escaped) {
       let body = this.body;
       const badCRC = !this.valid(body);
@@ -107,14 +120,19 @@ export class FrameDecoder {
     // PAD-5 0x132d0 / 0x132fa: completion inside SIR data, not after a
     // dangling escape or BOF. The transport supplies the revision/rate rule.
     // Only successful zero-length reads qualify, never a timeout or cancel.
-    if (!this.recoverFrames || !requiredReads || !this.body?.length || this.escaped) return;
+    if (!this.recoverFrames || !requiredReads || !this.body?.length || this.escaped || this.bofCandidate) return;
     if (++this.emptyReads >= requiredReads) this.finishFrame({ missingEOF: true });
   }
   feed(bytes) {
     if (bytes.length) this.emptyReads = 0;
     for (let byte of bytes) {
       if (byte === 0xc0) { this.reset(); this.body = []; continue; }
-      if (this.body === null) continue;
+      if (this.body === null) {
+        if (this.recoverFrames && this.recoverBOF && (byte === 0xe0 || byte === 0x81)) {
+          this.reset(); this.body = []; this.bofCandidate = true;
+        }
+        continue;
+      }
       if (byte === 0xc1) {
         this.finishFrame(); continue;
       }

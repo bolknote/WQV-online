@@ -1,0 +1,914 @@
+{
+  "provenance": "SigmaTel STIr4200 raw captures supplied by the user on 2026-10-24. Only data-bearing USB reads are included in this fixture; full journals are not represented.",
+  "captures": [
+    {
+      "id": "abae8f88-ce2d-4078-b97f-3ed7986efef3",
+      "watchMode": "swan-receive",
+      "baud": 9600,
+      "rawHex": "7a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f0f518c07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f03d03f8",
+      "sha256": "dbe0dbf00e08920be72055069764c1dfdc92c3848ecf3ee987f4483fa65162a2",
+      "dataBearingUSBReads": [
+        {
+          "offset": 0,
+          "at": "2026-10-24T07:09:33.153Z",
+          "elapsedMs": 19680.30000001192,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 1,
+          "at": "2026-10-24T07:09:33.156Z",
+          "elapsedMs": 19683.20000001788,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 3,
+          "at": "2026-10-24T07:09:33.670Z",
+          "elapsedMs": 20196.90000000596,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 5,
+          "at": "2026-10-24T07:09:33.672Z",
+          "elapsedMs": 20199.70000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 6,
+          "at": "2026-10-24T07:09:34.209Z",
+          "elapsedMs": 20735.80000001192,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 8,
+          "at": "2026-10-24T07:09:34.212Z",
+          "elapsedMs": 20738.70000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 9,
+          "at": "2026-10-24T07:09:34.768Z",
+          "elapsedMs": 21295.20000001788,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 11,
+          "at": "2026-10-24T07:09:34.771Z",
+          "elapsedMs": 21298,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 12,
+          "at": "2026-10-24T07:09:35.783Z",
+          "elapsedMs": 22310.20000001788,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 14,
+          "at": "2026-10-24T07:09:35.786Z",
+          "elapsedMs": 22312.90000000596,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 15,
+          "at": "2026-10-24T07:09:36.323Z",
+          "elapsedMs": 22850.30000001192,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 18,
+          "at": "2026-10-24T07:09:36.882Z",
+          "elapsedMs": 23409.5,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 21,
+          "at": "2026-10-24T07:09:37.896Z",
+          "elapsedMs": 24423,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 22,
+          "at": "2026-10-24T07:09:37.896Z",
+          "elapsedMs": 24423.09999999404,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 23,
+          "at": "2026-10-24T07:09:37.899Z",
+          "elapsedMs": 24425.70000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 24,
+          "at": "2026-10-24T07:09:38.434Z",
+          "elapsedMs": 24961.40000000596,
+          "dataHex": "f5",
+          "bytes": 1
+        },
+        {
+          "offset": 25,
+          "at": "2026-10-24T07:09:38.437Z",
+          "elapsedMs": 24963.90000000596,
+          "dataHex": "18c0",
+          "bytes": 2
+        },
+        {
+          "offset": 27,
+          "at": "2026-10-24T07:09:38.995Z",
+          "elapsedMs": 25522.09999999404,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 29,
+          "at": "2026-10-24T07:09:38.998Z",
+          "elapsedMs": 25524.70000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 30,
+          "at": "2026-10-24T07:09:40.009Z",
+          "elapsedMs": 26535.80000001192,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 31,
+          "at": "2026-10-24T07:09:40.011Z",
+          "elapsedMs": 26538.40000000596,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 33,
+          "at": "2026-10-24T07:09:40.549Z",
+          "elapsedMs": 27075.70000001788,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 34,
+          "at": "2026-10-24T07:09:40.549Z",
+          "elapsedMs": 27075.90000000596,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 35,
+          "at": "2026-10-24T07:09:40.551Z",
+          "elapsedMs": 27078.40000000596,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 36,
+          "at": "2026-10-24T07:09:41.108Z",
+          "elapsedMs": 27634.90000000596,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 38,
+          "at": "2026-10-24T07:09:41.110Z",
+          "elapsedMs": 27637.5,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 39,
+          "at": "2026-10-24T07:09:42.123Z",
+          "elapsedMs": 28650.5,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 41,
+          "at": "2026-10-24T07:09:42.126Z",
+          "elapsedMs": 28653.09999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 42,
+          "at": "2026-10-24T07:09:42.675Z",
+          "elapsedMs": 29202.40000000596,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 45,
+          "at": "2026-10-24T07:09:43.233Z",
+          "elapsedMs": 29760.5,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 47,
+          "at": "2026-10-24T07:09:43.236Z",
+          "elapsedMs": 29763,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 48,
+          "at": "2026-10-24T07:09:44.249Z",
+          "elapsedMs": 30776.30000001192,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 50,
+          "at": "2026-10-24T07:09:44.249Z",
+          "elapsedMs": 30776.40000000596,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 51,
+          "at": "2026-10-24T07:09:44.787Z",
+          "elapsedMs": 31314.20000001788,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 52,
+          "at": "2026-10-24T07:09:44.790Z",
+          "elapsedMs": 31317,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 54,
+          "at": "2026-10-24T07:09:45.348Z",
+          "elapsedMs": 31874.59999999404,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 56,
+          "at": "2026-10-24T07:09:45.348Z",
+          "elapsedMs": 31874.90000000596,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 57,
+          "at": "2026-10-24T07:09:46.361Z",
+          "elapsedMs": 32887.90000000596,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 58,
+          "at": "2026-10-24T07:09:46.363Z",
+          "elapsedMs": 32890.5,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 60,
+          "at": "2026-10-24T07:09:46.903Z",
+          "elapsedMs": 33430.30000001192,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 63,
+          "at": "2026-10-24T07:09:47.460Z",
+          "elapsedMs": 33987.30000001192,
+          "dataHex": "3d",
+          "bytes": 1
+        },
+        {
+          "offset": 64,
+          "at": "2026-10-24T07:09:47.460Z",
+          "elapsedMs": 33987.5,
+          "dataHex": "03",
+          "bytes": 1
+        },
+        {
+          "offset": 65,
+          "at": "2026-10-24T07:09:47.463Z",
+          "elapsedMs": 33990.20000001788,
+          "dataHex": "f8",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "a29012e2-32af-4a11-aa86-5c3b4b50b48b",
+      "watchMode": "swan-receive",
+      "baud": 9600,
+      "rawHex": "7a06f07a06f07a06f0eb18c0f418c07a06f07a06f07a06f07a06f0f518c07a06f07a06f07a06f07a06f07b06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f0",
+      "sha256": "0c0d0846a0bfe435da2cbb9997e2047de290899ea82d013f51c604a3e5c39ef1",
+      "dataBearingUSBReads": [
+        {
+          "offset": 0,
+          "at": "2026-10-24T07:19:59.201Z",
+          "elapsedMs": 17306,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 2,
+          "at": "2026-10-24T07:19:59.201Z",
+          "elapsedMs": 17306.20000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 3,
+          "at": "2026-10-24T07:19:59.716Z",
+          "elapsedMs": 17821.20000001788,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 5,
+          "at": "2026-10-24T07:19:59.718Z",
+          "elapsedMs": 17823.80000001192,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 6,
+          "at": "2026-10-24T07:20:00.256Z",
+          "elapsedMs": 18361,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 9,
+          "at": "2026-10-24T07:20:00.814Z",
+          "elapsedMs": 18919.30000001192,
+          "dataHex": "eb18",
+          "bytes": 2
+        },
+        {
+          "offset": 11,
+          "at": "2026-10-24T07:20:00.816Z",
+          "elapsedMs": 18921.90000000596,
+          "dataHex": "c0",
+          "bytes": 1
+        },
+        {
+          "offset": 12,
+          "at": "2026-10-24T07:20:01.829Z",
+          "elapsedMs": 19934.30000001192,
+          "dataHex": "f418",
+          "bytes": 2
+        },
+        {
+          "offset": 14,
+          "at": "2026-10-24T07:20:01.832Z",
+          "elapsedMs": 19936.90000000596,
+          "dataHex": "c0",
+          "bytes": 1
+        },
+        {
+          "offset": 15,
+          "at": "2026-10-24T07:20:02.369Z",
+          "elapsedMs": 20474,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 17,
+          "at": "2026-10-24T07:20:02.371Z",
+          "elapsedMs": 20476.5,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 18,
+          "at": "2026-10-24T07:20:02.926Z",
+          "elapsedMs": 21031.59999999404,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 19,
+          "at": "2026-10-24T07:20:02.929Z",
+          "elapsedMs": 21034.09999999404,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 21,
+          "at": "2026-10-24T07:20:03.942Z",
+          "elapsedMs": 22047.40000000596,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 23,
+          "at": "2026-10-24T07:20:03.946Z",
+          "elapsedMs": 22051.70000001788,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 24,
+          "at": "2026-10-24T07:20:04.481Z",
+          "elapsedMs": 22586.59999999404,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 26,
+          "at": "2026-10-24T07:20:04.484Z",
+          "elapsedMs": 22589.09999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 27,
+          "at": "2026-10-24T07:20:05.040Z",
+          "elapsedMs": 23145.09999999404,
+          "dataHex": "f5",
+          "bytes": 1
+        },
+        {
+          "offset": 28,
+          "at": "2026-10-24T07:20:05.042Z",
+          "elapsedMs": 23147.80000001192,
+          "dataHex": "18c0",
+          "bytes": 2
+        },
+        {
+          "offset": 30,
+          "at": "2026-10-24T07:20:06.056Z",
+          "elapsedMs": 24161.30000001192,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 32,
+          "at": "2026-10-24T07:20:06.059Z",
+          "elapsedMs": 24164.09999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 33,
+          "at": "2026-10-24T07:20:06.594Z",
+          "elapsedMs": 24699.40000000596,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 34,
+          "at": "2026-10-24T07:20:06.597Z",
+          "elapsedMs": 24701.90000000596,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 36,
+          "at": "2026-10-24T07:20:07.153Z",
+          "elapsedMs": 25258.59999999404,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 37,
+          "at": "2026-10-24T07:20:07.156Z",
+          "elapsedMs": 25261.30000001192,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 39,
+          "at": "2026-10-24T07:20:08.170Z",
+          "elapsedMs": 26275.5,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 42,
+          "at": "2026-10-24T07:20:08.721Z",
+          "elapsedMs": 26826.20000001788,
+          "dataHex": "7b06",
+          "bytes": 2
+        },
+        {
+          "offset": 44,
+          "at": "2026-10-24T07:20:08.721Z",
+          "elapsedMs": 26826.30000001192,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 45,
+          "at": "2026-10-24T07:20:09.280Z",
+          "elapsedMs": 27385.30000001192,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 47,
+          "at": "2026-10-24T07:20:09.283Z",
+          "elapsedMs": 27388,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 48,
+          "at": "2026-10-24T07:20:10.294Z",
+          "elapsedMs": 28398.90000000596,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 49,
+          "at": "2026-10-24T07:20:10.296Z",
+          "elapsedMs": 28401.5,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 51,
+          "at": "2026-10-24T07:20:10.833Z",
+          "elapsedMs": 28938.59999999404,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 52,
+          "at": "2026-10-24T07:20:10.834Z",
+          "elapsedMs": 28938.90000000596,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 53,
+          "at": "2026-10-24T07:20:10.837Z",
+          "elapsedMs": 28941.90000000596,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 54,
+          "at": "2026-10-24T07:20:11.394Z",
+          "elapsedMs": 29499.40000000596,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 57,
+          "at": "2026-10-24T07:20:12.408Z",
+          "elapsedMs": 30513.40000000596,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 59,
+          "at": "2026-10-24T07:20:12.411Z",
+          "elapsedMs": 30516.09999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 60,
+          "at": "2026-10-24T07:20:12.949Z",
+          "elapsedMs": 31053.80000001192,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 63,
+          "at": "2026-10-24T07:20:13.505Z",
+          "elapsedMs": 31610.59999999404,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 64,
+          "at": "2026-10-24T07:20:13.508Z",
+          "elapsedMs": 31613.30000001192,
+          "dataHex": "06f0",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "3305ea7d-1e37-40c2-bafc-c789ff40c865",
+      "watchMode": "swan-send",
+      "baud": 9600,
+      "rawHex": "7a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f07a06f03d03f87a06f07a06f07b06f07a06f03d03f87b06f07a06f07a06f03d03f87a06f07a06f07a06f0",
+      "sha256": "abc0361085cd24c1dbe054a4df3cb9ca9c3f06b9c5d2cf20e374182fb222e342",
+      "dataBearingUSBReads": [
+        {
+          "offset": 0,
+          "at": "2026-10-24T07:26:07.958Z",
+          "elapsedMs": 13143.699999988079,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 3,
+          "at": "2026-10-24T07:26:08.470Z",
+          "elapsedMs": 13656,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 4,
+          "at": "2026-10-24T07:26:08.473Z",
+          "elapsedMs": 13658.699999988079,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 6,
+          "at": "2026-10-24T07:26:09.010Z",
+          "elapsedMs": 14195.299999982119,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 7,
+          "at": "2026-10-24T07:26:09.013Z",
+          "elapsedMs": 14198.399999976158,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 9,
+          "at": "2026-10-24T07:26:09.574Z",
+          "elapsedMs": 14759.899999976158,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 12,
+          "at": "2026-10-24T07:26:10.584Z",
+          "elapsedMs": 15769.899999976158,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 13,
+          "at": "2026-10-24T07:26:10.584Z",
+          "elapsedMs": 15770.09999999404,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 14,
+          "at": "2026-10-24T07:26:10.587Z",
+          "elapsedMs": 15772.59999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 15,
+          "at": "2026-10-24T07:26:11.124Z",
+          "elapsedMs": 16309.799999982119,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 17,
+          "at": "2026-10-24T07:26:11.127Z",
+          "elapsedMs": 16312.5,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 18,
+          "at": "2026-10-24T07:26:11.684Z",
+          "elapsedMs": 16869.399999976158,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 20,
+          "at": "2026-10-24T07:26:11.687Z",
+          "elapsedMs": 16872.5,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 21,
+          "at": "2026-10-24T07:26:12.699Z",
+          "elapsedMs": 17884.59999999404,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 24,
+          "at": "2026-10-24T07:26:13.237Z",
+          "elapsedMs": 18422.29999998212,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 25,
+          "at": "2026-10-24T07:26:13.237Z",
+          "elapsedMs": 18422.79999998212,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 26,
+          "at": "2026-10-24T07:26:13.240Z",
+          "elapsedMs": 18425.79999998212,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 27,
+          "at": "2026-10-24T07:26:13.798Z",
+          "elapsedMs": 18983.899999976158,
+          "dataHex": "3d03f8",
+          "bytes": 3
+        },
+        {
+          "offset": 30,
+          "at": "2026-10-24T07:26:14.811Z",
+          "elapsedMs": 19997.09999999404,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 32,
+          "at": "2026-10-24T07:26:14.814Z",
+          "elapsedMs": 19999.59999999404,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 33,
+          "at": "2026-10-24T07:26:15.350Z",
+          "elapsedMs": 20535.19999998808,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 34,
+          "at": "2026-10-24T07:26:15.352Z",
+          "elapsedMs": 20538,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 36,
+          "at": "2026-10-24T07:26:15.909Z",
+          "elapsedMs": 21094.79999998212,
+          "dataHex": "7b",
+          "bytes": 1
+        },
+        {
+          "offset": 37,
+          "at": "2026-10-24T07:26:15.912Z",
+          "elapsedMs": 21097.59999999404,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 39,
+          "at": "2026-10-24T07:26:16.924Z",
+          "elapsedMs": 22109.69999998808,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 40,
+          "at": "2026-10-24T07:26:16.927Z",
+          "elapsedMs": 22112.29999998212,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 42,
+          "at": "2026-10-24T07:26:17.477Z",
+          "elapsedMs": 22662.399999976158,
+          "dataHex": "3d03",
+          "bytes": 2
+        },
+        {
+          "offset": 44,
+          "at": "2026-10-24T07:26:17.477Z",
+          "elapsedMs": 22662.59999999404,
+          "dataHex": "f8",
+          "bytes": 1
+        },
+        {
+          "offset": 45,
+          "at": "2026-10-24T07:26:18.036Z",
+          "elapsedMs": 23221.19999998808,
+          "dataHex": "7b06",
+          "bytes": 2
+        },
+        {
+          "offset": 47,
+          "at": "2026-10-24T07:26:18.038Z",
+          "elapsedMs": 23223.79999998212,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 48,
+          "at": "2026-10-24T07:26:19.050Z",
+          "elapsedMs": 24235.79999998212,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 50,
+          "at": "2026-10-24T07:26:19.053Z",
+          "elapsedMs": 24238.399999976158,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 51,
+          "at": "2026-10-24T07:26:19.590Z",
+          "elapsedMs": 24775.899999976158,
+          "dataHex": "7a06f0",
+          "bytes": 3
+        },
+        {
+          "offset": 54,
+          "at": "2026-10-24T07:26:20.148Z",
+          "elapsedMs": 25333.29999998212,
+          "dataHex": "3d",
+          "bytes": 1
+        },
+        {
+          "offset": 55,
+          "at": "2026-10-24T07:26:20.150Z",
+          "elapsedMs": 25336,
+          "dataHex": "03f8",
+          "bytes": 2
+        },
+        {
+          "offset": 57,
+          "at": "2026-10-24T07:26:21.164Z",
+          "elapsedMs": 26350,
+          "dataHex": "7a06",
+          "bytes": 2
+        },
+        {
+          "offset": 59,
+          "at": "2026-10-24T07:26:21.165Z",
+          "elapsedMs": 26350.29999998212,
+          "dataHex": "f0",
+          "bytes": 1
+        },
+        {
+          "offset": 60,
+          "at": "2026-10-24T07:26:21.702Z",
+          "elapsedMs": 26887.399999976158,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 61,
+          "at": "2026-10-24T07:26:21.705Z",
+          "elapsedMs": 26890,
+          "dataHex": "06f0",
+          "bytes": 2
+        },
+        {
+          "offset": 63,
+          "at": "2026-10-24T07:26:22.262Z",
+          "elapsedMs": 27447.5,
+          "dataHex": "7a",
+          "bytes": 1
+        },
+        {
+          "offset": 64,
+          "at": "2026-10-24T07:26:22.262Z",
+          "elapsedMs": 27447.69999998808,
+          "dataHex": "06",
+          "bytes": 1
+        },
+        {
+          "offset": 65,
+          "at": "2026-10-24T07:26:22.265Z",
+          "elapsedMs": 27450.399999976158,
+          "dataHex": "f0",
+          "bytes": 1
+        }
+      ]
+    }
+  ]
+}

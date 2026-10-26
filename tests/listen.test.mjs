@@ -90,6 +90,17 @@ test('SWAN RECEIVE captures possible receiver invitations without sending a byte
   assert.deepEqual(attemptFiles({ kind: 'listen', watchMode: 'swan-receive' }, events).find(file => file.name === 'usb-in.bin').data, incoming);
 });
 
+test('a background control at 38400 records only raw input and keeps its own background label', async () => {
+  const { device, adapter, events, record } = await prepare(38400), controller = new AbortController();
+  const run = listen(adapter, { ...settings(38400), watchMode: 'background' }, { signal: controller.signal, record });
+  await device.deliver(fromHex('ff23e1c0')); await device.deliver();
+  controller.abort(); const result = await run; await adapter.close();
+  assert.equal(result.watchMode, 'background'); assert.equal(result.baud, 38400); assert.equal(result.rxBytes, 4);
+  assert.equal(result.txFrames, 0); assert.ok(device.calls.every(call => call === 'in'));
+  assert.deepEqual(attemptFiles({ kind: 'listen', watchMode: null, watchPresent: false }, events).find(file => file.name === 'usb-in.bin').data, fromHex('ff23e1c0'));
+  assert.ok(events.some(event => event.kind === 'listen-start' && event.watchMode === 'background' && event.transmitting === false));
+});
+
 test('passive capture keeps unknown bytes, split frames and bad CRC, without answering poll frames or repairing EOF', async () => {
   const { device, adapter, events, record } = await prepare(115200), controller = new AbortController();
   const run = listen(adapter, settings(115200), { signal: controller.signal, record });

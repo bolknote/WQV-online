@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ManualSerialTrigger, serialSettings, sendSerialBytes, probeSerial, finishSerialCapture, xmodemCandidates } from '../dist/serial-core.mjs';
+import { ManualSerialTrigger, serialSettings, sendSerialBytes, probeSerial, probeSerialPacket, finishSerialCapture, xmodemCandidates } from '../dist/serial-core.mjs';
+import { encodeSwanPacket, swanPreset, swanAttemptFiles } from '../dist/swan-core.mjs';
 import { captureUSB, attemptFiles } from '../dist/research-core.mjs';
 import { SigmaTel } from '../dist/sigmatel.mjs';
 import { b, concat, fromHex, toHex } from '../dist/formats.mjs';
@@ -9,6 +10,25 @@ import { sleep } from '../dist/irda.mjs';
 const settings = { probe: 'nak', watchMode: 'swan-send', durationMs: 2000 };
 const block = (sequence, data = Uint8Array.from({ length: 128 }, (_, i) => i)) =>
   concat(b(1, sequence, sequence ^ 255), data, b(data.reduce((sum, value) => (sum + value) & 255, 0)));
+
+test('a whole candidate sends once after a manual click; fragmented echo and another packet stay in the ZIP', async () => {
+  const { adapter, device, record, events } = await prepare(), manualTrigger = new ManualSerialTrigger();
+  const bytes = encodeSwanPacket(swanPreset(1)), reply = encodeSwanPacket(swanPreset(2));
+  device.enqueue(b(255)); device.onTransmit = payload => { assert.deepEqual(payload, bytes); device.enqueue(concat(payload, reply)); };
+  const run = probeSerialPacket(adapter, { bytes, watchMode: 'swan-receive', durationMs: 2000 }, { record, manualTrigger });
+  while (!adapter.serialStats.rxBytes) await sleep(2);
+  assert.equal(device.writes.length, 0); assert.equal(manualTrigger.request(), true); assert.equal(manualTrigger.request(), false);
+  record('serial-manual-send-request', { dataHex: toHex(bytes) });
+  const result = await run; await adapter.close();
+  const final = finishSerialCapture(result, events);
+  assert.equal(final.txCompleted, 1); assert.equal(final.rxBeforeProbe, 1); assert.equal(final.rxAfterProbe, bytes.length + reply.length);
+  assert.deepEqual(device.writes.map(write => toHex(write.bytes)), [toHex(concat(b(0x55, 0xaa, bytes.length, 0), bytes))]);
+  assert.equal(result.repeatMs, 0); assert.equal(manualTrigger.request(), false);
+  const files = new Map(swanAttemptFiles({ kind: 'serial', probeHex: toHex(bytes), result: final }, events).map(file => [file.name, file.data]));
+  assert.deepEqual(files.get('usb-in.bin'), concat(b(255), bytes, reply)); assert.deepEqual(files.get('serial-out-completed.bin'), bytes);
+  const analysis = JSON.parse(new TextDecoder().decode(files.get('analysis.json')));
+  assert.equal(analysis.packets.length, 2); assert.equal(analysis.txMatches.length, 1);
+});
 
 class SerialUSB {
   vendorId = 0x066f; productId = 0x4200; opened = false;

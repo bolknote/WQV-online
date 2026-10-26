@@ -7,6 +7,7 @@ import { b, equal, sha256, makeUPF, jpegFromUPF, packSCEP, putCommand, toHex } f
 import { imageFromFile, prepareRaster, readableImage, LocalStore } from './images.mjs';
 import { zipFiles } from './zip.mjs';
 import { sleep } from './irda.mjs';
+import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers, othersImage, othersOutcome } from './others-client.mjs';
 
 const $ = id => document.getElementById(id), store = new LocalStore();
 const emptyGallery = $('gallery').firstElementChild.cloneNode(true);
@@ -15,6 +16,7 @@ const S = {
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
   operationResult: null, storageFailed: false,
+  mode: readWatchMode(), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
 const stamp = () => new Date().toISOString();
@@ -49,7 +51,14 @@ function update() {
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected;
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
-  document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy; });
+  document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy || (S.mode === 'others' && Boolean(button.closest('[data-pc-only]'))); });
+  document.querySelectorAll('[data-pc-only]').forEach(element => { element.hidden = S.mode !== 'pc'; });
+  document.querySelectorAll('[data-others-only]').forEach(element => { element.hidden = S.mode !== 'others'; });
+  document.querySelectorAll('[data-mode]').forEach(button => {
+    button.disabled = busy; button.setAttribute('aria-pressed', String(button.dataset.mode === S.mode));
+  });
+  $('mode-description').textContent = S.mode === 'pc' ? tr('Photos, clock and calendar') : tr('One photo per connection');
+  $('transfer-protocol').textContent = S.mode === 'pc' ? 'PC' : 'OTHERS / IrTran-P';
   for (const id of ['import-images', 'rotate-image', 'delete-local-image']) $(id).disabled = busy || (id !== 'import-images' && !selected());
   $('upload-image').disabled = !connected || busy || !selected() || Boolean(selected()?.jpegError);
   $('save-image').disabled = !selected();
@@ -61,7 +70,7 @@ function update() {
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
   $('adapter-support').textContent = info ? info.supported ? tr("Supported") : tr("Not implemented") : '—';
   $('endpoints').textContent = connected ? 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
-  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : '—';
+  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode === 'others' && S.transfer?.linked ? 'Casio WQV-3' : '—';
   $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
   $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported));
@@ -72,8 +81,9 @@ function update() {
   $('crc-count').textContent = source?.decoder.badCRC ?? 0; $('switch-count').textContent = source?.switches ?? 0;
   $('recovered-count').textContent = source?.decoder.recoveredFrames ?? 0;
   $('fifo-recovery-count').textContent = source?.fifoRecoveries ?? 0;
+  $('retry-count').textContent = source?.irtranpStats?.retransmissions ?? 0;
   $('ir-mode').textContent = S.adapter?.configured ? tr('SIR · {0} bit/s', S.adapter.baud) : '—';
-  $('send-holidays').disabled = !S.calendar || !connected || busy;
+  $('send-holidays').disabled = !S.calendar || !connected || busy || S.mode !== 'pc';
   $('export-holidays').disabled = !S.calendar;
   $('original-backup').disabled = !S.holidayBackup;
   $('holiday-edit').disabled = !S.calendar || busy;
@@ -82,7 +92,7 @@ function update() {
 }
 function record(name, value) { S.tests[name] = { at: stamp(), ...value }; }
 function switchTab(name) {
-  if (!['photos', 'clock', 'holidays', 'connection'].includes(name)) return;
+  if (!watchTabs(S.mode).includes(name)) return;
   S.tab = name;
   for (const tab of ['photos', 'clock', 'holidays', 'connection']) {
     $('panel-' + tab).hidden = tab !== name;
@@ -96,10 +106,11 @@ function closeMenus() {
   document.querySelectorAll('details.menu').forEach(menu => { menu.open = false; });
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => switchTab(button.dataset.tab)));
-document.querySelectorAll('.tabs [role=tab]').forEach((button, index, buttons) => button.addEventListener('keydown', event => {
+document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventListener('keydown', event => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
   event.preventDefault();
-  const next = event.key === 'Home' ? 0 : event.key === 'End' ? 3 : (index + (event.key === 'ArrowRight' ? 1 : 3)) % 4;
+  const buttons = [...document.querySelectorAll('.tabs [role=tab]')].filter(tab => !tab.hidden), index = buttons.indexOf(button);
+  const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : buttons.length - 1)) % buttons.length;
   switchTab(buttons[next].dataset.tab); buttons[next].focus();
 }));
 $('start-menu-button').addEventListener('click', () => { $('start-menu').hidden = !$('start-menu').hidden; $('start-menu-button').setAttribute('aria-expanded', String(!$('start-menu').hidden)); });
@@ -116,7 +127,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nPhoto transfer works with the SigmaTel STIr4200 (066f:4200). Other adapters can show their name and USB ID, but their transport is not implemented yet.\n\nConnect USB and select IR → PC on the watch. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPhotos: download one photo or the whole collection, import JPEG / PNG / UPF / WQV, upload and export. The arrow buttons browse photos on the watch.\n\n“Delete local copy…” only removes the selected photo from this browser. To delete a photo on the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select menu items and F to confirm.\n\nClock: set the date and time, or sync with the computer. Holidays: read, edit and write the 2000–2039 calendar.\n\nPhotos and backups stay in this browser. Export a ZIP for a separate copy. Commands for deleting photos from the watch and setting its alarm have not been found.\n\nThe interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200), then choose PC or OTHERS above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nBoth modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nOther USB adapters do not work yet. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 function showOptions() {
@@ -140,7 +151,7 @@ async function closeClient() {
 }
 function scheduleKeepAlive() {
   clearTimeout(S.idleTimer);
-  if (!S.client?.connected || !S.client.isPrimary || !S.adapter?.opened || S.active) return;
+  if (S.mode !== 'pc' || !S.client?.connected || !S.client.isPrimary || !S.adapter?.opened || S.active) return;
   S.idleTimer = setTimeout(() => {
     if (S.active || !S.client?.connected) return;
     const client = S.client; client.signal = null;
@@ -153,6 +164,7 @@ function scheduleKeepAlive() {
   }, 500);
 }
 async function ensureClient(signal) {
+  if (S.mode !== 'pc') throw new LocalizedError(tr('Switch to PC mode to use this command.'));
   if (S.client?.connected && S.client.isPrimary) { S.client.signal = signal; return S.client; }
   await closeClient();
   const client = new WQVClient(S.adapter, { signal, log, progress: (h, d, r = null) => result('working', h, d, r) });
@@ -183,11 +195,27 @@ async function run(task, { keep = true } = {}) {
   } finally {
     if (!keep || !S.client?.connected) { try { await closeClient(); } catch (error) { log('error', error); } }
     if (S.client) S.client.signal = null;
+    if (S.adapter && !S.adapter.opened) { S.lastAdapter = S.adapter; S.adapter = null; }
     if (S.active === controller) S.active = null;
     S.fast = false; update(); scheduleKeepAlive();
     if ($('result-heading').closest('.operation-bar').dataset.state !== 'working') $('progress').hidden = true;
   }
 }
+document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
+  const mode = button.dataset.mode;
+  if (S.active || mode === S.mode) return;
+  run(async signal => {
+    await closeClient(); signal.throwIfAborted();
+    S.mode = mode;
+    try { localStorage.setItem(WATCH_MODE_KEY, mode); } catch {}
+    if (!watchTabs(mode).includes(S.tab)) switchTab('photos');
+    $('capabilities-output').hidden = true;
+    result('idle', mode === 'pc' ? tr('PC mode') : tr('OTHERS mode'), mode === 'pc' ?
+      tr('Select IR → PC on the watch to use photos, clock and calendar.') :
+      tr('Choose Receive photo or To watch. Each connection transfers one photo.'));
+    log('info', tr('Watch mode: {0}', mode.toUpperCase()));
+  }, { keep: false });
+}));
 $('connect').addEventListener('click', () => run(async signal => {
   result('working', tr("Choose a USB IrDA adapter"), tr("The selected device supplies its name and USB ID."));
   const device = await navigator.usb.requestDevice({ filters: [] });
@@ -203,7 +231,7 @@ $('connect').addEventListener('click', () => run(async signal => {
   S.adapter = createAdapter(device, { log, update: updateSoon, rawLog: $('raw-log').checked }); S.lastAdapter = S.adapter;
   const description = await S.adapter.open(); signal.throwIfAborted();
   record('usb', { passed: true, description }); log('ok', tr("{0} opened through WebUSB.", info.label));
-  result('success', tr("USB adapter connected"), tr("{0}. Select IR → PC on the WQV-3, then choose an operation.", info.label));
+  result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr("{0}. Select IR → PC on the WQV-3, then choose an operation.", info.label) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));
 }));
 $('disconnect').addEventListener('click', () => run(async () => {
   await closeClient(); const adapter = S.adapter;
@@ -295,6 +323,114 @@ async function addImage(image) {
   try { await store.saveImage(image); } catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('error', error); }
   renderGallery();
 }
+
+function renderTransfer() {
+  const transfer = S.transfer; if (!transfer) return;
+  const sending = transfer.direction === 'send', running = transfer.state === 'running', ready = transfer.state === 'ready';
+  $('transfer-title').textContent = sending ? tr('Send photo to watch') : tr('Receive photo from watch');
+  $('transfer-path').textContent = 'IR → OTHERS → ' + (sending ? 'RECEIVE' : 'SEND');
+  $('transfer-instructions').textContent = sending ?
+    tr('Choose RECEIVE on the watch. Face its infrared window toward the adapter, about 5–10 cm apart. Leave the final front-button press until the computer is ready.') :
+    tr('Choose SEND on the watch. Press the front button once to open the photos, then choose a photo with the side buttons. Leave the final SEND press until the computer is ready.');
+  $('transfer-photo').hidden = !sending;
+  $('transfer-photo').textContent = transfer.image?.name ?? '';
+  $('transfer-start').textContent = sending ? tr('Start sending') : tr('Start receiving');
+  $('transfer-start').hidden = running || transfer.state === 'stopping';
+  $('transfer-start').disabled = !ready;
+  $('transfer-cancel').disabled = transfer.state === 'stopping';
+  $('transfer-close').disabled = transfer.state === 'stopping';
+  $('transfer-progress').hidden = !running;
+  $('transfer-progress').removeAttribute('value');
+  const finishing = ['file-received', 'csi-scep-disconnect', 'csi-ircomm-disconnect', 'disconnect', 'send-complete'].includes(transfer.phase);
+  $('transfer-status').textContent = transfer.state === 'stopping' ? tr('Stopping transfer…') : ready ? tr('USB ready') : !running ? tr('Preparing USB…') :
+    !transfer.linked ? tr('Press the front button on the watch now.') : finishing ? tr('Finishing transfer…') : sending ? tr('Sending photo…') : tr('Receiving photo…');
+  $('transfer-detail').textContent = ready ? tr('Start here, then press the front button on the watch.') : running ?
+    transfer.linked ? tr('Keep the watch facing the adapter. {0} bit/s.', transfer.baud) : tr('Waiting for the watch…') :
+    tr('Keep the watch out of transfer mode until USB is ready.');
+}
+function recordTransfer(kind, details) {
+  S.protocolEvents.push({ at: stamp(), kind, ...details });
+  if (S.protocolEvents.length > 10000) S.protocolEvents.shift();
+  if (kind === 'irlap-connected' && S.transfer) {
+    S.transfer.linked = true; S.transfer.baud = details.baud;
+    log('ok', tr('OTHERS connected at {0} bit/s.', details.baud));
+    renderTransfer(); updateSoon();
+  } else if (['irlap-data-retry', 'irlap-turn-retry'].includes(kind)) {
+    log('info', tr('Recovering the connection · retry {0}.', details.retry)); updateSoon();
+  } else if (['tx-frame', 'rx-frame'].includes(kind)) {
+    log(kind, `${details.address.toString(16)} ${details.control.toString(16)} · ${details.dataHex}`); updateSoon();
+  }
+}
+function finishOthers(summary) {
+  const outcome = othersOutcome(summary);
+  record(summary.direction === 'send' ? 'othersUpload' : 'othersDownload', { outcome, ...summary });
+  switch (outcome) {
+    case 'received': result('success', tr('Photo received'), tr('Saved in this browser’s collection.')); break;
+    case 'received-incomplete': result('error', tr('Photo received; connection did not close normally'), tr('The photo is saved in the collection. Restart the watch mode before the next transfer.')); break;
+    case 'accepted': result('success', tr('Photo sent'), tr('The watch acknowledged {0}.', summary.putReplies[0].storedFilename)); break;
+    case 'accepted-incomplete': result('error', tr('Photo accepted; connection did not close normally'), tr('Check the watch memory before sending the photo again.')); break;
+    case 'rejected': result('error', tr('The watch refused the photo'), tr(summary.putReplies?.find(reply => !reply.accepted)?.errorMessage ?? summary.policyRejection ?? 'Transfer rejected')); break;
+    case 'unconfirmed': result('error', tr('Transfer not confirmed'), tr('Check the watch memory before sending the photo again.')); break;
+    case 'cancelled': result('idle', tr('Operation cancelled'), tr('Photos already received have been saved.')); break;
+    case 'error': throw new LocalizedError(tr('Transfer failed: {0}', summary.error.message));
+    case 'not-sent': result('idle', tr('Photo was not sent'), tr('Restart the watch mode, then start another transfer.')); break;
+    default: result('idle', tr('No photo received'), tr('Restart the watch mode, then start another transfer.'));
+  }
+}
+async function openOthersTransfer(direction) {
+  if (S.active || S.transfer || S.mode !== 'others' || !S.adapter?.opened) return;
+  const image = direction === 'send' ? selected() : null;
+  if (direction === 'send' && (!image || image.jpegError)) return;
+  const filename = $('upload-name').value.trim().toUpperCase();
+  if (direction === 'send' && !/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) {
+    await showDialog(tr('Filename'), tr('Use 8 ASCII characters and .UPF, for example MC000001.UPF.')); return;
+  }
+  const transfer = { direction, image, state: 'preparing', phase: 'discovery', linked: false, baud: null, resolve: null };
+  S.transfer = transfer; closeMenus(); renderTransfer(); $('transfer-dialog').showModal();
+  try {
+    await run(async signal => {
+      result('working', tr('Preparing USB…'));
+      await closeClient(); await prepareOthers(S.adapter, signal);
+      const start = new Promise((resolve, reject) => {
+        const abort = () => { transfer.resolve = null; reject(signal.reason); };
+        transfer.resolve = value => { signal.removeEventListener('abort', abort); resolve(value); };
+        signal.addEventListener('abort', abort, { once: true });
+        if (signal.aborted) abort();
+      });
+      transfer.state = 'ready'; renderTransfer(); $('transfer-start').focus();
+      result('working', tr('USB ready'), tr('Start here, then press the front button on the watch.'));
+      if (!await start) { result('idle', tr('Ready'), tr('No photo was sent.')); return; }
+      signal.throwIfAborted(); transfer.state = 'running'; renderTransfer(); $('transfer-cancel').focus();
+      const summary = await transferOthers(S.adapter, { direction, signal,
+        file: image ? { filename, bytes: image.previewJPEG ? makeUPF(image.previewJPEG) : image.upf } : undefined,
+        onFile: async file => addImage(await othersImage(file)), record: recordTransfer,
+        progress: phase => {
+          transfer.phase = phase; renderTransfer();
+          result('working', $('transfer-status').textContent, $('transfer-detail').textContent);
+        } });
+      finishOthers(summary);
+      if (!summary.complete || summary.pendingUSBRead || summary.error) await S.adapter?.close();
+    }, { keep: false });
+  } finally {
+    transfer.resolve = null; S.transfer = null; $('transfer-dialog').close(); update();
+  }
+}
+$('receive-photo').addEventListener('click', () => openOthersTransfer('receive'));
+$('transfer-start').addEventListener('click', () => {
+  const transfer = S.transfer;
+  if (transfer?.state !== 'ready') return;
+  transfer.state = 'running'; renderTransfer(); transfer.resolve?.(true); transfer.resolve = null;
+});
+function cancelTransfer() {
+  const transfer = S.transfer; if (!transfer || transfer.state === 'stopping') return;
+  if (transfer.state === 'ready') { transfer.resolve?.(false); transfer.resolve = null; return; }
+  transfer.state = 'stopping'; renderTransfer(); S.active?.abort();
+  S.adapter?.close().catch(error => log('error', error));
+}
+$('transfer-cancel').addEventListener('click', cancelTransfer);
+$('transfer-close').addEventListener('click', cancelTransfer);
+$('transfer-dialog').addEventListener('cancel', event => { event.preventDefault(); cancelTransfer(); });
+
 async function receive(current) {
   await run(async signal => {
     const client = await ensureClient(signal);
@@ -353,7 +489,7 @@ function exportCollection() {
   downloadFile(zipFiles(files), 'WQV-collection.zip'); record('export', { count: S.images.length });
 }
 $('export-all').addEventListener('click', exportCollection); $('menu-export').addEventListener('click', exportCollection);
-$('upload-image').addEventListener('click', () => run(async signal => {
+$('upload-image').addEventListener('click', () => S.mode === 'others' ? openOthersTransfer('send') : run(async signal => {
   const image = selected(), filename = $('upload-name').value.trim().toUpperCase();
   if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr("Use 8 ASCII characters and .UPF, for example MC000001.UPF."));
   const client = await ensureClient(signal), upf = image.previewJPEG ? makeUPF(image.previewJPEG) : image.upf;
@@ -501,6 +637,7 @@ function saveReport() {
   const a = S.adapter || S.lastAdapter;
   const report = { format: 'wqv-webusb-diagnostics-v1', version: '0.2', savedAt: stamp(),
     environment: { secureContext: isSecureContext, webUSB: Boolean(navigator.usb), userAgent: navigator.userAgent, language: getLanguage() },
+    watchMode: S.mode, protocolEvents: S.protocolEvents,
     tests: S.tests, counters: a ? { txFrames: a.txFrames, rxBytes: a.rxBytes, switches: a.switches,
       badCRC: a.decoder.badCRC, recoveredFrames: a.decoder.recoveredFrames, fifoRecoveries: a.fifoRecoveries, baud: a.baud } : null,
     events: S.events.map(event => ({ ...event, message: formatText(event.message) })) };
@@ -524,6 +661,7 @@ function applyLanguage() {
   translateDOM(); renderMonthNames(); renderGallery(); renderCalendar(); tickClock(); renderLog();
   $('gallery').scrollTop = scroll;
   if (S.operationResult) result(...S.operationResult);
+  renderTransfer();
   if (!supported) $('compatibility').textContent = compatibilityText();
 }
 onLanguageChange(applyLanguage);

@@ -1,0 +1,356 @@
+{
+  "source": "Hardware capture 2026-10-24, SigmaTel 066f:4200, SWAN SEND label, 9600 bit/s. Only data-bearing USB results and the page marker are excerpted. Origin unverified.",
+  "archive_sha256": "25b2b12a682bfbb8b19f88c810ecd57c813fc8e20447ee9b3377ea65945e5952",
+  "events": [
+    {
+      "watchMode": "swan-send",
+      "baud": 9600,
+      "marker": 1,
+      "kind": "watch-send-mark",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 1534,
+      "at": "2026-10-24T05:17:59.966Z",
+      "elapsedMs": 10738.100000023842
+    },
+    {
+      "id": 6548,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13104,
+      "at": "2026-10-24T05:18:14.738Z",
+      "elapsedMs": 25510.70000001788
+    },
+    {
+      "id": 6641,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13291,
+      "at": "2026-10-24T05:18:14.968Z",
+      "elapsedMs": 25739.90000000596
+    },
+    {
+      "id": 6690,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13390,
+      "at": "2026-10-24T05:18:15.088Z",
+      "elapsedMs": 25860.70000001788
+    },
+    {
+      "id": 6699,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13409,
+      "at": "2026-10-24T05:18:15.109Z",
+      "elapsedMs": 25880.80000001192
+    },
+    {
+      "id": 6716,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13444,
+      "at": "2026-10-24T05:18:15.148Z",
+      "elapsedMs": 25920.600000023842
+    },
+    {
+      "id": 6725,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13463,
+      "at": "2026-10-24T05:18:15.168Z",
+      "elapsedMs": 25940.30000001192
+    },
+    {
+      "id": 6734,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13482,
+      "at": "2026-10-24T05:18:15.188Z",
+      "elapsedMs": 25960.20000001788
+    },
+    {
+      "id": 6752,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13519,
+      "at": "2026-10-24T05:18:15.230Z",
+      "elapsedMs": 26002.20000001788
+    },
+    {
+      "id": 6785,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13586,
+      "at": "2026-10-24T05:18:15.310Z",
+      "elapsedMs": 26082.30000001192
+    },
+    {
+      "id": 6793,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13603,
+      "at": "2026-10-24T05:18:15.328Z",
+      "elapsedMs": 26100.600000023842
+    },
+    {
+      "id": 6834,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13686,
+      "at": "2026-10-24T05:18:15.428Z",
+      "elapsedMs": 26200.20000001788
+    },
+    {
+      "id": 6843,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13705,
+      "at": "2026-10-24T05:18:15.448Z",
+      "elapsedMs": 26220.30000001192
+    },
+    {
+      "id": 6860,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13740,
+      "at": "2026-10-24T05:18:15.488Z",
+      "elapsedMs": 26260.30000001192
+    },
+    {
+      "id": 6869,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13759,
+      "at": "2026-10-24T05:18:15.508Z",
+      "elapsedMs": 26280.30000001192
+    },
+    {
+      "id": 6886,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13794,
+      "at": "2026-10-24T05:18:15.549Z",
+      "elapsedMs": 26320.80000001192
+    },
+    {
+      "id": 6902,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13827,
+      "at": "2026-10-24T05:18:15.588Z",
+      "elapsedMs": 26360
+    },
+    {
+      "id": 6911,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13846,
+      "at": "2026-10-24T05:18:15.608Z",
+      "elapsedMs": 26380.100000023842
+    },
+    {
+      "id": 6920,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13865,
+      "at": "2026-10-24T05:18:15.628Z",
+      "elapsedMs": 26400.20000001788
+    },
+    {
+      "id": 6937,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13900,
+      "at": "2026-10-24T05:18:15.668Z",
+      "elapsedMs": 26440
+    },
+    {
+      "id": 6946,
+      "operation": "transferIn",
+      "status": "ok",
+      "data": {
+        "hex": "ff",
+        "byteLength": 1
+      },
+      "bytesWritten": null,
+      "baud": 9600,
+      "phase": "running",
+      "kind": "usb-result",
+      "attemptId": "5dcda926-eb2f-42d8-b72a-89b7dac58f36",
+      "seq": 13919,
+      "at": "2026-10-24T05:18:15.688Z",
+      "elapsedMs": 26460.20000001788
+    }
+  ]
+}

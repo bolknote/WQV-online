@@ -2,7 +2,7 @@ import { FrameDecoder, sleep } from './irda.mjs';
 import { toHex } from './formats.mjs';
 
 export const LISTEN_RATES = Object.freeze([9600, 38400, 115200]);
-export const LISTEN_MODES = Object.freeze(['watch-send', 'others-send', 'swan-send', 'swan-receive']);
+export const LISTEN_MODES = Object.freeze(['watch-send', 'others-send', 'others-receive', 'swan-send', 'swan-receive', 'background']);
 
 export function listenSettings({ baud, watchMode, durationMs }) {
   if (!LISTEN_RATES.includes(baud)) throw new RangeError('Invalid listening speed.');

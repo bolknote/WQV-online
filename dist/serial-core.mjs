@@ -89,7 +89,18 @@ export async function sendSerialBytes(adapter, bytes, { record = () => {}, alive
 }
 
 export async function probeSerial(adapter, settings, { signal, record = () => {}, manualTrigger } = {}) {
-  const options = serialSettings(settings);
+  return captureSerial(adapter, serialSettings(settings), { signal, record, manualTrigger });
+}
+
+// Whole candidate packets use the same raw receiver and journal as one-byte
+// probes, with one explicit transmission per capture and no automatic replies.
+export async function probeSerialPacket(adapter, { bytes, watchMode, durationMs }, handlers = {}) {
+  const options = serialSettings({ probe: 'cr', watchMode, durationMs, transmission: 'manual' });
+  if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length + 4 >= 4096) throw new RangeError('Invalid raw SIR packet.');
+  return captureSerial(adapter, { ...options, probe: 'packet', probeHex: toHex(bytes) }, handlers);
+}
+
+async function captureSerial(adapter, options, { signal, record = () => {}, manualTrigger } = {}) {
   signal?.throwIfAborted(); adapter.assertOpen();
   if (!adapter.configured || adapter.baud !== 9600 || adapter.readerTask || adapter.readPending) throw new Error('Prepare an idle 9600 bit/s receiver before serial research.');
   const { durationMs, probe, probeHex, repeatMs, initialDelayMs, transmission } = options;

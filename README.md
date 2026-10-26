@@ -25,6 +25,13 @@ work yet.** WQV-10 and other operating systems have not been tested.
 
 ## Connect the watch
 
+Choose **PC** or **OTHERS** on the toolbar to match the watch menu. PC has photo,
+clock and calendar controls. OTHERS has Photos and Connection, for sending one
+photo at a time. Both modes use the same local album. The page remembers the
+mode you last used.
+
+### PC
+
 1. Plug in the SigmaTel adapter and open [the app](https://bolknote.github.io/WQV-online/).
 2. Click **Connect USB…** and choose the adapter.
 3. On the watch, select **IR → PC**, then **F / REMOTE**. Face its infrared
@@ -34,6 +41,27 @@ work yet.** WQV-10 and other operating systems have not been tested.
 
 If the watch leaves transfer mode, enter IR → PC again. Another application
 using the adapter must release it before the browser can connect.
+
+### OTHERS
+
+Connect USB before starting transfer on the watch.
+
+To get a photo from the watch:
+
+1. Choose **OTHERS**, then **Receive photo…**. Wait for **USB ready**.
+2. On the watch, choose **IR → OTHERS → SEND**. Press the front button once
+   to open the photos, then choose one with the side buttons.
+3. Click **Start receiving** on the page, then press the front button again
+   to send the selected photo.
+
+To send a photo to the watch, select or import it in the album and click
+**To watch →**. Wait for USB to be ready, choose **IR → OTHERS → RECEIVE** on
+the watch, click **Start sending**, then press the watch's front button.
+
+Each transfer closes its connection. Start another transfer for the next photo.
+The sender uses the watch's SCEP packet limit (2048 bytes on the tested WQV-3)
+and retries lost IrLAP frames without starting another upload. Clock, calendar
+and remote photo-browsing commands are available in PC mode.
 
 Discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
 fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
@@ -119,6 +147,36 @@ the unknown command codes are not established. See the
 There are also [WonderWave notes](docs/wonderwave-research.md) with recovered
 WonderWitch serial-transfer sources and what they might tell us about SWAN mode.
 
+The [SWAN packet page](https://bolknote.github.io/WQV-online/swan.html) tests complete candidate packets recovered
+from Digimon programs on WonderSwan and PocketStation. Start with the adapter
+echo control, then run each watch test separately. Start recording before
+activating SWAN RECEIVE and use **Send packet once** when the watch is ready.
+There are no automatic replies or repeats. Its separate local journal and ZIPs
+keep all USB bytes, planned and completed writes, and possible echo matches.
+These packets have not been confirmed as WQV-3 commands. See the
+[packet test instructions](docs/swan-packets.md).
+
+For a passive speed comparison, open `swan-listen.html` locally. It has separate
+background, SWAN SEND and SWAN RECEIVE steps at 9600 and 38400 bit/s, with no
+outgoing packets. Each recording saves its confirmed setup, watch-button marker
+and raw USB data. The watch's SWAN speed is still unknown. See the
+[listening instructions](docs/swan-listening.md).
+
+The separate OTHERS test page is `irtranp.html`. It keeps the manual research
+plans and raw USB recordings. Normal one-photo transfers are now part of the
+main app. Sending and receiving have worked on a WQV-3 at 9600 and 115200 bit/s,
+including uploads with 2048-byte SCEP packets. Four deliberate link faults
+also recovered: a bad CRC, two bad CRCs in a row, a truncated frame and a lost
+acknowledgement. In each case the watch displayed the uploaded photo.
+
+The main app sends one photo per connection. Although the watch advertises
+multiple PUT operations, our attempts to send two photos in one connection
+failed. Metadata the watch discards is kept in the original local UPF.
+See the [IrTran-P notes](docs/irtranp-research.md) and
+[link recovery details](docs/irtranp-link-recovery.md) for the captures and limits
+of those tests. The integrated interface is checked by replaying those recorded
+exchanges and has also been used with the same watch and adapter.
+
 ## Run locally
 
 The app is plain HTML, CSS and JavaScript. There are no packages to install and
@@ -139,6 +197,18 @@ Run the tests with Node.js 24 or later:
 ```sh
 npm test
 ```
+
+The optional browser check needs Playwright installed separately and the local
+server running on its default port:
+
+```sh
+node tests/browser/others.cjs
+```
+
+It replays captured watch exchanges through a fake USB adapter. It also checks
+the mode switch, shared album, language settings and cancellation. It uses an
+isolated browser and never opens the real adapter. Screenshots go to a temporary
+folder. Set `WQV_APP_URL` to use a different local server address.
 
 There is also an independent JPEG pixel check, using Python and Pillow:
 
