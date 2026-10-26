@@ -11,7 +11,9 @@ export const PROBE_PLAN = Object.freeze([
 
 // Snapshot BufferSource views at the USB boundary, before the decoder sees them.
 export function snapshot(value) {
-  if (value instanceof ArrayBuffer || ArrayBuffer.isView(value)) {
+  // Keep DataView explicit: Node 24's optimized mixed-capture path can
+  // otherwise fall through and serialize a USB read as an empty object.
+  if (value instanceof DataView || ArrayBuffer.isView(value) || value instanceof ArrayBuffer) {
     const bytes = value instanceof ArrayBuffer ? new Uint8Array(value) :
       new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
     return { hex: toHex(bytes), byteLength: bytes.byteLength };
