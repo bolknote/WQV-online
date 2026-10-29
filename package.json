@@ -2,7 +2,7 @@
   "name": "wqv-online",
   "version": "0.2.0",
   "private": true,
-  "description": "A WebUSB companion for the Casio WQV-3 wrist camera.",
+  "description": "A WebUSB companion for Casio WQV-2 and WQV-3 wrist cameras.",
   "author": "Evgeny Stepanischev",
   "license": "MIT",
   "repository": {

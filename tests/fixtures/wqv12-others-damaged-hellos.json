@@ -1,0 +1,148 @@
+{
+  "source": "work/wqv12-native/captures/2026-10-29T03-09-05.287Z/WQV2-OTHERS-2026-10-29T03-09-36-850Z.zip",
+  "sha256": "d1c5494e9e112702a61301cec284382f60478a69ee720711dfd534859ee6ffb9",
+  "rawHex": "c0b3c0b2c1c0b301b2c1c0b3c0b2c1c0b3c0b2c1c0ffb301b2c1c0b301b2c1c0b301b2c1c0b3c0b2c1c0b3c0b2c1c0b301b2c1c0b3c0b2c1c0b3c0b2c1c0b3c0b2c1c0b301b2c1",
+  "usbChunks": [
+    "c0",
+    "b3c0b2",
+    "c1",
+    "c0",
+    "b3",
+    "01",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0",
+    "ff",
+    "b3",
+    "01",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "01",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "01",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "01",
+    "b2",
+    "c1",
+    "c0",
+    "b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0b3c0b2c1",
+    "c0",
+    "b3",
+    "c0",
+    "b2",
+    "c1",
+    "c0b301b2c1"
+  ],
+  "bytesBeforeFirstTX": 26,
+  "expectedGreetingHex": "c0ffb301b2c1",
+  "bursts": [
+    {
+      "startMs": 24319.323,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": true
+    },
+    {
+      "startMs": 24845.572,
+      "rawHex": "c0b301b2c1",
+      "beforeFirstTX": true
+    },
+    {
+      "startMs": 25382.862,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": true
+    },
+    {
+      "startMs": 25946.553,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": true
+    },
+    {
+      "startMs": 26530.903,
+      "rawHex": "c0ffb301b2c1",
+      "beforeFirstTX": true
+    },
+    {
+      "startMs": 27057.471,
+      "rawHex": "c0b301b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 27594.806,
+      "rawHex": "c0b301b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 28158.229,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 28742.8,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 29269.359,
+      "rawHex": "c0b301b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 29806.696,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 30370.842,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 30954.683,
+      "rawHex": "c0b3c0b2c1",
+      "beforeFirstTX": false
+    },
+    {
+      "startMs": 31482.874,
+      "rawHex": "c0b301b2c1",
+      "beforeFirstTX": false
+    }
+  ],
+  "grouping": "Consecutive nonempty USB reads grouped when separated by less than 100 ms. Diagnostic grouping, not frame repair.",
+  "expected": {
+    "validFrames": 1,
+    "malformed": 13,
+    "abandonedFrames": 8,
+    "badChecksum": 0
+  }
+}

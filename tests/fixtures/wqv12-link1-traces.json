@@ -1,0 +1,159 @@
+{
+  "source": "Casio WQV Link 1.0.1 ComDll.dll",
+  "dllSha256": "d488b77d8022a31cd676f9ad6f97d65698a9c513deb602d5c0a0fd4a13d89068",
+  "sourceURL": "https://archive.org/download/ar405jpn_202403/Software/",
+  "method": "Original x86 framing and turnaround routines in Unicorn; serial reads/writes, GetTickCount and Sleep stubbed. No watch test.",
+  "addresses": {
+    "receiveByte": "10005a60",
+    "receiveTimestamp": "10010438",
+    "sendWithTurnaround": "10005aa0",
+    "frameEncoder": "100023c0",
+    "serialWriteStub": "10001510"
+  },
+  "minimumTurnaroundMs": 10,
+  "frames": [
+    {
+      "bodyHex": "ffb3",
+      "atMs": 100,
+      "wireHex": "c0ffb301b2c1"
+    },
+    {
+      "bodyHex": "ff93160404fe02",
+      "atMs": 100,
+      "wireHex": "c0ff93160404fe0202b0c1"
+    },
+    {
+      "bodyHex": "0211",
+      "atMs": 100,
+      "wireHex": "c002110013c1"
+    },
+    {
+      "bodyHex": "0253",
+      "atMs": 100,
+      "wireHex": "c002530055c1"
+    },
+    {
+      "bodyHex": "021000",
+      "atMs": 100,
+      "wireHex": "c00210000012c1"
+    },
+    {
+      "bodyHex": "021001",
+      "atMs": 100,
+      "wireHex": "c00210010013c1"
+    },
+    {
+      "bodyHex": "023206",
+      "atMs": 100,
+      "wireHex": "c0023206003ac1"
+    },
+    {
+      "bodyHex": "0231",
+      "atMs": 100,
+      "wireHex": "c002310033c1"
+    },
+    {
+      "bodyHex": "025406",
+      "atMs": 100,
+      "wireHex": "c0025406005cc1"
+    },
+    {
+      "bodyHex": "0100bf",
+      "atMs": 100,
+      "wireHex": "c00100bf007de0c1"
+    },
+    {
+      "bodyHex": "0100c0",
+      "atMs": 100,
+      "wireHex": "c001007de0007de1c1"
+    },
+    {
+      "bodyHex": "01007c",
+      "atMs": 100,
+      "wireHex": "c001007c007d5dc1"
+    },
+    {
+      "bodyHex": "024205000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
+      "atMs": 100,
+      "wireHex": "c0024205000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d5d7e7f2009c1"
+    },
+    {
+      "bodyHex": "024405808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff",
+      "atMs": 100,
+      "wireHex": "c0024405808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf7de07de1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff600bc1"
+    }
+  ],
+  "turnaround": [
+    {
+      "lastByteAtMs": 100,
+      "requestedAfterMs": 0,
+      "sleptMs": 10,
+      "sleepCalls": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "sentAfterMs": 10,
+      "wireHex": "c002530055c1"
+    },
+    {
+      "lastByteAtMs": 100,
+      "requestedAfterMs": 3,
+      "sleptMs": 7,
+      "sleepCalls": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "sentAfterMs": 10,
+      "wireHex": "c002530055c1"
+    },
+    {
+      "lastByteAtMs": 100,
+      "requestedAfterMs": 9,
+      "sleptMs": 1,
+      "sleepCalls": [
+        1
+      ],
+      "sentAfterMs": 10,
+      "wireHex": "c002530055c1"
+    },
+    {
+      "lastByteAtMs": 100,
+      "requestedAfterMs": 10,
+      "sleptMs": 0,
+      "sleepCalls": [],
+      "sentAfterMs": 10,
+      "wireHex": "c002530055c1"
+    },
+    {
+      "lastByteAtMs": 100,
+      "requestedAfterMs": 15,
+      "sleptMs": 0,
+      "sleepCalls": [],
+      "sentAfterMs": 15,
+      "wireHex": "c002530055c1"
+    }
+  ],
+  "idleDisconnect": {
+    "writes": [
+      {
+        "atMs": 110,
+        "wireHex": "c002530055c1"
+      }
+    ],
+    "nextState": 6,
+    "sleptMs": 10
+  }
+}

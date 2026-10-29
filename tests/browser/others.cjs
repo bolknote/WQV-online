@@ -4,7 +4,7 @@ const fs = require('node:fs/promises');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const repo = path.resolve(__dirname, '../..');
-const appURL = process.env.WQV_APP_URL || 'http://127.0.0.1:8765/';
+const appURL = new URL('wqv3.html', process.env.WQV_APP_URL || 'http://127.0.0.1:8765/').href;
 const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os').tmpdir(), 'wqv-others-browser');
 const mockModule = `
 import { FrameDecoder } from './irda.mjs';

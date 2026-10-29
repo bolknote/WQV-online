@@ -2,6 +2,7 @@ import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
   getLanguage, setLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
+import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
 import { b, equal, sha256, makeUPF, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
@@ -20,6 +21,12 @@ const S = {
   mode: readWatchMode(), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
+const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active), close: async () => {
+  clearTimeout(S.idleTimer); await S.maintenance; clearTimeout(S.idleTimer);
+  try { await closeClient(); } catch (error) { log('info', error); }
+  if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('info', error); } }
+  S.adapter = null;
+} });
 const stamp = () => new Date().toISOString();
 let logTimer = null, updateTimer = null;
 
@@ -46,6 +53,7 @@ function result(state, heading, detail = '', ratio = null) {
 function updateSoon() { if (!updateTimer) updateTimer = setTimeout(update, 60); }
 function selected() { return S.images.find(i => i.id === S.selected); }
 function update() {
+  updateNavigation();
   clearTimeout(updateTimer); updateTimer = null;
   const connected = Boolean(S.adapter?.opened), busy = Boolean(S.active), source = S.adapter || S.lastAdapter;
   const info = S.device ? describeUSBDevice(S.device) : null;

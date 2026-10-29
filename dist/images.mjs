@@ -52,9 +52,10 @@ export async function imageFromFile(file, options = {}) {
   return { id, name, jpeg, upf, archive, width: 176, height: 144, source: 'import', receivedAt: new Date().toISOString() };
 }
 export class LocalStore {
+  constructor({ name = 'casio-wqv-webusb' } = {}) { this.name = name; }
   async open() {
     this.db = await new Promise((resolve, reject) => {
-      const request = indexedDB.open('casio-wqv-webusb', 1);
+      const request = indexedDB.open(this.name, 1);
       request.onupgradeneeded = () => { request.result.createObjectStore('images', { keyPath: 'id' }); request.result.createObjectStore('settings'); };
       request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
     }); return this;

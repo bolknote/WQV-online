@@ -1,16 +1,23 @@
 # WQV-online
 
-Get photos on and off a Casio WQV-3 wrist camera in your browser. Connect a USB
-infrared adapter through WebUSB or the KS-959 local helper. The interface takes its
-look from the Casio CASSIOPEIA handhelds and Pocket PC 2000.
+Read photos from a Casio WQV-2 or WQV-3 wrist camera in your browser, and send
+photos back to a WQV-3. Connect a USB infrared adapter through WebUSB or the
+KS-959 local helper. The interface takes its look from the Casio CASSIOPEIA
+handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
 
-![The CASSIOPEIA-style interface, with photos downloaded from a WQV-3](docs/screenshot.png)
+The opening screen has an app for each watch. Click its icon to open it; the
+close button returns to Programs and releases the USB adapter. Each watch has
+its own local album. English and Russian settings apply to both apps.
+
+![The Programs screen, with WQV-2 and WQV-3 watch icons](docs/programs.png)
 
 ## What you need
 
-The tested watch is a **Casio WQV-3, module 2411**, with Opera on macOS.
+The tested watches are **Casio WQV-2, module 2220**, and **WQV-3, module 2411**,
+on macOS. WQV-3 was tested with Opera; WQV-2 PC downloads were checked with the
+native client on both adapters below.
 
 | Adapter | USB ID | Connection |
 | --- | --- | --- |
@@ -47,7 +54,48 @@ The helper forwards the adapter's USB control transfers on `127.0.0.1:8767`.
 Discovery, image transfers and the rest of the watch protocol still run in the
 browser. SigmaTel does not use the helper. See [the transport notes](docs/kingsun-ks959.md).
 
-## Connect the watch
+## WQV-2
+
+Open **WQV-2** from Programs, then click **Connect USB…**. Choose **PC** or
+**OTHERS** to match the watch. Both modes use the same WQV-2 album.
+
+### PC: current photo or all photos
+
+1. Click **Current photo** or **All photos** and wait for **USB ready**.
+2. Click **Start reading**, then select **IR → PC** on WQV-2 and press the
+   front **F** button. Keep the infrared windows about 5–10 cm apart.
+3. Wait for the transfer to finish. The photos stay in this browser.
+
+**Find watch** opens and closes a connection without downloading photos. The
+Connection tab also shows the time returned in the watch's greeting.
+
+### OTHERS: receive one photo
+
+1. Choose **OTHERS**, click **Receive photo…**, and wait for **USB ready**.
+2. From COM on the watch, select **OTHERS** and press **F**. With **SEND**
+   selected, press **F** again to open the photos. Choose one with the side buttons.
+3. Click **Start receiving** in the app, then press **F** on the watch to send
+   the selected photo.
+
+This receiver uses WQV-2's older SUM16 protocol. It has protocol and browser
+tests; a hardware check of OTHERS with WQV-2 is still pending. PC downloads of
+one photo and all five stored photos have worked with both adapters, producing
+identical image files.
+
+WQV-2 transfers use **115200 bit/s**, including OTHERS. The SigmaTel driver
+selects a 28-sample receive threshold for this watch; WQV-3 keeps its own
+settings. The KS-959 driver synchronizes its receive counter from valid watch
+greetings. See the [WQV-2 protocol notes](docs/wqv12-pc-investigation.md).
+
+Photos are 120 × 120 with 16 shades of gray. Save a PNG for viewing or the
+original 7229-byte BIN record for a backup. **Open backup…** imports these BIN
+records; **Collection ZIP…** saves the album with both formats and metadata.
+Local deletion leaves the copy on the watch alone. WQV-2 uploads, clock setting
+and calendar editing are not implemented.
+
+## WQV-3
+
+![The WQV-3 app with photos downloaded from the watch](docs/screenshot.png)
 
 Choose **PC** or **OTHERS** on the toolbar to match the watch menu. PC has photo,
 clock and calendar controls. OTHERS has Photos and Connection, for sending one
@@ -56,7 +104,7 @@ mode you last used.
 
 ### PC
 
-1. Plug in the adapter and open [the app](https://bolknote.github.io/WQV-online/).
+1. Plug in the adapter and open **WQV-3** from [Programs](https://bolknote.github.io/WQV-online/).
    For KS-959, start its helper first.
 2. Click **Connect USB…** and choose the adapter.
 3. On the watch, select **IR → PC**, then **F / REMOTE**. Face its infrared
@@ -226,17 +274,19 @@ Run the tests with Node.js 24 or later:
 npm test
 ```
 
-The optional browser check needs Playwright installed separately and the local
+The optional browser checks need Playwright installed separately and the local
 server running on its default port:
 
 ```sh
+node tests/browser/applications.cjs
 node tests/browser/others.cjs
 ```
 
-It replays captured watch exchanges through a fake USB adapter. It also checks
-the mode switch, shared album, language settings and cancellation. It uses an
-isolated browser and never opens the real adapter. Screenshots go to a temporary
-folder. Set `WQV_APP_URL` to use a different local server address.
+The first checks Programs, both albums, backup import and export, language
+settings, cancellation and WQV-2 exchanges with simulated SigmaTel and KS-959
+devices. The second replays captured WQV-3 OTHERS exchanges. Both use isolated
+browsers and never open a real adapter. Screenshots go to a temporary folder.
+Set `WQV_APP_URL` to use a different local server address.
 
 There is also an independent JPEG pixel check, using Python and Pillow:
 
@@ -247,8 +297,8 @@ python3 -m venv .venv
 ```
 
 GitHub Actions runs the JavaScript tests on pushes and pull requests. A passing
-push to `main` publishes `dist/` to GitHub Pages, so the site's root opens the
-app directly.
+push to `main` publishes `dist/` to GitHub Pages, so the site's root opens
+Programs directly.
 
 ## Credits and license
 

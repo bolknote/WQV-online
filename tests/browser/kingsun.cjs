@@ -3,7 +3,7 @@ const { chromium } = require(process.env.WQV_PLAYWRIGHT || 'playwright');
 const fs = require('node:fs/promises');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const appURL = process.env.WQV_APP_URL || 'http://127.0.0.1:8765/';
+const appURL = new URL('wqv3.html', process.env.WQV_APP_URL || 'http://127.0.0.1:8765/').href;
 const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os').tmpdir(), 'wqv-kingsun-browser');
 
 (async () => {
