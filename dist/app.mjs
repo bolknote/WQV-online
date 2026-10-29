@@ -1,6 +1,7 @@
 import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
   getLanguage, setLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
+import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
 import { b, equal, sha256, makeUPF, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
@@ -48,6 +49,7 @@ function update() {
   clearTimeout(updateTimer); updateTimer = null;
   const connected = Boolean(S.adapter?.opened), busy = Boolean(S.active), source = S.adapter || S.lastAdapter;
   const info = S.device ? describeUSBDevice(S.device) : null;
+  $('kingsun-help').hidden = info?.driver !== 'KingSun KS-959';
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected;
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
@@ -68,8 +70,9 @@ function update() {
   $('adapter-label').textContent = info?.label || 'USB IrDA';
   $('adapter-label').title = info?.label || tr("Choose a USB IrDA adapter");
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
-  $('adapter-support').textContent = info ? info.supported ? tr("Supported") : tr("Not implemented") : '—';
-  $('endpoints').textContent = connected ? 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
+  $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? tr("Supported") : tr("Not implemented") : '—';
+  $('endpoints').textContent = connected ? S.adapter.description?.controlEndpoint === 0 ? tr('Control endpoint 0') : 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
+  $('registers').hidden = info?.driver === 'KingSun KS-959';
   $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode === 'others' && S.transfer?.linked ? 'Casio WQV-3' : '—';
   $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
@@ -127,7 +130,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200), then choose PC or OTHERS above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nBoth modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nOther USB adapters do not work yet. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200) or KingSun KS-959 (07d0:4959), then choose PC or OTHERS above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nBoth modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nKS-959 requires the local USB helper shown after selecting the adapter. SigmaTel connects directly through WebUSB. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 function showOptions() {
@@ -228,9 +231,11 @@ $('connect').addEventListener('click', () => run(async signal => {
     result('idle', tr("Adapter not supported"), tr("{0}. Communication with this USB ID is not implemented yet.", info.label));
     return;
   }
-  S.adapter = createAdapter(device, { log, update: updateSoon, rawLog: $('raw-log').checked }); S.lastAdapter = S.adapter;
+  const transport = info.driver === 'KingSun KS-959' ? new KingsunBridgeDevice(device) : device;
+  S.adapter = createAdapter(transport, { log, update: updateSoon, rawLog: $('raw-log').checked, record: recordTransfer }); S.lastAdapter = S.adapter;
   const description = await S.adapter.open(); signal.throwIfAborted();
-  record('usb', { passed: true, description }); log('ok', tr("{0} opened through WebUSB.", info.label));
+  record('usb', { passed: true, description });
+  log('ok', info.driver === 'KingSun KS-959' ? tr('{0} opened through the local USB helper.', info.label) : tr("{0} opened through WebUSB.", info.label));
   result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr("{0}. Select IR → PC on the WQV-3, then choose an operation.", info.label) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));
 }));
 $('disconnect').addEventListener('click', () => run(async () => {
@@ -435,8 +440,11 @@ async function receive(current) {
   await run(async signal => {
     const client = await ensureClient(signal);
     const images = await client.download({ current, onImage: addImage });
-    record(current ? 'downloadCurrent' : 'downloadAll', { passed: true, count: images.length });
-    result('success', tr("Received: {0}", quantity(images.length, "photos")), tr("JPEG, UPF and WQV files have been saved in this browser's collection."));
+    record(current ? 'downloadCurrent' : 'downloadAll', { passed: true, count: images.length,
+      disconnectConfirmed: client.disconnectConfirmed, disconnectAttempts: client.disconnectAttempts });
+    result(client.disconnectConfirmed ? 'success' : 'idle', tr("Received: {0}", quantity(images.length, "photos")),
+      client.disconnectConfirmed ? tr("JPEG, UPF and WQV files have been saved in this browser's collection.") :
+        tr('Photos have been saved, but the watch did not confirm disconnection. Restart IR → PC before the next operation.'));
   }, { keep: false });
 }
 $('download-current').addEventListener('click', () => receive(true));

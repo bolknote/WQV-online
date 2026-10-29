@@ -38,7 +38,7 @@ export async function transferOthers(adapter, { direction, signal, file, onFile,
   if (direction === 'send') validateSendFile(file?.bytes, file?.filename);
   let negotiatedBaud = null;
   const options = { signal, onFile, progress, localID, maxBaud: 115200,
-    frameRecovery: 'pad5-bof',
+    frameRecovery: adapter.description?.driver === 'KingSun KS-959' ? 'strict' : 'pad5-bof',
     record(kind, details) {
       if (kind === 'irlap-connected') negotiatedBaud = details.baud;
       record(kind, details);

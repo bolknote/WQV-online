@@ -16,7 +16,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Permissions-Policy', 'usb=(self)')
         self.send_header('Content-Security-Policy',
                          "default-src 'self'; script-src 'self'; style-src 'self'; "
-                         "img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; "
+                         "img-src 'self' data: blob:; connect-src http://127.0.0.1:8767; object-src 'none'; "
                          "base-uri 'self'; frame-ancestors 'none'")
         super().end_headers()
 

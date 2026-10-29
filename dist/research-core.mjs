@@ -32,9 +32,10 @@ export function captureUSB(device, record, state = () => ({}), { receiveOnly = f
       const id = ++sequence;
       record('usb-call', { id, operation: String(key), args: snapshot(args), ...state() });
       try {
-        if (receiveOnly && key === 'transferOut') throw new Error('USB bulk OUT is disabled in listen mode.');
+        if (receiveOnly && (key === 'transferOut' || key === 'controlTransferOut' && kingsunTX(args[0])))
+          throw new Error('USB infrared transmission is disabled in listen mode.');
         const result = await value.apply(target, args);
-        if (counters && key === 'transferIn' && result?.status === 'ok' && result.data) {
+        if (counters && (key === 'transferIn' || key === 'controlTransferIn' && kingsunRX(args[0])) && result?.status === 'ok' && result.data) {
           counters.readCount++;
           if (result.data.byteLength) counters.nonemptyReads++; else counters.emptyReads++;
           counters.rxBytes += result.data.byteLength;
@@ -49,6 +50,11 @@ export function captureUSB(device, record, state = () => ({}), { receiveOnly = f
     };
   } });
 }
+
+const kingsunRX = setup => setup?.requestType === 'class' && setup.recipient === 'interface' &&
+  setup.request === 1 && setup.value === 0x200 && setup.index === 0;
+const kingsunTX = setup => setup?.requestType === 'class' && setup.recipient === 'interface' &&
+  setup.request === 9 && setup.index === 0;
 
 export class ProbeTimeout extends Error { constructor(message) { super(message); this.name = 'ProbeTimeout'; } }
 
@@ -153,14 +159,16 @@ export class ResearchClient extends WQVClient {
 export function attemptFiles(attempt, events) {
   const encoder = new TextEncoder();
   const rx = [], tx = [], serialRequested = [], serialCompleted = [], reply = [], beforeCommand = [], frames = [];
-  const pending = new Set();
+  const pending = new Set(), controlReads = new Set();
   for (const event of events) {
     if (event.kind === 'usb-call') {
       pending.add(event.id);
       if (event.operation === 'transferOut' && event.args[1]?.hex) tx.push(fromHex(event.args[1].hex));
+      if (event.operation === 'controlTransferOut' && kingsunTX(event.args[0]) && event.args[1]?.hex) tx.push(fromHex(event.args[1].hex));
+      if (event.operation === 'controlTransferIn' && kingsunRX(event.args[0])) controlReads.add(event.id);
     }
     if (event.kind === 'usb-result' || event.kind === 'usb-error') pending.delete(event.id);
-    if (event.kind === 'usb-result' && event.operation === 'transferIn' && event.data) rx.push(fromHex(event.data.hex));
+    if (event.kind === 'usb-result' && (event.operation === 'transferIn' || controlReads.has(event.id)) && event.data) rx.push(fromHex(event.data.hex));
     if (event.kind === 'application-rx') reply.push(fromHex(event.dataHex));
     if (event.kind === 'application-before-command') beforeCommand.push(fromHex(event.dataHex));
     if (event.kind === 'rx-frame' || event.kind === 'tx-frame') frames.push(event);

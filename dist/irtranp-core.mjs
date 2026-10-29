@@ -4,6 +4,7 @@ import { b, ascii, text, concat, equal, starts, fromHex as hx, toHex, u16, u32,
   parseCommand, makeCommand, attribute, packSCEP, pduSize, unpackSCEP, jpegFromUPF } from './formats.mjs';
 import { sleep, baudMask, selectBaudRate, linkParameters } from './irda.mjs';
 import { xidFrame, parseXID } from './discovery-core.mjs';
+import { readSIR } from './transport.mjs';
 
 export const CSI_PROFILE = Object.freeze({
   machineID: '0800740100000000', name: 'CASSIOPEIA', maxPDU: 4096, maxFile: 128 * 1024,
@@ -345,7 +346,7 @@ export class IrTranPReceiver {
   async run(durationMs = 60000) {
     if (!Number.isFinite(durationMs) || durationMs < 2000 || durationMs > 120000) throw new RangeError('Invalid receive window.');
     const a = this.adapter; this.signal?.throwIfAborted(); a.assertOpen();
-    if (!a.configured || a.baud !== 9600 || a.readerTask) throw new Error('Prepare SigmaTel at 9600 before starting.');
+    if (!a.configured || a.baud !== 9600 || a.readerTask) throw new Error('Prepare the infrared adapter at 9600 before starting.');
     if (this.runSignal) throw new Error('Start a fresh receiver for each attempt.');
     const cancellation = new AbortController(); this.runSignal = cancellation.signal;
     const started = performance.now(); this.nextSearch = started + 500;
@@ -380,7 +381,7 @@ export class IrTranPReceiver {
         if (ending) break;
         a.readPending = true;
         let result;
-        const read = a.device.transferIn(a.inEndpoint, 64);
+        const read = readSIR(a);
         read.then(() => { a.readPending = false; }, () => { a.readPending = false; });
         result = await this.wait(read);
         if (ending) break;

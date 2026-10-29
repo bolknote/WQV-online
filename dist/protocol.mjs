@@ -17,6 +17,7 @@ export class WQVClient {
     this.ourPort = 0xff; this.watchPort = 0xfe; this.upper = 1; this.lower = 0; this.session = 0;
     this.lastSent = null; this.lastIFrame = null; this.lastRX = 0;
     this.connected = false; this.isPrimary = true; this.turnIsOurs = true;
+    this.disconnectConfirmed = false; this.disconnectAttempts = 0;
     this.txCredits = 1; this.rxCredits = 14; this.appBuffer = new Uint8Array();
     this.primaryID = PRIMARY; this.secondaryID = SECONDARY; this.model = null; this.peerID = null;
     this.localBaudRates = baudMask(maxBaud);
@@ -187,10 +188,26 @@ export class WQVClient {
     }
   }
   async disconnect() {
+    this.disconnectConfirmed = false; this.disconnectAttempts = 0;
     try {
-      await this.send(b(), 0x53);
-      const frame = await this.read(1000, true);
-      if (frame?.control === 0x53) await this.send(b(), 0x73);
+      // As secondary, RD asks the watch to send DISC. The watch may poll
+      // once more first: return RD on that turn, then acknowledge DISC.
+      const deadline = performance.now() + 3000;
+      let maySend = true;
+      while (performance.now() < deadline) {
+        if (maySend) {
+          if (this.disconnectAttempts >= 3) break;
+          await this.send(b(), 0x53); this.disconnectAttempts++; maySend = false;
+        }
+        const frame = await this.read(Math.min(1000, Math.max(1, deadline - performance.now())), true);
+        if (!frame) break;
+        if (frame.address !== this.watchPort) continue;
+        if (frame.control === 0x53) {
+          await this.send(b(), 0x73); this.disconnectConfirmed = true; break;
+        }
+        if (this.isPrimary && frame.control === 0x73) { this.disconnectConfirmed = true; break; }
+        maySend = this.isPrimary || Boolean(frame.control & 0x10);
+      }
     } finally { this.connected = false; await this.resetLinkSpeed(); }
   }
   async close() {

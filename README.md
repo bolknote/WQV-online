@@ -1,7 +1,7 @@
 # WQV-online
 
-Get photos on and off a Casio WQV-3 wrist camera in your browser. A USB infrared
-adapter connects directly to the page through WebUSB. The interface takes its
+Get photos on and off a Casio WQV-3 wrist camera in your browser. Connect a USB
+infrared adapter through WebUSB or the KS-959 local helper. The interface takes its
 look from the Casio CASSIOPEIA handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
@@ -10,10 +10,15 @@ look from the Casio CASSIOPEIA handhelds and Pocket PC 2000.
 
 ## What you need
 
-The tested setup is a **Casio WQV-3, module 2411**, a **SigmaTel STIr4200 USB
-infrared adapter (`066f:4200`)**, and Opera on macOS. The adapter may identify
-itself as “IrDA/USB Bridge.” No Windows virtual machine or kernel driver is
-needed for this setup.
+The tested watch is a **Casio WQV-3, module 2411**, with Opera on macOS.
+
+| Adapter | USB ID | Connection |
+| --- | --- | --- |
+| SigmaTel STIr4200, often called “IrDA/USB Bridge” | `066f:4200` | Direct WebUSB |
+| KingSun KS-959, called “USB to IRDA” | `07d0:4959` | Local Python helper |
+
+Neither adapter needs a Windows virtual machine or a kernel driver. The page
+uses the USB ID to choose its driver and displays the name supplied by the device.
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
@@ -22,6 +27,25 @@ this browser, and switching languages keeps your current photo and connection.
 
 Other infrared adapters need their own USB transport code. **ARK3116T does not
 work yet.** WQV-10 and other operating systems have not been tested.
+
+### KingSun KS-959 setup
+
+Download [kingsun_bridge.py](dist/kingsun_bridge.py) and run it in a terminal:
+
+```sh
+python3 ~/Downloads/kingsun_bridge.py
+```
+
+Leave that terminal open, then click **Connect USB…** in the app and choose
+**USB to IRDA**. The page shows the helper instructions when you select a KS-959.
+The helper needs Python 3 and libusb (`brew install libusb` on macOS); it uses no
+Python packages. Press Ctrl+C when you are done.
+
+The helper is needed because KS-959's speed command addresses interface 1,
+while its USB descriptor lists only interface 0. WebUSB rejects that command.
+The helper forwards the adapter's USB control transfers on `127.0.0.1:8767`.
+Discovery, image transfers and the rest of the watch protocol still run in the
+browser. SigmaTel does not use the helper. See [the transport notes](docs/kingsun-ks959.md).
 
 ## Connect the watch
 
@@ -32,7 +56,8 @@ mode you last used.
 
 ### PC
 
-1. Plug in the SigmaTel adapter and open [the app](https://bolknote.github.io/WQV-online/).
+1. Plug in the adapter and open [the app](https://bolknote.github.io/WQV-online/).
+   For KS-959, start its helper first.
 2. Click **Connect USB…** and choose the adapter.
 3. On the watch, select **IR → PC**, then **F / REMOTE**. Face its infrared
    window toward the adapter, about 5–10 cm apart.
@@ -67,7 +92,10 @@ Discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
 fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
 watch takes over to send photos, and returns to 9600 after disconnecting.
 The Connection tab and transfer log show the current speed. Photo downloads at
-115200 have been checked with the WQV-3 and SigmaTel adapter.
+115200 have been checked with the WQV-3, SigmaTel and KS-959 adapters.
+KS-959 PC downloads were checked with the native client; an OTHERS download
+was also checked through the browser and helper. Other KS-959 operations use
+the shared protocol code but have not all had hardware checks.
 
 ## Photos and settings
 

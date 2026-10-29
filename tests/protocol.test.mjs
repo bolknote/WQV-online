@@ -114,3 +114,23 @@ test('ZIP export has interoperable UTF-8 stored headers and the standard CRC32',
   assert.equal(view.getUint32(data.length - 22, true), 0x06054b50);
   assert.equal(view.getUint16(data.length - 14, true), 1);
 });
+
+test('secondary disconnection answers an intervening watch poll with RD before DISC → UA', async () => {
+  const adapter = new Frames([incoming(0x71), incoming(0x53)]), client = new WQVClient(adapter);
+  Object.assign(client, { watchPort: 0x71, ourPort: 0x70, isPrimary: false, connected: true });
+  await client.disconnect();
+  assert.deepEqual(adapter.sent.map(f => f.control), [0x53, 0x53, 0x73]);
+  assert.equal(client.disconnectConfirmed, true); assert.equal(client.disconnectAttempts, 2);
+});
+test('three RR polls cannot be reported as a confirmed disconnection', async () => {
+  const adapter = new Frames([incoming(0x71), incoming(0x71), incoming(0x71)]), client = new WQVClient(adapter);
+  Object.assign(client, { watchPort: 0x71, ourPort: 0x70, isPrimary: false, connected: true });
+  await client.disconnect();
+  assert.equal(adapter.sent.length, 3); assert.equal(client.disconnectConfirmed, false);
+  assert.equal(client.connected, false);
+});
+test('a primary closes on the watch UA acknowledgement', async () => {
+  const adapter = new Frames([incoming(0x73)]), client = new WQVClient(adapter);
+  Object.assign(client, { watchPort: 0x71, ourPort: 0x70, connected: true });
+  await client.disconnect(); assert.equal(client.disconnectConfirmed, true); assert.equal(adapter.sent.length, 1);
+});
