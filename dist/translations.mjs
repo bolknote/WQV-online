@@ -1,5 +1,7 @@
 // Russian translations; English messages are the keys.
 export const russian = {
+  "File: {0}": "Файл: {0}",
+  "Could not export the collection": "Не удалось сохранить коллекцию",
   "In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.": "В режиме OTHERS выберите «Принять снимок». Откройте OTHERS → SEND на WQV-2 и выберите снимок. Запустите приём на компьютере, затем нажмите F на часах, чтобы отправить его.",
   "Choose Receive photo, then send a photo from OTHERS → SEND on WQV-2.": "Выберите «Принять снимок», затем отправьте снимок из OTHERS → SEND на WQV-2.",
   "Press the front F button on WQV-2 now to send the selected photo. Keep the watch facing the adapter.": "Сейчас нажмите переднюю кнопку F на WQV-2, чтобы отправить выбранный снимок. Оставьте часы напротив адаптера.",

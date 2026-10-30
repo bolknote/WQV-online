@@ -2,10 +2,41 @@ import { tr, LocalizedError } from './i18n.mjs';
 import { LIMIT, checkWatchJPEG, makeUPF, jpegFromUPF, loadArchive, sha256, packSCEP, putCommand, toHex } from './formats.mjs';
 import { normalizeWatchJPEG } from './jpeg.mjs';
 
+// WQV-3 exports its 24-byte caption followed by five date bytes in APP2.
+// Other APP2 formats (e.g. ICC profiles) are not watch captions.
+export function watchCaption(jpeg) {
+  if (jpeg[0] !== 255 || jpeg[1] !== 0xd8) return null;
+  for (let pos = 2; pos + 4 <= jpeg.length;) {
+    if (jpeg[pos] !== 255 || jpeg[pos + 1] === 0xda) break;
+    const marker = jpeg[pos + 1], size = (jpeg[pos + 2] << 8) | jpeg[pos + 3], end = pos + 2 + size;
+    if (size < 2 || end > jpeg.length) break;
+    if (marker === 0xe2 && size === 31) {
+      const bytes = jpeg.subarray(pos + 4, pos + 28);
+      let length = bytes.length;
+      while (length && [0, 32, 255].includes(bytes[length - 1])) length--;
+      const title = bytes.subarray(0, length);
+      if (length && title.every(byte => byte >= 32 && byte <= 126)) return String.fromCharCode(...title);
+    }
+    pos = end;
+  }
+  return null;
+}
+
+export const photoName = image => image.watchCaption || image.filename?.replace(/\.[^.]+$/, '') || image.name;
+export const photoFilename = image => image.filename || image.archive?.filename || image.name;
+
 export async function readableImage(image) {
   const normalized = normalizeWatchJPEG(image.jpeg);
   return { ...image, previewJPEG: normalized.changed ? normalized.jpeg : null,
+    originalJPEGsha256: await sha256(image.jpeg), watchCaption: watchCaption(image.jpeg),
     jpegSHA256: await sha256(normalized.jpeg), jpegRepaired: normalized.repaired };
+}
+
+// A received/imported file is an album entry, even if another entry has the
+// same JPEG. Keep checksums separate from identity. Reopening stored entries
+// uses readableImage directly so their IDs (including legacy IDs) stay stable.
+export async function newAlbumImage(image) {
+  return readableImage({ ...image, id: crypto.randomUUID() });
 }
 
 export async function prepareRaster(blob, { fit = 'cover', quality = 0.7, rotate = 0 } = {}) {
@@ -46,10 +77,12 @@ export async function imageFromFile(file, options = {}) {
     jpeg = compatible ? normalizeWatchJPEG(original).jpeg : await prepareRaster(file, options);
     upf = makeUPF(jpeg);
   }
-  const id = await sha256(jpeg), name = file.name.replace(/\.[^.]+$/, '');
+  const id = await sha256(jpeg), filename = extension === 'wqv' ? archive.filename || file.name : file.name;
+  const name = filename.replace(/\.[^.]+$/, '');
   if (!archive) archive = { format: 'casio-wqv-transfer-v1', model: 3, filename: 'MC000001.UPF', jpeg_sha256: id,
     dimensions: [176, 144], packets: packSCEP(putCommand(upf, 'MC000001.UPF')).map(toHex) };
-  return { id, name, jpeg, upf, archive, width: 176, height: 144, source: 'import', receivedAt: new Date().toISOString() };
+  return { id, name, filename,
+    jpeg, upf, archive, width: 176, height: 144, source: 'import', receivedAt: new Date().toISOString() };
 }
 export class LocalStore {
   constructor({ name = 'casio-wqv-webusb' } = {}) { this.name = name; }

@@ -182,6 +182,11 @@ Photos and calendar backups stay in this browser. There is no account, upload
 server or analytics. Keep a ZIP export if you want a copy outside browser
 storage. The hosted app and a localhost copy have separate collections.
 
+In the WQV-3 album, each received or imported file gets its own entry, including
+identical copies. Downloading a photo again adds another copy. Captions entered
+on the watch appear below the thumbnails and in the preview, with the original
+transfer filename underneath. ZIP exports keep every copy and its metadata.
+
 Deleting a local photo only removes that browser copy. Deleting a photo from
 the watch still takes the watch's buttons; the app's Help menu has the steps.
 

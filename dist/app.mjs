@@ -6,7 +6,8 @@ import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
 import { b, equal, sha256, makeUPF, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
-import { imageFromFile, prepareRaster, readableImage, LocalStore } from './images.mjs';
+import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
+import { collectionFiles, safePhotoName } from './album.mjs';
 import { zipFiles } from './zip.mjs';
 import { sleep } from './irda.mjs';
 import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers, othersImage, othersOutcome } from './others-client.mjs';
@@ -281,10 +282,11 @@ function renderGallery() {
   if (S.images.length) {
     const fragment = document.createDocumentFragment();
     for (const image of S.images) {
+      const name = photoName(image), filename = photoFilename(image);
       const button = document.createElement('button'); button.className = 'thumbnail'; button.setAttribute('aria-pressed', String(image.id === S.selected));
-      button.title = image.name; button.setAttribute('aria-label', tr("Photo {0}", image.name));
+      button.title = name + '\n' + tr('File: {0}', filename); button.setAttribute('aria-label', tr("Photo {0}", name));
       const img = document.createElement('img'); img.src = imageURL(image); img.alt = ''; img.width = 88; img.height = 72;
-      const label = document.createElement('span'); label.textContent = image.name;
+      const label = document.createElement('span'); label.className = 'photo-label'; label.textContent = name;
       button.append(img, label); button.addEventListener('click', () => { S.selected = image.id; renderGallery(); }); fragment.append(button);
     }
     $('gallery').replaceChildren(fragment);
@@ -294,20 +296,23 @@ function renderGallery() {
   }
   const image = selected(); $('preview').hidden = !image || Boolean(image.jpegError); $('preview-empty').hidden = Boolean(image) && !image.jpegError;
   if (image) {
-    $('preview').src = imageURL(image); $('preview').alt = image.name;
-    $('selected-name').textContent = image.name;
+    $('preview').src = imageURL(image); $('preview').alt = photoName(image);
+    $('selected-name').textContent = photoName(image); $('selected-name').title = photoName(image);
+    $('selected-file').textContent = tr('File: {0}', photoFilename(image)); $('selected-file').title = photoFilename(image);
+    $('selected-file').hidden = false;
     $('selected-details').textContent = formatText(image.jpegError || tr("{0} KB · {1}{2}", formatNumber((image.previewJPEG || image.jpeg).length / 1024, { minimumFractionDigits: 1, maximumFractionDigits: 1 }), image.source === "import" ? tr("imported") : tr("from watch"), image.jpegRepaired ? tr(" · JPEG repaired") : ""));
     $('upload-ready').textContent = `176 × 144 · baseline JPEG · 4:2:0${image.previewJPEG ? tr(" · restart markers removed without loss") : ""}`;
   } else {
     $('preview').removeAttribute('src'); $('preview').alt = tr("Selected photo");
     $('selected-name').textContent = '—'; $('selected-details').textContent = tr("Choose a photo in the collection");
+    $('selected-file').textContent = ''; $('selected-file').hidden = true; $('selected-name').removeAttribute('title');
     $('upload-ready').textContent = tr("Choose a photo in the collection or import an image.");
   }
   update();
 }
 $('delete-local-image').addEventListener('click', async () => {
   const image = selected(); if (!image || S.active) return;
-  const confirmed = await showDialog(tr("Delete local copy"), tr("Delete “{0}” from this browser's collection?\n\nThe photo on the watch and any exported files will stay. Deleting the local copy cannot be undone.", image.name), tr("Delete copy"), true);
+  const confirmed = await showDialog(tr("Delete local copy"), tr("Delete “{0}” from this browser's collection?\n\nThe photo on the watch and any exported files will stay. Deleting the local copy cannot be undone.", photoName(image)), tr("Delete copy"), true);
   if (!confirmed || S.active) return;
   const index = S.images.findIndex(item => item.id === image.id); if (index < 0) return;
   const operation = new AbortController(); S.active = operation; update();
@@ -327,11 +332,9 @@ $('delete-local-image').addEventListener('click', async () => {
   }
 });
 async function addImage(image) {
-  image = await readableImage(image);
+  image = await newAlbumImage(image);
   if (image.jpegRepaired) log('info', tr("{0}: repaired a JPEG with a missing restart interval. Original UPF and WQV files have been kept.", image.name));
-  if (S.urls.has(image.id)) { URL.revokeObjectURL(S.urls.get(image.id)); S.urls.delete(image.id); }
-  const existing = S.images.findIndex(i => i.id === image.id);
-  if (existing >= 0) S.images[existing] = image; else S.images.push(image);
+  S.images.push(image);
   S.selected = image.id;
   try { await store.saveImage(image); } catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('error', error); }
   renderGallery();
@@ -346,7 +349,7 @@ function renderTransfer() {
     tr('Choose RECEIVE on the watch. Face its infrared window toward the adapter, about 5–10 cm apart. Leave the final front-button press until the computer is ready.') :
     tr('Choose SEND on the watch. Press the front button once to open the photos, then choose a photo with the side buttons. Leave the final SEND press until the computer is ready.');
   $('transfer-photo').hidden = !sending;
-  $('transfer-photo').textContent = transfer.image?.name ?? '';
+  $('transfer-photo').textContent = transfer.image ? photoName(transfer.image) : '';
   $('transfer-start').textContent = sending ? tr('Start sending') : tr('Start receiving');
   $('transfer-start').hidden = running || transfer.state === 'stopping';
   $('transfer-start').disabled = !ready;
@@ -477,7 +480,7 @@ $('rotate-image').addEventListener('click', () => run(async signal => {
   result('working', tr("Preparing photo"), tr("Rotating 90° and saving a 176 × 144 JPEG."));
   const jpeg = await prepareRaster(new Blob([image.previewJPEG || image.jpeg], { type: 'image/jpeg' }), { rotate: 90, fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
   signal.throwIfAborted();
-  await addImage(await imageFromFile(new File([jpeg], image.name + '_rotated.jpg', { type: 'image/jpeg' })));
+  await addImage(await imageFromFile(new File([jpeg], photoName(image) + '_rotated.jpg', { type: 'image/jpeg' })));
   result('success', tr("Photo rotated"), tr("A new copy is ready to send to the watch."));
 }));
 function downloadFile(data, name, type = 'application/octet-stream') {
@@ -485,24 +488,19 @@ function downloadFile(data, name, type = 'application/octet-stream') {
   const link = document.createElement('a'); link.href = url; link.download = name; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 3000);
 }
-const safeName = name => (name.replace(/[^a-zA-Z0-9а-яА-ЯёЁ_-]/g, '_').slice(0, 45) || 'WQV');
 $('save-image').addEventListener('click', () => {
   const image = selected(); if (!image) return;
-  const format = $('export-format').value, name = safeName(image.name) + '.' + format;
+  const format = $('export-format').value, name = safePhotoName(photoName(image)) + '.' + format;
   downloadFile(format === 'jpg' ? image.previewJPEG || image.jpeg : format === 'upf' ? image.upf : JSON.stringify(image.archive, null, 2), name, format === 'jpg' ? 'image/jpeg' : 'application/octet-stream');
 });
-function exportCollection() {
+async function exportCollection() {
   closeMenus(); if (!S.images.length) return;
-  const encoder = new TextEncoder(), files = [], manifest = [];
-  for (const image of S.images) {
-    const base = safeName(image.name) + '_' + image.id.slice(0, 12);
-    files.push({ name: base + '.jpg', data: image.previewJPEG || image.jpeg }, { name: base + '.upf', data: image.upf },
-      { name: base + '.wqv', data: encoder.encode(JSON.stringify(image.archive, null, 2)) });
-    manifest.push({ jpeg: base + '.jpg', upf: base + '.upf', archive: base + '.wqv', sha256: image.jpegSHA256 || image.id,
-      originalJPEGsha256: image.id, jpegRepaired: Boolean(image.jpegRepaired) });
+  const images = S.images.slice();
+  try {
+    downloadFile(zipFiles(await collectionFiles(images)), 'WQV-collection.zip'); record('export', { count: images.length });
+  } catch (error) {
+    log('error', error); result('error', tr('Could not export the collection'), error);
   }
-  files.push({ name: 'collection.json', data: encoder.encode(JSON.stringify({ format: 'casio-wqv-collection-v1', savedAt: stamp(), images: manifest }, null, 2)) });
-  downloadFile(zipFiles(files), 'WQV-collection.zip'); record('export', { count: S.images.length });
 }
 $('export-all').addEventListener('click', exportCollection); $('menu-export').addEventListener('click', exportCollection);
 $('upload-image').addEventListener('click', () => S.mode === 'others' ? openOthersTransfer('send') : run(async signal => {
