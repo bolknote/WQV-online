@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import webbrowser
+from urllib.parse import urlsplit
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -14,10 +15,12 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
         self.send_header('Permissions-Policy', 'usb=(self)')
+        path = urlsplit(self.path).path
+        ancestors = "'self'" if path.startswith('/manuals/') and path.endswith('.html') else "'none'"
         self.send_header('Content-Security-Policy',
                          "default-src 'self'; script-src 'self'; style-src 'self'; "
                          "img-src 'self' data: blob:; connect-src http://127.0.0.1:8767; object-src 'none'; "
-                         "base-uri 'self'; frame-ancestors 'none'")
+                         f"base-uri 'self'; frame-ancestors {ancestors}")
         super().end_headers()
 
     def list_directory(self, path):

@@ -121,7 +121,8 @@ function mockUSB(kind) {
   try{
     const context=await browser.newContext({viewport:{width:1366,height:1000},acceptDownloads:true});
     const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
-    await page.goto(base,{waitUntil:'networkidle'});assert.equal(await page.locator('.program-icon').count(),2);
+    await page.goto(base,{waitUntil:'networkidle'});assert.equal(await page.locator('.program-icon:not(.document-icon)').count(),2);
+    assert.equal(await page.locator('.document-icon').count(),2);
     await page.locator('.program-icon[href="./wqv2.html"]').click();await page.waitForLoadState('networkidle');
     await page.locator('#image-files').setInputFiles({name:'sample.bin',mimeType:'application/octet-stream',buffer:Buffer.from(syntheticRecord())});
     await page.waitForFunction(()=>document.querySelectorAll('#gallery .thumbnail').length===1);

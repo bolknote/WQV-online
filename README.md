@@ -11,6 +11,13 @@ The opening screen has an app for each watch. Click its icon to open it; the
 close button returns to Programs and releases the USB adapter. Each watch has
 its own local album. English, Russian and Japanese settings apply to both apps.
 
+The two manual files beside the watch apps open in a Pocket Word-style reader.
+They follow the selected display language. The guides use reflowable HTML with
+the original illustrations; the Japanese editions have text recognized from
+scanned PDFs. The reader has a contents list and a text-size setting.
+Original PDF links are available in its File menu. Sources and file hashes are
+listed in [the manual catalog](dist/manuals/manifest.json).
+
 ![The Programs screen, with WQV-2 and WQV-3 watch icons](docs/programs.png)
 
 ## What you need

@@ -577,5 +577,19 @@ export const japanese = {
   "General": "全般",
   "Display language": "表示言語",
   "Choose the language used by WQV Link.": "WQV Linkの表示言語を選んでください。",
-  "Set Clock": "時刻設定"
+  "Set Clock": "時刻設定",
+  "User’s Guide": "取扱説明書",
+  "WQV-2 User’s Guide": "WQV-2の取扱説明書",
+  "WQV-3 User’s Guide": "WQV-3の取扱説明書",
+  "Close document": "文書を閉じる",
+  "About the manuals…": "取扱説明書について…",
+  "Original PDF…": "原本PDF…",
+  "Read-only": "読み取り専用",
+  "Contents": "目次",
+  "Text size": "文字サイズ",
+  "Opening document…": "文書を開いています…",
+  "Could not open the manual.": "取扱説明書を開けませんでした。",
+  "{0} — User’s Guide": "{0} — 取扱説明書",
+  "{0} pages": "{0}ページ",
+  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "プログラム画面から取扱説明書を開いてください。オプションで選んだ表示言語に合わせて表示します。本文はウィンドウの幅に合わせて折り返し、図は原本PDFから表示します。"
 };

@@ -12,5 +12,6 @@
 </g>
 </symbol>
 <symbol id="settings" viewBox="0 0 16 16"><path fill="#344961" d="M1 3h14v2H1zM1 8h14v2H1zM1 13h14v2H1z"/><path fill="#fff" stroke="#344961" d="M4 1h3v6H4zM10 6h3v6h-3zM3 11h3v4H3z"/><path fill="#76a4bd" d="M5 2h1v4H5zM11 7h1v4h-1zM4 12h1v2H4z"/></symbol>
+<symbol id="document" viewBox="0 0 40 48"><path fill="#354963" d="M6 1h19l10 10v35H6z"/><path fill="#fffffb" d="M8 3h15v11h10v30H8z"/><path fill="#b9c9da" d="M25 4v8h8zM12 19h17v2H12zM12 25h17v2H12zM12 31h17v2H12zM12 37h12v2H12z"/><path fill="#163a73" d="M1 13h18v22H1z"/><path fill="#fff" d="M4 18h2v10h2v-6h2v6h2V18h2v12h-3v-4H9v4H5z"/></symbol>
 <use href="#photos"/>
 </svg>

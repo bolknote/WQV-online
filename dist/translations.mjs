@@ -582,5 +582,19 @@ export const russian = {
   "General": "Общие",
   "Display language": "Язык интерфейса",
   "Choose the language used by WQV Link.": "Выбери язык интерфейса WQV Link.",
-  "Set Clock": "Установка времени"
+  "Set Clock": "Установка времени",
+  "User’s Guide": "Руководство",
+  "WQV-2 User’s Guide": "Руководство WQV-2",
+  "WQV-3 User’s Guide": "Руководство WQV-3",
+  "Close document": "Закрыть документ",
+  "About the manuals…": "О руководствах…",
+  "Original PDF…": "Исходный PDF…",
+  "Read-only": "Только чтение",
+  "Contents": "Содержание",
+  "Text size": "Размер текста",
+  "Opening document…": "Открываем документ…",
+  "Could not open the manual.": "Не удалось открыть руководство.",
+  "{0} — User’s Guide": "{0} — Руководство",
+  "{0} pages": "Страниц: {0}",
+  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "Открой руководство на экране программ. Язык выбирается в параметрах интерфейса. Текст переносится по ширине окна, иллюстрации взяты из исходного PDF."
 };

@@ -1,0 +1,1759 @@
+[
+  {
+    "id": "wqv2-en",
+    "model": "WQV-2",
+    "language": "en",
+    "module": 2220,
+    "title": "WQV-2 — User’s Guide",
+    "pages": 8,
+    "file": "wqv2-en.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf",
+    "sourceSHA256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
+    "scanned": false,
+    "illustrations": 43,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Module No. 2220"
+      },
+      {
+        "id": "section-1-1",
+        "text": "GETTING ACQUAINTED"
+      },
+      {
+        "id": "section-1-5",
+        "text": "About This Manual"
+      },
+      {
+        "id": "section-1-26",
+        "text": "BEFORE USING THE WATCH..."
+      },
+      {
+        "id": "section-1-74",
+        "text": "Auto Display Off"
+      },
+      {
+        "id": "section-2-1",
+        "text": "GENERAL GUIDE"
+      },
+      {
+        "id": "section-2-4",
+        "text": "CAMERA MODE"
+      },
+      {
+        "id": "section-2-27",
+        "text": "Camera Mode Precautions"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Controlling the Camera Mode Image"
+      },
+      {
+        "id": "section-3-46",
+        "text": "Recording Modes"
+      },
+      {
+        "id": "section-3-79",
+        "text": "VISUAL DATABANK™ MODE"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Attaching Text to an Image"
+      },
+      {
+        "id": "section-4-23",
+        "text": "Deleting Images"
+      },
+      {
+        "id": "section-4-70",
+        "text": "TIMEKEEPING MODE"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Using the Viewer Screen"
+      },
+      {
+        "id": "section-5-41",
+        "text": "ALARM MODE"
+      },
+      {
+        "id": "section-5-64",
+        "text": "Daily Alarm Operation"
+      },
+      {
+        "id": "section-5-74",
+        "text": "COUNTDOWN ALARM MODE"
+      },
+      {
+        "id": "section-5-97",
+        "text": "Using the Countdown Alarm"
+      },
+      {
+        "id": "section-6-0",
+        "text": "STOPWATCH MODE"
+      },
+      {
+        "id": "section-6-7",
+        "text": "IR MODE"
+      },
+      {
+        "id": "section-6-15",
+        "text": "Exchanging Data Between Two Watches"
+      },
+      {
+        "id": "section-7-0",
+        "text": "Communication Errors"
+      },
+      {
+        "id": "section-7-24",
+        "text": "POWER SUPPLY"
+      },
+      {
+        "id": "section-7-25",
+        "text": "About the Pre-installed Battery"
+      },
+      {
+        "id": "section-7-63",
+        "text": "Battery Precautions"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-ru",
+    "model": "WQV-2",
+    "language": "ru",
+    "module": 2220,
+    "title": "WQV-2 — Руководство пользователя",
+    "pages": 12,
+    "file": "wqv2-ru.html",
+    "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2220.pdf",
+    "sourceSHA256": "a84079c8f717e59e3c64e091862ac7b556b36d44a02e0139a22c2d601f016073",
+    "scanned": false,
+    "illustrations": 45,
+    "headings": []
+  },
+  {
+    "id": "wqv2-ja",
+    "model": "WQV-2",
+    "language": "ja",
+    "module": 2220,
+    "title": "WQV-2 — 取扱説明書",
+    "pages": 28,
+    "file": "wqv2-ja.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf",
+    "sourceSHA256": "bc0c4c1371d5f07d23b3df766e3cbe36eb89a91c69fbc6d9633c0f714d3c9f44",
+    "scanned": true,
+    "illustrations": 148,
+    "headings": [
+      {
+        "id": "section-3-0",
+        "text": "安全上のご注意"
+      },
+      {
+        "id": "section-4-0",
+        "text": "/警告"
+      },
+      {
+        "id": "section-4-33",
+        "text": "/注意"
+      },
+      {
+        "id": "section-4-36",
+        "text": "ますので、使用状態によってはかぶれを起こす恐"
+      },
+      {
+        "id": "section-4-45",
+        "text": "おいの発生を防ぐもので、皮膚のかぶれを防ぐもので"
+      },
+      {
+        "id": "section-4-55",
+        "text": "分解しないでください"
+      },
+      {
+        "id": "section-5-0",
+        "text": "/注意"
+      },
+      {
+        "id": "section-5-1",
+        "text": "使用禁止場所での撮影"
+      },
+      {
+        "id": "section-5-26",
+        "text": "お使いになる前に"
+      },
+      {
+        "id": "section-6-0",
+        "text": "目次"
+      },
+      {
+        "id": "section-6-1",
+        "text": "安全上のご注意"
+      },
+      {
+        "id": "section-6-3",
+        "text": "お使いになる前に"
+      },
+      {
+        "id": "section-6-5",
+        "text": "操作のしくみ"
+      },
+      {
+        "id": "section-6-9",
+        "text": "撮影のしかた"
+      },
+      {
+        "id": "section-6-27",
+        "text": "コントラスト設定"
+      },
+      {
+        "id": "section-6-29",
+        "text": "アラーム・時報の使い方"
+      },
+      {
+        "id": "section-6-35",
+        "text": "タイマーの使い方"
+      },
+      {
+        "id": "section-6-41",
+        "text": "ストップウオッチの使い方"
+      },
+      {
+        "id": "section-6-47",
+        "text": "通信機能の使い方"
+      },
+      {
+        "id": "section-6-49",
+        "text": "時計同士の通"
+      },
+      {
+        "id": "section-6-51",
+        "text": "時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-6-57",
+        "text": "製品仕様"
+      },
+      {
+        "id": "section-6-59",
+        "text": "電源について"
+      },
+      {
+        "id": "section-6-69",
+        "text": "ご使用上の注意.."
+      },
+      {
+        "id": "section-6-71",
+        "text": "お手入れについて"
+      },
+      {
+        "id": "section-7-0",
+        "text": "操作のしくみ"
+      },
+      {
+        "id": "section-7-47",
+        "text": "◎（"
+      },
+      {
+        "id": "section-8-1",
+        "text": "ード切り替え"
+      },
+      {
+        "id": "section-9-0",
+        "text": "撮影のしかた"
+      },
+      {
+        "id": "section-9-1",
+        "text": "1撮影の基本操作"
+      },
+      {
+        "id": "section-9-2",
+        "text": "1. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-9-3",
+        "text": "通モード以外のときに®ボタンを約0.1秒間押します。"
+      },
+      {
+        "id": "section-9-11",
+        "text": "2. 被写体にレンズを向ける"
+      },
+      {
+        "id": "section-9-15",
+        "text": "3.撮影する"
+      },
+      {
+        "id": "section-9-27",
+        "text": "■撮影上のご注意"
+      },
+      {
+        "id": "section-10-1",
+        "text": "■画像を見る～ワンタッチビジュアルDB～"
+      },
+      {
+        "id": "section-10-2",
+        "text": "7. ワンタッチビジュアルDBに切り替える"
+      },
+      {
+        "id": "section-10-5",
+        "text": "タンを押します。"
+      },
+      {
+        "id": "section-10-8",
+        "text": "画像を選ぶ"
+      },
+      {
+        "id": "section-10-17",
+        "text": "3. xモ表示に切り替える"
+      },
+      {
+        "id": "section-10-27",
+        "text": "4. 時モードに戻す"
+      },
+      {
+        "id": "section-10-35",
+        "text": "■画像を見る～ビジュアルDBモード〜"
+      },
+      {
+        "id": "section-10-36",
+        "text": "1. ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-10-41",
+        "text": "2． 画像を選ぶ"
+      },
+      {
+        "id": "section-10-50",
+        "text": "3."
+      },
+      {
+        "id": "section-10-53",
+        "text": "©ボタンを押します。"
+      },
+      {
+        "id": "section-11-2",
+        "text": "4. 時刻モードに戻す"
+      },
+      {
+        "id": "section-11-4",
+        "text": "■画像を削除する"
+      },
+      {
+        "id": "section-11-5",
+        "text": "7. ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-11-6",
+        "text": "© ボタンを5回押します。"
+      },
+      {
+        "id": "section-11-8",
+        "text": "時刻モードのときに◎ボタンを1回押します。"
+      },
+      {
+        "id": "section-11-14",
+        "text": "2． 画像を選ぶ"
+      },
+      {
+        "id": "section-11-16",
+        "text": "⑤ポタンまたは@ボタンを押します。"
+      },
+      {
+        "id": "section-11-22",
+        "text": "3. セットメニューを開く"
+      },
+      {
+        "id": "section-12-1",
+        "text": "4. 削除を選ぶ"
+      },
+      {
+        "id": "section-12-7",
+        "text": "5.削除メニューを開く"
+      },
+      {
+        "id": "section-12-12",
+        "text": "6. 削除方法を選ぶ"
+      },
+      {
+        "id": "section-12-24",
+        "text": "7.削除する"
+      },
+      {
+        "id": "section-13-4",
+        "text": "7. ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-13-5",
+        "text": "時刻モードのときに◎ボタンを1回押します。"
+      },
+      {
+        "id": "section-13-9",
+        "text": "2. 画像を選ぶ"
+      },
+      {
+        "id": "section-13-15",
+        "text": "3. セットメニューを開く"
+      },
+      {
+        "id": "section-13-22",
+        "text": "4. 「NAME」を選ぶ"
+      },
+      {
+        "id": "section-13-32",
+        "text": "5. 文字を入力する"
+      },
+      {
+        "id": "section-13-51",
+        "text": "6. 入力箇所を進める"
+      },
+      {
+        "id": "section-14-3",
+        "text": "7. セットを終わる"
+      },
+      {
+        "id": "section-14-20",
+        "text": "■撮影のための調整"
+      },
+      {
+        "id": "section-14-27",
+        "text": "1. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-14-28",
+        "text": "通、モード以外のときに®ボタンを約0.1秒間押します。"
+      },
+      {
+        "id": "section-14-32",
+        "text": "2. 周波数を切り替える"
+      },
+      {
+        "id": "section-15-4",
+        "text": "7. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-15-5",
+        "text": "通モード以外のときに⑥ボタンを約0.1秒間押します。"
+      },
+      {
+        "id": "section-15-9",
+        "text": "2. 明るさを切り替える"
+      },
+      {
+        "id": "section-15-10",
+        "text": "ボタンまたは⑧ボタンを押します。"
+      },
+      {
+        "id": "section-15-24",
+        "text": "■撮影パターン切り替え"
+      },
+      {
+        "id": "section-15-30",
+        "text": "1. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-15-31",
+        "text": "通モード以外のときにボタンを約0.1秒間押します。"
+      },
+      {
+        "id": "section-15-35",
+        "text": "2. 撮影パターンを切り替える"
+      },
+      {
+        "id": "section-15-36",
+        "text": "©ボタンを押します。"
+      },
+      {
+        "id": "section-16-1",
+        "text": "3. 1人目を撮影する"
+      },
+      {
+        "id": "section-16-7",
+        "text": "4. 2人目を撮影する"
+      },
+      {
+        "id": "section-16-25",
+        "text": "1. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-16-30",
+        "text": "2. 撮影パターンを切り替える"
+      },
+      {
+        "id": "section-16-31",
+        "text": "© ボタンを2回押します。"
+      },
+      {
+        "id": "section-16-35",
+        "text": "3.3"
+      },
+      {
+        "id": "section-17-1",
+        "text": "コントラスト設定"
+      },
+      {
+        "id": "section-17-6",
+        "text": "7. コントラスト設定状態に切り替える"
+      },
+      {
+        "id": "section-17-12",
+        "text": "2．設定する"
+      },
+      {
+        "id": "section-17-18",
+        "text": "3. 設定を終わる"
+      },
+      {
+        "id": "section-17-20",
+        "text": "④ボタンを押します。"
+      },
+      {
+        "id": "section-17-23",
+        "text": "アラーム・時報の使い方"
+      },
+      {
+        "id": "section-17-30",
+        "text": "左上で“ALM\" マークが点滅表示します。"
+      },
+      {
+        "id": "section-17-33",
+        "text": "■アラーム時刻のセット"
+      },
+      {
+        "id": "section-17-34",
+        "text": "1. アラームを選ぶ"
+      },
+      {
+        "id": "section-17-35",
+        "text": "ボタンまたは⑧ボタンを押します。"
+      },
+      {
+        "id": "section-17-50",
+        "text": "2."
+      },
+      {
+        "id": "section-18-1",
+        "text": "3. 時をセットする"
+      },
+      {
+        "id": "section-18-11",
+        "text": "4."
+      },
+      {
+        "id": "section-18-17",
+        "text": "5. 分をセットする"
+      },
+      {
+        "id": "section-18-23",
+        "text": "6. セットを終わる"
+      },
+      {
+        "id": "section-18-31",
+        "text": "・ム・時報のオン／オフ"
+      },
+      {
+        "id": "section-18-33",
+        "text": "1. アラームまたは時報を選ぶ"
+      },
+      {
+        "id": "section-18-46",
+        "text": "2.オン／オフを切り替える"
+      },
+      {
+        "id": "section-18-57",
+        "text": "※・O7、表示は選ばれているアラーム番号または時報がオンのとき表示されます"
+      },
+      {
+        "id": "section-19-0",
+        "text": "タイマーの使い方"
+      },
+      {
+        "id": "section-19-6",
+        "text": "上で\"TMR\"マークが点滅表示します。"
+      },
+      {
+        "id": "section-19-9",
+        "text": "計測のしかた"
+      },
+      {
+        "id": "section-19-23",
+        "text": "また、”\"TMR\"の点滅表示を止めるときもいずれかのボタンを押します。"
+      },
+      {
+        "id": "section-19-26",
+        "text": "■タイマー時間のセット"
+      },
+      {
+        "id": "section-19-27",
+        "text": "1. セット状態にする"
+      },
+      {
+        "id": "section-19-29",
+        "text": "®ボタンを約1秒間押し続けます。"
+      },
+      {
+        "id": "section-19-31",
+        "text": "2.分をセットする"
+      },
+      {
+        "id": "section-19-37",
+        "text": "3.セットを終わる"
+      },
+      {
+        "id": "section-20-0",
+        "text": "ストップウオッチの使い方"
+      },
+      {
+        "id": "section-20-3",
+        "text": "ストップウオッチモードに切り替えるには"
+      },
+      {
+        "id": "section-20-5",
+        "text": "■計測のしかた"
+      },
+      {
+        "id": "section-20-20",
+        "text": "●通常の計測"
+      },
+      {
+        "id": "section-20-30",
+        "text": "スプリットタイム計測"
+      },
+      {
+        "id": "section-20-38",
+        "text": "1着・2着同時計測"
+      },
+      {
+        "id": "section-20-48",
+        "text": "通信機能の使い方"
+      },
+      {
+        "id": "section-20-56",
+        "text": "通言モードに切り替えるには"
+      },
+      {
+        "id": "section-20-59",
+        "text": "時計同士を合わせる"
+      },
+      {
+        "id": "section-21-1",
+        "text": "■時計同士のデータ通信"
+      },
+      {
+        "id": "section-21-2",
+        "text": "1. 通信モードに切り替える"
+      },
+      {
+        "id": "section-21-7",
+        "text": "2. 時計同士のモードに切り替える"
+      },
+      {
+        "id": "section-21-8",
+        "text": "⑧ボタンを押して「PC」、またはEボタンを押して「OTHERS」"
+      },
+      {
+        "id": "section-21-18",
+        "text": "3. 送または受得を選ぶ"
+      },
+      {
+        "id": "section-21-35",
+        "text": "4. 送待する画像を選ぶ"
+      },
+      {
+        "id": "section-22-1",
+        "text": "5. 送言する"
+      },
+      {
+        "id": "section-22-35",
+        "text": "通信中のご注意"
+      },
+      {
+        "id": "section-23-0",
+        "text": "時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-23-1",
+        "text": "秒の合わせ方～30秒以内の遅れ／進みの修正～"
+      },
+      {
+        "id": "section-23-3",
+        "text": "1. 時セット状態に切り替える"
+      },
+      {
+        "id": "section-23-8",
+        "text": "2. 秒を合わせる"
+      },
+      {
+        "id": "section-23-15",
+        "text": "3."
+      },
+      {
+        "id": "section-23-23",
+        "text": "■時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-23-26",
+        "text": "7. 時刻セット状態に切り替える"
+      },
+      {
+        "id": "section-23-31",
+        "text": "2."
+      },
+      {
+        "id": "section-23-32",
+        "text": "2. セット箇所を切り替える"
+      },
+      {
+        "id": "section-23-46",
+        "text": "3. セットする"
+      },
+      {
+        "id": "section-24-0",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-24-12",
+        "text": "4. セットを終わる"
+      },
+      {
+        "id": "section-24-14",
+        "text": "④ボタンを押します。"
+      },
+      {
+        "id": "section-24-18",
+        "text": "ルオートカレンダーですので、電池交換時以外は修正不要です。"
+      },
+      {
+        "id": "section-25-0",
+        "text": "製品仕様"
+      },
+      {
+        "id": "section-25-1",
+        "text": "時計機能"
+      },
+      {
+        "id": "section-25-41",
+        "text": "共通機能"
+      },
+      {
+        "id": "section-26-0",
+        "text": "電源について"
+      },
+      {
+        "id": "section-26-7",
+        "text": "電池の消耗"
+      },
+      {
+        "id": "section-26-45",
+        "text": "場合は、誤ってボタン電池を飲むことがないよ"
+      },
+      {
+        "id": "section-26-46",
+        "text": "うにしてください。特に小さなお子様にご注意"
+      },
+      {
+        "id": "section-26-47",
+        "text": "A"
+      },
+      {
+        "id": "section-26-48",
+        "text": "ください。"
+      },
+      {
+        "id": "section-26-51",
+        "text": "は、ただちに医師と相談してください。"
+      },
+      {
+        "id": "section-26-53",
+        "text": "●電池は充電や分解、ショートする恐れのあるこ"
+      },
+      {
+        "id": "section-26-55",
+        "text": "へ投入しないでください。"
+      },
+      {
+        "id": "section-26-56",
+        "text": "●付属の電池は充電式ではありません。絶対に充"
+      },
+      {
+        "id": "section-26-57",
+        "text": "電しないでください。"
+      },
+      {
+        "id": "section-26-59",
+        "text": "・電池の極性（中と①の向き）に注意して正しく"
+      },
+      {
+        "id": "section-26-60",
+        "text": "入れてください。"
+      },
+      {
+        "id": "section-26-62",
+        "text": "ください。"
+      },
+      {
+        "id": "section-26-64",
+        "text": "すぐに拭き取ってください。"
+      },
+      {
+        "id": "section-27-1",
+        "text": "電池交換のしかた"
+      },
+      {
+        "id": "section-27-2",
+        "text": "1. 電池ブタをはずす"
+      },
+      {
+        "id": "section-27-11",
+        "text": "2."
+      },
+      {
+        "id": "section-27-12",
+        "text": "2. 古い電池を取り出す"
+      },
+      {
+        "id": "section-27-18",
+        "text": "3. 新しい電池を入れる"
+      },
+      {
+        "id": "section-27-31",
+        "text": "4. 電池ブタをしめる"
+      },
+      {
+        "id": "section-28-0",
+        "text": "ご使用上の注意"
+      },
+      {
+        "id": "section-28-45",
+        "text": "お手入れについて"
+      }
+    ]
+  },
+  {
+    "id": "wqv3-en",
+    "model": "WQV-3",
+    "language": "en",
+    "module": 2411,
+    "title": "WQV-3 — User’s Guide",
+    "pages": 8,
+    "file": "wqv3-en.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf",
+    "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
+    "scanned": false,
+    "illustrations": 40,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Module No. 2411"
+      },
+      {
+        "id": "section-1-1",
+        "text": "GETTING ACQUAINTED"
+      },
+      {
+        "id": "section-1-5",
+        "text": "About This Manual"
+      },
+      {
+        "id": "section-1-43",
+        "text": "BEFORE USING THE WATCH..."
+      },
+      {
+        "id": "section-1-81",
+        "text": "Auto Power Save"
+      },
+      {
+        "id": "section-2-0",
+        "text": "GENERAL GUIDE"
+      },
+      {
+        "id": "section-2-2",
+        "text": "CAMERA MODE"
+      },
+      {
+        "id": "section-2-37",
+        "text": "Camera Mode Precautions"
+      },
+      {
+        "id": "section-3-3",
+        "text": "Controlling the Camera Mode Image"
+      },
+      {
+        "id": "section-3-79",
+        "text": "VISUAL DATABANKTM"
+      },
+      {
+        "id": "section-3-102",
+        "text": "Adjusting Image Contrast"
+      },
+      {
+        "id": "section-3-126",
+        "text": "Attaching Text to an Image"
+      },
+      {
+        "id": "section-4-7",
+        "text": "Image Sorting"
+      },
+      {
+        "id": "section-4-16",
+        "text": "Deleting Images"
+      },
+      {
+        "id": "section-4-53",
+        "text": "IR MODE"
+      },
+      {
+        "id": "section-4-62",
+        "text": "Exchanging Data Between Two Watches"
+      },
+      {
+        "id": "section-5-41",
+        "text": "Communication Errors"
+      },
+      {
+        "id": "section-5-76",
+        "text": "TIMEKEEPING"
+      },
+      {
+        "id": "section-5-101",
+        "text": "Using the Calendar Screen"
+      },
+      {
+        "id": "section-6-19",
+        "text": "ALARM"
+      },
+      {
+        "id": "section-6-55",
+        "text": "COUNTDOWN TIMER"
+      },
+      {
+        "id": "section-7-0",
+        "text": "STOPWATCH"
+      },
+      {
+        "id": "section-7-4",
+        "text": "POWER SUPPLY"
+      },
+      {
+        "id": "section-7-5",
+        "text": "About the Pre-installed Battery"
+      },
+      {
+        "id": "section-7-38",
+        "text": "Battery Precautions"
+      },
+      {
+        "id": "section-7-110",
+        "text": "Settings Following Battery Replacement"
+      },
+      {
+        "id": "section-8-1",
+        "text": "REFERENCE"
+      },
+      {
+        "id": "section-8-5",
+        "text": "Auto Return Features"
+      },
+      {
+        "id": "section-8-20",
+        "text": "Timekeeping"
+      },
+      {
+        "id": "section-8-33",
+        "text": "Alarm and Countdown Timer"
+      },
+      {
+        "id": "section-8-37",
+        "text": "Auto Power Save"
+      }
+    ]
+  },
+  {
+    "id": "wqv3-ru",
+    "model": "WQV-3",
+    "language": "ru",
+    "module": 2411,
+    "title": "WQV-3 — Руководство пользователя",
+    "pages": 13,
+    "file": "wqv3-ru.html",
+    "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf",
+    "sourceSHA256": "379d849e02f1648fd1f1e555da12f54c51c0701967c64642f60af5c1fd34846b",
+    "scanned": false,
+    "illustrations": 55,
+    "headings": [
+      {
+        "id": "section-1-1",
+        "text": "Наручные часы с камерой WQV-3"
+      },
+      {
+        "id": "section-1-2",
+        "text": "Модуль 2411"
+      },
+      {
+        "id": "section-1-3",
+        "text": "FCC (федеральная комиссия связи)"
+      },
+      {
+        "id": "section-1-9",
+        "text": "Предупреждения FCC"
+      },
+      {
+        "id": "section-1-30",
+        "text": "Меры предосторожности FCC"
+      },
+      {
+        "id": "section-1-37",
+        "text": "Общие сведения"
+      },
+      {
+        "id": "section-1-43",
+        "text": "О руководстве"
+      },
+      {
+        "id": "section-1-68",
+        "text": "Перед использованием часов…"
+      },
+      {
+        "id": "section-2-83",
+        "text": "Общие указания"
+      },
+      {
+        "id": "section-3-14",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-4-83",
+        "text": "Режим Памяти Изображений"
+      },
+      {
+        "id": "section-6-63",
+        "text": "Режим Обмена Данными"
+      },
+      {
+        "id": "section-8-10",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-8-115",
+        "text": "Режим Звуковых сигналов"
+      },
+      {
+        "id": "section-9-62",
+        "text": "Режим Таймера"
+      },
+      {
+        "id": "section-10-1",
+        "text": "Режим Секундомера"
+      },
+      {
+        "id": "section-10-45",
+        "text": "Источник питания"
+      },
+      {
+        "id": "section-12-4",
+        "text": "Технические характеристики"
+      },
+      {
+        "id": "section-12-52",
+        "text": "Рекомендации по эксплуатации часов"
+      }
+    ]
+  },
+  {
+    "id": "wqv3-ja",
+    "model": "WQV-3",
+    "language": "ja",
+    "module": 2411,
+    "title": "WQV-3 — 取扱説明書",
+    "pages": 32,
+    "file": "wqv3-ja.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf",
+    "sourceSHA256": "d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0",
+    "scanned": true,
+    "illustrations": 154,
+    "headings": [
+      {
+        "id": "section-3-0",
+        "text": "安全上のご注意"
+      },
+      {
+        "id": "section-3-4",
+        "text": "害を未然に防止するため、色々な絵表示をしています。"
+      },
+      {
+        "id": "section-3-8",
+        "text": "絵表示の例"
+      },
+      {
+        "id": "section-3-15",
+        "text": "味しています。（左の例は電源プラグをコンセント"
+      },
+      {
+        "id": "section-4-0",
+        "text": "山謦告"
+      },
+      {
+        "id": "section-4-33",
+        "text": "/注意"
+      },
+      {
+        "id": "section-4-36",
+        "text": "ますので、使用状態によってはかぶれを起こす恐"
+      },
+      {
+        "id": "section-5-0",
+        "text": "/注意"
+      },
+      {
+        "id": "section-5-1",
+        "text": "使用禁止場所での撮影"
+      },
+      {
+        "id": "section-5-19",
+        "text": "データ控えを作ってください"
+      },
+      {
+        "id": "section-5-26",
+        "text": "お使いになる前に"
+      },
+      {
+        "id": "section-6-0",
+        "text": "目次"
+      },
+      {
+        "id": "section-6-50",
+        "text": "時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-7-0",
+        "text": "操作のしくみ"
+      },
+      {
+        "id": "section-7-34",
+        "text": "撮影モード"
+      },
+      {
+        "id": "section-8-1",
+        "text": "■モード切り替え"
+      },
+      {
+        "id": "section-9-0",
+        "text": "撮影のしかた"
+      },
+      {
+        "id": "section-9-1",
+        "text": "■撮影の基本操作"
+      },
+      {
+        "id": "section-9-2",
+        "text": "7. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-9-19",
+        "text": "2. 被写体にレンズを向ける"
+      },
+      {
+        "id": "section-9-20",
+        "text": "時計上部にあるレンズを被写体に向けます。"
+      },
+      {
+        "id": "section-9-24",
+        "text": "3. 撮影する"
+      },
+      {
+        "id": "section-9-37",
+        "text": "撮影上のご注意"
+      },
+      {
+        "id": "section-9-48",
+        "text": "撮影インターバル"
+      },
+      {
+        "id": "section-9-64",
+        "text": "鳴りません。"
+      },
+      {
+        "id": "section-10-1",
+        "text": "画像を見る 〜ビジュアルDBモード〜"
+      },
+      {
+        "id": "section-10-2",
+        "text": "7. ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-10-11",
+        "text": "2． 画像を選ぶ"
+      },
+      {
+        "id": "section-10-13",
+        "text": "Eボタンまたはボタンを押します。"
+      },
+      {
+        "id": "section-10-21",
+        "text": "3. 選択画像表示に切り替える"
+      },
+      {
+        "id": "section-10-27",
+        "text": "4. メモ表示に切り替える"
+      },
+      {
+        "id": "section-10-38",
+        "text": "5. 時モードに戻す"
+      },
+      {
+        "id": "section-10-40",
+        "text": "◎ ボタンを押します。"
+      },
+      {
+        "id": "section-11-1",
+        "text": "国像を削除す"
+      },
+      {
+        "id": "section-11-2",
+        "text": "1． ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-11-9",
+        "text": "2．画像を選ぶ"
+      },
+      {
+        "id": "section-11-10",
+        "text": "® ボタンまたは®ボタンを押します。"
+      },
+      {
+        "id": "section-11-20",
+        "text": "3. 選択画像表示に切り替える"
+      },
+      {
+        "id": "section-11-26",
+        "text": "4. セットメニューを開く"
+      },
+      {
+        "id": "section-11-28",
+        "text": "® ボタンを約1秒間押し続けます。"
+      },
+      {
+        "id": "section-11-31",
+        "text": "5.削除を選ぶ"
+      },
+      {
+        "id": "section-11-33",
+        "text": "ボタンまたは ボタンを押します。"
+      },
+      {
+        "id": "section-11-36",
+        "text": "6. 削除メニューを開く"
+      },
+      {
+        "id": "section-11-38",
+        "text": "® ボタンを押します。"
+      },
+      {
+        "id": "section-12-1",
+        "text": "7. 削除方法を選ぶ"
+      },
+      {
+        "id": "section-12-8",
+        "text": "8.削除する"
+      },
+      {
+        "id": "section-12-13",
+        "text": "押します。"
+      },
+      {
+        "id": "section-12-27",
+        "text": "■メモを入力する"
+      },
+      {
+        "id": "section-12-30",
+        "text": "7. ビジュアルDBモードに切り替える"
+      },
+      {
+        "id": "section-12-31",
+        "text": "時刻モードのときに◎ボタンを1回押します。"
+      },
+      {
+        "id": "section-12-37",
+        "text": "2． 画像を選ぶ"
+      },
+      {
+        "id": "section-12-45",
+        "text": "3. 選択画像表示に切り替える"
+      },
+      {
+        "id": "section-12-47",
+        "text": "® ボタンを押します。"
+      },
+      {
+        "id": "section-13-1",
+        "text": "4. セットメニューを開く"
+      },
+      {
+        "id": "section-13-6",
+        "text": "5. 「NAME」を選ぶ"
+      },
+      {
+        "id": "section-13-39",
+        "text": "7. 入力箇所を進める"
+      },
+      {
+        "id": "section-13-46",
+        "text": "8. セットを終わる"
+      },
+      {
+        "id": "section-13-48",
+        "text": "④ボタンを押します。"
+      },
+      {
+        "id": "section-13-51",
+        "text": "メモ表示切り替え"
+      },
+      {
+        "id": "section-14-1",
+        "text": "■撮影のための調整"
+      },
+      {
+        "id": "section-14-4",
+        "text": "7.3"
+      },
+      {
+        "id": "section-14-15",
+        "text": "2. 撮影場所を切り替える"
+      },
+      {
+        "id": "section-14-35",
+        "text": "7。撮影モードに切り替える"
+      },
+      {
+        "id": "section-14-45",
+        "text": "2.明るさを切り替える"
+      },
+      {
+        "id": "section-15-1",
+        "text": "タイマー撮影"
+      },
+      {
+        "id": "section-15-3",
+        "text": "7. 撮影モードに切り替える"
+      },
+      {
+        "id": "section-15-13",
+        "text": "2．タイマー時間設定に切り替える"
+      },
+      {
+        "id": "section-15-14",
+        "text": "④ボタンを押します。"
+      },
+      {
+        "id": "section-15-19",
+        "text": "3.撮影する"
+      },
+      {
+        "id": "section-15-29",
+        "text": "コントラスト設定"
+      },
+      {
+        "id": "section-15-34",
+        "text": "7. コントラスト設定状態に切り替える"
+      },
+      {
+        "id": "section-15-41",
+        "text": "2．設定する"
+      },
+      {
+        "id": "section-15-47",
+        "text": "3. 設定を終わる"
+      },
+      {
+        "id": "section-16-0",
+        "text": "通信機能の使い方"
+      },
+      {
+        "id": "section-16-20",
+        "text": "時計同士のデータ通信"
+      },
+      {
+        "id": "section-16-21",
+        "text": "1．通信モードに切り替える"
+      },
+      {
+        "id": "section-16-27",
+        "text": "2. 時計同士のモードに切り替える"
+      },
+      {
+        "id": "section-17-1",
+        "text": "3. 送信または受を選ぶ"
+      },
+      {
+        "id": "section-17-19",
+        "text": "4. 送言する画像を選ぶ"
+      },
+      {
+        "id": "section-17-30",
+        "text": "5. 送言する"
+      },
+      {
+        "id": "section-18-16",
+        "text": "※6秒以内に回復しない場合は“NG\"表示になります。"
+      },
+      {
+        "id": "section-19-0",
+        "text": "カレンダー機能の使い方"
+      },
+      {
+        "id": "section-19-13",
+        "text": "●月のサーチ"
+      },
+      {
+        "id": "section-19-21",
+        "text": "本日設定のしかた"
+      },
+      {
+        "id": "section-19-26",
+        "text": "1。休日設定状態に切り替える"
+      },
+      {
+        "id": "section-19-31",
+        "text": "2． 設定したい日を点滅させる"
+      },
+      {
+        "id": "section-19-32",
+        "text": "2."
+      },
+      {
+        "id": "section-19-34",
+        "text": "E ボタンまたは Bボタンを押します。"
+      },
+      {
+        "id": "section-19-40",
+        "text": "3. 休日を設定する"
+      },
+      {
+        "id": "section-20-3",
+        "text": "4. セットを終わる"
+      },
+      {
+        "id": "section-20-8",
+        "text": "★カレンダーはうるう年および大の月、小の月を自動判別するフ"
+      },
+      {
+        "id": "section-20-10",
+        "text": "表示します。"
+      },
+      {
+        "id": "section-20-12",
+        "text": "アラーム・時報の使い方"
+      },
+      {
+        "id": "section-20-21",
+        "text": "アラームのセット"
+      },
+      {
+        "id": "section-20-22",
+        "text": "1. アラームを選ぶ"
+      },
+      {
+        "id": "section-20-34",
+        "text": "2．セット状態にする"
+      },
+      {
+        "id": "section-20-35",
+        "text": "Aボタンを約1秒間押し続けます。"
+      },
+      {
+        "id": "section-21-1",
+        "text": "3."
+      },
+      {
+        "id": "section-21-12",
+        "text": "4."
+      },
+      {
+        "id": "section-21-18",
+        "text": "5. 分をセットする"
+      },
+      {
+        "id": "section-21-23",
+        "text": "6. 画像選択に切り替える"
+      },
+      {
+        "id": "section-21-30",
+        "text": "れているときには、”CASIO\"の文字が表示され"
+      },
+      {
+        "id": "section-21-34",
+        "text": "7. 画像を選択する"
+      },
+      {
+        "id": "section-21-40",
+        "text": "8. セットを終わる"
+      },
+      {
+        "id": "section-22-1",
+        "text": "アラーム・時報のオン／オフ"
+      },
+      {
+        "id": "section-22-2",
+        "text": "1. アラームまたは時報を選ぶ"
+      },
+      {
+        "id": "section-22-15",
+        "text": "2． オン／オフを切り替える"
+      },
+      {
+        "id": "section-22-33",
+        "text": "タイマーの使い方"
+      },
+      {
+        "id": "section-22-40",
+        "text": "1計測のしかた"
+      },
+      {
+        "id": "section-23-1",
+        "text": "タイマー時間のセット"
+      },
+      {
+        "id": "section-23-2",
+        "text": "7. セット状態にする"
+      },
+      {
+        "id": "section-23-13",
+        "text": "3． 画像選択に切り替える"
+      },
+      {
+        "id": "section-23-19",
+        "text": "れているときには、”CASIO\"の文字が表示され"
+      },
+      {
+        "id": "section-23-23",
+        "text": "4.画像を選択する"
+      },
+      {
+        "id": "section-23-29",
+        "text": "5. セットを終わる"
+      },
+      {
+        "id": "section-24-0",
+        "text": "ストップウオッチの使い方"
+      },
+      {
+        "id": "section-24-3",
+        "text": "ストップウオッチモードに切り替えるには"
+      },
+      {
+        "id": "section-24-5",
+        "text": "■計測のしかた"
+      },
+      {
+        "id": "section-24-18",
+        "text": "通常の計測"
+      },
+      {
+        "id": "section-24-52",
+        "text": "時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-24-53",
+        "text": "■秒の合わせ方 ～30秒以内の遅れ／進みの修正～"
+      },
+      {
+        "id": "section-24-55",
+        "text": "7. 時効セット状態に切り替える"
+      },
+      {
+        "id": "section-24-60",
+        "text": "2. 秒を合わせる"
+      },
+      {
+        "id": "section-24-66",
+        "text": "3. セットを終わる"
+      },
+      {
+        "id": "section-25-1",
+        "text": "時刻・カレンダーの合わせ方"
+      },
+      {
+        "id": "section-25-7",
+        "text": "1. 時効セット状態に切り替える"
+      },
+      {
+        "id": "section-25-13",
+        "text": "2．セット箇所を切り替える"
+      },
+      {
+        "id": "section-25-30",
+        "text": "3."
+      },
+      {
+        "id": "section-25-50",
+        "text": "4. セットを終わる"
+      },
+      {
+        "id": "section-25-52",
+        "text": "④ボタンを押します。"
+      },
+      {
+        "id": "section-25-55",
+        "text": "★カレンダーはうるう年および大の月、小の月を自動判別するフ"
+      },
+      {
+        "id": "section-25-56",
+        "text": "ルオートカレンダーですので、電池交換時以外は修正不要です。"
+      },
+      {
+        "id": "section-26-0",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-26-1",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-27-0",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-27-1",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-28-0",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-28-1",
+        "text": "MEMO"
+      },
+      {
+        "id": "section-29-0",
+        "text": "製品仕様"
+      },
+      {
+        "id": "section-29-1",
+        "text": "■跼計機能"
+      },
+      {
+        "id": "section-29-19",
+        "text": "■カメラ機能"
+      },
+      {
+        "id": "section-29-39",
+        "text": "共通機能"
+      },
+      {
+        "id": "section-30-0",
+        "text": "電源について"
+      },
+      {
+        "id": "section-30-1",
+        "text": "最初の電池"
+      },
+      {
+        "id": "section-30-7",
+        "text": "電池の消耗"
+      },
+      {
+        "id": "section-30-31",
+        "text": "電池交換のご注意"
+      },
+      {
+        "id": "section-30-43",
+        "text": "●本機で使用しているボタン電池を取りはずした"
+      },
+      {
+        "id": "section-30-44",
+        "text": "場合は、誤ってボタン電池を飲むことがないよ"
+      },
+      {
+        "id": "section-30-45",
+        "text": "うにしてください。特に小さなお子様にご注意"
+      },
+      {
+        "id": "section-30-46",
+        "text": "ください。"
+      },
+      {
+        "id": "section-30-47",
+        "text": "・電池は小さなお子様の手の届かないところへ置"
+      },
+      {
+        "id": "section-30-48",
+        "text": "いてください。万一、お子様が飲み込んだ場合"
+      },
+      {
+        "id": "section-30-49",
+        "text": "は、ただちに医師と相談してください。"
+      },
+      {
+        "id": "section-30-50",
+        "text": "●電池は充電や分解、ショートする恐れのあるこ"
+      },
+      {
+        "id": "section-30-51",
+        "text": "とはしないでください。また、加熱したり火の中"
+      },
+      {
+        "id": "section-30-52",
+        "text": "へ投入しないでください。"
+      },
+      {
+        "id": "section-30-54",
+        "text": "●付属の電池は充電式ではありません。絶対に充"
+      },
+      {
+        "id": "section-30-55",
+        "text": "電しないでください。"
+      },
+      {
+        "id": "section-30-57",
+        "text": "入れてください。"
+      },
+      {
+        "id": "section-30-58",
+        "text": "●本機で指定されている電池以外は使用しないで"
+      },
+      {
+        "id": "section-30-59",
+        "text": "ください。"
+      },
+      {
+        "id": "section-30-60",
+        "text": "●電池が液漏れを起こした場合は、液に触れずに、"
+      },
+      {
+        "id": "section-30-61",
+        "text": "すぐにふきとってください。"
+      },
+      {
+        "id": "section-31-1",
+        "text": "電池交換のしかた"
+      },
+      {
+        "id": "section-31-2",
+        "text": "7. 電池ブタをはずす"
+      },
+      {
+        "id": "section-31-11",
+        "text": "2."
+      },
+      {
+        "id": "section-31-12",
+        "text": "2. 古い電池を取り出す"
+      },
+      {
+        "id": "section-31-18",
+        "text": "3. 新しい電池を入れる"
+      },
+      {
+        "id": "section-31-31",
+        "text": "4. 電池ブタをしめる"
+      },
+      {
+        "id": "section-32-0",
+        "text": "ご使用上の注意"
+      },
+      {
+        "id": "section-32-46",
+        "text": "お手入れについて"
+      }
+    ]
+  }
+]

@@ -21,3 +21,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Original watch manuals
+----------------------
+
+The reference documents in dist/manuals/ are converted from the CASIO module
+2220 and 2411 user manuals. English and Japanese sources are published by
+CASIO COMPUTER CO., LTD.; Russian editions are provided by i-Watch.Ru.
+The original manuals, illustrations and translations retain their original
+copyright and are not covered by this application's MIT license.
+Source URLs and SHA-256 hashes are recorded in dist/manuals/manifest.json.
