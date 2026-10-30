@@ -9,7 +9,7 @@ handhelds and Pocket PC 2000.
 
 The opening screen has an app for each watch. Click its icon to open it; the
 close button returns to Programs and releases the USB adapter. Each watch has
-its own local album. English and Russian settings apply to both apps.
+its own local album. English, Russian and Japanese settings apply to both apps.
 
 ![The Programs screen, with WQV-2 and WQV-3 watch icons](docs/programs.png)
 
@@ -29,8 +29,8 @@ uses the USB ID to choose its driver and displays the name supplied by the devic
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
-Choose **Tools → Options…** to switch to Russian. It remembers your choice in
-this browser, and switching languages keeps your current photo and connection.
+Choose **Tools → Options…** to switch to Russian or Japanese. It remembers your
+choice in this browser, and switching languages keeps your current photo and connection.
 
 Other infrared adapters need their own USB transport code. **ARK3116T does not
 work yet.** WQV-10 and other operating systems have not been tested.

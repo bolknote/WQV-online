@@ -6,6 +6,7 @@ import { bindApplicationNavigation } from '../dist/application-navigation.mjs';
 import { LocalStore } from '../dist/images.mjs';
 import { wqv2Image, wqv2Files } from '../dist/wqv2-images.mjs';
 import { russian } from '../dist/translations.mjs';
+import { japanese } from '../dist/translations-ja.mjs';
 
 function record() {
   const bytes = new Uint8Array(7229).fill(0x20, 0, 24);
@@ -60,6 +61,7 @@ test('all three program pages have unique IDs, valid local assets and translated
     for (const match of source.matchAll(/data-i18n(?:-title|-alt|-aria-label)?="([^"]+)"/g)) {
       const message = match[1].replaceAll('&#x27;', "'").replaceAll('&amp;', '&');
       assert.ok(Object.hasOwn(russian, message), file + ': missing Russian label ' + message);
+      assert.ok(Object.hasOwn(japanese, message), file + ': missing Japanese label ' + message);
     }
   }
 });

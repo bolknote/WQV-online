@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { LANGUAGE_KEY, readLanguage, getLanguage, setLanguage, onLanguageChange,
   tr, quantity, locale, formatNumber, formatText, LocalizedError } from '../dist/i18n.mjs';
 import { russian } from '../dist/translations.mjs';
+import { japanese } from '../dist/translations-ja.mjs';
 import { clockPayload } from '../dist/calendar.mjs';
 
 afterEach(() => setLanguage('en', { persist: false }));
@@ -13,6 +14,7 @@ test('English is the default; only an explicit saved language changes it', () =>
     assert.equal(readLanguage({ getItem: () => saved }), 'en');
   }
   assert.equal(readLanguage({ getItem: () => 'ru' }), 'ru');
+  assert.equal(readLanguage({ getItem: () => 'ja' }), 'ja');
   assert.equal(readLanguage({ getItem() { throw new Error('storage blocked'); } }), 'en');
 });
 
@@ -26,6 +28,10 @@ test('the chosen language persists, and one change emits one notification', () =
     assert.equal(saved.get(LANGUAGE_KEY), 'ru');
     assert.equal(readLanguage(storage), 'ru');
     assert.deepEqual(changes, ['ru']);
+    setLanguage('ja', { storage });
+    assert.equal(saved.get(LANGUAGE_KEY), 'ja');
+    assert.equal(readLanguage(storage), 'ja');
+    assert.deepEqual(changes, ['ru', 'ja']);
   } finally { unsubscribe(); }
 });
 
@@ -35,6 +41,8 @@ test('existing messages and nested counts translate without recreating the opera
   setLanguage('ru', { persist: false });
   assert.equal(String(message), 'Получено: 21 снимок');
   assert.equal(JSON.stringify({ message }), '{"message":"Получено: 21 снимок"}');
+  setLanguage('ja', { persist: false });
+  assert.equal(String(message), '受信: 21枚');
   setLanguage('en', { persist: false });
   assert.equal(String(message), 'Received: 21 photos');
 });
@@ -50,6 +58,14 @@ test('Russian counts distinguish one, few, many, and the teen exceptions', () =>
   assert.equal(String(quantity(5, 'files')), '5 файлов');
 });
 
+test('Japanese counters join the number and suffix without English spacing or plural forms', () => {
+  setLanguage('ja', { persist: false });
+  assert.deepEqual([0, 1, 2, 21].map(n => String(quantity(n, 'photos'))), ['0枚', '1枚', '2枚', '21枚']);
+  assert.equal(String(quantity(2, 'days')), '2日');
+  assert.equal(String(quantity(5, 'files')), '5ファイル');
+  assert.equal(String(quantity(3, 'dates')), '3件');
+});
+
 test('dates and numbers follow the selected display language', () => {
   const date = new Date(Date.UTC(2026, 9, 20));
   assert.equal(date.toLocaleString(locale(), { month: 'long', timeZone: 'UTC' }), 'October');
@@ -57,6 +73,10 @@ test('dates and numbers follow the selected display language', () => {
   setLanguage('ru', { persist: false });
   assert.equal(date.toLocaleString(locale(), { month: 'long', timeZone: 'UTC' }), 'октябрь');
   assert.equal(formatNumber(12.5), '12,5');
+  setLanguage('ja', { persist: false });
+  assert.equal(locale(), 'ja-JP');
+  assert.equal(date.toLocaleString(locale(), { month: 'long', timeZone: 'UTC' }), '10月');
+  assert.equal(formatNumber(12345.5), '12,345.5');
 });
 
 test('errors retain Error behavior and translate when read in another language', () => {
@@ -71,6 +91,9 @@ test('errors retain Error behavior and translate when read in another language',
   assert.equal(formatText(new Error('USB pipe failed')), 'USB pipe failed');
   const timeout = new LocalizedError(tr('Timeout: {0}. Disconnect and reconnect USB.', tr('opening USB')));
   assert.match(timeout.message, /Тайм-аут: открытие USB/);
+  setLanguage('ja', { persist: false });
+  assert.match(error.message, /2000年1月1日/);
+  assert.equal(timeout.message, 'タイムアウト: USBの接続。USBを接続し直してください。');
 });
 
 test('blocked persistence still allows switching, and unsupported languages leave state intact', () => {
@@ -82,8 +105,18 @@ test('blocked persistence still allows switching, and unsupported languages leav
 });
 
 test('translations preserve every message substitution', () => {
-  for (const [english, translation] of Object.entries(russian)) {
+  for (const dictionary of [russian, japanese]) for (const [english, translation] of Object.entries(dictionary)) {
     const placeholders = text => [...text.matchAll(/\{\d+\}/g)].map(match => match[0]).sort();
     assert.deepEqual(placeholders(translation), placeholders(english), english);
   }
+});
+
+test('Japanese covers the complete message catalog, including clock, calendar and transfer guidance', () => {
+  assert.deepEqual(Object.keys(japanese).sort(), Object.keys(russian).sort());
+  assert.ok(Object.values(japanese).every(value => typeof value === 'string' && value.trim()));
+  setLanguage('ja', { persist: false });
+  assert.equal(String(tr('Start')), 'スタート');
+  assert.equal(String(tr('Holiday calendar')), '休日カレンダー');
+  assert.equal(String(tr('Press the front button on the watch now.')), '時計の前面ボタンを押してください。');
+  assert.equal(String(tr('Untranslated native error')), 'Untranslated native error');
 });

@@ -1,7 +1,10 @@
 import { russian } from './translations.mjs';
+import { japanese } from './translations-ja.mjs';
 
 export const LANGUAGE_KEY = 'wqv-online.language';
-export const languages = Object.freeze(['en', 'ru']);
+export const languages = Object.freeze(['en', 'ru', 'ja']);
+const locales = { en: 'en-US', ru: 'ru-RU', ja: 'ja-JP' };
+const translations = { ru: russian, ja: japanese };
 const listeners = new Set();
 function browserStorage() { try { return typeof window === 'undefined' ? undefined : window.localStorage; } catch { return undefined; } }
 export function readLanguage(storage = browserStorage()) {
@@ -10,7 +13,7 @@ export function readLanguage(storage = browserStorage()) {
 }
 let language = readLanguage();
 export const getLanguage = () => language;
-export const locale = () => language === 'ru' ? 'ru-RU' : 'en-US';
+export const locale = () => locales[language];
 export function setLanguage(next, { storage = browserStorage(), persist = true } = {}) {
   if (!languages.includes(next)) throw new RangeError('Unknown display language: ' + next);
   if (persist) { try { storage?.setItem(LANGUAGE_KEY, next); } catch {} }
@@ -21,19 +24,20 @@ export function setLanguage(next, { storage = browserStorage(), persist = true }
 export function onLanguageChange(listener) { listeners.add(listener); return () => listeners.delete(listener); }
 
 const nouns = {
-  photos: { en: { one: 'photo', other: 'photos' }, ru: { one: 'снимок', few: 'снимка', many: 'снимков', other: 'снимка' } },
-  days: { en: { one: 'day', other: 'days' }, ru: { one: 'день', few: 'дня', many: 'дней', other: 'дня' } },
-  files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' } },
-  dates: { en: { one: 'date', other: 'dates' }, ru: { one: 'дата', few: 'даты', many: 'дат', other: 'даты' } },
+  photos: { en: { one: 'photo', other: 'photos' }, ru: { one: 'снимок', few: 'снимка', many: 'снимков', other: 'снимка' }, ja: { other: '枚' } },
+  days: { en: { one: 'day', other: 'days' }, ru: { one: 'день', few: 'дня', many: 'дней', other: 'дня' }, ja: { other: '日' } },
+  files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' }, ja: { other: 'ファイル' } },
+  dates: { en: { one: 'date', other: 'dates' }, ru: { one: 'дата', few: 'даты', many: 'дат', other: 'даты' }, ja: { other: '件' } },
 };
 class Message {
   constructor(key, values, noun = null) { this.key = key; this.values = values; this.noun = noun; }
   toString() {
     if (this.noun) {
       const count = this.values[0], words = nouns[this.noun][language];
-      return count + ' ' + (words[new Intl.PluralRules(locale()).select(count)] || words.other);
+      return count + (language === 'ja' ? '' : ' ') + (words[new Intl.PluralRules(locale()).select(count)] || words.other);
     }
-    const template = language === 'ru' && Object.hasOwn(russian, this.key) ? russian[this.key] : this.key;
+    const dictionary = translations[language];
+    const template = dictionary && Object.hasOwn(dictionary, this.key) ? dictionary[this.key] : this.key;
     return template.replace(/\{(\d+)\}/g, (match, index) => index < this.values.length ? formatText(this.values[index]) : match);
   }
   toJSON() { return this.toString(); }
