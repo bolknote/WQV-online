@@ -40,6 +40,10 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         assert.match(await page.locator('#original-pdf').getAttribute('href'), new RegExp(model === 'wqv2' ? '2220' : '2411'));
         await frame.locator('#page-' + (language === 'ja' ? 16 : 6)).evaluate(node => node.scrollIntoView());
         await page.screenshot({ path: path.join(output, model + '-' + language + '.png'), fullPage: true });
+        if (language === 'ja') {
+          await frame.locator('#page-7').evaluate(node => node.scrollIntoView());
+          await page.screenshot({ path: path.join(output, model + '-ja-annotations.png'), fullPage: true });
+        }
         await page.locator('.window-close').click(); await page.waitForURL(base);
         checked.push(model + '-' + language);
       }
