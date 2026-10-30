@@ -143,7 +143,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf",
     "sourceSHA256": "bc0c4c1371d5f07d23b3df766e3cbe36eb89a91c69fbc6d9633c0f714d3c9f44",
     "scanned": true,
-    "illustrations": 148,
+    "illustrations": 146,
     "headings": [
       {
         "id": "section-3-0",
@@ -250,7 +250,7 @@
         "text": "操作のしくみ"
       },
       {
-        "id": "section-7-47",
+        "id": "section-7-23",
         "text": "◎（"
       },
       {
@@ -1068,7 +1068,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf",
     "sourceSHA256": "d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0",
     "scanned": true,
-    "illustrations": 154,
+    "illustrations": 151,
     "headings": [
       {
         "id": "section-3-0",
@@ -1127,7 +1127,7 @@
         "text": "操作のしくみ"
       },
       {
-        "id": "section-7-34",
+        "id": "section-7-17",
         "text": "撮影モード"
       },
       {

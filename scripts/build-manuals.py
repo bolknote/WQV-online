@@ -35,6 +35,7 @@ SOURCES = {
     'wqv3-ru': 'https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf',
     'wqv3-ja': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf',
 }
+FIGURE_BOUNDS = json.loads((REPO/'docs/manuals/figure-bounds.json').read_text())
 
 def escaped(value):
     return html.escape(str(value), quote=True)
@@ -127,6 +128,15 @@ def scanned_figures(cache, page, data):
             continue
         boxes.append(fitz.Rect((x-30)*sx, (y-30)*sy, (x+width+30)*sx, (y+height+30)*sy) & page.rect)
     return merge_boxes(boxes, tolerance=3)
+
+def reviewed_scan_figures(identifier, number, page):
+    """Source-checked bounds for compound drawings with faint, missed labels."""
+    review = FIGURE_BOUNDS.get(identifier, {}).get(str(number))
+    if not review:
+        return None
+    sx, sy = page.rect.width/review['width'], page.rect.height/review['height']
+    return [fitz.Rect(x0*sx, y0*sy, x1*sx, y1*sy)
+            for x0,y0,x1,y1 in review['figures']]
 
 def native_figures(page):
     paths = []
@@ -276,17 +286,9 @@ def build(identifier, source, ocrroot, output):
             cache = ocrroot/identifier/f'page-{n:02}.json'
             data = json.loads(cache.read_text())
             lines = ocr_lines(data,page)
-            figures = scanned_figures(cache,page,data)
-            # Keep nearby button labels and short picture captions with their
-            # original scan, rather than cropping a circled letter in half.
-            for figure in figures:
-                for line in lines:
-                    box=line['box']
-                    dx=max(figure.x0-box.x1,box.x0-figure.x1,0)
-                    dy=max(figure.y0-box.y1,box.y0-figure.y1,0)
-                    if len(line['text'])<=25 and dx*dx+dy*dy<225:
-                        figure |= box + (-1,-1,1,1)
-            figures=merge_boxes(figures)
+            figures = reviewed_scan_figures(identifier,n,page)
+            if figures is None:
+                figures = scanned_figures(cache,page,data)
             raster_count = len(page.get_image_info())
         else:
             lines = native_lines(page)

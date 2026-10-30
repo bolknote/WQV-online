@@ -33,5 +33,12 @@ Source filenames match the catalog IDs, such as `wqv2-en.pdf`. OCR directories
 use the same IDs, with a JSON word-coordinate file and rendered PNG for each
 source page. The generator never writes over the source PDFs.
 
+Faint callouts can be missed by OCR. `figure-bounds.json` records reviewed
+regions for the operation-overview drawings in the Japanese editions. The
+coordinates refer to the full source-page renders at the recorded dimensions;
+each region includes the watch, button letters and complete leader lines.
+These compound drawings use the reviewed regions instead of guessing label
+ownership from OCR, which can confuse nearby paragraphs with callouts.
+
 The original manuals and their illustrations retain their publishers'
 copyright. They are separate from the application's MIT-licensed code.
