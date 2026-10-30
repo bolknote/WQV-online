@@ -1,9 +1,10 @@
-// Read-only WQV-1/2 PC and OTHERS receiver. SigmaTel uses its native FIFO;
+// WQV-1/2 PC client and OTHERS receiver. SigmaTel uses its native FIFO;
 // other prepared transports can supply readSIR/writeSIR for raw wire bytes.
-// No upload/delete/clock-setting commands.
+// Photo reads and explicit clock setting; no upload or delete commands.
 import { b, concat, toHex } from './formats.mjs';
 import { sleep } from './irda.mjs';
 import { WQV12Decoder, encodeWQV12, decodeWQV12Record, WQV12_RECORD_BYTES, isWQV12ClockReply } from './wqv12-formats.mjs';
+import { wqv12ClockPayload } from './wqv12-clock.mjs';
 
 export async function prepareWQV12(adapter, signal, { rxSensitivity = 1, fastRX = true, rxLongp = 1, record = () => {} } = {}) {
   if (!Number.isInteger(rxSensitivity) || rxSensitivity < 0 || rxSensitivity > 6) throw new RangeError('SigmaTel RX threshold must be an integer from 0 to 6.');
@@ -165,6 +166,25 @@ export class WQV12Client {
     await this.exchange(this.address, 0x53, b(), f => f.control === 0x63);
     this.address = null; this.stage('closed');
   }
+  async setClock(payload, value) {
+    const adr = this.address;
+    this.clockUpdate = { requested: value, payloadHex: toHex(payload), secondsChanged: false, outcome: 'unconfirmed' };
+    this.stage('set-clock', { requested: value });
+    await this.exchange(adr, 0x10, payload, f => f.control === 0x21);
+    const reply = await this.exchange(adr, 0x11, b(), f => f.control === 0x20 && f.data.length > 0);
+    this.clockUpdate.replyHex = toHex(reply.data);
+    if (reply.data[0] !== 6) {
+      if (reply.data[0] === 8) this.clockUpdate.outcome = 'rejected';
+      throw new Error(`WQV-2 did not acknowledge the clock update: ${toHex(reply.data)}.`);
+    }
+    this.clockUpdate.outcome = 'accepted';
+    this.record('wqv12-clock-accepted', this.clockUpdate);
+    this.stage('clock-finish');
+    // Original Palm deal_pread1 handles OP_ACK (06) by sending OP_ERROR
+    // with status 00. This ends the request successfully; it is not a
+    // second clock command. N(S)=1, N(R)=1 gives control 32.
+    await this.exchange(adr, 0x32, b(8, 0), f => f.control === 0x41);
+  }
   async download(current) {
     const adr = this.address; this.stage('header');
     await this.exchange(adr, 0x10, b(current ? 0 : 1), f => f.control === 0x21);
@@ -292,10 +312,11 @@ export class WQV12Client {
     }
     this.stage('captured', { greetings: this.greetings, infraredTransmission: false });
   }
-  async run({ mode = 'probe', listenMs = 30000, baud = 115200,
+  async run({ mode = 'probe', listenMs = 30000, baud = 115200, clockValue,
     durationMs = mode === 'listen' ? listenMs + 2000 : mode === 'all' ? 1200000 : mode === 'others' ? 120000 : mode === 'current' ? 90000 : 35000 } = {}) {
-    if (!['probe', 'current', 'all', 'others', 'listen'].includes(mode) || !Number.isFinite(durationMs) || durationMs < 1 || durationMs > 1200000 ||
+    if (!['probe', 'current', 'all', 'others', 'listen', 'set-clock'].includes(mode) || !Number.isFinite(durationMs) || durationMs < 1 || durationMs > 1200000 ||
         !Number.isFinite(listenMs) || listenMs < 1 || listenMs > 120000 || mode === 'listen' && durationMs <= listenMs) throw new RangeError('Invalid WQV-1/2 read mode or deadline.');
+    const requestedClock = mode === 'set-clock' ? wqv12ClockPayload(clockValue) : null;
     const adapter = this.adapter;
     if (![9600, 19200, 38400, 57600, 115200].includes(baud) || !['others', 'listen'].includes(mode) && baud !== 115200) throw new RangeError('PC mode uses 115200; a diagnostic baud override is available only for OTHERS or listen.');
     if ((typeof adapter.readSIR === 'function') !== (typeof adapter.writeSIR === 'function')) throw new Error('A raw SIR transport must provide both readSIR and writeSIR.');
@@ -306,17 +327,22 @@ export class WQV12Client {
     const timer = setTimeout(() => { controller.abort(new Error('WQV-1/2 test deadline reached.')); adapter.close().catch(() => {}); }, durationMs);
     this.signal?.addEventListener('abort', stop, { once: true });
     const started = performance.now(); let error = null;
-    this.record('wqv12-start', { mode, durationMs, baud, diagnosticRate: baud !== 115200, checksum: 'sum16-be', readOnly: true, minimumTurnaroundMs: this.turnaroundMs });
+    this.record('wqv12-start', { mode, durationMs, baud, diagnosticRate: baud !== 115200, checksum: 'sum16-be', readOnly: mode !== 'set-clock', minimumTurnaroundMs: this.turnaroundMs });
     try {
       if (mode === 'listen') await this.listenOnly(listenMs);
       else if (mode === 'others') await this.receiveOthers();
-      else { await this.connect(); if (mode !== 'probe') await this.download(mode === 'current'); await this.disconnect(); }
+      else {
+        await this.connect();
+        if (mode === 'set-clock') await this.setClock(requestedClock, clockValue);
+        else if (mode !== 'probe') await this.download(mode === 'current');
+        await this.disconnect();
+      }
     }
     catch (caught) { error = { name: caught.name, message: caught.message }; }
     finally { clearTimeout(timer); this.signal?.removeEventListener('abort', stop); }
-    const result = { mode, status: !error ? mode === 'listen' ? this.stats.rxBytes ? 'captured' : 'no-data' : mode === 'probe' ? 'connected-and-closed' : mode === 'others' ? 'received' : 'downloaded' : this.signal?.aborted ? 'interrupted' : 'error',
+    const result = { mode, status: !error ? mode === 'listen' ? this.stats.rxBytes ? 'captured' : 'no-data' : mode === 'probe' ? 'connected-and-closed' : mode === 'set-clock' ? 'clock-set' : mode === 'others' ? 'received' : 'downloaded' : this.signal?.aborted ? 'interrupted' : 'error',
       complete: !error && this.address === null, connected: this.connected, disconnected: this.connected && this.address === null,
-      phase: this.phase, clockHex: this.clockHex, localClockHex: this.localClockHex ?? null,
+      phase: this.phase, clockHex: this.clockHex, localClockHex: this.localClockHex ?? null, clockUpdate: this.clockUpdate ?? null,
       role: mode === 'listen' ? 'passive' : mode === 'others' ? 'receiver' : 'initiator',
       greetings: this.greetings ?? null, infraredTransmission: this.stats.txFrames > 0, baud, diagnosticRate: baud !== 115200, minimumTurnaroundMs: this.turnaroundMs,
       elapsedMs: performance.now() - started, offeredCount: this.offeredCount ?? null, imageCount: this.images.length,

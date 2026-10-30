@@ -4,6 +4,7 @@ import { bindApplicationNavigation } from './application-navigation.mjs';
 import { createWQV2Adapter } from './wqv2-adapter.mjs';
 import { describeUSBDevice } from './adapters.mjs';
 import { WQV12Client } from './wqv12-core.mjs';
+import { wqv12ClockPayload } from './wqv12-clock.mjs';
 import { LocalStore } from './images.mjs';
 import { wqv2Image, wqv2Filename, wqv2Files } from './wqv2-images.mjs';
 import { concat, fromHex } from './formats.mjs';
@@ -15,7 +16,7 @@ const supported = Boolean(navigator.usb && isSecureContext);
 const MODE_KEY = 'wqv-online.wqv2.mode';
 let initialMode = 'pc'; try { if (localStorage.getItem(MODE_KEY) === 'others') initialMode = 'others'; } catch {}
 const S = { device: null, adapter: null, active: null, client: null, latest: null, pending: null,
-  mode: initialMode,
+  mode: initialMode, tab: 'photos', clockSnapshot: null,
   images: [], selected: null, urls: new Map(), log: [], capture: null, storageFailed: false,
   status: ['idle', tr('Ready'), tr('Connect a USB adapter to communicate with the watch.'), null] };
 let refreshTimer, startReading;
@@ -46,12 +47,15 @@ function record(kind, details = {}) {
   if (kind === 'wqv12-retry') log('info', tr('Repeating request {0}.', details.control.toString(16).padStart(2, '0')));
   if (kind === 'wqv12-rejected-frame') log('error', tr('Received frame rejected: {0}.', details.reason));
   if (kind === 'wqv2-kingsun-sync') log('info', tr('KS-959 receive stream synchronized.'));
+  if (kind === 'wqv12-clock') S.clockSnapshot = { hex: details.rawHex, at: now(), beforeUpdate: false };
+  if (kind === 'wqv12-phase' && details.phase === 'set-clock' && S.clockSnapshot) S.clockSnapshot.beforeUpdate = true;
   refreshSoon();
 }
 const phases = { hello: 'Looking for the watch', connect: 'Connecting to the watch', connected: 'Watch connected',
   header: 'Reading photo information', photos: 'Reading photos', finish: 'Finishing transfer', disconnect: 'Closing connection', closed: 'Transfer finished',
   'others-listen': 'Waiting for a photo from the watch', 'others-connect': 'Connecting to the watch',
-  'others-header': 'Reading photo information', 'others-photos': 'Reading photos', 'others-finish': 'Finishing transfer' };
+  'others-header': 'Reading photo information', 'others-photos': 'Reading photos', 'others-finish': 'Finishing transfer',
+  'set-clock': 'Setting the watch date and time', 'clock-finish': 'Finishing clock update' };
 const phaseLabel = phase => tr(phases[phase] || 'Communicating with the watch');
 
 function render() {
@@ -62,6 +66,8 @@ function render() {
   $('connect').disabled = !supported || busy || connected;
   $('disconnect').disabled = !connected || busy;
   for (const id of ['download-current', 'download-all', 'find-watch']) $(id).disabled = !connected || busy;
+  for (const id of ['read-clock', 'set-clock']) $(id).disabled = !connected || busy || S.mode !== 'pc';
+  for (const id of ['clock-date', 'clock-time', 'fill-clock']) $(id).disabled = busy;
   $('receive-photo').disabled = !connected || busy;
   document.querySelectorAll('[data-pc-only]').forEach(element => { element.hidden = S.mode !== 'pc'; });
   document.querySelectorAll('[data-others-only]').forEach(element => { element.hidden = S.mode !== 'others'; });
@@ -87,8 +93,12 @@ function render() {
   $('tx-count').textContent = metrics.txFrames ?? 0; $('rx-count').textContent = metrics.rxBytes ?? 0;
   $('retry-count').textContent = metrics.retries ?? 0;
   $('checksum-count').textContent = S.client?.decoder.badChecksum ?? S.latest?.badChecksum ?? 0;
-  const clock = S.latest?.clockHex;
-  $('watch-time').textContent = clock ? Array.from(fromHex(clock).slice(0, 3), n => String(n).padStart(2, '0')).join(':') : '—';
+  const clock = S.clockSnapshot;
+  const watchTime = clock ? Array.from(fromHex(clock.hex).slice(0, 3), n => String(n).padStart(2, '0')).join(':') : '—';
+  $('watch-time').textContent = watchTime; $('clock-watch-time').textContent = watchTime;
+  $('clock-read-at').textContent = clock ? tr('Last read: {0}', new Date(clock.at).toLocaleTimeString(locale())) : '—';
+  $('clock-snapshot-note').textContent = clock?.beforeUpdate ? tr('This time was read before the clock update. Read again to refresh it.') :
+    tr('Read the watch time when a PC connection starts.');
   const [state, heading, detail, ratio] = S.status;
   $('result-heading').textContent = heading; $('result-detail').textContent = detail;
   $('result-heading').closest('.operation-bar').dataset.state = state;
@@ -130,7 +140,9 @@ async function addImage(image) {
   renderGallery();
 }
 function switchTab(name) {
-  for (const tab of ['photos', 'connection']) {
+  if (name === 'clock' && S.mode !== 'pc') name = 'photos';
+  S.tab = name;
+  for (const tab of ['photos', 'clock', 'connection']) {
     $('panel-' + tab).hidden = tab !== name;
     $('tab-' + tab).setAttribute('aria-selected', String(tab === name)); $('tab-' + tab).tabIndex = tab === name ? 0 : -1;
   }
@@ -140,6 +152,7 @@ document.querySelectorAll('[data-tab]').forEach(button => button.addEventListene
 document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
   if (S.active) return;
   S.mode = button.dataset.mode;
+  if (S.mode === 'others' && S.tab === 'clock') switchTab('photos');
   try { localStorage.setItem(MODE_KEY, S.mode); } catch {}
   status('idle', S.mode === 'pc' ? tr('PC mode') : tr('OTHERS mode'),
     S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') : tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-2.'));
@@ -147,8 +160,10 @@ document.querySelectorAll('[data-mode]').forEach(button => button.addEventListen
 }));
 document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventListener('keydown', event => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-  event.preventDefault(); const next = button.id === 'tab-photos' ? 'connection' : 'photos';
-  const name = event.key === 'Home' ? 'photos' : event.key === 'End' ? 'connection' : next;
+  event.preventDefault();
+  const tabs = ['photos', ...(S.mode === 'pc' ? ['clock'] : []), 'connection'];
+  const index = tabs.indexOf(button.dataset.tab), direction = event.key === 'ArrowLeft' ? -1 : 1;
+  const name = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1) : tabs[(index + direction + tabs.length) % tabs.length];
   switchTab(name); $('tab-' + name).focus();
 }));
 
@@ -182,10 +197,10 @@ $('disconnect').addEventListener('click', () => simple(async () => {
 
 function renderTransfer() {
   const pending = S.pending; if (!pending) return;
-  const others = pending.mode === 'others';
-  $('transfer-title').textContent = others ? tr('Receive photo from watch') : pending.mode === 'all' ? tr('Read all photos') : pending.mode === 'probe' ? tr('Find watch') : tr('Read current photo');
+  const others = pending.mode === 'others', settingClock = pending.mode === 'set-clock';
+  $('transfer-title').textContent = settingClock ? tr('Set date and time') : pending.clockRead ? tr('Read watch time') : others ? tr('Receive photo from watch') : pending.mode === 'all' ? tr('Read all photos') : pending.mode === 'probe' ? tr('Find watch') : tr('Read current photo');
   $('transfer-watch-path').textContent = others ? 'IR → OTHERS → SEND' : 'IR → PC → F';
-  $('transfer-start').textContent = others ? tr('Start receiving') : tr('Start reading');
+  $('transfer-start').textContent = settingClock ? tr('Set on watch') : others ? tr('Start receiving') : tr('Start reading');
   $('transfer-instructions').textContent = others ? pending.state === 'running' ?
     tr('Press the front F button on WQV-2 now to send the selected photo. Keep the watch facing the adapter.') :
     tr('From COM, select OTHERS and press F. With SEND selected, press F again to open the photos. Choose a photo and wait before the final F press.') : pending.state === 'running' ?
@@ -197,15 +212,22 @@ function renderTransfer() {
   $('transfer-progress').hidden = pending.state !== 'running';
   if (pending.ratio == null) $('transfer-progress').removeAttribute('value'); else $('transfer-progress').value = pending.ratio;
 }
-async function read(mode) {
+async function read(mode, { clockValue, clockRead = false } = {}) {
   if (S.active || !S.adapter?.opened) return;
   if ((mode === 'others') !== (S.mode === 'others')) return;
+  if (mode === 'set-clock') {
+    try { wqv12ClockPayload(clockValue); }
+    catch (error) { status('error', tr('Invalid date or time'), error.message); render(); return; }
+  }
   const adapter = S.adapter, controller = new AbortController(); S.active = controller; S.latest = null;
-  capture(mode); S.pending = { mode, state: 'preparing', heading: tr('Preparing USB'), detail: '', ratio: null };
+  capture(mode);
+  if (mode === 'set-clock') record('wqv12-clock-selected', { requested: clockValue, sent: false });
+  S.pending = { mode, clockValue, clockRead, state: 'preparing', heading: tr('Preparing USB'), detail: '', ratio: null };
   $('transfer-dialog').showModal(); render();
   try {
     S.capture.settings = await adapter.prepareWQV2(controller.signal, { mode: mode === 'others' ? 'others' : 'pc' }); controller.signal.throwIfAborted();
-    S.pending.state = 'ready'; S.pending.heading = tr('USB ready'); S.pending.detail = mode === 'others' ?
+    S.pending.state = 'ready'; S.pending.heading = tr('USB ready'); S.pending.detail = mode === 'set-clock' ?
+      tr('Set to {0}. Seconds will stay unchanged.', new Date(clockValue).toLocaleString(locale(), { dateStyle: 'medium', timeStyle: 'short' })) : mode === 'others' ?
       tr('Start receiving here before pressing F to send the photo.') : tr('Start here before activating PC mode on the watch.'); render();
     await new Promise((resolve, reject) => {
       const cancel = () => reject(controller.signal.reason);
@@ -227,15 +249,25 @@ async function read(mode) {
       },
       onImage: async image => addImage(await wqv2Image(image.bytes)),
     });
-    S.client = client; const result = await client.run({ mode }); S.latest = result; S.capture.result = result;
-    if (controller.signal.aborted) status('idle', tr('Operation cancelled'), tr('Photos already received have been saved. Reconnect USB to continue.'));
+    S.client = client; const result = await client.run({ mode, clockValue }); S.latest = result; S.capture.result = result;
+    if (mode === 'set-clock' && result.clockUpdate) {
+      const outcome = result.clockUpdate.outcome;
+      status(result.complete ? 'success' : 'error', outcome === 'accepted' ?
+        result.complete ? tr('Date and time updated') : tr('Clock updated; connection did not finish') :
+        outcome === 'rejected' ? tr('Clock update rejected') : tr('Clock update not confirmed'),
+        outcome === 'accepted' ? tr('Seconds were kept unchanged. Read the watch time again to check it.') : outcome === 'rejected' ?
+          tr('The watch rejected the requested date and time.') :
+          tr('The watch may have applied the date and time. Read its time before trying again.'));
+      if (!result.complete) await adapter.close();
+    }
+    else if (controller.signal.aborted) status('idle', tr('Operation cancelled'), mode === 'set-clock' ? '' : tr('Photos already received have been saved. Reconnect USB to continue.'));
     else if (!result.complete) {
       status('error', result.imageCount ? tr('Photos saved; connection did not finish') : tr('Operation did not finish'), result.error?.message || '');
       await adapter.close();
-    } else if (mode === 'probe') status('success', tr('WQV-2 replied'), tr('The watch connection opened and closed normally.'));
+    } else if (mode === 'probe') status('success', clockRead ? tr('Watch time read') : tr('WQV-2 replied'), tr('The watch connection opened and closed normally.'));
     else status('success', tr('Received: {0}', quantity(result.imageCount, 'photos')), tr('Original BIN files and PNG images are saved in this browser.'));
   } catch (error) {
-    if (controller.signal.aborted) status('idle', tr('Operation cancelled'), tr('Photos already received have been saved. Reconnect USB to continue.'));
+    if (controller.signal.aborted) status('idle', tr('Operation cancelled'), mode === 'set-clock' ? '' : tr('Photos already received have been saved. Reconnect USB to continue.'));
     else { log('error', error.message); status('error', tr('Operation did not finish'), error.message); }
     try { await adapter.close(); } catch {}
   } finally {
@@ -257,6 +289,14 @@ $('download-current').addEventListener('click', () => read('current'));
 $('download-all').addEventListener('click', () => read('all'));
 $('find-watch').addEventListener('click', () => read('probe'));
 $('receive-photo').addEventListener('click', () => read('others'));
+$('read-clock').addEventListener('click', () => read('probe', { clockRead: true }));
+$('set-clock').addEventListener('click', () => read('set-clock', { clockValue: $('clock-date').value + 'T' + $('clock-time').value }));
+function fillClock() {
+  const date = new Date(), two = value => String(value).padStart(2, '0');
+  $('clock-date').value = date.getFullYear() + '-' + two(date.getMonth() + 1) + '-' + two(date.getDate());
+  $('clock-time').value = two(date.getHours()) + ':' + two(date.getMinutes());
+}
+$('fill-clock').addEventListener('click', fillClock); fillClock();
 
 function download(data, name, type = 'application/octet-stream') {
   const blob = data instanceof Blob ? data : new Blob([data], { type });
@@ -320,7 +360,8 @@ function applyLanguage() {
 }
 installDesktopShell({ help: () => messageDialog('WQV-2 · WQV Link',
   [tr('Connect a SigmaTel STIr4200 or KingSun KS-959, then choose Current photo or All photos. Start reading on the computer before activating IR → PC and pressing F on WQV-2.\n\nPhotos are stored in this browser’s WQV-2 album. Save PNG images or original BIN records, open BIN backups, or export the album as a ZIP.\n\nKS-959 uses the local USB helper. SigmaTel connects directly through WebUSB.'),
-    tr('In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.')].join('\n\n')), changed: applyLanguage });
+    tr('In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.'),
+    tr('In PC mode, the Clock tab reads the watch time and sets the date, hours and minutes. Setting keeps the watch seconds unchanged. Start on the computer before activating PC mode on WQV-2.')].join('\n\n')), changed: applyLanguage });
 if (!supported) $('compatibility').hidden = false;
 if (navigator.usb) navigator.usb.addEventListener('disconnect', event => {
   if (event.device !== S.device) return;

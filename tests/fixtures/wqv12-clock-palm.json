@@ -1,0 +1,121 @@
+{
+  "source": "Casio WQV Link for Palm OS 1.1, WQV-1/2 edition",
+  "sourceURL": "https://web.archive.org/web/20060627195345id_/http://ftp.casio.co.jp/pub/wat/download/en/wqv/1-2/wqvlinkpalm11.zip",
+  "programSHA256": "2bee7758b7b3feaf170c16984bd7aa8e3cfce733f07f644178ed55ffed385f90",
+  "codeSHA256": "7bef8ef76a2e713ac6debbb20b313b848af0adbb6e3539f206bc9a3e1a57c57c",
+  "method": "Original 68k builder, data-link encoder and reply handler in Unicorn; memory APIs, timer, logs and serial write stubbed. No hardware.",
+  "addresses": {
+    "clockBuilder": "00b502",
+    "dataRequest": "00879a",
+    "nrmSender": "009c6c",
+    "informationFrame": "00dfa0",
+    "frameEncoder": "00e36e",
+    "serialWrite": "00c758"
+  },
+  "cases": [
+    {
+      "dateTime": "2000-01-01T00:00",
+      "secondsInput": 0,
+      "weekday": 6,
+      "payloadHex": "0d000101000006",
+      "wireHex": "c002100d0001010000060027c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2000-01-01T00:00",
+      "secondsInput": 59,
+      "weekday": 6,
+      "payloadHex": "0d000101000006",
+      "wireHex": "c002100d0001010000060027c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2024-02-29T23:59",
+      "secondsInput": 0,
+      "weekday": 4,
+      "payloadHex": "0d18021d173b04",
+      "wireHex": "c002100d18021d173b0400acc1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2024-02-29T23:59",
+      "secondsInput": 59,
+      "weekday": 4,
+      "payloadHex": "0d18021d173b04",
+      "wireHex": "c002100d18021d173b0400acc1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2026-10-30T12:34",
+      "secondsInput": 0,
+      "weekday": 5,
+      "payloadHex": "0d1a0a1e0c2205",
+      "wireHex": "c002100d1a0a1e0c22050094c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2026-10-30T12:34",
+      "secondsInput": 59,
+      "weekday": 5,
+      "payloadHex": "0d1a0a1e0c2205",
+      "wireHex": "c002100d1a0a1e0c22050094c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2039-12-31T23:59",
+      "secondsInput": 0,
+      "weekday": 6,
+      "payloadHex": "0d270c1f173b06",
+      "wireHex": "c002100d270c1f173b0600c9c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    },
+    {
+      "dateTime": "2039-12-31T23:59",
+      "secondsInput": 59,
+      "weekday": 6,
+      "payloadHex": "0d270c1f173b06",
+      "wireHex": "c002100d270c1f173b0600c9c1",
+      "acknowledgement": {
+        "applicationReplyHex": "06",
+        "completionPayloadHex": "0800",
+        "completionWireHex": "c002320800003cc1",
+        "nextApplicationState": 5
+      }
+    }
+  ]
+}

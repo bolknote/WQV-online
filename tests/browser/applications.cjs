@@ -33,7 +33,7 @@ function mockUSB(kind) {
     if(check!==((body.at(-2)<<8)|body.at(-1)))throw Error('Outgoing SUM16 mismatch');
     return {address:body[0],control:body[1],data:Uint8Array.from(body.slice(2,-2))};
   }
-  const state={kind,records,tx:[],registerWrites:[],closed:0,queue:[],stage:'idle',phase:137,index:0,dump:null,mode:'pc',lastHost:null,lastReply:null};
+  const state={kind,records,tx:[],registerWrites:[],closed:0,queue:[],stage:'idle',phase:137,index:0,dump:null,mode:'pc',lastHost:null,lastReply:null,clockWrites:[]};
   const reply=(address,control,data)=>{const wire=encode(address,control,data);state.queue.push(wire);state.lastReply=wire;};
   function nextOther() {
     if(state.index*128>=records[2].length){state.stage='other-finish';reply(96,49);return;}
@@ -65,6 +65,9 @@ function mockUSB(kind) {
     if(address===255&&control===147){reply(2,99);state.stage='connect';return;}
     if(control===83){reply(2,99);state.stage='closed';return;}
     if(state.stage==='connect'&&control===17){reply(2,1);state.stage='connected';return;}
+    if(control===16&&data[0]===13){state.clockWrites.push([...data]);reply(2,33);state.stage='clock-header';return;}
+    if(state.stage==='clock-header'&&control===17){if(!state.dropClockReply){reply(2,32,Uint8Array.from([6]));state.stage='clock-accepted';}return;}
+    if(state.stage==='clock-accepted'&&control===50){if(data.length!==2||data[0]!==8||data[1]!==0)throw Error('Expected original clock completion 08 00');reply(2,65);state.stage='connected';return;}
     if(control===16){state.dump=data[0]===0?records[0]:concat(records[0],records[1]);state.count=data[0]===0?1:2;reply(2,33);state.stage='header';return;}
     if(state.stage==='header'&&control===17){reply(2,32,Uint8Array.from([7,250,28,61,state.count]));return;}
     if(state.stage==='header'&&control===50){state.stage='photos';state.index=0;reply(2,65);return;}
@@ -115,7 +118,9 @@ function mockUSB(kind) {
   }
 }
 
-(async()=>{
+module.exports={mockUSB,syntheticRecord};
+
+if(require.main===module)(async()=>{
   await fs.mkdir(output,{recursive:true});
   const browser=await chromium.launch({headless:true});const errors=[],checks=[];
   try{

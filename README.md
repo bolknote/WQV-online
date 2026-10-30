@@ -76,6 +76,16 @@ Open **WQV-2** from Programs, then click **Connect USB…**. Choose **PC** or
 **Find watch** opens and closes a connection without downloading photos. The
 Connection tab also shows the time returned in the watch's greeting.
 
+The **Clock** tab has **Read watch time** and date/time setting. Choose the
+date, hours and minutes, or click **Use computer time**, then **Set**. Wait
+for USB preparation and click **Set on watch** before activating IR → PC on
+the watch. WQV-2 keeps its seconds unchanged. Reading time uses a separate
+connection and does not change the watch.
+
+The clock request and its completion were checked against Casio's original
+Palm program, with browser tests for both adapters. A physical WQV-2 check
+of clock setting is still pending.
+
 ### OTHERS: receive one photo
 
 1. Choose **OTHERS**, click **Receive photo…**, and wait for **USB ready**.
@@ -97,8 +107,10 @@ greetings. See the [WQV-2 protocol notes](docs/wqv12-pc-investigation.md).
 Photos are 120 × 120 with 16 shades of gray. Save a PNG for viewing or the
 original 7229-byte BIN record for a backup. **Open backup…** imports these BIN
 records; **Collection ZIP…** saves the album with both formats and metadata.
-Local deletion leaves the copy on the watch alone. WQV-2 uploads, clock setting
-and calendar editing are not implemented.
+Local deletion leaves the copy on the watch alone. Photo uploads, remote
+photo browsing and editing are not yet implemented for WQV-2. See the
+[feature comparison](docs/wqv2-features.md) for the remaining original functions
+and the recovered clock packets.
 
 ## WQV-3
 
