@@ -401,7 +401,7 @@ export class WQVClient {
   async control(command) {
     if (!this.connected) await this.openPrimary();
     if (!this.isPrimary) throw new LocalizedError(tr("Start a new watch session to use remote controls."));
-    if (!command.length || ![2, 3, 4, 5, 6, 7, 8, 9].includes(command[0])) throw new LocalizedError(tr("Unknown remote control command."));
+    if (!command.length || ![2, 3, 4, 5, 6, 7, 8, 9, 0x0c].includes(command[0])) throw new LocalizedError(tr("Unknown remote control command."));
     if (this.appBuffer.length) throw new LocalizedError(tr("Data remains from the previous reply. Reconnect to the watch."));
     for (let pos = 0; pos < command.length; pos += 380) {
       await this.primarySend(command.slice(pos, pos + 380));
@@ -419,14 +419,27 @@ export class WQVClient {
     if (reply[0] !== 0x0d) throw new LocalizedError(tr("The watch did not acknowledge the command: {0}.", hex(reply)));
     return reply;
   }
+  async quitRemote() {
+    // WQV Color 2.2: PCRemote_QuitRemoteMode sends 0C and waits for 0D.
+    // Ordinary link closure does not request a change of watch mode.
+    await this.control(b(0x0c));
+    await this.disconnect();
+  }
+  async stepPhotos(direction, count = 1) {
+    if (!['forward', 'back'].includes(direction)) throw new LocalizedError(tr("Invalid browsing direction."));
+    if (!Number.isInteger(count) || count < 1 || count > 5) throw new RangeError('Expected 1–5 photo steps.');
+    for (let step = 0; step < count; step++) await this.control(b(direction === 'forward' ? 2 : 3));
+  }
   async fastScroll(direction, { duration = 1000, stop = () => false } = {}) {
     if (!['forward', 'back'].includes(direction)) throw new LocalizedError(tr("Invalid browsing direction."));
+    if (stop()) return false;
     await this.control(b(direction === 'forward' ? 4 : 5));
-    const deadline = performance.now() + Math.min(3000, Math.max(100, duration));
+    const deadline = performance.now() + Math.min(30000, Math.max(100, duration));
     try {
       while (performance.now() < deadline && !stop()) { await this.primaryExchange(); await sleep(20); }
     } finally {
       if (this.connected && this.adapter.opened) await this.control(b(6));
     }
+    return true;
   }
 }

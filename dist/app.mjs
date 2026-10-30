@@ -5,8 +5,10 @@ import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
-import { b, equal, sha256, makeUPF, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
+import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
+import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
+import { bindRemoteBrowse } from './remote-browse.mjs';
 import { collectionFiles, safePhotoName } from './album.mjs';
 import { zipFiles } from './zip.mjs';
 import { sleep } from './irda.mjs';
@@ -18,7 +20,7 @@ const S = {
   device: null, adapter: null, lastAdapter: null, client: null, active: null, maintenance: null, idleTimer: null,
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
-  operationResult: null, storageFailed: false,
+  operationResult: null, storageFailed: false, detailsImage: null,
   mode: readWatchMode(), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
@@ -72,6 +74,9 @@ function update() {
   $('transfer-protocol').textContent = S.mode === 'pc' ? 'PC' : 'OTHERS / IrTran-P';
   for (const id of ['import-images', 'rotate-image', 'delete-local-image']) $(id).disabled = busy || (id !== 'import-images' && !selected());
   $('upload-image').disabled = !connected || busy || !selected() || Boolean(selected()?.jpegError);
+  $('upload-name').disabled = busy;
+  $('upload-edit-details').disabled = busy || !selected() || Boolean(selected()?.jpegError);
+  for (const id of ['upload-caption', 'upload-date']) $(id).disabled = $('upload-edit-details').disabled || !$('upload-edit-details').checked;
   $('save-image').disabled = !selected();
   $('export-all').disabled = !S.images.length;
   $('remote-stop').disabled = !connected || (busy && !S.fast);
@@ -253,6 +258,7 @@ $('disconnect').addEventListener('click', () => run(async () => {
   result('idle', tr("USB connection closed"), tr("Your collection stays in this browser.")); log('info', tr("USB connection closed."));
 }, { keep: false }));
 $('stop').addEventListener('click', async () => {
+  if (S.fast) { S.stopFast = true; return; }
   S.active?.abort(); clearTimeout(S.idleTimer);
   if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('error', error); } }
 });
@@ -260,6 +266,12 @@ $('find-watch').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal);
   result('success', tr("Casio WQV-{0} connected", client.model), tr("Browse photos, set the clock, edit the calendar or transfer images."));
 }));
+$('quit-remote').addEventListener('click', () => run(async signal => {
+  const client = await ensureClient(signal);
+  await client.quitRemote();
+  record('quitRemote', { acknowledged: true, disconnected: client.disconnectConfirmed });
+  result('success', tr('REMOTE exit acknowledged'), tr('Select IR → PC on the watch to connect again.'));
+}, { keep: false }));
 $('test-usb').addEventListener('click', () => run(async signal => {
   await closeClient(); result('working', tr("Testing USB reception"), tr("Two cycles of stopping and restarting the reader."));
   await S.adapter.testTurnaround(signal); record('turnaround', { passed: true }); result('success', tr("USB communication is working"), tr("Both cycles finished; the adapter is responding."));
@@ -308,7 +320,22 @@ function renderGallery() {
     $('selected-file').textContent = ''; $('selected-file').hidden = true; $('selected-name').removeAttribute('title');
     $('upload-ready').textContent = tr("Choose a photo in the collection or import an image.");
   }
+  if (S.detailsImage !== (image?.id ?? null)) {
+    S.detailsImage = image?.id ?? null;
+    const details = image ? watchPhotoDetails(image.jpeg) : {};
+    $('upload-edit-details').checked = false;
+    $('upload-caption').value = details.caption || '';
+    $('upload-date').value = details.recordedAt || localDateTime();
+  }
   update();
+}
+$('upload-edit-details').addEventListener('change', update);
+function uploadInput() {
+  const image = selected(), filename = $('upload-name').value.trim().toUpperCase();
+  if (!image || image.jpegError) throw new LocalizedError(tr('Choose a photo in the collection.'));
+  if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr('Use 8 ASCII characters and .UPF, for example MC000001.UPF.'));
+  const details = $('upload-edit-details').checked ? { caption: $('upload-caption').value, recordedAt: $('upload-date').value } : null;
+  return { image, filename, upf: photoUpload(image, details), details };
 }
 $('delete-local-image').addEventListener('click', async () => {
   const image = selected(); if (!image || S.active) return;
@@ -393,14 +420,11 @@ function finishOthers(summary) {
     default: result('idle', tr('No photo received'), tr('Restart the watch mode, then start another transfer.'));
   }
 }
-async function openOthersTransfer(direction) {
+async function openOthersTransfer(direction, input = null) {
   if (S.active || S.transfer || S.mode !== 'others' || !S.adapter?.opened) return;
-  const image = direction === 'send' ? selected() : null;
+  const image = direction === 'send' ? input?.image : null;
   if (direction === 'send' && (!image || image.jpegError)) return;
-  const filename = $('upload-name').value.trim().toUpperCase();
-  if (direction === 'send' && !/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) {
-    await showDialog(tr('Filename'), tr('Use 8 ASCII characters and .UPF, for example MC000001.UPF.')); return;
-  }
+  const filename = input?.filename;
   const transfer = { direction, image, state: 'preparing', phase: 'discovery', linked: false, baud: null, resolve: null };
   S.transfer = transfer; closeMenus(); renderTransfer(); $('transfer-dialog').showModal();
   try {
@@ -418,7 +442,7 @@ async function openOthersTransfer(direction) {
       if (!await start) { result('idle', tr('Ready'), tr('No photo was sent.')); return; }
       signal.throwIfAborted(); transfer.state = 'running'; renderTransfer(); $('transfer-cancel').focus();
       const summary = await transferOthers(S.adapter, { direction, signal,
-        file: image ? { filename, bytes: image.previewJPEG ? makeUPF(image.previewJPEG) : image.upf } : undefined,
+        file: image ? { filename, bytes: input.upf } : undefined,
         onFile: async file => addImage(await othersImage(file)), record: recordTransfer,
         progress: phase => {
           transfer.phase = phase; renderTransfer();
@@ -503,25 +527,38 @@ async function exportCollection() {
   }
 }
 $('export-all').addEventListener('click', exportCollection); $('menu-export').addEventListener('click', exportCollection);
-$('upload-image').addEventListener('click', () => S.mode === 'others' ? openOthersTransfer('send') : run(async signal => {
-  const image = selected(), filename = $('upload-name').value.trim().toUpperCase();
-  if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr("Use 8 ASCII characters and .UPF, for example MC000001.UPF."));
-  const client = await ensureClient(signal), upf = image.previewJPEG ? makeUPF(image.previewJPEG) : image.upf;
-  const accepted = await client.upload(upf, filename);
-  record('upload', { passed: true, filename: accepted, sha256: image.jpegSHA256 || image.id });
-  log('ok', tr("Sent photo {0} to the watch", accepted));
-  result('success', tr("Photo saved on the watch"), accepted);
-}, { keep: false }));
+$('upload-image').addEventListener('click', async () => {
+  if (S.active) return;
+  let input;
+  try { input = uploadInput(); }
+  catch (error) { await showDialog(tr('Send to WQV-3'), formatText(error)); return; }
+  if (S.mode === 'others') return openOthersTransfer('send', input);
+  return run(async signal => {
+    const client = await ensureClient(signal), accepted = await client.upload(input.upf, input.filename);
+    record('upload', { acknowledged: true, filename: accepted, sha256: await sha256(jpegFromUPF(input.upf)), details: input.details });
+    log('ok', tr("Sent photo {0} to the watch", accepted));
+    result('success', tr('Photo sent'), tr('The watch acknowledged {0}.', accepted));
+  }, { keep: false });
+});
 for (const [id, command] of [['remote-back', 3], ['remote-forward', 2]]) $(id).addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal); await client.control(b(command));
   record('navigation', { passed: true, command }); result('success', tr("Watch display changed"), command === 2 ? tr("Next photo.") : tr("Previous photo."));
 }));
-for (const [id, direction] of [['remote-fast-back', 'back'], ['remote-fast-forward', 'forward']]) $(id).addEventListener('click', () => run(async signal => {
-  const client = await ensureClient(signal); S.fast = true; S.stopFast = false; update();
-  result('working', tr("Fast browsing"), tr("Browsing will stop automatically after one second."));
-  await client.fastScroll(direction, { duration: 1000, stop: () => S.stopFast });
-  record('fastScroll', { passed: true, direction }); result('success', tr("Browsing stopped"), tr("The watch acknowledged the stop command."));
-}));
+for (const [id, direction] of [['remote-fast-back', 'back'], ['remote-fast-forward', 'forward']]) bindRemoteBrowse($(id), {
+  step: () => run(async signal => {
+    const client = await ensureClient(signal); await client.stepPhotos(direction, 5);
+    record('navigation', { acknowledged: true, direction, steps: 5 });
+    result('success', tr('Watch display changed'), tr('Five photo steps acknowledged.'));
+  }),
+  hold: released => run(async signal => {
+    S.fast = true; S.stopFast = false; update();
+    result('working', tr('Fast browsing'), tr('Release to stop browsing.'));
+    const client = await ensureClient(signal);
+    const browsed = await client.fastScroll(direction, { duration: 30000, stop: () => released() || S.stopFast });
+    record('fastScroll', { acknowledged: browsed, direction });
+    result('success', tr('Browsing stopped'));
+  }),
+});
 $('remote-stop').addEventListener('click', () => {
   if (S.fast) { S.stopFast = true; return; }
   run(async signal => { const client = await ensureClient(signal); await client.control(b(6)); result('success', tr("Browsing stopped")); });

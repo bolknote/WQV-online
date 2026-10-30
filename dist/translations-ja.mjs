@@ -611,5 +611,21 @@ export const japanese = {
   "Could not open the manual.": "取扱説明書を開けませんでした。",
   "{0} — User’s Guide": "{0} — 取扱説明書",
   "{0} pages": "{0}ページ",
-  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "プログラム画面から取扱説明書を開いてください。オプションで選んだ表示言語に合わせて表示します。本文はウィンドウの幅に合わせて折り返し、図は原本PDFから表示します。"
+  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "プログラム画面から取扱説明書を開いてください。オプションで選んだ表示言語に合わせて表示します。本文はウィンドウの幅に合わせて折り返し、図は原本PDFから表示します。",
+  "Use up to 24 ASCII characters for the caption.": "キャプションは半角英数字・記号で24文字以内にしてください。",
+  "Photo details": "写真の情報",
+  "Change details in sent copy": "送信するコピーの情報を変更",
+  "Caption": "キャプション",
+  "Up to 24 English letters, numbers and symbols.": "半角英数字・記号で24文字まで。",
+  "Recorded": "撮影日時",
+  "Sends a new photo with these details. The local original is kept.": "この情報で新しい写真を時計に追加します。アルバムの原本はそのまま残ります。",
+  "Exit REMOTE": "REMOTEを終了",
+  "REMOTE exit acknowledged": "REMOTEの終了が確認されました",
+  "Select IR → PC on the watch to connect again.": "再接続するには、時計でIR → PCを選んでください。",
+  "Five photos backward; hold to browse": "5枚戻る・長押しで連続切り替え",
+  "Five photos forward; hold to browse": "5枚進む・長押しで連続切り替え",
+  "The arrows control the watch display. Tap a double arrow for five photos; hold to browse.": "矢印で時計の表示を操作します。二重矢印を押すと5枚ずつ移動し、長押しすると連続で切り替わります。",
+  "Five photo steps acknowledged.": "5枚分の切り替えが確認されました。",
+  "Release to stop browsing.": "ボタンを離すと停止します。",
+  "Choose a photo in the collection.": "アルバムから写真を選んでください。"
 };

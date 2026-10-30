@@ -616,5 +616,21 @@ export const russian = {
   "Could not open the manual.": "Не удалось открыть руководство.",
   "{0} — User’s Guide": "{0} — Руководство",
   "{0} pages": "Страниц: {0}",
-  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "Открой руководство на экране программ. Язык выбирается в параметрах интерфейса. Текст переносится по ширине окна, иллюстрации взяты из исходного PDF."
+  "Open a manual from Programs. It follows the display language chosen in Options. Text wraps to the window; illustrations come from the original PDF.": "Открой руководство на экране программ. Язык выбирается в параметрах интерфейса. Текст переносится по ширине окна, иллюстрации взяты из исходного PDF.",
+  "Use up to 24 ASCII characters for the caption.": "Подпись: до 24 латинских букв, цифр и символов ASCII.",
+  "Photo details": "Данные снимка",
+  "Change details in sent copy": "Изменить данные отправляемой копии",
+  "Caption": "Подпись",
+  "Up to 24 English letters, numbers and symbols.": "До 24 латинских букв, цифр и символов.",
+  "Recorded": "Дата съёмки",
+  "Sends a new photo with these details. The local original is kept.": "На часы добавится новый снимок с этими данными. Исходник в альбоме сохранится.",
+  "Exit REMOTE": "Выйти из REMOTE",
+  "REMOTE exit acknowledged": "Выход из REMOTE подтверждён",
+  "Select IR → PC on the watch to connect again.": "Для нового подключения выбери IR → ПК на часах.",
+  "Five photos backward; hold to browse": "Назад на пять снимков; удерживай для прокрутки",
+  "Five photos forward; hold to browse": "Вперёд на пять снимков; удерживай для прокрутки",
+  "The arrows control the watch display. Tap a double arrow for five photos; hold to browse.": "Стрелки управляют экраном часов. Двойная стрелка — пять снимков; удержание — прокрутка.",
+  "Five photo steps acknowledged.": "Перелистывание на пять снимков подтверждено.",
+  "Release to stop browsing.": "Отпусти кнопку, чтобы остановить прокрутку.",
+  "Choose a photo in the collection.": "Выбери снимок в коллекции."
 };

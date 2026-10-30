@@ -1,0 +1,30 @@
+{
+  "source": "Casio WQV Color for Palm OS 2.2",
+  "sourceURL": "https://web.archive.org/web/20060627113204id_/http://ftp.casio.co.jp/pub/wat/download/en/wqv/3/WQVColor22.zip",
+  "programSHA256": "670d7a00eecb5df732825d2452b59cf834f3bda827c87c694ab9210c48e43e50",
+  "codeSHA256": "3ff882cf121de77e9cd24c075b0bf5bd53b644bdff45442b2ec164df9ede7121",
+  "method": "Original 68000 instructions 005e84..005ee0 executed in Unicorn. Palm DateTimeType and title supplied in memory; no OS stubs or hardware.",
+  "marker": "ffe2001f",
+  "cases": [
+    {
+      "caption": "",
+      "recordedAt": "2000-01-01T00:00",
+      "app2DataHex": "ffffffffffffffffffffffffffffffffffffffffffffffff0001010000"
+    },
+    {
+      "caption": "CASIO WQV",
+      "recordedAt": "2024-02-29T23:59",
+      "app2DataHex": "434153494f20575156ffffffffffffffffffffffffffffff18021d173b"
+    },
+    {
+      "caption": "*  A   AAAB",
+      "recordedAt": "2026-10-30T12:34",
+      "app2DataHex": "2a20204120202041414142ffffffffffffffffffffffffff1a0a1e0c22"
+    },
+    {
+      "caption": "ABCDEFGHIJKLMNOPQRSTUVWX",
+      "recordedAt": "2039-12-31T23:59",
+      "app2DataHex": "4142434445464748494a4b4c4d4e4f505152535455565758270c1f173b"
+    }
+  ]
+}

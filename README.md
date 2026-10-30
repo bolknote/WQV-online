@@ -134,6 +134,11 @@ mode you last used.
 If the watch leaves transfer mode, enter IR → PC again. Another application
 using the adapter must release it before the browser can connect.
 
+The single arrows move one photo on the watch. Tap a double arrow to move
+five photos, or hold it for continuous browsing; release to stop. **Connection
+→ Exit REMOTE** sends Casio's quit command and closes the watch connection.
+Enter IR → PC again for the next session.
+
 ### OTHERS
 
 Connect USB before starting transfer on the watch.
@@ -154,6 +159,12 @@ Each transfer closes its connection. Start another transfer for the next photo.
 The sender uses the watch's SCEP packet limit (2048 bytes on the tested WQV-3)
 and retries lost IrLAP frames without starting another upload. Clock, calendar
 and remote photo-browsing commands are available in PC mode.
+
+In either mode, **Send to WQV-3 → Photo details** lets you set the caption
+and recording date for the sent copy. Check **Change details in sent copy**,
+enter up to 24 ASCII characters and a date between 2000 and 2039, then send.
+This adds a new photo on the watch. It keeps the original in the browser and
+changes the JPEG metadata without recompressing its image.
 
 Discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
 fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
@@ -177,6 +188,9 @@ the shared protocol code but have not all had hardware checks.
 Photo downloads, uploads and calendar reading have been checked on a real WQV-3.
 Clock setting and calendar writing are implemented and have packet tests, but
 have not yet been checked on the watch.
+The REMOTE exit command and edited photo metadata were checked against the
+original Palm client, with protocol and browser tests; their hardware checks
+are still pending. See the [WQV-3 protocol comparison](docs/wqv3-features.md).
 
 Some JPEGs returned by the watch lose their restart interval marker. The app
 repairs these for viewing and export without recompressing the image, while
@@ -304,12 +318,14 @@ server running on its default port:
 ```sh
 node tests/browser/applications.cjs
 node tests/browser/others.cjs
+node tests/browser/wqv3-controls.cjs
 ```
 
 The first checks Programs, both albums, backup import and export, language
 settings, cancellation and WQV-2 exchanges with simulated SigmaTel and KS-959
-devices. The second replays captured WQV-3 OTHERS exchanges. Both use isolated
-browsers and never open a real adapter. Screenshots go to a temporary folder.
+devices. The second replays captured WQV-3 OTHERS exchanges. The third checks
+photo metadata, remote controls and REMOTE exit in English, Russian and Japanese.
+These use isolated browsers and never open a real adapter. Screenshots go to a temporary folder.
 Set `WQV_APP_URL` to use a different local server address.
 
 There is also an independent JPEG pixel check, using Python and Pillow:

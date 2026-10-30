@@ -1,25 +1,12 @@
 import { tr, LocalizedError } from './i18n.mjs';
 import { LIMIT, checkWatchJPEG, makeUPF, jpegFromUPF, loadArchive, sha256, packSCEP, putCommand, toHex } from './formats.mjs';
 import { normalizeWatchJPEG } from './jpeg.mjs';
+import { watchPhotoDetails } from './wqv3-photo-details.mjs';
 
 // WQV-3 exports its 24-byte caption followed by five date bytes in APP2.
 // Other APP2 formats (e.g. ICC profiles) are not watch captions.
 export function watchCaption(jpeg) {
-  if (jpeg[0] !== 255 || jpeg[1] !== 0xd8) return null;
-  for (let pos = 2; pos + 4 <= jpeg.length;) {
-    if (jpeg[pos] !== 255 || jpeg[pos + 1] === 0xda) break;
-    const marker = jpeg[pos + 1], size = (jpeg[pos + 2] << 8) | jpeg[pos + 3], end = pos + 2 + size;
-    if (size < 2 || end > jpeg.length) break;
-    if (marker === 0xe2 && size === 31) {
-      const bytes = jpeg.subarray(pos + 4, pos + 28);
-      let length = bytes.length;
-      while (length && [0, 32, 255].includes(bytes[length - 1])) length--;
-      const title = bytes.subarray(0, length);
-      if (length && title.every(byte => byte >= 32 && byte <= 126)) return String.fromCharCode(...title);
-    }
-    pos = end;
-  }
-  return null;
+  return watchPhotoDetails(jpeg).caption;
 }
 
 export const photoName = image => image.watchCaption || image.filename?.replace(/\.[^.]+$/, '') || image.name;

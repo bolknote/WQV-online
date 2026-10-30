@@ -31,3 +31,5 @@
 .thumbnail .photo-label{white-space:pre}.image-caption>.image-title{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.image-title strong{max-width:100%;white-space:pre}.image-title>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.image-caption>#selected-details{flex-shrink:0}
 
 html[lang=ja],html[lang=ja] dialog{font-family:"MS UI Gothic","Yu Gothic UI",Meiryo,"Hiragino Kaku Gothic ProN",sans-serif}
+
+.photo-details{margin-top:12px;border-top:1px solid #b9c1c2;padding-top:8px}.photo-details summary{cursor:pointer;color:#4a6278}.photo-details-toggle{display:flex;align-items:center;gap:7px;margin:10px 0}.photo-detail-row{display:grid;grid-template-columns:90px minmax(0,1fr);align-items:center;gap:8px;margin-top:8px}.photo-detail-row input{width:100%;min-width:0}.photo-details .small-note{margin:6px 0}input#upload-caption:disabled,input#upload-date:disabled{color:#92989d;background:#ebece7;box-shadow:none}.remote-strip button{touch-action:none;user-select:none;-webkit-user-select:none}
