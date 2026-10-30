@@ -292,6 +292,29 @@ handling of metadata. `tests/metadata-hardware-fixtures.json` retains all
 nine input/output file pairs, actual outer attributes, capture IDs and the
 source archive hash.
 
+### Caption entered on the watch, 30 October 2026
+
+A photo manually renamed to `*  A   AAAB` on WQV-3 was exported through both
+PC and OTHERS SEND. OTHERS returned `QW000000.UPF`, 3625 bytes, containing a
+3241-byte JPEG. The entire UPF is identical to the PC export, including the
+caption. Its SHA-256 is
+`2e77844174bf8ab66046363384af9591045214f26963c083f9bcf99496cd3254`.
+
+The caption occupies 24 ASCII bytes in JPEG APP2, followed by the five date
+bytes `00 01 06 12 1f`. The standard UPF Title field remains undefined
+(character set `FF`). The outer PUT has only `CMD0`, `FIL0` and `BDY0`; its
+`FIL0` is the technical filename `QW000000.UPF`.
+
+The KS-959 transfer completed at 115200 bit/s in 6.15 seconds. Independent
+decoding of the original USB input reproduces all 38 received CRC-valid
+frames and the complete PUT; there are no bad CRCs. The report is
+`WQV-Link-report-2026-10-30T16-03-33-979Z.json`. Its provenance and the shared
+PC/OTHERS payload are retained in `tests/fixtures/wqv3-album-hardware.json`.
+
+Thus OTHERS SEND does export captions entered on the watch. The earlier
+metadata-import tests above concern standard UPF and bFTP fields and remain
+valid; they did not test creating a watch caption through Casio's JPEG APP2.
+
 **Multiple files, cancellation and fast upload** has 11 manual steps: two
 different numbered files in one connection followed by separate reads of
 each; Stop during a segmented PUT; a normal write/read pair; Abort after a

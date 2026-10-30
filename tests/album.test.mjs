@@ -5,6 +5,7 @@ import { b, concat, fromHex as hx, jpegFromUPF, sha256, loadArchive, toHex } fro
 import { readableImage, newAlbumImage, imageFromFile, watchCaption, photoName, photoFilename } from '../dist/images.mjs';
 import { collectionFiles } from '../dist/album.mjs';
 import { othersImage } from '../dist/others-client.mjs';
+import { upfMetadata } from '../dist/irtranp-metadata.mjs';
 
 const capture = JSON.parse(await readFile(new URL('./fixtures/wqv3-album-hardware.json', import.meta.url)));
 const imageFile = record => new File([hx(capture.upfs[record.upfIndex])], record.filename);
@@ -30,6 +31,17 @@ test('repeated imports and OTHERS transfers keep separate identities without cha
   const others = await newAlbumImage(fromOthers);
   assert.notEqual(others.id, first.id); assert.deepEqual(others.upf, bytes);
   assert.equal(photoName(others), '*  A   AAAB');
+});
+
+test('the actual named OTHERS export carries the JPEG caption with an undefined standard UPF title', async () => {
+  const recorded = capture.othersCaptionCapture, upf = hx(capture.upfs[recorded.upfIndex]);
+  assert.equal(recorded.complete, true); assert.equal(recorded.badCRC, 0);
+  assert.equal(await sha256(upf), recorded.upfSHA256);
+  const image = await newAlbumImage(await othersImage({ filename: recorded.filename, bytes: upf }));
+  assert.deepEqual(image.upf, upf); assert.equal(image.originalJPEGsha256, recorded.jpegSHA256);
+  assert.equal(photoName(image), recorded.caption); assert.equal(photoFilename(image), recorded.filename);
+  const metadata = upfMetadata(upf);
+  assert.equal(metadata.title, null); assert.equal(metadata.titleCharset, 255);
 });
 
 test('reopening existing and legacy album records retains IDs while discovering watch captions', async () => {
