@@ -1,11 +1,14 @@
 // Run the browser checks with a temporary static server, or WQV_APP_URL.
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 const { once } = require('node:events');
 const fs = require('node:fs/promises');
 const net = require('node:net');
 const os = require('node:os');
 const path = require('node:path');
 const repo = path.resolve(__dirname, '../..');
+// Node 24 lacks this flag; newer Node releases may expose Web Storage to
+// browser-test dependencies. Probe the CLI rather than assuming a version.
+const nodeOptions = spawnSync(process.execPath, ['--no-webstorage', '--version'], { stdio: 'ignore' }).status === 0 ? ['--no-webstorage'] : [];
 
 async function unusedPort() {
   const socket = net.createServer();
@@ -16,7 +19,7 @@ async function unusedPort() {
 }
 function run(file, env) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, ['--no-webstorage', path.join(__dirname, file)], { cwd: repo, env, stdio: 'inherit' });
+    const child = spawn(process.execPath, [...nodeOptions, path.join(__dirname, file)], { cwd: repo, env, stdio: 'inherit' });
     const timer = setTimeout(() => child.kill('SIGTERM'), 180000);
     child.once('error', error => { clearTimeout(timer); reject(error); });
     child.once('exit', (code, signal) => {

@@ -34,7 +34,7 @@ jobs:
       - run: npm run test:browser
         env:
           WQV_BROWSER_ARTIFACTS: ${{ runner.temp }}/wqv-browser
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: browser-checks
