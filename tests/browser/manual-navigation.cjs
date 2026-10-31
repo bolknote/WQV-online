@@ -45,21 +45,22 @@ async function followsScroll(browser, manual) {
     await page.goto(base + 'manual.html?model=' + manual.id.split('-')[0], { waitUntil: 'networkidle' });
     await page.bringToFront();
     const selected = async (id, step) => {
-      try {
-        // Large source SVGs can delay animation frames on the software
-        // renderer in CI. Observe the menu value independently of painting.
-        await page.waitForFunction(id => document.querySelector('#document-contents').value === id, id, { timeout: 15000, polling: 100 });
-      } catch {
-        const actual = await page.evaluate(() => ({
-          selected: document.querySelector('#document-contents').value,
-          visibility: document.visibilityState,
-          viewport: { width: innerWidth, height: innerHeight },
-          frameBounds: document.querySelector('#document-frame').getBoundingClientRect().toJSON(),
-          headings: [...document.querySelector('#document-frame').contentDocument.querySelectorAll('h2[id],h3[id]')]
-            .map(node => ({ id: node.id, top: node.getBoundingClientRect().top })).filter(node => node.top > -100 && node.top < 100),
-        }));
-        throw new Error(step + ': expected ' + id + '; ' + JSON.stringify(actual));
+      // Poll from Node: the in-page waiter can stall after iframe resizing
+      // on the CI renderer even though a direct DOM read has the right value.
+      const menu = page.locator('#document-contents'), deadline = Date.now() + 15000;
+      while (Date.now() < deadline) {
+        if (await menu.inputValue() === id) return;
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
+      const actual = await page.evaluate(() => ({
+        selected: document.querySelector('#document-contents').value,
+        visibility: document.visibilityState,
+        viewport: { width: innerWidth, height: innerHeight },
+        frameBounds: document.querySelector('#document-frame').getBoundingClientRect().toJSON(),
+        headings: [...document.querySelector('#document-frame').contentDocument.querySelectorAll('h2[id],h3[id]')]
+          .map(node => ({ id: node.id, top: node.getBoundingClientRect().top })).filter(node => node.top > -100 && node.top < 100),
+      }));
+      throw new Error(step + ': expected ' + id + '; ' + JSON.stringify(actual));
     };
     const frame = page.frames().find(frame => frame.url().includes('/manuals/'));
     assert.ok(frame);
