@@ -50,6 +50,9 @@ async function followsScroll(browser, manual) {
       } catch {
         const actual = await page.evaluate(() => ({
           selected: document.querySelector('#document-contents').value,
+          visibility: document.visibilityState,
+          viewport: { width: innerWidth, height: innerHeight },
+          frameBounds: document.querySelector('#document-frame').getBoundingClientRect().toJSON(),
           headings: [...document.querySelector('#document-frame').contentDocument.querySelectorAll('h2[id],h3[id]')]
             .map(node => ({ id: node.id, top: node.getBoundingClientRect().top })).filter(node => node.top > -100 && node.top < 100),
         }));
@@ -71,6 +74,14 @@ async function followsScroll(browser, manual) {
     assert.ok(await frame.locator('#' + middle).evaluate(node => Math.abs(node.getBoundingClientRect().top) < 2));
     await page.locator('#document-size').selectOption('larger');
     await page.setViewportSize({ width: 390, height: 844 });
+    // setViewportSize resolves before the child document finishes reflowing.
+    // Keep the reader visible and let its resize/observer callbacks finish
+    // before scrolling the section in the new layout.
+    await page.locator('#document-frame').scrollIntoViewIfNeeded();
+    await frame.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
     await frame.locator('#' + middle).evaluate(node => node.scrollIntoView({ block: 'start' }));
     await selected(middle, 'scroll after text and viewport resize');
     // Reloading the language must bind the menu to the replacement document.
