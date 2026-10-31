@@ -46,7 +46,9 @@ async function followsScroll(browser, manual) {
     await page.bringToFront();
     const selected = async (id, step) => {
       try {
-        await page.waitForFunction(id => document.querySelector('#document-contents').value === id, id, { timeout: 5000 });
+        // Large source SVGs can delay animation frames on the software
+        // renderer in CI. Observe the menu value independently of painting.
+        await page.waitForFunction(id => document.querySelector('#document-contents').value === id, id, { timeout: 15000, polling: 100 });
       } catch {
         const actual = await page.evaluate(() => ({
           selected: document.querySelector('#document-contents').value,

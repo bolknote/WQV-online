@@ -31,7 +31,7 @@ function run(file, env) {
 
 (async () => {
   const available = (await fs.readdir(__dirname)).filter(file => file.endsWith('.cjs') && file !== 'run.cjs').sort();
-  const files = process.argv.length > 2 ? process.argv.slice(2) : available;
+  const files = process.argv.length > 2 ? process.argv.slice(2) : ['regressions.cjs', ...available.filter(file => file !== 'regressions.cjs')];
   for (const file of files) if (!available.includes(file)) throw new Error('Unknown browser check: ' + file);
   const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(os.tmpdir(), 'wqv-browser');
   let server, url = process.env.WQV_APP_URL;
