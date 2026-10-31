@@ -347,22 +347,20 @@ Run the tests with Node.js 24 or later:
 npm test
 ```
 
-The optional browser checks need Playwright installed separately and the local
-server running on its default port:
+For the browser checks, install the test dependency and Chromium:
 
 ```sh
-node tests/browser/applications.cjs
-node tests/browser/others.cjs
-node tests/browser/wqv3-controls.cjs
-node tests/browser/swan-watch.cjs
+npm ci
+npx playwright install chromium
+npm run test:browser
 ```
 
-The first checks Programs, both albums, backup import and export, language
-settings, cancellation and WQV-2 exchanges with simulated SigmaTel and KS-959
-devices. The second replays captured WQV-3 OTHERS exchanges. The third checks
-photo metadata, remote controls and REMOTE exit in English, Russian and Japanese.
-These use isolated browsers and never open a real adapter. Screenshots go to a temporary folder.
-Set `WQV_APP_URL` to use a different local server address.
+The runner starts and stops its own local server. The checks cover Programs,
+both albums, manuals, languages, remote controls, PC/OTHERS/SWAN transfers,
+cancellation and storage failures. They use simulated USB devices and recorded
+watch exchanges; they never open a real adapter. Screenshots go to a temporary
+folder. Set `WQV_APP_URL` to use an existing server, or choose one check with
+`npm run test:browser -- regressions.cjs`.
 
 There is also an independent JPEG pixel check, using Python and Pillow:
 
@@ -372,9 +370,9 @@ python3 -m venv .venv
 .venv/bin/python tests/verify-jpeg-pixels.py
 ```
 
-GitHub Actions runs the JavaScript tests on pushes and pull requests. A passing
-push to `main` publishes `dist/` to GitHub Pages, so the site's root opens
-Programs directly.
+GitHub Actions runs both the JavaScript and browser checks on pushes and pull
+requests. Both must pass before a push to `main` publishes `dist/` to GitHub
+Pages, so the site's root opens Programs directly.
 
 ## Credits and license
 

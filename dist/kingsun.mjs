@@ -10,7 +10,10 @@ const KEY = new TextEncoder().encode('wangshuofei19710');
 const bytes = view => new Uint8Array(view.buffer, view.byteOffset, view.byteLength).slice();
 
 export function encodeKingsun(wire) {
-  if (!(wire instanceof Uint8Array) || !wire.length || wire.length > 2048) throw new RangeError('Invalid KS-959 infrared frame size.');
+  if (!(wire instanceof Uint8Array) || !wire.length) throw new RangeError('Invalid KS-959 infrared frame size.');
+  // The 2048-byte receive request is not a TX frame limit. Escaping a
+  // 1024-byte SWAN block can exceed it; USB output is split into 240-byte
+  // fragments regardless of the total wire length.
   const fragments = [];
   for (let p = 0; p < wire.length; p += 240) {
     const clear = wire.subarray(p, p + 240), data = new Uint8Array(Math.ceil(clear.length / 8) * 8 + 16);

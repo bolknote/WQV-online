@@ -634,5 +634,7 @@ export const japanese = {
   "The arrows control the watch display. Tap a double arrow for five photos; hold to browse.": "矢印で時計の表示を操作します。二重矢印を押すと5枚ずつ移動し、長押しすると連続で切り替わります。",
   "Five photo steps acknowledged.": "5枚分の切り替えが確認されました。",
   "Release to stop browsing.": "ボタンを離すと停止します。",
-  "Choose a photo in the collection.": "アルバムから写真を選んでください。"
+  "Choose a photo in the collection.": "アルバムから写真を選んでください。",
+  "Could not save the original calendar. Nothing was written to the watch. {0}": "元のカレンダーを保存できませんでした。時計のカレンダーは変更していません。{0}",
+  "The original calendar is available in this tab only. Export the backup before closing it.": "元のカレンダーはこのタブ内にのみ保存されています。タブを閉じる前にバックアップを書き出してください。"
 };

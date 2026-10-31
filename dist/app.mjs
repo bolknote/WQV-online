@@ -19,15 +19,16 @@ import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers
 const $ = id => document.getElementById(id), store = new LocalStore();
 const emptyGallery = $('gallery').firstElementChild.cloneNode(true);
 const S = {
-  device: null, adapter: null, lastAdapter: null, client: null, active: null, maintenance: null, idleTimer: null,
+  device: null, adapter: null, lastAdapter: null, client: null, active: null, activeUSB: false,
+  maintenance: null, disconnectTask: null, idleTimer: null,
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
   operationResult: null, storageFailed: false, detailsImage: null,
   mode: readWatchMode(), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
-const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active), close: async () => {
-  clearTimeout(S.idleTimer); await S.maintenance; clearTimeout(S.idleTimer);
+const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active || S.disconnectTask), close: async () => {
+  clearTimeout(S.idleTimer); await S.disconnectTask; await S.maintenance; clearTimeout(S.idleTimer);
   try { await closeClient(); } catch (error) { log('info', error); }
   if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('info', error); } }
   S.adapter = null;
@@ -64,7 +65,7 @@ function update() {
   const info = S.device ? describeUSBDevice(S.device) : null;
   $('kingsun-help').hidden = info?.driver !== 'KingSun KS-959';
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
-  $('connect').disabled = !supported || busy || connected;
+  $('connect').disabled = !supported || busy || connected || Boolean(S.disconnectTask);
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
   document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy || (S.mode !== 'pc' && Boolean(button.closest('[data-pc-only]'))); });
   document.querySelectorAll('[data-pc-only]').forEach(element => { element.hidden = S.mode !== 'pc'; });
@@ -196,30 +197,33 @@ async function ensureClient(signal) {
   record('connection', { passed: true, model: client.model, baud: S.adapter.baud });
   return client;
 }
-async function run(task, { keep = true } = {}) {
+async function run(task, { keep = true, usesUSB = true } = {}) {
   if (S.active) return;
   clearTimeout(S.idleTimer); S.idleTimer = null;
-  const controller = new AbortController(); S.active = controller; update();
-  try { await S.maintenance; controller.signal.throwIfAborted(); await task(controller.signal); }
+  const controller = new AbortController(); S.active = controller; S.activeUSB = usesUSB; update();
+  try { await S.disconnectTask; await S.maintenance; controller.signal.throwIfAborted(); await task(controller.signal); }
   catch (error) {
     if (controller.signal.aborted || error.name === 'AbortError') {
-      log('info', tr("Operation cancelled.")); result('idle', tr("Operation cancelled"), tr("Photos already received have been saved. Reconnect USB to continue."));
+      log('info', tr("Operation cancelled.")); result('idle', tr("Operation cancelled"), usesUSB ?
+        tr("Photos already received have been saved. Reconnect USB to continue.") : tr('Photos already received have been saved.'));
     } else if (error.name === 'NotFoundError' && !S.adapter) {
       result('idle', tr("No USB device selected"), tr("Click “Connect USB…” and choose an infrared adapter."));
     } else {
       log('error', tr('{0}: {1}', error.name, error)); record('lastError', { name: error.name, message: error.message });
       result('error', tr("Operation did not finish"), error);
     }
-    try { await closeClient(); } catch (closeError) { log('error', closeError); }
-    if (S.adapter) {
-      const adapter = S.adapter; S.lastAdapter = adapter; S.adapter = null;
-      try { await adapter.close(); } catch (closeError) { log('error', closeError); }
+    if (usesUSB) {
+      try { await closeClient(); } catch (closeError) { log('error', closeError); }
+      if (S.adapter) {
+        const adapter = S.adapter; S.lastAdapter = adapter; S.adapter = null;
+        try { await adapter.close(); } catch (closeError) { log('error', closeError); }
+      }
     }
   } finally {
     if (!keep || !S.client?.connected) { try { await closeClient(); } catch (error) { log('error', error); } }
     if (S.client) S.client.signal = null;
     if (S.adapter && !S.adapter.opened) { S.lastAdapter = S.adapter; S.adapter = null; }
-    if (S.active === controller) S.active = null;
+    if (S.active === controller) { S.active = null; S.activeUSB = false; }
     S.fast = false; update(); scheduleKeepAlive();
     if ($('result-heading').closest('.operation-bar').dataset.state !== 'working') $('progress').hidden = true;
   }
@@ -266,7 +270,7 @@ $('disconnect').addEventListener('click', () => run(async () => {
 $('stop').addEventListener('click', async () => {
   if (S.fast) { S.stopFast = true; return; }
   S.active?.abort(); clearTimeout(S.idleTimer);
-  if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('error', error); } }
+  if (S.activeUSB && S.adapter) { try { await S.adapter.close(); } catch (error) { log('error', error); } }
 });
 $('find-watch').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal);
@@ -372,8 +376,12 @@ async function addImage(image) {
   if (image.jpegRepaired) log('info', tr("{0}: repaired a JPEG with a missing restart interval. Original UPF and WQV files have been kept.", image.name));
   S.images.push(image);
   S.selected = image.id;
-  try { await store.saveImage(image); } catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('error', error); }
+  await saveLocalImage(image);
   renderGallery();
+}
+function storageError(error) { S.storageFailed = true; log('error', error); }
+async function saveLocalImage(image) {
+  try { await store.saveImage(image); } catch (error) { storageError(error); }
 }
 
 function renderTransfer() {
@@ -521,7 +529,7 @@ $('image-files').addEventListener('change', async event => {
       await addImage(image); log('ok', tr("Imported {0} ({1} bytes of JPEG data).", files[i].name, image.jpeg.length));
     }
     result('success', tr("Import complete"), tr("Ready for WQV-3: {0}.", quantity(files.length, "files")));
-  });
+  }, { usesUSB: false });
 });
 $('prepare-quality').addEventListener('input', () => { $('quality-value').value = $('prepare-quality').value + '%'; });
 $('rotate-image').addEventListener('click', () => run(async signal => {
@@ -531,7 +539,7 @@ $('rotate-image').addEventListener('click', () => run(async signal => {
   signal.throwIfAborted();
   await addImage(await imageFromFile(new File([jpeg], photoName(image) + '_rotated.jpg', { type: 'image/jpeg' })));
   result('success', tr("Photo rotated"), tr("A new copy is ready to send to the watch."));
-}));
+}, { usesUSB: false }));
 function downloadFile(data, name, type = 'application/octet-stream') {
   const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type }));
   const link = document.createElement('a'); link.href = url; link.download = name; link.click();
@@ -663,18 +671,25 @@ for (const [id, delta] of [['month-back', -1], ['month-forward', 1]]) $(id).addE
 });
 async function rememberCalendar(calendar, origin) {
   S.calendar = calendar; S.baseline = calendar.raw.slice(); S.calendarOrigin = origin;
-  try { await store.set('calendar', calendar.backup()); } catch (error) { log('error', error); }
+  try { await store.set('calendar', calendar.backup()); } catch (error) { storageError(error); }
   renderCalendar();
 }
-async function saveHolidayBackup(calendar) {
+async function saveHolidayBackup(calendar, { required = false } = {}) {
   S.holidayBackup = calendar.backup();
-  try { await store.set('holidayBackup', S.holidayBackup); } catch (error) { log('error', error); }
+  try { await store.set('holidayBackup', S.holidayBackup); return true; }
+  catch (error) {
+    storageError(error);
+    if (required) throw new LocalizedError(tr('Could not save the original calendar. Nothing was written to the watch. {0}', error));
+    return false;
+  }
 }
 $('read-holidays').addEventListener('click', () => run(async signal => {
   const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr("Holiday marks for 2000–2039."));
-  const calendar = await client.control(b(9)); await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
+  const calendar = await client.control(b(9)), saved = await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
   record('holidayRead', { passed: true, sha256: await sha256(calendar.raw), count: calendar.count() });
-  result('success', tr("Calendar received"), tr("Marked dates: {0}. The original backup is saved in this browser.", calendar.count()));
+  result(saved ? 'success' : 'idle', tr("Calendar received"), saved ?
+    tr("Marked dates: {0}. The original backup is saved in this browser.", calendar.count()) :
+    tr('The original calendar is available in this tab only. Export the backup before closing it.'));
 }));
 $('send-holidays').addEventListener('click', async () => {
   if (!S.calendar || S.active) return;
@@ -682,7 +697,7 @@ $('send-holidays').addEventListener('click', async () => {
   if (!await showDialog(tr("Write calendar"), tr("Replace all holiday marks on the watch for 2000–2039?\n\nThe new calendar has {0} marked dates. Other months will change too.\n\nThe watch's current calendar will be read and backed up before writing.", desired.count()), tr("Write"), true)) return;
   await run(async signal => {
     const client = await ensureClient(signal); result('working', tr("Backing up calendar"), tr("Reading the original holiday marks before writing."));
-    const original = await client.control(b(9)); await saveHolidayBackup(original);
+    const original = await client.control(b(9)); await saveHolidayBackup(original, { required: true });
     await client.control(desired.command()); result('working', tr("Checking calendar"), tr("Reading the saved holiday marks back from the watch."));
     const actual = await client.control(b(9));
     if (!equal(actual.raw, desired.raw)) throw new LocalizedError(tr("The calendar read back differs from the one sent. The original backup is saved; check the log."));
@@ -708,7 +723,7 @@ $('holiday-file').addEventListener('change', event => {
     let backup; try { backup = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("The file does not contain a JSON calendar.")); }
     signal.throwIfAborted(); const calendar = HolidayCalendar.fromBackup(backup);
     await rememberCalendar(calendar, tr("From backup")); result('success', tr("Calendar opened"), tr("Nothing on the watch has changed. Click “Write to watch…” to apply this calendar."));
-  });
+  }, { usesUSB: false });
 });
 
 function saveReport() {
@@ -726,8 +741,16 @@ $('clear-log').addEventListener('click', () => { S.events.length = 0; log('info'
 $('raw-log').addEventListener('change', () => { if (S.adapter) S.adapter.rawLog = $('raw-log').checked; renderLog(); });
 if (navigator.usb) navigator.usb.addEventListener('disconnect', event => {
   if (event.device !== S.device) return;
+  const adapter = S.adapter;
   S.active?.abort(); clearTimeout(S.idleTimer); S.lastAdapter = S.adapter; S.adapter = null; S.device = null;
   if (S.client) S.client.connected = false; S.client = null;
+  if (adapter) {
+    const task = adapter.close().catch(error => log('error', error)).finally(() => {
+      if (S.disconnectTask === task) S.disconnectTask = null;
+      update();
+    });
+    S.disconnectTask = task;
+  }
   result('idle', tr("USB adapter unplugged"), tr("Reconnect the USB IrDA adapter.")); log('info', tr("USB adapter unplugged.")); update();
 });
 window.addEventListener('pagehide', () => { clearTimeout(S.idleTimer); S.active?.abort(); S.adapter?.close().catch(() => {}); });
@@ -752,8 +775,10 @@ if (!supported) {
 try {
   await store.open();
   for (const image of (await store.images()).sort((a, c) => a.receivedAt.localeCompare(c.receivedAt))) {
-    try { const checked = await readableImage(image); S.images.push(checked); await store.saveImage(checked); }
-    catch (error) { log('error', tr('{0}: {1}', image.name, error)); S.images.push({ ...image, jpegError: error }); }
+    let checked;
+    try { checked = await readableImage(image); }
+    catch (error) { log('error', tr('{0}: {1}', image.name, error)); S.images.push({ ...image, jpegError: error }); continue; }
+    S.images.push(checked); await saveLocalImage(checked);
   }
   if (S.images.length) { S.selected = S.images[0].id; renderGallery(); }
   const calendar = await store.get('calendar'), backup = await store.get('holidayBackup');

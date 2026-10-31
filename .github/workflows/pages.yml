@@ -20,9 +20,30 @@ jobs:
           node-version: '24'
       - run: npm test
 
+  browser:
+    name: Browser tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+        env:
+          WQV_BROWSER_ARTIFACTS: ${{ runner.temp }}/wqv-browser
+      - uses: actions/upload-artifact@v5
+        if: failure()
+        with:
+          name: browser-checks
+          path: ${{ runner.temp }}/wqv-browser
+          retention-days: 7
+
   deploy:
     name: GitHub Pages
-    needs: test
+    needs: [test, browser]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:

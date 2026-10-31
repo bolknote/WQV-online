@@ -14,6 +14,10 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser/run.cjs",
     "serve": "python3 serve.py"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }

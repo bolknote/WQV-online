@@ -639,5 +639,7 @@ export const russian = {
   "The arrows control the watch display. Tap a double arrow for five photos; hold to browse.": "Стрелки управляют экраном часов. Двойная стрелка — пять снимков; удержание — прокрутка.",
   "Five photo steps acknowledged.": "Перелистывание на пять снимков подтверждено.",
   "Release to stop browsing.": "Отпусти кнопку, чтобы остановить прокрутку.",
-  "Choose a photo in the collection.": "Выбери снимок в коллекции."
+  "Choose a photo in the collection.": "Выбери снимок в коллекции.",
+  "Could not save the original calendar. Nothing was written to the watch. {0}": "Не удалось сохранить исходный календарь. Календарь на часах не изменён. {0}",
+  "The original calendar is available in this tab only. Export the backup before closing it.": "Исходный календарь доступен только в этой вкладке. Экспортируй резервную копию перед её закрытием."
 };
