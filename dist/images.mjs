@@ -1,6 +1,7 @@
 import { tr, LocalizedError } from './i18n.mjs';
 import { LIMIT, checkWatchJPEG, makeUPF, jpegFromUPF, loadArchive, sha256, packSCEP, putCommand, toHex } from './formats.mjs';
 import { normalizeWatchJPEG } from './jpeg.mjs';
+import { swanImage, swanArchiveRecord } from './swan-watch-images.mjs';
 import { watchPhotoDetails } from './wqv3-photo-details.mjs';
 
 // WQV-3 exports its 24-byte caption followed by five date bytes in APP2.
@@ -50,9 +51,11 @@ export async function imageFromFile(file, options = {}) {
   if (file.size > 32 * 1024 * 1024) throw new LocalizedError(tr("Choose a file smaller than 32 MB to import."));
   const extension = file.name.toLowerCase().split('.').at(-1);
   let upf, jpeg, archive = null;
+  if (extension === 'bin') return swanImage(new Uint8Array(await file.arrayBuffer()), { filename: file.name, source: 'import' });
   if (extension === 'wqv') {
     if (file.size > LIMIT * 3) throw new LocalizedError(tr("The WQV archive is too large."));
     try { archive = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("Invalid WQV archive file.")); }
+    if (archive.sourceProtocol === 'swan') return swanImage(await swanArchiveRecord(archive), { filename: archive.filename || file.name, source: 'import' });
     upf = await loadArchive(archive); jpeg = jpegFromUPF(upf);
   } else if (extension === 'upf') {
     if (file.size > LIMIT) throw new LocalizedError(tr("The UPF file is too large."));

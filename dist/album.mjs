@@ -11,7 +11,8 @@ export async function collectionFiles(images, savedAt = new Date().toISOString()
     const base = String(index + 1).padStart(3, '0') + '_' + safePhotoName(photoName(image));
     files.push({ name: base + '.jpg', data: image.previewJPEG || image.jpeg }, { name: base + '.upf', data: image.upf },
       { name: base + '.wqv', data: encoder.encode(JSON.stringify(image.archive, null, 2)) });
-    manifest.push({ id: image.id, name: photoName(image), caption: image.watchCaption || null, filename: photoFilename(image),
+    if (image.swanRecord) files.push({ name: base + '.bin', data: image.swanRecord });
+    manifest.push({ swanRecord: image.swanRecord ? base + '.bin' : undefined, id: image.id, name: photoName(image), caption: image.watchCaption || null, filename: photoFilename(image),
       jpeg: base + '.jpg', upf: base + '.upf', archive: base + '.wqv',
       sha256: await sha256(image.previewJPEG || image.jpeg), originalJPEGsha256: await sha256(image.jpeg),
       jpegRepaired: Boolean(image.jpegRepaired) });

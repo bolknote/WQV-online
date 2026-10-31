@@ -12,6 +12,8 @@ import { bindRemoteBrowse } from './remote-browse.mjs';
 import { collectionFiles, safePhotoName } from './album.mjs';
 import { zipFiles } from './zip.mjs';
 import { sleep } from './irda.mjs';
+import { prepareSwan, transferSwan, swanOutcome } from './swan-watch-client.mjs';
+import { swanImage, swanSendRecord } from './swan-watch-images.mjs';
 import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers, othersImage, othersOutcome } from './others-client.mjs';
 
 const $ = id => document.getElementById(id), store = new LocalStore();
@@ -64,14 +66,17 @@ function update() {
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected;
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
-  document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy || (S.mode === 'others' && Boolean(button.closest('[data-pc-only]'))); });
+  document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy || (S.mode !== 'pc' && Boolean(button.closest('[data-pc-only]'))); });
   document.querySelectorAll('[data-pc-only]').forEach(element => { element.hidden = S.mode !== 'pc'; });
   document.querySelectorAll('[data-others-only]').forEach(element => { element.hidden = S.mode !== 'others'; });
+  document.querySelectorAll('[data-photo-transfer]').forEach(element => { element.hidden = S.mode === 'pc'; });
+  document.querySelectorAll('[data-swan-only]').forEach(element => { element.hidden = S.mode !== 'swan'; });
+  document.querySelectorAll('[data-upf-only]').forEach(element => { element.hidden = S.mode === 'swan'; });
   document.querySelectorAll('[data-mode]').forEach(button => {
     button.disabled = busy; button.setAttribute('aria-pressed', String(button.dataset.mode === S.mode));
   });
   $('mode-description').textContent = S.mode === 'pc' ? tr('Photos, clock and calendar') : tr('One photo per connection');
-  $('transfer-protocol').textContent = S.mode === 'pc' ? 'PC' : 'OTHERS / IrTran-P';
+  $('transfer-protocol').textContent = { pc: 'PC', others: 'OTHERS / IrTran-P', swan: 'SWAN / SUM16' }[S.mode];
   for (const id of ['import-images', 'rotate-image', 'delete-local-image']) $(id).disabled = busy || (id !== 'import-images' && !selected());
   $('upload-image').disabled = !connected || busy || !selected() || Boolean(selected()?.jpegError);
   $('upload-name').disabled = busy;
@@ -87,7 +92,7 @@ function update() {
   $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? tr("Supported") : tr("Not implemented") : '—';
   $('endpoints').textContent = connected ? S.adapter.description?.controlEndpoint === 0 ? tr('Control endpoint 0') : 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
   $('registers').hidden = info?.driver === 'KingSun KS-959';
-  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode === 'others' && S.transfer?.linked ? 'Casio WQV-3' : '—';
+  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode !== 'pc' && S.transfer?.linked ? 'Casio WQV-3' : '—';
   $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
   $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported));
@@ -95,10 +100,11 @@ function update() {
   $('power-led').title = connected ? tr("{0} connected", info.label) : tr("USB not connected");
   $('title-connection').textContent = S.client?.connected ? tr("WQV-{0} connected", S.client.model) : connected ? 'IrDA / USB' : tr("Offline");
   $('tx-count').textContent = source?.txFrames ?? 0; $('rx-count').textContent = source?.rxBytes ?? 0;
-  $('crc-count').textContent = source?.decoder.badCRC ?? 0; $('switch-count').textContent = source?.switches ?? 0;
+  $('checksum-label').textContent = S.mode === 'swan' ? 'SUM16' : 'CRC';
+  $('crc-count').textContent = S.mode === 'swan' ? source?.swanStats?.badChecksum ?? 0 : source?.decoder.badCRC ?? 0; $('switch-count').textContent = source?.switches ?? 0;
   $('recovered-count').textContent = source?.decoder.recoveredFrames ?? 0;
   $('fifo-recovery-count').textContent = source?.fifoRecoveries ?? 0;
-  $('retry-count').textContent = source?.irtranpStats?.retransmissions ?? 0;
+  $('retry-count').textContent = S.mode === 'swan' ? source?.swanStats?.retries ?? 0 : source?.irtranpStats?.retransmissions ?? 0;
   $('ir-mode').textContent = S.adapter?.configured ? tr('SIR · {0} bit/s', S.adapter.baud) : '—';
   $('send-holidays').disabled = !S.calendar || !connected || busy || S.mode !== 'pc';
   $('export-holidays').disabled = !S.calendar;
@@ -144,7 +150,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200) or KingSun KS-959 (07d0:4959), then choose PC or OTHERS above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nBoth modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nKS-959 requires the local USB helper shown after selecting the adapter. SigmaTel connects directly through WebUSB. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200) or KingSun KS-959 (07d0:4959), then choose PC, OTHERS or SWAN above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nSWAN: transfer one photo at 38400 bit/s using SWAN SEND or SWAN RECEIVE on the watch. Original RGB332 records and captions are kept in the album.\n\nAll three modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nKS-959 requires the local USB helper shown after selecting the adapter. SigmaTel connects directly through WebUSB. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 function showOptions() {
@@ -227,10 +233,10 @@ document.querySelectorAll('[data-mode]').forEach(button => button.addEventListen
     try { localStorage.setItem(WATCH_MODE_KEY, mode); } catch {}
     if (!watchTabs(mode).includes(S.tab)) switchTab('photos');
     $('capabilities-output').hidden = true;
-    result('idle', mode === 'pc' ? tr('PC mode') : tr('OTHERS mode'), mode === 'pc' ?
+    result('idle', mode === 'pc' ? tr('PC mode') : mode === 'swan' ? tr('SWAN mode') : tr('OTHERS mode'), mode === 'pc' ?
       tr('Select IR → PC on the watch to use photos, clock and calendar.') :
       tr('Choose Receive photo or To watch. Each connection transfers one photo.'));
-    log('info', tr('Watch mode: {0}', mode.toUpperCase()));
+    log('info', tr('Watch mode: {0}', mode.toUpperCase())); renderGallery();
   }, { keep: false });
 }));
 $('connect').addEventListener('click', () => run(async signal => {
@@ -306,14 +312,17 @@ function renderGallery() {
     $('gallery').replaceChildren(emptyGallery.cloneNode(true));
     translateDOM($('gallery'));
   }
-  const image = selected(); $('preview').hidden = !image || Boolean(image.jpegError); $('preview-empty').hidden = Boolean(image) && !image.jpegError;
+  const image = selected();
+  $('export-swan').hidden = !image?.swanRecord;
+  if ($('export-format').value === 'bin' && !image?.swanRecord) $('export-format').value = 'jpg';
+  $('preview').hidden = !image || Boolean(image.jpegError); $('preview-empty').hidden = Boolean(image) && !image.jpegError;
   if (image) {
     $('preview').src = imageURL(image); $('preview').alt = photoName(image);
     $('selected-name').textContent = photoName(image); $('selected-name').title = photoName(image);
     $('selected-file').textContent = tr('File: {0}', photoFilename(image)); $('selected-file').title = photoFilename(image);
     $('selected-file').hidden = false;
     $('selected-details').textContent = formatText(image.jpegError || tr("{0} KB · {1}{2}", formatNumber((image.previewJPEG || image.jpeg).length / 1024, { minimumFractionDigits: 1, maximumFractionDigits: 1 }), image.source === "import" ? tr("imported") : tr("from watch"), image.jpegRepaired ? tr(" · JPEG repaired") : ""));
-    $('upload-ready').textContent = `176 × 144 · baseline JPEG · 4:2:0${image.previewJPEG ? tr(" · restart markers removed without loss") : ""}`;
+    $('upload-ready').textContent = S.mode === 'swan' ? tr('176 × 144 · RGB332 · 256 colors') : `176 × 144 · baseline JPEG · 4:2:0${image.previewJPEG ? tr(" · restart markers removed without loss") : ""}`;
   } else {
     $('preview').removeAttribute('src'); $('preview').alt = tr("Selected photo");
     $('selected-name').textContent = '—'; $('selected-details').textContent = tr("Choose a photo in the collection");
@@ -330,12 +339,12 @@ function renderGallery() {
   update();
 }
 $('upload-edit-details').addEventListener('change', update);
-function uploadInput() {
+async function uploadInput() {
   const image = selected(), filename = $('upload-name').value.trim().toUpperCase();
   if (!image || image.jpegError) throw new LocalizedError(tr('Choose a photo in the collection.'));
-  if (!/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr('Use 8 ASCII characters and .UPF, for example MC000001.UPF.'));
+  if (S.mode !== 'swan' && !/^[A-Z0-9_-]{8}\.UPF$/.test(filename)) throw new LocalizedError(tr('Use 8 ASCII characters and .UPF, for example MC000001.UPF.'));
   const details = $('upload-edit-details').checked ? { caption: $('upload-caption').value, recordedAt: $('upload-date').value } : null;
-  return { image, filename, upf: photoUpload(image, details), details };
+  return S.mode === 'swan' ? { image, bytes: await swanSendRecord(image, details), details } : { image, filename, upf: photoUpload(image, details), details };
 }
 $('delete-local-image').addEventListener('click', async () => {
   const image = selected(); if (!image || S.active) return;
@@ -371,7 +380,7 @@ function renderTransfer() {
   const transfer = S.transfer; if (!transfer) return;
   const sending = transfer.direction === 'send', running = transfer.state === 'running', ready = transfer.state === 'ready';
   $('transfer-title').textContent = sending ? tr('Send photo to watch') : tr('Receive photo from watch');
-  $('transfer-path').textContent = 'IR → OTHERS → ' + (sending ? 'RECEIVE' : 'SEND');
+  $('transfer-path').textContent = 'IR → ' + S.mode.toUpperCase() + ' → ' + (sending ? 'RECEIVE' : 'SEND');
   $('transfer-instructions').textContent = sending ?
     tr('Choose RECEIVE on the watch. Face its infrared window toward the adapter, about 5–10 cm apart. Leave the final front-button press until the computer is ready.') :
     tr('Choose SEND on the watch. Press the front button once to open the photos, then choose a photo with the side buttons. Leave the final SEND press until the computer is ready.');
@@ -383,10 +392,11 @@ function renderTransfer() {
   $('transfer-cancel').disabled = transfer.state === 'stopping';
   $('transfer-close').disabled = transfer.state === 'stopping';
   $('transfer-progress').hidden = !running;
-  $('transfer-progress').removeAttribute('value');
-  const finishing = ['file-received', 'csi-scep-disconnect', 'csi-ircomm-disconnect', 'disconnect', 'send-complete'].includes(transfer.phase);
+  if (transfer.total) $('transfer-progress').value = transfer.received / transfer.total;
+  else $('transfer-progress').removeAttribute('value');
+  const finishing = ['finishing', 'file-received', 'csi-scep-disconnect', 'csi-ircomm-disconnect', 'disconnect', 'send-complete'].includes(transfer.phase);
   $('transfer-status').textContent = transfer.state === 'stopping' ? tr('Stopping transfer…') : ready ? tr('USB ready') : !running ? tr('Preparing USB…') :
-    !transfer.linked ? tr('Press the front button on the watch now.') : finishing ? tr('Finishing transfer…') : sending ? tr('Sending photo…') : tr('Receiving photo…');
+    transfer.phase === 'starting' ? tr('Preparing connection…') : !transfer.linked ? tr('Press the front button on the watch now.') : finishing ? tr('Finishing transfer…') : sending ? tr('Sending photo…') : tr('Receiving photo…');
   $('transfer-detail').textContent = ready ? tr('Start here, then press the front button on the watch.') : running ?
     transfer.linked ? tr('Keep the watch facing the adapter. {0} bit/s.', transfer.baud) : tr('Waiting for the watch…') :
     tr('Keep the watch out of transfer mode until USB is ready.');
@@ -394,14 +404,14 @@ function renderTransfer() {
 function recordTransfer(kind, details) {
   S.protocolEvents.push({ at: stamp(), kind, ...details });
   if (S.protocolEvents.length > 10000) S.protocolEvents.shift();
-  if (kind === 'irlap-connected' && S.transfer) {
+  if ((kind === 'irlap-connected' || kind === 'swan-phase' && details.phase === 'connected') && S.transfer) {
     S.transfer.linked = true; S.transfer.baud = details.baud;
-    log('ok', tr('OTHERS connected at {0} bit/s.', details.baud));
+    log('ok', tr(S.mode === 'swan' ? 'SWAN connected at {0} bit/s.' : 'OTHERS connected at {0} bit/s.', details.baud));
     renderTransfer(); updateSoon();
-  } else if (['irlap-data-retry', 'irlap-turn-retry'].includes(kind)) {
-    log('info', tr('Recovering the connection · retry {0}.', details.retry)); updateSoon();
-  } else if (['tx-frame', 'rx-frame'].includes(kind)) {
-    log(kind, `${details.address.toString(16)} ${details.control.toString(16)} · ${details.dataHex}`); updateSoon();
+  } else if (['swan-retry', 'irlap-data-retry', 'irlap-turn-retry'].includes(kind)) {
+    log('info', tr('Recovering the connection · retry {0}.', details.retry ?? details.attempt)); updateSoon();
+  } else if (['tx-frame', 'rx-frame', 'swan-tx', 'swan-rx'].includes(kind)) {
+    log(kind.startsWith('swan-') ? kind === 'swan-tx' ? 'tx-frame' : 'rx-frame' : kind, `${details.address.toString(16)} ${details.control.toString(16)} · ${details.dataHex}`); updateSoon();
   }
 }
 function finishOthers(summary) {
@@ -420,8 +430,19 @@ function finishOthers(summary) {
     default: result('idle', tr('No photo received'), tr('Restart the watch mode, then start another transfer.'));
   }
 }
-async function openOthersTransfer(direction, input = null) {
-  if (S.active || S.transfer || S.mode !== 'others' || !S.adapter?.opened) return;
+function finishSwan(summary) {
+  const outcome = swanOutcome(summary);
+  record(summary.direction === 'send' ? 'swanUpload' : 'swanDownload', { ...summary, file: undefined, outcome });
+  if (outcome === 'accepted') result('success', tr('Photo sent'), summary.linkCloseConfirmed ? tr('The watch acknowledged the photo.') : tr('The watch acknowledged the photo. Disconnection was not confirmed.'));
+  else if (outcome === 'received') result('success', tr('Photo received'), tr('Saved in this browser’s collection.'));
+  else if (outcome === 'received-incomplete') result('idle', tr('Photo received; connection did not close normally'), tr('The photo is saved in the collection. Restart the watch mode before the next transfer.'));
+  else if (outcome === 'unconfirmed') result('error', tr('Transfer not confirmed'), tr('Check the watch memory before sending the photo again.'));
+  else if (outcome === 'rejected') result('error', tr('The watch refused the photo'), tr('Photo was not sent'));
+  else if (outcome === 'cancelled') result('idle', tr('Operation cancelled'), tr('Photos already received have been saved.'));
+  else throw new LocalizedError(tr('Transfer failed: {0}', summary.error?.message ?? 'No SWAN photo transferred.'));
+}
+async function openPhotoTransfer(direction, input = null) {
+  if (S.active || S.transfer || S.mode === 'pc' || !S.adapter?.opened) return;
   const image = direction === 'send' ? input?.image : null;
   if (direction === 'send' && (!image || image.jpegError)) return;
   const filename = input?.filename;
@@ -430,7 +451,7 @@ async function openOthersTransfer(direction, input = null) {
   try {
     await run(async signal => {
       result('working', tr('Preparing USB…'));
-      await closeClient(); await prepareOthers(S.adapter, signal);
+      await closeClient(); await (S.mode === 'swan' ? prepareSwan : prepareOthers)(S.adapter, signal);
       const start = new Promise((resolve, reject) => {
         const abort = () => { transfer.resolve = null; reject(signal.reason); };
         transfer.resolve = value => { signal.removeEventListener('abort', abort); resolve(value); };
@@ -441,21 +462,25 @@ async function openOthersTransfer(direction, input = null) {
       result('working', tr('USB ready'), tr('Start here, then press the front button on the watch.'));
       if (!await start) { result('idle', tr('Ready'), tr('No photo was sent.')); return; }
       signal.throwIfAborted(); transfer.state = 'running'; renderTransfer(); $('transfer-cancel').focus();
-      const summary = await transferOthers(S.adapter, { direction, signal,
+      const options = { direction, signal,
         file: image ? { filename, bytes: input.upf } : undefined,
         onFile: async file => addImage(await othersImage(file)), record: recordTransfer,
-        progress: phase => {
-          transfer.phase = phase; renderTransfer();
+        progress: (phase, details = {}) => {
+          transfer.phase = phase; Object.assign(transfer, details); renderTransfer();
           result('working', $('transfer-status').textContent, $('transfer-detail').textContent);
-        } });
-      finishOthers(summary);
+        } };
+      const summary = S.mode === 'swan' ? await transferSwan(S.adapter, { ...options, bytes: input?.bytes }) : await transferOthers(S.adapter, options);
+      if (S.mode === 'swan') {
+        if (summary.file) await addImage(await swanImage(summary.file));
+        finishSwan(summary);
+      } else finishOthers(summary);
       if (!summary.complete || summary.pendingUSBRead || summary.error) await S.adapter?.close();
     }, { keep: false });
   } finally {
     transfer.resolve = null; S.transfer = null; $('transfer-dialog').close(); update();
   }
 }
-$('receive-photo').addEventListener('click', () => openOthersTransfer('receive'));
+$('receive-photo').addEventListener('click', () => openPhotoTransfer('receive'));
 $('transfer-start').addEventListener('click', () => {
   const transfer = S.transfer;
   if (transfer?.state !== 'ready') return;
@@ -515,7 +540,7 @@ function downloadFile(data, name, type = 'application/octet-stream') {
 $('save-image').addEventListener('click', () => {
   const image = selected(); if (!image) return;
   const format = $('export-format').value, name = safePhotoName(photoName(image)) + '.' + format;
-  downloadFile(format === 'jpg' ? image.previewJPEG || image.jpeg : format === 'upf' ? image.upf : JSON.stringify(image.archive, null, 2), name, format === 'jpg' ? 'image/jpeg' : 'application/octet-stream');
+  downloadFile(format === 'jpg' ? image.previewJPEG || image.jpeg : format === 'bin' ? image.swanRecord : format === 'upf' ? image.upf : JSON.stringify(image.archive, null, 2), name, format === 'jpg' ? 'image/jpeg' : 'application/octet-stream');
 });
 async function exportCollection() {
   closeMenus(); if (!S.images.length) return;
@@ -529,10 +554,12 @@ async function exportCollection() {
 $('export-all').addEventListener('click', exportCollection); $('menu-export').addEventListener('click', exportCollection);
 $('upload-image').addEventListener('click', async () => {
   if (S.active) return;
+  const mode = S.mode;
   let input;
-  try { input = uploadInput(); }
+  try { input = await uploadInput(); }
   catch (error) { await showDialog(tr('Send to WQV-3'), formatText(error)); return; }
-  if (S.mode === 'others') return openOthersTransfer('send', input);
+  if (S.active || S.mode !== mode) return;
+  if (S.mode !== 'pc') return openPhotoTransfer('send', input);
   return run(async signal => {
     const client = await ensureClient(signal), accepted = await client.upload(input.upf, input.filename);
     record('upload', { acknowledged: true, filename: accepted, sha256: await sha256(jpegFromUPF(input.upf)), details: input.details });

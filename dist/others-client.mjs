@@ -4,9 +4,9 @@ import { imageFromFile } from './images.mjs';
 import { packSCEP, putCommand, toHex } from './formats.mjs';
 
 export const WATCH_MODE_KEY = 'wqv-online.watch-mode';
-export const watchTabs = mode => mode === 'others' ? ['photos', 'connection'] : ['photos', 'clock', 'holidays', 'connection'];
+export const watchTabs = mode => mode !== 'pc' ? ['photos', 'connection'] : ['photos', 'clock', 'holidays', 'connection'];
 export function readWatchMode(storage) {
-  try { return (storage ?? globalThis.localStorage)?.getItem(WATCH_MODE_KEY) === 'others' ? 'others' : 'pc'; }
+  try { return ['others', 'swan'].find(mode => mode === (storage ?? globalThis.localStorage)?.getItem(WATCH_MODE_KEY)) ?? 'pc'; }
   catch { return 'pc'; }
 }
 

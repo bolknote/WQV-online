@@ -8,9 +8,11 @@ import { b, fromHex as hx, toHex, sha256, loadArchive } from '../dist/formats.mj
 const fixtures = JSON.parse(await readFile(new URL('./receiver-hardware-fixtures.json', import.meta.url)));
 
 test('watch mode defaults to PC and OTHERS exposes only photo and connection tabs', () => {
-  for (const value of [null, 'PC', 'swan', '', 'pc']) assert.equal(readWatchMode({ getItem: () => value }), 'pc');
+  for (const value of [null, 'PC', '', 'pc']) assert.equal(readWatchMode({ getItem: () => value }), 'pc');
   assert.equal(readWatchMode({ getItem(key) { assert.equal(key, WATCH_MODE_KEY); return 'others'; } }), 'others');
   assert.equal(readWatchMode({ getItem() { throw new Error('blocked'); } }), 'pc');
+  assert.equal(readWatchMode({ getItem: () => 'swan' }), 'swan');
+  assert.deepEqual(watchTabs('swan'), ['photos', 'connection']);
   assert.deepEqual(watchTabs('others'), ['photos', 'connection']);
   assert.deepEqual(watchTabs('pc'), ['photos', 'clock', 'holidays', 'connection']);
 });

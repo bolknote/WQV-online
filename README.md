@@ -116,10 +116,10 @@ and the recovered clock packets.
 
 ![The WQV-3 app with photos downloaded from the watch](docs/screenshot.png)
 
-Choose **PC** or **OTHERS** on the toolbar to match the watch menu. PC has photo,
-clock and calendar controls. OTHERS has Photos and Connection, for sending one
-photo at a time. Both modes use the same local album. The page remembers the
-mode you last used.
+Choose **PC**, **OTHERS** or **SWAN** on the toolbar to match the watch menu.
+PC has photo, clock and calendar controls. OTHERS and SWAN have Photos and
+Connection, for sending one photo at a time. All three modes use the same
+local album. The page remembers the mode you last used.
 
 ### PC
 
@@ -160,13 +160,14 @@ The sender uses the watch's SCEP packet limit (2048 bytes on the tested WQV-3)
 and retries lost IrLAP frames without starting another upload. Clock, calendar
 and remote photo-browsing commands are available in PC mode.
 
-In either mode, **Send to WQV-3 → Photo details** lets you set the caption
+In all three modes, **Send to WQV-3 → Photo details** lets you set the caption
 and recording date for the sent copy. Check **Change details in sent copy**,
 enter up to 24 ASCII characters and a date between 2000 and 2039, then send.
 This adds a new photo on the watch. It keeps the original in the browser and
-changes the JPEG metadata without recompressing its image.
+changes the photo metadata. PC and OTHERS keep the compressed JPEG bytes;
+SWAN keeps the original RGB332 pixels when sending a received SWAN photo.
 
-Discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
+PC and OTHERS discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
 fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
 watch takes over to send photos, and returns to 9600 after disconnecting.
 The Connection tab and transfer log show the current speed. Photo downloads at
@@ -174,6 +175,40 @@ The Connection tab and transfer log show the current speed. Photo downloads at
 KS-959 PC downloads were checked with the native client; an OTHERS download
 was also checked through the browser and helper. Other KS-959 operations use
 the shared protocol code but have not all had hardware checks.
+
+### SWAN
+
+Choose **SWAN**, then use **Receive photo…** or **To watch →**. The transfer
+window shows **IR → SWAN → SEND** when the computer receives, and
+**IR → SWAN → RECEIVE** when the computer sends. Prepare USB first and click
+Start in the app before the final front-button press on the watch. When
+sending from the watch, the first front-button press opens the photo list;
+choose a photo with the side buttons, then press the front button again to
+send it.
+
+SWAN runs at **38400 bit/s**, with 1024-byte image blocks and a SUM16
+checksum. Lost acknowledgements repeat the same numbered block. A transfer
+sends one photo and never starts a second upload automatically.
+
+Received SWAN photos keep their 25,373-byte original record: caption, date
+and 176 × 144 RGB332 pixels. JPEG and UPF exports are made from those pixels.
+Choose **BIN, original SWAN** for the untouched record, or save a WQV backup
+or collection ZIP to keep it with its metadata. BIN and WQV backups can be
+imported again. Sending one of these photos through SWAN uses its original
+pixels; other imported images are converted to the watch's 256 colors.
+The filename shown in the album is a local export name. SWAN carries a
+caption, not a transfer filename.
+
+The watch's final `0D` accepts the photo. That result is recorded separately
+from the later disconnect acknowledgement: a missing `63` does not turn an
+accepted photo into a failed upload. Check the watch memory before repeating
+an interrupted transfer whose final acceptance was not received.
+
+Native SWAN downloads and uploads were checked on WQV-3 with KS-959. The web
+integration is tested against those recorded exchanges through both adapter
+transports, including retries, cancellation, captions and lossless backup
+imports. Its next hardware check will use this integrated page.
+See [the SWAN implementation notes](docs/swan-watch.md).
 
 ## Photos and settings
 
@@ -319,6 +354,7 @@ server running on its default port:
 node tests/browser/applications.cjs
 node tests/browser/others.cjs
 node tests/browser/wqv3-controls.cjs
+node tests/browser/swan-watch.cjs
 ```
 
 The first checks Programs, both albums, backup import and export, language
