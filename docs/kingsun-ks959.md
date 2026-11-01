@@ -1,8 +1,9 @@
 # KingSun KS-959 (07d0:4959)
 
 The device tested on macOS identifies itself as `USB to IRDA`, manufacturer
-`Kingsun CO.`. It has a vendor interface and one dummy interrupt IN endpoint.
-All infrared traffic uses control endpoint 0.
+`Kingsun CO.`. It has a vendor interface and one interrupt IN endpoint, `81`.
+The application currently sends and receives through control endpoint 0.
+A later adapter test also verified reception through `81`, as described below.
 
 The transport is an independent JavaScript implementation of the USB format
 documented by the [Linux KS-959 driver](https://android.googlesource.com/kernel/common/+/b186b12487efc80c44f2f0d26cc26eb249cf1524/drivers/net/irda/ks959-sir.c).
@@ -22,6 +23,17 @@ TX fragments contain up to 240 clear SIR bytes. For each fragment, XOR its
 bytes with `"wangshuofei19710"[(length & 15) ^ 6] ^ 0x55`, round its size up
 to a multiple of eight, then add sixteen zero padding bytes. `wValue` counts
 clear bytes, excluding padding.
+
+At 115200 bit/s, the web transport limits each request to **eight useful
+bytes**, matching the native PC and OTHERS round-trips described below.
+At lower speeds it retains the 240-byte maximum. This splits USB requests
+inside a frame; it does not change SIR bytes, CRC, BOFs or SCEP packet sizes.
+No extra inter-fragment delay is added, and a final one-byte fragment stays
+a one-byte fragment. The browser selects the limit from the actual current
+speed, including after role changes and reconnection.
+The same rate policy is used for WQV-2's raw SUM16 writes; this changes
+USB fragmentation, not its watch protocol or checksum. Its hardware
+compatibility remains subject to the separate WQV-2 checks.
 
 RX has a rolling eight-bit counter. Increment it before decoding each raw USB
 byte, then XOR that byte with the counter and `0x55`. At counter zero, discard
@@ -71,3 +83,152 @@ The raw recordings at both speeds are replayed by the JavaScript tests, along
 with counter synchronization, TX encoding, helper validation and cancellation
 paths. These fixtures are evidence of the transfers above, not additional
 hardware runs. WQV-2 photo transfers have not been verified with this adapter.
+
+## Alternate receive path, 31 October 2026
+
+Following a comparison with the older SF-620 driver, a native test read the
+KS-959's interrupt endpoint `81`. SigmaTel sent eight tagged test frames at
+38400 bit/s. Preparation used the previously working discovery at 9600 and
+`55 FF 00` prefix at 38400; this test does not establish whether that preparation
+is required for interrupt reception.
+
+Two frames arrived through ordinary control IN before the comparison, two
+through interrupt IN with read length 8, two with read length 64, and two
+through control IN afterwards. Every optical byte matched the transmitter's
+original USB buffers, all eight CRCs passed, and the XOR counter continued
+across both receive paths. The interrupt reads delivered 102 and 104 encoded
+bytes. The first and final control-IN windows each included one wrap marker.
+
+Switching paths before draining the interrupt endpoint can change the order
+in which the host receives bytes. In the first run, an eight-byte portion
+arrived in a later interrupt read after control IN had already returned the
+following tail. The successful repeat drained interrupt IN to a quiet period
+before reading control IN. This is evidence about receive delivery, not a
+measurement of an internal memory address or an explanation of the separate
+KS-959 transmit corruption.
+
+The original capture is `WQV-KS959-INTERRUPT-2026-10-31T16-10-14.020Z.zip`,
+SHA-256 `68d200fe16016ba4bcd095d90b9a10f905bf7772657385252672fcc3497cb233`.
+Its actual input chunks and expected optical bytes are retained in
+`tests/fixtures/ks959-interrupt-rx-hardware.json` and replayed by
+`tests/kingsun-interrupt-hardware.test.mjs`. This was an adapter comparison
+with short frames, not a photo transfer through the new receive path.
+
+## Long receive streams, 31 October 2026
+
+A later adapter-only comparison sent the unchanged 25,373-byte SWAN record
+through both receive paths. It contains caption/date metadata and RGB332
+pixels; this is the raw record, not its smaller derived JPEG. A background
+worker received while SigmaTel transmitted. All successful cases matched
+every SIR byte and the original record SHA-256.
+
+| Source transmission | Control IN, 2048-byte requests | Interrupt IN, 64-byte requests | Interrupt IN, 8-byte requests |
+| --- | --- | --- | --- |
+| 9600, full frame writes | Complete, 26.777 s | Complete, 26.784 s | Complete, 26.771 s |
+| 38400, full frame writes | Complete, 6.790 s | Complete, 6.771 s | Complete, 6.772 s |
+| 115200, full frame writes | Data lost | Data lost | Data lost |
+| 115200, 32-byte source USB fragments | Complete, 4.541 s | Complete, 4.512 s | Data lost |
+
+At 115200 every observed byte deficit was a multiple of 160. Pausing between
+whole frames did not fix the losses. Fragmenting the source's USB writes
+within each SIR frame fixed EP0 and interrupt-64 reception while retaining
+the same wire bytes and nominal baud. The native calls and FIFO-drain waits
+introduce gaps; these results are not full-rate continuous 115200 reception.
+They suggest a buffer/service-rate limit, without establishing the physical
+ring-buffer size. Read requests of 8 bytes remained too slow in this bench.
+
+The full matrix and follow-ups have 208 independently audited trials, including
+29 retained failures. Their original successful OUT payloads, raw input,
+counter math, checksums and record hashes were verified. The exact record
+SHA-256 is `dd6387de8d4dd36f04f75e7bfe61e82f7fe85cf4d814c6ebca60fa3170810851`.
+The complete-record interrupt test is still an adapter comparison; the
+application keeps its existing receive transport. This does not resolve
+the separate transmit-padding fault.
+
+## Transmit feeding-rate checks, 31 October 2026
+
+The preserved Windows XP TX routine uses `align8(usefulBytes) + 24` USB data
+bytes; Linux and this client use `+16`. A 1008-trial adapter comparison varied
+that tail to +8/+16/+17/+24/+25/+32 while keeping useful bytes and common
+padding identical. No length removed the eight-byte padding substitutions.
+The +16 and +24 arms returned 164/168 and 160/168 intact expected frames.
+The production padding rule remains `align8(usefulBytes) + 16`.
+
+Another 192 trials compared 38400/115200, 8/240 useful bytes per OUT, and
+immediate delivery versus an added wait after each OUT: the full nominal
+8N1 transmission time for its bytes plus 2 ms. Every requested deadline was
+verified against actual timestamps. The extra waits did not fix TX. At
+38400 with eight-byte writes, immediate delivery retained 24/24 expected
+frames, while the conservative waits retained 0/24. At 115200 the respective
+results were 24/24 and 23/24. The 240-byte comparisons also got worse with
+waits. These samples use paired synthetic 512-byte checksum frames and are
+not a new photo or watch compatibility claim.
+
+This weakens sustained overfeeding between host requests as the cause. It
+does not exclude a buffer/bank fault inside a single control transfer:
+the host does not pace its individual eight-byte USB data packets. The
+separate sensitivity to burst starts remains. All original input, native
+OUT buffers, timestamps and source snapshots were independently audited;
+both adapters were restored to 9600 and released.
+
+## Full binary TX and short replies, 31 October 2026
+
+A later KS-959-to-SigmaTel bench transmitted the complete original
+25,373-byte SWAN photo record. At 115200 with at most eight useful bytes
+per OUT and no added sleeps, all four records matched byte for byte,
+including all 100 data-frame checksums and the original record hash.
+Transmission took about 10.0–10.2 seconds per record. The 38400/eight-byte,
+38400/240-byte and 115200/240-byte arms did not return a complete record
+in their four trials each. No watch participated.
+
+Continuous input polling did not fix TX. With short binary frames at
+38400/eight-byte writes, no KS IN gave 12/12 exact trials, ordinary control
+IN 10/12, and interrupt 81 IN 1/12. KS returned zero input bytes throughout;
+the polling itself changes the tested USB interaction. At 115200, control
+IN and eight-byte writes gave 12/12 exact short-frame trials.
+
+A separate short-reply test split the same nine-byte 01/53/63 frames in
+five ways, each keeping its maximum useful OUT size at eight or less.
+All 1440 such replies at 115200 were exact. Whole nine-byte OUTs still
+failed occasionally. At 38400, 8+1 retained 287/288 valid replies, while
+7+2 retained only 161/288. A one-byte tail should not automatically be
+avoided on this adapter by replacing 8+1 with 7+2.
+
+The promising 115200/eight-byte/no-extra-idle profile is not a universal
+fix: an artificial-idle uartFF trace at 115200 still showed one complete
+eight-byte padding substitution. Physical USB/start-pulse timing remains
+unmeasured. Those adapter tests alone did not establish watch compatibility
+for this profile. SWAN still runs at 38400; it does not negotiate 115200.
+
+## Eight-byte TX in the web client
+
+The native WQV-3 PC upload and read-back on 31 October 2026 stored a fresh
+10,009-byte JPEG and returned identical RGB pixels, compressed image data
+and Casio caption/date. Both sessions closed normally. An OTHERS round-trip
+then stored a 10,153-byte JPEG in six SCEP packets at the peer's 2048-byte
+limit and returned identical pixels and compressed image data. Both
+directions used 115200, with no CRC errors or frame repair. OTHERS returned
+a blank caption with its date intact; that metadata behavior has not been
+isolated to import or export.
+
+| Check | Archive SHA-256 |
+| --- | --- |
+| Native PC upload/read-back | `8f74323994bb716f1343a7bdc310ce2bf924daa6dd6e7174bc013b5f349074ce` |
+| Native OTHERS upload/read-back | `4e7c6c1a63951548330eb7be6c34c57087eff174f90271cf2ddaed8359b52cd5` |
+
+The web driver now applies that eight-useful-byte limit automatically at
+115200. Discovery at 9600 and the 38400 SWAN transport keep their previous
+fragmentation. The XOR mask, zero padding, frame ordering, receive counter
+and USB request fields are the same. The current Python helper accepts
+these requests through its existing API.
+
+`tests/fixtures/ks959-chunk8-hardware.json` retains fourteen actual outgoing
+frames and their native submitted USB buffers from the two successful
+captures. They cover discovery, the secondary UA before a speed switch,
+long data with escaping, a final one-byte fragment, whole eight-byte
+boundaries, RR and disconnect. The JavaScript adapter tests compare every
+submitted request byte for byte, both directly and through the helper RPC.
+An isolated browser check sends the same recorded cases through the real
+application adapter and helper client, with only the HTTP helper endpoint
+mocked. These are compatibility replays; a physical browser/helper photo
+round-trip with the new TX policy remains a separate hardware check.

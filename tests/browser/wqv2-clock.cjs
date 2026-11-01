@@ -29,6 +29,10 @@ const artifacts=process.env.WQV_BROWSER_ARTIFACTS||path.join(require('node:os').
       await page.locator('#transfer-start').click();await page.waitForFunction(()=>!document.querySelector('#transfer-dialog').open);
       assert.equal(await page.locator('#result-heading').innerText(),'Date and time updated');
       assert.deepEqual(await page.evaluate(()=>window.__mock.clockWrites),[[13,24,2,29,23,59,4]]);
+      if(kind==='kingsun'){
+        assert.ok(await page.evaluate(()=>window.__mock.ksTXFragments.every(n=>n<=8)));
+        assert.ok(await page.evaluate(()=>window.__mock.ksTXFragments.length>window.__mock.tx.length));
+      }
       assert.equal(await page.locator('#clock-watch-time').innerText(),'13:20:30');
       assert.match(await page.locator('#clock-snapshot-note').innerText(),/before the clock update/);
       assert.equal(await page.locator('#gallery .thumbnail').count(),0);

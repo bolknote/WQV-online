@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WQV2KingsunStream } from '../dist/wqv2-adapter.mjs';
+import { WQV2KingsunStream, createWQV2Adapter } from '../dist/wqv2-adapter.mjs';
 import { WQV12Decoder, encodeWQV12, isWQV12ClockReply } from '../dist/wqv12-formats.mjs';
-import { b, concat } from '../dist/formats.mjs';
+import { b, concat, fromHex } from '../dist/formats.mjs';
 
 function incoming(clear, phase) {
   const result = [];
@@ -68,4 +68,43 @@ test('a mode change preserves a known physical counter but replaces an unqualifi
   stream.setMode('pc'); assert.equal(stream.counter, counter);
   const clock = encodeWQV12(255, 0xa3, b(1, 2, 3, 4));
   assert.deepEqual(stream.feed(incoming(clock, counter.phase)), clock);
+});
+
+test('WQV-2 raw SUM16 writes use the common KS rate policy through the helper without changing frame bytes', async () => {
+  const originalFetch = globalThis.fetch, writes = [];
+  globalThis.fetch = async (url, options) => {
+    const request = JSON.parse(options.body);
+    if (request.method !== 'open') assert.equal(request.session, 'wqv2-helper-session');
+    let result;
+    if (request.method === 'open') result = { vendorId: 0x07d0, productId: 0x4959, session: 'wqv2-helper-session' };
+    else if (request.method === 'controlTransferOut') {
+      writes.push(request.args);
+      result = { status: 'ok', bytesWritten: request.args[1].hex.length / 2 };
+    } else if (request.method === 'close') result = {};
+    else throw new Error('Unexpected USB request: ' + request.method);
+    return { ok: true, json: async () => ({ result }) };
+  };
+  let adapter;
+  try {
+    adapter = createWQV2Adapter({ vendorId: 0x07d0, productId: 0x4959, productName: 'USB to IRDA' });
+    await adapter.open(); await adapter.prepareWQV2();
+    assert.equal(adapter.baud, 115200);
+    const data = Uint8Array.from({ length: 300 }, (_, i) => i), wire = encodeWQV12(2, 0x10, data);
+    for (const baud of [115200, 38400, 9600, 115200]) {
+      await adapter.setSIRSpeed(baud); const start = writes.length;
+      const result = await adapter.writeSIR(wire);
+      assert.deepEqual(result, { status: 'ok', bytesWritten: wire.length });
+      const parts = writes.slice(start);
+      assert.equal(Math.max(...parts.map(([setup]) => setup.value)), baud === 115200 ? 8 : 240);
+      const clear = concat(...parts.map(([setup, payload]) => {
+        assert.equal(setup.request, 9); assert.equal(setup.index, 0);
+        const mask = 'wangshuofei19710'.charCodeAt((setup.value & 15) ^ 6) ^ 0x55;
+        return fromHex(payload.hex).slice(0, setup.value).map(value => value ^ mask);
+      }));
+      assert.deepEqual(clear, wire);
+      const decoder = new WQV12Decoder(); decoder.feed(clear);
+      assert.equal(decoder.badChecksum, 0);
+      assert.deepEqual(decoder.frames, [{ address: 2, control: 0x10, data }]);
+    }
+  } finally { try { await adapter?.close(); } finally { globalThis.fetch = originalFetch; } }
 });

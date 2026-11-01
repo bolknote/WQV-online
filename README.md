@@ -172,9 +172,14 @@ fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
 watch takes over to send photos, and returns to 9600 after disconnecting.
 The Connection tab and transfer log show the current speed. Photo downloads at
 115200 have been checked with the WQV-3, SigmaTel and KS-959 adapters.
-KS-959 PC downloads were checked with the native client; an OTHERS download
-was also checked through the browser and helper. Other KS-959 operations use
-the shared protocol code but have not all had hardware checks.
+KS-959 PC and OTHERS uploads and read-backs were checked with native clients,
+including exact pixel comparisons. At 115200, the web driver now uses the
+same limit of eight useful bytes per USB write. It selects this automatically;
+there is no extra setting. Discovery and lower-speed transfers keep their
+existing behavior. An OTHERS download was also checked through the browser
+and helper before this change. The new web TX path matches the recorded
+native buffers in adapter and browser tests; a physical browser round-trip
+with the eight-byte policy still needs checking.
 
 ### SWAN
 

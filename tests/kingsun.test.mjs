@@ -122,9 +122,9 @@ test('WebUSB uses only class control transfers and preserves synchronization acr
   await adapter.sendFrame(0xff, 0x3f, concat(b(1), nonce, b(255, 255, 255, 255, 1, 0, 0)), 11, { receive: false });
   const rates = device.calls.filter(c => c[0] === 'out' && c[1].index === 1);
   assert.deepEqual(rates.map(c => c[2]), ['8025000003000000', '00c2010003000000']);
-  const tx = device.calls.find(c => c[0] === 'out' && c[1].index === 0);
-  const expected = encodeKingsun(encodeFrame(0xff, 0x3f, concat(b(1), nonce, b(255, 255, 255, 255, 1, 0, 0))))[0];
-  assert.equal(tx[1].value, expected.length); assert.equal(tx[2], toHex(expected.data));
+  const tx = device.calls.filter(c => c[0] === 'out' && c[1].index === 0);
+  const expected = encodeKingsun(encodeFrame(0xff, 0x3f, concat(b(1), nonce, b(255, 255, 255, 255, 1, 0, 0))), 8);
+  assert.deepEqual(tx.map(c => ({ value: c[1].value, hex: c[2] })), expected.map(part => ({ value: part.length, hex: toHex(part.data) })));
   assert.equal(adapter.decoder.recoverFrames, false); assert.equal(adapter.decoder.recoverBOF, false);
   await adapter.close(); assert.equal(adapter.opened, false);
 });

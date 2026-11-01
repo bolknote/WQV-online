@@ -33,7 +33,7 @@ function mockUSB(kind) {
     if(check!==((body.at(-2)<<8)|body.at(-1)))throw Error('Outgoing SUM16 mismatch');
     return {address:body[0],control:body[1],data:Uint8Array.from(body.slice(2,-2))};
   }
-  const state={kind,records,tx:[],registerWrites:[],closed:0,queue:[],stage:'idle',phase:137,index:0,dump:null,mode:'pc',lastHost:null,lastReply:null,clockWrites:[]};
+  const state={kind,records,tx:[],registerWrites:[],closed:0,queue:[],stage:'idle',phase:137,index:0,dump:null,mode:'pc',lastHost:null,lastReply:null,clockWrites:[],txWire:[],txEscaped:false,ksTXFragments:[]};
   const reply=(address,control,data)=>{const wire=encode(address,control,data);state.queue.push(wire);state.lastReply=wire;};
   function nextOther() {
     if(state.index*128>=records[2].length){state.stage='other-finish';reply(96,49);return;}
@@ -75,6 +75,18 @@ function mockUSB(kind) {
     if((control&31)===20){reply(2,65);state.stage='finish';return;}
     throw Error('Unexpected PC request '+control+' at '+state.stage);
   }
+  // USB writes are pieces of one SIR stream, not complete watch frames.
+  // KS-959 at 115200 now splits even the short clock command across OUTs.
+  function feedOutgoing(bytes) {
+    for(const value of bytes){
+      if(value===192&&!state.txEscaped){state.txWire=[value];continue;}
+      if(!state.txWire.length)throw Error('Outgoing byte before SUM16 BOF');
+      state.txWire.push(value);
+      if(state.txEscaped){state.txEscaped=false;continue;}
+      if(value===125){state.txEscaped=true;continue;}
+      if(value===193){const wire=Uint8Array.from(state.txWire);state.txWire=[];respond(wire);}
+    }
+  }
   const regs=Uint8Array.from([42,119,0,39,196,0,0,21,0]);
   const device={vendorId:kind==='kingsun'?0x07d0:0x066f,productId:kind==='kingsun'?0x4959:0x4200,
     productName:kind==='kingsun'?'QA KingSun IrDA':'QA SigmaTel IrDA',opened:false,
@@ -83,7 +95,7 @@ function mockUSB(kind) {
     async close(){if(this.opened){this.opened=false;state.closed++;await window.recordMockClose?.();}},
     async controlTransferOut(setup){state.registerWrites.push([setup.index,setup.value]);regs[setup.index-1]=setup.value|(setup.index===4?7:0);return{status:'ok',bytesWritten:0};},
     async controlTransferIn(setup,n){return{status:'ok',data:new DataView(regs.slice(setup.index-1,setup.index-1+n).buffer)};},
-    async transferOut(endpoint,packet){const data=new Uint8Array(packet.buffer,packet.byteOffset,packet.byteLength);respond(data.slice(4));return{status:'ok',bytesWritten:data.length};},
+    async transferOut(endpoint,packet){const data=new Uint8Array(packet.buffer,packet.byteOffset,packet.byteLength);feedOutgoing(data.slice(4));return{status:'ok',bytesWritten:data.length};},
     async transferIn(){
       if(!this.opened)throw new DOMException('USB closed','AbortError');
       if(!state.queue.length){await new Promise(resolve=>setTimeout(resolve,2));return{status:'ok',data:new DataView(new ArrayBuffer(0))};}
@@ -104,7 +116,7 @@ function mockUSB(kind) {
       else if(request.method==='close'){await device.close();result={};}
       else if(request.method==='controlTransferOut'){
         const[setup,payload]=request.args;const data=Uint8Array.from(payload.hex.match(/../g)||[],s=>parseInt(s,16));
-        if(setup.index===0){const key=new TextEncoder().encode('wangshuofei19710');const mask=key[(setup.value&15)^6]^85;respond(Uint8Array.from(data.slice(0,setup.value),b=>b^mask));}
+        if(setup.index===0){const key=new TextEncoder().encode('wangshuofei19710');const mask=key[(setup.value&15)^6]^85;state.ksTXFragments.push(setup.value);feedOutgoing(Uint8Array.from(data.slice(0,setup.value),b=>b^mask));}
         else if(setup.index!==1||setup.value!==512||data.length!==8)throw Error('Unexpected helper command');
         result={status:'ok',bytesWritten:data.length};
       }else if(request.method==='controlTransferIn'){

@@ -1,0 +1,111 @@
+{
+  "kind": "ks959-interrupt-receive-hardware-v1",
+  "capture": "WQV-KS959-INTERRUPT-2026-10-31T16-10-14.020Z.zip",
+  "captureSHA256": "68d200fe16016ba4bcd095d90b9a10f905bf7772657385252672fcc3497cb233",
+  "baud": 38400,
+  "preparation": "Known XID at 9600, known 55 FF 00 prefix at 38400; SigmaTel sends eight tagged test frames.",
+  "scope": "Eight short adapter-to-adapter frames. This is not a watch transfer or a KS-959 TX repair.",
+  "frameCount": 8,
+  "initialPhase": 165,
+  "finalPhase": 76,
+  "stages": [
+    {
+      "label": "control-before",
+      "endpoint": 0,
+      "requestedReadBytes": 2048,
+      "initialPhase": 165,
+      "finalPhase": 19,
+      "readsHex": [
+        "33323d3c3f3e39383b3a2518e4adb2d9d6dbc0a9bfd6d8d28885fbe0e5f9fdbdf1f7fbf3edfb9969e67b41f65d67d925cd370e15284a48484b4a757477767170737241bff4ed808d8297e0f49f979bc3ccccd9dec0c284caceccc03b253350e72c266324d1e2c591d6929be79687",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expectedWireHex": "c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a636f6e74726f6c2d6265666f726500f17de1c472dae158a54eb58399a7c4c1c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a636f6e74726f6c2d6265666f726501b77f743e788ebc9cc98dc8dea3d1c1",
+      "rawBytes": 110,
+      "wireBytes": 109,
+      "markerHex": "95"
+    },
+    {
+      "label": "interrupt-8",
+      "endpoint": 129,
+      "requestedReadBytes": 8,
+      "initialPhase": 19,
+      "finalPhase": 121,
+      "readsHex": [
+        "",
+        "818083828d8c8f8e",
+        "89888bb6763f244f",
+        "44495e372d444e44",
+        "10160f1f17161216",
+        "154d5b62c5bd3d44",
+        "52af53319a283ebb",
+        "10d5d2d2dddcdfde",
+        "d9d8dbdac5c4fb05",
+        "4a533a3734214a5e",
+        "313931635b405244",
+        "4345434610043e40",
+        "60a4b1465ee7ab5d",
+        "b0acf4b8abed",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expectedWireHex": "c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a696e746572727570742d3800a8d1522a3bc7385b8f3c29ad01c5c1c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a696e746572727570742d38017e599c8a7c7bc38c7b918cd79a86c1",
+      "rawBytes": 102,
+      "wireBytes": 102,
+      "markerHex": ""
+    },
+    {
+      "label": "interrupt-64",
+      "endpoint": 129,
+      "requestedReadBytes": 64,
+      "initialPhase": 121,
+      "finalPhase": 225,
+      "readsHex": [
+        "",
+        "efeee9e8ebea15141716112cd0998ee5eae7f49d8be2f4feaea8b5a5b1b0b8bcbbe3fffccb865b913af0fcf147c36a7f640e33393b3a25242726212023222d10",
+        "eca5bad1ded3b8d1c7aea0aafafce9f9edecece8efb7b3b08601ee2fdea6d6b10b0804a4c3484075",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expectedWireHex": "c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a696e746572727570742d3634004cae65cd060d01b43197839bf0cac1c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a696e746572727570742d363401876faf5d245b3d84868d2c48c2f5c1",
+      "rawBytes": 104,
+      "wireBytes": 104,
+      "markerHex": ""
+    },
+    {
+      "label": "control-after",
+      "endpoint": 0,
+      "requestedReadBytes": 2048,
+      "initialPhase": 225,
+      "finalPhase": 76,
+      "readsHex": [
+        "7776717073727d7c7f7e7944b8f1f69d929f8ce5f39a9c96ccc1c7dcd9c5c0387a37372436205dcf02542fb31c5e6405b92e9779f5838d8c8f8e89888b8ab5b4b78a723b204b4845523b29404a40060b0912130f0f4f0c0a1b0b1b69939a2f18a05b5e67e92aed56bf96d8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expectedWireHex": "c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a636f6e74726f6c2d616674657200935d0a76eb47042141fe68d639b6c1c0c0c0c0c0c0c0c0c0c0c0fc034b533935392d455038313a636f6e74726f6c2d616674657201f8f03a0cb74d4f77fa38f04aa088c1",
+      "rawBytes": 107,
+      "wireBytes": 106,
+      "markerHex": "95"
+    }
+  ]
+}

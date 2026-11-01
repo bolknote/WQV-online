@@ -1,5 +1,5 @@
 import { b, concat, toHex } from './formats.mjs';
-import { encodeKingsun, KingsunCounter } from './kingsun.mjs';
+import { encodeKingsun, KingsunCounter, kingsunTXFragmentBytes } from './kingsun.mjs';
 import { WQV12Decoder } from './wqv12-formats.mjs';
 import { sleep } from './irda.mjs';
 import { SwanWatchClient } from './swan-watch-core.mjs';
@@ -62,7 +62,7 @@ function rawTransport(a, record) {
   a.writeSIR = async wire => {
     a.assertOpen();
     if (stream) {
-      for (const part of encodeKingsun(wire)) {
+      for (const part of encodeKingsun(wire, kingsunTXFragmentBytes(a.baud))) {
         record('swan-usb-tx-attempt', { encodedHex: toHex(part.data), usefulBytes: part.length });
         const r = await a.io(a.device.controlTransferOut({ requestType: 'class', recipient: 'interface', request: 9, value: part.length, index: 0 }, part.data), 'sending SWAN USB');
         if (r.status !== 'ok' || r.bytesWritten !== part.data.length) throw new Error('Incomplete KS-959 SWAN write.');

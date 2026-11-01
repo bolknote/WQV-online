@@ -10,6 +10,7 @@ const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:o
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1360, height: 1150 } });
   const calls = [], errors = []; let online = false;
+  const hardware = JSON.parse(await fs.readFile(path.join(__dirname, '../fixtures/ks959-chunk8-hardware.json')));
   page.on('pageerror', error => errors.push(String(error)));
   await page.addInitScript(() => {
     const device = { vendorId: 0x07d0, productId: 0x4959, productName: 'USB to IRDA', manufacturerName: 'Kingsun CO.',
@@ -30,7 +31,15 @@ const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:o
     await route.fulfill({ status: 200, contentType: 'application/json', headers, body: JSON.stringify({ result }) });
   });
   try {
-    await page.goto(appURL); await page.locator('#connect').click();
+    await page.goto(appURL);
+    // Keep the real application adapter and real helper client; intercept
+    // only the HTTP endpoint. These are recorded frames, not physical USB.
+    await page.evaluate(async () => {
+      const { Kingsun } = await import('./kingsun.mjs');
+      const open = Kingsun.prototype.open;
+      Kingsun.prototype.open = async function (...args) { window.__ksAdapter = this; return open.apply(this, args); };
+    });
+    await page.locator('#connect').click();
     await page.waitForFunction(() => document.querySelector('#result-detail').textContent.includes('Cannot reach the KS-959 USB helper'));
     assert.equal(await page.locator('#kingsun-help').isVisible(), true);
     assert.match(await page.locator('#kingsun-help').innerText(), /python3 kingsun_bridge.py/);
@@ -47,12 +56,27 @@ const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:o
     assert.ok(calls.some(c => c.method === 'controlTransferIn'));
     const speeds = calls.filter(c => c.method === 'controlTransferOut');
     assert.equal(speeds.length, 3); assert.ok(speeds.every(c => c.args[0].index === 1 && c.args[1].hex === '8025000003000000'));
+    for (const sample of hardware.cases) {
+      await page.evaluate(async sample => {
+        await window.__ksAdapter.setSIRSpeed(sample.baud);
+      }, sample);
+      const start = calls.length;
+      await page.evaluate(async sample => {
+        const { fromHex } = await import('./formats.mjs');
+        await window.__ksAdapter.sendFrame(sample.address, sample.control, fromHex(sample.dataHex), 11, { receive: false });
+      }, sample);
+      const output = calls.slice(start).filter(c => c.method === 'controlTransferOut');
+      assert.deepEqual(output.map(c => ({ value: c.args[0].value, hex: c.args[1].hex })), sample.chunks,
+        sample.protocol + ': ' + sample.covers.join(', '));
+      assert.ok(calls.slice(start).every(c => c.method !== 'controlTransferIn'), 'No receive polling during a fragmented TX');
+    }
+    await page.evaluate(() => window.__ksAdapter.setSIRSpeed(9600));
     await page.screenshot({ path: (await fs.mkdir(artifacts, { recursive: true }), path.join(artifacts, 'ks959-connected.png')), fullPage: true });
     await page.locator('#disconnect').click();
     await page.waitForFunction(() => document.querySelector('#connection-badge').textContent === 'USB not connected');
     assert.equal(calls.at(-1).method, 'close');
     assert.deepEqual(errors, []);
-    console.log('KS-959 browser: helper instructions, connection, USB test, control endpoint and clean close passed.');
+    console.log('KS-959 browser: helper instructions, connection, USB test, all 14 native PC/OTHERS TX cases through fetch, speed switches and clean close passed.');
     console.log('Screenshot:', path.join(artifacts, 'ks959-connected.png'));
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

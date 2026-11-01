@@ -1,6 +1,6 @@
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
-import { KingsunCounter, encodeKingsun } from './kingsun.mjs';
+import { KingsunCounter, encodeKingsun, kingsunTXFragmentBytes } from './kingsun.mjs';
 import { WQV12Decoder, isWQV12ClockReply } from './wqv12-formats.mjs';
 import { prepareWQV12 } from './wqv12-core.mjs';
 
@@ -83,7 +83,7 @@ export function createWQV2Adapter(device, { record = () => {}, raw = () => {}, l
     };
     adapter.writeSIR = async wire => {
       adapter.assertOpen();
-      for (const fragment of encodeKingsun(wire)) {
+      for (const fragment of encodeKingsun(wire, kingsunTXFragmentBytes(adapter.baud))) {
         const result = await adapter.io(native.controlTransferOut({ requestType: 'class', recipient: 'interface',
           request: 9, value: fragment.length, index: 0 }, fragment.data), 'sending USB packet');
         record('wqv2-kingsun-write', { usefulBytes: fragment.length, encodedHex: hex(fragment.data),

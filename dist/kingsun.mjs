@@ -9,14 +9,17 @@ const RATES = [9600, 19200, 38400, 57600, 115200];
 const KEY = new TextEncoder().encode('wangshuofei19710');
 const bytes = view => new Uint8Array(view.buffer, view.byteOffset, view.byteLength).slice();
 
-export function encodeKingsun(wire) {
+export const kingsunTXFragmentBytes = baud => baud === 115200 ? 8 : 240;
+
+export function encodeKingsun(wire, fragmentBytes = 240) {
   if (!(wire instanceof Uint8Array) || !wire.length) throw new RangeError('Invalid KS-959 infrared frame size.');
+  if (!Number.isInteger(fragmentBytes) || fragmentBytes < 1 || fragmentBytes > 240) throw new RangeError('Invalid KS-959 USB fragment size.');
   // The 2048-byte receive request is not a TX frame limit. Escaping a
-  // 1024-byte SWAN block can exceed it; USB output is split into 240-byte
-  // fragments regardless of the total wire length.
+  // 1024-byte SWAN block can exceed it. Each USB request is bounded by
+  // fragmentBytes; frame bytes, CRC and fragment order remain intact.
   const fragments = [];
-  for (let p = 0; p < wire.length; p += 240) {
-    const clear = wire.subarray(p, p + 240), data = new Uint8Array(Math.ceil(clear.length / 8) * 8 + 16);
+  for (let p = 0; p < wire.length; p += fragmentBytes) {
+    const clear = wire.subarray(p, p + fragmentBytes), data = new Uint8Array(Math.ceil(clear.length / 8) * 8 + 16);
     const mask = KEY[(clear.length & 15) ^ 6] ^ 0x55;
     for (let i = 0; i < clear.length; i++) data[i] = clear[i] ^ mask;
     fragments.push({ length: clear.length, data });
@@ -173,7 +176,9 @@ export class Kingsun {
     this.assertOpen(); await this.pauseReader(); this.assertOpen();
     if (address === 0xff && control === 0x3f && data.length >= 12 && data[0] === 1) this.stream.expectDiscovery(data.slice(1, 5));
     const wire = encodeFrame(address, control, data, bof);
-    for (const fragment of encodeKingsun(wire)) {
+    // Native WQV-3 PC and OTHERS round-trips verified eight useful bytes
+    // per OUT at 115200. Keep the existing policy at lower SIR speeds.
+    for (const fragment of encodeKingsun(wire, kingsunTXFragmentBytes(this.baud))) {
       const result = await this.io(this.device.controlTransferOut({ requestType: 'class', recipient: 'interface', request: 9, value: fragment.length, index: 0 }, fragment.data), tr('sending USB packet'));
       if (result.status !== 'ok' || result.bytesWritten !== fragment.data.length) throw new Error('KS-959 USB OUT did not complete.');
     }
