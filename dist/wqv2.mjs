@@ -355,6 +355,7 @@ for (const id of ['save-log', 'menu-report']) $(id).addEventListener('click', sa
 $('clear-log').addEventListener('click', () => { S.log.length = 0; render(); });
 
 function applyLanguage() {
+  $('module-label').textContent = tr('{0} / module {1}', 'WQV-2', 2220);
   renderGallery();
   if (!supported) $('compatibility').textContent = tr('This browser has no WebUSB. Open the page in Chrome, Edge or an Opera version with WebUSB.');
 }

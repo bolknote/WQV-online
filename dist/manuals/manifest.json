@@ -2900,5 +2900,877 @@
         "text": "お手入れについて"
       }
     ]
+  },
+  {
+    "id": "wqv2-de",
+    "model": "WQV-2",
+    "language": "de",
+    "module": 2220,
+    "title": "WQV-2 — Bedienungsanleitung",
+    "pages": 11,
+    "file": "wqv2-de.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_DE.pdf",
+    "sourceSHA256": "8122299a98013abd3cefef85c752bec331ef0deec84273bb13b72401ccf2908d",
+    "scanned": true,
+    "illustrations": 46,
+    "headings": [
+      {
+        "id": "section-1-0-0",
+        "text": "Einleitung"
+      },
+      {
+        "id": "section-1-0-6",
+        "text": "Über diese Anleitung"
+      },
+      {
+        "id": "section-1-1-0",
+        "text": "Inhalt"
+      },
+      {
+        "id": "section-2-0-0",
+        "text": "Auffinden der Bedienungsvorgänge"
+      },
+      {
+        "id": "section-2-2-0",
+        "text": "Vor Verwendung der Armbanduhr…"
+      },
+      {
+        "id": "section-2-2-1",
+        "text": "Warnung!"
+      },
+      {
+        "id": "section-2-2-20",
+        "text": "Einstellen von Zeit und Datum"
+      },
+      {
+        "id": "section-2-3-6",
+        "text": "Zeitnehmung im 12/24-Stunden-Format"
+      },
+      {
+        "id": "section-2-3-19",
+        "text": "Kontrasteinstellung"
+      },
+      {
+        "id": "section-2-3-25",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-2-3-29",
+        "text": "Automatisches Ausschalten der Displayanzeige"
+      },
+      {
+        "id": "section-3-0-0",
+        "text": "Allgemeine Anleitung"
+      },
+      {
+        "id": "section-3-1-0",
+        "text": "Zeitnehmungs-Modus"
+      },
+      {
+        "id": "section-3-1-10",
+        "text": "Kameramodus"
+      },
+      {
+        "id": "section-3-2-0",
+        "text": "Kameramodus"
+      },
+      {
+        "id": "section-3-2-7",
+        "text": "Aufnehmen eines Bildes"
+      },
+      {
+        "id": "section-3-2-24",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-3-3-4",
+        "text": "Vorsichtsmaßnahmen im Kameramodus"
+      },
+      {
+        "id": "section-3-3-5",
+        "text": "Allgemeines"
+      },
+      {
+        "id": "section-3-3-12",
+        "text": "Rastintervall der Kamera"
+      },
+      {
+        "id": "section-3-3-30",
+        "text": "Ton für Alarm, stündliches Zeitsignal und Countdown-Alarm"
+      },
+      {
+        "id": "supplement-bildsteuerung",
+        "text": "Steuerung des Bildes im Kameramodus"
+      },
+      {
+        "id": "supplement-helligkeit",
+        "text": "Einstellen der Bildhelligkeit"
+      },
+      {
+        "id": "supplement-beleuchtung",
+        "text": "Spezifizieren des Beleuchtungstyps"
+      },
+      {
+        "id": "supplement-aufnahmemodi",
+        "text": "Aufnahmemodi"
+      },
+      {
+        "id": "supplement-moduswahl",
+        "text": "Wahl des Aufnahmemodus"
+      },
+      {
+        "id": "supplement-mischmodus",
+        "text": "Aufnahme unter Verwendung des Mischmodus"
+      },
+      {
+        "id": "supplement-kunstmodus",
+        "text": "Aufnahme unter Verwendung des Kunstmodus"
+      },
+      {
+        "id": "section-4-0-0",
+        "text": "VISUAL DATABANK™ Modus"
+      },
+      {
+        "id": "section-4-0-3",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-4-0-9",
+        "text": "Betrachten der aufgezeichneten Bilder"
+      },
+      {
+        "id": "section-4-0-32",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-4-1-0",
+        "text": "Anfügen von Text an einem Bild"
+      },
+      {
+        "id": "section-4-1-3",
+        "text": "Anfügen von Text an einem Bild"
+      },
+      {
+        "id": "section-4-2-2",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-4-2-9",
+        "text": "Sortieren der Bilder"
+      },
+      {
+        "id": "section-4-2-18",
+        "text": "Löschen von Bildern"
+      },
+      {
+        "id": "section-4-2-21",
+        "text": "Löschen aller Bilder im Speicher der Armbanduhr"
+      },
+      {
+        "id": "section-4-3-23",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-4-3-28",
+        "text": "Löschen eines bestimmten Bildes"
+      },
+      {
+        "id": "section-5-0-8",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-5-1-0",
+        "text": "Zeitnehmungs-Modus"
+      },
+      {
+        "id": "section-5-1-14",
+        "text": "Rückstellen der Sekundenzählung auf Null"
+      },
+      {
+        "id": "section-5-1-26",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-5-2-0",
+        "text": "Umschalten zwischen den Anzeigeformaten des Zeitnehmungs-Modus"
+      },
+      {
+        "id": "section-5-2-4",
+        "text": "Verwendung der Viewer-Anzeige"
+      },
+      {
+        "id": "section-5-2-8",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-5-3-0",
+        "text": "Anzeigen der Viewer-Anzeige"
+      },
+      {
+        "id": "section-5-3-28",
+        "text": "Einstellen des Bildkontrastes"
+      },
+      {
+        "id": "section-5-3-38",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-6-0-0",
+        "text": "Alarm-Modus"
+      },
+      {
+        "id": "section-6-0-8",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-6-0-19",
+        "text": "Einstellen der Alarmzeit"
+      },
+      {
+        "id": "section-6-1-16",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-6-1-19",
+        "text": "Betrieb des täglichen Alarms"
+      },
+      {
+        "id": "section-6-1-23",
+        "text": "Kontrolle des Alarms"
+      },
+      {
+        "id": "section-6-1-26",
+        "text": "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals"
+      },
+      {
+        "id": "section-6-3-0",
+        "text": "Countdown-Alarm-Modus"
+      },
+      {
+        "id": "section-6-3-10",
+        "text": "Einstellen der Countdown-Startzeit"
+      },
+      {
+        "id": "section-6-3-24",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-7-0-0",
+        "text": "Verwendung des Countdown-Alarms"
+      },
+      {
+        "id": "section-7-1-0",
+        "text": "Stoppuhr-Modus"
+      },
+      {
+        "id": "section-7-1-7",
+        "text": "Zeitmessung mit der Stoppuhr"
+      },
+      {
+        "id": "section-7-1-9",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-7-2-0",
+        "text": "IR-Modus"
+      },
+      {
+        "id": "section-7-2-3",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-7-2-9",
+        "text": "Datenaustausch zwischen zwei Armbanduhren"
+      },
+      {
+        "id": "section-7-3-0",
+        "text": "Aufrufen des IR-Modus"
+      },
+      {
+        "id": "section-7-3-8",
+        "text": "Senden eines einzelnen Bildes"
+      },
+      {
+        "id": "section-8-0-20",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-8-0-25",
+        "text": "Empfangen eines einzelnen Bildes"
+      },
+      {
+        "id": "section-8-1-17",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-8-1-22",
+        "text": "Kommunikationsfehler"
+      },
+      {
+        "id": "section-8-2-0",
+        "text": "Vorsichtsmaßnahmen hinsichtlich der Kommunikation"
+      },
+      {
+        "id": "section-8-3-0",
+        "text": "Stromversorgung"
+      },
+      {
+        "id": "section-8-3-1",
+        "text": "Über die eingesetzte Batterie"
+      },
+      {
+        "id": "section-8-3-7",
+        "text": "Anzeige für niedrige Batteriespannung"
+      },
+      {
+        "id": "section-8-3-12",
+        "text": "Schritt 1"
+      },
+      {
+        "id": "section-8-3-24",
+        "text": "Schritt 2"
+      },
+      {
+        "id": "section-8-3-30",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-9-0-0",
+        "text": "Vorsichtsmaßnahmen hinsichtlich der Batterie"
+      },
+      {
+        "id": "section-9-1-0",
+        "text": "Austauschen der Batterie"
+      },
+      {
+        "id": "section-9-3-0",
+        "text": "Einstellungen nach dem Austauschen der Batterie"
+      },
+      {
+        "id": "section-10-0-0",
+        "text": "Technische Daten"
+      },
+      {
+        "id": "section-10-0-8",
+        "text": "Countdown-Alarm-Modus"
+      },
+      {
+        "id": "section-10-0-11",
+        "text": "Stoppuhr-Modus"
+      },
+      {
+        "id": "section-10-0-15",
+        "text": "Kameramodus"
+      },
+      {
+        "id": "section-10-1-0",
+        "text": "Allgemeines"
+      },
+      {
+        "id": "section-10-2-0",
+        "text": "Wartung durch den Benutzer"
+      },
+      {
+        "id": "section-10-2-12",
+        "text": "Zur Beachtung"
+      },
+      {
+        "id": "section-10-2-24",
+        "text": "Pflege Ihrer Uhr"
+      },
+      {
+        "id": "section-10-3-31",
+        "text": "Für Armbanduhren mit Kunstharzbändern..."
+      },
+      {
+        "id": "section-11-0-0",
+        "text": "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren..."
+      },
+      {
+        "id": "section-11-1-0",
+        "text": "GARANTIEBEDINGUNGEN"
+      }
+    ],
+    "supplement": {
+      "file": "libble-eu_22031.pdf",
+      "sha256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
+      "module": 2220,
+      "page": 3,
+      "method": "German translation of the complete English original supplied by the user; clearly marked in the margin.",
+      "illustrationLabels": "Dunkler / Heller and Erstes Bild / Zweites Bild translated from the complete English labels. Leader lines and button letters retained."
+    },
+    "missingOriginalPages": [
+      "G-12",
+      "G-13",
+      "G-14",
+      "G-15"
+    ]
+  },
+  {
+    "id": "wqv10-de",
+    "model": "WQV-10",
+    "language": "de",
+    "module": 2412,
+    "title": "WQV-10 — Bedienungsanleitung",
+    "pages": 27,
+    "file": "wqv10-de.html",
+    "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_DE.pdf",
+    "sourceSHA256": "34fc15e193b30dff09fd020417c16fb899ec28f049d7205ff0682ef330e596b0",
+    "scanned": true,
+    "illustrations": 51,
+    "headings": [
+      {
+        "id": "section-1-0-0",
+        "text": "Einleitung"
+      },
+      {
+        "id": "section-1-0-6",
+        "text": "Über diese Anleitung"
+      },
+      {
+        "id": "section-1-1-0",
+        "text": "Warnung!"
+      },
+      {
+        "id": "section-2-0-0",
+        "text": "Inhalt"
+      },
+      {
+        "id": "section-3-0-0",
+        "text": "Auffinden der Bedienungsvorgänge"
+      },
+      {
+        "id": "section-4-0-0",
+        "text": "Vor Verwendung der Armbanduhr..."
+      },
+      {
+        "id": "section-4-0-1",
+        "text": "Einstellen von Zeit und Datum"
+      },
+      {
+        "id": "section-4-1-0",
+        "text": "Umschalten zwischen der 12- und 24-Stunden-Zeitnehmung"
+      },
+      {
+        "id": "section-4-1-13",
+        "text": "Einstellen des Anzeigekontrasts"
+      },
+      {
+        "id": "section-4-1-31",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-5-0-0",
+        "text": "Spezifizieren des Anzeigefarbmusters"
+      },
+      {
+        "id": "section-5-0-3",
+        "text": "Ändern des Anzeigefarbmusters"
+      },
+      {
+        "id": "section-5-1-0",
+        "text": "Automatische Stromsparfunktion"
+      },
+      {
+        "id": "section-6-0-0",
+        "text": "Allgemeine Anleitung"
+      },
+      {
+        "id": "section-6-1-0",
+        "text": "Zeitnehmungs-Modus"
+      },
+      {
+        "id": "section-6-1-7",
+        "text": "Kamera-Modus"
+      },
+      {
+        "id": "section-7-0-0",
+        "text": "Kamera-Modus"
+      },
+      {
+        "id": "section-7-0-4",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-7-0-17",
+        "text": "Aufnehmen eines Bildes"
+      },
+      {
+        "id": "section-7-1-10",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-7-1-21",
+        "text": "Vorsichtsmaßnahmen im Kamera-Modus"
+      },
+      {
+        "id": "section-7-1-22",
+        "text": "Allgemeines"
+      },
+      {
+        "id": "section-8-0-0",
+        "text": "Rastintervall der Kamera"
+      },
+      {
+        "id": "section-8-0-21",
+        "text": "Anzeige der Bildgröße und der Speicherbildgröße"
+      },
+      {
+        "id": "section-8-0-28",
+        "text": "Ton des Alarms und stündlichen Zeitsignals"
+      },
+      {
+        "id": "section-8-1-0",
+        "text": "Steuerung des Bildes im Kamera-Modus"
+      },
+      {
+        "id": "section-8-1-4",
+        "text": "Einstellung der Bildhelligkeit"
+      },
+      {
+        "id": "section-8-1-9",
+        "text": "Einstellen der Bildhelligkeit"
+      },
+      {
+        "id": "section-8-1-37",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-9-0-0",
+        "text": "Spezifizierung des Beleuchtungstyps"
+      },
+      {
+        "id": "section-9-0-6",
+        "text": "Spezifizieren des Beleuchtungstyps"
+      },
+      {
+        "id": "section-9-0-21",
+        "text": "Verwendung des Kamera-Timers für die Aufnahme von Bildern"
+      },
+      {
+        "id": "section-9-1-0",
+        "text": "Aufnehmen eines Bildes unter Verwendung des Kamera-Timers"
+      },
+      {
+        "id": "section-10-0-0",
+        "text": "VISUAL DATABANK™"
+      },
+      {
+        "id": "section-10-0-4",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-10-0-7",
+        "text": "Anzeigen von aufgenommenen Bildern"
+      },
+      {
+        "id": "section-10-1-16",
+        "text": "Einstellung des Bildkontrastes"
+      },
+      {
+        "id": "section-11-0-1",
+        "text": "Einstellen des Bildkontrasts"
+      },
+      {
+        "id": "section-11-0-31",
+        "text": "Anfügen von Text an einem Bild"
+      },
+      {
+        "id": "section-11-1-0",
+        "text": "Anfügen von Text an einem Bild"
+      },
+      {
+        "id": "section-12-0-0",
+        "text": "Sortierung der Bilder"
+      },
+      {
+        "id": "section-12-0-9",
+        "text": "Löschung von Bildern"
+      },
+      {
+        "id": "section-12-0-12",
+        "text": "Löschen aller im Speicher der Armbanduhr abgespeicherten Bilder"
+      },
+      {
+        "id": "section-12-1-7",
+        "text": "Löschen eines bestimmten Bildes"
+      },
+      {
+        "id": "section-13-0-0",
+        "text": "Formatierung des Bildspeichers"
+      },
+      {
+        "id": "section-13-0-4",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-13-0-9",
+        "text": "Formatieren des Bildspeichers"
+      },
+      {
+        "id": "section-13-1-0",
+        "text": "IR-Modus"
+      },
+      {
+        "id": "section-13-1-8",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-13-1-16",
+        "text": "Datenaustausch zwischen zwei Armbanduhren"
+      },
+      {
+        "id": "section-14-0-7",
+        "text": "Aufrufen des IR-Modus"
+      },
+      {
+        "id": "section-14-0-13",
+        "text": "Senden eines Bildes"
+      },
+      {
+        "id": "section-15-0-0",
+        "text": "Empfangen eines Bildes"
+      },
+      {
+        "id": "section-15-1-0",
+        "text": "Kommunikationsfehler"
+      },
+      {
+        "id": "section-15-1-7",
+        "text": "Meldungen der Kommunikationsanzeige"
+      },
+      {
+        "id": "section-15-1-9",
+        "text": "Andere Meldungen"
+      },
+      {
+        "id": "section-16-0-0",
+        "text": "Vorsichtsmaßnahmen hinsichtlich der Kommunikation"
+      },
+      {
+        "id": "section-16-1-0",
+        "text": "Zeitnehmung"
+      },
+      {
+        "id": "section-16-1-10",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-16-1-19",
+        "text": "Rückstellen der Sekunden auf Null"
+      },
+      {
+        "id": "section-17-0-0",
+        "text": "Verwendung der Kalenderanzeige"
+      },
+      {
+        "id": "section-17-0-15",
+        "text": "Anzeigen des Kalenders für einen bestimmten Monat"
+      },
+      {
+        "id": "section-17-0-31",
+        "text": "Einstellen der Datumsfarben"
+      },
+      {
+        "id": "section-17-1-15",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-18-0-0",
+        "text": "Alarm"
+      },
+      {
+        "id": "section-18-0-12",
+        "text": "Einstellen einer Alarmzeit"
+      },
+      {
+        "id": "section-18-1-10",
+        "text": "Alarmbetrieb"
+      },
+      {
+        "id": "section-18-1-15",
+        "text": "Hinweis"
+      },
+      {
+        "id": "section-18-1-20",
+        "text": "Kontrolle des Alarms"
+      },
+      {
+        "id": "section-18-1-24",
+        "text": "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals"
+      },
+      {
+        "id": "section-19-0-0",
+        "text": "Stoppuhr"
+      },
+      {
+        "id": "section-19-0-18",
+        "text": "Zeitmessung mit der Stoppuhr"
+      },
+      {
+        "id": "section-19-1-0",
+        "text": "Stromversorgung"
+      },
+      {
+        "id": "section-19-1-1",
+        "text": "Über die eingesetzte Batterie"
+      },
+      {
+        "id": "section-19-1-7",
+        "text": "Anzeige für niedrige Batteriespannung"
+      },
+      {
+        "id": "section-19-1-12",
+        "text": "Schritt 1"
+      },
+      {
+        "id": "section-19-1-22",
+        "text": "Schritt 2"
+      },
+      {
+        "id": "section-19-1-27",
+        "text": "Hinweise"
+      },
+      {
+        "id": "section-20-0-5",
+        "text": "Vorsichtsmaßnahmen hinsichtlich der Batterie"
+      },
+      {
+        "id": "section-20-1-0",
+        "text": "Austauschen der Batterie"
+      },
+      {
+        "id": "section-21-0-24",
+        "text": "Einstellungen nach dem Austauschen der Batterie"
+      },
+      {
+        "id": "section-21-1-0",
+        "text": "Referenz"
+      },
+      {
+        "id": "section-21-1-5",
+        "text": "Automatische Rückkehrfunktionen"
+      },
+      {
+        "id": "section-22-0-0",
+        "text": "Störungsbeseitigung"
+      },
+      {
+        "id": "section-23-0-0",
+        "text": "Technische Daten"
+      },
+      {
+        "id": "section-23-0-9",
+        "text": "Stoppuhr"
+      },
+      {
+        "id": "section-23-0-13",
+        "text": "Kamera-Modus"
+      },
+      {
+        "id": "section-23-0-33",
+        "text": "Allgemeines"
+      },
+      {
+        "id": "section-24-0-0",
+        "text": "Wartung durch den Benutzer"
+      },
+      {
+        "id": "section-24-0-11",
+        "text": "Zur Beachtung"
+      },
+      {
+        "id": "section-24-0-23",
+        "text": "Pflege Ihrer Uhr"
+      },
+      {
+        "id": "section-24-1-31",
+        "text": "Für Armbanduhren mit Kunstharzbändern..."
+      },
+      {
+        "id": "section-25-0-0",
+        "text": "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren…"
+      },
+      {
+        "id": "section-25-1-0",
+        "text": "Registrierung für Anwender von Ulead PhotoExplorer7.0 Lite"
+      },
+      {
+        "id": "section-26-0-0",
+        "text": "Vorbereitung für die Wrist Camera – PC Kommunikation"
+      },
+      {
+        "id": "section-26-0-8",
+        "text": "Wichtig!"
+      },
+      {
+        "id": "section-26-0-16",
+        "text": "Falls Ihr Computer über einen eingebauten IR-Port verfügt"
+      },
+      {
+        "id": "section-26-0-23",
+        "text": "Falls Ihr Computer nicht über einen eingebauten IR-Port verfügt"
+      },
+      {
+        "id": "section-26-1-6",
+        "text": "HINWEIS für Anwender von Windows 98 und Windows 98SE ..."
+      },
+      {
+        "id": "section-26-1-12",
+        "text": "Betrachtung der CD-ROM Software-Dokumentation"
+      },
+      {
+        "id": "section-26-2-0",
+        "text": "Auto Power Save"
+      },
+      {
+        "id": "section-26-2-3",
+        "text": "Automatische Stromsparfunktion"
+      },
+      {
+        "id": "section-27-0-0",
+        "text": "ENDANWENDER-LIZENZVEREINBARUNG"
+      },
+      {
+        "id": "section-27-0-1",
+        "text": "Hinweis für den Anwender:"
+      },
+      {
+        "id": "section-27-0-15",
+        "text": "1. Verwendung der Software"
+      },
+      {
+        "id": "section-27-0-20",
+        "text": "2. Kopien"
+      },
+      {
+        "id": "section-27-0-27",
+        "text": "3. Übertragung"
+      },
+      {
+        "id": "section-27-0-39",
+        "text": "4. Rückentwicklung"
+      },
+      {
+        "id": "section-27-0-43",
+        "text": "5. Urheberrecht"
+      },
+      {
+        "id": "section-27-1-0",
+        "text": "6. Gewährleistung"
+      },
+      {
+        "id": "section-27-1-18",
+        "text": "7. Garantieausschluss"
+      },
+      {
+        "id": "section-27-1-27",
+        "text": "8. Kündigung"
+      },
+      {
+        "id": "section-27-1-38",
+        "text": "9. Sonstiges"
+      }
+    ]
   }
 ]

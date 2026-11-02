@@ -6,6 +6,7 @@ import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, ColourCalendar, DATE_COLOURS, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
 import { colourWatchModel } from './watch-models.mjs';
+import { manualLabel } from './manual-editions.mjs';
 import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
 import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
@@ -36,6 +37,7 @@ function modelLabels(root = document) {
   const labels = { name: profile.name, module: tr('{0} / module {1}', profile.name, profile.module),
     send: tr('Send to {0}', profile.name), download: tr('Download photos from the {0}', profile.name) };
   for (const node of root.querySelectorAll('[data-watch-text]')) node.textContent = labels[node.dataset.watchText];
+  if (root === document) $('watch-guide').textContent = manualLabel(profile.id, getLanguage()) || tr('User’s Guide');
 }
 const emptyGallery = $('gallery').firstElementChild.cloneNode(true);
 const S = {

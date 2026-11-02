@@ -2,6 +2,7 @@ import { tr, getLanguage } from './i18n.mjs';
 import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { watchModel } from './watch-models.mjs';
+import { manualLanguage, manualLabel } from './manual-editions.mjs';
 
 const $ = id => document.getElementById(id);
 const requested = new URL(location.href).searchParams.get('model');
@@ -50,16 +51,23 @@ function applySize() {
   updateContents();
 }
 function showDocument() {
-  const language = getLanguage();
+  const language = manualLanguage(model, getLanguage());
   const file = model + '-' + language + '.html';
-  const title = tr('{0} — User’s Guide', name);
+  const title = manualLabel(model, getLanguage()) ? name + ' — User’s Guide' : tr('{0} — User’s Guide', name);
   $('document-title').textContent = title;
+  $('document-frame').title = manualLabel(model, getLanguage()) || tr('User’s Guide');
   document.title = title + ' · Pocket Word';
   $('original-pdf').href = language === 'ru'
     ? `https://i-watch.ru/image/catalog/info/instruktsii/casio/${watchModule}.pdf`
     : `https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/${watchModule.slice(0, 2)}/${watchModule}/qw${watchModule}_${language.toUpperCase()}.pdf`;
   $('original-pdf').removeAttribute('aria-disabled');
-  if (file === opened) return;
+  if (file === opened) {
+    const article = $('document-frame').contentDocument?.querySelector('article[data-pages]');
+    if (article) $('document-status').textContent = tr('{0} pages', article.dataset.pages);
+    if ($('document-contents').options.length) $('document-contents').options[0].textContent = tr('Contents');
+    $('document-loading').textContent = tr('Opening document…');
+    return;
+  }
   stopFollowingContents();
   stopFollowingContents = () => {};
   opened = file;
@@ -80,7 +88,7 @@ $('document-frame').addEventListener('load', () => {
     $('document-status').textContent = tr('Could not open the manual.');
     return;
   }
-  if (doc.documentElement.lang !== getLanguage()) return;
+  if (doc.documentElement.lang !== manualLanguage(model, getLanguage())) return;
   $('document-loading').hidden = true;
   $('document-status').textContent = tr('{0} pages', article.dataset.pages);
   const placeholder = new Option(String(tr('Contents')), '');

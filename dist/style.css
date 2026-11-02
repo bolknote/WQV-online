@@ -28,6 +28,8 @@
 @media(max-width:660px){.watch-mode-strip{padding:7px;gap:7px;flex-wrap:wrap}.watch-mode-strip>span:last-child{font-size:9px}.watch-mode-buttons button{min-width:57px}.transfer-dialog .dialog-body{padding:12px}.transfer-path strong{font-size:13px}}
 
 /* WQV-3 watch captions and the original transfer filename. */
+/* Keep translated send labels intact when the preview column narrows. */
+.send-row button{flex-shrink:0}.send-row>span{min-width:0;overflow-wrap:anywhere}
 .thumbnail .photo-label{white-space:pre}.image-caption>.image-title{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.image-title strong{max-width:100%;white-space:pre}.image-title>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.image-caption>#selected-details{flex-shrink:0}
 
 html[lang=ja],html[lang=ja] dialog{font-family:"MS UI Gothic","Yu Gothic UI",Meiryo,"Hiragino Kaku Gothic ProN",sans-serif}

@@ -4,6 +4,7 @@ import { LANGUAGE_KEY, readLanguage, getLanguage, setLanguage, onLanguageChange,
   tr, quantity, locale, formatNumber, formatText, LocalizedError } from '../dist/i18n.mjs';
 import { russian } from '../dist/translations.mjs';
 import { japanese } from '../dist/translations-ja.mjs';
+import { german } from '../dist/translations-de.mjs';
 import { clockPayload } from '../dist/calendar.mjs';
 
 afterEach(() => setLanguage('en', { persist: false }));
@@ -15,6 +16,7 @@ test('English is the default; only an explicit saved language changes it', () =>
   }
   assert.equal(readLanguage({ getItem: () => 'ru' }), 'ru');
   assert.equal(readLanguage({ getItem: () => 'ja' }), 'ja');
+  assert.equal(readLanguage({ getItem: () => 'de' }), 'de');
   assert.equal(readLanguage({ getItem() { throw new Error('storage blocked'); } }), 'en');
 });
 
@@ -99,13 +101,13 @@ test('errors retain Error behavior and translate when read in another language',
 test('blocked persistence still allows switching, and unsupported languages leave state intact', () => {
   setLanguage('ru', { storage: { setItem() { throw new Error('storage blocked'); } } });
   assert.equal(getLanguage(), 'ru');
-  assert.throws(() => setLanguage('de'), RangeError);
+  assert.throws(() => setLanguage('fr'), RangeError);
   assert.equal(getLanguage(), 'ru');
   assert.equal(String(tr('Photo {0}', '{1}<img>')), 'Снимок {1}<img>');
 });
 
 test('translations preserve every message substitution', () => {
-  for (const dictionary of [russian, japanese]) for (const [english, translation] of Object.entries(dictionary)) {
+  for (const dictionary of [russian, japanese, german]) for (const [english, translation] of Object.entries(dictionary)) {
     const placeholders = text => [...text.matchAll(/\{\d+\}/g)].map(match => match[0]).sort();
     assert.deepEqual(placeholders(translation), placeholders(english), english);
   }
@@ -119,4 +121,23 @@ test('Japanese covers the complete message catalog, including clock, calendar an
   assert.equal(String(tr('Holiday calendar')), '休日カレンダー');
   assert.equal(String(tr('Press the front button on the watch now.')), '時計の前面ボタンを押してください。');
   assert.equal(String(tr('Untranslated native error')), 'Untranslated native error');
+});
+
+test('German covers every message, German counters and locale without changing stored values', () => {
+  assert.deepEqual(Object.keys(german).sort(), Object.keys(russian).sort());
+  assert.ok(Object.values(german).every(value => typeof value === 'string' && value.trim()));
+  setLanguage('de', { persist: false });
+  assert.equal(locale(), 'de-DE');
+  assert.equal(String(tr('Tools')), 'Extras');
+  assert.equal(String(tr('Options…')), 'Optionen…');
+  assert.equal(String(tr('WQV-3 User’s Guide')), 'WQV-3 User’s Guide');
+  assert.equal(String(quantity(1, 'photos')), '1 Foto');
+  assert.equal(String(quantity(2, 'photos')), '2 Fotos');
+  assert.equal(String(quantity(1, 'days')), '1 Tag');
+  assert.equal(String(quantity(2, 'days')), '2 Tage');
+  assert.equal(String(quantity(2, 'files')), '2 Dateien');
+  assert.equal(formatNumber(12345.5), '12.345,5');
+  assert.equal(new Date(Date.UTC(2026, 2, 1)).toLocaleString(locale(), {month:'long',timeZone:'UTC'}), 'März');
+  const error = new LocalizedError(tr('The calendar must contain exactly {0} bytes.', 7305));
+  assert.equal(error.message, 'Der Kalender muss genau 7305 Byte enthalten.');
 });

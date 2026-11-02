@@ -1,0 +1,2565 @@
+{
+  "wqv2-de": {
+    "sourceSHA256": "8122299a98013abd3cefef85c752bec331ef0deec84273bb13b72401ccf2908d",
+    "pages": {
+      "1": {
+        "reviewed": true,
+        "figures": [
+          [
+            106,
+            198,
+            181,
+            263
+          ]
+        ],
+        "corrections": {
+          "0:6:4:7": "„Allgemeine Anleitung“ auf Seite G-8.",
+          "0:6:5:2": "dieser Armbanduhr sicherzustellen, lesen",
+          "1:10002:1:1": "Inhalt",
+          "1:10005:1:1": "Einleitung — G-1",
+          "1:10005:1:2": "Über diese Anleitung — G-1",
+          "1:10005:1:3": "Inhalt — G-2",
+          "1:10005:1:4": "Auffinden der Bedienungsvorgänge — G-4",
+          "1:10005:1:5": "Vor Verwendung der Armbanduhr… — G-6",
+          "1:10005:1:6": "Automatisches Ausschalten der Displayanzeige — G-7",
+          "1:10005:1:7": "Allgemeine Anleitung — G-8",
+          "1:10005:1:8": "Kameramodus — G-10",
+          "1:10005:1:9": "Vorsichtsmaßnahmen im Kameramodus — G-11",
+          "1:10005:1:10": "Steuerung des Bildes im Kameramodus — G-12",
+          "1:10005:1:11": "Aufnahmemodi — G-14",
+          "1:10005:1:12": "VISUAL DATABANK™ Modus — G-16",
+          "1:10005:1:13": "Anfügen von Text an einem Bild — G-17",
+          "1:10005:1:14": "Löschen von Bildern — G-18",
+          "1:10005:1:15": "Zeitnehmungs-Modus — G-21",
+          "1:10005:1:16": "Verwendung der Viewer-Anzeige — G-22",
+          "1:10005:1:17": "Alarm-Modus — G-24",
+          "1:10005:1:18": "Betrieb des täglichen Alarms — G-25",
+          "1:10005:1:19": "Countdown-Alarm-Modus — G-27",
+          "1:10005:1:20": "Verwendung des Countdown-Alarms — G-28",
+          "1:10005:1:21": "Stoppuhr-Modus — G-29",
+          "2:20001:1:1": "Datenaustausch zwischen zwei Armbanduhren — G-30",
+          "2:20001:1:2": "Kommunikationsfehler — G-33",
+          "2:20001:1:3": "Stromversorgung — G-35",
+          "2:20001:1:4": "Über die eingesetzte Batterie — G-35",
+          "2:20001:1:5": "Vorsichtsmaßnahmen hinsichtlich der Batterie — G-36",
+          "2:20001:1:6": "Technische Daten — G-40",
+          "2:20001:1:7": "Wartung durch den Benutzer — G-42",
+          "0:10:1:2": "CO., LTD."
+        },
+        "headings": [
+          "Einleitung",
+          "Über diese Anleitung",
+          "Inhalt"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-1–G-3: introduction, contents and original button diagram.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "2": {
+        "reviewed": true,
+        "figures": [
+          [
+            118,
+            674,
+            190,
+            733
+          ],
+          [
+            110,
+            739,
+            338,
+            787
+          ],
+          [
+            380,
+            747,
+            440,
+            817
+          ]
+        ],
+        "corrections": {
+          "0:3:1:1": "Einstellen von Zeit und Datum — G-6",
+          "0:3:1:2": "Aufnehmen eines Bildes — G-10",
+          "0:3:1:3": "Einstellen der Bildhelligkeit — G-12",
+          "0:3:1:4": "Spezifizieren des Beleuchtungstyps — G-13",
+          "0:3:1:5": "Wahl des Aufnahmemodus — G-14",
+          "0:3:1:6": "Aufnahme unter Verwendung des Mischmodus — G-14",
+          "0:3:1:7": "Aufnahme unter Verwendung des Kunstmodus — G-15",
+          "0:3:1:8": "Betrachten der aufgezeichneten Bilder — G-16",
+          "0:3:1:9": "Anfügen von Text an einem Bild — G-17",
+          "0:4:1:1": "Löschen aller Bilder im Speicher der Armbanduhr — G-18",
+          "0:5:1:1": "Löschen eines bestimmten Bildes — G-19",
+          "0:5:1:2": "Rückstellen der Sekundenzählung auf Null — G-21",
+          "0:5:1:3": "Umschalten zwischen den Anzeigeformaten des",
+          "0:5:2:1": "Zeitnehmungs-Modus — G-22",
+          "0:5:2:2": "Anzeigen der Viewer-Anzeige — G-23",
+          "0:5:2:3": "Einstellen des Bildkontrastes — G-23",
+          "0:5:2:4": "Einstellen der Alarmzeit — G-24",
+          "0:5:2:5": "Kontrolle des Alarms — G-25",
+          "0:5:3:1": "des stündlichen Zeitsignals — G-25",
+          "1:10001:1:1": "Einstellen der Countdown-Startzeit — G-27",
+          "1:10002:1:1": "Zeitmessung mit der Stoppuhr — G-29",
+          "1:10002:1:2": "Aufrufen des IR-Modus — G-31",
+          "1:10002:1:3": "Senden eines einzelnen Bildes — G-31",
+          "1:10002:1:4": "Empfangen eines einzelnen Bildes — G-32",
+          "1:10002:1:5": "Austauschen der Batterie — G-37",
+          "2:20002:1:1": "Vor Verwendung der Armbanduhr…",
+          "2:20004:3:1": "Versuchen Sie niemals während des Lenkens eines Pkws, eines Motorrades",
+          "2:20004:4:1": "oder eines anderen Fahrzeuges ein Aufnehmen von Bildern, die Ausführung",
+          "2:20006:1:1": "1. Halten Sie den Knopf (A) in dem",
+          "2:20006:2:1": "• Drücken Sie den Knopf (D), um die",
+          "2:20008:1:1": "2. Während eine Einstellung blinkt, drücken Sie den Knopf (E) (+) oder (B)",
+          "2:20008:2:2": "(A), um die Einstellungsanzeige zu verlassen.",
+          "2:20015:1:1": "",
+          "3:30001:1:2": "die unterschiedliche Anzahl der Tage in einem Monat auch in Schaltjahren",
+          "3:30001:1:3": "berücksichtigt.",
+          "3:30001:2:1": "• Die Armbanduhr verlässt automatisch die Einstellungsanzeige, wenn Sie",
+          "3:30002:2:1": "Drücken Sie den Knopf (D), während der Kalendertag in der Einstellungsanzeige",
+          "3:30002:3:1": "blinkt, um den Indikator für das aktuelle Zeitnehmungs-Format (12H oder 24H)",
+          "3:30002:4:1": "am Display blinken zu lassen. Drücken Sie danach den Knopf (E), um zwischen",
+          "3:30002:7:1": "• Wenn Sie das 12-Stunden-Format verwenden, erscheint der P-Indikator",
+          "3:30002:7:4": "den Stundenstellen für Zeiten der ersten Tageshälfte (Mitternacht bis 11:59",
+          "3:30003:2:1": "Drücken Sie den Knopf (D), während der Indikator des Zeitnehmungsformats",
+          "3:30003:2:3": "CNT3 = Pegel 3) mit blinkendem Pegelwert am Display erscheint. Verwenden",
+          "3:30003:2:4": "Sie den Knopf (B) (dunkler) oder (E) (heller), um den Kontrast auf einen von",
+          "3:30004:2:1": "• Die oben beschriebene Kontrasteinstellung beeinflusst nicht die Anzeige",
+          "3:30006:1:2": "automatisch aus, wenn sie für etwa 60 Minuten",
+          "3:30006:1:3": "nicht bewegt wird. Dadurch wird Batteriestrom",
+          "3:30006:1:4": "gespart und ein „Einbrennen“ der angezeigten",
+          "3:30007:1:1": "Um das Display wieder einzuschalten, drücken",
+          "3:30007:1:2": "Sie den Knopf (F).",
+          "3:30002:8:1": "• Wenn Sie das 24-Stunden-Format verwenden, werden die Zeiten im",
+          "3:30002:5:1": "dem 12-Stunden-Format (12H) und dem 24-Stunden-Format (24H) umzuschalten.",
+          "2:20004:6:1": "Displays der Armbanduhr. Anderenfalls besteht die Gefahr eines ernsthaften"
+        },
+        "headings": [
+          "Auffinden der Bedienungsvorgänge",
+          "Vor Verwendung der Armbanduhr…",
+          "Warnung!",
+          "Einstellen von Zeit und Datum",
+          "Zeitnehmung im 12/24-Stunden-Format",
+          "Kontrasteinstellung",
+          "Automatisches Ausschalten der Displayanzeige",
+          "Hinweis"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "Right-edge word endings and index page numbers checked against the intact English module 2220 manual and matching German headings.",
+          "G-4–G-7: operation index; time/date buttons; 7 contrast levels; CNT3; 60-minute power save; 2000–2039.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "3": {
+        "reviewed": true,
+        "figures": [
+          [
+            101,
+            161,
+            337,
+            463
+          ],
+          [
+            377,
+            162,
+            579,
+            219
+          ],
+          [
+            378,
+            263,
+            579,
+            330
+          ],
+          [
+            357,
+            372,
+            579,
+            429
+          ],
+          [
+            128,
+            516,
+            182,
+            554
+          ],
+          [
+            132,
+            554,
+            182,
+            617
+          ],
+          [
+            120,
+            642,
+            302,
+            705
+          ],
+          [
+            376,
+            678,
+            433,
+            755
+          ]
+        ],
+        "corrections": {
+          "0:2:1:1": "Allgemeine Anleitung",
+          "0:5:1:1": "Drücken Sie den Knopf (D), um von Modus auf Modus umzuschalten.",
+          "1:10003:1:1": "• Drücken Sie den Knopf (B) oder (E) in dem Zeitnehmungs-Modus, um",
+          "1:10008:1:1": "• Mit jedem Drücken des Knopfes (C) in dem Zeitnehmungs-Modus wird",
+          "1:10008:1:2": "zwischen der Wochentagsanzeige und der Monatsanzeige umgeschaltet.",
+          "1:10016:1:1": "Kameramodus",
+          "1:10017:1:1": "• Drücken Sie den Knopf (F) in einem beliebigen Modus, mit",
+          "1:10020:1:1": "• Drücken Sie den Knopf (D) in dem Kameramodus, um den",
+          "2:20002:1:1": "Kameramodus",
+          "2:20003:1:2": "Aufnahme von Bildern. Das Objektiv für die",
+          "2:20003:1:4": "Kante der Armbanduhr.",
+          "2:20007:2:1": "1. Drücken Sie den Knopf (F), um den",
+          "2:20010:1:3": "aufgenommen wurde.",
+          "2:20013:1:3": "3. Drücken Sie den Knopf (F), um den Verschluss auszulösen und das Bild",
+          "2:20015:1:2": "",
+          "3:30001:1:1": "• Die Meldung FULL erscheint am Display, um damit anzuzeigen, dass der",
+          "3:30004:2:1": "• Achten Sie darauf, dass Sie die Armbanduhr nicht versehentlich bewegen,",
+          "3:30006:1:2": "Batteriestrom. Um die Batterie vor einem frühzeitigen Entladen zu schützen,",
+          "3:30010:1:1": "",
+          "3:30010:1:2": "",
+          "3:30012:1:2": "oder den Countdown-Alarm aus, wenn sie auf den Kameramodus geschaltet",
+          "2:20007:3:1": "• Achten Sie darauf, dass Sie aus dem IR-",
+          "2:20013:1:5": "• Dadurch wird das gegenwärtig am Display angezeigte Bild aufgenommen",
+          "2:20014:2:1": "• Die Funktion aller Knöpfe der Armbanduhr ist außer Betrieb gesetzt,",
+          "2:20014:3:1": "• Die Armbanduhr verbleibt für etwa eine Minute in dem Kameramodus,",
+          "1:10009:1:1": ""
+        },
+        "headings": [
+          "Allgemeine Anleitung",
+          "Zeitnehmungs-Modus",
+          "Kameramodus",
+          "Aufnehmen eines Bildes",
+          "Vorsichtsmaßnahmen im Kameramodus",
+          "Allgemeines",
+          "Rastintervall der Kamera",
+          "Ton für Alarm, stündliches Zeitsignal und Countdown-Alarm",
+          "Hinweise"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-8–G-11: mode flow, F shutter, 60-second maximum camera rest.",
+          "Joined umgeschal-/tet across the illustration; the complete word is umgeschaltet.",
+          "Completed the clipped WAIT caption as Restliche Zeitdauer des Rastintervalls; excluded surrounding sentence fragments from the mode diagrams.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "labelRepairs": {
+          "8": [
+            {
+              "box": [
+                376,
+                737.5,
+                433,
+                754
+              ],
+              "lines": [
+                "Restliche Zeitdauer",
+                "des Rastintervalls"
+              ],
+              "fontSize": 5.5,
+              "lineHeight": 7.6,
+              "italic": true
+            }
+          ]
+        },
+        "cropMasks": {
+          "2": [
+            [
+              377,
+              162,
+              579,
+              163.6
+            ]
+          ]
+        }
+      },
+      "4": {
+        "reviewed": true,
+        "figures": [
+          [
+            84,
+            284,
+            159,
+            421
+          ],
+          [
+            336,
+            176,
+            412,
+            232
+          ],
+          [
+            337,
+            234,
+            413,
+            292
+          ],
+          [
+            337,
+            295,
+            414,
+            370
+          ],
+          [
+            335,
+            371,
+            554,
+            442
+          ],
+          [
+            344,
+            493,
+            417,
+            561
+          ],
+          [
+            88,
+            709,
+            166,
+            835
+          ]
+        ],
+        "corrections": {
+          "0:2:1:1": "VISUAL DATABANK™ Modus",
+          "0:3:1:2": "verwenden, um Bilder zu löschen, Text zu den Bildern hinzuzufügen usw.",
+          "0:7:2:1": "1. Drücken Sie den Knopf (D) in dem Zeitnehmungs-Modus, um den VISUAL",
+          "0:9:1:1": "2. Verwenden Sie den Knopf (E) (+) und den",
+          "0:9:1:2": "Knopf (B) (-), um durch die gegenwärtig im",
+          "0:9:4:1": "• Drücken Sie den Knopf (C), um das Display",
+          "0:9:4:3": "(und des angehängten Textes, wenn",
+          "0:10:1:1": "3. Drücken Sie den Knopf (D) fünfmal, um in",
+          "0:18:1:2": "",
+          "1:10004:1:1": "1. Verwenden Sie den Knopf (E) (+) und den",
+          "1:10004:1:2": "Knopf (B) (-) in dem VISUAL DATABANK",
+          "1:10005:1:1": "2. Halten Sie den Knopf (A) für etwa eine",
+          "1:10006:1:1": "3. Drücken Sie den Knopf (F), um die",
+          "1:10006:3:1": "• Verwenden Sie den Knopf (E) (+) und den",
+          "1:10006:3:2": "Knopf (B) (-), um an der gegenwärtigen",
+          "1:10006:3:3": "Cursorposition in der folgenden Reihenfolge",
+          "1:10018:1:1": "• Verwenden Sie den Knopf (D) (rechts) und den Knopf (C) (links), um den",
+          "2:20001:1:1": "5. Sobald Sie den gewünschten Text eingegeben haben, drücken Sie den",
+          "2:20001:1:2": "Knopf (A) oder (F), um den Text zu speichern.",
+          "2:20002:2:3": "keine Operation ausführen.",
+          "2:20003:4:1": "(alphabetische Zeichen → Ziffern → Symbole). Bilder, welche keinen",
+          "2:20003:6:1": "Aufnahmedatum sortiert (ältestes Bild zuerst).",
+          "2:20007:1:1": "1. Halten Sie den Knopf (A) in dem VISUAL",
+          "2:20008:1:1": "2. Drücken Sie den Knopf (E), um den Zeiger",
+          "2:20009:1:1": "3. Drücken Sie den Knopf (F), um das DEL-",
+          "3:30001:1:1": "4. Drücken Sie den Knopf (F), worauf eine",
+          "3:30001:1:3": "erscheint.",
+          "3:30001:2:3": "möchten, drücken Sie den Knopf (E), um",
+          "3:30001:2:5": "betätigen Sie danach den Knopf (F). Falls",
+          "3:30001:2:9": "den Knopf (F).",
+          "3:30002:1:1": "6. Nachdem die Meldung EMPTY erscheint, drücken Sie den Knopf (D) oder",
+          "3:30002:1:2": "(F), um den Alarm-Modus bzw. Kameramodus aufzurufen.",
+          "3:30002:1:5": "Uhr automatisch zurück auf die VISUAL DATABANK-Anzeige.",
+          "3:30004:1:1": "Hinweis",
+          "3:30004:2:2": "DATABANK Modus zurückkehren, indem Sie den Knopf (A) an einem",
+          "3:30004:2:3": "beliebigen Zeitpunkt vor dem eigentlichen Löschen der Bilder in Schritt 5",
+          "3:30006:1:1": "1. Verwenden Sie den Knopf (E) (+) und den Knopf (B) (-) in dem VISUAL",
+          "3:30006:2:1": "2. Halten Sie den Knopf (A) für etwa eine Sekunde gedrückt, bis das SET-",
+          "3:30006:2:3": "3. Drücken Sie den Knopf (E), um den Zeiger an DEL zu verschieben.",
+          "3:30006:3:1": "4. Drücken Sie den Knopf (F), um das DEL-Menü (Löschen) anzuzeigen.",
+          "3:30006:3:2": "5. Drücken Sie den Knopf (E), um den Zeiger an PAGE zu verschieben.",
+          "3:30006:3:3": "6. Drücken Sie den Knopf (F), wodurch eine Bestätigungsmeldung am",
+          "3:30007:1:1": "",
+          "3:30008:1:1": "",
+          "0:5:2:1": "• In dem VISUAL DATABANK Modus gibt die Armbanduhr keinen Ton für",
+          "0:7:3:1": "• Das erste erscheinende Bild ist das gerade aufgezeichnete Bild oder das",
+          "1:10006:4:1": "• Halten Sie einen dieser Knöpfe gedrückt,",
+          "2:20003:7:1": "• Falls mehrere Bilder einen Text aufweisen, der mit den gleichen beiden",
+          "3:30001:3:1": "• Die Meldung WAIT DEL ALL verbleibt am",
+          "3:30002:1:3": "• Wenn Sie ungefähr zwei Minuten keine Tasten betätigen, während das",
+          "0:15:1:2": "• Informationen über die Reihenfolge, in der die Bilder im Speicher abgelegt werden, finden Sie unter „Sortieren der Bilder“ auf Seite G-18.",
+          "0:16:1:1": "",
+          "0:17:1:1": ""
+        },
+        "headings": [
+          "VISUAL DATABANK™ Modus",
+          "Wichtig!",
+          "Hinweis",
+          "Hinweise",
+          "Betrachten der aufgezeichneten Bilder",
+          "Anfügen von Text an einem Bild",
+          "Sortieren der Bilder",
+          "Löschen von Bildern",
+          "Löschen aller Bilder im Speicher der Armbanduhr",
+          "Löschen eines bestimmten Bildes"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-16–G-19: B/E scrolling, C overlay, D/C cursor, F confirmation, all character symbols; all/single deletion.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "5": {
+        "reviewed": true,
+        "figures": [
+          [
+            339,
+            150,
+            420,
+            260
+          ],
+          [
+            112,
+            533,
+            311,
+            606
+          ],
+          [
+            346,
+            500,
+            421,
+            633
+          ]
+        ],
+        "corrections": {
+          "0:1:1:1": "7. Falls Sie das Bild wirklich löschen möchten, drücken Sie den Knopf (E),",
+          "0:1:1:3": "Knopf (F). Um die Bestätigungsmeldung freizugeben, ohne etwas zu",
+          "0:1:1:4": "löschen, belassen Sie den Zeiger an NO und drücken Sie den Knopf (F).",
+          "0:2:2:2": "DATABANK Modus zurückkehren, indem Sie den Knopf (A) an einem",
+          "1:10002:1:1": "Zeitnehmungs-Modus",
+          "1:10004:1:4": "usw.",
+          "1:10008:2:1": "1. Halten Sie den Knopf (A) in dem Zeitnehmungs-Modus für etwa eine",
+          "1:10008:3:1": "2. Drücken Sie den Knopf (E), um die Sekundenzählung auf 00",
+          "1:10008:5:1": "• Falls Sie den Knopf (E) bei einer Sekundenzählung im Bereich von 30 bis",
+          "1:10008:6:1": "3. Drücken Sie den Knopf (A), um die Einstellungsanzeige zu verlassen und",
+          "2:20002:1:1": "Mit jedem Drücken des Knopfes (C) in dem Zeitnehmungs-Modus wird wie",
+          "3:30005:1:1": "1. Drücken Sie den Knopf (E) oder (B) in dem",
+          "3:30007:1:1": "2. Verwenden Sie den Knopf (E) (+) und den",
+          "3:30008:1:1": "Knopf (B) (-), um durch die im Speicher",
+          "3:30008:1:3": "• Halten Sie einen dieser Knöpfe gedrückt,",
+          "3:30008:1:5": "• Halten Sie den Knopf (C) gedrückt, um das",
+          "3:30008:1:9": "• Das Bild kann etwas dunkel erscheinen,",
+          "3:30009:1:1": "3. Um die Viewer-Anzeige zu schließen und",
+          "3:30010:1:3": "(D).",
+          "3:30010:1:4": "• Die Armbanduhr verlässt automatisch die",
+          "3:30012:1:1": "",
+          "3:30013:1:1": "",
+          "3:30014:1:1": "",
+          "3:30015:1:1": "",
+          "3:30017:1:1": "1. Drücken Sie den Knopf (E) oder (B) in dem Zeitnehmungs-Modus, um die",
+          "3:30017:2:1": "2. Drücken Sie den Knopf (A), um den gegenwärtigen Einstellungswert des",
+          "3:30017:2:3": "3. Verwenden Sie den Knopf (B) (dunkler) und den Knopf (E) (heller), um",
+          "3:30017:3:1": "4. Nachdem Sie den Kontrast wunschgemäß eingestellt haben, drücken Sie",
+          "3:30017:3:2": "den Knopf (A), um die Einstellung in Kraft zu setzen und die Einstellungs-",
+          "1:10004:2:1": "• Sie können die Viewer-Anzeige verwenden,",
+          "2:20001:1:1": "Umschalten zwischen den Anzeigeformaten des Zeitnehmungs-Modus",
+          "2:20001:1:2": "",
+          "1:10004:3:2": "Zeit und Datum und die Wahl des 12- oder",
+          "2:20006:1:1": "Durch das Drücken eines Knopfes in dem Zeitnehmungs-Modus wird die",
+          "3:30017:2:4": "den Kontrast auf einen der 15 verfügbaren Pegel einzustellen.",
+          "3:30018:1:1": "Bilder. Für Informationen über die Einstellung des Kontrastes der anderen"
+        },
+        "headings": [
+          "Zeitnehmungs-Modus",
+          "Wichtig!",
+          "Hinweis",
+          "Rückstellen der Sekundenzählung auf Null",
+          "Umschalten zwischen den Anzeigeformaten des Zeitnehmungs-Modus",
+          "Verwendung der Viewer-Anzeige",
+          "Anzeigen der Viewer-Anzeige",
+          "Einstellen des Bildkontrastes"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-20–G-23: single deletion continuation; A/E seconds; 15 image contrast levels.",
+          "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "6": {
+        "reviewed": true,
+        "figures": [
+          [
+            84,
+            165,
+            149,
+            251
+          ],
+          [
+            91,
+            328,
+            287,
+            382
+          ],
+          [
+            90,
+            387,
+            158,
+            442
+          ],
+          [
+            331,
+            336,
+            421,
+            440
+          ],
+          [
+            348,
+            622,
+            423,
+            682
+          ]
+        ],
+        "corrections": {
+          "0:3:1:1": "Alarm-Modus",
+          "0:10:1:1": "1. Verwenden Sie den Knopf (E) (+) und den Knopf (B) (-) in dem Alarm-",
+          "0:20:1:2": "halten Sie den Knopf (A) gedrückt, bis die",
+          "0:20:1:4": "zu blinken beginnen.",
+          "0:20:2:1": "• Die Stundenstellen blinken, da sie",
+          "0:22:1:1": "",
+          "1:10001:1:1": "3. Während die Stundenstellen blinken, verwenden Sie den Knopf (E) (+)",
+          "1:10001:1:2": "und den Knopf (B) (-), um die Einstellung zu ändern.",
+          "1:10001:1:3": "• Halten Sie einen dieser Knöpfe gedrückt, um die Einstellung schnell zu",
+          "1:10001:1:7": "Tageshälfte.",
+          "1:10002:1:1": "4. Drücken Sie den Knopf (D), sodass die Minutenstellen der Alarmzeit zu",
+          "1:10002:1:3": "• Mit jedem Drücken des Knopfes (D) wird das Blinken zwischen den",
+          "1:10002:1:5": "5. Während die Minutenstellen blinken, verwenden Sie den Knopf (E) (+) und",
+          "1:10002:1:6": "den Knopf (B) (-), um die Einstellung zu ändern.",
+          "1:10002:1:9": "6. Drücken Sie den Knopf (A), um die Einstellungsanzeige zu verlassen.",
+          "1:10007:1:1": "Halten Sie den Knopf (C) in dem Alarm-Modus",
+          "1:10008:1:1": "",
+          "1:10010:1:1": "1. Verwenden Sie den Knopf (E) (+) und den",
+          "1:10010:1:2": "Knopf (B) (-) in dem Alarm-Modus, um die",
+          "1:10013:1:2": "Sie den Knopf (C), um diesen/dieses ein-",
+          "3:30002:1:1": "Countdown-Alarm-Modus",
+          "3:30007:1:1": "1. Halten Sie den Knopf (A) in dem",
+          "3:30007:2:2": "verwenden Sie den Knopf (E) (+) und den",
+          "3:30007:2:3": "Knopf (B) (-), um die Einstellung zu",
+          "3:30007:3:1": "ändern.",
+          "3:30007:4:1": "• Halten Sie einen dieser Knöpfe gedrückt,",
+          "3:30007:6:1": "3. Drücken Sie den Knopf (A), um die",
+          "0:1:1:1": "",
+          "0:7:2:1": "• Die Armbanduhr gibt in dem Kameramodus,",
+          "0:20:4:1": "• Durch diese Operation wird der Alarm",
+          "1:10009:1:1": "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals",
+          "1:10009:1:2": "",
+          "1:10009:1:3": "",
+          "2:20001:1:2": "werden im Zeitnehmungs-, Alarm-, Countdown-Alarm- und Stoppuhr-"
+        },
+        "headings": [
+          "Wichtig!",
+          "Hinweis",
+          "Alarm-Modus",
+          "Einstellen der Alarmzeit",
+          "Betrieb des täglichen Alarms",
+          "Kontrolle des Alarms",
+          "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals",
+          "Countdown-Alarm-Modus",
+          "Einstellen der Countdown-Startzeit"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-24–G-27: five alarms, C alarm toggle, D setting cursor, 20-second sound, 1–60 minute countdown.",
+          "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "7": {
+        "reviewed": true,
+        "figures": [
+          [
+            91,
+            146,
+            159,
+            216
+          ],
+          [
+            342,
+            148,
+            424,
+            253
+          ],
+          [
+            334,
+            270,
+            564,
+            416
+          ],
+          [
+            103,
+            627,
+            315,
+            697
+          ],
+          [
+            349,
+            529,
+            535,
+            603
+          ],
+          [
+            343,
+            642,
+            433,
+            840
+          ]
+        ],
+        "corrections": {
+          "0:5:1:1": "• Mit jedem Drücken des Knopfes (E) wird der",
+          "0:5:2:1": "• Die Zeit wird am Display in Ein-Sekunden-",
+          "0:5:3:1": "• Drücken Sie den Knopf (B) bei gestopptem",
+          "0:5:3:4": "• Sobald der Countdown Null erreicht, ertönt",
+          "1:10002:1:1": "Stoppuhr-Modus",
+          "1:10004:1:4": "beträgt bis zu 23 Stunden, 59 Minuten und",
+          "2:20002:1:1": "IR-Modus",
+          "2:20005:1:1": "Hinweise",
+          "2:20005:2:2": "Computer erforderlich.",
+          "2:20007:1:2": "Armbanduhren gemäß folgender Abbildung an.",
+          "2:20008:1:1": "",
+          "3:30002:1:1": "Drücken Sie den Knopf (D) fünfmal in dem Zeitnehmungs-Modus, um den IR-",
+          "3:30009:1:1": "1. Drücken Sie den Knopf (E) in dem COM-",
+          "3:30010:1:1": "verschieben.",
+          "3:30013:1:1": "2. Drücken Sie den Knopf (F), um das",
+          "3:30013:1:4": "3. Drücken Sie erneut den Knopf (F), um die",
+          "3:30014:1:1": "4. Verwenden Sie den Knopf (E) (+) und den",
+          "3:30014:1:2": "Knopf (B) (-), um durch die Bilder zu",
+          "1:10019:1:1": "• Die Messoperation der abgelaufenen Zeit wird fortgesetzt, auch wenn Sie",
+          "3:30002:1:2": "Modus aufzurufen. Die anfängliche Anzeige wird etwa eine Sekunde lang"
+        },
+        "headings": [
+          "Hinweis",
+          "Hinweise",
+          "Verwendung des Countdown-Alarms",
+          "Stoppuhr-Modus",
+          "Zeitmessung mit der Stoppuhr",
+          "IR-Modus",
+          "Datenaustausch zwischen zwei Armbanduhren",
+          "Aufrufen des IR-Modus",
+          "Senden eines einzelnen Bildes"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-28–G-31: E/B countdown and stopwatch, 23:59:59.99; 10 cm / 30° alignment, OTHERS send.",
+          "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "8": {
+        "reviewed": true,
+        "figures": [
+          [
+            83,
+            160,
+            149,
+            233
+          ],
+          [
+            76,
+            327,
+            161,
+            451
+          ],
+          [
+            339,
+            117,
+            402,
+            184
+          ],
+          [
+            350,
+            600,
+            410,
+            678
+          ]
+        ],
+        "corrections": {
+          "0:3:1:8": "Sie den Knopf (F), um das angezeigte Bild",
+          "0:4:1:2": "Knopf (D), um in den Zeitnehmungs-Modus zurückzukehren.",
+          "0:6:1:1": "• Drücken Sie den Knopf (A) während des obigen Vorganges, um das COM-",
+          "0:8:1:1": "• Drücken Sie den Knopf (D) während des obigen Vorganges, um in den",
+          "0:16:1:1": "1. Drücken Sie den Knopf (E) in dem COM-",
+          "0:17:1:1": "2. Drücken Sie den Knopf (F), um das",
+          "0:17:1:4": "3. Drücken Sie den Knopf (E), um den Zeiger",
+          "1:10001:1:1": "4. Drücken Sie erneut den Knopf (F), um die",
+          "1:10001:2:4": "sendenden Armbanduhr aus.",
+          "1:10002:1:2": "Knopf (D), um in den Zeitnehmungs-Modus zurückzukehren.",
+          "1:10004:1:2": "• Drücken Sie den Knopf (A) während des obigen Vorganges, um das COM-",
+          "2:20002:1:2": "einem Winkel von 30 Grad angeordnet sein.",
+          "2:20002:6:2": "kann weniger als 10 cm betragen, wenn die Armbanduhr warm ist.",
+          "2:20002:7:3": "gen.",
+          "2:20002:8:1": "• Die maximal zulässige Entfernung zwischen den Armbanduhren ist",
+          "3:30002:1:1": "Stromversorgung",
+          "3:30008:1:1": "Schritt 1",
+          "3:30008:1:8": "• Texteingabe und Bildlöschung im VISUAL",
+          "3:30008:3:1": "Zeitsignal und Countdown-Alarm",
+          "3:30011:9:4": "Löschen oder Modifizieren von Daten auf Grund von Fehlbetrieb,",
+          "0:4:1:1": "• Nachdem Sie das Senden von Bildern beendet haben, drücken Sie den",
+          "1:10001:3:1": "• Für weitere Informationen siehe „Senden",
+          "1:10001:5:1": "• Die Meldung OK erscheint momentan,",
+          "1:10005:1:2": "• Drücken Sie den Knopf (D) während des obigen Vorganges, um in den",
+          "2:20002:2:1": "• Richtige Datenkommunikation ist vielleicht auch nicht möglich, wenn die",
+          "2:20002:4:1": "• Achten Sie darauf, dass keine Gegenstände die IR-Signale zwischen den",
+          "3:30008:2:2": "• Ton für täglichen Alarm, stündliches",
+          "3:30011:9:1": "• Achten Sie darauf, dass CASIO Ihnen oder dritten Parteien gegenüber",
+          "0:2:1:1": "",
+          "0:3:1:1": "5. Richten Sie die IR-Ports der beiden",
+          "0:3:1:7": "6. An der sendenden Armbanduhr drücken",
+          "0:15:1:1": "",
+          "0:3:1:16": "auf die Wahlanzeige für ein Bild zurück, die",
+          "0:3:1:10": "Die nebenstehend dargestellte Sendean-",
+          "1:10001:1:2": "Empfangsbereitschaft aufzurufen, die durch",
+          "2:20002:1:1": "• Die beiden Armbanduhren müssen innerhalb einer Entfernung von 10 cm und",
+          "2:20002:2:2": "beiden Armbanduhren zu nahe aneinander angeordnet sind."
+        },
+        "headings": [
+          "Hinweise",
+          "Empfangen eines einzelnen Bildes",
+          "Kommunikationsfehler",
+          "Vorsichtsmaßnahmen hinsichtlich der Kommunikation",
+          "Stromversorgung",
+          "Über die eingesetzte Batterie",
+          "Anzeige für niedrige Batteriespannung",
+          "Schritt 1",
+          "Schritt 2"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-32–G-35: OTHERS receive, original error diagrams, 500 lux, 5-minute timeout, battery stages.",
+          "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "blocks": [
+          {
+            "rect": [
+              326,
+              306,
+              558,
+              444
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Armbanduhr</th><th scope=\"col\">Meldung / Indikator</th><th scope=\"col\">Ursache und Abhilfe</th></tr></thead><tbody><tr><td>Sender</td><td>OTHERS SEND ERROR</td><td>Kommunikation aus irgendeinem Grund verhindert. Versuchen Sie es nochmals.</td></tr><tr><td>Sender</td><td>Blinkende Pfeilmarkierungen</td><td>Kommunikationsverbindung mit dem Empfänger wurde unterbrochen. Richten Sie die Armbanduhren neu aus und versuchen Sie es nochmals.</td></tr><tr><td>Empfänger</td><td>OTHERS RECEIVE ERROR</td><td>Kommunikation aus irgendeinem Grund verhindert. Versuchen Sie es nochmals.</td></tr><tr><td>Empfänger</td><td>PLAY 100 FULL</td><td>Der Speicher der Armbanduhr ist voll. Löschen Sie nicht mehr benötigte Bilder und versuchen Sie es nochmals.</td></tr><tr><td>Empfänger</td><td>Blinkende Pfeilmarkierungen</td><td>Kommunikationsverbindung mit dem Sender wurde unterbrochen. Richten Sie die Armbanduhren neu aus und versuchen Sie es nochmals.</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "9": {
+        "reviewed": true,
+        "figures": [
+          [
+            334,
+            139,
+            415,
+            235
+          ],
+          [
+            336,
+            244,
+            429,
+            375
+          ],
+          [
+            96,
+            493,
+            153,
+            566
+          ],
+          [
+            103,
+            632,
+            153,
+            688
+          ],
+          [
+            86,
+            704,
+            158,
+            787
+          ]
+        ],
+        "corrections": {
+          "0:4:2:1": "Wir empfehlen Ihnen dringend, nur den in dieser Anleitung empfohlenen",
+          "0:4:3:2": "des Batteriedeckels oder an der mit dem Gummidichtring (Dichtung) in",
+          "0:4:3:5": "diese Bereiche sauber und frei von Feuchtigkeit.",
+          "0:4:4:2": "Batteriefach. Anderenfalls kann die Batterie auslaufen und zu Beschädi-",
+          "2:20005:1:1": "",
+          "2:20008:3:3": "die Dichtung richtig ein, bevor Sie eine neue",
+          "2:20008:5:2": "Dichtungsmaterials. Die flache Fläche (die",
+          "2:20011:1:1": "",
+          "2:20015:1:1": "4. Schließen Sie den Batteriedeckel.",
+          "2:20015:1:4": "Münze oder eines ähnlichen Gegenstan-",
+          "3:30001:2:1": "Die im Speicher der Armbanduhr abgelegten Bilder bleiben auch beim",
+          "3:30001:2:5": "erneut ausführen.",
+          "1:10008:2:1": "• Führen Sie eine Münze oder einen",
+          "1:10008:3:1": "• Wenden Sie beim Drehen des Batterie-",
+          "1:10014:4:1": "• Halten Sie Ihre Finger entfernt von der",
+          "0:4:8:2": "die Batterieflüssigkeit sofort mit einem trockenen Tuch ab. Achten Sie dabei"
+        },
+        "headings": [
+          "Vorsichtsmaßnahmen hinsichtlich der Batterie",
+          "Austauschen der Batterie",
+          "Einstellungen nach dem Austauschen der Batterie"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-36–G-39: CR-2032, OPEN/CLOSE, polarity, gasket and spring, retained photos after replacement.",
+          "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "cropMasks": {
+          "2": [
+            [
+              426.2,
+              244,
+              429,
+              354
+            ]
+          ]
+        }
+      },
+      "10": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:5:1:1": "Ganggenauigkeit bei Normaltemperatur: ±15 Sekunden pro Monat",
+          "0:6:1:3": "Zeitsystem: Umschaltbar zwischen 12- und 24-Stunden-Format",
+          "0:6:1:5": "Jahre 2000 bis 2039",
+          "0:9:1:4": "Messmodi: Abgelaufene Zeit, Zwischenzeit, zwei Endzeiten",
+          "0:10:1:9": "Objektiv: f/2,8 fest, Brennweite = 1,1 mm",
+          "0:10:1:10": "Zulässige Entfernung: 30 cm bis Unendlich",
+          "2:20023:1:1": "Zur Beachtung",
+          "2:20023:5:1": "V Verwendbar für Gerätetauchen (ausgenommen Tieftauchen mit Helium/",
+          "3:30001:1:1": "• Das Armband nicht zu straff spannen. Sie sollten einen Finger zwischen",
+          "3:30001:5:4": "werden können.",
+          "3:30001:10:1": "Objektivs zu reinigen, verwenden Sie einen Gummipuster oder ein",
+          "2:20025:5:1": "• Diese Uhr weist bei normaler Verwendung ausreichende Stoßfestigkeit",
+          "3:30001:7:1": "• Manche Modelle weisen Seidendruckmuster auf ihren Armbändern auf.",
+          "2:20023:3:1": "III Die Knöpfe nicht unter Wasser betätigen.",
+          "3:30001:11:1": "• Bewahren Sie diese Bedienungsanleitung und alle anderen mit der Uhr",
+          "0:10:1:7": "Bildelement: 1/14-Zoll monochromer CMOS-Sensor (Gesamtzahl der Pixel: 28.000; nutzbare Pixel: 25.344)",
+          "0:10:1:8": "",
+          "0:10:1:19": "Infrarot-Kommunikation: Armbanduhr/Computer, Armbanduhr/Armbanduhr",
+          "0:10:1:20": ""
+        },
+        "headings": [
+          "Kameramodus",
+          "Allgemeines",
+          "Countdown-Alarm-Modus",
+          "Stoppuhr-Modus",
+          "Technische Daten",
+          "Wartung durch den Benutzer",
+          "Pflege Ihrer Uhr",
+          "Für Armbanduhren mit Kunstharzbändern...",
+          "Zur Beachtung"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-40–G-43: original specifications (±15 s/month, 120×120, 16 gray levels, 115200 bps), water table, care.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "paragraphStarts": [
+          "0:6:1:1",
+          "0:7:1:1",
+          "0:10:1:10",
+          "0:10:1:19",
+          "1:10001:1:4",
+          "1:10001:1:6"
+        ],
+        "blocks": [
+          {
+            "rect": [
+              81,
+              588,
+              316,
+              649
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Klasse</th><th scope=\"col\">Gehäusebezeichnung</th><th scope=\"col\">Wasserspritzer, Regen usw.</th><th scope=\"col\">Schwimmen, Autowäsche usw.</th><th scope=\"col\">Schnorcheln, Tauchen usw.</th><th scope=\"col\">Gerätetauchen</th></tr></thead><tbody><tr><td>I</td><td>—</td><td>Nein</td><td>Nein</td><td>Nein</td><td>Nein</td></tr><tr><td>II</td><td>WATER RESISTANT</td><td>Ja</td><td>Nein</td><td>Nein</td><td>Nein</td></tr><tr><td>III</td><td>50M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Nein</td><td>Nein</td></tr><tr><td>IV</td><td>100M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Ja</td><td>Nein</td></tr><tr><td>V</td><td>200M WATER RESISTANT<br>300M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Ja</td><td>Ja</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "11": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:1:4:3": "Oberfläche ist. Daher Feuchtigkeit von den Fluoreszenzflächen entfernt",
+          "0:1:4:4": "halten und Kontakt mit anderen Oberflächen vermeiden.",
+          "0:4:1:2": "• Die CASIO COMPUTER CO., LTD. kann nicht verantwortlich",
+          "1:10003:2:1": "Die nachstehenden Bedingungen, die Voraussetzungen und Umfang",
+          "1:10007:1:3": "eingebaute Ersatzteile endet mit der Garantiefrist für das ganze Gerät.",
+          "3:30001:1:1": "",
+          "1:10003:3:1": "Für dieses Produkt leisten wir Garantie gemäß nachstehenden Bedingungen:",
+          "1:10003:3:2": ""
+        },
+        "headings": [
+          "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren...",
+          "GARANTIEBEDINGUNGEN"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-44 and W-11: care continuation; historical German 12-month warranty, all five conditions and address.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      }
+    },
+    "missingOriginalPages": [
+      "G-12",
+      "G-13",
+      "G-14",
+      "G-15"
+    ],
+    "supplementSource": {
+      "file": "libble-eu_22031.pdf",
+      "sha256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
+      "module": 2220,
+      "page": 3,
+      "method": "German translation of the complete English original supplied by the user; clearly marked in the margin.",
+      "illustrationLabels": "Dunkler / Heller and Erstes Bild / Zweites Bild translated from the complete English labels. Leader lines and button letters retained."
+    },
+    "recognition": {
+      "primary": "Tesseract, German tessdata_fast, PSM 3; logical panels",
+      "comparison": "macOS Vision, de-DE/en-US; full source pages",
+      "sourceImages": "600 dpi scan crops; clipped labels reconstructed as separate SVG text, with a small gray margin note.",
+      "reviewedOn": "2026-11-02",
+      "wordCompletion": "Clipped words are completed from their sentence, diagram meaning and parallel English module guide. Remaining scan-edge losses are repaired in selectable SVG text, not left as fragments."
+    }
+  },
+  "wqv10-de": {
+    "sourceSHA256": "34fc15e193b30dff09fd020417c16fb899ec28f049d7205ff0682ef330e596b0",
+    "pages": {
+      "1": {
+        "reviewed": true,
+        "figures": [
+          [
+            22,
+            289,
+            95,
+            353
+          ]
+        ],
+        "corrections": {
+          "0:5:1:1": "Herzlichen Glückwunsch zu Ihrer Wahl der CASIO Wrist Camera (dieser",
+          "0:5:1:3": "lesen Sie bitte diese Bedienungsanleitung aufmerksam durch und bewahren",
+          "0:5:1:4": "Sie danach die Anleitung und alle in den Verpackungen enthaltenen Artikel an",
+          "0:6:1:1": "einem sicheren Ort auf.",
+          "0:9:3:1": "• Wenn Sie Operationen mit dieser",
+          "0:10:1:1": "• Jeder Abschnitt dieser Anleitung versieht Sie mit den Informationen, die",
+          "0:16:1:1": "• Die IR-Datenkommunikation verwendet Protokoll-Software der Phoenix",
+          "0:16:2:1": "• Die CASIO COMPUTER CO., LTD. kann Ihnen oder dritten Parteien",
+          "1:10001:3:1": "Versuchen Sie niemals während des Lenkens eines Pkws, eines Motorrades",
+          "1:10001:4:1": "oder eines anderen Fahrzeuges ein Aufnehmen von Bildern, die Ausführung",
+          "1:10001:9:1": "Straßenbedingungen, um Unfälle zu vermeiden.",
+          "0:14:1:1": "• VISUAL DATABANK ist ein Warenzeichen der CASIO COMPUTER",
+          "1:10001:6:1": "Displays der Armbanduhr. Anderenfalls besteht die Gefahr eines ernsthaften",
+          "0:15:1:1": "CO., LTD."
+        },
+        "headings": [
+          "Einleitung",
+          "Über diese Anleitung",
+          "Warnung!"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G–G-1: introduction, six button letters, Phoenix attribution, warnings.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "2": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:4:1:2": "Einleitung — G",
+          "0:4:1:3": "Über diese Anleitung — G",
+          "0:4:1:6": "Automatische Stromsparfunktion — G-9",
+          "0:4:1:7": "",
+          "0:4:1:12": "VISUAL DATABANK™ — G-18",
+          "0:4:1:21": "Zeitnehmung — G-31",
+          "0:4:1:22": "Verwendung der Kalenderanzeige — G-32",
+          "0:4:1:23": "Alarm — G-34",
+          "0:4:1:4": "Vor Verwendung der Armbanduhr — G-6",
+          "0:4:1:5": "Spezifizieren des Anzeigefarbmusters — G-8",
+          "0:4:1:8": "Allgemeine Anleitung — G-10",
+          "0:4:1:9": "Kamera-Modus — G-12",
+          "0:4:1:10": "Vorsichtsmaßnahmen im Kamera-Modus — G-13",
+          "0:4:1:11": "Steuerung des Bildes im Kamera-Modus — G-15",
+          "0:4:1:13": "Einstellung des Bildkontrastes — G-19",
+          "0:4:1:14": "Anfügen von Text an einem Bild — G-20",
+          "0:4:1:15": "Sortierung der Bilder — G-22",
+          "0:4:1:16": "Löschung von Bildern — G-22",
+          "0:4:1:17": "Formatierung des Bildspeichers — G-24",
+          "0:4:1:18": "IR-Modus — G-25",
+          "0:4:1:19": "Datenaustausch zwischen zwei Armbanduhren — G-25",
+          "0:4:1:20": "Kommunikationsfehler — G-29",
+          "0:4:1:24": "Stoppuhr — G-36",
+          "1:10001:1:1": "Stromversorgung — G-37",
+          "1:10002:1:1": "Über die eingesetzte Batterie — G-37",
+          "1:10002:1:2": "Vorsichtsmaßnahmen hinsichtlich der Batterie — G-38",
+          "1:10002:1:3": "Einstellungen nach dem Austauschen der Batterie — G-40",
+          "1:10002:1:4": "Referenz — G-41",
+          "1:10002:1:5": "Automatische Rückkehrfunktionen — G-41",
+          "1:10002:1:6": "Störungsbeseitigung — G-42",
+          "1:10002:1:7": "Technische Daten — G-44",
+          "1:10002:1:8": "Wartung durch den Benutzer — G-46"
+        },
+        "headings": [
+          "Inhalt"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-2–G-3: all contents entries and references.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "3": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:3:3:1": "Kamera-Timers — G-17",
+          "0:3:1:1": "Einstellen von Zeit und Datum — G-6",
+          "0:3:2:1": "und 24-Stunden-Zeitnehmung — G-7",
+          "0:3:2:2": "Einstellen des Anzeigekontrasts — G-7",
+          "0:3:2:3": "Ändern des Anzeigefarbmusters — G-8",
+          "0:3:2:4": "Aufnehmen eines Bildes — G-12",
+          "0:3:2:5": "Einstellen der Bildhelligkeit — G-15",
+          "0:3:2:6": "Spezifizieren des Beleuchtungstyps — G-16",
+          "0:3:3:2": "Anzeigen von aufgenommenen Bildern — G-18",
+          "0:3:3:3": "Einstellen des Bildkontrasts — G-20",
+          "0:3:3:4": "Anfügen von Text an einem Bild — G-21",
+          "0:3:4:1": "abgespeicherten Bilder — G-22",
+          "0:3:4:2": "Löschen eines bestimmten Bildes — G-23",
+          "0:3:4:3": "Formatieren des Bildspeichers — G-24",
+          "0:3:4:4": "Aufrufen des IR-Modus — G-26",
+          "0:3:4:5": "Senden eines Bildes — G-26",
+          "0:3:4:6": "Empfangen eines Bildes — G-28",
+          "0:3:4:7": "Rückstellen der Sekunden auf Null — G-31",
+          "0:3:5:1": "Monat — G-32",
+          "0:3:5:2": "Einstellen der Datumsfarben — G-32",
+          "1:10001:1:1": "Einstellen einer Alarmzeit — G-34",
+          "1:10002:1:1": "Kontrolle des Alarms — G-35",
+          "1:10002:2:1": "des stündlichen Zeitsignals — G-35",
+          "1:10002:2:2": "Zeitmessung mit der Stoppuhr — G-36",
+          "1:10002:2:3": "Austauschen der Batterie — G-39",
+          "0:3:2:7": "Aufnehmen eines Bildes unter Verwendung des"
+        },
+        "headings": [
+          "Auffinden der Bedienungsvorgänge"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-4–G-5: all operation-index entries and references.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "4": {
+        "reviewed": true,
+        "figures": [
+          [
+            22,
+            216,
+            99,
+            277
+          ],
+          [
+            29,
+            287,
+            247,
+            355
+          ],
+          [
+            315,
+            312,
+            394,
+            374
+          ]
+        ],
+        "corrections": {
+          "0:7:1:1": "1. Halten Sie den Knopf (A) in dem",
+          "0:26:1:1": "2. Während eine Einstellung blinkt, verwenden Sie die Knöpfe (E) (+) und (B)",
+          "0:30:2:1": "Knopf (A), um die Einstellanzeige zu verlassen.",
+          "1:10002:1:1": "Drücken Sie den Knopf (E) in dem Zeitnehmungs-Modus, um zwischen der",
+          "1:10002:1:4": "• Bei Verwendung des 12-Stunden-Formats erscheint der P-Indikator (PM)",
+          "1:10002:1:6": "Stundenstellen am Display, wogegen der A-Indikator (AM) für Zeiten im",
+          "1:10002:1:8": "am Display erscheint.",
+          "1:10002:1:10": "von 0:00 bis 23:59 Uhr ohne Indikator angezeigt.",
+          "1:10004:1:1": "1. Halten Sie den Knopf (A) in dem",
+          "1:10006:1:3": "3. Verwenden Sie den Knopf (B) (dunkler) oder (E) (heller), um den Kontrast",
+          "1:10006:1:5": "• Sie können den Anzeigekontrast im Bereich von CNT1 bis CNT9",
+          "1:10006:1:6": "einstellen. Die anfängliche Vorgabeeinstellung ist CNT5.",
+          "1:10006:1:7": "4. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen.",
+          "1:10007:2:3": "eingestellt werden, der unter „Einstellen der Bildhelligkeit“ auf Seite G-15",
+          "0:7:6:1": "• Verwenden Sie den Knopf (D), um in der",
+          "0:28:2:1": "• Halten Sie einen dieser Knöpfe gedrückt, um die Einstellung schnell zu",
+          "0:30:3:1": "• Der Wochentag wird automatisch in Abhängigkeit von der",
+          "0:6:1:1": "",
+          "0:30:5:1": "• Sie können das Jahr im Bereich von 2000 bis 2039 einstellen. Falls Sie über den 31. Dezember 2039 weiterschalten, wird wiederum ab dem 1. Januar 2000 begonnen.",
+          "0:30:5:2": "",
+          "0:31:1:1": ""
+        },
+        "headings": [
+          "Vor Verwendung der Armbanduhr...",
+          "Einstellen von Zeit und Datum",
+          "Hinweis",
+          "Umschalten zwischen der 12- und 24-Stunden-Zeitnehmung",
+          "Einstellen des Anzeigekontrasts"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-6–G-7: A/D/E/B settings; 2000–2039; CNT1–CNT9, default CNT5.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "5": {
+        "reviewed": true,
+        "figures": [
+          [
+            15,
+            267,
+            249,
+            412
+          ],
+          [
+            317,
+            199,
+            380,
+            266
+          ]
+        ],
+        "corrections": {
+          "0:1:1:1": "Spezifizieren des Anzeigefarbmusters",
+          "0:2:1:1": "Sie können aus drei Farbkombinationsmustern und zwei Layouts für",
+          "0:2:1:2": "insgesamt sechs Farbmuster im Zeitnehmungs-Modus wählen.",
+          "0:3:1:1": "Ändern des Anzeigefarbmusters",
+          "0:4:1:1": "Drücken Sie den Knopf (B) in dem Zeitnehmungs-Modus.",
+          "0:10:1:1": "• Achten Sie darauf, dass das hier eingestellte Anzeigefarbmuster auch in",
+          "0:11:1:1": "",
+          "0:11:1:2": "",
+          "1:10007:1:2": "Sie den Knopf (F)."
+        },
+        "headings": [
+          "Spezifizieren des Anzeigefarbmusters",
+          "Ändern des Anzeigefarbmusters",
+          "Automatische Stromsparfunktion"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-8–G-9: B color patterns, six layouts, F power-save wake, 60-minute inactivity.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "6": {
+        "reviewed": true,
+        "figures": [
+          [
+            14,
+            242,
+            272,
+            564
+          ],
+          [
+            340,
+            231,
+            539,
+            307
+          ],
+          [
+            322,
+            470,
+            551,
+            529
+          ]
+        ],
+        "corrections": {
+          "1:10020:1:1": "• Drücken Sie den Knopf (D) in dem Kamera-Modus, um den VISUAL",
+          "0:4:1:1": "Drücken Sie den Knopf (D), um von Modus auf Modus umzuschalten.",
+          "1:10003:1:1": "• Drücken Sie den Knopf (C) in dem Zeitnehmungs-Modus, um die",
+          "1:10007:1:1": "• Drücken Sie den Knopf (C), um von der Kalenderanzeige in den",
+          "1:10010:1:1": "",
+          "1:10012:1:1": "Knopf (F) drücken.",
+          "1:10014:1:1": "• Drücken Sie den Knopf (F) in einem beliebigen Modus, mit Ausnahme"
+        },
+        "headings": [
+          "Allgemeine Anleitung",
+          "Zeitnehmungs-Modus",
+          "Kamera-Modus"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-10–G-11: mode flow, C calendar, F camera and D playback.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "7": {
+        "reviewed": true,
+        "figures": [
+          [
+            2,
+            434,
+            265,
+            568
+          ]
+        ],
+        "corrections": {
+          "0:7:2:1": "• Achten Sie darauf, dass Sie den Kamera-Modus nicht aus dem IR-",
+          "1:10001:6:1": "• Dadurch wird das gegenwärtig am Display angezeigte Bild",
+          "0:4:1:1": "Verwenden Sie den Kamera-Modus für die Aufnahme von Bildern.",
+          "0:5:1:1": "Hinweise",
+          "0:5:2:3": "können, hängt von den Aufnahmebedingungen ab. Falls Sie zum Beispiel",
+          "0:6:1:1": "Aufnehmen eines Bildes",
+          "0:7:1:1": "1. Drücken Sie den Knopf (F), um den Kamera-Modus aufzurufen (Seite G-11).",
+          "1:10001:1:1": "2. Während Sie das Bild am Display betrachten, richten Sie das Objektiv auf",
+          "1:10001:3:1": "• Drücken Sie den Knopf (C) zu diesem Zeitpunkt, um zwischen der",
+          "1:10001:4:1": "3. Drücken Sie den Knopf (F), um den Verschluss auszulösen und das Bild",
+          "1:10006:2:2": "wenn Sie durch das Drücken des Knopfes (F) den Verschluss auslösen.",
+          "1:10003:3:2": "dass der Speicher voll ist. Sie können kein Bild aufnehmen, während"
+        },
+        "headings": [
+          "Kamera-Modus",
+          "Aufnehmen eines Bildes",
+          "Vorsichtsmaßnahmen im Kamera-Modus",
+          "Allgemeines",
+          "Hinweise"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-12–G-13: 100 images, C 2× zoom, F shutter, 3–4-second storage. Clipped diagram labels repeated in the caption.",
+          "Clipped Grafik / Speicherkapazität labels reconstructed in place. MEMORY FULL sentence restored from the English guide: an image cannot be recorded.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "captions": {
+          "1": "Anzeige: aktuelle Zeit, restliche Speicherkapazität und Beleuchtungstyp. Der Ablaufbalken zeigt die Restzeit bis zum Verlassen des Kamera-Modus (Blau → Rot)."
+        },
+        "labelRepairs": {
+          "1": [
+            {
+              "box": [
+                2,
+                504,
+                75,
+                513.8
+              ],
+              "lines": [
+                "Grafik der restlichen"
+              ],
+              "fontSize": 6.5,
+              "italic": true,
+              "bold": false
+            },
+            {
+              "box": [
+                2,
+                514,
+                70,
+                523.5
+              ],
+              "lines": [
+                "Speicherkapazität"
+              ],
+              "fontSize": 6.5,
+              "italic": true,
+              "bold": false
+            }
+          ]
+        }
+      },
+      "8": {
+        "reviewed": true,
+        "figures": [
+          [
+            2,
+            289,
+            81,
+            375
+          ],
+          [
+            313,
+            305,
+            392,
+            385
+          ]
+        ],
+        "corrections": {
+          "0:3:1:6": "• Das maximale Rastintervall beträgt 60",
+          "1:10006:4:1": "• Nachdem Sie den Knopf (B) oder (E)",
+          "0:1:1:1": "Rastintervall der Kamera",
+          "0:2:1:1": "Die Operationen im Kamera-Modus verbrauchen eine große Menge an",
+          "0:2:1:2": "Batteriestrom. Um die Batterie vor einem frühzeitigen Entladen zu schützen,",
+          "0:2:1:3": "hält die Armbanduhr automatisch ein Rastintervall ein, während dem Sie",
+          "0:2:1:4": "nach dem Verlassen des Kamera-Modus diesen nicht wieder aufrufen",
+          "0:2:1:5": "können. Die Länge des Rastintervalls ist gleich der Zeitdauer, die Sie im",
+          "0:2:1:6": "Kamera-Modus verbracht haben, bevor Sie diesen verlassen haben. Dies",
+          "0:2:1:7": "bedeutet, dass Sie für 20 Sekunden den Kamera-Modus nicht aufrufen",
+          "0:2:1:8": "können, wenn Sie vor dem Verlassen etwa 20 Sekunden im Kamera-Modus",
+          "0:2:1:9": "verbracht haben.",
+          "0:6:1:1": "Anzeige der Bildgröße und der Speicherbildgröße",
+          "0:7:1:1": "Obwohl die Größe eines von dieser Armbanduhr angezeigten Bildes 78 × 72",
+          "0:7:1:2": "Bildpunkte (78 × 80 Bildpunkte im Falle eines Bildes mit Aufnahmedatum und",
+          "0:7:1:3": "-zeit) beträgt, wird das Bild im Speicher mit 176 × 144 Bildpunkten",
+          "0:7:1:4": "abgespeichert. Wenn Sie daher die Bilder auf einen Computer oder an ein",
+          "0:7:1:5": "anderes Gerät übertragen, können Sie diese mit 176 × 144 Bildpunkten",
+          "0:8:1:1": "anzeigen.",
+          "0:9:1:1": "Ton des Alarms und stündlichen Zeitsignals",
+          "0:10:1:1": "Die Armbanduhr gibt keinen Ton für einen Alarm oder das stündliche",
+          "0:10:1:2": "Zeitsignal aus, während sie auf den Kamera-Modus geschaltet ist.",
+          "1:10006:2:2": "(B) (dunkler), um die Helligkeit des Bildes",
+          "1:10006:3:4": "Vorgabepegel beträgt ±0.",
+          "1:10006:4:3": "bevor die geänderte Helligkeit im",
+          "1:10006:5:1": "• Die von Ihnen ausgeführte",
+          "1:10002:1:2": "einzustellen, den Typ der bei der Aufnahme eines Bildes vorhandenen",
+          "1:10006:3:2": "15 Pegeln im Bereich von -7 bis +7",
+          "1:10010:2:1": "Auch mit der manuellen Helligkeitseinstellung können Sie unter"
+        },
+        "headings": [
+          "Rastintervall der Kamera",
+          "Wichtig!",
+          "Anzeige der Bildgröße und der Speicherbildgröße",
+          "Ton des Alarms und stündlichen Zeitsignals",
+          "Steuerung des Bildes im Kamera-Modus",
+          "Einstellung der Bildhelligkeit",
+          "Einstellen der Bildhelligkeit"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-14–G-15: 60/70-second rest; 78×72 / 78×80 display, 176×144 storage; -7…+7 brightness, default ±0.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "labelRepairs": {
+          "1": [
+            {
+              "box": [
+                2,
+                290,
+                79,
+                307
+              ],
+              "lines": [
+                "Restliche Zeitdauer",
+                "des Rastintervalls"
+              ],
+              "fontSize": 6.5,
+              "lineHeight": 8,
+              "italic": true
+            }
+          ]
+        }
+      },
+      "9": {
+        "reviewed": true,
+        "figures": [
+          [
+            2,
+            286,
+            270,
+            363
+          ],
+          [
+            315,
+            209,
+            402,
+            303
+          ],
+          [
+            430,
+            248,
+            532,
+            329
+          ]
+        ],
+        "corrections": {
+          "1:10007:2:4": "• Die Vorgabeeinstellung ist 2 Sekunden.",
+          "1:10010:2:1": "• Die Anzahl der restlichen Sekunden wird",
+          "1:10010:4:1": "• Um den Countdown des Kamera-Timers zu",
+          "1:10010:6:1": "• Die Armbanduhr verlässt den Kamera-",
+          "0:1:1:1": "Spezifizierung des Beleuchtungstyps",
+          "0:2:1:1": "Der Typ der Beleuchtung während einer Aufnahme beeinflusst stark das sich",
+          "0:2:1:2": "ergebende Bild. Sie können den unten beschriebenen Vorgang verwenden,",
+          "0:2:1:3": "um die Armbanduhr auf die Aufnahme in Räumen oder im Freien",
+          "0:2:2:1": "einzustellen, wodurch richtige Helligkeit für die aufgenommenen Bilder",
+          "0:2:2:2": "gewährleistet wird.",
+          "0:3:1:1": "Spezifizieren des Beleuchtungstyps",
+          "0:4:1:1": "1. Drücken Sie den Knopf (E) oder (B), bevor Sie ein Bild in dem Kamera-Modus",
+          "0:4:1:2": "aufnehmen.",
+          "0:5:1:1": "2. Verwenden Sie den Knopf (E) oder (B), um in der folgenden Reihenfolge",
+          "0:6:1:1": "zyklisch durch die verfügbaren Beleuchtungstypeinstellungen zu schalten.",
+          "0:6:1:2": "",
+          "0:16:1:1": "Verwendung des Kamera-Timers für die Aufnahme von Bildern",
+          "0:17:1:1": "Sie können zwei Sekunden, fünf Sekunden oder zehn Sekunden als die",
+          "0:17:1:2": "Startzeit des Kamera-Timers wählen.",
+          "1:10002:1:1": "",
+          "1:10003:1:1": "",
+          "1:10007:1:1": "1. Drücken Sie den Knopf (A) in dem Kamera-",
+          "1:10007:2:1": "2. Verwenden Sie den Knopf (E) oder (B), um",
+          "1:10010:1:1": "3. Drücken Sie den Knopf (F), um den",
+          "1:10010:4:4": "drücken Sie den Knopf (A), (B) oder (E).",
+          "0:12:1:2": "Innenbeleuchtung oder DUSK für Aufnahmen im Zwielicht oder unter",
+          "1:10001:1:1": "Aufnehmen eines Bildes unter Verwendung des Kamera-Timers"
+        },
+        "headings": [
+          "Spezifizierung des Beleuchtungstyps",
+          "Spezifizieren des Beleuchtungstyps",
+          "Verwendung des Kamera-Timers für die Aufnahme von Bildern",
+          "Aufnehmen eines Bildes unter Verwendung des Kamera-Timers"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-16–G-17: OUTDOOR/INDOOR/DUSK; 2/5/10-second self-timer, A/B/E cancel, F immediate shutter.",
+          "Clipped Beleuchtungstyp label restored from the section heading and English Lighting Type callout.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "labelRepairs": {
+          "1": [
+            {
+              "box": [
+                2,
+                315,
+                41.5,
+                333
+              ],
+              "lines": [
+                "Beleuch-",
+                "tungstyp"
+              ],
+              "fontSize": 6.5,
+              "lineHeight": 8,
+              "italic": true
+            }
+          ]
+        }
+      },
+      "10": {
+        "reviewed": true,
+        "figures": [
+          [
+            33,
+            342,
+            258,
+            428
+          ],
+          [
+            27,
+            433,
+            107,
+            520
+          ],
+          [
+            316,
+            224,
+            417,
+            296
+          ],
+          [
+            305,
+            307,
+            576,
+            337
+          ]
+        ],
+        "corrections": {
+          "0:30:6:1": "• Es kann von einer bis zu vier Sekunden",
+          "1:10003:1:2": "• Mit jedem Drücken des Knopfes (C) wird",
+          "1:10015:1:2": "• Sie können eine Einstellung für den Bildkontrast im Bereich von 1",
+          "1:10016:1:2": "• Der Einstellvorgang für den Bildkontrast ist unterschiedlich von dem auf",
+          "0:2:1:1": "VISUAL DATABANK™",
+          "0:4:1:1": "Neben der Anzeige von Bildern, können Sie den VISUAL DATABANK-",
+          "0:4:1:2": "Modus auch für das Löschen der Bilder, für das Hinzufügen von Text zu",
+          "0:5:1:1": "Bildern usw. verwenden.",
+          "0:6:1:1": "Wichtig!",
+          "0:7:1:1": "Der Alarm und das stündliche Zeitsignal ertönen nicht, während die",
+          "0:7:1:2": "Einstellanzeige des VISUAL DATABANK-Modus am Display angezeigt wird.",
+          "0:8:1:1": "Anzeigen von aufgenommenen Bildern",
+          "0:9:1:1": "1. Drücken Sie den Knopf (D) in dem Zeitnehmungs-Modus oder Kamera-",
+          "0:9:1:4": "erscheint für etwa eine Sekunde, gefolgt von einer Vier-Bilder-",
+          "0:21:1:1": "",
+          "0:30:1:1": "2. Verwenden Sie die Knöpfe (B) und (E), um",
+          "0:30:3:1": "3. Drücken Sie den Knopf (C), um die",
+          "1:10001:1:3": "können Sie die Knöpfe (B) und (E)",
+          "1:10001:2:1": "4. Drücken Sie den Knopf (C) während der"
+        },
+        "headings": [
+          "VISUAL DATABANK™",
+          "Wichtig!",
+          "Anzeigen von aufgenommenen Bildern",
+          "Einstellung des Bildkontrastes"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-18–G-19: B/E selection, C enlargement/text, 1–15 image contrast.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "cropMasks": {
+          "3": [
+            [
+              411.5,
+              224,
+              417,
+              238
+            ]
+          ]
+        }
+      },
+      "11": {
+        "reviewed": true,
+        "figures": [
+          [
+            18,
+            234,
+            93,
+            295
+          ],
+          [
+            20,
+            300,
+            93,
+            414
+          ],
+          [
+            314,
+            246,
+            396,
+            374
+          ],
+          [
+            315,
+            374,
+            568,
+            454
+          ]
+        ],
+        "corrections": {
+          "0:1:1:5": "• Dadurch wird die MENU-Anzeige",
+          "0:8:3:1": "• Das für die Kontrasteinstellung",
+          "1:10010:1:2": "• Verwenden Sie den Knopf (D), um den Cursor zu verschieben.",
+          "1:10010:1:8": "• Drücken Sie den Knopf (C), um die vergrößerte Version des gewählten",
+          "0:1:1:7": "2. Verwenden Sie die Knöpfe (E) und (B), um",
+          "0:7:1:2": "Sie danach den Knopf (F).",
+          "0:8:2:4": "",
+          "0:8:5:2": "(B) (dunkler), um den Kontrast des Bildes",
+          "0:8:6:2": "Knopf (F), um an die MENU-Anzeige",
+          "0:8:7:1": "5. Drücken Sie den Knopf (A), um die MENU-",
+          "0:11:1:1": "Sie können den folgenden Vorgang verwenden, um einen Text mit bis zu 24",
+          "1:10002:1:1": "1. Verwenden Sie den Knopf (B) und den Knopf (E) in dem VISUAL",
+          "1:10002:2:1": "2. Drücken Sie den Knopf (C), um eine vergrößerte Version des gewählten",
+          "1:10005:1:1": "5. Drücken Sie den Knopf (F), um die",
+          "1:10005:1:4": "• Verwenden Sie die Knöpfe (B) und (E),",
+          "1:10009:1:1": "• Halten Sie einen dieser Knöpfe gedrückt, um schnell durch die Zeichen",
+          "1:10009:1:2": "zu scrollen.",
+          "1:10009:1:3": "• Drücken Sie den Knopf (C), um die Eingabe zyklisch zwischen den",
+          "1:10010:1:4": "drücken Sie den Knopf (A), um an die in Schritt 2 dieses Vorganges",
+          "0:8:1:2": "• Sie können die Bildanzeige verwenden, um den Kontrast einzustellen, oder eine spezielle Farbdiagrammanzeige mit verschiedenen Farbbalken. Drücken Sie den Knopf (C), um zwischen der Bildanzeige und der Farbdiagrammanzeige umzuschalten.",
+          "0:8:1:3": "",
+          "0:8:2:1": "",
+          "0:8:2:2": "",
+          "0:8:2:3": "",
+          "0:8:2:5": "",
+          "0:8:2:6": "",
+          "0:8:2:7": ""
+        },
+        "headings": [
+          "Anfügen von Text an einem Bild",
+          "Einstellen des Bildkontrasts"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-20–G-21: contrast controls, 24-character text, all character symbols, C type/D cursor/A save.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "12": {
+        "reviewed": true,
+        "figures": [
+          [
+            24,
+            342,
+            99,
+            404
+          ],
+          [
+            28,
+            407,
+            99,
+            472
+          ],
+          [
+            28,
+            500,
+            99,
+            565
+          ]
+        ],
+        "corrections": {
+          "0:24:2:1": "• Wählen Sie CANCEL, und drücken Sie",
+          "1:10006:8:1": "• Das zu löschende Bild erscheint am Display. Zu diesem Zeitpunkt",
+          "1:10006:17:1": "• Abhängig von der Größe des gelöschten Bildes, ändert sich der",
+          "0:1:1:1": "Sortierung der Bilder",
+          "0:2:1:1": "Die Bilder im Speicher der Armbanduhr werden automatisch sortiert, und",
+          "0:2:1:2": "zwar in Abhängigkeit von dem ersten Zeichen des angehängten Textes",
+          "0:2:1:3": "(Buchstaben → Ziffern → Symbole). Bilder ohne Text werden in Abhängigkeit",
+          "0:2:1:4": "von dem Aufnahmedatum (ältestes Bild zuerst) sortiert.",
+          "0:3:1:1": "Löschung von Bildern",
+          "0:4:1:1": "Sie können den folgenden Vorgang verwenden, um ein bestimmtes Bild oder",
+          "0:4:1:2": "alle gegenwärtig im Speicher abgespeicherten Bilder zu löschen.",
+          "0:5:1:1": "Löschen aller im Speicher der Armbanduhr abgespeicherten Bilder",
+          "0:6:1:1": "",
+          "0:17:1:1": "1. Halten Sie den Knopf (A) in dem VISUAL",
+          "0:19:1:1": "2. Drücken Sie den Knopf (E) oder (B), um",
+          "0:21:1:1": "3. Drücken Sie den Knopf (F), um das",
+          "0:23:1:1": "4. Drücken Sie den Knopf (B) oder (E), um",
+          "0:24:2:2": "den Knopf (F), um an die vorhergehende",
+          "0:25:1:1": "5. Drücken Sie den Knopf (F), wodurch eine",
+          "0:27:1:1": "6. Falls Sie die Bilder wirklich löschen",
+          "0:28:1:2": "(E), um YES zu wählen, und betätigen Sie",
+          "1:10003:1:1": "",
+          "1:10004:1:1": "",
+          "1:10005:1:1": "",
+          "1:10006:1:1": "1. Verwenden Sie die Knöpfe (B) und (E) in dem VISUAL DATABANK-",
+          "1:10006:1:3": "2. Drücken Sie den Knopf (C), um die vergrößerte Version des gewählten",
+          "1:10006:2:1": "3. Halten Sie den Knopf (A) für etwa eine Sekunde gedrückt, bis die MENU-",
+          "1:10006:4:1": "4. Drücken Sie den Knopf (E) oder (B), um DELETE zu wählen.",
+          "1:10006:5:1": "5. Drücken Sie den Knopf (F), um das DELETE-Menü anzuzeigen.",
+          "1:10006:6:1": "6. Drücken Sie den Knopf (B) oder (E), um PAGE zu wählen, und betätigen",
+          "1:10006:7:1": "Sie danach den Knopf (F).",
+          "1:10006:9:1": "7. Drücken Sie erneut den Knopf (F), wodurch eine Bestätigungsmeldung",
+          "1:10006:11:1": "8. Falls Sie das Bild wirklich löschen möchten, drücken Sie den Knopf (B)",
+          "1:10006:12:1": "oder (E), um YES zu wählen, und betätigen Sie danach den Knopf (F).",
+          "1:10001:2:3": "beliebigen Zeitpunkt drücken, bevor Sie die Bilder in Schritt 6 tatsächlich"
+        },
+        "headings": [
+          "Löschen eines bestimmten Bildes",
+          "Sortierung der Bilder",
+          "Löschung von Bildern",
+          "Löschen aller im Speicher der Armbanduhr abgespeicherten Bilder"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-22–G-23: all/single deletion, F confirmations, original WAIT DELETE labels.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "cropMasks": {
+          "2": [
+            [
+              91.5,
+              407,
+              99,
+              472
+            ]
+          ]
+        }
+      },
+      "13": {
+        "reviewed": true,
+        "figures": [
+          [
+            20,
+            288,
+            97,
+            417
+          ],
+          [
+            337,
+            432,
+            532,
+            510
+          ]
+        ],
+        "corrections": {
+          "0:8:11:1": "• Die Meldung WAIT FORMAT verbleibt",
+          "1:10005:4:1": "• Nachfolgend ist die Kompatibilität der Datenkommunikation zwischen",
+          "1:10024:1:1": "• Für den Datenaustausch zwischen zwei Armbanduhren müssen Sie diese",
+          "0:1:1:1": "Formatierung des Bildspeichers",
+          "0:2:1:1": "Führen Sie die folgenden Schritte aus, um den Speicher der Wrist Camera zu",
+          "0:2:1:2": "formatieren, wenn Bildspeicherfehler auf Grund von Speicherfehler usw.",
+          "0:2:1:3": "auftreten sollten.",
+          "0:3:1:1": "Wichtig!",
+          "0:4:1:1": "Formatieren des Bildspeichers",
+          "0:7:1:2": "2. Verwenden Sie die Knöpfe (E) und (B), um",
+          "0:8:1:1": "3. Drücken Sie den Knopf (F), wodurch eine",
+          "0:8:6:1": "Knopf (B) oder (E), um YES zu wählen, und",
+          "0:8:7:1": "betätigen Sie danach den Knopf (F). Um",
+          "0:8:10:1": "und drücken Sie danach den Knopf (F).",
+          "0:8:12:4": "Knopf (A). Achten Sie darauf, dass der"
+        },
+        "headings": [
+          "Wichtig!",
+          "Hinweis",
+          "IR-Modus",
+          "Datenaustausch zwischen zwei Armbanduhren",
+          "Formatierung des Bildspeichers",
+          "Formatieren des Bildspeichers"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-24–G-25: formatting; WQV-3 compatibility, WQV-1/2 exclusion; 10 cm and 15° callouts.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "blocks": [
+          {
+            "rect": [
+              308,
+              258,
+              570,
+              310
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Wrist Camera Modell</th><th scope=\"col\">Kommunikation mit dieser Armbanduhr</th></tr></thead><tbody><tr><td>WQV-3 Serie (Modul 2411)</td><td>Unterstützt</td></tr><tr><td>WQV-1/WQV-2 Serie (Modul 2220)</td><td>Nicht unterstützt (unterschiedliches Protokoll)</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "14": {
+        "reviewed": true,
+        "figures": [
+          [
+            25,
+            305,
+            250,
+            394
+          ],
+          [
+            28,
+            414,
+            101,
+            477
+          ],
+          [
+            29,
+            481,
+            94,
+            548
+          ],
+          [
+            326,
+            190,
+            399,
+            253
+          ],
+          [
+            324,
+            398,
+            389,
+            520
+          ]
+        ],
+        "corrections": {
+          "0:1:1:1": "",
+          "1:10002:3:1": "• Mit jedem Drücken des Knopfes (C) wird",
+          "1:10002:4:1": "• Die Armbanduhr kehrt automatisch auf",
+          "1:10002:8:1": "• SEND wird in der linken oberen Ecke",
+          "1:10002:9:1": "• Sie können zwischen den",
+          "1:10007:2:1": "• Schalten Sie die empfangende",
+          "1:10007:7:1": "• Die Meldung OK erscheint momentan,",
+          "1:10007:9:1": "• Nachdem Sie mit dem Senden von",
+          "0:5:1:1": "Aufrufen des IR-Modus",
+          "0:5:1:2": "Drücken Sie den Knopf (D) zwei Mal in dem Zeitnehmungs-Modus, um den",
+          "0:6:1:1": "IR-Modus aufzurufen.",
+          "0:13:1:1": "Senden eines Bildes",
+          "0:13:2:1": "1. Verwenden Sie den Knopf (B) oder (E) in",
+          "0:13:2:3": "Armbanduhr (Uhrsymbol) zu wählen.",
+          "0:14:1:1": "",
+          "0:15:1:1": "2. Drücken Sie den Knopf (F), um das Menü",
+          "1:10002:1:1": "3. Drücken Sie den Knopf (C), um die",
+          "1:10002:5:1": "4. Verwenden Sie die Knöpfe (E) (+) und (B)",
+          "1:10003:1:1": "5. Richten Sie die IR-Ports der beiden",
+          "1:10007:3:1": "6. Drücken Sie den Knopf (F) an der"
+        },
+        "headings": [
+          "Aufrufen des IR-Modus",
+          "Senden eines Bildes"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-26–G-27: two D presses; watch symbol; C preview; B/E selection; F send.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "15": {
+        "reviewed": true,
+        "figures": [
+          [
+            20,
+            261,
+            101,
+            328
+          ]
+        ],
+        "corrections": {
+          "0:4:8:1": "• Drücken Sie den Knopf (B), um an das",
+          "0:4:16:1": "• Die Meldung OK erscheint momentan,",
+          "0:4:18:1": "• Nachdem Sie den Empfang von Bildern",
+          "0:1:1:1": "Empfangen eines Bildes",
+          "0:3:1:1": "",
+          "0:4:1:1": "1. Verwenden Sie den Knopf (B) oder (E) in",
+          "0:4:1:3": "Armbanduhr (Uhrsymbol) zu wählen.",
+          "0:4:2:1": "2. Drücken Sie den Knopf (F), um das",
+          "0:4:5:1": "3. Drücken Sie den Knopf (E), um das",
+          "0:4:9:1": "4. Drücken Sie den Knopf (F), um auf die",
+          "0:4:11:1": "5. Richten Sie die IR-Ports der beiden",
+          "0:4:18:3": "(D), um in den Zeitnehmungs-Modus"
+        },
+        "headings": [
+          "Kommunikationsfehler",
+          "Empfangen eines Bildes",
+          "Meldungen der Kommunikationsanzeige",
+          "Andere Meldungen"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-28–G-29: F receive; all original error messages, 25-second recovery interval.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "blocks": [
+          {
+            "rect": [
+              304,
+              433,
+              565,
+              488
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Meldung</th><th scope=\"col\">Bedeutung</th></tr></thead><tbody><tr><td>CHECKING DATA</td><td>Diese Meldung erscheint, wenn ein Bild nach dem Empfang der Daten verarbeitet wird.</td></tr><tr><td>REC ERROR</td><td>Die Daten können nicht geschrieben werden, da es beim Zugriff auf den Flash-Speicher zu einem Problem kam.</td></tr></tbody></table>"
+          },
+          {
+            "rect": [
+              304,
+              281,
+              565,
+              403
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Meldung / Anzeige</th><th scope=\"col\">Ursache und Abhilfe</th></tr></thead><tbody><tr><td>ERROR SEND (Sender)<br>ERROR RECEIVE (Empfänger)</td><td>Das Senden oder Empfangen von Daten konnte aus irgendeinem Grund nicht ausgeführt werden. Versuchen Sie es nochmals.</td></tr><tr><td>MEMORY FULL</td><td>Der Speicher des Empfängers ist voll. Löschen Sie nicht mehr benötigte Daten und versuchen Sie es nochmals.</td></tr><tr><td>Blinkende Pfeile (Sender / Empfänger)</td><td>Die Datenkommunikation ist unterbrochen. Beheben Sie die Ursache des Problems. Falls die Datenkommunikation nicht innerhalb von 25 Sekunden wieder aufgenommen wird, erscheint ERROR am Display.</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "16": {
+        "reviewed": true,
+        "figures": [
+          [
+            308,
+            210,
+            393,
+            333
+          ]
+        ],
+        "corrections": {
+          "0:1:1:1": "",
+          "1:10002:1:1": "Zeitnehmung",
+          "0:2:1:1": "Vorsichtsmaßnahmen hinsichtlich der Kommunikation",
+          "0:4:1:1": "",
+          "1:10010:2:4": "Armbanduhr mitgelieferte Link-Software",
+          "1:10012:1:1": "1. Halten Sie den Knopf (A) in dem Zeitnehmungs-Modus für etwa eine",
+          "1:10012:2:1": "2. Drücken Sie den Knopf (E), um die Sekunden auf 00 zurückzustellen.",
+          "1:10012:3:1": "• Falls Sie den Knopf (E) im Bereich von 30 bis 59 Sekunden drücken,",
+          "1:10014:1:1": "3. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen."
+        },
+        "headings": [
+          "Hinweis",
+          "Vorsichtsmaßnahmen hinsichtlich der Kommunikation",
+          "Zeitnehmung",
+          "Rückstellen der Sekunden auf Null"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-30–G-31: communication precautions, 5-minute timeout, A/E seconds reset.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "17": {
+        "reviewed": true,
+        "figures": [
+          [
+            2,
+            205,
+            114,
+            308
+          ],
+          [
+            311,
+            287,
+            569,
+            318
+          ]
+        ],
+        "corrections": {
+          "0:2:1:4": "• Drücken Sie den Knopf (C) im",
+          "0:2:1:7": "• Drücken Sie erneut den Knopf (C), um",
+          "0:2:1:10": "• Sie können die Datumsfarben ändern,",
+          "0:1:1:1": "Verwendung der Kalenderanzeige",
+          "0:5:1:1": "Anzeigen des Kalenders für einen bestimmten Monat",
+          "0:6:1:1": "1. Drücken Sie den Knopf (C) in dem Zeitnehmungs-Modus, um die",
+          "0:6:1:5": "2. Verwenden Sie den Knopf (E) (+) und den Knopf (B) (-), um durch die",
+          "0:7:1:1": "Einstellen der Datumsfarben",
+          "0:8:1:1": "1. Zeigen Sie die Kalenderanzeige an, und scrollen Sie an den Monat, der",
+          "0:8:2:1": "2. Halten Sie den Knopf (A) für etwa eine Sekunde gedrückt, bis der erste",
+          "1:10001:1:1": "• Falls Sie den Knopf (A) gedrückt halten, während der Kalender für den",
+          "1:10001:2:1": "3. Verwenden Sie die Knöpfe (E) (+) und (B) (-), um das Blinken im Kalender",
+          "1:10001:4:1": "4. Sobald das gewünschte Datum blinkt, drücken Sie den Knopf (C), um in",
+          "1:10003:1:2": "haben, drücken Sie den Knopf (A), um Ihre Einstellungen abzuspeichern"
+        },
+        "headings": [
+          "Hinweis",
+          "Verwendung der Kalenderanzeige",
+          "Anzeigen des Kalenders für einen bestimmten Monat",
+          "Einstellen der Datumsfarben"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-32–G-33: 2000–2039 calendar; A settings, B/E date, C color, A save. Clipped labels repeated in caption.",
+          "Clipped Jahr / Monat and Sonntag (Weiß auf Rot) labels reconstructed in place; confirmed by the calendar text.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "captions": {
+          "1": "Jahr / Monat · Samstag: Weiß auf Blau · Sonntag: Weiß auf Rot · Heute"
+        },
+        "labelRepairs": {
+          "1": [
+            {
+              "box": [
+                2,
+                215.5,
+                55,
+                224
+              ],
+              "lines": [
+                "Jahr / Monat"
+              ],
+              "fontSize": 6.7,
+              "italic": true,
+              "bold": false
+            },
+            {
+              "box": [
+                2,
+                287.8,
+                47,
+                295.8
+              ],
+              "lines": [
+                "Sonntag"
+              ],
+              "fontSize": 6.7,
+              "italic": true,
+              "bold": false
+            },
+            {
+              "box": [
+                2,
+                296,
+                63,
+                306
+              ],
+              "lines": [
+                "(Weiß auf Rot)"
+              ],
+              "fontSize": 6.7,
+              "italic": true,
+              "bold": false
+            }
+          ]
+        }
+      },
+      "18": {
+        "reviewed": true,
+        "figures": [
+          [
+            22,
+            220,
+            100,
+            310
+          ],
+          [
+            29,
+            338,
+            110,
+            411
+          ],
+          [
+            28,
+            420,
+            258,
+            495
+          ],
+          [
+            319,
+            444,
+            414,
+            535
+          ]
+        ],
+        "corrections": {
+          "1:10002:1:2": "• Mit jedem Drücken des Knopfes (D) können Sie zwischen den Stunden-",
+          "1:10007:1:9": "• Der Alarm-Ein-Indikator und der Ein-",
+          "0:4:3:1": "Wenn das stündliche Zeitsignal eingeschaltet",
+          "0:4:6:5": "Knopfes (D) aufrufen können (Seite G-10).",
+          "0:8:1:1": "1. Verwenden Sie den Knopf (B) oder (E) in",
+          "0:11:1:1": "",
+          "0:14:1:1": "2. Nachdem Sie einen Alarm gewählt haben, halten Sie den Knopf (A)",
+          "1:10001:1:1": "3. Verwenden Sie die Knöpfe (E) (+) und (B) (-), um die blinkende",
+          "1:10003:3:1": "4. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen.",
+          "1:10003:4:1": "",
+          "1:10005:1:1": "Kontrolle des Alarms",
+          "1:10006:1:1": "Halten Sie den Knopf (C) in dem Alarm-Modus gedrückt, um den Alarm",
+          "1:10007:1:3": "1. Verwenden Sie die Knöpfe (B) und (E) in",
+          "1:10007:1:5": "das stündliche Zeitsignal zu wählen, den bzw.",
+          "1:10007:1:7": "2. Drücken Sie den Knopf (C), um den",
+          "1:10009:1:1": "werden in den Zeitnehmungs-, Alarm-",
+          "1:10007:1:1": "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals",
+          "1:10007:1:2": "",
+          "0:11:1:2": ""
+        },
+        "headings": [
+          "Hinweis",
+          "Kontrolle des Alarms",
+          "Ein- oder Ausschalten eines täglichen Alarms und des stündlichen Zeitsignals",
+          "Alarm",
+          "Einstellen einer Alarmzeit",
+          "Alarmbetrieb"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-34–G-35: five alarms, B/E selection, D time field, C test/toggle, 20-second sound.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "cropMasks": {
+          "2": [
+            [
+              102,
+              392,
+              110,
+              411
+            ]
+          ],
+          "4": [
+            [
+              409.5,
+              444,
+              414,
+              483
+            ]
+          ]
+        },
+        "captions": {
+          "2": "Der Ein/Aus-Status jedes Alarms wird hier angezeigt."
+        }
+      },
+      "19": {
+        "reviewed": true,
+        "figures": [
+          [
+            16,
+            219,
+            111,
+            332
+          ],
+          [
+            2,
+            374,
+            272,
+            527
+          ],
+          [
+            313,
+            325,
+            407,
+            405
+          ],
+          [
+            312,
+            480,
+            376,
+            542
+          ]
+        ],
+        "corrections": {
+          "0:7:1:2": "• Die Messoperation der Stoppuhr wird auch",
+          "1:10002:1:1": "Stromversorgung",
+          "1:10005:4:1": "• Sie müssen eine Ersatzbatterie kaufen, auch wenn die auszutauschende",
+          "1:10008:2:6": "• Aufrufen des Kamera-Modus",
+          "0:2:1:1": "Stoppuhr",
+          "0:10:1:2": "verlassen.",
+          "0:11:1:1": "den Sie durch Drücken des Knopfes (D)"
+        },
+        "headings": [
+          "Hinweise",
+          "Zeitmessung mit der Stoppuhr",
+          "Stromversorgung",
+          "Über die eingesetzte Batterie",
+          "Anzeige für niedrige Batteriespannung",
+          "Schritt 1",
+          "Schritt 2",
+          "Stoppuhr"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-36–G-37: 1/10-second stopwatch, 23:59:59.9; E/B sequences, battery stages.",
+          "Clipped Abgelaufene Zeit / Zwischenzeit / Zwei Endzeiten / Start labels restored from the stopwatch instructions; first E buttons completed.",
+          "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "captions": {
+          "2": "Abgelaufene Zeit, Zwischenzeit und zwei Endzeiten. E: Start / Stopp; B: Zwischenzeit / Freigabe / Löschen."
+        },
+        "labelRepairs": {
+          "2": [
+            {
+              "box": [
+                2,
+                375,
+                84,
+                385.2
+              ],
+              "lines": [
+                "Abgelaufene Zeit"
+              ],
+              "fontSize": 7.9,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                2,
+                418.8,
+                77,
+                428.3
+              ],
+              "lines": [
+                "Zwischenzeit"
+              ],
+              "fontSize": 7.9,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                2,
+                462.5,
+                87,
+                472
+              ],
+              "lines": [
+                "Zwei Endzeiten"
+              ],
+              "fontSize": 7.9,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                2,
+                396.5,
+                31,
+                406.3
+              ],
+              "lines": [
+                "Start"
+              ],
+              "fontSize": 7.7,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                2,
+                440,
+                31,
+                449.8
+              ],
+              "lines": [
+                "Start"
+              ],
+              "fontSize": 7.7,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                2,
+                483.6,
+                31,
+                493.40000000000003
+              ],
+              "lines": [
+                "Start"
+              ],
+              "fontSize": 7.7,
+              "italic": false,
+              "bold": true
+            },
+            {
+              "box": [
+                12,
+                386.2,
+                24,
+                395.7
+              ],
+              "circleLetter": "E",
+              "fontSize": 6.6
+            },
+            {
+              "box": [
+                12,
+                430.2,
+                24,
+                439.7
+              ],
+              "circleLetter": "E",
+              "fontSize": 6.6
+            },
+            {
+              "box": [
+                12,
+                473.6,
+                24,
+                483.1
+              ],
+              "circleLetter": "E",
+              "fontSize": 6.6
+            }
+          ]
+        }
+      },
+      "20": {
+        "reviewed": true,
+        "figures": [
+          [
+            315,
+            214,
+            409,
+            320
+          ],
+          [
+            316,
+            340,
+            411,
+            476
+          ],
+          [
+            335,
+            503,
+            400,
+            588
+          ]
+        ],
+        "corrections": {
+          "1:10002:2:1": "• Führen Sie eine Münze oder einen",
+          "1:10005:2:1": "• Wenden Sie beim Drehen des",
+          "1:10007:3:1": "• Achten Sie darauf, dass die",
+          "1:10007:4:1": "• Halten Sie Ihre Finger entfernt von der",
+          "1:10009:1:3": "",
+          "1:10010:2:1": "• Wischen Sie die Oberfläche einer neuen",
+          "0:4:1:1": "Vorsichtsmaßnahmen hinsichtlich der Batterie",
+          "0:5:1:1": "Falsche Verwendung der Batterie kann zu einem Bersten oder Auslaufen",
+          "0:5:1:2": "führen, wodurch das Innere der Armbanduhr beschädigt werden kann. Halten",
+          "0:5:1:3": "Sie daher die folgenden Vorsichtsmaßnahmen ein.",
+          "0:6:1:1": "Halten Sie die Batterien außerhalb der Reichweite von Kleinkindern.",
+          "0:6:1:2": "Falls eine Batterie versehentlich verschluckt wird, wenden Sie sich",
+          "0:6:1:3": "sofort an einen Arzt.",
+          "0:5:1:27": "die Batterieflüssigkeit sofort mit einem trockenen Tuch ab. Achten Sie dabei",
+          "1:10007:3:2": "Batteriefachdichtung nicht verloren wird."
+        },
+        "headings": [
+          "Vorsichtsmaßnahmen hinsichtlich der Batterie",
+          "Austauschen der Batterie"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-38–G-39: CR-2032, OPEN, positive-up installation, gasket and spring.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "paragraphStarts": [
+          "0:5:1:4",
+          "0:5:1:6",
+          "0:5:1:8",
+          "0:5:1:12",
+          "0:5:1:15",
+          "0:5:1:17",
+          "0:5:1:20",
+          "0:5:1:24",
+          "0:5:1:26"
+        ]
+      },
+      "21": {
+        "reviewed": true,
+        "figures": [
+          [
+            21,
+            205,
+            90,
+            283
+          ],
+          [
+            23,
+            367,
+            105,
+            488
+          ]
+        ],
+        "corrections": {
+          "1:10002:1:1": "Referenz",
+          "0:6:1:2": "",
+          "0:8:2:3": "Sie den Batteriedeckel schließen.",
+          "0:9:1:1": "Einstellungen nach dem Austauschen der Batterie",
+          "0:10:1:1": "Die Armbanduhr erhält die Bilddaten im Speicher, auch wenn Sie die Batterie",
+          "0:10:1:2": "austauschen. Die Einstellungen für aktuelle Zeit, Datum, Kalender und",
+          "0:10:2:1": "Alarme werden jedoch gelöscht. Führen Sie daher diese Einstellungen erneut",
+          "0:10:2:2": "durch, nachdem Sie die Batterie ausgetauscht haben.",
+          "1:10006:1:2": "des Kamera-Modus, ausgeführt haben, drücken Sie den Knopf (D), um in",
+          "1:10006:2:4": "Drücken Sie den Knopf (A) bei am Display angezeigter Einstellanzeige des",
+          "0:5:1:1": "• Falls beim Entfernen der Batterie auch die Dichtung herausfällt, setzen Sie unbedingt die Dichtung richtig ein, bevor Sie eine neue Batterie einsetzen. Die Batterie kann nicht richtig eingesetzt werden, wenn sich die Dichtung nicht an der richtigen Stelle befindet.",
+          "0:6:1:1": "",
+          "0:6:1:3": "",
+          "0:6:1:4": "",
+          "0:6:1:5": "",
+          "0:6:1:6": "",
+          "0:8:1:2": "Verwendung einer Münze oder eines"
+        },
+        "headings": [
+          "Einstellungen nach dem Austauschen der Batterie",
+          "Referenz",
+          "Automatische Rückkehrfunktionen"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-40–G-41: CLOSE; 10-second restart; retained pictures; 1/5-minute automatic returns.",
+          "Restored the full gasket paragraph in reading order; all words retained and compared with the English battery-replacement instructions.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "22": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:14:1:1": "",
+          "0:16:1:1": "",
+          "0:21:1:1": "",
+          "1:10015:1:1": "",
+          "1:10016:2:1": "• Achten Sie darauf, dass",
+          "0:1:1:1": "Störungsbeseitigung",
+          "0:1:1:2": "Überprüfen Sie die folgenden Punkte, wenn Probleme mit Ihrer Armbanduhr",
+          "0:2:1:1": "auftreten sollten."
+        },
+        "headings": [
+          "Störungsbeseitigung"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-42–G-43: both complete troubleshooting tables transcribed into HTML.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "blocks": [
+          {
+            "rect": [
+              14,
+              247,
+              271,
+              582
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Problem</th><th scope=\"col\">Mögliche Ursache</th><th scope=\"col\">Abhilfe</th></tr></thead><tbody><tr><td>Das Display der Armbanduhr verbleibt leer.</td><td>Die Ausschaltautomatik der Stromsparfunktion hat das Display ausgeschaltet (Seite G-9).</td><td>Drücken Sie den Knopf (F), um den normalen Betrieb wieder herzustellen.</td></tr><tr><td>Die Armbanduhr nimmt das Bild nicht auf, wenn der Verschlussauslöseknopf gedrückt wird.</td><td>Die Batteriespannung ist niedrig, was durch den Batterieindikator am Display angezeigt wird (Seite G-37).</td><td>Tauschen Sie die Batterie aus, und versuchen Sie nochmals.</td></tr><tr><td>Der Alarm ertönt nicht zur voreingestellten Alarmzeit.</td><td>Der Alarm ist automatisch deaktiviert:<ul><li>Während sich die Armbanduhr in dem Kamera-Modus befindet</li><li>Während sich die Armbanduhr in dem IR-Modus befindet</li><li>Während die Einstellanzeige des VISUAL DATABANK-Modus angezeigt wird.</li><li>Während die Einstellanzeige des Kalender-Modus angezeigt wird.</li><li>Während der Indikator für niedrige Batteriespannung angezeigt wird.</li></ul></td><td></td></tr><tr><td>Ein Batterieindikator blinkt am Display.</td><td>Die Batteriespannung ist vorübergehend unter einen bestimmten Pegel abgesunken (Seite G-37).</td><td>Warten Sie einige Momente. Normalerweise sollte der Indikator verschwinden und der normale Betrieb wieder hergestellt werden.<ul><li>Falls der blinkende Batterieindikator wiederholt erscheint, tauschen Sie die Batterie aus.</li></ul></td></tr></tbody></table>"
+          },
+          {
+            "rect": [
+              308,
+              204,
+              570,
+              553
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Problem</th><th scope=\"col\">Mögliche Ursache</th><th scope=\"col\">Abhilfe</th></tr></thead><tbody><tr><td>Ein (nicht blinkender) Batterieindikator wird am Display angezeigt.</td><td>Die Batteriespannung ist sehr niedrig (Seite G-37).</td><td>Tauschen Sie die Batterie so bald als möglich aus.</td></tr><tr><td>Die Meldung MEMORY FULL erscheint, auch wenn weniger als 100 Bilder im Bildspeicher abgespeichert wurden.</td><td>Der Bildspeicher ist voll.<ul><li>Die tatsächliche Anzahl der Bilder, die Sie im Speicher abspeichern können, hängt von der Größe jedes Bildes ab, die wiederum von dem Beleuchtungstyp, der Beleuchtung usw. beeinflusst wird.</li></ul></td><td>Löschen Sie nicht mehr benötigte Bilder, oder übertragen Sie die Bilder an Ihren Computer.</td></tr><tr><td>Die im VISUAL DATABANK-Modus angezeigten Bilder erscheinen anfänglich grob.</td><td>Die Bilder werden komprimiert im Bildspeicher abgespeichert, sodass es eine bis vier Sekunden dauert, um die Bilder für die Anzeige zu dekomprimieren. Die Bilder können daher zuerst grob erscheinen, während die Dekomprimierung ausgeführt wird.<ul><li>Achten Sie darauf, dass nur grobe Bilder erscheinen, wenn Sie schnell durch die Bilder scrollen.</li></ul></td><td>Warten Sie einige Momente. Das Bild sollte nach einigen Sekunden normal erscheinen.</td></tr><tr><td>Der Gesamtbetrieb der Armbanduhr ist abnormal.</td><td>Einstellungs- oder Datenproblem.</td><td>Entfernen Sie die Batterie aus der Armbanduhr, und setzen Sie diese danach wieder ein (Seite G-39). Dadurch werden alle Funktionen der Armbanduhr initialisiert, ohne dass die Bilder im Bildspeicher gelöscht werden.</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "23": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:3:1:1": "Ganggenauigkeit bei Normaltemperatur: ±15 Sekunden pro Monat",
+          "0:5:1:1": "Zeitnehmung: Stunden, Minuten, Sekunden, erste (A)/zweite (P)",
+          "0:6:1:1": "Alarm: 5 tägliche Alarme; stündliches Zeitsignal",
+          "0:7:1:1": "Stoppuhr",
+          "0:8:1:1": "Kamera-Modus",
+          "0:8:1:8": "Objektiv: f/2,8 fest, f = 1,1 mm",
+          "0:8:1:9": "Scharfeinstellbereich: 30 cm bis ∞",
+          "0:9:1:1": "Allgemeines",
+          "0:9:1:2": "Hauptelemente: Stimmgabel-Hochleistungs-Quarzoszillator, Ein-Chip CMOS",
+          "0:9:1:4": "Zul. Betriebstemperatur: 0°C bis 40°C",
+          "0:9:1:5": "Sonstiges: Automatische Stromsparfunktion",
+          "0:8:1:15": "Monitor: 6.240 Bildpunkte (78 × 80), 4.096 Farben, Größe: 20 mm × 20 mm",
+          "0:8:1:16": "",
+          "0:8:1:20": "Infrarot-Kommunikation: Armbanduhr/Computer, Armbanduhr/Armbanduhr",
+          "0:8:1:21": ""
+        },
+        "headings": [
+          "Kamera-Modus",
+          "Allgemeines",
+          "Technische Daten",
+          "Stoppuhr"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-44–G-45: all specifications, JPEG, 176×144, 6240 display pixels, 4096 colors, 115200 bps, 4/6-month battery conditions.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "paragraphStarts": [
+          "0:8:1:14",
+          "0:8:1:20",
+          "0:9:1:4",
+          "1:10001:1:2",
+          "1:10002:1:1"
+        ]
+      },
+      "24": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:29:1:1": "I Nicht wasserdicht. Jegliche Feuchtigkeit vermeiden.",
+          "1:10001:6:1": "• Das bemalte Finish kann durch starken Druck, längeres Reiben,",
+          "1:10001:7:1": "• Manche Modelle weisen Seidendruckmuster auf ihren Armbändern auf.",
+          "1:10001:8:1": "• Falls die Armbanduhr elektrostatischen Ladungen oder Magnetfeldern",
+          "1:10001:9:1": "• Berühren Sie niemals die Oberfläche des Objektivs. Fingerabdrücke",
+          "1:10001:10:1": "• Bewahren Sie diese Bedienungsanleitung und alle anderen mit der Uhr",
+          "1:10002:2:1": "• Sie werden vielleicht eine weiße, pulverförmige Substanz auf dem Band",
+          "1:10002:3:1": "• Wenn Sie ein Kunstharzband feucht von Schweiß oder Wasser lassen",
+          "0:9:1:1": "Bewegungen unter Wasser verursachte dynamische Druck höher als",
+          "0:28:1:1": "Zur Beachtung",
+          "0:29:1:2": "III Die Knöpfe nicht unter Wasser betätigen.",
+          "1:10001:1:1": "• Das Armband nicht zu straff spannen. Sie sollten einen Finger zwischen",
+          "1:10001:2:1": "• Zum Reinigen der Uhr und des Armbands ein weiches, trockenes Tuch",
+          "0:33:1:4": "Armbands verkürzen und zur Verfärbung des Armbands führen. Es"
+        },
+        "headings": [
+          "Wartung durch den Benutzer",
+          "Pflege Ihrer Uhr",
+          "Für Armbanduhren mit Kunstharzbändern...",
+          "Zur Beachtung"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-46–G-47: five-row water table (including 200M and 300M), original class-III note and care.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ],
+        "blocks": [
+          {
+            "rect": [
+              14,
+              297,
+              274,
+              362
+            ],
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Klasse</th><th scope=\"col\">Gehäusebezeichnung</th><th scope=\"col\">Wasserspritzer, Regen usw.</th><th scope=\"col\">Schwimmen, Autowäsche usw.</th><th scope=\"col\">Schnorcheln, Tauchen usw.</th><th scope=\"col\">Gerätetauchen</th></tr></thead><tbody><tr><td>I</td><td>—</td><td>Nein</td><td>Nein</td><td>Nein</td><td>Nein</td></tr><tr><td>II</td><td>WATER RESISTANT</td><td>Ja</td><td>Nein</td><td>Nein</td><td>Nein</td></tr><tr><td>III</td><td>50M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Nein</td><td>Nein</td></tr><tr><td>IV</td><td>100M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Ja</td><td>Nein</td></tr><tr><td>V</td><td>200M WATER RESISTANT<br>300M WATER RESISTANT</td><td>Ja</td><td>Ja</td><td>Ja</td><td>Ja</td></tr></tbody></table>"
+          }
+        ]
+      },
+      "25": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:3:1:1": "• Die CASIO COMPUTER CO., LTD. kann Ihnen oder dritten Parteien",
+          "0:3:2:1": "• Die CASIO COMPUTER CO., LTD. kann nicht verantwortlich",
+          "0:1:1:1": "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren…",
+          "0:1:3:3": "Oberfläche ist. Daher Feuchtigkeit von den Fluoreszenzflächen entfernt",
+          "0:1:4:1": "• Starkes Reiben der aufgedruckten Fluoreszenzfläche mit einer anderen",
+          "1:10002:1:1": "",
+          "1:10001:1:1": "Registrierung für Anwender von Ulead PhotoExplorer7.0 Lite"
+        },
+        "headings": [
+          "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren…",
+          "Registrierung für Anwender von Ulead PhotoExplorer7.0 Lite"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "G-48 and Ulead registration sheet: care continuation, PhotoExplorer7.0 Lite and original serial.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "26": {
+        "reviewed": true,
+        "figures": [
+          [
+            169,
+            555,
+            408,
+            634
+          ]
+        ],
+        "corrections": {
+          "0:4:6:1": "• Die in den folgenden Bedienungsvorgängen aufgeführten",
+          "1:10001:1:1": "• Anwender von Windows 98/98SE - Seite 8",
+          "1:10001:1:2": "• Anwender von Windows Me - Seite 18",
+          "1:10001:1:3": "• Anwender von Windows 2000 - Seite 26",
+          "1:10005:2:1": "• Sie müssen Adobe Acrobat Reader 4.0 oder höher auf Ihrem",
+          "1:10005:3:1": "• Verschiedene Sprachversionen für die Software-Dokumentation",
+          "1:10005:4:1": "• Die CD-ROM enthält auch eine Kopie von Adobe Acrobat Reader",
+          "2:20012:1:1": "• Dadurch erscheint die Anzeige des Zeitnehmungs-Modus.",
+          "2:20012:1:2": "• Die Konfiguration Ihrer Armbanduhr kann etwas von der in der",
+          "0:2:2:1": "WQV Link 3.0 ist eine Software für den Austausch von Bilddaten",
+          "0:3:1:1": "http://world.casio.com/download/wat/wqv/",
+          "0:4:2:1": "Bevor Sie WQV Link 3.0 für den Datenaustausch zwischen Ihrer",
+          "0:4:6:2": "Seitennummern beziehen sich auf die Seiten in der WQV Link",
+          "0:5:1:1": "Falls Ihr Computer über einen eingebauten IR-Port verfügt",
+          "0:7:1:1": "Falls Ihr Computer nicht über einen eingebauten IR-Port verfügt",
+          "1:10005:7:1": "3. Führen Sie den Acrobat Reader Befehl File – Open aus.",
+          "1:10005:8:1": "4. Navigieren Sie an die CD-ROM, und öffnen Sie die",
+          "1:10006:1:1": "",
+          "2:20002:1:1": "",
+          "2:20002:1:2": "",
+          "2:20006:1:1": "Printed in Japan / Imprimé au Japon / Gedruckt in Japan · M00110-009001A",
+          "2:20008:1:1": "Automatische Stromsparfunktion",
+          "2:20011:1:1": "(F) (vorne).",
+          "2:20012:1:3": "Abbildung dargestellten Konfiguration abweichen.",
+          "0:1:1:1": "Vorbereitung für die Wrist Camera – PC Kommunikation",
+          "0:2:1:1": "",
+          "0:5:1:2": "",
+          "0:8:1:1": "",
+          "1:10004:1:1": "Betrachtung der CD-ROM Software-Dokumentation",
+          "1:10005:1:1": "",
+          "0:9:2:1": "2. Installieren Sie den Treiber, der für den von Ihnen"
+        },
+        "headings": [
+          "Wichtig!",
+          "Automatische Stromsparfunktion",
+          "Vorbereitung für die Wrist Camera – PC Kommunikation",
+          "Falls Ihr Computer über einen eingebauten IR-Port verfügt",
+          "Falls Ihr Computer nicht über einen eingebauten IR-Port verfügt",
+          "HINWEIS für Anwender von Windows 98 und Windows 98SE ...",
+          "Betrachtung der CD-ROM Software-Dokumentation",
+          "Auto Power Save"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "PC setup sheet and complete separate power-save insert: PAD-2B/PAD-5, Windows versions, file paths, F wake diagram.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      },
+      "27": {
+        "reviewed": true,
+        "figures": [],
+        "corrections": {
+          "0:1:1:1": "ENDANWENDER-LIZENZVEREINBARUNG",
+          "0:5:3:3": "diese Person oder juristische Partei schriftlich die Bestimmungen und Bedingungen dieser",
+          "1:10001:2:2": "frei von physikalischen Fehlern im Material und in der Verarbeitung ist, und zwar für neunzig (90)",
+          "1:10001:4:1": "(3) Ausgenommen wie in Paragraph (1) erwähnt, bieten CASIO und ihre Zulieferanten keine Garantie",
+          "1:10003:5:1": "(4) Nach einer Kündigung oder Aufhebung dieser Lizenzvereinbarung müssen Sie die Software"
+        },
+        "headings": [
+          "ENDANWENDER-LIZENZVEREINBARUNG",
+          "Hinweis für den Anwender:",
+          "1. Verwendung der Software",
+          "2. Kopien",
+          "3. Übertragung",
+          "4. Rückentwicklung",
+          "5. Urheberrecht",
+          "6. Gewährleistung",
+          "7. Garantieausschluss",
+          "8. Kündigung",
+          "9. Sonstiges"
+        ],
+        "clippedLines": [],
+        "notes": [
+          "Software licence: all nine clauses, original 90-day media warranty; historic terms retained.",
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+        ]
+      }
+    },
+    "recognition": {
+      "primary": "Tesseract, German tessdata_fast, PSM 3; logical panels",
+      "comparison": "macOS Vision, de-DE/en-US; full source pages",
+      "sourceImages": "600 dpi scan crops; clipped labels reconstructed as separate SVG text, with a small gray margin note.",
+      "reviewedOn": "2026-11-02",
+      "wordCompletion": "Clipped words are completed from their sentence, diagram meaning and parallel English module guide. Remaining scan-edge losses are repaired in selectable SVG text, not left as fragments."
+    }
+  }
+}

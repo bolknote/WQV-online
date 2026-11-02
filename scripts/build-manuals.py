@@ -363,12 +363,13 @@ def main():
     args.output.mkdir(parents=True,exist_ok=True)
     oldmanifest=args.output/'manifest.json'
     oldreport=REPO/'research/manuals/qa/extraction.json'
-    existing={item['id']:item for item in json.loads(oldmanifest.read_text())} if args.only and oldmanifest.exists() else {}
+    existing={item['id']:item for item in json.loads(oldmanifest.read_text())} if oldmanifest.exists() else {}
     reports=json.loads(oldreport.read_text()) if args.only and oldreport.exists() else {}
     for identifier in args.only or SOURCES:
         entry,report=build(identifier,args.sources/(identifier+'.pdf'),args.ocr,args.output)
         existing[identifier]=entry;reports[identifier]=report
-    manifest=[existing[identifier] for identifier in SOURCES if identifier in existing]
+    # German scans have a separate reviewed generator; retain those editions.
+    manifest=list(existing.values())
     (args.output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     (REPO/'research/manuals/qa/extraction.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2)+'\n')
 
