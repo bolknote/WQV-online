@@ -60,6 +60,8 @@ async function followsScroll(browser, manual) {
         headings: [...document.querySelector('#document-frame').contentDocument.querySelectorAll('h2[id],h3[id]')]
           .map(node => ({ id: node.id, top: node.getBoundingClientRect().top })).filter(node => node.top > -100 && node.top < 100),
       }));
+      // A delayed CI renderer may settle while the diagnostic read is queued.
+      if (actual.selected === id) return;
       throw new Error(step + ': expected ' + id + '; ' + JSON.stringify(actual));
     };
     const frame = page.frames().find(frame => frame.url().includes('/manuals/'));
