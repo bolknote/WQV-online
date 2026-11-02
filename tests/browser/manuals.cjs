@@ -19,10 +19,10 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       page.on('response', response => { if (response.status() >= 400) errors.push(response.url() + ': ' + response.status()); });
       await page.goto(base, { waitUntil: 'networkidle' });
       assert.deepEqual(await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getAttribute('href'))),
-        ['./wqv2.html', './wqv3.html', './manual.html?model=wqv2', './manual.html?model=wqv3']);
+        ['./wqv2.html', './wqv3.html', './wqv3.html?model=wqv10', './manual.html?model=wqv2', './manual.html?model=wqv3', './manual.html?model=wqv10']);
       const desktop = await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
       assert.ok(desktop.every(top => Math.abs(top - desktop[0]) < 1));
-      for (const model of ['wqv2', 'wqv3']) {
+      for (const model of ['wqv2', 'wqv3', 'wqv10']) {
         await page.locator('.document-icon[href="./manual.html?model=' + model + '"]').click();
         await page.waitForLoadState('networkidle');
         await page.waitForFunction(language => document.querySelector('#document-frame').contentDocument?.querySelector('article[data-pages]') &&
@@ -37,7 +37,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         const heading = await page.locator('#document-contents option').nth(1).getAttribute('value');
         await page.locator('#document-contents').selectOption(heading);
         assert.ok(await frame.locator('#' + heading).evaluate(node => node.getBoundingClientRect().top < 10));
-        assert.match(await page.locator('#original-pdf').getAttribute('href'), new RegExp(model === 'wqv2' ? '2220' : '2411'));
+        assert.match(await page.locator('#original-pdf').getAttribute('href'), new RegExp({wqv2:'2220',wqv3:'2411',wqv10:'2412'}[model]));
         await frame.locator('#page-' + (language === 'ja' ? 16 : 6)).evaluate(node => node.scrollIntoView());
         await page.screenshot({ path: path.join(output, model + '-' + language + '.png'), fullPage: true });
         if (language === 'ja') {
@@ -49,7 +49,9 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       }
       await page.setViewportSize({ width: 390, height: 844 }); await page.reload({ waitUntil: 'networkidle' });
       const mobile = await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
-      assert.ok(mobile.every(top => Math.abs(top - mobile[0]) < 1));
+      assert.ok(mobile.slice(0,3).every(top => Math.abs(top - mobile[0]) < 1));
+      assert.ok(mobile.slice(3).every(top => Math.abs(top - mobile[3]) < 1));
+      assert.ok(mobile[3] > mobile[0]);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
       await page.screenshot({ path: path.join(output, 'programs-' + language + '-mobile.png'), fullPage: true });
       await page.locator('.document-icon').last().click(); await page.waitForLoadState('networkidle');

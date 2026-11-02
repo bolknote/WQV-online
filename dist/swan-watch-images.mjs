@@ -3,7 +3,7 @@ import { checkSwanRecord, swanDetails, swanRGBA, swanFromRGBA, withSwanDetails }
 import { watchPhotoDetails } from './wqv3-photo-details.mjs';
 
 const canvas = () => Object.assign(document.createElement('canvas'), { width: 176, height: 144 });
-export async function swanImage(record, { filename = 'SW000001.BIN', source = 'watch' } = {}) {
+export async function swanImage(record, { filename = 'SW000001.BIN', source = 'watch', model = 3 } = {}) {
   checkSwanRecord(record);
   const surface = canvas(), ctx = surface.getContext('2d', { alpha: false });
   const pixels = ctx.createImageData(176, 144); pixels.data.set(swanRGBA(record)); ctx.putImageData(pixels, 0, 0);
@@ -16,7 +16,7 @@ export async function swanImage(record, { filename = 'SW000001.BIN', source = 'w
   const upf = makeUPF(jpeg), details = swanDetails(record), id = await sha256(jpeg);
   return { id, name: filename.replace(/\.[^.]+$/, ''), filename, jpeg, upf, width: 176, height: 144,
     source, protocol: 'swan', swanRecord: record.slice(), receivedAt: new Date().toISOString(),
-    archive: { format: 'casio-wqv-transfer-v1', model: 3, filename, sourceProtocol: 'swan',
+    archive: { format: 'casio-wqv-transfer-v1', model, filename, sourceProtocol: 'swan',
       jpeg_sha256: id, dimensions: [176, 144], packets: packSCEP(putCommand(upf, 'SW000001.UPF')).map(toHex),
       swan: { format: 'casio-wqv-swan-record-v1', recordHex: toHex(record), sha256: await sha256(record), ...details } } };
 }

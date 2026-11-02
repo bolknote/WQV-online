@@ -6,13 +6,14 @@ import { hex, sleep, baudMask, selectBaudRate, linkParameters } from './irda.mjs
 import { LIMIT, b, ascii, text, fromHex as hx, concat, equal, starts, u16, PRIMARY, SECONDARY,
   parseCommand, makeCommand, attribute, packSCEP, unpackSCEP, pduSize, extractUPF,
   jpegFromUPF, jpegInfo, queryResponse, queryCommand, putCommand, sha256, toHex, checkWatchJPEG } from './formats.mjs';
-import { CALENDAR_SIZE, HolidayCalendar } from './calendar.mjs';
+import { HolidayCalendar, ColourCalendar } from './calendar.mjs';
+import { WATCH_MODELS } from './watch-models.mjs';
 
 const random = max => crypto.getRandomValues(new Uint32Array(1))[0] % max;
 const stackID = () => crypto.getRandomValues(new Uint8Array(4)).map(v => v & 0x3e);
 
 export class WQVClient {
-  constructor(adapter, { signal = null, log = () => {}, progress = () => {}, maxBaud = 115200 } = {}) {
+  constructor(adapter, { signal = null, log = () => {}, progress = () => {}, maxBaud = 115200, expectedModel = null } = {}) {
     this.adapter = adapter; this.signal = signal; this.log = log; this.progress = progress;
     this.ourPort = 0xff; this.watchPort = 0xfe; this.upper = 1; this.lower = 0; this.session = 0;
     this.lastSent = null; this.lastIFrame = null; this.lastRX = 0;
@@ -21,7 +22,10 @@ export class WQVClient {
     this.txCredits = 1; this.rxCredits = 14; this.appBuffer = new Uint8Array();
     this.primaryID = PRIMARY; this.secondaryID = SECONDARY; this.model = null; this.peerID = null;
     this.localBaudRates = baudMask(maxBaud);
+    if (expectedModel !== null && ![3, 10].includes(expectedModel)) throw new RangeError('Expected WQV-3 or WQV-10.');
+    this.expectedModel = expectedModel;
   }
+  get calendarProfile() { return WATCH_MODELS[this.model === 10 || (!this.model && this.expectedModel === 10) ? 'wqv10' : 'wqv3']; }
   async applyLinkSpeed(baud) {
     await this.adapter.setSIRSpeed(baud);
     this.log('info', tr('IrLAP negotiated {0} bit/s.', baud));
@@ -106,8 +110,9 @@ export class WQVClient {
         if (performance.now() >= deadline) break;
       }
     }
-    if (!response) throw new LocalizedError(tr("WQV-3 not found. Select IR → PC and face the watch toward the adapter."));
+    if (!response) throw new LocalizedError(tr('Watch not found. Select IR → PC and face the watch toward the adapter.'));
     this.peerID = response.slice(1, 5); this.model = text(response).includes('2411/IR') ? 3 : 10;
+    if (this.expectedModel !== null && this.model !== this.expectedModel) throw new LocalizedError(tr('Found WQV-{0}. Open its application in Programs; this application is for WQV-{1}.', this.model, this.expectedModel));
     this.progress(tr("Connecting to watch"), `Casio WQV-${this.model}, IrLAP / IrCOMM`);
     this.watchPort = 2 * (random(0x7e) + 1); this.ourPort = this.watchPort + 1;
     const parameters = linkParameters(this.localBaudRates);
@@ -403,18 +408,20 @@ export class WQVClient {
     if (!this.isPrimary) throw new LocalizedError(tr("Start a new watch session to use remote controls."));
     if (!command.length || ![2, 3, 4, 5, 6, 7, 8, 9, 0x0c].includes(command[0])) throw new LocalizedError(tr("Unknown remote control command."));
     if (this.appBuffer.length) throw new LocalizedError(tr("Data remains from the previous reply. Reconnect to the watch."));
+    const calendarBytes = this.calendarProfile.calendarBytes;
+    if (command[0] === 8 && (command.length !== calendarBytes + 3 || u16(command, 1) !== calendarBytes)) throw new LocalizedError(tr('Choose a {0} calendar file.', this.calendarProfile.name));
     for (let pos = 0; pos < command.length; pos += 380) {
       await this.primarySend(command.slice(pos, pos + 380));
       if (command.length > 380) this.progress(tr("Write calendar"), tr("{0} / {1} bytes", Math.min(pos + 380, command.length), command.length), Math.min(pos + 380, command.length) / command.length);
     }
-    const needed = command[0] === 9 ? CALENDAR_SIZE + 3 : 1, deadline = performance.now() + 15000;
+    const needed = command[0] === 9 ? calendarBytes + 3 : 1, deadline = performance.now() + 15000;
     while (this.appBuffer.length < needed && performance.now() < deadline) await this.primaryExchange();
     if (this.appBuffer.length < needed) throw new LocalizedError(tr("No complete remote control reply received."));
     const reply = this.appBuffer; this.appBuffer = b();
     this.log('control', tr("Command {0}, reply {1} bytes: {2}", command[0].toString(16).padStart(2, '0'), reply.length, hex(reply.slice(0, 20))));
     if (command[0] === 9) {
-      if (reply.length !== CALENDAR_SIZE + 3 || u16(reply, 1) !== CALENDAR_SIZE) throw new LocalizedError(tr("Invalid calendar size: {0}.", hex(reply.slice(0, 6))));
-      return new HolidayCalendar(reply.slice(3));
+      if (reply[0] !== 0x0d || reply.length !== calendarBytes + 3 || u16(reply, 1) !== calendarBytes) throw new LocalizedError(tr("Invalid calendar size: {0}.", hex(reply.slice(0, 6))));
+      return new (this.calendarProfile.colourCalendar ? ColourCalendar : HolidayCalendar)(reply.slice(3));
     }
     if (reply[0] !== 0x0d) throw new LocalizedError(tr("The watch did not acknowledge the command: {0}.", hex(reply)));
     return reply;

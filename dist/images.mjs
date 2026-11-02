@@ -51,11 +51,11 @@ export async function imageFromFile(file, options = {}) {
   if (file.size > 32 * 1024 * 1024) throw new LocalizedError(tr("Choose a file smaller than 32 MB to import."));
   const extension = file.name.toLowerCase().split('.').at(-1);
   let upf, jpeg, archive = null;
-  if (extension === 'bin') return swanImage(new Uint8Array(await file.arrayBuffer()), { filename: file.name, source: 'import' });
+  if (extension === 'bin') return swanImage(new Uint8Array(await file.arrayBuffer()), { filename: file.name, source: 'import', model: options.model ?? 3 });
   if (extension === 'wqv') {
     if (file.size > LIMIT * 3) throw new LocalizedError(tr("The WQV archive is too large."));
     try { archive = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("Invalid WQV archive file.")); }
-    if (archive.sourceProtocol === 'swan') return swanImage(await swanArchiveRecord(archive), { filename: archive.filename || file.name, source: 'import' });
+    if (archive.sourceProtocol === 'swan') return swanImage(await swanArchiveRecord(archive), { filename: archive.filename || file.name, source: 'import', model: archive.model ?? options.model ?? 3 });
     upf = await loadArchive(archive); jpeg = jpegFromUPF(upf);
   } else if (extension === 'upf') {
     if (file.size > LIMIT) throw new LocalizedError(tr("The UPF file is too large."));
@@ -69,7 +69,7 @@ export async function imageFromFile(file, options = {}) {
   }
   const id = await sha256(jpeg), filename = extension === 'wqv' ? archive.filename || file.name : file.name;
   const name = filename.replace(/\.[^.]+$/, '');
-  if (!archive) archive = { format: 'casio-wqv-transfer-v1', model: 3, filename: 'MC000001.UPF', jpeg_sha256: id,
+  if (!archive) archive = { format: 'casio-wqv-transfer-v1', model: options.model ?? 3, filename: 'MC000001.UPF', jpeg_sha256: id,
     dimensions: [176, 144], packets: packSCEP(putCommand(upf, 'MC000001.UPF')).map(toHex) };
   return { id, name, filename,
     jpeg, upf, archive, width: 176, height: 144, source: 'import', receivedAt: new Date().toISOString() };

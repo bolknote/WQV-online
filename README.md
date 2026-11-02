@@ -1,7 +1,8 @@
 # WQV-online
 
-Read photos from a Casio WQV-2 or WQV-3 wrist camera in your browser, and send
-photos back to a WQV-3. Connect a USB infrared adapter through WebUSB or the
+Read photos from a Casio wrist camera in your browser. There are applications
+for WQV-2, WQV-3 and WQV-10, with photo uploads for the two colour models.
+Connect a USB infrared adapter through WebUSB or the
 KS-959 local helper. The interface takes its look from the Casio CASSIOPEIA
 handhelds and Pocket PC 2000.
 
@@ -9,16 +10,16 @@ handhelds and Pocket PC 2000.
 
 The opening screen has an app for each watch. Click its icon to open it; the
 close button returns to Programs and releases the USB adapter. Each watch has
-its own local album. English, Russian and Japanese settings apply to both apps.
+its own local album. English, Russian and Japanese settings apply to all three apps.
 
-The two manual files beside the watch apps open in a Pocket Word-style reader.
+The three manual files beside the watch apps open in a Pocket Word-style reader.
 They follow the selected display language. The guides use reflowable HTML with
 the original illustrations; the Japanese editions have text recognized from
 scanned PDFs. The reader has a contents list and a text-size setting.
 Original PDF links are available in its File menu. Sources and file hashes are
 listed in [the manual catalog](dist/manuals/manifest.json).
 
-![The Programs screen, with WQV-2 and WQV-3 watch icons](docs/programs.png)
+![The Programs screen, with three watch apps and their guides](docs/programs.png)
 
 ## What you need
 
@@ -214,6 +215,23 @@ integration is tested against those recorded exchanges through both adapter
 transports, including retries, cancellation, captions and lossless backup
 imports. Its next hardware check will use this integrated page.
 See [the SWAN implementation notes](docs/swan-watch.md).
+
+## WQV-10
+
+Open **WQV-10** from Programs. It uses the WQV-3 application with a model
+profile for module 2412, a separate album, and a four-colour date calendar.
+The PC connection checks the watch's identity before continuing. WQV-3 and
+WQV-10 calendar backups cannot be exchanged; their photo files can.
+
+Read the calendar before editing it. Choose Standard, Blue, Red or Green,
+then click dates or apply the colour to selected weekdays. Writing replaces
+the entire 2000–2039 calendar, with a backup and a readback check, as on WQV-3.
+OTHERS and SWAN remain photo-only modes. On WQV-10 these destinations appear
+as icons; its guide in Programs explains them.
+
+This profile follows the original WQV Link 3 software and module 2412 manuals.
+Its calendar encoding was checked against the original program in an emulator;
+it still needs testing with a physical WQV-10. See [the protocol notes](docs/wqv10.md).
 
 ## Photos and settings
 

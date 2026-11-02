@@ -156,7 +156,7 @@ export function extractUPF(command) {
   jpegFromUPF(attrs.BDY0); return attrs.BDY0;
 }
 export async function loadArchive(archive) {
-  if (archive?.format !== 'casio-wqv-transfer-v1' || archive.model !== 3 || !Array.isArray(archive.packets)) throw new LocalizedError(tr("Choose a WQV-3 photo archive."));
+  if (archive?.format !== 'casio-wqv-transfer-v1' || ![3, 10].includes(archive.model) || !Array.isArray(archive.packets)) throw new LocalizedError(tr('Choose a WQV-3 or WQV-10 photo archive.'));
   if (archive.packets.reduce((n, p) => n + (typeof p === 'string' ? p.length : LIMIT * 10), 0) > LIMIT * 3) throw new LocalizedError(tr("The photo archive is too large."));
   const upf = extractUPF(unpackSCEP(concat(...archive.packets.map(fromHex))));
   if (await sha256(jpegFromUPF(upf)) !== archive.jpeg_sha256) throw new LocalizedError(tr("The archive checksum does not match."));

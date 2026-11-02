@@ -9,5 +9,10 @@
 @media(min-width:1400px){.programs-desktop{min-height:570px}.programs-grid{gap:30px;padding:36px 28px}}
 @media(max-width:660px){.titlebar{gap:6px}.titlebar .app-title{font-size:12px}.window-close{flex-basis:21px;width:21px}.programs-desktop{min-height:480px}.programs-grid{padding:23px 12px;grid-template-columns:repeat(2,100px);gap:12px}.legacy-app .preview-inset{min-height:260px}.legacy-app .preview-inset img{width:240px}.legacy-app .connection-layout{min-height:0}.legacy-app .legacy-info{padding:6px 8px;gap:6px}.legacy-app .tab-panel{min-height:0}.programs-status{flex-wrap:wrap}.legacy-info>span:last-child{font-size:9px}}
 .document-icon>span>span{display:block;font-size:11px;padding:2px 0 0}.document-icon>span{line-height:1.35}
-.programs-grid{grid-template-columns:repeat(4,104px)}
-@media(max-width:660px){.programs-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding-inline:7px}.program-icon{min-width:0}.program-icon>span{max-width:100%;padding-inline:0;overflow-wrap:anywhere}.document-icon>span>span{font-size:10px}}
+.programs-grid{grid-template-columns:repeat(6,104px)}
+@media(max-width:660px){.programs-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding-inline:7px}.program-icon{min-width:0}.program-icon>span{max-width:100%;padding-inline:0;overflow-wrap:anywhere}.document-icon>span>span{font-size:10px}}
+
+.calendar-colour-choice{display:flex;align-items:center;gap:12px;margin-bottom:12px}.calendar-colour-choice select{flex:1}
+.calendar-grid button.date-blue{color:#fff;background:#1757a0}.calendar-grid button.date-red{color:#fff;background:#a53037}.calendar-grid button.date-green{color:#fff;background:#267544}
+.calendar-grid button.date-unknown{background:#ddd;color:#222}.calendar-grid button:focus-visible{outline:2px dotted #182b44;outline-offset:-4px}
+.colour-calendar .calendar-legend>i{display:none}

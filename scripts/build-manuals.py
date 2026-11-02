@@ -34,8 +34,12 @@ SOURCES = {
     'wqv3-en': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf',
     'wqv3-ru': 'https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf',
     'wqv3-ja': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf',
+    'wqv10-en': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf',
+    'wqv10-ru': 'https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf',
+    'wqv10-ja': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_JA.pdf',
 }
 FIGURE_BOUNDS = json.loads((REPO/'docs/manuals/figure-bounds.json').read_text())
+TEXT_CORRECTIONS = json.loads((REPO/'docs/manuals/text-corrections.json').read_text())
 
 def escaped(value):
     return html.escape(str(value), quote=True)
@@ -145,7 +149,7 @@ def native_figures(page):
         # Page borders, paragraph panels and heading rules are presentation,
         # not illustrations. Do not carry them into the reflowable document.
         simple = all(item[0] in ('re', 'qu', 'l') for item in drawing['items'])
-        if simple and box.width > page.rect.width*.31:
+        if simple and (box.width > page.rect.width*.31 or box.height > page.rect.height*.65):
             continue
         if box.get_area() > page.rect.get_area()*.65:
             continue
@@ -172,8 +176,8 @@ def flow_items(lines, figures, page):
     # Avoid page numbers and the old running header becoming huge headings.
     for line in body:
         line['kind'] = 'text'
-        if re.fullmatch(r'(?:2220|2411)-\d+', line['text']) or (
-                re.fullmatch(r'\d+', line['text']) and line['box'].y0 > page.rect.height*.92):
+        if re.fullmatch(r'(?:2220|2411|2412)-\d+|USER[’\']S GUIDE \d+', line['text']) or (
+                re.fullmatch(r'\d+', line['text']) and line['box'].y0 > page.rect.height*.88):
             line['kind'] = 'page-number'
     sizes = [line['size'] for line in body if len(line['text']) > 20]
     normal = median(sizes) if sizes else 9
@@ -256,8 +260,7 @@ def render_flow(items, normal, columns, page, number, svgfile, language, raster=
             level = 'h2' if heading else 'h3'
             anchor = f'section-{number}-{index}'
             parts.append(f'<{level} id="{anchor}">{text}</{level}>')
-            if heading:
-                headings.append({'id':anchor,'text':item['text']})
+            headings.append({'id':anchor,'text':item['text']})
         else:
             if new or listed:
                 flush()
@@ -293,6 +296,9 @@ def build(identifier, source, ocrroot, output):
         else:
             lines = native_lines(page)
             figures,raster_count = native_figures(page)
+        for line in lines:
+            for old, new in TEXT_CORRECTIONS.get(identifier,{}).get(str(n),{}).items():
+                line['text'] = line['text'].replace(old,new)
         raster=None
         if language=='ja' and len(page.get_image_info())==1:
             # Keep scan pixels in binary PNG files. Large Base64 strings in SVG
@@ -340,7 +346,7 @@ def build(identifier, source, ocrroot, output):
 </article></body></html>'''
     (output/(identifier+'.html')).write_text(markup)
     entry = dict(id=identifier,model=model.upper().replace('WQV','WQV-'),language=language,
-                 module=2220 if model=='wqv2' else 2411,title=title,pages=len(doc),
+                 module={'wqv2':2220, 'wqv3':2411, 'wqv10':2412}[model],title=title,pages=len(doc),
                  file=identifier+'.html',sourceURL=SOURCES[identifier],
                  sourceSHA256=hashlib.sha256(source.read_bytes()).hexdigest(),
                  scanned=language=='ja',illustrations=sum(p['figures'] for p in report),headings=allheadings)

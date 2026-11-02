@@ -23,5 +23,18 @@
 <path fill="#33434a" d="M15 12h10v1H15zM15 33h10v1H15z"/>
 <path fill="#ed9e51" d="M18 35h5v3h-5z"/><path fill="#c8d2d5" d="M0 18h4v5H0zM36 15h4v5h-4zM36 27h4v5h-4z"/>
 </symbol>
+<symbol id="wqv10" viewBox="0 0 40 48">
+<path fill="#223442" d="M12 0h16v8H12zM12 40h16v8H12z"/>
+<path fill="#899ba9" d="M14 1h12v2H14zM14 5h12v2H14zM14 41h12v2H14zM14 45h12v2H14z"/>
+<path fill="#263b4f" d="M9 7h22v2h4v5h2v20h-2v5h-4v2H9v-2H5v-5H3V14h2V9h4z"/>
+<path fill="#c4d0d8" d="M10 9h20v2h3v25h-3v3H10v-3H7V12h3z"/>
+<path fill="#edf2f2" d="M11 10h18v2H11zM8 13h2v20H8z"/>
+<path fill="#1c3656" d="M11 13h18v20H11z"/><path fill="#2670b4" d="M13 15h14v16H13z"/>
+<path fill="#a2d6ee" d="M14 16h12v10H14z"/><path fill="#e9c45d" d="M16 17h3v3h-3z"/>
+<path fill="#499164" d="M14 24h3v-3h3v2h2v-4h2v5h2v3H14z"/>
+<path fill="#f1f2ee" d="M15 28h2v2h-2zM19 28h2v2h-2zM23 28h2v2h-2z"/>
+<path fill="#234e77" d="M15 11h10v1H15z"/><path fill="#4d6c83" d="M17 35h7v3h-7z"/>
+<path fill="#aebfc9" d="M0 17h4v5H0zM36 15h4v5h-4zM36 26h4v5h-4z"/>
+</symbol>
 <symbol id="programs" viewBox="0 0 16 16"><path fill="#344a63" d="M1 3h14v11H1z"/><path fill="#fff" d="M2 4h12v9H2z"/><path fill="#4e7aab" d="M2 4h12v2H2z"/><path fill="#7eaa68" d="M3 7h3v2H3z"/><path fill="#d7af4b" d="M9 7h3v2H9z"/><path fill="#8596aa" d="M3 10h3v2H3zM9 10h3v2H9z"/></symbol>
 </svg>

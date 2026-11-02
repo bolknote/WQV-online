@@ -1,12 +1,12 @@
 import { tr, getLanguage } from './i18n.mjs';
 import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
+import { watchModel } from './watch-models.mjs';
 
 const $ = id => document.getElementById(id);
 const requested = new URL(location.href).searchParams.get('model');
-const model = ['wqv2', 'wqv3'].includes(requested) ? requested : 'wqv3';
-const name = model === 'wqv2' ? 'WQV-2' : 'WQV-3';
-const watchModule = model === 'wqv2' ? '2220' : '2411';
+const profile = watchModel(requested);
+const model = profile.id, name = profile.name, watchModule = String(profile.module);
 let opened = '';
 let stopFollowingContents = () => {};
 let updateContents = () => {};

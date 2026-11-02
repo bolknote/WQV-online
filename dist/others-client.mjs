@@ -22,8 +22,8 @@ export async function prepareOthers(adapter, signal) {
   adapter.decoder.reset(); adapter.decoder.frames.length = 0;
 }
 
-export async function othersImage(file) {
-  const image = await imageFromFile(new File([file.bytes], file.filename));
+export async function othersImage(file, { model = 3 } = {}) {
+  const image = await imageFromFile(new File([file.bytes], file.filename), { model });
   image.archive.filename = file.filename;
   image.archive.sourceProtocol = 'others';
   image.archive.packets = packSCEP(putCommand(image.upf, file.filename)).map(toHex);

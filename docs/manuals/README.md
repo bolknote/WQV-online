@@ -1,6 +1,6 @@
 # Watch manuals
 
-The Programs screen includes two document files, one for each watch. Opening a
+The Programs screen includes three document files, one for each watch. Opening a
 file selects the English, Russian or Japanese edition using the same saved
 language as the watch applications.
 
@@ -8,9 +8,10 @@ language as the watch applications.
 | --- | --- | --- | --- | --- |
 | WQV-2 (also WQV-1) | 2220 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2220.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf) |
 | WQV-3 | 2411 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf) |
+| WQV-10 | 2412 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_JA.pdf) |
 
 The WQV-3 Russian source was supplied by the owner. It is the i-Watch edition,
-with thirteen landscape PDF pages. Its SHA-256, and the hashes of the other five
+with thirteen landscape PDF pages. Its SHA-256, and the hashes of the other eight
 sources, are recorded in `dist/manuals/manifest.json`.
 
 The English and Russian editions have native PDF text. Japanese booklets are
@@ -20,7 +21,7 @@ generated. Vector diagrams remain SVG; scanned illustrations use the original
 scan pixels. Decorative page borders and paragraph panels are omitted from the
 HTML text layout. Images retain their own labels and internal shading.
 
-`scripts/build-manuals.py` builds the six HTML documents and their shared SVG
+`scripts/build-manuals.py` builds the nine HTML documents and their shared SVG
 and PNG assets. Scan images are stored as binary PNG files without resampling.
 The source PDFs and word-coordinate OCR caches are held in the local
 research directory. It requires PyMuPDF 2.0 and ImageMagick. Rebuild with:
@@ -39,6 +40,8 @@ coordinates refer to the full source-page renders at the recorded dimensions;
 each region includes the watch, button letters and complete leader lines.
 These compound drawings use the reviewed regions instead of guessing label
 ownership from OCR, which can confuse nearby paragraphs with callouts.
+The WQV-10 booklet uses macOS Vision OCR; `text-corrections.json` records the
+reviewed button-letter corrections on its operation-overview page.
 
 The original manuals and their illustrations retain their publishers'
 copyright. They are separate from the application's MIT-licensed code.

@@ -4,7 +4,8 @@ import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
-import { HolidayCalendar, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
+import { HolidayCalendar, ColourCalendar, DATE_COLOURS, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
+import { colourWatchModel } from './watch-models.mjs';
 import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
 import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
@@ -16,7 +17,26 @@ import { prepareSwan, transferSwan, swanOutcome } from './swan-watch-client.mjs'
 import { swanImage, swanSendRecord } from './swan-watch-images.mjs';
 import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers, othersImage, othersOutcome } from './others-client.mjs';
 
-const $ = id => document.getElementById(id), store = new LocalStore();
+const profile = colourWatchModel(new URL(location.href).searchParams.get('model'));
+const Calendar = profile.colourCalendar ? ColourCalendar : HolidayCalendar;
+const $ = id => document.getElementById(id), store = new LocalStore({ name: profile.album });
+document.title = profile.name + ' · CASSIOPEIA';
+document.body.classList.toggle('colour-calendar', profile.colourCalendar);
+document.querySelector('[data-watch-icon]').setAttribute('href', './watches.svg#' + profile.id);
+$('watch-guide').href = './manual.html?model=' + profile.id;
+document.querySelector('.calendar-colour-choice').hidden = !profile.colourCalendar;
+if (profile.colourCalendar) {
+  for (const [from, to] of [['Holidays', 'Calendar'], ['▦ Holidays', '▦ Calendar'], ['Holiday calendar', 'Colour calendar'],
+    ['Holiday on watch', 'Coloured dates on watch'],
+    ['Then click dates to mark holidays. The original calendar is backed up before writing.', 'Choose a colour, then click dates. The original calendar is backed up before writing.']]) {
+    for (const node of document.querySelectorAll('[data-i18n]')) if (node.dataset.i18n === from) node.dataset.i18n = to;
+  }
+}
+function modelLabels(root = document) {
+  const labels = { name: profile.name, module: tr('{0} / module {1}', profile.name, profile.module),
+    send: tr('Send to {0}', profile.name), download: tr('Download photos from the {0}', profile.name) };
+  for (const node of root.querySelectorAll('[data-watch-text]')) node.textContent = labels[node.dataset.watchText];
+}
 const emptyGallery = $('gallery').firstElementChild.cloneNode(true);
 const S = {
   device: null, adapter: null, lastAdapter: null, client: null, active: null, activeUSB: false,
@@ -93,7 +113,7 @@ function update() {
   $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? tr("Supported") : tr("Not implemented") : '—';
   $('endpoints').textContent = connected ? S.adapter.description?.controlEndpoint === 0 ? tr('Control endpoint 0') : 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
   $('registers').hidden = info?.driver === 'KingSun KS-959';
-  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode !== 'pc' && S.transfer?.linked ? 'Casio WQV-3' : '—';
+  $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode !== 'pc' && S.transfer?.linked ? 'Casio ' + profile.name : '—';
   $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
   $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported));
@@ -151,7 +171,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("Casio WQV-3 / WebUSB.\n\nConnect a SigmaTel STIr4200 (066f:4200) or KingSun KS-959 (07d0:4959), then choose PC, OTHERS or SWAN above the album. Face the infrared windows toward each other, about 5–10 cm apart.\n\nPC: select IR → PC → F / REMOTE on the watch. Download photos, browse the watch display, set its clock or edit its holiday calendar.\n\nOTHERS: transfer one photo at a time. Choose Receive photo or To watch and follow the transfer window. Prepare USB before activating transfer on the watch. Clock and calendar commands are available in PC mode.\n\nSWAN: transfer one photo at 38400 bit/s using SWAN SEND or SWAN RECEIVE on the watch. Original RGB332 records and captions are kept in the album.\n\nAll three modes use the same local album. Import JPEG / PNG / UPF / WQV, export JPEG or the original files, or save a collection ZIP. Photos and backups stay in this browser.\n\n“Delete local copy…” only removes the browser copy. On the WQV-3: VISUAL DATABANK → choose a photo with B/E → F → hold A for about one second → DEL → PAGE → YES. Use B/E to select and F to confirm.\n\nKS-959 requires the local USB helper shown after selecting the adapter. SigmaTel connects directly through WebUSB. The interface is inspired by the Casio CASSIOPEIA and Pocket PC 2000."));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200 or KingSun KS-959 and choose PC, OTHERS or SWAN above the album. Keep the infrared windows 5–10 cm apart. KS-959 uses the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. OTHERS and SWAN: one photo per connection. Prepare USB before starting infrared transfer on the watch, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls and transfer-mode icons.", profile.name));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 function showOptions() {
@@ -191,7 +211,7 @@ async function ensureClient(signal) {
   if (S.mode !== 'pc') throw new LocalizedError(tr('Switch to PC mode to use this command.'));
   if (S.client?.connected && S.client.isPrimary) { S.client.signal = signal; return S.client; }
   await closeClient();
-  const client = new WQVClient(S.adapter, { signal, log, progress: (h, d, r = null) => result('working', h, d, r) });
+  const client = new WQVClient(S.adapter, { signal, log, expectedModel: profile.number, progress: (h, d, r = null) => result('working', h, d, r) });
   S.client = client; await client.openPrimary(); signal?.throwIfAborted();
   $('watch-model').textContent = 'Casio WQV-' + client.model;
   record('connection', { passed: true, model: client.model, baud: S.adapter.baud });
@@ -260,7 +280,7 @@ $('connect').addEventListener('click', () => run(async signal => {
   const description = await S.adapter.open(); signal.throwIfAborted();
   record('usb', { passed: true, description });
   log('ok', info.driver === 'KingSun KS-959' ? tr('{0} opened through the local USB helper.', info.label) : tr("{0} opened through WebUSB.", info.label));
-  result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr("{0}. Select IR → PC on the WQV-3, then choose an operation.", info.label) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));
+  result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr('{0}. Select IR → PC on the {1}, then choose an operation.', info.label, profile.name) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));
 }));
 $('disconnect').addEventListener('click', () => run(async () => {
   await closeClient(); const adapter = S.adapter;
@@ -315,6 +335,7 @@ function renderGallery() {
   } else {
     $('gallery').replaceChildren(emptyGallery.cloneNode(true));
     translateDOM($('gallery'));
+    modelLabels($('gallery'));
   }
   const image = selected();
   $('export-swan').hidden = !image?.swanRecord;
@@ -472,14 +493,14 @@ async function openPhotoTransfer(direction, input = null) {
       signal.throwIfAborted(); transfer.state = 'running'; renderTransfer(); $('transfer-cancel').focus();
       const options = { direction, signal,
         file: image ? { filename, bytes: input.upf } : undefined,
-        onFile: async file => addImage(await othersImage(file)), record: recordTransfer,
+        onFile: async file => addImage(await othersImage(file, { model: profile.number })), record: recordTransfer,
         progress: (phase, details = {}) => {
           transfer.phase = phase; Object.assign(transfer, details); renderTransfer();
           result('working', $('transfer-status').textContent, $('transfer-detail').textContent);
         } };
       const summary = S.mode === 'swan' ? await transferSwan(S.adapter, { ...options, bytes: input?.bytes }) : await transferOthers(S.adapter, options);
       if (S.mode === 'swan') {
-        if (summary.file) await addImage(await swanImage(summary.file));
+        if (summary.file) await addImage(await swanImage(summary.file, { model: profile.number }));
         finishSwan(summary);
       } else finishOthers(summary);
       if (!summary.complete || summary.pendingUSBRead || summary.error) await S.adapter?.close();
@@ -525,10 +546,10 @@ $('image-files').addEventListener('change', async event => {
   await run(async signal => {
     for (let i = 0; i < files.length; i++) {
       signal.throwIfAborted(); result('working', tr("Importing photos"), files[i].name, i / files.length);
-      const image = await imageFromFile(files[i], { fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
+      const image = await imageFromFile(files[i], { model: profile.number, fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
       await addImage(image); log('ok', tr("Imported {0} ({1} bytes of JPEG data).", files[i].name, image.jpeg.length));
     }
-    result('success', tr("Import complete"), tr("Ready for WQV-3: {0}.", quantity(files.length, "files")));
+    result('success', tr("Import complete"), tr('Ready for {0}: {1}.', profile.name, quantity(files.length, "files")));
   }, { usesUSB: false });
 });
 $('prepare-quality').addEventListener('input', () => { $('quality-value').value = $('prepare-quality').value + '%'; });
@@ -537,7 +558,7 @@ $('rotate-image').addEventListener('click', () => run(async signal => {
   result('working', tr("Preparing photo"), tr("Rotating 90° and saving a 176 × 144 JPEG."));
   const jpeg = await prepareRaster(new Blob([image.previewJPEG || image.jpeg], { type: 'image/jpeg' }), { rotate: 90, fit: $('prepare-fit').value, quality: +$('prepare-quality').value / 100 });
   signal.throwIfAborted();
-  await addImage(await imageFromFile(new File([jpeg], photoName(image) + '_rotated.jpg', { type: 'image/jpeg' })));
+  await addImage(await imageFromFile(new File([jpeg], photoName(image) + '_rotated.jpg', { type: 'image/jpeg' }), { model: profile.number }));
   result('success', tr("Photo rotated"), tr("A new copy is ready to send to the watch."));
 }, { usesUSB: false }));
 function downloadFile(data, name, type = 'application/octet-stream') {
@@ -565,7 +586,7 @@ $('upload-image').addEventListener('click', async () => {
   const mode = S.mode;
   let input;
   try { input = await uploadInput(); }
-  catch (error) { await showDialog(tr('Send to WQV-3'), formatText(error)); return; }
+  catch (error) { await showDialog(tr('Send to {0}', profile.name), formatText(error)); return; }
   if (S.active || S.mode !== mode) return;
   if (S.mode !== 'pc') return openPhotoTransfer('send', input);
   return run(async signal => {
@@ -647,12 +668,16 @@ function renderCalendar() {
     const day = cell - first + 1, button = document.createElement('button');
     if (day < 1 || day > monthDays(year, month)) { button.className = 'blank'; button.disabled = true; button.setAttribute('aria-hidden', 'true'); }
     else {
-      const marked = Boolean(S.calendar?.get(year, month, day));
+      const colour = S.calendar?.get(year, month, day) ?? 0, marked = Boolean(colour);
       button.textContent = day; button.dataset.day = day; button.disabled = !S.calendar || Boolean(S.active);
       button.setAttribute('aria-label', new Date(Date.UTC(year, month - 1, day)).toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })); button.setAttribute('aria-pressed', String(marked));
-      button.classList.toggle('holiday', marked);
+      if (profile.colourCalendar) {
+        if (colour) button.classList.add(['', 'date-blue', 'date-red', 'date-green'][colour] || 'date-unknown');
+        button.setAttribute('aria-label', button.getAttribute('aria-label') + ' · ' + (DATE_COLOURS[colour] ? tr(DATE_COLOURS[colour]) : tr('Unknown colour ({0})', colour)));
+        button.title = DATE_COLOURS[colour] ? tr(DATE_COLOURS[colour]) : tr('Unknown colour ({0})', colour);
+      } else button.classList.toggle('holiday', marked);
       button.classList.toggle('today', today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day);
-      button.addEventListener('click', () => { S.calendar.set(year, month, day, !S.calendar.get(year, month, day)); renderCalendar(); });
+      button.addEventListener('click', () => { S.calendar.set(year, month, day, profile.colourCalendar ? +$('calendar-colour').value : !S.calendar.get(year, month, day)); renderCalendar(); });
     }
     fragment.append(button);
   }
@@ -684,7 +709,7 @@ async function saveHolidayBackup(calendar, { required = false } = {}) {
   }
 }
 $('read-holidays').addEventListener('click', () => run(async signal => {
-  const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr("Holiday marks for 2000–2039."));
+  const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr('Calendar settings for 2000–2039.'));
   const calendar = await client.control(b(9)), saved = await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
   record('holidayRead', { passed: true, sha256: await sha256(calendar.raw), count: calendar.count() });
   result(saved ? 'success' : 'idle', tr("Calendar received"), saved ?
@@ -693,8 +718,8 @@ $('read-holidays').addEventListener('click', () => run(async signal => {
 }));
 $('send-holidays').addEventListener('click', async () => {
   if (!S.calendar || S.active) return;
-  const desired = new HolidayCalendar(S.calendar.raw);
-  if (!await showDialog(tr("Write calendar"), tr("Replace all holiday marks on the watch for 2000–2039?\n\nThe new calendar has {0} marked dates. Other months will change too.\n\nThe watch's current calendar will be read and backed up before writing.", desired.count()), tr("Write"), true)) return;
+  const desired = new Calendar(S.calendar.raw);
+  if (!await showDialog(tr("Write calendar"), tr("Replace the calendar on {0} for 2000–2039?\n\nThe new calendar has {1} marked dates. Other months will change too.\n\nThe watch's current calendar will be read and backed up before writing.", profile.name, desired.count()), tr("Write"), true)) return;
   await run(async signal => {
     const client = await ensureClient(signal); result('working', tr("Backing up calendar"), tr("Reading the original holiday marks before writing."));
     const original = await client.control(b(9)); await saveHolidayBackup(original, { required: true });
@@ -703,25 +728,25 @@ $('send-holidays').addEventListener('click', async () => {
     if (!equal(actual.raw, desired.raw)) throw new LocalizedError(tr("The calendar read back differs from the one sent. The original backup is saved; check the log."));
     await rememberCalendar(actual, tr("Verified after writing"));
     record('holidayWrite', { passed: true, sha256: await sha256(actual.raw), count: actual.count() });
-    result('success', tr("Calendar written and verified"), tr("All 1840 bytes matched when read back."));
+    result('success', tr("Calendar written and verified"), tr('All {0} bytes matched when read back.', profile.calendarBytes));
   });
 });
 $('mark-weekdays').addEventListener('click', () => {
   if (!S.calendar) return;
   const weekdays = Array.from(document.querySelectorAll('.weekday-options input:checked'), input => +input.value);
-  S.calendar.markWeekdays(+$('calendar-year').value, weekdays); renderCalendar();
+  S.calendar.markWeekdays(+$('calendar-year').value, weekdays, profile.colourCalendar ? +$('calendar-colour').value : true); renderCalendar();
 });
 $('clear-holidays').addEventListener('click', () => { if (S.calendar) { S.calendar.clear($('clear-range').value === 'all' ? null : +$('calendar-year').value); renderCalendar(); } });
-$('undo-holidays').addEventListener('click', () => { if (S.baseline) { S.calendar = new HolidayCalendar(S.baseline); renderCalendar(); } });
-$('export-holidays').addEventListener('click', () => { if (S.calendar) downloadFile(JSON.stringify(S.calendar.backup(), null, 2), 'WQV-holidays.json', 'application/json'); });
-$('original-backup').addEventListener('click', () => { if (S.holidayBackup) downloadFile(JSON.stringify(S.holidayBackup, null, 2), 'WQV-holidays-original.json', 'application/json'); });
+$('undo-holidays').addEventListener('click', () => { if (S.baseline) { S.calendar = new Calendar(S.baseline); renderCalendar(); } });
+$('export-holidays').addEventListener('click', () => { if (S.calendar) downloadFile(JSON.stringify(S.calendar.backup(), null, 2), (profile.colourCalendar ? 'WQV-10-calendar.json' : 'WQV-holidays.json'), 'application/json'); });
+$('original-backup').addEventListener('click', () => { if (S.holidayBackup) downloadFile(JSON.stringify(S.holidayBackup, null, 2), (profile.colourCalendar ? 'WQV-10-calendar-original.json' : 'WQV-holidays-original.json'), 'application/json'); });
 $('import-holidays').addEventListener('click', () => $('holiday-file').click());
 $('holiday-file').addEventListener('change', event => {
   const file = event.target.files[0]; event.target.value = ''; if (!file) return;
   run(async signal => {
     if (file.size > 20000) throw new LocalizedError(tr("The calendar file is too large."));
     let backup; try { backup = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("The file does not contain a JSON calendar.")); }
-    signal.throwIfAborted(); const calendar = HolidayCalendar.fromBackup(backup);
+    signal.throwIfAborted(); const calendar = Calendar.fromBackup(backup);
     await rememberCalendar(calendar, tr("From backup")); result('success', tr("Calendar opened"), tr("Nothing on the watch has changed. Click “Write to watch…” to apply this calendar."));
   }, { usesUSB: false });
 });
@@ -759,7 +784,7 @@ function compatibilityText() {
 }
 function applyLanguage() {
   const scroll = $('gallery').scrollTop;
-  translateDOM(); renderMonthNames(); renderGallery(); renderCalendar(); tickClock(); renderLog();
+  translateDOM(); renderMonthNames(); renderGallery(); renderCalendar(); tickClock(); renderLog(); modelLabels();
   $('gallery').scrollTop = scroll;
   if (S.operationResult) result(...S.operationResult);
   renderTransfer();
@@ -782,7 +807,7 @@ try {
   }
   if (S.images.length) { S.selected = S.images[0].id; renderGallery(); }
   const calendar = await store.get('calendar'), backup = await store.get('holidayBackup');
-  if (calendar) { S.calendar = HolidayCalendar.fromBackup(calendar); S.baseline = S.calendar.raw.slice(); S.calendarOrigin = tr("Local copy"); }
+  if (calendar) { S.calendar = Calendar.fromBackup(calendar); S.baseline = S.calendar.raw.slice(); S.calendarOrigin = tr("Local copy"); }
   if (backup) S.holidayBackup = backup;
   renderCalendar();
 } catch (error) { S.storageFailed = true; $('storage-label').textContent = tr("this tab only"); log('info', tr("Browser storage: {0}", error)); }

@@ -5,9 +5,9 @@ import { readFileSync, existsSync } from 'node:fs';
 const root = new URL('../dist/manuals/', import.meta.url);
 const catalog = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'));
 
-test('both watches have complete English, Russian and Japanese manual documents', () => {
+test('all three watches have complete English, Russian and Japanese manual documents', () => {
   assert.deepEqual(catalog.map(item => item.id).sort(),
-    ['wqv2-en', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-ja', 'wqv3-ru']);
+    ['wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-en', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-ja', 'wqv3-ru']);
   for (const item of catalog) {
     const source = readFileSync(new URL(item.file, root), 'utf8');
     assert.match(source, new RegExp('<html lang="' + item.language + '"'));
@@ -70,4 +70,8 @@ test('Japanese watch diagrams retain their button letters and time-display callo
     assert.match(page, /使うモードへの切り替え方は10ページをご覧ください。/,
       id + ': surrounding body text must remain selectable HTML');
   }
+  const wqv10 = readFileSync(new URL('wqv10-ja.html', root), 'utf8');
+  assert.match(wqv10, /通信モードを除く/);
+  for (const button of ['A','B','C','D','E','F']) assert.ok(wqv10.includes(button + 'ボタン') || wqv10.includes(button + ' ボタン'), 'WQV-10: missing button ' + button);
+  assert.doesNotMatch(wqv10, /MASSON LEON|At 582 Am/);
 });
