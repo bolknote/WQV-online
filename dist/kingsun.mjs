@@ -9,7 +9,7 @@ const RATES = [9600, 19200, 38400, 57600, 115200];
 const KEY = new TextEncoder().encode('wangshuofei19710');
 const bytes = view => new Uint8Array(view.buffer, view.byteOffset, view.byteLength).slice();
 
-export const kingsunTXFragmentBytes = baud => baud === 115200 ? 8 : 240;
+export const kingsunTXFragmentBytes = baud => (baud === 38400 || baud === 115200) ? 8 : 240;
 
 export function encodeKingsun(wire, fragmentBytes = 240) {
   if (!(wire instanceof Uint8Array) || !wire.length) throw new RangeError('Invalid KS-959 infrared frame size.');
@@ -176,8 +176,8 @@ export class Kingsun {
     this.assertOpen(); await this.pauseReader(); this.assertOpen();
     if (address === 0xff && control === 0x3f && data.length >= 12 && data[0] === 1) this.stream.expectDiscovery(data.slice(1, 5));
     const wire = encodeFrame(address, control, data, bof);
-    // Native WQV-3 PC and OTHERS round-trips verified eight useful bytes
-    // per OUT at 115200. Keep the existing policy at lower SIR speeds.
+    // Eight-byte OUTs improved the 38400 bench and passed native PC/OTHERS
+    // round-trips at 115200. Keep other SIR speeds unchanged.
     for (const fragment of encodeKingsun(wire, kingsunTXFragmentBytes(this.baud))) {
       const result = await this.io(this.device.controlTransferOut({ requestType: 'class', recipient: 'interface', request: 9, value: fragment.length, index: 0 }, fragment.data), tr('sending USB packet'));
       if (result.status !== 'ok' || result.bytesWritten !== fragment.data.length) throw new Error('KS-959 USB OUT did not complete.');

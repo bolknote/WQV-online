@@ -6,7 +6,7 @@ import { WQV12Decoder, encodeWQV12 } from '../dist/wqv12-formats.mjs';
 import { transferSwan } from '../dist/swan-watch-client.mjs';
 import { SWAN_PREFIX, SWAN_RECORD_BYTES } from '../dist/swan-watch-formats.mjs';
 
-// Decode the actual 240-byte USB fragments, and act as a window-one SWAN
+// Decode the actual eight-byte USB fragments, and act as a window-one SWAN
 // receiver. No adapter or watch is opened by this test.
 function receivingWatch() {
   const decoder = new WQV12Decoder(), queue = [], blocks = [], fragments = [];
@@ -22,7 +22,7 @@ function receivingWatch() {
   };
   a.device = {
     async controlTransferOut(setup, encoded) {
-      assert.equal(setup.index, 0); assert.ok(setup.value > 0 && setup.value <= 240);
+      assert.equal(setup.index, 0); assert.ok(setup.value > 0 && setup.value <= 8);
       assert.equal(encoded.length, Math.ceil(setup.value / 8) * 8 + 16);
       assert.ok(encoded.subarray(setup.value).every(v => v === 0));
       const mask = key[(setup.value & 15) ^ 6] ^ 0x55;
@@ -68,6 +68,6 @@ test('KS-959 sends complete SWAN photos even when escaping doubles every pixel b
     assert.equal(result.finalAccepted, true); assert.equal(result.imageBlocks, 25);
     assert.deepEqual(concat(...watch.blocks), photo);
     assert.ok(watch.largestWire() > 2048, 'exercise the escaped-wire boundary');
-    assert.ok(watch.fragments.every(part => part.length <= 240));
+    assert.ok(watch.fragments.every(part => part.length <= 8));
   }
 });

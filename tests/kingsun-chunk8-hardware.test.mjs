@@ -74,7 +74,7 @@ test('USB fragmentation follows the actual rate across reconnects; lower speeds 
     await adapter.setSIRSpeed(baud); const start = device.writes.length;
     await adapter.sendFrame(sample.address, sample.control, fromHex(sample.dataHex), 11, { receive: false });
     const writes = device.writes.slice(start);
-    assert.equal(Math.max(...writes.map(p => p.value)), baud === 115200 ? 8 : 240);
+    assert.equal(Math.max(...writes.map(p => p.value)), (baud === 38400 || baud === 115200) ? 8 : 240);
     // Decode the submitted requests independently of the encoder under test.
     const wire = writes.flatMap(part => {
       const mask = 'wangshuofei19710'.charCodeAt((part.value & 15) ^ 6) ^ 0x55;

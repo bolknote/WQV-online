@@ -173,7 +173,7 @@ watch takes over to send photos, and returns to 9600 after disconnecting.
 The Connection tab and transfer log show the current speed. Photo downloads at
 115200 have been checked with the WQV-3, SigmaTel and KS-959 adapters.
 KS-959 PC and OTHERS uploads and read-backs were checked with native clients,
-including exact pixel comparisons. At 115200, the web driver now uses the
+including exact pixel comparisons. At 38400 and 115200, the web driver now uses the
 same limit of eight useful bytes per USB write. It selects this automatically;
 there is no extra setting. Discovery and lower-speed transfers keep their
 existing behavior. An OTHERS download was also checked through the browser

@@ -24,9 +24,10 @@ bytes with `"wangshuofei19710"[(length & 15) ^ 6] ^ 0x55`, round its size up
 to a multiple of eight, then add sixteen zero padding bytes. `wValue` counts
 clear bytes, excluding padding.
 
-At 115200 bit/s, the web transport limits each request to **eight useful
-bytes**, matching the native PC and OTHERS round-trips described below.
-At lower speeds it retains the 240-byte maximum. This splits USB requests
+At 38400 and 115200 bit/s, the web transport limits each request to **eight useful
+bytes**. The 115200 policy matches the native PC and OTHERS round-trips
+described below; the 38400 policy follows the adapter bench results.
+At other speeds it retains the 240-byte maximum. This splits USB requests
 inside a frame; it does not change SIR bytes, CRC, BOFs or SCEP packet sizes.
 No extra inter-fragment delay is added, and a final one-byte fragment stays
 a one-byte fragment. The browser selects the limit from the actual current
@@ -217,7 +218,7 @@ isolated to import or export.
 | Native OTHERS upload/read-back | `4e7c6c1a63951548330eb7be6c34c57087eff174f90271cf2ddaed8359b52cd5` |
 
 The web driver now applies that eight-useful-byte limit automatically at
-115200. Discovery at 9600 and the 38400 SWAN transport keep their previous
+38400 and 115200, including SWAN at 38400. Discovery at 9600 keeps its previous
 fragmentation. The XOR mask, zero padding, frame ordering, receive counter
 and USB request fields are the same. The current Python helper accepts
 these requests through its existing API.
@@ -232,3 +233,8 @@ An isolated browser check sends the same recorded cases through the real
 application adapter and helper client, with only the HTTP helper endpoint
 mocked. These are compatibility replays; a physical browser/helper photo
 round-trip with the new TX policy remains a separate hardware check.
+
+At 38400, eight-byte writes improved the photo bench from 63/100 to
+89/100 valid frames, and short 8+1 replies reached 287/288. None of the
+four complete photo records was error-free at this speed. The smaller
+writes improve transmission but do not eliminate the need for retries.

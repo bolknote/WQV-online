@@ -95,7 +95,7 @@ test('WQV-2 raw SUM16 writes use the common KS rate policy through the helper wi
       const result = await adapter.writeSIR(wire);
       assert.deepEqual(result, { status: 'ok', bytesWritten: wire.length });
       const parts = writes.slice(start);
-      assert.equal(Math.max(...parts.map(([setup]) => setup.value)), baud === 115200 ? 8 : 240);
+      assert.equal(Math.max(...parts.map(([setup]) => setup.value)), (baud === 38400 || baud === 115200) ? 8 : 240);
       const clear = concat(...parts.map(([setup, payload]) => {
         assert.equal(setup.request, 9); assert.equal(setup.index, 0);
         const mask = 'wangshuofei19710'.charCodeAt((setup.value & 15) ^ 6) ^ 0x55;
