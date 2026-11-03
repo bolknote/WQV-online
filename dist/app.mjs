@@ -7,6 +7,7 @@ import { WQVClient } from './protocol.mjs';
 import { HolidayCalendar, ColourCalendar, DATE_COLOURS, FIRST_YEAR, LAST_YEAR, monthDays, clockPayload } from './calendar.mjs';
 import { colourWatchModel } from './watch-models.mjs';
 import { manualLabel } from './manual-editions.mjs';
+import { installMenus } from './menus.mjs';
 import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
 import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
@@ -147,10 +148,7 @@ function switchTab(name) {
   }
   closeMenus(); if (name === 'connection') renderLog();
 }
-function closeMenus() {
-  $('start-menu').hidden = true; $('start-menu-button').setAttribute('aria-expanded', 'false');
-  document.querySelectorAll('details.menu').forEach(menu => { menu.open = false; });
-}
+const closeMenus = installMenus();
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => switchTab(button.dataset.tab)));
 document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventListener('keydown', event => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
@@ -159,9 +157,6 @@ document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventL
   const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : buttons.length - 1)) % buttons.length;
   switchTab(buttons[next].dataset.tab); buttons[next].focus();
 }));
-$('start-menu-button').addEventListener('click', () => { $('start-menu').hidden = !$('start-menu').hidden; $('start-menu-button').setAttribute('aria-expanded', String(!$('start-menu').hidden)); });
-document.addEventListener('click', event => { if (!event.target.closest('.start-menu,.start-button,.menu')) closeMenus(); });
-
 function showDialog(title, message, accept = 'OK', confirm = false) {
   closeMenus();
   return new Promise(resolve => {

@@ -1,17 +1,9 @@
 import { tr, getLanguage, setLanguage, onLanguageChange, translateDOM, locale } from './i18n.mjs';
+import { installMenus } from './menus.mjs';
 
 export function installDesktopShell({ help, changed = () => {} } = {}) {
   const $ = id => document.getElementById(id);
-  const closeMenus = () => {
-    $('start-menu').hidden = true; $('start-menu-button').setAttribute('aria-expanded', 'false');
-    document.querySelectorAll('details.menu').forEach(menu => { menu.open = false; });
-  };
-  $('start-menu-button').addEventListener('click', () => {
-    const opening = $('start-menu').hidden; closeMenus();
-    $('start-menu').hidden = !opening; $('start-menu-button').setAttribute('aria-expanded', String(opening));
-  });
-  document.addEventListener('click', event => { if (!event.target.closest('.start-menu,.start-button,.menu')) closeMenus(); });
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenus(); });
+  const closeMenus = installMenus();
   const showOptions = () => {
     closeMenus(); const dialog = $('options-dialog');
     const radio = dialog.querySelector('input[value="' + getLanguage() + '"]');
