@@ -3,7 +3,7 @@ import { sha256 } from './formats.mjs';
 
 export async function wqv2Image(record, { source = 'watch', receivedAt = new Date().toISOString() } = {}) {
   const decoded = decodeWQV12Record(record), hash = await sha256(record);
-  return { id: hash, model: 'WQV-2', record: decoded.bytes, png: wqv12PNG(decoded.grey),
+  return { id: hash, model: 'WQV-1/2', record: decoded.bytes, png: wqv12PNG(decoded.grey),
     title: decoded.title, titleHex: decoded.titleHex, dateHex: decoded.dateHex,
     dateOneBased: decoded.dateOneBased, dateZeroBased: decoded.dateZeroBased,
     width: 120, height: 120, source, receivedAt };

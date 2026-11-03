@@ -49,7 +49,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       const edition = model === 'wqv3' ? 'en' : 'de', frame = await loaded(edition);
       assert.ok(frame.url().endsWith(model + '-' + edition + '.html'));
       assert.match(await page.locator('#original-pdf').getAttribute('href'), new RegExp('_' + edition.toUpperCase() + '\\.pdf$'));
-      assert.equal(await page.locator('#document-title').textContent(), model.toUpperCase().replace('WQV','WQV-') + ' — ' + (model === 'wqv3' ? 'User’s Guide' : 'Bedienungsanleitung'));
+      assert.equal(await page.locator('#document-title').textContent(), (model === 'wqv2' ? 'WQV-1/2' : model.toUpperCase().replace('WQV','WQV-')) + ' — ' + (model === 'wqv3' ? 'User’s Guide' : 'Bedienungsanleitung'));
       assert.match(await page.locator('#document-status').textContent(), /Seiten$/);
       assert.equal(await page.locator('#document-contents option').first().textContent(), 'Inhalt');
       assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
@@ -163,11 +163,11 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       await page.goto(new URL(file, base).href, { waitUntil: 'networkidle' });
       assert.equal(await page.locator('html').getAttribute('lang'), 'de');
       if (file === 'wqv2.html') {
-        assert.equal(await page.locator('#module-label').textContent(), 'WQV-2 / Modul 2220');
+        assert.equal(await page.locator('#module-label').textContent(), 'WQV-1/2 / Modul 2220');
         await language('en');
-        assert.equal(await page.locator('#module-label').textContent(), 'WQV-2 / module 2220');
+        assert.equal(await page.locator('#module-label').textContent(), 'WQV-1/2 / module 2220');
         await language('de');
-        assert.equal(await page.locator('#module-label').textContent(), 'WQV-2 / Modul 2220');
+        assert.equal(await page.locator('#module-label').textContent(), 'WQV-1/2 / Modul 2220');
       }
       await page.locator('#start-menu-button').click();
       if (file !== 'wqv2.html') assert.equal(await page.locator('#watch-guide').textContent(), label);

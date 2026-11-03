@@ -189,7 +189,8 @@ def build(model,review,draft):
             flush();body.extend(parts);body.append('</div>')
         body.append('</section>');allfigures+=len(figures)
         report.append(dict(page=number,lines=[dict(id=l['id'],text=entry['corrections'].get(l['id'],text_for(l,masks,data,page)),ocrText=text_for(l,masks,data,page),box=list(l['box'])) for l in lines]))
-    title=model.upper().replace('WQV','WQV-')+' — Bedienungsanleitung'
+    model_name='WQV-1/2' if model=='wqv2' else model.upper().replace('WQV','WQV-')
+    title=model_name+' — Bedienungsanleitung'
     url=f'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/{str(module)[:2]}/{module}/qw{module}_DE.pdf'
     note='Arbeitsfassung: noch nicht vollständig geprüft.' if draft else 'Aus dem deutschen Originalscan übertragen und seitenweise geprüft. Die Abbildungen stammen unverändert aus dem Original.'
     if any(p.get('labelRepairs') for p in record['pages'].values()):
@@ -204,7 +205,7 @@ def build(model,review,draft):
         english=fitz.open(original)[2]
         for name,box in {'brightness':(78,207,151,300),'lighting':(57,504,303,582),'modes':(366,157,600,239),'merge':(376,286,445,381)}.items():
             english.get_pixmap(matrix=fitz.Matrix(6,6),clip=fitz.Rect(box),alpha=False).save(assets/f'wqv2-de-supplement-{name}.png')
-    return dict(id=identifier,model=model.upper().replace('WQV','WQV-'),language='de',module=module,title=title,pages=len(doc),file=identifier+'.html',sourceURL=url,sourceSHA256=record['sourceSHA256'],scanned=True,illustrations=allfigures,headings=headings,
+    return dict(id=identifier,model=model_name,language='de',module=module,title=title,pages=len(doc),file=identifier+'.html',sourceURL=url,sourceSHA256=record['sourceSHA256'],scanned=True,illustrations=allfigures,headings=headings,
                 **({'supplement':record['supplementSource'],'missingOriginalPages':record['missingOriginalPages']} if model=='wqv2' else {}))
 
 def main():

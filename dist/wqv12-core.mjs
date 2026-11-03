@@ -175,7 +175,7 @@ export class WQV12Client {
     this.clockUpdate.replyHex = toHex(reply.data);
     if (reply.data[0] !== 6) {
       if (reply.data[0] === 8) this.clockUpdate.outcome = 'rejected';
-      throw new Error(`WQV-2 did not acknowledge the clock update: ${toHex(reply.data)}.`);
+      throw new Error(`WQV-1/2 did not acknowledge the clock update: ${toHex(reply.data)}.`);
     }
     this.clockUpdate.outcome = 'accepted';
     this.record('wqv12-clock-accepted', this.clockUpdate);

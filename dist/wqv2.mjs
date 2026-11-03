@@ -75,7 +75,7 @@ function render() {
     button.disabled = busy; button.setAttribute('aria-pressed', String(button.dataset.mode === S.mode));
   });
   $('mode-description').textContent = S.mode === 'pc' ? tr('120 × 120 · 16 shades of gray') : tr('One photo per connection');
-  $('mode-badge').textContent = 'WQV-2 · ' + S.mode.toUpperCase();
+  $('mode-badge').textContent = 'WQV-1/2 · ' + S.mode.toUpperCase();
   $('watch-mode-value').textContent = S.mode.toUpperCase() + ' · 115200 bit/s';
   for (const id of ['import-images', 'menu-import']) $(id).disabled = busy;
   $('delete-local-image').disabled = busy || !image; $('save-image').disabled = !image;
@@ -155,7 +155,7 @@ document.querySelectorAll('[data-mode]').forEach(button => button.addEventListen
   if (S.mode === 'others' && S.tab === 'clock') switchTab('photos');
   try { localStorage.setItem(MODE_KEY, S.mode); } catch {}
   status('idle', S.mode === 'pc' ? tr('PC mode') : tr('OTHERS mode'),
-    S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') : tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-2.'));
+    S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') : tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-1/2.'));
   render();
 }));
 document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventListener('keydown', event => {
@@ -187,7 +187,7 @@ $('connect').addEventListener('click', () => simple(async signal => {
   try { await adapter.open(); signal.throwIfAborted(); }
   catch (error) { try { await adapter.close(); } catch {} S.adapter = null; throw error; }
   status('success', tr('USB adapter connected'), S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') :
-    tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-2.'));
+    tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-1/2.'));
   log('info', tr('{0} connected', describeUSBDevice(device).label));
 }));
 $('disconnect').addEventListener('click', () => simple(async () => {
@@ -202,9 +202,9 @@ function renderTransfer() {
   $('transfer-watch-path').textContent = others ? 'IR → OTHERS → SEND' : 'IR → PC → F';
   $('transfer-start').textContent = settingClock ? tr('Set on watch') : others ? tr('Start receiving') : tr('Start reading');
   $('transfer-instructions').textContent = others ? pending.state === 'running' ?
-    tr('Press the front F button on WQV-2 now to send the selected photo. Keep the watch facing the adapter.') :
+    tr('Press the front F button on WQV-1/2 now to send the selected photo. Keep the watch facing the adapter.') :
     tr('From COM, select OTHERS and press F. With SEND selected, press F again to open the photos. Choose a photo and wait before the final F press.') : pending.state === 'running' ?
-    tr('Now select IR → PC on WQV-2 and press the front F button. Keep the watch facing the adapter.') :
+    tr('Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.') :
     tr('Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.');
   $('transfer-start').disabled = pending.state !== 'ready';
   $('transfer-status').textContent = pending.heading;
@@ -237,7 +237,7 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
     });
     controller.signal.throwIfAborted(); S.pending.state = 'running';
     status('working', tr('Looking for the watch'), mode === 'others' ?
-      tr('Press F on WQV-2 now to send the photo.') : tr('Select IR → PC and press F on WQV-2 now.'));
+      tr('Press F on WQV-1/2 now to send the photo.') : tr('Select IR → PC and press F on WQV-1/2 now.'));
     const client = new WQV12Client(adapter, { signal: controller.signal, record,
       progress(phase, details) {
         const heading = phaseLabel(phase);
@@ -264,7 +264,7 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
     else if (!result.complete) {
       status('error', result.imageCount ? tr('Photos saved; connection did not finish') : tr('Operation did not finish'), result.error?.message || '');
       await adapter.close();
-    } else if (mode === 'probe') status('success', clockRead ? tr('Watch time read') : tr('WQV-2 replied'), tr('The watch connection opened and closed normally.'));
+    } else if (mode === 'probe') status('success', clockRead ? tr('Watch time read') : tr('WQV-1/2 replied'), tr('The watch connection opened and closed normally.'));
     else status('success', tr('Received: {0}', quantity(result.imageCount, 'photos')), tr('Original BIN files and PNG images are saved in this browser.'));
   } catch (error) {
     if (controller.signal.aborted) status('idle', tr('Operation cancelled'), mode === 'set-clock' ? '' : tr('Photos already received have been saved. Reconnect USB to continue.'));
@@ -318,17 +318,17 @@ $('image-files').addEventListener('change', event => {
     for (const file of files) {
       signal.throwIfAborted();
       try {
-        if (file.size !== 7229) throw new Error(String(tr('Choose a 7229-byte WQV-2 BIN backup.')));
+        if (file.size !== 7229) throw new Error(String(tr('Choose a 7229-byte WQV-1/2 BIN backup.')));
         await addImage(await wqv2Image(new Uint8Array(await file.arrayBuffer()), { source: 'backup' })); imported++;
       } catch (error) { log('error', tr('{0}: {1}', file.name, error.message)); }
     }
     status(imported ? 'success' : 'error', imported ? tr('Imported: {0}', quantity(imported, 'photos')) : tr('No photos imported'),
-      imported ? tr('The photos are saved in the WQV-2 album.') : tr('Choose a 7229-byte WQV-2 BIN backup.'));
+      imported ? tr('The photos are saved in the WQV-1/2 album.') : tr('Choose a 7229-byte WQV-1/2 BIN backup.'));
   });
 });
 $('delete-local-image').addEventListener('click', async () => {
   const image = selected(); if (!image || S.active) return;
-  if (!await messageDialog(tr('Delete local copy'), tr('Delete “{0}” from this browser’s WQV-2 album?', label(image)),
+  if (!await messageDialog(tr('Delete local copy'), tr('Delete “{0}” from this browser’s WQV-1/2 album?', label(image)),
     { confirm: true, accept: tr('Delete copy') })) return;
   simple(async () => {
     if (store.db) await store.removeImage(image.id);
@@ -340,7 +340,7 @@ $('delete-local-image').addEventListener('click', async () => {
 });
 function saveReport() {
   const c = S.capture, json = data => new TextEncoder().encode(JSON.stringify(data, null, 2) + '\n');
-  const report = { format: 'wqv2-webusb-v1', model: 'WQV-2', savedAt: now(),
+  const report = { format: 'wqv2-webusb-v1', model: 'WQV-1/2', savedAt: now(),
     environment: { secureContext: isSecureContext, webUSB: Boolean(navigator.usb), userAgent: navigator.userAgent },
     startedAt: c?.startedAt, mode: c?.mode, adapter: c?.device, settings: c?.settings, result: c?.result,
     log: S.log.map(event => ({ ...event, message: formatText(event.message) })) };
@@ -355,14 +355,14 @@ for (const id of ['save-log', 'menu-report']) $(id).addEventListener('click', sa
 $('clear-log').addEventListener('click', () => { S.log.length = 0; render(); });
 
 function applyLanguage() {
-  $('module-label').textContent = tr('{0} / module {1}', 'WQV-2', 2220);
+  $('module-label').textContent = tr('{0} / module {1}', 'WQV-1/2', 2220);
   renderGallery();
   if (!supported) $('compatibility').textContent = tr('This browser has no WebUSB. Open the page in Chrome, Edge or an Opera version with WebUSB.');
 }
-installDesktopShell({ help: () => messageDialog('WQV-2 · WQV Link',
-  [tr('Connect a SigmaTel STIr4200 or KingSun KS-959, then choose Current photo or All photos. Start reading on the computer before activating IR → PC and pressing F on WQV-2.\n\nPhotos are stored in this browser’s WQV-2 album. Save PNG images or original BIN records, open BIN backups, or export the album as a ZIP.\n\nKS-959 uses the local USB helper. SigmaTel connects directly through WebUSB.'),
-    tr('In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.'),
-    tr('In PC mode, the Clock tab reads the watch time and sets the date, hours and minutes. Setting keeps the watch seconds unchanged. Start on the computer before activating PC mode on WQV-2.')].join('\n\n')), changed: applyLanguage });
+installDesktopShell({ help: () => messageDialog('WQV-1/2 · WQV Link',
+  [tr('Connect a SigmaTel STIr4200 or KingSun KS-959, then choose Current photo or All photos. Start reading on the computer before activating IR → PC and pressing F on WQV-1/2.\n\nPhotos are stored in this browser’s WQV-1/2 album. Save PNG images or original BIN records, open BIN backups, or export the album as a ZIP.\n\nKS-959 uses the local USB helper. SigmaTel connects directly through WebUSB.'),
+    tr('In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-1/2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.'),
+    tr('In PC mode, the Clock tab reads the watch time and sets the date, hours and minutes. Setting keeps the watch seconds unchanged. Start on the computer before activating PC mode on WQV-1/2.')].join('\n\n')), changed: applyLanguage });
 if (!supported) $('compatibility').hidden = false;
 if (navigator.usb) navigator.usb.addEventListener('disconnect', event => {
   if (event.device !== S.device) return;
@@ -377,7 +377,7 @@ try {
   for (const image of (await store.images()).sort((a, b) => a.receivedAt.localeCompare(b.receivedAt))) {
     // Rebuild the preview from the original record, including imported backups.
     try { S.images.push(await wqv2Image(image.record, image)); }
-    catch (error) { log('error', tr('Could not open a stored WQV-2 photo: {0}', error.message)); }
+    catch (error) { log('error', tr('Could not open a stored WQV-1/2 photo: {0}', error.message)); }
   }
   S.selected = S.images[0]?.id ?? null; renderGallery();
 } catch (error) { S.storageFailed = true; log('error', tr('Browser storage: {0}', error.message)); render(); }

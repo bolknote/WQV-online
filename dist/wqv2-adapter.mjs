@@ -13,7 +13,7 @@ const hex = bytes => Array.from(bytes, v => v.toString(16).padStart(2, '0')).joi
 export class WQV2KingsunStream {
   constructor(onSync = () => {}, mode = 'pc') { this.onSync = onSync; this.counter = null; this.mode = mode; this.restart(); }
   setMode(mode) {
-    if (!['pc', 'others'].includes(mode)) throw new RangeError('Unknown WQV-2 mode.');
+    if (!['pc', 'others'].includes(mode)) throw new RangeError('Unknown WQV-1/2 mode.');
     if (mode !== this.mode) { this.mode = mode; if (!this.counter) this.restart(); }
   }
   restart() {

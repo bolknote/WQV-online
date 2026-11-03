@@ -1,6 +1,6 @@
 // WQV-3 and WQV-10 share the colour-camera PC protocol. Calendar payloads differ.
 export const WATCH_MODELS = Object.freeze({
-  wqv2: Object.freeze({ id: 'wqv2', number: 2, name: 'WQV-2', module: 2220,
+  wqv2: Object.freeze({ id: 'wqv2', number: 2, name: 'WQV-1/2', module: 2220,
     application: './wqv2.html', album: 'casio-wqv2-webusb' }),
   wqv3: Object.freeze({ id: 'wqv3', number: 3, name: 'WQV-3', module: 2411,
     application: './wqv3.html', album: 'casio-wqv-webusb', calendarBytes: 1840, colourCalendar: false }),

@@ -15,9 +15,9 @@ function record() {
   return bytes;
 }
 
-test('WQV-2 backups preserve their original bytes and metadata with a distinct model and PNG preview', async () => {
+test('WQV-1/2 backups preserve their original bytes and metadata with a distinct model and PNG preview', async () => {
   const original = record(), saved = original.slice(), image = await wqv2Image(original);
-  assert.equal(image.model, 'WQV-2'); assert.equal(image.id, createHash('sha256').update(saved).digest('hex'));
+  assert.equal(image.model, 'WQV-1/2'); assert.equal(image.id, createHash('sha256').update(saved).digest('hex'));
   original.fill(0); assert.deepEqual(image.record, saved);
   const files = wqv2Files(image);
   assert.deepEqual(files.map(f => f.name.slice(-4)), ['.bin', '.png', 'json']);
@@ -30,7 +30,7 @@ test('WQV-2 backups preserve their original bytes and metadata with a distinct m
   await assert.rejects(wqv2Image(saved.slice(1)), /7229/);
 });
 
-test('the existing WQV-3 album keeps its database while WQV-2 uses its own', () => {
+test('the existing WQV-3 album keeps its database while WQV-1/2 uses its own', () => {
   assert.equal(new LocalStore().name, 'casio-wqv-webusb');
   assert.equal(new LocalStore({ name: 'casio-wqv2-webusb' }).name, 'casio-wqv2-webusb');
 });

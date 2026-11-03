@@ -7,7 +7,7 @@ English edition and its icon remains labelled **User’s Guide**.
 
 | Model | Module | English | Russian | Japanese |
 | --- | --- | --- | --- | --- |
-| WQV-2 (also WQV-1) | 2220 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2220.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf) |
+| WQV-1 / WQV-2 | 2220 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2220.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf) |
 | WQV-3 | 2411 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf) |
 | WQV-10 | 2412 | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf) | [i-Watch PDF](https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf) | [Casio PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_JA.pdf) |
 

@@ -1,16 +1,17 @@
 # WQV-online
 
 Read photos from a Casio wrist camera in your browser. There are applications
-for WQV-2, WQV-3 and WQV-10, with photo uploads for the two colour models.
+for WQV-1/2, WQV-3 and WQV-10, with photo uploads for the two colour models.
 Connect a USB infrared adapter through WebUSB or the
 KS-959 local helper. The interface takes its look from the Casio CASSIOPEIA
 handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
 
-The opening screen has an app for each watch. Click its icon to open it; the
-close button returns to Programs and releases the USB adapter. Each watch has
-its own local album. English, Russian, Japanese and German settings apply to all three apps.
+The opening screen has three apps. Click your watch’s icon to open its app; the
+close button returns to Programs and releases the USB adapter. Each app has
+its own local album. WQV-1 and WQV-2 share module 2220, so they use one app,
+album and user guide. English, Russian, Japanese and German settings apply to all three apps.
 
 The three manual files beside the watch apps open in a Pocket Word-style reader.
 They follow the selected display language. WQV-3 keeps its English guide and
@@ -42,7 +43,7 @@ Choose **Tools → Options…** to switch to Russian, Japanese or German. It rem
 choice in this browser, and switching languages keeps your current photo and connection.
 
 Other infrared adapters need their own USB transport code. **ARK3116T does not
-work yet.** WQV-10 and other operating systems have not been tested.
+work yet.** WQV-1, WQV-10 and other operating systems have not been tested.
 
 ### KingSun KS-959 setup
 
@@ -63,15 +64,15 @@ The helper forwards the adapter's USB control transfers on `127.0.0.1:8767`.
 Discovery, image transfers and the rest of the watch protocol still run in the
 browser. SigmaTel does not use the helper. See [the transport notes](docs/kingsun-ks959.md).
 
-## WQV-2
+## WQV-1/2
 
-Open **WQV-2** from Programs, then click **Connect USB…**. Choose **PC** or
-**OTHERS** to match the watch. Both modes use the same WQV-2 album.
+Open **WQV-1/2** from Programs, then click **Connect USB…**. Choose **PC** or
+**OTHERS** to match the watch. Both modes use the same WQV-1/2 album.
 
 ### PC: current photo or all photos
 
 1. Click **Current photo** or **All photos** and wait for **USB ready**.
-2. Click **Start reading**, then select **IR → PC** on WQV-2 and press the
+2. Click **Start reading**, then select **IR → PC** on WQV-1 or WQV-2 and press the
    front **F** button. Keep the infrared windows about 5–10 cm apart.
 3. Wait for the transfer to finish. The photos stay in this browser.
 
@@ -81,7 +82,7 @@ Connection tab also shows the time returned in the watch's greeting.
 The **Clock** tab has **Read watch time** and date/time setting. Choose the
 date, hours and minutes, or click **Use computer time**, then **Set**. Wait
 for USB preparation and click **Set on watch** before activating IR → PC on
-the watch. WQV-2 keeps its seconds unchanged. Reading time uses a separate
+the watch. WQV-1/2 keeps its seconds unchanged. Reading time uses a separate
 connection and does not change the watch.
 
 The clock request and its completion were checked against Casio's original
@@ -96,12 +97,12 @@ of clock setting is still pending.
 3. Click **Start receiving** in the app, then press **F** on the watch to send
    the selected photo.
 
-This receiver uses WQV-2's older SUM16 protocol. It has protocol and browser
+This receiver uses the older WQV-1/2 SUM16 protocol. It has protocol and browser
 tests; a hardware check of OTHERS with WQV-2 is still pending. PC downloads of
 one photo and all five stored photos have worked with both adapters, producing
 identical image files.
 
-WQV-2 transfers use **115200 bit/s**, including OTHERS. The SigmaTel driver
+WQV-1/2 transfers use **115200 bit/s**, including OTHERS. The SigmaTel driver
 selects a 28-sample receive threshold for this watch; WQV-3 keeps its own
 settings. The KS-959 driver synchronizes its receive counter from valid watch
 greetings. See the [WQV-2 protocol notes](docs/wqv12-pc-investigation.md).
@@ -110,7 +111,7 @@ Photos are 120 × 120 with 16 shades of gray. Save a PNG for viewing or the
 original 7229-byte BIN record for a backup. **Open backup…** imports these BIN
 records; **Collection ZIP…** saves the album with both formats and metadata.
 Local deletion leaves the copy on the watch alone. Photo uploads, remote
-photo browsing and editing are not yet implemented for WQV-2. See the
+photo browsing and editing are not yet implemented for WQV-1/2. See the
 [feature comparison](docs/wqv2-features.md) for the remaining original functions
 and the recovered clock packets.
 

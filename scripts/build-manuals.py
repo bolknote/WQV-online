@@ -376,7 +376,8 @@ def build(identifier, source, ocrroot, output):
         report.append(dict(page=n,lines=len(lines),figures=len(figures),rasterImages=raster_count,
                            columns=2 if columns else 1,
                            figureBoxes=[list(box) for box in figures]))
-    title = model.upper().replace('WQV','WQV-')+' — '+LANG[language]['title']
+    model_name = 'WQV-1/2' if model == 'wqv2' else model.upper().replace('WQV','WQV-')
+    title = model_name+' — '+LANG[language]['title']
     note = '<p class="source-note">'+LANG[language]['ocr']+'</p>' if language=='ja' else ''
     markup = f'''<!doctype html>
 <html lang="{language}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -386,7 +387,7 @@ def build(identifier, source, ocrroot, output):
 <footer><a href="{SOURCES[identifier]}" target="_blank" rel="noopener">{LANG[language]['source']}</a> · CASIO COMPUTER CO., LTD.</footer>
 </article></body></html>'''
     (output/(identifier+'.html')).write_text(markup)
-    entry = dict(id=identifier,model=model.upper().replace('WQV','WQV-'),language=language,
+    entry = dict(id=identifier,model=model_name,language=language,
                  module={'wqv2':2220, 'wqv3':2411, 'wqv10':2412}[model],title=title,pages=len(doc),
                  file=identifier+'.html',sourceURL=SOURCES[identifier],
                  sourceSHA256=hashlib.sha256(source.read_bytes()).hexdigest(),
