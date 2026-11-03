@@ -43,6 +43,17 @@ ownership from OCR, which can confuse nearby paragraphs with callouts.
 The WQV-10 booklet uses macOS Vision OCR; `text-corrections.json` records the
 reviewed button-letter corrections on its operation-overview page.
 
+`japanese-proofreading.json` contains a further source-checked proofreading
+pass for all three Japanese editions. It repairs misrecognized words, missing
+button letters, split sentences, technical symbols and the booklet contents.
+Button letters are checked in context: the same circled character was sometimes
+recognized as B and sometimes as F. The differences between models are retained,
+including WQV-3's F button and WQV-10's C button for opening a selected thumbnail.
+Each set of edits records the source PDF hash, the original OCR-flow hash and
+the exact lines being replaced. A changed extraction requires another review;
+the generator also refuses any proofreading edit that changes an illustration.
+The reader's contents are rebuilt from the corrected headings.
+
 ## German editions
 
 The German originals are Casio’s [module 2220 PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_DE.pdf)
@@ -71,6 +82,11 @@ button letters, timings, dimensions and clipped
 word edges were checked against the scans. Missing index page references were
 recovered from the matching section headings. Historical wording and warranty
 periods have not been updated.
+
+A further German spelling pass fixes inflections, interrupted sentences and
+the reference from display contrast to picture contrast: that procedure is on
+G-20, not the exposure-brightness section on G-15. The corrections are recorded
+with the other page notes and survive a rebuild.
 
 Words clipped at a scan edge are completed from the sentence and the matching
 English guide. In the WQV-2 and WQV-10 diagrams, complete German labels replace

@@ -40,6 +40,41 @@ SOURCES = {
 }
 FIGURE_BOUNDS = json.loads((REPO/'docs/manuals/figure-bounds.json').read_text())
 TEXT_CORRECTIONS = json.loads((REPO/'docs/manuals/text-corrections.json').read_text())
+JAPANESE_PROOFREADING = json.loads((REPO/'docs/manuals/japanese-proofreading.json').read_text())
+
+def proofread_japanese(identifier, number, body):
+    """Apply source-checked text edits without changing scan illustrations.
+
+    The flow hash and original lines guard against silently applying a correction
+    to a different OCR extraction. Line ranges refer to the unedited page and
+    are applied from the bottom upward.
+    """
+    review = JAPANESE_PROOFREADING.get(identifier, {}).get('pages', {}).get(str(number))
+    if not review:
+        return body
+    if hashlib.sha256(body.encode()).hexdigest() != review['flowSHA256']:
+        raise ValueError(f'{identifier}: page {number} OCR flow changed; recheck its corrections')
+    lines = body.splitlines(keepends=True)
+    for edit in reversed(review['edits']):
+        start, end = edit['startLine'], edit['endLine']
+        if ''.join(lines[start:end]) != edit['from']:
+            raise ValueError(f'{identifier}: page {number} correction does not match the source')
+        lines[start:end] = edit['to'].splitlines(keepends=True)
+    corrected = ''.join(lines)
+    if re.findall(r'<figure\b[\s\S]*?</figure>', body) != re.findall(r'<figure\b[\s\S]*?</figure>', corrected):
+        raise ValueError(f'{identifier}: page {number} proofreading changed an illustration')
+    return corrected
+
+def reviewed_headings(body, number):
+    """Keep the reader's contents in sync with corrected or joined headings."""
+    headings = []
+    def heading(match):
+        level, anchor, content = match.groups()
+        anchor = anchor or f'section-{number}-review-{len(headings)}'
+        headings.append(dict(id=anchor, text=html.unescape(re.sub('<[^>]*>', '', content))))
+        return f'<{level} id="{anchor}">{content}</{level}>'
+    body = re.sub(r'<(h[23])(?: id="([^"]+)")?>(.*?)</h[23]>', heading, body)
+    return body, headings
 
 def escaped(value):
     return html.escape(str(value), quote=True)
@@ -278,6 +313,9 @@ def build(identifier, source, ocrroot, output):
     directory = output/'assets'
     directory.mkdir(parents=True,exist_ok=True)
     doc = fitz.open(source)
+    review = JAPANESE_PROOFREADING.get(identifier)
+    if review and review['sourceSHA256'] != hashlib.sha256(source.read_bytes()).hexdigest():
+        raise ValueError(f'{identifier}: the proofread source PDF has changed')
     sections, allheadings, report = [], [], []
     for n, page in enumerate(doc,1):
         if language == 'ja':
@@ -317,6 +355,9 @@ def build(identifier, source, ocrroot, output):
                 if previous.exists():previous.unlink()
         items,normal,columns = flow_items(lines,figures,page)
         body,headings = render_flow(items,normal,columns,page,n,f'{identifier}-{n:02}.svg',language,raster)
+        if language == 'ja':
+            body = proofread_japanese(identifier, n, body)
+            body, headings = reviewed_headings(body, n)
         allheadings.extend(headings)
         if language != 'ja':
             for line in lines:

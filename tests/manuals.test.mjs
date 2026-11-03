@@ -179,3 +179,34 @@ test('Japanese watch diagrams retain their button letters and time-display callo
   for (const button of ['A','B','C','D','E','F']) assert.ok(wqv10.includes(button + 'ボタン') || wqv10.includes(button + ' ボタン'), 'WQV-10: missing button ' + button);
   assert.doesNotMatch(wqv10, /MASSON LEON|At 582 Am/);
 });
+
+test('Japanese guide text has readable contents, button names and model-specific instructions', () => {
+  for (const model of ['wqv2','wqv3','wqv10']) {
+    const source = readFileSync(new URL(model + '-ja.html', root), 'utf8');
+    assert.doesNotMatch(source, /[©®④⑤⑥⑧@€]\s*ボタン|通言|通佶|通偪|時効セット|山謦告/);
+    assert.match(source, /極性（＋と－の向き）/);
+    assert.match(source, /精度：平均月差±15秒以内/);
+    assert.match(source, /共通機能<\//);
+    assert.doesNotMatch(source, /共通信機能/);
+    const contents = source.match(/<section class="source-page" id="page-6"[\s\S]*?<\/section>/)[0];
+    assert.match(contents, /時計同士のデータ通信 — \d+/);
+    assert.match(contents, /電池交換のしかた — \d+/);
+    assert.doesNotMatch(contents, /2112222117|21470猪|・。。a/);
+    const entry = catalog.find(item => item.id === model + '-ja');
+    for (const heading of entry.headings) {
+      assert.ok(source.includes('id="' + heading.id + '"'), model + ': stale contents anchor');
+      const escaped = heading.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+      assert.ok(source.includes('>' + escaped + '</h'), model + ': stale contents text');
+    }
+  }
+  const mono = readFileSync(new URL('wqv2-ja.html', root), 'utf8');
+  assert.match(mono, /Bボタンを押して「SEND」（送信）、またはEボタンを押して「RECEIVE」（受信）を選び、Fボタンを押します/);
+  assert.match(mono, /1\/100秒単位/);
+  const wqv3 = readFileSync(new URL('wqv3-ja.html', root), 'utf8');
+  assert.match(wqv3, /含む16画像のサムネール画面になります/);
+  assert.match(wqv3, /Fボタンを押します。→選択画像が大きく表示されます/);
+  const color = readFileSync(new URL('wqv10-ja.html', root), 'utf8');
+  assert.match(color, /含む4画像のサムネール画面になります/);
+  assert.match(color, /Cボタンを押します。→ 選択画像が大きく表示されます/);
+});

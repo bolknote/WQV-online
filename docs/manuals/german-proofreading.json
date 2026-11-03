@@ -229,7 +229,9 @@
           "2:20013:1:5": "• Dadurch wird das gegenwärtig am Display angezeigte Bild aufgenommen",
           "2:20014:2:1": "• Die Funktion aller Knöpfe der Armbanduhr ist außer Betrieb gesetzt,",
           "2:20014:3:1": "• Die Armbanduhr verbleibt für etwa eine Minute in dem Kameramodus,",
-          "1:10009:1:1": ""
+          "1:10009:1:1": "",
+          "1:10017:1:2": "Ausnahme des IR-Modus, um auf den Kameramodus zu schalten.",
+          "1:10018:1:1": ""
         },
         "headings": [
           "Allgemeine Anleitung",
@@ -247,7 +249,8 @@
           "G-8–G-11: mode flow, F shutter, 60-second maximum camera rest.",
           "Joined umgeschal-/tet across the illustration; the complete word is umgeschaltet.",
           "Completed the clipped WAIT caption as Restliche Zeitdauer des Rastintervalls; excluded surrounding sentence fragments from the mode diagrams.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Keep the complete camera-mode instruction in one paragraph; join the orphaned schalten."
         ],
         "labelRepairs": {
           "8": [
@@ -378,7 +381,8 @@
           "3:30002:1:3": "• Wenn Sie ungefähr zwei Minuten keine Tasten betätigen, während das",
           "0:15:1:2": "• Informationen über die Reihenfolge, in der die Bilder im Speicher abgelegt werden, finden Sie unter „Sortieren der Bilder“ auf Seite G-18.",
           "0:16:1:1": "",
-          "0:17:1:1": ""
+          "0:17:1:1": "",
+          "3:30002:1:4": "SET-, DEL- oder ALL-Menü am Display angezeigt wird, schaltet die"
         },
         "headings": [
           "VISUAL DATABANK™ Modus",
@@ -395,7 +399,8 @@
         "clippedLines": [],
         "notes": [
           "G-16–G-19: B/E scrolling, C overlay, D/C cursor, F confirmation, all character symbols; all/single deletion.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: SET-, DEL- oder ALL-Menü am Display angezeigt werden → SET-, DEL- oder ALL-Menü am Display angezeigt wird"
         ]
       },
       "5": {
@@ -708,7 +713,8 @@
           "0:3:1:10": "Die nebenstehend dargestellte Sendean-",
           "1:10001:1:2": "Empfangsbereitschaft aufzurufen, die durch",
           "2:20002:1:1": "• Die beiden Armbanduhren müssen innerhalb einer Entfernung von 10 cm und",
-          "2:20002:2:2": "beiden Armbanduhren zu nahe aneinander angeordnet sind."
+          "2:20002:2:2": "beiden Armbanduhren zu nahe aneinander angeordnet sind.",
+          "1:10001:2:3": "Sie die Sendeoperation an der"
         },
         "headings": [
           "Hinweise",
@@ -725,7 +731,8 @@
         "notes": [
           "G-32–G-35: OTHERS receive, original error diagrams, 500 lux, 5-minute timeout, battery stages.",
           "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: Sendeoperation an der zu → Sendeoperation an der"
         ],
         "blocks": [
           {
@@ -835,7 +842,9 @@
           "0:10:1:7": "Bildelement: 1/14-Zoll monochromer CMOS-Sensor (Gesamtzahl der Pixel: 28.000; nutzbare Pixel: 25.344)",
           "0:10:1:8": "",
           "0:10:1:19": "Infrarot-Kommunikation: Armbanduhr/Computer, Armbanduhr/Armbanduhr",
-          "0:10:1:20": ""
+          "0:10:1:20": "",
+          "2:20025:5:2": "auf; trotzdem sollten harte Stöße und ein Fallenlassen der Uhr",
+          "3:30001:11:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf."
         },
         "headings": [
           "Kameramodus",
@@ -851,7 +860,9 @@
         "clippedLines": [],
         "notes": [
           "G-40–G-43: original specifications (±15 s/month, 120×120, 16 gray levels, 115200 bps), water table, care.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: aus; trotzdem sollten harte Stöße → auf; trotzdem sollten harte Stöße",
+          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen"
         ],
         "paragraphStarts": [
           "0:6:1:1",
@@ -1081,7 +1092,7 @@
           "1:10006:1:5": "• Sie können den Anzeigekontrast im Bereich von CNT1 bis CNT9",
           "1:10006:1:6": "einstellen. Die anfängliche Vorgabeeinstellung ist CNT5.",
           "1:10006:1:7": "4. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen.",
-          "1:10007:2:3": "eingestellt werden, der unter „Einstellen der Bildhelligkeit“ auf Seite G-15",
+          "1:10007:2:3": "eingestellt werden, der unter „Einstellen des Bildkontrasts“ auf Seite G-20",
           "0:7:6:1": "• Verwenden Sie den Knopf (D), um in der",
           "0:28:2:1": "• Halten Sie einen dieser Knöpfe gedrückt, um die Einstellung schnell zu",
           "0:30:3:1": "• Der Wochentag wird automatisch in Abhängigkeit von der",
@@ -1100,7 +1111,8 @@
         "clippedLines": [],
         "notes": [
           "G-6–G-7: A/D/E/B settings; 2000–2039; CNT1–CNT9, default CNT5.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: „Einstellen der Bildhelligkeit“ auf Seite G-15 → „Einstellen des Bildkontrasts“ auf Seite G-20"
         ]
       },
       "5": {
@@ -2339,7 +2351,10 @@
         "clippedLines": [],
         "notes": [
           "G-42–G-43: both complete troubleshooting tables transcribed into HTML.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: wieder herzustellen → wiederherzustellen",
+          "Additional proofreading: wieder hergestellt → wiederhergestellt",
+          "Additional proofreading: und versuchen Sie nochmals. → und versuchen Sie es nochmals."
         ],
         "blocks": [
           {
@@ -2349,7 +2364,7 @@
               271,
               582
             ],
-            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Problem</th><th scope=\"col\">Mögliche Ursache</th><th scope=\"col\">Abhilfe</th></tr></thead><tbody><tr><td>Das Display der Armbanduhr verbleibt leer.</td><td>Die Ausschaltautomatik der Stromsparfunktion hat das Display ausgeschaltet (Seite G-9).</td><td>Drücken Sie den Knopf (F), um den normalen Betrieb wieder herzustellen.</td></tr><tr><td>Die Armbanduhr nimmt das Bild nicht auf, wenn der Verschlussauslöseknopf gedrückt wird.</td><td>Die Batteriespannung ist niedrig, was durch den Batterieindikator am Display angezeigt wird (Seite G-37).</td><td>Tauschen Sie die Batterie aus, und versuchen Sie nochmals.</td></tr><tr><td>Der Alarm ertönt nicht zur voreingestellten Alarmzeit.</td><td>Der Alarm ist automatisch deaktiviert:<ul><li>Während sich die Armbanduhr in dem Kamera-Modus befindet</li><li>Während sich die Armbanduhr in dem IR-Modus befindet</li><li>Während die Einstellanzeige des VISUAL DATABANK-Modus angezeigt wird.</li><li>Während die Einstellanzeige des Kalender-Modus angezeigt wird.</li><li>Während der Indikator für niedrige Batteriespannung angezeigt wird.</li></ul></td><td></td></tr><tr><td>Ein Batterieindikator blinkt am Display.</td><td>Die Batteriespannung ist vorübergehend unter einen bestimmten Pegel abgesunken (Seite G-37).</td><td>Warten Sie einige Momente. Normalerweise sollte der Indikator verschwinden und der normale Betrieb wieder hergestellt werden.<ul><li>Falls der blinkende Batterieindikator wiederholt erscheint, tauschen Sie die Batterie aus.</li></ul></td></tr></tbody></table>"
+            "html": "<table class=\"manual-table\"><thead><tr><th scope=\"col\">Problem</th><th scope=\"col\">Mögliche Ursache</th><th scope=\"col\">Abhilfe</th></tr></thead><tbody><tr><td>Das Display der Armbanduhr verbleibt leer.</td><td>Die Ausschaltautomatik der Stromsparfunktion hat das Display ausgeschaltet (Seite G-9).</td><td>Drücken Sie den Knopf (F), um den normalen Betrieb wiederherzustellen.</td></tr><tr><td>Die Armbanduhr nimmt das Bild nicht auf, wenn der Verschlussauslöseknopf gedrückt wird.</td><td>Die Batteriespannung ist niedrig, was durch den Batterieindikator am Display angezeigt wird (Seite G-37).</td><td>Tauschen Sie die Batterie aus, und versuchen Sie es nochmals.</td></tr><tr><td>Der Alarm ertönt nicht zur voreingestellten Alarmzeit.</td><td>Der Alarm ist automatisch deaktiviert:<ul><li>Während sich die Armbanduhr in dem Kamera-Modus befindet</li><li>Während sich die Armbanduhr in dem IR-Modus befindet</li><li>Während die Einstellanzeige des VISUAL DATABANK-Modus angezeigt wird.</li><li>Während die Einstellanzeige des Kalender-Modus angezeigt wird.</li><li>Während der Indikator für niedrige Batteriespannung angezeigt wird.</li></ul></td><td></td></tr><tr><td>Ein Batterieindikator blinkt am Display.</td><td>Die Batteriespannung ist vorübergehend unter einen bestimmten Pegel abgesunken (Seite G-37).</td><td>Warten Sie einige Momente. Normalerweise sollte der Indikator verschwinden und der normale Betrieb wiederhergestellt werden.<ul><li>Falls der blinkende Batterieindikator wiederholt erscheint, tauschen Sie die Batterie aus.</li></ul></td></tr></tbody></table>"
           },
           {
             "rect": [
@@ -2418,7 +2433,9 @@
           "0:29:1:2": "III Die Knöpfe nicht unter Wasser betätigen.",
           "1:10001:1:1": "• Das Armband nicht zu straff spannen. Sie sollten einen Finger zwischen",
           "1:10001:2:1": "• Zum Reinigen der Uhr und des Armbands ein weiches, trockenes Tuch",
-          "0:33:1:4": "Armbands verkürzen und zur Verfärbung des Armbands führen. Es"
+          "0:33:1:4": "Armbands verkürzen und zur Verfärbung des Armbands führen. Es",
+          "0:35:4:2": "auf; trotzdem sollten harte Stöße und ein Fallenlassen der Uhr",
+          "1:10001:10:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf."
         },
         "headings": [
           "Wartung durch den Benutzer",
@@ -2429,7 +2446,9 @@
         "clippedLines": [],
         "notes": [
           "G-46–G-47: five-row water table (including 200M and 300M), original class-III note and care.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: aus; trotzdem sollten harte Stöße → auf; trotzdem sollten harte Stöße",
+          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen"
         ],
         "blocks": [
           {
@@ -2532,7 +2551,12 @@
           "0:5:3:3": "diese Person oder juristische Partei schriftlich die Bestimmungen und Bedingungen dieser",
           "1:10001:2:2": "frei von physikalischen Fehlern im Material und in der Verarbeitung ist, und zwar für neunzig (90)",
           "1:10001:4:1": "(3) Ausgenommen wie in Paragraph (1) erwähnt, bieten CASIO und ihre Zulieferanten keine Garantie",
-          "1:10003:5:1": "(4) Nach einer Kündigung oder Aufhebung dieser Lizenzvereinbarung müssen Sie die Software"
+          "1:10003:5:1": "(4) Nach einer Kündigung oder Aufhebung dieser Lizenzvereinbarung müssen Sie die Software",
+          "1:10001:2:4": "das Medium modifiziert, geändert, falsch behandelt oder anderweitig fehlerhaft verwendet, fallen",
+          "1:10001:3:1": "(2) Um Ansprüche unter der im obigen Paragraphen (1) genannten Gewährleistung stellen zu können,",
+          "1:10001:3:3": "verständigen. Unter dieser Gewährleistung liegt es im Ermessen von CASIO das Software-Produkt",
+          "1:10003:6:1": "(5) Die Kündigung der Lizenzvereinbarung hebt etwaige Verletzungen dieser Vereinbarung durch",
+          "0:2:2:3": "Wrist Camera3 und des erläuternden Materials (im Ganzen das Software-Produkt) umfasst. Durch das"
         },
         "headings": [
           "ENDANWENDER-LIZENZVEREINBARUNG",
@@ -2550,7 +2574,12 @@
         "clippedLines": [],
         "notes": [
           "Software licence: all nine clauses, original 90-day media warranty; historic terms retained.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Additional proofreading: andersweitig → anderweitig",
+          "Additional proofreading: obigen Paragraph (1) → obigen Paragraphen (1)",
+          "Additional proofreading: Unter diese Gewährleistung → Unter dieser Gewährleistung",
+          "Additional proofreading: Verletzungen diese Vereinbarung → Verletzungen dieser Vereinbarung",
+          "Additional proofreading: im ganzen das Software-Produkt → im Ganzen das Software-Produkt"
         ]
       }
     },
