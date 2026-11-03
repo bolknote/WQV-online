@@ -231,7 +231,8 @@
           "2:20014:3:1": "• Die Armbanduhr verbleibt für etwa eine Minute in dem Kameramodus,",
           "1:10009:1:1": "",
           "1:10017:1:2": "Ausnahme des IR-Modus, um auf den Kameramodus zu schalten.",
-          "1:10018:1:1": ""
+          "1:10018:1:1": "",
+          "3:30004:3:2": "Sie die Aufnahmen wenn immer möglich bei Tageslicht aus. In der Nacht"
         },
         "headings": [
           "Allgemeine Anleitung",
@@ -250,7 +251,8 @@
           "Joined umgeschal-/tet across the illustration; the complete word is umgeschaltet.",
           "Completed the clipped WAIT caption as Restliche Zeitdauer des Rastintervalls; excluded surrounding sentence fragments from the mode diagrams.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
-          "Keep the complete camera-mode instruction in one paragraph; join the orphaned schalten."
+          "Keep the complete camera-mode instruction in one paragraph; join the orphaned schalten.",
+          "Corrected the preposition in bei Tageslicht; the camera advice and its meaning are unchanged."
         ],
         "labelRepairs": {
           "8": [
@@ -382,7 +384,8 @@
           "0:15:1:2": "• Informationen über die Reihenfolge, in der die Bilder im Speicher abgelegt werden, finden Sie unter „Sortieren der Bilder“ auf Seite G-18.",
           "0:16:1:1": "",
           "0:17:1:1": "",
-          "3:30002:1:4": "SET-, DEL- oder ALL-Menü am Display angezeigt wird, schaltet die"
+          "3:30002:1:4": "SET-, DEL- oder ALL-Menü am Display angezeigt wird, schaltet die",
+          "0:3:1:1": "Neben dem Betrachten der Bilder können Sie den VISUAL DATABANK Modus"
         },
         "headings": [
           "VISUAL DATABANK™ Modus",
@@ -400,7 +403,8 @@
         "notes": [
           "G-16–G-19: B/E scrolling, C overlay, D/C cursor, F confirmation, all character symbols; all/single deletion.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
-          "Additional proofreading: SET-, DEL- oder ALL-Menü am Display angezeigt werden → SET-, DEL- oder ALL-Menü am Display angezeigt wird"
+          "Additional proofreading: SET-, DEL- oder ALL-Menü am Display angezeigt werden → SET-, DEL- oder ALL-Menü am Display angezeigt wird",
+          "Removed the comma separating a prepositional phrase from its main clause (Neben dem Betrachten der Bilder)."
         ]
       },
       "5": {
@@ -628,7 +632,8 @@
           "3:30014:1:1": "4. Verwenden Sie den Knopf (E) (+) und den",
           "3:30014:1:2": "Knopf (B) (-), um durch die Bilder zu",
           "1:10019:1:1": "• Die Messoperation der abgelaufenen Zeit wird fortgesetzt, auch wenn Sie",
-          "3:30002:1:2": "Modus aufzurufen. Die anfängliche Anzeige wird etwa eine Sekunde lang"
+          "3:30002:1:2": "Modus aufzurufen. Die anfängliche Anzeige wird etwa eine Sekunde lang",
+          "2:20007:1:1": "Für den Datenaustausch zwischen zwei Armbanduhren ordnen Sie die"
         },
         "headings": [
           "Hinweis",
@@ -645,7 +650,8 @@
         "notes": [
           "G-28–G-31: E/B countdown and stopwatch, 23:59:59.99; 10 cm / 30° alignment, OTHERS send.",
           "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Removed the comma separating the introductory prepositional phrase from the main clause."
         ]
       },
       "8": {
@@ -714,7 +720,8 @@
           "1:10001:1:2": "Empfangsbereitschaft aufzurufen, die durch",
           "2:20002:1:1": "• Die beiden Armbanduhren müssen innerhalb einer Entfernung von 10 cm und",
           "2:20002:2:2": "beiden Armbanduhren zu nahe aneinander angeordnet sind.",
-          "1:10001:2:3": "Sie die Sendeoperation an der"
+          "1:10001:2:3": "Sie die Sendeoperation an der",
+          "3:30011:9:2": "nicht verantwortlich gemacht werden kann für Schäden oder Verluste,"
         },
         "headings": [
           "Hinweise",
@@ -732,7 +739,8 @@
           "G-32–G-35: OTHERS receive, original error diagrams, 500 lux, 5-minute timeout, battery stages.",
           "Expanded figure bounds to retain complete German labels; removed incidental surrounding prose from the crop.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
-          "Additional proofreading: Sendeoperation an der zu → Sendeoperation an der"
+          "Additional proofreading: Sendeoperation an der zu → Sendeoperation an der",
+          "Removed the comma separating verantwortlich gemacht werden from für Schäden."
         ],
         "blocks": [
           {
@@ -831,7 +839,7 @@
           "0:10:1:9": "Objektiv: f/2,8 fest, Brennweite = 1,1 mm",
           "0:10:1:10": "Zulässige Entfernung: 30 cm bis Unendlich",
           "2:20023:1:1": "Zur Beachtung",
-          "2:20023:5:1": "V Verwendbar für Gerätetauchen (ausgenommen Tieftauchen mit Helium/",
+          "2:20023:5:1": "V Verwendbar für Gerätetauchen (ausgenommen Tieftauchen mit Helium/Sauerstoff-Gemisch).",
           "3:30001:1:1": "• Das Armband nicht zu straff spannen. Sie sollten einen Finger zwischen",
           "3:30001:5:4": "werden können.",
           "3:30001:10:1": "Objektivs zu reinigen, verwenden Sie einen Gummipuster oder ein",
@@ -844,7 +852,9 @@
           "0:10:1:19": "Infrarot-Kommunikation: Armbanduhr/Computer, Armbanduhr/Armbanduhr",
           "0:10:1:20": "",
           "2:20025:5:2": "auf; trotzdem sollten harte Stöße und ein Fallenlassen der Uhr",
-          "3:30001:11:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf."
+          "3:30001:11:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf.",
+          "2:20006:1:6": "der statische Druck ist. Beachten Sie daher Folgendes.",
+          "2:20023:5:2": ""
         },
         "headings": [
           "Kameramodus",
@@ -862,7 +872,10 @@
           "G-40–G-43: original specifications (±15 s/month, 120×120, 16 gray levels, 115200 bps), water table, care.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
           "Additional proofreading: aus; trotzdem sollten harte Stöße → auf; trotzdem sollten harte Stöße",
-          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen"
+          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen",
+          "Capitalized the substantivized Folgendes.",
+          "Joined Helium/Sauerstoff-Gemisch without the space introduced by a printed line break.",
+          "Continuation joined to the preceding source line; no duplicated gas-mixture name."
         ],
         "paragraphStarts": [
           "0:6:1:1",
@@ -895,7 +908,8 @@
           "1:10007:1:3": "eingebaute Ersatzteile endet mit der Garantiefrist für das ganze Gerät.",
           "3:30001:1:1": "",
           "1:10003:3:1": "Für dieses Produkt leisten wir Garantie gemäß nachstehenden Bedingungen:",
-          "1:10003:3:2": ""
+          "1:10003:3:2": "",
+          "1:10005:1:5": "Andere Produkte, für die unter Bezugnahme auf diese Garantie eine"
         },
         "headings": [
           "Für mit Fluoreszenz-Bändern und Gehäusen ausgestattete Armbanduhren...",
@@ -904,7 +918,8 @@
         "clippedLines": [],
         "notes": [
           "G-44 and W-11: care continuation; historical German 12-month warranty, all five conditions and address.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Added the comma introducing the relative clause about other products."
         ]
       }
     },
@@ -1099,7 +1114,8 @@
           "0:6:1:1": "",
           "0:30:5:1": "• Sie können das Jahr im Bereich von 2000 bis 2039 einstellen. Falls Sie über den 31. Dezember 2039 weiterschalten, wird wiederum ab dem 1. Januar 2000 begonnen.",
           "0:30:5:2": "",
-          "0:31:1:1": ""
+          "0:31:1:1": "",
+          "1:10002:1:5": "für Zeiten im Bereich von Mittag bis 11:59 Uhr nachts links von den"
         },
         "headings": [
           "Vor Verwendung der Armbanduhr...",
@@ -1112,7 +1128,8 @@
         "notes": [
           "G-6–G-7: A/D/E/B settings; 2000–2039; CNT1–CNT9, default CNT5.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
-          "Additional proofreading: „Einstellen der Bildhelligkeit“ auf Seite G-15 → „Einstellen des Bildkontrasts“ auf Seite G-20"
+          "Additional proofreading: „Einstellen der Bildhelligkeit“ auf Seite G-15 → „Einstellen des Bildkontrasts“ auf Seite G-20",
+          "Corrected mitternachts to nachts in the PM time range, matching the WQV-2 wording."
         ]
       },
       "5": {
@@ -1218,7 +1235,8 @@
           "1:10001:3:1": "• Drücken Sie den Knopf (C) zu diesem Zeitpunkt, um zwischen der",
           "1:10001:4:1": "3. Drücken Sie den Knopf (F), um den Verschluss auszulösen und das Bild",
           "1:10006:2:2": "wenn Sie durch das Drücken des Knopfes (F) den Verschluss auslösen.",
-          "1:10003:3:2": "dass der Speicher voll ist. Sie können kein Bild aufnehmen, während"
+          "1:10003:3:2": "dass der Speicher voll ist. Sie können kein Bild aufnehmen, während",
+          "1:10006:2:4": "Sie die Aufnahmen wenn immer möglich bei Tageslicht aus. In der Nacht"
         },
         "headings": [
           "Kamera-Modus",
@@ -1232,7 +1250,8 @@
           "G-12–G-13: 100 images, C 2× zoom, F shutter, 3–4-second storage. Clipped diagram labels repeated in the caption.",
           "Clipped Grafik / Speicherkapazität labels reconstructed in place. MEMORY FULL sentence restored from the English guide: an image cannot be recorded.",
           "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Corrected the preposition in bei Tageslicht; the camera advice and its meaning are unchanged."
         ],
         "captions": {
           "1": "Anzeige: aktuelle Zeit, restliche Speicherkapazität und Beleuchtungstyp. Der Ablaufbalken zeigt die Restzeit bis zum Verlassen des Kamera-Modus (Blau → Rot)."
@@ -1470,7 +1489,7 @@
           "1:10015:1:2": "• Sie können eine Einstellung für den Bildkontrast im Bereich von 1",
           "1:10016:1:2": "• Der Einstellvorgang für den Bildkontrast ist unterschiedlich von dem auf",
           "0:2:1:1": "VISUAL DATABANK™",
-          "0:4:1:1": "Neben der Anzeige von Bildern, können Sie den VISUAL DATABANK-",
+          "0:4:1:1": "Neben der Anzeige von Bildern können Sie den VISUAL DATABANK-",
           "0:4:1:2": "Modus auch für das Löschen der Bilder, für das Hinzufügen von Text zu",
           "0:5:1:1": "Bildern usw. verwenden.",
           "0:6:1:1": "Wichtig!",
@@ -1495,7 +1514,8 @@
         "notes": [
           "G-18–G-19: B/E selection, C enlargement/text, 1–15 image contrast.",
           "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Removed the comma separating a prepositional phrase from its main clause (Neben der Anzeige von Bildern)."
         ],
         "cropMasks": {
           "3": [
@@ -1601,7 +1621,7 @@
         "corrections": {
           "0:24:2:1": "• Wählen Sie CANCEL, und drücken Sie",
           "1:10006:8:1": "• Das zu löschende Bild erscheint am Display. Zu diesem Zeitpunkt",
-          "1:10006:17:1": "• Abhängig von der Größe des gelöschten Bildes, ändert sich der",
+          "1:10006:17:1": "• Abhängig von der Größe des gelöschten Bildes ändert sich der",
           "0:1:1:1": "Sortierung der Bilder",
           "0:2:1:1": "Die Bilder im Speicher der Armbanduhr werden automatisch sortiert, und",
           "0:2:1:2": "zwar in Abhängigkeit von dem ersten Zeichen des angehängten Textes",
@@ -1644,7 +1664,8 @@
         "clippedLines": [],
         "notes": [
           "G-22–G-23: all/single deletion, F confirmations, original WAIT DELETE labels.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Removed the comma after the introductory prepositional phrase about the deleted image size."
         ],
         "cropMasks": {
           "2": [
@@ -1679,7 +1700,7 @@
           "1:10024:1:1": "• Für den Datenaustausch zwischen zwei Armbanduhren müssen Sie diese",
           "0:1:1:1": "Formatierung des Bildspeichers",
           "0:2:1:1": "Führen Sie die folgenden Schritte aus, um den Speicher der Wrist Camera zu",
-          "0:2:1:2": "formatieren, wenn Bildspeicherfehler auf Grund von Speicherfehler usw.",
+          "0:2:1:2": "formatieren, wenn Bildspeicherfehler auf Grund von Speicherfehlern usw.",
           "0:2:1:3": "auftreten sollten.",
           "0:3:1:1": "Wichtig!",
           "0:4:1:1": "Formatieren des Bildspeichers",
@@ -1701,7 +1722,8 @@
         "clippedLines": [],
         "notes": [
           "G-24–G-25: formatting; WQV-3 compatibility, WQV-1/2 exclusion; 10 cm and 15° callouts.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Corrected the dative plural after von in the formatting explanation."
         ],
         "blocks": [
           {
@@ -1856,7 +1878,9 @@
           "1:10012:1:1": "1. Halten Sie den Knopf (A) in dem Zeitnehmungs-Modus für etwa eine",
           "1:10012:2:1": "2. Drücken Sie den Knopf (E), um die Sekunden auf 00 zurückzustellen.",
           "1:10012:3:1": "• Falls Sie den Knopf (E) im Bereich von 30 bis 59 Sekunden drücken,",
-          "1:10014:1:1": "3. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen."
+          "1:10014:1:1": "3. Drücken Sie den Knopf (A), um die Einstellanzeige zu verlassen.",
+          "0:3:8:6": "Minuten während der Ausführung einer Datensende-/Empfangsoperation",
+          "0:3:6:2": "Licht versuchen Sie das Licht auszuschalten, oder begeben Sie sich an"
         },
         "headings": [
           "Hinweis",
@@ -1867,7 +1891,9 @@
         "clippedLines": [],
         "notes": [
           "G-30–G-31: communication precautions, 5-minute timeout, A/E seconds reset.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Restored the ellipsis hyphen in Datensende-/Empfangsoperation.",
+          "Removed the comma after the introductory Im Falle von prepositional phrase."
         ]
       },
       "17": {
@@ -2262,7 +2288,8 @@
           "0:6:1:2": "Falls eine Batterie versehentlich verschluckt wird, wenden Sie sich",
           "0:6:1:3": "sofort an einen Arzt.",
           "0:5:1:27": "die Batterieflüssigkeit sofort mit einem trockenen Tuch ab. Achten Sie dabei",
-          "1:10007:3:2": "Batteriefachdichtung nicht verloren wird."
+          "1:10007:3:2": "Batteriefachdichtung nicht verloren wird.",
+          "0:2:1:2": "nicht verantwortlich gemacht werden kann für Schäden oder Verluste,"
         },
         "headings": [
           "Vorsichtsmaßnahmen hinsichtlich der Batterie",
@@ -2271,7 +2298,8 @@
         "clippedLines": [],
         "notes": [
           "G-38–G-39: CR-2032, OPEN, positive-up installation, gasket and spring.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Removed the comma separating verantwortlich gemacht werden from für Schäden."
         ],
         "paragraphStarts": [
           "0:5:1:4",
@@ -2318,7 +2346,8 @@
           "0:6:1:4": "",
           "0:6:1:5": "",
           "0:6:1:6": "",
-          "0:8:1:2": "Verwendung einer Münze oder eines"
+          "0:8:1:2": "Verwendung einer Münze oder eines",
+          "1:10006:4:2": "das Sende-/Empfangsmenü des IR-Modus angezeigt haben, kehrt die"
         },
         "headings": [
           "Einstellungen nach dem Austauschen der Batterie",
@@ -2329,7 +2358,8 @@
         "notes": [
           "G-40–G-41: CLOSE; 10-second restart; retained pictures; 1/5-minute automatic returns.",
           "Restored the full gasket paragraph in reading order; all words retained and compared with the English battery-replacement instructions.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Restored the ellipsis hyphen in Sende-/Empfangsmenü."
         ]
       },
       "22": {
@@ -2395,7 +2425,8 @@
           "0:8:1:15": "Monitor: 6.240 Bildpunkte (78 × 80), 4.096 Farben, Größe: 20 mm × 20 mm",
           "0:8:1:16": "",
           "0:8:1:20": "Infrarot-Kommunikation: Armbanduhr/Computer, Armbanduhr/Armbanduhr",
-          "0:8:1:21": ""
+          "0:8:1:21": "",
+          "0:8:1:7": "Gesamtzahl der Pixel: 28.000)"
         },
         "headings": [
           "Kamera-Modus",
@@ -2406,7 +2437,8 @@
         "clippedLines": [],
         "notes": [
           "G-44–G-45: all specifications, JPEG, 176×144, 6240 display pixels, 4096 colors, 115200 bps, 4/6-month battery conditions.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Corrected the case in Gesamtzahl der Pixel without changing the 28,000-pixel specification."
         ],
         "paragraphStarts": [
           "0:8:1:14",
@@ -2435,7 +2467,10 @@
           "1:10001:2:1": "• Zum Reinigen der Uhr und des Armbands ein weiches, trockenes Tuch",
           "0:33:1:4": "Armbands verkürzen und zur Verfärbung des Armbands führen. Es",
           "0:35:4:2": "auf; trotzdem sollten harte Stöße und ein Fallenlassen der Uhr",
-          "1:10001:10:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf."
+          "1:10001:10:2": "mitgelieferten Dokumentationen zum späteren Nachschlagen auf.",
+          "0:9:1:2": "der statische Druck ist. Beachten Sie daher Folgendes.",
+          "0:31:1:1": "V Verwendbar für Gerätetauchen (ausgenommen Tieftauchen mit Helium/Sauerstoff-Gemisch).",
+          "0:32:1:1": ""
         },
         "headings": [
           "Wartung durch den Benutzer",
@@ -2448,7 +2483,10 @@
           "G-46–G-47: five-row water table (including 200M and 300M), original class-III note and care.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
           "Additional proofreading: aus; trotzdem sollten harte Stöße → auf; trotzdem sollten harte Stöße",
-          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen"
+          "Additional proofreading: mitgelieferte Dokumentation → mitgelieferten Dokumentationen",
+          "Capitalized the substantivized Folgendes.",
+          "Joined Helium/Sauerstoff-Gemisch without the space introduced by a printed line break.",
+          "Continuation joined to the preceding source line; no duplicated gas-mixture name."
         ],
         "blocks": [
           {
@@ -2554,9 +2592,12 @@
           "1:10003:5:1": "(4) Nach einer Kündigung oder Aufhebung dieser Lizenzvereinbarung müssen Sie die Software",
           "1:10001:2:4": "das Medium modifiziert, geändert, falsch behandelt oder anderweitig fehlerhaft verwendet, fallen",
           "1:10001:3:1": "(2) Um Ansprüche unter der im obigen Paragraphen (1) genannten Gewährleistung stellen zu können,",
-          "1:10001:3:3": "verständigen. Unter dieser Gewährleistung liegt es im Ermessen von CASIO das Software-Produkt",
+          "1:10001:3:3": "verständigen. Unter dieser Gewährleistung liegt es im Ermessen von CASIO, das Software-Produkt",
           "1:10003:6:1": "(5) Die Kündigung der Lizenzvereinbarung hebt etwaige Verletzungen dieser Vereinbarung durch",
-          "0:2:2:3": "Wrist Camera3 und des erläuternden Materials (im Ganzen das Software-Produkt) umfasst. Durch das"
+          "0:2:2:3": "Wrist Camera3 und des erläuternden Materials (im Ganzen das Software-Produkt) umfasst. Durch das",
+          "1:10001:4:2": "in dieser Vereinbarung hinsichtlich des Software-Produkts, ausdrücklich oder unterstellt,",
+          "1:10001:4:4": "einen bestimmten Zweck, die Verletzung der Rechte Dritter sowie das Leistungsvermögen und",
+          "1:10001:4:3": "einschließlich aber nicht begrenzt auf die Gewährleistung der Marktfähigkeit und die Eignung für"
         },
         "headings": [
           "ENDANWENDER-LIZENZVEREINBARUNG",
@@ -2579,7 +2620,11 @@
           "Additional proofreading: obigen Paragraph (1) → obigen Paragraphen (1)",
           "Additional proofreading: Unter diese Gewährleistung → Unter dieser Gewährleistung",
           "Additional proofreading: Verletzungen diese Vereinbarung → Verletzungen dieser Vereinbarung",
-          "Additional proofreading: im ganzen das Software-Produkt → im Ganzen das Software-Produkt"
+          "Additional proofreading: im ganzen das Software-Produkt → im Ganzen das Software-Produkt",
+          "Added the comma before the infinitive clause governed by Ermessen.",
+          "Corrected the genitive after hinsichtlich.",
+          "Capitalized the substantivized Dritter in the software licence.",
+          "Removed the comma between coordinated nouns connected by und."
         ]
       }
     },

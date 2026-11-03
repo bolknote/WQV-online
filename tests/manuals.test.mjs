@@ -183,7 +183,7 @@ test('Japanese watch diagrams retain their button letters and time-display callo
 test('Japanese guide text has readable contents, button names and model-specific instructions', () => {
   for (const model of ['wqv2','wqv3','wqv10']) {
     const source = readFileSync(new URL(model + '-ja.html', root), 'utf8');
-    assert.doesNotMatch(source, /[©®④⑤⑥⑧@€]\s*ボタン|通言|通佶|通偪|時効セット|山謦告/);
+    assert.doesNotMatch(source, /[©®④⑤⑥⑧@€]\s*ボタン|通言|通佶|通偪|時効セット|山謦告|PC転送信時|RECEVE/);
     assert.match(source, /極性（＋と－の向き）/);
     assert.match(source, /精度：平均月差±15秒以内/);
     assert.match(source, /共通機能<\//);
@@ -206,7 +206,13 @@ test('Japanese guide text has readable contents, button names and model-specific
   const wqv3 = readFileSync(new URL('wqv3-ja.html', root), 'utf8');
   assert.match(wqv3, /含む16画像のサムネール画面になります/);
   assert.match(wqv3, /Fボタンを押します。→選択画像が大きく表示されます/);
+  const stopwatch = wqv3.match(/<h2 id="section-24-3">[\s\S]*?<h2 id="section-24-5">/)[0];
+  assert.match(stopwatch, /時刻モードのときにDボタンを5回押します/);
+  assert.match(stopwatch, /class="source-note"/);
   const color = readFileSync(new URL('wqv10-ja.html', root), 'utf8');
   assert.match(color, /含む4画像のサムネール画面になります/);
   assert.match(color, /Cボタンを押します。→ 選択画像が大きく表示されます/);
+  assert.match(color, /上記C（白地に青文字）/);
+  for (const label of ['A：青地に白文字', 'B：黒地に白文字', 'C：白地に青文字',
+    'D：青地に白文字', 'E：黒地に白文字', 'F：白地に青文字']) assert.ok(color.includes(label), label);
 });

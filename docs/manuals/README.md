@@ -54,6 +54,16 @@ the exact lines being replaced. A changed extraction requires another review;
 the generator also refuses any proofreading edit that changes an illustration.
 The reader's contents are rebuilt from the corrected headings.
 
+The diagram captions have also been checked separately: colour choices use
+A–F, and the text-entry and stopwatch sequences retain their button order.
+Two printed errors in the Japanese WQV-3 stopwatch section are corrected in
+the adapted text: entering the mode takes five D presses, and its display uses
+tenths of a second. The mode overview, specifications and English guide agree;
+a small gray note identifies the corrections beside the unchanged source figures.
+The Japanese WQV-10 guide also marks an omitted sentence copied from the IR-mode
+entry step into the picture-selection step. Setting diagrams are transcribed in
+button order, including the year and day fields that OCR missed.
+
 ## German editions
 
 The German originals are Casio’s [module 2220 PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_DE.pdf)

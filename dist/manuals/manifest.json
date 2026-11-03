@@ -686,6 +686,14 @@
         "text": "ご使用上の注意"
       },
       {
+        "id": "section-care-storage",
+        "text": "■保管"
+      },
+      {
+        "id": "section-care-lcd",
+        "text": "■液晶パネルの交換について"
+      },
+      {
         "id": "section-28-45",
         "text": "お手入れについて"
       }
@@ -1232,7 +1240,7 @@
       },
       {
         "id": "section-18-16",
-        "text": "※6秒以内に回復しない場合は“NG\"表示になります。"
+        "text": "※6秒以内に回復しない場合は“NG”表示になります。"
       },
       {
         "id": "section-19-0",
@@ -1521,6 +1529,22 @@
       {
         "id": "section-32-0",
         "text": "ご使用上の注意"
+      },
+      {
+        "id": "section-care-shock",
+        "text": "■ショック"
+      },
+      {
+        "id": "section-care-magnetism",
+        "text": "■磁気"
+      },
+      {
+        "id": "section-care-storage",
+        "text": "■保管"
+      },
+      {
+        "id": "section-care-lcd",
+        "text": "■液晶パネルの交換について"
       },
       {
         "id": "section-32-46",
@@ -2285,7 +2309,11 @@
       },
       {
         "id": "section-20-40",
-        "text": "※約25秒以内に回復しない場合は“ERROR\" 表示になります。"
+        "text": "※約25秒以内に回復しない場合は“ERROR” 表示になります。"
+      },
+      {
+        "id": "section-21-other-messages",
+        "text": "その他の注意表示について"
       },
       {
         "id": "section-21-23",
@@ -2302,6 +2330,10 @@
       {
         "id": "section-21-37",
         "text": "●設定してあるその日の色に合わせて、時刻モードの曜日も色が替わります。"
+      },
+      {
+        "id": "section-22-event-settings",
+        "text": "■イベント設定のしかた"
       },
       {
         "id": "section-22-6",
@@ -2344,20 +2376,16 @@
         "text": "5.分をセットする"
       },
       {
-        "id": "section-24-2",
-        "text": "■アラーム・時報のオン／オフ"
-      },
-      {
         "id": "section-24-3",
         "text": "6. セットを終わる"
       },
       {
-        "id": "section-24-4",
-        "text": "1. アラームまたは時報を選ぶ"
+        "id": "section-24-2",
+        "text": "■アラーム・時報のオン／オフ"
       },
       {
-        "id": "section-24-19",
-        "text": "アラーム5"
+        "id": "section-24-4",
+        "text": "1. アラームまたは時報を選ぶ"
       },
       {
         "id": "section-24-22",
@@ -2488,6 +2516,10 @@
         "text": "電源について"
       },
       {
+        "id": "section-29-low-battery",
+        "text": "■電池の消耗"
+      },
+      {
         "id": "section-29-34",
         "text": "電池交換のご注意"
       },
@@ -2536,8 +2568,28 @@
         "text": "ご使用上の注意"
       },
       {
+        "id": "section-care-shock",
+        "text": "■ショック"
+      },
+      {
+        "id": "section-care-magnetism",
+        "text": "■磁気"
+      },
+      {
+        "id": "section-care-storage",
+        "text": "■保管"
+      },
+      {
+        "id": "section-care-lcd",
+        "text": "■液晶パネルの交換について"
+      },
+      {
         "id": "section-31-44",
         "text": "お手入れについて"
+      },
+      {
+        "id": "section-care-neglect",
+        "text": "■お手入れを怠ると"
       }
     ]
   },
@@ -2915,7 +2967,7 @@
         "text": "Zur Beachtung"
       },
       {
-        "id": "section-10-2-24",
+        "id": "section-10-2-23",
         "text": "Pflege Ihrer Uhr"
       },
       {
@@ -3320,7 +3372,7 @@
         "text": "Zur Beachtung"
       },
       {
-        "id": "section-24-0-23",
+        "id": "section-24-0-22",
         "text": "Pflege Ihrer Uhr"
       },
       {
