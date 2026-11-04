@@ -1,6 +1,7 @@
 import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
   getLanguage, setLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
+import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
@@ -86,7 +87,8 @@ function update() {
   clearTimeout(updateTimer); updateTimer = null;
   const connected = Boolean(S.adapter?.opened), busy = Boolean(S.active), source = S.adapter || S.lastAdapter;
   const info = S.device ? describeUSBDevice(S.device) : null;
-  $('kingsun-help').hidden = info?.driver !== 'KingSun KS-959';
+  const installed = Boolean(source?.candidate);
+  renderDriverHelper($('kingsun-help'), S.device, source);
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected || Boolean(S.disconnectTask);
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
@@ -113,13 +115,13 @@ function update() {
   $('adapter-label').textContent = info?.label || 'USB IrDA';
   $('adapter-label').title = info?.label || tr("Choose a USB IrDA adapter");
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
-  $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? tr("Supported") : tr("Not implemented") : '—';
+  $('adapter-support').textContent = installed ? source.candidate.record.name + ' · C' : info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? tr("Supported") : tr("Not implemented") : '—';
   $('endpoints').textContent = connected ? S.adapter.description?.controlEndpoint === 0 ? tr('Control endpoint 0') : 'OUT ' + S.adapter.outEndpoint + ' / IN ' + S.adapter.inEndpoint : '—';
-  $('registers').hidden = info?.driver === 'KingSun KS-959';
+  $('registers').hidden = installed ? source.profile.id !== 'sigmatel' : info?.driver === 'KingSun KS-959';
   $('watch-model').textContent = S.client?.connected ? 'Casio WQV-' + S.client.model : S.mode !== 'pc' && S.transfer?.linked ? 'Casio ' + profile.name : '—';
-  $('connection-badge').textContent = info && !info.supported ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
+  $('connection-badge').textContent = info && !info.supported && !installed ? tr("Not supported") : connected ? tr("USB connected") : tr("USB not connected");
   $('connection-badge').classList.toggle('connected', connected);
-  $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported));
+  $('connection-badge').classList.toggle('unsupported', Boolean(info && !info.supported && !installed));
   $('power-led').classList.toggle('on', connected);
   $('power-led').title = connected ? tr("{0} connected", info.label) : tr("USB not connected");
   $('title-connection').textContent = S.client?.connected ? tr("WQV-{0} connected", S.client.model) : connected ? 'IrDA / USB' : tr("Offline");
@@ -266,17 +268,18 @@ $('connect').addEventListener('click', () => run(async signal => {
   signal.throwIfAborted();
   S.device = device; S.lastAdapter = null;
   const info = describeUSBDevice(device); update();
-  if (!info.supported) {
+  const installed = await findInstalledAdapter(device, { log, update: updateSoon, rawLog: $('raw-log').checked, record: recordTransfer });
+  if (!info.supported && !installed) {
     record('usb', { passed: false, supported: false, description: info });
     log('info', tr("{0}: no matching driver. No USB communication was started.", info.label));
     result('idle', tr("Adapter not supported"), tr("{0}. Communication with this USB ID is not implemented yet.", info.label));
     return;
   }
   const transport = info.driver === 'KingSun KS-959' ? new KingsunBridgeDevice(device) : device;
-  S.adapter = createAdapter(transport, { log, update: updateSoon, rawLog: $('raw-log').checked, record: recordTransfer }); S.lastAdapter = S.adapter;
+  S.adapter = installed ?? createAdapter(transport, { log, update: updateSoon, rawLog: $('raw-log').checked, record: recordTransfer }); S.lastAdapter = S.adapter;
   const description = await S.adapter.open(); signal.throwIfAborted();
   record('usb', { passed: true, description });
-  log('ok', info.driver === 'KingSun KS-959' ? tr('{0} opened through the local USB helper.', info.label) : tr("{0} opened through WebUSB.", info.label));
+  log('ok', installed ? description.driver : info.driver === 'KingSun KS-959' ? tr('{0} opened through the local USB helper.', info.label) : tr("{0} opened through WebUSB.", info.label));
   result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr('{0}. Select IR → PC on the {1}, then choose an operation.', info.label, profile.name) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));
 }));
 $('disconnect').addEventListener('click', () => run(async () => {

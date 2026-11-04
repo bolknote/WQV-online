@@ -3,6 +3,7 @@ import { japanese } from './translations-ja.mjs';
 import { german } from './translations-de.mjs';
 import { spanish } from './translations-es.mjs';
 import { finnish } from './translations-fi.mjs';
+import { driverTranslation } from './driver-translations.mjs';
 
 export const LANGUAGE_KEY = 'wqv-online.language';
 export const languages = Object.freeze(['en', 'ru', 'ja', 'de', 'es', 'fi']);
@@ -27,6 +28,7 @@ export function setLanguage(next, { storage = browserStorage(), persist = true }
 export function onLanguageChange(listener) { listeners.add(listener); return () => listeners.delete(listener); }
 
 const nouns = {
+  drivers: { en: { one: 'driver', other: 'drivers' }, ru: { one: 'драйвер', few: 'драйвера', many: 'драйверов', other: 'драйвера' }, ja: { other: 'ドライバー' }, de: { one: 'Treiber', other: 'Treiber' }, es: { one: 'controlador', other: 'controladores' }, fi: { one: 'ajuri', other: 'ajuria' } },
   photos: { en: { one: 'photo', other: 'photos' }, ru: { one: 'снимок', few: 'снимка', many: 'снимков', other: 'снимка' }, ja: { other: '枚' }, de: { one: 'Foto', other: 'Fotos' }, es: { one: 'foto', other: 'fotos' }, fi: { one: 'kuva', other: 'kuvaa' } },
   days: { en: { one: 'day', other: 'days' }, ru: { one: 'день', few: 'дня', many: 'дней', other: 'дня' }, ja: { other: '日' }, de: { one: 'Tag', other: 'Tage' }, es: { one: 'día', other: 'días' }, fi: { one: 'päivä', other: 'päivää' } },
   files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' }, ja: { other: 'ファイル' }, de: { one: 'Datei', other: 'Dateien' }, es: { one: 'archivo', other: 'archivos' }, fi: { one: 'tiedosto', other: 'tiedostoa' } },
@@ -40,7 +42,7 @@ class Message {
       return count + (language === 'ja' ? '' : ' ') + (words[new Intl.PluralRules(locale()).select(count)] || words.other);
     }
     const dictionary = translations[language];
-    const template = dictionary && Object.hasOwn(dictionary, this.key) ? dictionary[this.key] : this.key;
+    const template = dictionary && Object.hasOwn(dictionary, this.key) ? dictionary[this.key] : driverTranslation(language, this.key) ?? this.key;
     return template.replace(/\{(\d+)\}/g, (match, index) => index < this.values.length ? formatText(this.values[index]) : match);
   }
   toJSON() { return this.toString(); }

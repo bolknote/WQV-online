@@ -138,7 +138,7 @@ if(require.main===module)(async()=>{
   try{
     const context=await browser.newContext({viewport:{width:1366,height:1000},acceptDownloads:true});
     const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
-    await page.goto(base,{waitUntil:'networkidle'});assert.equal(await page.locator('.program-icon:not(.document-icon)').count(),3);
+    await page.goto(base,{waitUntil:'networkidle'});assert.equal(await page.locator('.program-icon:not(.document-icon)').count(),4);
     assert.equal(await page.locator('.document-icon').count(),3);
     await page.locator('.program-icon[href="./wqv2.html"]').click();await page.waitForLoadState('networkidle');
     await page.locator('#image-files').setInputFiles({name:'sample.bin',mimeType:'application/octet-stream',buffer:Buffer.from(syntheticRecord())});

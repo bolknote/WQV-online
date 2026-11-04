@@ -1,0 +1,197 @@
+{
+  "repository": "https://github.com/torvalds/linux",
+  "tag": "v4.16",
+  "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+  "overrides": {
+    "ir-usb": {
+      "tag": "v5.6",
+      "commit": "7111951b8d4973bda27ff663f2cf18b663d15b48",
+      "fixCommit": "17a0184ca17e288decdca8b2841531e34d49285f"
+    }
+  },
+  "files": {
+    "kingsun": {
+      "path": "drivers/staging/irda/drivers/kingsun-sir.c",
+      "localPath": "sources/drivers/staging/irda/drivers/kingsun-sir.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/kingsun-sir.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 17867,
+      "sha256": "aa144d99d420490042fb9f85a4273656082e83ebd2f25ee7f49bf0a60f9651e1"
+    },
+    "ksdazzle": {
+      "path": "drivers/staging/irda/drivers/ksdazzle-sir.c",
+      "localPath": "sources/drivers/staging/irda/drivers/ksdazzle-sir.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/ksdazzle-sir.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 23412,
+      "sha256": "d9ce9edf05d2d0f37ef1eda0cc555cc2aad21a7a59292284b3384ec36c501197"
+    },
+    "ks959": {
+      "path": "drivers/staging/irda/drivers/ks959-sir.c",
+      "localPath": "sources/drivers/staging/irda/drivers/ks959-sir.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/ks959-sir.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 28366,
+      "sha256": "a1f20c5dd3ec48f4d896076f84f201542974aa2c639f4b95cd5838acd6e1f229"
+    },
+    "sigmatel": {
+      "path": "drivers/staging/irda/drivers/stir4200.c",
+      "localPath": "sources/drivers/staging/irda/drivers/stir4200.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/stir4200.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 26317,
+      "sha256": "299617d6290155b92153f86dbfa711bb2b6432041f41ef81f69953d14a847e07"
+    },
+    "mcs7780": {
+      "path": "drivers/staging/irda/drivers/mcs7780.c",
+      "localPath": "sources/drivers/staging/irda/drivers/mcs7780.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/mcs7780.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 24640,
+      "sha256": "686bdb7e736191208e204b4f0c06aeae900f58274cf75ec97525ed37711a6c7e"
+    },
+    "irda-usb": {
+      "path": "drivers/staging/irda/drivers/irda-usb.c",
+      "localPath": "sources/drivers/staging/irda/drivers/irda-usb.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/irda-usb.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 58515,
+      "sha256": "dab3035b49e213cfe1f40bac2a751213b08361a2ff3991d8c2a1c45d5ac55348"
+    },
+    "ark3116": {
+      "path": "drivers/usb/serial/ark3116.c",
+      "localPath": "sources/drivers/usb/serial/ark3116.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/usb/serial/ark3116.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 21255,
+      "sha256": "b3c7189fc531ad62603fed8003678e3e73d0d8a87af3d9abb4f8ff9c136dcfc2"
+    },
+    "ir-usb-legacy": {
+      "path": "drivers/usb/serial/ir-usb.c",
+      "localPath": "sources/drivers/usb/serial/ir-usb.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/usb/serial/ir-usb.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 10885,
+      "sha256": "cb1e468da2523c19d05505d607111088233e5c742c7a9dbcff1e64b66fe656f3"
+    },
+    "mcs7780-header": {
+      "path": "drivers/staging/irda/drivers/mcs7780.h",
+      "localPath": "sources/drivers/staging/irda/drivers/mcs7780.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/mcs7780.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 5938,
+      "sha256": "aa8a6112e608f055d485780362cf9f6e15153fa3f669c7246fc9545dd919cb12"
+    },
+    "irda-usb-header": {
+      "path": "drivers/staging/irda/drivers/irda-usb.h",
+      "localPath": "sources/drivers/staging/irda/drivers/irda-usb.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/irda-usb.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 7041,
+      "sha256": "11b343b840de1459a7a27389db4906f3029ff19f41b0f712249b453d6f8ff5fc"
+    },
+    "Kconfig": {
+      "path": "drivers/staging/irda/drivers/Kconfig",
+      "localPath": "sources/drivers/staging/irda/drivers/Kconfig",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/Kconfig",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 13844,
+      "sha256": "fe53bf762452e9b9421e25c0a0d329746680414efefc1dd35e86d130b6e566f7"
+    },
+    "Makefile": {
+      "path": "drivers/staging/irda/drivers/Makefile",
+      "localPath": "sources/drivers/staging/irda/drivers/Makefile",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/Makefile",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 1595,
+      "sha256": "c72f0ecb5956ae126b51deb2cac033ab697004444d8f49554f1af20fcd5ae56b"
+    },
+    "uart-header": {
+      "path": "include/uapi/linux/serial_reg.h",
+      "localPath": "sources/include/uapi/linux/serial_reg.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/uapi/linux/serial_reg.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 15496,
+      "sha256": "e5b0811a8c74d6a8864432e29944db242b032a9777c7b34a882e8e022ff6b97c"
+    },
+    "usb-irda-header": {
+      "path": "include/linux/usb/irda.h",
+      "localPath": "sources/include/linux/usb/irda.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/linux/usb/irda.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 3554,
+      "sha256": "573e07610aced2a24bafdbe40616a718ffab83e1bb5a3eaacfa155ce4fe6f435"
+    },
+    "termbits-header": {
+      "path": "include/uapi/asm-generic/termbits.h",
+      "localPath": "sources/include/uapi/asm-generic/termbits.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/uapi/asm-generic/termbits.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 4716,
+      "sha256": "42d3212491166ef8657026f2bb2db3331cb397a6d16e696620137c008471ce23"
+    },
+    "ioctls-header": {
+      "path": "include/uapi/asm-generic/ioctls.h",
+      "localPath": "sources/include/uapi/asm-generic/ioctls.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/uapi/asm-generic/ioctls.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 3862,
+      "sha256": "b41b2ea8367ec4c6794df0c934fad90c07bdd399b9be68225e9e18765b6a18f8"
+    },
+    "ioctl-header": {
+      "path": "include/uapi/asm-generic/ioctl.h",
+      "localPath": "sources/include/uapi/asm-generic/ioctl.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/uapi/asm-generic/ioctl.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 3519,
+      "sha256": "5764a3378f017c826ab55382386c5e477c8c8d34ff026cc9e02cff10f2a23bdb"
+    },
+    "termios-header": {
+      "path": "include/uapi/asm-generic/termios.h",
+      "localPath": "sources/include/uapi/asm-generic/termios.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/include/uapi/asm-generic/termios.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 1392,
+      "sha256": "ced65a437336762b4e795389f5bcb26461e5c940624567f0f880eaa53082ff63"
+    },
+    "ir-usb": {
+      "path": "drivers/usb/serial/ir-usb.c",
+      "localPath": "sources/linux-v5.6/drivers/usb/serial/ir-usb.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/7111951b8d4973bda27ff663f2cf18b663d15b48/drivers/usb/serial/ir-usb.c",
+      "tag": "v5.6",
+      "commit": "7111951b8d4973bda27ff663f2cf18b663d15b48",
+      "bytes": 12009,
+      "sha256": "a9d7d1974f03228fc5df07f45bb21b87e2c5c1202d2da2a1fefda364536bc9c1",
+      "headerOverrides": {
+        "usb-irda-header": "usb-irda-fixed-header"
+      }
+    },
+    "usb-irda-fixed-header": {
+      "path": "include/linux/usb/irda.h",
+      "localPath": "sources/linux-v5.6/include/linux/usb/irda.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/7111951b8d4973bda27ff663f2cf18b663d15b48/include/linux/usb/irda.h",
+      "tag": "v5.6",
+      "commit": "7111951b8d4973bda27ff663f2cf18b663d15b48",
+      "bytes": 3853,
+      "sha256": "83bd2cd465c90f2c323314bae8522c42f38ca1ed74c850f359e876dd9662ac1c"
+    }
+  }
+}

@@ -51,7 +51,7 @@ test('returning to Programs waits for USB release and refuses navigation during 
 });
 
 test('program and document pages have unique IDs, valid local assets and translated visible labels', () => {
-  for (const file of ['index.html', 'wqv2.html', 'wqv3.html', 'manual.html']) {
+  for (const file of ['index.html', 'wqv2.html', 'wqv3.html', 'manual.html', 'drivers.html']) {
     const source = readFileSync(new URL('../dist/' + file, import.meta.url), 'utf8');
     const ids = [...source.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
     assert.equal(new Set(ids).size, ids.length, file + ': duplicate element ID');

@@ -1,5 +1,7 @@
+import { driverDictionary } from './driver-translations.mjs';
 // German translations; English messages are the keys.
 export const german = {
+  ...driverDictionary('de'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Wählen Sie ein Fotoarchiv für WQV-3 oder WQV-10.",
   "3 applications": "3 Anwendungen",
   "Open WQV-10": "WQV-10 öffnen",

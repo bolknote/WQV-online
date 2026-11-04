@@ -132,7 +132,7 @@ export class IrTranPReceiver {
     this.frameRecovery = frameRecovery;
     this.imageProfile = imageProfile;
     this.adapter = adapter; this.record = record; this.progress = progress; this.onFile = onFile; this.signal = signal;
-    this.localID = localID.slice(); this.rates = baudMask(maxBaud); this.maxBaud = maxBaud;
+    this.localID = localID.slice(); this.maxBaud = Math.min(maxBaud, adapter.maxBaud ?? maxBaud); this.rates = baudMask(this.maxBaud);
     this.acceptingConnections = true; this.initiateConnection = false;
     this.phase = 'discovery'; this.peerID = null; this.linkAddress = null; this.peerSAP = null;
     this.vs = 0; this.vr = 0; this.unacked = null; this.outgoing = [];

@@ -31,3 +31,24 @@ CASIO COMPUTER CO., LTD.; Russian editions are provided by i-Watch.Ru.
 The original manuals, illustrations and translations retain their original
 copyright and are not covered by this application's MIT license.
 Source URLs and SHA-256 hashes are recorded in dist/manuals/manifest.json.
+
+Browser C driver toolchain
+-------------------------
+
+dist/driver-runtime/compiler/ contains the WCC browser compiler, headers and
+C libraries from tyfkda/xcc (MIT, copyright 2024 tyfkda). Its full license is
+compiler/LICENSE-MIT. The distributed demo archive is identified in
+compiler/provenance.json; it is not claimed to be built from the separately
+recorded reference source commit.
+
+dist/driver-runtime/vendor/wasi/package/ contains browser_wasi_shim 0.4.2
+by bjorn3, under MIT OR Apache-2.0. Both license texts and package metadata
+are included next to its JavaScript files.
+
+The original Linux driver files and headers under
+dist/driver-runtime/corpus/sources/ retain their source notices and licenses.
+They are not licensed under the application's MIT license. Linux source
+versions, immutable URLs and SHA-256 hashes are recorded in corpus/sources.json.
+The GPL v2 text is supplied in corpus/COPYING. These sources are provided in
+full, without changes. The WQV compatibility headers and entry wrappers are
+separate files, compiled with the selected source in the browser.

@@ -1,5 +1,7 @@
+import { driverDictionary } from './driver-translations.mjs';
 // Spanish interface text. Protocol tokens and watch menu labels stay unchanged.
 export const spanish = Object.freeze({
+  ...driverDictionary('es'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Elige un archivo de fotos WQV-3 o WQV-10.",
   "3 applications": "3 aplicaciones",
   "Open WQV-10": "Abrir WQV-10",

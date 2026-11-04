@@ -3,6 +3,12 @@ import { installMenus } from './menus.mjs';
 
 export function installDesktopShell({ help, changed = () => {} } = {}) {
   const $ = id => document.getElementById(id);
+  const start = $('start-menu');
+  if (start && !start.querySelector('a[href="./drivers.html"]')) {
+    const drivers = document.createElement('a'); drivers.href = './drivers.html';
+    drivers.dataset.applicationExit = ''; drivers.dataset.i18n = 'Infrared drivers'; drivers.textContent = 'Infrared drivers';
+    start.insertBefore(drivers, $('start-options'));
+  }
   const closeMenus = installMenus();
   const showOptions = () => {
     closeMenus(); const dialog = $('options-dialog');

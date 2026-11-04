@@ -1,5 +1,7 @@
+import { driverDictionary } from './driver-translations.mjs';
 // Japanese translations; English messages are the keys.
 export const japanese = {
+  ...driverDictionary('ja'),
   "Choose a WQV-3 or WQV-10 photo archive.": "WQV-3またはWQV-10の写真アーカイブを選んでください。",
   "3 applications": "3個のアプリケーション",
   "Open WQV-10": "WQV-10を開く",

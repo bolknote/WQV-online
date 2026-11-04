@@ -8,7 +8,7 @@ handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
 
-The opening screen has three apps. Click your watch’s icon to open its app; the
+The opening screen has three watch apps and an Infrared drivers utility. Click your watch’s icon to open its app; the
 close button returns to Programs and releases the USB adapter. Each app has
 its own local album. WQV-1 and WQV-2 share module 2220, so they use one app,
 album and user guide. English, Russian, Japanese, German, Spanish and Finnish
@@ -45,8 +45,57 @@ Safari and Firefox cannot connect to the adapter. The app starts in English.
 Choose **Tools → Options…** to switch to Russian, Japanese, German, Spanish or Finnish. It remembers your
 choice in this browser, and switching languages keeps your current photo and connection.
 
-Other infrared adapters need their own USB transport code. **ARK3116T does not
+Other infrared adapters can use a C driver installed through **Drivers**.
+The available Linux API supports the eight reference drivers listed below;
+another source may need additional API services. **ARK3116T does not
 work yet.** WQV-1, WQV-10 and other operating systems have not been tested.
+
+### Installing a C driver
+
+Open **Drivers** in Programs or the Start menu. Use **Add…** to select a Linux
+driver's C file and any extra headers, or choose **Reference sources…**. The
+source is saved before compilation. WCC compiles it locally in a Worker, and
+the resulting Wasm module stays in this browser. You can cancel a build,
+add a missing header later, rebuild, save the source or remove the driver.
+
+The reference sources are SigmaTel STIr4200, KingSun KS-959, KingSun/DonShine,
+KingSun Dazzle, MosChip MCS7780, ARK3116, `irda-usb` and the corrected Linux 5.6
+`ir-usb`. The C files are unchanged and keep their GPL notices. The compiler,
+compatibility layer and source files ship with the site; no remote compiler
+is involved.
+
+WQV Link reads the USB match table exported by each compiled C driver and
+chooses an installed match when connecting. An exact USB ID takes precedence
+over a class match. If no installed driver matches, the existing SigmaTel and
+KS-959 implementations remain available. Installing a C driver does not
+require reinstalling the watch apps.
+
+The **Check** tab shows the device name, USB ID, known model and matching
+installed driver. **Test automatically** tries direct WebUSB first. It tries
+the local helper only when WebUSB blocks an operation required by the driver.
+Busy devices, denied permissions, USB errors and missing OS interfaces are
+reported separately. The two access methods can also be tested individually.
+This initializes USB and releases it afterwards; it sends no infrared frame.
+Use the watch app to check an actual photo transfer.
+
+C drivers that need the helper use [irda_usb_helper.py](dist/irda_usb_helper.py):
+
+```sh
+python3 ~/Downloads/irda_usb_helper.py
+```
+
+It needs Python 3 and libusb and listens on `127.0.0.1:8768`. The older KS-959
+helper described below is still used by the built-in JavaScript driver. Both helpers
+only provide USB access; the driver and watch protocol run in the browser.
+For a USB ID outside the bundled list, the new helper requires an explicit
+`--device 1234:5678` argument.
+
+The compiler and driver runtime need a current Chromium browser with
+WebAssembly JSPI. Eight C sources pass browser compilation and USB-model
+tests. Earlier optical tests of the C drivers covered SigmaTel and KS-959;
+the new utility has not yet had a physical watch transfer. Packet-oriented
+USB-IrDA drivers cannot carry WQV-1/2's raw SUM16 framing. ARK3116T's macOS
+configuration problem is also unchanged.
 
 ### KingSun KS-959 setup
 

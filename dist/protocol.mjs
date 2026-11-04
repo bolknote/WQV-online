@@ -21,7 +21,7 @@ export class WQVClient {
     this.disconnectConfirmed = false; this.disconnectAttempts = 0;
     this.txCredits = 1; this.rxCredits = 14; this.appBuffer = new Uint8Array();
     this.primaryID = PRIMARY; this.secondaryID = SECONDARY; this.model = null; this.peerID = null;
-    this.localBaudRates = baudMask(maxBaud);
+    this.localBaudRates = baudMask(Math.min(maxBaud, adapter.maxBaud ?? maxBaud));
     if (expectedModel !== null && ![3, 10].includes(expectedModel)) throw new RangeError('Expected WQV-3 or WQV-10.');
     this.expectedModel = expectedModel;
   }

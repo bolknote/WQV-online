@@ -1,5 +1,7 @@
+import { driverDictionary } from './driver-translations.mjs';
 // Russian translations; English messages are the keys.
 export const russian = {
+  ...driverDictionary('ru'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Выберите архив снимка WQV-3 или WQV-10.",
   "3 applications": "3 приложения",
   "Open WQV-10": "Открыть WQV-10",

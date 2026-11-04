@@ -18,8 +18,8 @@ class Handler(SimpleHTTPRequestHandler):
         path = urlsplit(self.path).path
         ancestors = "'self'" if path.startswith('/manuals/') and path.endswith('.html') else "'none'"
         self.send_header('Content-Security-Policy',
-                         "default-src 'self'; script-src 'self'; style-src 'self'; "
-                         "img-src 'self' data: blob:; connect-src http://127.0.0.1:8767; object-src 'none'; "
+                         "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; worker-src 'self'; "
+                         "img-src 'self' data: blob:; connect-src 'self' http://127.0.0.1:8767 http://127.0.0.1:8768; object-src 'none'; "
                          f"base-uri 'self'; frame-ancestors {ancestors}")
         super().end_headers()
 

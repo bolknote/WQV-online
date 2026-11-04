@@ -1,0 +1,196 @@
+{
+  "compilerDemoAsset": {
+    "url": "https://tyfkda.github.io/xcc/wccfiles.zip",
+    "bytes": 166292,
+    "sha256": "73b2d97e403706462ac8e646b2ee66a717e81dd4d0072c770fe97e32e49610d3",
+    "files": [
+      {
+        "path": "usr/",
+        "bytes": 0,
+        "compressedBytes": 2
+      },
+      {
+        "path": "usr/bin/",
+        "bytes": 0,
+        "compressedBytes": 2
+      },
+      {
+        "path": "usr/bin/cc",
+        "bytes": 350188,
+        "compressedBytes": 125377
+      },
+      {
+        "path": "usr/include/",
+        "bytes": 0,
+        "compressedBytes": 2
+      },
+      {
+        "path": "usr/include/sys/",
+        "bytes": 0,
+        "compressedBytes": 2
+      },
+      {
+        "path": "usr/include/sys/random.h",
+        "bytes": 209,
+        "compressedBytes": 152
+      },
+      {
+        "path": "usr/include/sys/stat.h",
+        "bytes": 4397,
+        "compressedBytes": 1159
+      },
+      {
+        "path": "usr/include/sys/types.h",
+        "bytes": 105,
+        "compressedBytes": 80
+      },
+      {
+        "path": "usr/include/alloca.h",
+        "bytes": 156,
+        "compressedBytes": 124
+      },
+      {
+        "path": "usr/include/ar.h",
+        "bytes": 232,
+        "compressedBytes": 143
+      },
+      {
+        "path": "usr/include/assert.h",
+        "bytes": 486,
+        "compressedBytes": 234
+      },
+      {
+        "path": "usr/include/ctype.h",
+        "bytes": 296,
+        "compressedBytes": 103
+      },
+      {
+        "path": "usr/include/errno.h",
+        "bytes": 2186,
+        "compressedBytes": 795
+      },
+      {
+        "path": "usr/include/inttypes.h",
+        "bytes": 779,
+        "compressedBytes": 231
+      },
+      {
+        "path": "usr/include/fcntl.h",
+        "bytes": 1004,
+        "compressedBytes": 377
+      },
+      {
+        "path": "usr/include/float.h",
+        "bytes": 788,
+        "compressedBytes": 310
+      },
+      {
+        "path": "usr/include/libgen.h",
+        "bytes": 59,
+        "compressedBytes": 42
+      },
+      {
+        "path": "usr/include/limits.h",
+        "bytes": 1180,
+        "compressedBytes": 346
+      },
+      {
+        "path": "usr/include/math.h",
+        "bytes": 2976,
+        "compressedBytes": 855
+      },
+      {
+        "path": "usr/include/setjmp.h",
+        "bytes": 602,
+        "compressedBytes": 271
+      },
+      {
+        "path": "usr/include/stdarg.h",
+        "bytes": 3695,
+        "compressedBytes": 1009
+      },
+      {
+        "path": "usr/include/stdbool.h",
+        "bytes": 174,
+        "compressedBytes": 99
+      },
+      {
+        "path": "usr/include/stddef.h",
+        "bytes": 260,
+        "compressedBytes": 170
+      },
+      {
+        "path": "usr/include/stdint.h",
+        "bytes": 1253,
+        "compressedBytes": 384
+      },
+      {
+        "path": "usr/include/stdlib.h",
+        "bytes": 1604,
+        "compressedBytes": 575
+      },
+      {
+        "path": "usr/include/stdio.h",
+        "bytes": 2572,
+        "compressedBytes": 807
+      },
+      {
+        "path": "usr/include/string.h",
+        "bytes": 1383,
+        "compressedBytes": 333
+      },
+      {
+        "path": "usr/include/stdnoreturn.h",
+        "bytes": 42,
+        "compressedBytes": 38
+      },
+      {
+        "path": "usr/include/strings.h",
+        "bytes": 149,
+        "compressedBytes": 95
+      },
+      {
+        "path": "usr/include/time.h",
+        "bytes": 257,
+        "compressedBytes": 165
+      },
+      {
+        "path": "usr/include/unistd.h",
+        "bytes": 1953,
+        "compressedBytes": 720
+      },
+      {
+        "path": "usr/include/wasi.h",
+        "bytes": 4380,
+        "compressedBytes": 1335
+      },
+      {
+        "path": "usr/include/wchar.h",
+        "bytes": 101,
+        "compressedBytes": 84
+      },
+      {
+        "path": "usr/lib/",
+        "bytes": 0,
+        "compressedBytes": 2
+      },
+      {
+        "path": "usr/lib/wcrt0.a",
+        "bytes": 1130,
+        "compressedBytes": 569
+      },
+      {
+        "path": "usr/lib/wlibc.a",
+        "bytes": 75282,
+        "compressedBytes": 25242
+      }
+    ]
+  },
+  "referenceSource": {
+    "repository": "https://github.com/tyfkda/xcc",
+    "commit": "631e318432aeaaf72d6d2dfc93085766934314a2",
+    "pushedAt": "2026-10-30T00:23:56Z",
+    "archiveBytes": 504067,
+    "sourceURL": "https://codeload.github.com/tyfkda/xcc/tar.gz/631e318432aeaaf72d6d2dfc93085766934314a2"
+  }
+}

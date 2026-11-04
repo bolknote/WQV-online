@@ -3,6 +3,7 @@ import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { createWQV2Adapter } from './wqv2-adapter.mjs';
 import { describeUSBDevice } from './adapters.mjs';
+import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
 import { WQV12Client } from './wqv12-core.mjs';
 import { wqv12ClockPayload } from './wqv12-clock.mjs';
 import { LocalStore } from './images.mjs';
@@ -87,7 +88,7 @@ function render() {
   $('title-connection').textContent = connected ? 'IrDA / USB' : tr('Offline');
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
   $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? 'WebUSB' : tr('Not supported') : '—';
-  $('kingsun-help').hidden = info?.driver !== 'KingSun KS-959';
+  renderDriverHelper($('kingsun-help'), S.device, S.adapter || S.lastAdapter);
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   const metrics = S.client?.stats || S.latest || {};
   $('tx-count').textContent = metrics.txFrames ?? 0; $('rx-count').textContent = metrics.rxBytes ?? 0;
@@ -180,10 +181,13 @@ async function simple(task) {
 }
 $('connect').addEventListener('click', () => simple(async signal => {
   const device = await navigator.usb.requestDevice({ filters: [] }); signal.throwIfAborted();
-  S.device = device; capture('usb');
-  const adapter = createWQV2Adapter(device, { record, raw: (kind, bytes) => S.capture?.raw[kind].push(bytes),
+  S.device = device; S.lastAdapter = null; capture('usb');
+  const options = { record, raw: (kind, bytes) => S.capture?.raw[kind]?.push(bytes),
+    model: 'wqv2', log: (level, message) => log(level, message), update: refreshSoon };
+  const adapter = await findInstalledAdapter(device, options) ?? createWQV2Adapter(device, { record, raw: options.raw,
     log: (level, message) => log(level, message), update: refreshSoon });
   S.adapter = adapter;
+  S.lastAdapter = adapter;
   try { await adapter.open(); signal.throwIfAborted(); }
   catch (error) { try { await adapter.close(); } catch {} S.adapter = null; throw error; }
   status('success', tr('USB adapter connected'), S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') :
