@@ -3464,5 +3464,815 @@
         "text": "9. Sonstiges"
       }
     ]
+  },
+  {
+    "id": "wqv3-fi",
+    "model": "WQV-3",
+    "language": "fi",
+    "module": 2411,
+    "title": "WQV-3 — Käyttöohje",
+    "pages": 18,
+    "file": "wqv3-fi.html",
+    "sourceURL": "https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf",
+    "sourceSHA256": "a47ebd77e9860cf4ade28267552577dc05cfe3ad1ba07ef9e208a3aee059b100",
+    "scanned": false,
+    "illustrations": 45,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "CASIO moduulin 2411 käyttöohje"
+      },
+      {
+        "id": "section-1-1",
+        "text": "WQV-3D-8"
+      },
+      {
+        "id": "section-1-2",
+        "text": "TUTUSTUMINEN KELLOON"
+      },
+      {
+        "id": "section-1-5",
+        "text": "Tätä käyttöohjetta koskeva huomautus"
+      },
+      {
+        "id": "section-1-22",
+        "text": "VAROITUS!"
+      },
+      {
+        "id": "section-1-review-5",
+        "text": "Sisältö"
+      },
+      {
+        "id": "section-2-review-0",
+        "text": "Sisältö (jatkuu)"
+      },
+      {
+        "id": "section-2-review-1",
+        "text": "Katsaus eri toimintoihin"
+      },
+      {
+        "id": "section-3-0",
+        "text": "ENNEN KELLON KÄYTTÖÄ"
+      },
+      {
+        "id": "section-3-1",
+        "text": "Kellonajan ja päiväyksen asettaminen"
+      },
+      {
+        "id": "section-3-18",
+        "text": "Näytön kontrastin säätäminen"
+      },
+      {
+        "id": "section-3-32",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-3-35",
+        "text": "AUTOMAATTINEN VIRRANSÄÄSTÖ"
+      },
+      {
+        "id": "section-3-43",
+        "text": "Herätysruutu"
+      },
+      {
+        "id": "section-4-0",
+        "text": "KELLON KÄYTTÖ"
+      },
+      {
+        "id": "section-4-3",
+        "text": "KAMERATOIMINTO"
+      },
+      {
+        "id": "section-4-6",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-4-13",
+        "text": "Kuvan taltioiminen"
+      },
+      {
+        "id": "section-5-4",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-5-11",
+        "text": "KAMERATOIMINTOA KOSKEVIA VAROTOIMENPITEITÄ"
+      },
+      {
+        "id": "section-5-12",
+        "text": "Yleistä"
+      },
+      {
+        "id": "section-5-19",
+        "text": "Kameran lepointervalli"
+      },
+      {
+        "id": "section-5-29",
+        "text": "Näytön kuvakoko ja muistikuvan koko"
+      },
+      {
+        "id": "section-5-33",
+        "text": "Hälytys-, tasatuntisignaali- ja ajastinäänet"
+      },
+      {
+        "id": "section-5-35",
+        "text": "KAMERAKUVIEN SÄÄTÄMINEN"
+      },
+      {
+        "id": "section-5-38",
+        "text": "Kuvakirkkauden säätö"
+      },
+      {
+        "id": "section-6-0",
+        "text": "Kuvakirkkauden säätötoimenpiteet"
+      },
+      {
+        "id": "section-6-12",
+        "text": "Tärkeää!"
+      },
+      {
+        "id": "section-6-15",
+        "text": "Valaistustyypin määrittäminen"
+      },
+      {
+        "id": "section-6-19",
+        "text": "Valaistustyypin määrittäminen"
+      },
+      {
+        "id": "section-6-29",
+        "text": "Kuvan tallentaminen kamera-ajastimella"
+      },
+      {
+        "id": "section-7-0",
+        "text": "VISUAL DATABANK™ -TOIMINTO"
+      },
+      {
+        "id": "section-7-3",
+        "text": "Tärkeää!"
+      },
+      {
+        "id": "section-7-5",
+        "text": "Tallennettujen kuvien katselu"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Pikkukuvaruutu"
+      },
+      {
+        "id": "section-7-32",
+        "text": "KUVAKONTRASTIN SÄÄTÄMINEN"
+      },
+      {
+        "id": "section-7-36",
+        "text": "Kuvakontrastin säätäminen"
+      },
+      {
+        "id": "section-8-0",
+        "text": "TEKSTIN LIITTÄMINEN KUVAAN"
+      },
+      {
+        "id": "section-8-2",
+        "text": "Liittääksesi tekstiä johonkin kuvaan"
+      },
+      {
+        "id": "section-8-26",
+        "text": "KUVIEN JÄRJESTELY"
+      },
+      {
+        "id": "section-8-31",
+        "text": "KUVIEN PYYHINTÄ"
+      },
+      {
+        "id": "section-8-33",
+        "text": "Kaikkien kuvien pyyhkiminen kellon muistista"
+      },
+      {
+        "id": "section-9-21",
+        "text": "Poistaaksesi jonkin tietyn kuvan"
+      },
+      {
+        "id": "section-9-39",
+        "text": "IR-TOIMINTO (infrapuna)"
+      },
+      {
+        "id": "section-9-41",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-10-0",
+        "text": "KAHDEN KELLON VÄLINEN TIEDONVAIHTO"
+      },
+      {
+        "id": "section-10-8",
+        "text": "IR-toiminnon aktivoiminen"
+      },
+      {
+        "id": "section-10-12",
+        "text": "Kuvan lähettäminen"
+      },
+      {
+        "id": "section-11-0",
+        "text": "Kuvan vastaanottaminen"
+      },
+      {
+        "id": "section-11-23",
+        "text": "KOMMUNIKOINTIVIRHEET"
+      },
+      {
+        "id": "section-11-27",
+        "text": "Kommunikointiruutuviestit"
+      },
+      {
+        "id": "section-11-29",
+        "text": "Muut viestit"
+      },
+      {
+        "id": "section-11-review-4",
+        "text": "Kommunikointia koskevia varotoimenpiteitä"
+      },
+      {
+        "id": "section-12-0",
+        "text": "KELLONAIKATOIMINTO"
+      },
+      {
+        "id": "section-12-6",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-12-9",
+        "text": "Sekuntien nollaaminen"
+      },
+      {
+        "id": "section-12-17",
+        "text": "Herätysruutukuvan määrittäminen"
+      },
+      {
+        "id": "section-12-32",
+        "text": "KALENTERIRUUDUN KÄYTTÖ"
+      },
+      {
+        "id": "section-12-42",
+        "text": "Tarkistaaksesi kalenterin jonkin tietyn kuukauden ajalta"
+      },
+      {
+        "id": "section-13-0",
+        "text": "Juhlapäiväkorostuksen päälle- ja poiskytkentä"
+      },
+      {
+        "id": "section-13-13",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-13-16",
+        "text": "HÄLYTYS"
+      },
+      {
+        "id": "section-13-26",
+        "text": "Hälytysajan ja hälytysruutukuvan asettaminen"
+      },
+      {
+        "id": "section-14-7",
+        "text": "HÄLYTYKSEN KÄYTTÖ"
+      },
+      {
+        "id": "section-14-10",
+        "text": "Hälytyksen testaaminen"
+      },
+      {
+        "id": "section-14-12",
+        "text": "Päivittäishälytyksen ja tasatuntisignaalin päälle- ja poiskytkentä"
+      },
+      {
+        "id": "section-14-20",
+        "text": "AJASTIN"
+      },
+      {
+        "id": "section-14-29",
+        "text": "Ajastimen käynnistysajan ja ajastinruutukuvan asettaminen"
+      },
+      {
+        "id": "section-14-46",
+        "text": "Ajastimen käyttö"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Käynnistääksesi ajastimen"
+      },
+      {
+        "id": "section-15-8",
+        "text": "SEKUNTIKELLO"
+      },
+      {
+        "id": "section-15-17",
+        "text": "Ajanotto sekuntikellolla"
+      },
+      {
+        "id": "section-15-25",
+        "text": "VIRRANSYÖTTÖ"
+      },
+      {
+        "id": "section-15-26",
+        "text": "Esiasennettu paristo"
+      },
+      {
+        "id": "section-15-31",
+        "text": "Matalan paristojännitteen ilmaisin"
+      },
+      {
+        "id": "section-15-35",
+        "text": "Vaihe 1"
+      },
+      {
+        "id": "section-15-42",
+        "text": "Vaihe 2"
+      },
+      {
+        "id": "section-16-1",
+        "text": "Huomautus:"
+      },
+      {
+        "id": "section-16-13",
+        "text": "PARISTOA KOSKEVIA VAROTOIMENPITEITÄ"
+      },
+      {
+        "id": "section-16-32",
+        "text": "Pariston vaihtaminen"
+      },
+      {
+        "id": "section-17-21",
+        "text": "PARISTOVAIHDON JÄLKEISET ASETUKSET"
+      },
+      {
+        "id": "section-17-24",
+        "text": "TÄRKEÄÄ"
+      },
+      {
+        "id": "section-17-27",
+        "text": "AUTOMAATTINEN PALUUTOIMINTO"
+      },
+      {
+        "id": "section-17-38",
+        "text": "KELLONAIKA"
+      },
+      {
+        "id": "section-17-42",
+        "text": "12-/24-tuntinen kellonaikajärjestelmä"
+      },
+      {
+        "id": "section-18-0",
+        "text": "HÄLYTYS JA AJASTIN"
+      },
+      {
+        "id": "section-18-3",
+        "text": "AUTOMAATTINEN VIRRANSÄÄSTÖ"
+      },
+      {
+        "id": "section-18-9",
+        "text": "TEKNISET TIEDOT"
+      },
+      {
+        "id": "section-18-21",
+        "text": "Kameratoiminto:"
+      },
+      {
+        "id": "section-18-36",
+        "text": "Yleistä"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-es",
+    "model": "WQV-1/2",
+    "language": "es",
+    "module": 2220,
+    "title": "WQV-1/2 — Guía del usuario",
+    "pages": 11,
+    "file": "wqv2-es.html",
+    "sourceURL": "https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf",
+    "sourceSHA256": "2ba58cb7e1fffd118c5aa798c991ea412e9970417e2352f190ceeb27464adcdc",
+    "scanned": true,
+    "illustrations": 47,
+    "headings": [
+      {
+        "id": "section-1-0-0",
+        "text": "Conociendo la unidad"
+      },
+      {
+        "id": "section-1-0-4",
+        "text": "Acerca de este manual"
+      },
+      {
+        "id": "section-es-review-2",
+        "text": "Índice"
+      },
+      {
+        "id": "section-es-review-3",
+        "text": "Índice (continuación)"
+      },
+      {
+        "id": "section-es-review-4",
+        "text": "Bosquejo de los procedimientos"
+      },
+      {
+        "id": "section-es-review-5",
+        "text": "Bosquejo de los procedimientos (continuación)"
+      },
+      {
+        "id": "section-2-1-0",
+        "text": "Antes de usar el reloj..."
+      },
+      {
+        "id": "section-2-1-1",
+        "text": "¡Advertencia!"
+      },
+      {
+        "id": "section-2-1-18",
+        "text": "Para ajustar la hora y fecha"
+      },
+      {
+        "id": "section-2-2-3",
+        "text": "Indicación de hora normal de 12 y 24 horas"
+      },
+      {
+        "id": "section-2-2-15",
+        "text": "Ajuste del contraste"
+      },
+      {
+        "id": "section-2-2-21",
+        "text": "Nota"
+      },
+      {
+        "id": "section-2-2-25",
+        "text": "Desactivación de presentación automática"
+      },
+      {
+        "id": "section-2-3-0",
+        "text": "Guía general"
+      },
+      {
+        "id": "section-3-0-0",
+        "text": "Modo de hora normal"
+      },
+      {
+        "id": "section-3-0-10",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-3-1-0",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-3-1-5",
+        "text": "Para grabar una imagen"
+      },
+      {
+        "id": "section-3-2-0",
+        "text": "Notas"
+      },
+      {
+        "id": "section-3-2-11",
+        "text": "Precauciones en el modo de cámara"
+      },
+      {
+        "id": "section-3-2-12",
+        "text": "Generalidades"
+      },
+      {
+        "id": "section-3-2-19",
+        "text": "Intervalo de reposo de cámara"
+      },
+      {
+        "id": "section-3-3-0",
+        "text": "Sonidos de alarma, señal horaria y alarma de cuenta regresiva"
+      },
+      {
+        "id": "section-3-3-3",
+        "text": "Controlando la imagen del modo de cámara"
+      },
+      {
+        "id": "section-3-3-6",
+        "text": "Ajustando el brillo de la imagen"
+      },
+      {
+        "id": "section-3-3-10",
+        "text": "Para ajustar el brillo de la imagen"
+      },
+      {
+        "id": "section-3-3-28",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-4-0-0",
+        "text": "Especificando el tipo de iluminación"
+      },
+      {
+        "id": "section-4-0-10",
+        "text": "Para especificar el tipo de iluminación"
+      },
+      {
+        "id": "section-4-1-0",
+        "text": "Modos de grabación"
+      },
+      {
+        "id": "section-4-1-3",
+        "text": "Modo normal"
+      },
+      {
+        "id": "section-4-1-6",
+        "text": "Modo de fusión"
+      },
+      {
+        "id": "section-4-1-9",
+        "text": "Modo de arte"
+      },
+      {
+        "id": "section-4-1-11",
+        "text": "Para seleccionar el modo de grabación"
+      },
+      {
+        "id": "section-4-2-0",
+        "text": "Para grabar usando el modo de fusión"
+      },
+      {
+        "id": "section-4-2-13",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-4-2-16",
+        "text": "Nota"
+      },
+      {
+        "id": "section-4-2-20",
+        "text": "Para grabar usando el modo de arte"
+      },
+      {
+        "id": "section-4-3-0",
+        "text": "Modo VISUAL DATABANK™"
+      },
+      {
+        "id": "section-4-3-3",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-4-3-9",
+        "text": "Para ver las imágenes grabadas"
+      },
+      {
+        "id": "section-4-3-30",
+        "text": "Notas"
+      },
+      {
+        "id": "section-5-0-0",
+        "text": "Fijando un texto a una imagen"
+      },
+      {
+        "id": "section-5-0-3",
+        "text": "Para fijar un texto a una imagen"
+      },
+      {
+        "id": "section-5-1-2",
+        "text": "Notas"
+      },
+      {
+        "id": "section-5-1-9",
+        "text": "Clasificando las imágenes"
+      },
+      {
+        "id": "section-5-1-18",
+        "text": "Borrando imágenes"
+      },
+      {
+        "id": "section-5-1-21",
+        "text": "Para borrar todas las imágenes en la memoria del reloj"
+      },
+      {
+        "id": "section-5-2-20",
+        "text": "Nota"
+      },
+      {
+        "id": "section-5-2-24",
+        "text": "Para borrar una imagen específica"
+      },
+      {
+        "id": "section-5-3-0",
+        "text": "Nota"
+      },
+      {
+        "id": "section-6-0-0",
+        "text": "Modo de hora normal"
+      },
+      {
+        "id": "section-6-0-11",
+        "text": "Para reposicionar la cuenta de segundos a cero"
+      },
+      {
+        "id": "section-6-0-22",
+        "text": "Nota"
+      },
+      {
+        "id": "section-6-1-0",
+        "text": "Para cambiar entre los formatos de pantalla de modo de hora normal"
+      },
+      {
+        "id": "section-6-1-4",
+        "text": "Usando la pantalla del visualizador"
+      },
+      {
+        "id": "section-6-1-8",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-6-2-0",
+        "text": "Para visualizar la pantalla del visualizador"
+      },
+      {
+        "id": "section-6-2-21",
+        "text": "Para ajustar el contraste de la imagen"
+      },
+      {
+        "id": "section-6-2-30",
+        "text": "Nota"
+      },
+      {
+        "id": "section-6-3-0",
+        "text": "Modo de alarma"
+      },
+      {
+        "id": "section-6-3-7",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-6-3-19",
+        "text": "Para ajustar la hora de alarma"
+      },
+      {
+        "id": "section-7-0-14",
+        "text": "Nota"
+      },
+      {
+        "id": "section-7-0-17",
+        "text": "Operación de la alarma diaria"
+      },
+      {
+        "id": "section-7-0-20",
+        "text": "Para probar la alarma"
+      },
+      {
+        "id": "section-7-0-24",
+        "text": "Para activar y desactivar la alarma diaria y señal horaria"
+      },
+      {
+        "id": "section-7-2-0",
+        "text": "Modo de alarma de cuenta regresiva"
+      },
+      {
+        "id": "section-7-2-4",
+        "text": "¡Importante!"
+      },
+      {
+        "id": "section-7-2-12",
+        "text": "Para ajustar el tiempo de inicio de la cuenta regresiva"
+      },
+      {
+        "id": "section-7-2-24",
+        "text": "Nota"
+      },
+      {
+        "id": "section-7-3-0",
+        "text": "Usando la alarma de cuenta regresiva"
+      },
+      {
+        "id": "section-8-0-0",
+        "text": "Modo de cronógrafo"
+      },
+      {
+        "id": "section-8-0-6",
+        "text": "Para medir tiempos con el cronógrafo"
+      },
+      {
+        "id": "section-8-0-8",
+        "text": "Nota"
+      },
+      {
+        "id": "section-8-1-0",
+        "text": "Modo IR"
+      },
+      {
+        "id": "section-8-1-3",
+        "text": "Notas"
+      },
+      {
+        "id": "section-8-1-9",
+        "text": "Intercambiando datos entre dos relojes"
+      },
+      {
+        "id": "section-8-2-0",
+        "text": "Para ingresar en el modo IR"
+      },
+      {
+        "id": "section-8-2-6",
+        "text": "Para enviar una sola imagen"
+      },
+      {
+        "id": "section-8-3-19",
+        "text": "Notas"
+      },
+      {
+        "id": "section-8-3-23",
+        "text": "Para recibir una sola imagen"
+      },
+      {
+        "id": "section-9-0-14",
+        "text": "Notas"
+      },
+      {
+        "id": "section-9-0-18",
+        "text": "Errores de comunicación"
+      },
+      {
+        "id": "section-9-1-0",
+        "text": "Precauciones durante la comunicación"
+      },
+      {
+        "id": "section-9-2-0",
+        "text": "Fuente de alimentación"
+      },
+      {
+        "id": "section-9-2-1",
+        "text": "Acerca de la pila instalada en fábrica"
+      },
+      {
+        "id": "section-9-2-7",
+        "text": "Indicación de pila baja"
+      },
+      {
+        "id": "section-9-2-11",
+        "text": "Paso 1"
+      },
+      {
+        "id": "section-9-2-24",
+        "text": "Paso 2"
+      },
+      {
+        "id": "section-9-2-30",
+        "text": "Notas"
+      },
+      {
+        "id": "section-9-3-0",
+        "text": "Precauciones con la pila"
+      },
+      {
+        "id": "section-10-0-0",
+        "text": "Para reemplazar la pila"
+      },
+      {
+        "id": "section-10-1-31",
+        "text": "Ajustes siguiendo al reemplazo de la pila"
+      },
+      {
+        "id": "section-10-2-0",
+        "text": "Especificaciones"
+      },
+      {
+        "id": "section-10-2-8",
+        "text": "Modo de alarma de cuenta regresiva"
+      },
+      {
+        "id": "section-10-2-11",
+        "text": "Modo de cronógrafo"
+      },
+      {
+        "id": "section-10-2-16",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-10-3-0",
+        "text": "Generalidades"
+      },
+      {
+        "id": "section-11-0-0",
+        "text": "Mantenimiento por el usuario"
+      },
+      {
+        "id": "section-11-0-10",
+        "text": "Notas"
+      },
+      {
+        "id": "section-11-0-24",
+        "text": "Cuidado de su reloj"
+      },
+      {
+        "id": "section-11-1-31",
+        "text": "Para los relojes equipados con pulseras de resina..."
+      },
+      {
+        "id": "section-11-2-0",
+        "text": "Para los relojes equipados con cajas y pulseras fluorescentes..."
+      },
+      {
+        "id": "section-11-3-1",
+        "text": "Desactivación de presentación automática"
+      }
+    ]
   }
 ]

@@ -1,0 +1,871 @@
+{
+  "wqv3-fi": {
+    "sourceSHA256": "a47ebd77e9860cf4ade28267552577dc05cfe3ad1ba07ef9e208a3aee059b100",
+    "archiveURL": "https://web.archive.org/web/20260518181530/https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf",
+    "pages": {
+      "1": {
+        "reviewed": true,
+        "flowSHA256": "487975a79918c88dba210eda562ef01b140e3c8fc8c72918887f0275cc3c9fef",
+        "edits": [
+          {
+            "startLine": 0,
+            "endLine": 1,
+            "from": "<h2 id=\"section-1-0\">CASIO modulin 2411 käyttöohje</h2>\n",
+            "to": "<h2 id=\"section-1-0\">CASIO moduulin 2411 käyttöohje</h2>\n"
+          },
+          {
+            "startLine": 6,
+            "endLine": 7,
+            "from": "<p>• Eri painiketoiminnot ilmaistaan kelloon painetuilla teksteillä tai symbolimerkeillä.</p>\n",
+            "to": "<p>• Painiketoiminnot ilmaistaan kuvassa näkyvillä kirjaimilla.</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 13,
+            "from": "<p>• Tämän käyttöohjeen eri luvut antavat sinulle jokaisen toiminnon käyttöä varten tarvitsemasi tiedot. Lisätietoja ja teknistä informaatiota löytyy käyttöohjeen kohdasta ”Tärkeää”</p>\n<p>• VISUAL DATABANK on CASIO COMPUTER CO., LTD-yhtiön rekisteröimä tavaramerkki.</p>\n<p>• Kellon IR-tiedonvälitys käyttää Phoenix Technologies Ltd. protocol-ohjelmistoa. Compatibility Software © 1997 Phoenix Technologies Ltd. Kaikki oikeudet pidätetään.</p>\n<p>• CASIO COMPUTER CO., LTD. ei vastaa tietojen häviämisestä eikä kolmannen osapuolen esittämiin vaatimuksiin, jotka ovat syntyneet tämän kellon käytöstä.</p>\n",
+            "to": "<p>• Tämän käyttöohjeen eri luvut antavat sinulle jokaisen toiminnon käyttöä varten tarvitsemasi tiedot. Lisätietoja ja teknistä informaatiota löytyy käyttöohjeen kohdasta ”Tärkeää”.</p>\n<p>• VISUAL DATABANK on CASIO COMPUTER CO., LTD. -yhtiön tavaramerkki.</p>\n<p>• Kellon IR-tiedonvälitys käyttää Phoenix Technologies Ltd:n protokollaohjelmistoa. Compatibility Software © 1997 Phoenix Technologies Ltd. Kaikki oikeudet pidätetään.</p>\n<p>• CASIO COMPUTER CO., LTD. ei vastaa tietojen häviämisestä eikä kolmannen osapuolen esittämistä vaatimuksista, jotka ovat syntyneet tämän kellon käytöstä.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<h3 id=\"section-1-23\">• Varmista, että olet turvallisessa paikassa ennen kuin käytät kelloa.</h3>\n",
+            "to": "<p><strong>• Varmista, että olet turvallisessa paikassa ennen kuin käytät kelloa.</strong></p>\n"
+          },
+          {
+            "startLine": 16,
+            "endLine": 17,
+            "from": "<h3 id=\"section-1-27\">• Älä käytä kelloa matkustaessasi lentokoneella.</h3>\n",
+            "to": "<p><strong>• Älä käytä kelloa matkustaessasi lentokoneella.</strong></p>\n"
+          },
+          {
+            "startLine": 18,
+            "endLine": 19,
+            "from": "<h3 id=\"section-1-30\">• Varmenna aina kaikki tärkeät tiedot.</h3>\n",
+            "to": "<p><strong>• Varmenna aina kaikki tärkeät tiedot.</strong></p>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 32,
+            "from": "<h3 id=\"section-1-33\">SISÄLTÖ</h3>\n<h3 id=\"section-1-34\">Tutustuminen kelloon 1</h3>\n<p>Tätä käyttöohjetta koskeva huomautus 1</p>\n<h3 id=\"section-1-36\">Ennen kellon käyttöä 3</h3>\n<p>Automaattinen virransäästö 3</p>\n<h3 id=\"section-1-38\">Kellon käyttö 4</h3>\n<h3 id=\"section-1-39\">Kameratoiminto 4</h3>\n<p>Kameratoimintoa koskevia varotoimenpiteitä 5 Kamerakuvien säätäminen 5</p>\n<h3 id=\"section-1-42\">VISUAL DATABANK™-toiminto 7</h3>\n<p>Kuvakontrastin säätäminen 7 Tekstin liittäminen kuvaan 8 Kuvien järjestely 8 Kuvien pyyhintä 8</p>\n<h3 id=\"section-1-47\">Infrapunatoiminto (IR) 9</h3>\n<p>Kahden kellon välinen tiedonvaihto 10 Kommunikointivirheet 11</p>",
+            "to": "<h2>Sisältö</h2>\n<ul class=\"manual-index\"><li><a href=\"#page-1\">Tutustuminen kelloon</a> — 1</li><li><a href=\"#page-1\">Tätä käyttöohjetta koskeva huomautus</a> — 1</li><li><a href=\"#page-3\">Ennen kellon käyttöä</a> — 3</li><li><a href=\"#page-3\">Automaattinen virransäästö</a> — 3</li><li><a href=\"#page-4\">Kellon käyttö</a> — 4</li><li><a href=\"#page-4\">Kameratoiminto</a> — 4</li><li><a href=\"#page-5\">Kameratoimintoa koskevia varotoimenpiteitä</a> — 5</li><li><a href=\"#page-5\">Kamerakuvien säätäminen</a> — 5</li><li><a href=\"#page-7\">VISUAL DATABANK™ -toiminto</a> — 7</li><li><a href=\"#page-7\">Kuvakontrastin säätäminen</a> — 7</li><li><a href=\"#page-8\">Tekstin liittäminen kuvaan</a> — 8</li><li><a href=\"#page-8\">Kuvien järjestely</a> — 8</li><li><a href=\"#page-8\">Kuvien pyyhintä</a> — 8</li><li><a href=\"#page-9\">Infrapunatoiminto (IR)</a> — 9</li><li><a href=\"#page-10\">Kahden kellon välinen tiedonvaihto</a> — 10</li><li><a href=\"#page-11\">Kommunikointivirheet</a> — 11</li><li><a href=\"#page-11\">Kommunikointia koskevia varotoimenpiteitä</a> — 11</li></ul>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text.",
+          "Follow-up semantic review, 2026-11-04: Button references describe the letters in the illustration, as in the English module 2411 original, rather than text printed on the watch."
+        ]
+      },
+      "2": {
+        "reviewed": true,
+        "flowSHA256": "dc0319802f5644edc502e80075bb6fd9d9bad9dce5c402e6cfce14187b99aca3",
+        "edits": [
+          {
+            "startLine": 0,
+            "endLine": 37,
+            "from": "<h3 id=\"section-2-0\">Kellonaikatoiminto 12</h3>\n<p>Kalenteriruudun käyttö 12</p>\n<h3 id=\"section-2-2\">Hälytys 13</h3>\n<h3 id=\"section-2-3\">Ajastin 14</h3>\n<h3 id=\"section-2-4\">Sekuntikello 15</h3>\n<h3 id=\"section-2-5\">Virransyöttö 15</h3>\n<p>Esiasennettu paristo 15 Paristoa koskevia varoituksia 16 Paristovaihdon jälkeiset asetukset 17</p>\n<h3 id=\"section-2-9\">Tärkeää 17</h3>\n<p>Automaattinen paluutoiminto 17 Kellonaika 17 Hälytys ja ajastin 18 Automaattinen virransäästö 18</p>\n<h3 id=\"section-2-14\">Tekniset tiedot 18</h3>\n<h3 id=\"section-2-15\">KATSAUS ERI TOIMINTOIHIN</h3>\n<p>Seuraavassa kätevä lista tämän käyttöohjeen sisältämistä käyttötoimenpiteistä.</p>\n<h3 id=\"section-2-17\">Kellonajan ja päiväyksen asettaminen 3</h3>\n<h3 id=\"section-2-18\">Näytön kontrastin säätäminen 3</h3>\n<h3 id=\"section-2-19\">Kuvan taltioiminen 4</h3>\n<h3 id=\"section-2-20\">Kuvakirkkauden säätö 5</h3>\n<h3 id=\"section-2-21\">Valaistustyypin määrittäminen 6</h3>\n<h3 id=\"section-2-22\">Kuvan äänittäminen kameran ajastimella (itselaukaisu) 6</h3>\n<h3 id=\"section-2-23\">Äänitettyjen kuvien katselu 7</h3>\n<h3 id=\"section-2-24\">Kuvakontrastin säätäminen 7</h3>\n<h3 id=\"section-2-25\">Tekstin liittäminen kuvaan 8</h3>\n<h3 id=\"section-2-26\">Kaikkien kuvien pyyhintä kellon muistista 8</h3>\n<h3 id=\"section-2-27\">Poistaaksesi jonkin tietyn kuvan 9</h3>\n<h3 id=\"section-2-28\">Infrapunatoiminto (IR) 9</h3>\n<h3 id=\"section-2-29\">Kuvan lähettäminen 10</h3>\n<h3 id=\"section-2-30\">Kuvan vastaanottaminen 11</h3>\n<h3 id=\"section-2-31\">Sekuntien nollaaminen 12</h3>\n<h3 id=\"section-2-32\">Herätysruutukuvan määrittäminen 12</h3>\n<h3 id=\"section-2-33\">Tarkistaaksesi kalenterin jonkin tietyn kuukauden ajalta 12</h3>\n<h3 id=\"section-2-34\">Juhlapäiväkorostuksen päälle- ja poiskytkentä 13</h3>\n<h3 id=\"section-2-35\">Hälytysajan ja hälytysruutukuvan asettaminen 13</h3>\n<h3 id=\"section-2-36\">Hälytyksen testaaminen 14</h3>\n<h3 id=\"section-2-37\">Päivittäishälytyksen ja tasatuntisignaalin päälle-/poiskytkentä 14</h3>\n<h3 id=\"section-2-38\">Ajastimen käynnistysajan ja ajastinruutukuvan asettaminen 14</h3>\n<h3 id=\"section-2-39\">Ajastimen käyttö 14</h3>\n<h3 id=\"section-2-40\">Ajanotto sekuntikellolla 15</h3>\n<h3 id=\"section-2-41\">Pariston vaihtaminen 16</h3>",
+            "to": "<h2>Sisältö (jatkuu)</h2>\n<ul class=\"manual-index\"><li><a href=\"#page-12\">Kellonaikatoiminto</a> — 12</li><li><a href=\"#page-12\">Kalenteriruudun käyttö</a> — 12</li><li><a href=\"#page-13\">Hälytys</a> — 13</li><li><a href=\"#page-14\">Ajastin</a> — 14</li><li><a href=\"#page-15\">Sekuntikello</a> — 15</li><li><a href=\"#page-15\">Virransyöttö</a> — 15</li><li><a href=\"#page-15\">Esiasennettu paristo</a> — 15</li><li><a href=\"#page-16\">Paristoa koskevia varoituksia</a> — 16</li><li><a href=\"#page-17\">Paristovaihdon jälkeiset asetukset</a> — 17</li><li><a href=\"#page-17\">Tärkeää</a> — 17</li><li><a href=\"#page-17\">Automaattinen paluutoiminto</a> — 17</li><li><a href=\"#page-17\">Kellonaika</a> — 17</li><li><a href=\"#page-18\">Hälytys ja ajastin</a> — 18</li><li><a href=\"#page-18\">Automaattinen virransäästö</a> — 18</li><li><a href=\"#page-18\">Tekniset tiedot</a> — 18</li></ul>\n<h2>Katsaus eri toimintoihin</h2>\n<ul class=\"manual-index\"><li><a href=\"#page-3\">Kellonajan ja päiväyksen asettaminen</a> — 3</li><li><a href=\"#page-3\">Näytön kontrastin säätäminen</a> — 3</li><li><a href=\"#page-4\">Kuvan taltioiminen</a> — 4</li><li><a href=\"#page-5\">Kuvakirkkauden säätö</a> — 5</li><li><a href=\"#page-6\">Valaistustyypin määrittäminen</a> — 6</li><li><a href=\"#page-6\">Kuvan tallentaminen kameran ajastimella (itselaukaisu)</a> — 6</li><li><a href=\"#page-7\">Tallennettujen kuvien katselu</a> — 7</li><li><a href=\"#page-7\">Kuvakontrastin säätäminen</a> — 7</li><li><a href=\"#page-8\">Tekstin liittäminen kuvaan</a> — 8</li><li><a href=\"#page-8\">Kaikkien kuvien pyyhintä kellon muistista</a> — 8</li><li><a href=\"#page-9\">Poistaaksesi jonkin tietyn kuvan</a> — 9</li><li><a href=\"#page-9\">Infrapunatoiminto (IR)</a> — 9</li><li><a href=\"#page-10\">Kuvan lähettäminen</a> — 10</li><li><a href=\"#page-11\">Kuvan vastaanottaminen</a> — 11</li><li><a href=\"#page-12\">Sekuntien nollaaminen</a> — 12</li><li><a href=\"#page-12\">Herätysruutukuvan määrittäminen</a> — 12</li><li><a href=\"#page-12\">Tarkistaaksesi kalenterin jonkin tietyn kuukauden ajalta</a> — 12</li><li><a href=\"#page-13\">Juhlapäiväkorostuksen päälle- ja poiskytkentä</a> — 13</li><li><a href=\"#page-13\">Hälytysajan ja hälytysruutukuvan asettaminen</a> — 13</li><li><a href=\"#page-14\">Hälytyksen testaaminen</a> — 14</li><li><a href=\"#page-14\">Päivittäishälytyksen ja tasatuntisignaalin päälle- ja poiskytkentä</a> — 14</li><li><a href=\"#page-14\">Ajastimen käynnistysajan ja ajastinruutukuvan asettaminen</a> — 14</li><li><a href=\"#page-14\">Ajastimen käyttö</a> — 14</li><li><a href=\"#page-15\">Ajanotto sekuntikellolla</a> — 15</li><li><a href=\"#page-16\">Pariston vaihtaminen</a> — 16</li></ul>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained."
+        ]
+      },
+      "3": {
+        "reviewed": true,
+        "flowSHA256": "585524b27ca1e67c0c4874a14653cd5803a60a3d286f4e8543bb5a97ee25a540",
+        "edits": [
+          {
+            "startLine": 6,
+            "endLine": 8,
+            "from": "<p>2. Jonkin asetuksen vilkkuessa näytössä, paina E (+) ja B (-) painiketta muuttaaksesi sitä.</p>\n<p>• Numerot muuttuvat suurella nopeudella pitämällä jompaa kumpaa painiketta koko ajan painettuna.</p>\n",
+            "to": "<p>2. Jonkin asetuksen vilkkuessa näytössä, käytä E-painiketta (+) ja B-painiketta (−) muuttaaksesi sitä.</p>\n<p>• Numerot muuttuvat suurella nopeudella pitämällä jompaakumpaa painiketta koko ajan painettuna.</p>\n"
+          },
+          {
+            "startLine": 18,
+            "endLine": 19,
+            "from": "<p>3. Käytä B-painiketta (tummentaa) ja E-painiketta (lisää valoisuutta) kontrastin säätämiseksi yhdelle yhdeksästä käytettävissä olevista tasoista.</p>\n",
+            "to": "<p>3. Käytä B-painiketta (tummentaa) ja E-painiketta (lisää valoisuutta) kontrastin säätämiseksi jollekin yhdeksästä käytettävissä olevasta tasosta.</p>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 23,
+            "from": "<p>Yllä selitetyn kontrastin asettaminen ei vaikuta kuvien näyttöön. Kuvakontrastia voidaan säätää erillisillä toimenpiteillä, joista löytyy tarkemmat selitykset kohdasta ”Kuvakirkkauden säätäminen” sivulta 5.</p>\n<h3 id=\"section-3-35\">AUTOMAATTINEN VIRRAN SÄÄSTÖ</h3>\n",
+            "to": "<p>Yllä selitetyn kontrastin asettaminen ei vaikuta kuvien näyttöön. Kuvakontrastia voidaan säätää erillisillä toimenpiteillä, joista löytyy tarkemmat selitykset kohdasta ”Kuvakontrastin säätäminen” sivulta 7.</p>\n<h3 id=\"section-3-35\">AUTOMAATTINEN VIRRANSÄÄSTÖ</h3>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 26,
+            "from": "<p>Kello sulkee näyttöruudun automaattisesti ellei kelloa liikuteta noin 60 minuuttiin. Paristovirran säästämisen lisäksi tämä suojaa myös kellon näyttöä kuvien  ”kiinnipalamiselta”.</p>\n<p>Paina F-painiketta, kun haluat aktivoida näytön uudelleen. Näyttöön ilmestyy herätysruutu noin kahdeksi sekunniksi, jonka jälkeen näyttö vaihtuu¨ kellonaikatoiminnolle (sivu 4).</p>\n",
+            "to": "<p>Kello sulkee näyttöruudun automaattisesti ellei kelloa liikuteta noin 60 minuuttiin. Paristovirran säästämisen lisäksi tämä suojaa myös kellon näyttöä kuvien ”kiinnipalamiselta”.</p>\n<p>Paina F-painiketta, kun haluat aktivoida näytön uudelleen. Näyttöön ilmestyy herätysruutu noin kahdeksi sekunniksi, jonka jälkeen näyttö vaihtuu kellonaikatoiminnolle (sivu 4).</p>\n"
+          },
+          {
+            "startLine": 27,
+            "endLine": 29,
+            "from": "<p>Herätysruutu ilmestyy kellon näyttöön noin kahdeksi sekunniksi, kun näyttö aktivoidaan automaattisesta virransäästötilasta. Voit käyttää toimenpiteitä kohdasta ”Herätysruutukuvan määrittäminen” sivulta 12 valitaksesi jonkin äänittämäsi kuvan herätysruutukuvaksi.</p>\n<p>• Herätysruudussa vilkkuu ”CASIO” ellet ole valinnut mitään herätysruutukuvaa tai, jos valitsemasi kuva on pyyhkiytynyt.</p>",
+            "to": "<p>Herätysruutu ilmestyy kellon näyttöön noin kahdeksi sekunniksi, kun näyttö aktivoidaan automaattisesta virransäästötilasta. Voit käyttää toimenpiteitä kohdasta ”Herätysruutukuvan määrittäminen” sivulta 12 valitaksesi jonkin tallentamasi kuvan herätysruutukuvaksi.</p>\n<p>• Herätysruudussa vilkkuu ”CASIO” ellet ole valinnut mitään herätysruutukuvaa tai, jos valitsemasi kuva on pyyhkiytynyt.</p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Wake-up screen image label in the settings diagram aligned with the Finnish body text: Herätysruudun kuva-asetus. Native label only; its diagram frame and arrows are preserved.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ],
+        "figureTextCorrections": [
+          {
+            "from": "Herätysajan kuva-asetus",
+            "to": "Herätysruudun\n  kuva-asetus",
+            "box": [
+              264,
+              199,
+              322,
+              225
+            ],
+            "origin": [
+              265.5,
+              209.5
+            ],
+            "fontSize": 8.5
+          }
+        ]
+      },
+      "4": {
+        "reviewed": true,
+        "flowSHA256": "42557650ddce06d16c3fe6cb2f5369e14aecbe003e75c6949c4f35577327d306",
+        "edits": [
+          {
+            "startLine": 8,
+            "endLine": 9,
+            "from": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo ainoastaan vertailua varten tarkoitettu likimääräinen numero. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n",
+            "to": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo on ainoastaan vertailua varten tarkoitettu likimääräinen luku. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 12,
+            "from": "<p>• Huomioi, että kameratoimin toa ei voi valita suoraan VISUAL DATABANK- ja IR-toiminnolta.</p>\n",
+            "to": "<p>• Huomioi, että kameratoimintoa ei voi valita suoraan VISUAL DATABANK- ja IR-toiminnolta.</p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "5": {
+        "reviewed": true,
+        "flowSHA256": "02ecbba253e7db6d9f1cfe75f32a370d23597bef978dba9741c08beebcb14933",
+        "edits": [
+          {
+            "startLine": 0,
+            "endLine": 1,
+            "from": "<p>2. Samalla, kun katselet kuvaa näytössä, suuntaa kellon objektiivi taltioitavaksi haluamasi kohteeseen.</p>\n",
+            "to": "<p>2. Samalla, kun katselet kuvaa näytössä, suuntaa kellon objektiivi kohteeseen, jonka haluat kuvata.</p>\n"
+          },
+          {
+            "startLine": 5,
+            "endLine": 9,
+            "from": "<h3 id=\"section-5-6\">• Kello pysyy kameratoiminnolla noin 1  minuutin ajan sen aktivoimisesta. Tämän jälkeen kello</h3>\n<h3 id=\"section-5-7\">asettuu automaattisesti VISUAL DATABANK-toiminnolle ja ilmaisee viimeksi otetun kuvan.</h3>\n<h3 id=\"section-5-8\">Katso kohta ”Kameran lepointervallit” lisätietoja varten.</h3>\n<p>• Näyttöön ilmestyy viesti REC FULL, kun kellon muisti on täynnä.. Kuvien ottaminen ei ole mahdollista tämän viestin näkyessä näytössä. Jos näin tapahtuu, pyyhi tarpeettomat kuvat muistista tehdäksesi tilaa uusille (sivu 8).</p>\n",
+            "to": "<p><strong>• Kello pysyy kameratoiminnolla noin 1 minuutin ajan sen aktivoimisesta. Tämän jälkeen kello asettuu automaattisesti VISUAL DATABANK-toiminnolle ja ilmaisee viimeksi otetun kuvan. Katso kohta ”Kameran lepointervalli” lisätietoja varten.</strong></p>\n<p>• Näyttöön ilmestyy viesti REC FULL, kun kellon muisti on täynnä. Kuvien ottaminen ei ole mahdollista tämän viestin näkyessä näytössä. Jos näin tapahtuu, pyyhi tarpeettomat kuvat muistista tehdäksesi tilaa uusille (sivu 8).</p>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 14,
+            "from": "<p>• Älä koskaan koske objektiivin pintaan. Sormenjäljet ja lika objektiivin linssin pinnalla huonontaa kameran suorituskykyä. Käytä kameralinssien puhdistamiseen tarkoitettua puhallusharjaa linssin pinnan puhdistamiseksi liasta ja pölystä. Pyyhi lopuksi pehmeällä, kuivalla liinalla.</p>\n<p>• Varo liikuttamasta kelloa vahingossa painaessasi F-painiketta sulkijan vapauttamiseksi.</p>\n<p>• Riittämätön valaistus aikaansaa huonoja kuvia. Pyri mahdollisuuksien mukaan kuvaamaan päivänvalossa. Suorita yöaikaan tapahtuva kuvaamine n sisätiloissa, hyvin valaistulla alueella.</p>\n",
+            "to": "<p>• Älä koskaan koske objektiivin pintaan. Sormenjäljet ja lika objektiivin linssin pinnalla huonontavat kameran suorituskykyä. Käytä kameralinssien puhdistamiseen tarkoitettua puhallusharjaa linssin pinnan puhdistamiseksi liasta ja pölystä. Pyyhi lopuksi pehmeällä, kuivalla liinalla.</p>\n<p>• Varo liikuttamasta kelloa vahingossa painaessasi F-painiketta sulkimen laukaisemiseksi.</p>\n<p>• Riittämätön valaistus aikaansaa huonoja kuvia. Pyri mahdollisuuksien mukaan kuvaamaan päivänvalossa. Suorita yöaikaan tapahtuva kuvaaminen sisätiloissa, hyvin valaistulla alueella.</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>Kameratoiminnolla suoritettavat toimenpiteet kuluttavat huomattavan paljon paristovirtaa. Pariston ennenaikaisen tyhjenemisen välttämiseksi kello asettuu automaattisesti lepointervallitilaan, jonka aikana et voi palata kameratoiminnolle poistuttuasi siltä. Lepointervallin pituus on sama kuin kameratoiminnolla viettämäsi aika ennen sen sulkemista. Tämä tarkoittaa, että, jos suljet kameratoiminnon oltuasi siinä 20 sekuntia, et pysty palaamaan kameratoiminnolle ennen kuin noin 20 sekuntia on kulunut.</p>\n",
+            "to": "<p>Kameratoiminnolla suoritettavat toimenpiteet kuluttavat huomattavan paljon paristovirtaa. Pariston ennenaikaisen tyhjenemisen välttämiseksi kello asettuu automaattisesti lepointervallitilaan, jonka aikana et voi palata kameratoiminnolle poistuttuasi siltä. Lepointervallin pituus on sama kuin kameratoiminnolla viettämäsi aika ennen sen sulkemista. Tämä tarkoittaa, että jos suljet kameratoiminnon oltuasi siinä 20 sekuntia, et pysty palaamaan kameratoiminnolle ennen kuin noin 20 sekuntia on kulunut.</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<p>Jos yrität palata kameratoiminnolle lepointervallin aikana,näyttöön ilmestyy viesti WAIT yhdessä jäljellä olevan lepointervalliajastuksen kanssa.</p>\n",
+            "to": "<p>Jos yrität palata kameratoiminnolle lepointervallin aikana, näyttöön ilmestyy viesti WAIT yhdessä jäljellä olevan lepointervalliajastuksen kanssa.</p>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<p>Voit käyttää seuraavia toimenpiteitä kirkkauden säätämiseksi ja valaistustyypin märittämiseksi äänittäessäsi jotakin kuvaa sekä tehdessäsi perusasetuksia kameran ajastinta varten.</p>\n",
+            "to": "<p>Voit käyttää seuraavia toimenpiteitä kirkkauden säätämiseksi ja valaistustyypin määrittämiseksi tallentaessasi jotakin kuvaa sekä tehdessäsi perusasetuksia kameran ajastinta varten.</p>\n"
+          },
+          {
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<p>Kello asettaa kuvan kirkkauden automaattisesti äänittäessäsi sitä. Voit muuttaa kirkkaustasoa myös manuaalisesti taustavalaistun kohteen, erittäin tumman taustan, jne. kompensoimiseksi.</p>",
+            "to": "<p>Kello asettaa kuvan kirkkauden automaattisesti tallentaessasi sitä. Voit muuttaa kirkkaustasoa myös manuaalisesti taustavalaistun kohteen, erittäin tumman taustan, jne. kompensoimiseksi.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "6": {
+        "reviewed": true,
+        "flowSHA256": "6634e45979dd3fb329af8cb94d44233e51c3f2702c7e0cd80180ad706f279b77",
+        "edits": [
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>Ennen kuin äänität jonkin kuvan kameratoiminnolla, käytä E-painiketta (kirkastaa, siirtää kursoria oikealle) ja B-painiketta (tummentaa, siirtää kursoria vasemmalle) kuvan kirkkauden säätämiseksi.</p>\n",
+            "to": "<p>Ennen kuin tallennat jonkin kuvan kameratoiminnolla, käytä E-painiketta (kirkastaa, siirtää kursoria oikealle) ja B-painiketta (tummentaa, siirtää kursoria vasemmalle) kuvan kirkkauden säätämiseksi.</p>\n"
+          },
+          {
+            "startLine": 7,
+            "endLine": 10,
+            "from": "<p>Manuaalinen kirkkaussäätö ei pysty aikaansaamaan hyväksyttävää kuvanlaatua, jos äänittäminen tapahtuu erittäin kirkkaassa valossa tai hyvin heikoissa,valaistusolosuhteissa.</p>\n<h3 id=\"section-6-15\">Valaisutyypin määrittäminen</h3>\n<p>Kuvanotto hetkellä vallitsevat valaistusolosuhteet vaikuttavat suuresti kuvan laatuun. Voit käyttää alla esitettyjä toimenpiteitä kellon asettamiseksi valmiuteen sisätiloissa tai ulkosalla tapahtuvaa kuvausta varten. Tämä auttaa varmistamaan äänitettyjen kuvien oikean kirkkauden.</p>\n",
+            "to": "<p>Manuaalinen kirkkaussäätö ei pysty aikaansaamaan hyväksyttävää kuvanlaatua, jos tallentaminen tapahtuu erittäin kirkkaassa valossa tai hyvin heikoissa valaistusolosuhteissa.</p>\n<h3 id=\"section-6-15\">Valaistustyypin määrittäminen</h3>\n<p>Kuvanottohetkellä vallitsevat valaistusolosuhteet vaikuttavat suuresti kuvan laatuun. Voit käyttää alla esitettyjä toimenpiteitä kellon asettamiseksi valmiuteen sisätiloissa tai ulkosalla tapahtuvaa kuvausta varten. Tämä auttaa varmistamaan tallennettujen kuvien oikean kirkkauden.</p>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 12,
+            "from": "<p>Paina C-painiketta kameratoiminnolla ennen kuvan äänittämistä. C-painikkeen jokainen painallus vaihtaa käytettävissä olevan valaistustyypin asetuksia seuraavassa järjestyksessä.</p>\n",
+            "to": "<p>Paina C-painiketta kameratoiminnolla ennen kuvan tallentamista. C-painikkeen jokainen painallus vaihtaa käytettävissä olevan valaistustyypin asetuksia seuraavassa järjestyksessä.</p>\n"
+          },
+          {
+            "startLine": 16,
+            "endLine": 17,
+            "from": "<h3 id=\"section-6-29\">Kuvan äänittäminen kamera-ajastimella</h3>\n",
+            "to": "<h3 id=\"section-6-29\">Kuvan tallentaminen kamera-ajastimella</h3>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 21,
+            "from": "<p>2. Paina F-painiketta käynnistääksesi kamera-ajastimen suorittaaksesi kuvan äänittämisen ajastimeen asetetun ajan lopussa.</p>\n",
+            "to": "<p>2. Paina F-painiketta käynnistääksesi itselaukaisimen. Kuva tallennetaan asetetun ajan kuluttua.</p>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<p>• Jos piste, johon mennessä on kulunut yksi minuutti, ilmestyy kameran ajastimen ollessa käynnissä, käynnissä oleva toiminto jatkuu loppuun asti, jonka jälkeen kello palaa automaattisesti VISUAL DATABANK-toiminnolle.</p>",
+            "to": "<p>• Jos kameratoiminnon yhden minuutin aikaraja täyttyy itselaukaisimen ollessa käynnissä, ajastin suorittaa kuvauksen loppuun. Sen jälkeen kello siirtyy automaattisesti VISUAL DATABANK-toimintoon.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "7": {
+        "reviewed": true,
+        "flowSHA256": "293dbf6b1f0746a11f467c408b49b41a8d09556852d5fef926f073a1e332f172",
+        "edits": [
+          {
+            "startLine": 1,
+            "endLine": 2,
+            "from": "<p>Kuvien katselun lisäksi voit käyttää VISUAL DATABANK-toimin toa kuvien pyyhintään, tekstin lisäämiseksi kuviin, jne.</p>\n",
+            "to": "<p>Kuvien katselun lisäksi voit käyttää VISUAL DATABANK-toimintoa kuvien pyyhintään, tekstin lisäämiseksi kuviin, jne.</p>\n"
+          },
+          {
+            "startLine": 3,
+            "endLine": 5,
+            "from": "<p>Kello ei soita hälytystä, tasatunti- tai ajastinsignaalia ollessaan VISUAL DATABANK-toiminnolla.</p>\n<h3 id=\"section-7-5\">Äänitettyjen kuvien katselu</h3>\n",
+            "to": "<p>Hälytys, tasatuntisignaali ja ajastinhälytys eivät soi VISUAL DATABANK-toiminnon asetusruudun näkyessä näytössä.</p>\n<h3 id=\"section-7-5\">Tallennettujen kuvien katselu</h3>\n"
+          },
+          {
+            "startLine": 6,
+            "endLine": 8,
+            "from": "<p>• Näyttöön ilmestyy kuvien määrän ilmaiseva ruutu noin yhdeksi sekunniksi, jonka tilalle vaihtuu hetken kuluttua 16 kuvan ”thumbnail” ruutu. Viimeisen katselemasi tai äänittämäsi kuvan ympärillä on rajaus ”thumbnail” ruudussa.</p>\n<h3 id=\"section-7-10\">Thumbnail-ruutu</h3>\n",
+            "to": "<p>• Näyttöön ilmestyy kuvien määrän ilmaiseva ruutu noin yhdeksi sekunniksi, jonka tilalle vaihtuu hetken kuluttua 16 kuvan pikkukuvaruutu. Viimeisen katselemasi tai tallentamasi kuvan ympärillä on rajaus pikkukuvaruudussa.</p>\n<h3 id=\"section-7-10\">Pikkukuvaruutu</h3>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 13,
+            "from": "<p>• Rajaus siirtyy suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Paina C-painiketta valitaksesi seuraavan 16 kuvan ”thumbnail” ruudun (kun kellon muistissa on enemmän kuin 16 kuvaa).</p>\n",
+            "to": "<p>• Rajaus siirtyy suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Paina C-painiketta valitaksesi seuraavan 16 kuvan pikkukuvaruudun (kun kellon muistissa on enemmän kuin 16 kuvaa).</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 17,
+            "from": "<p>4. Valitun kuvan suurennetun version näkyessä näytössä, paina C-painiketta valitaksesi sen  äänityspäiväyksen ja siihen liittyvän tekstin (jos sellainen on) näyttöön.</p>\n<p>• C-painikkeen jokainen painallus vaihtaa näyttöä päällä- ja pois-asetuksen välillä.</p>\n<p>• Paina F-painiketta ”thumbnail” ruudun valintaa varten.</p>\n",
+            "to": "<p>4. Valitun kuvan suurennetun version näkyessä näytössä, paina C-painiketta valitaksesi sen tallennuspäiväyksen ja siihen liittyvän tekstin (jos sellainen on) näyttöön.</p>\n<p>• C-painikkeen jokainen painallus näyttää tai piilottaa tallennuspäiväyksen ja kuvaan liitetyn tekstin.</p>\n<p>• Paina F-painiketta pikkukuvaruudun valintaa varten.</p>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 26,
+            "from": "<p>1. Valitse jokin kuva ”thumbnail” ruudusta VISUAL DATABANK-toiminnolla ja paina tämän jälkeen A-painiketta.</p>\n<p>• Tämän toimenpide valitsee kontrastinasetusruudun, joka näyttää suurennetun kuvan yhdessä käytössä olevan kontrastiasetuksen kanssa.</p>\n",
+            "to": "<p>1. Valitse jokin kuva pikkukuvaruudusta VISUAL DATABANK-toiminnolla ja paina tämän jälkeen A-painiketta.</p>\n<p>• Tämä toimenpide valitsee kontrastinasetusruudun, joka näyttää suurennetun kuvan yhdessä käytössä olevan kontrastiasetuksen kanssa.</p>\n"
+          },
+          {
+            "startLine": 27,
+            "endLine": 29,
+            "from": "<p>3. Saatettuasi säätämisen päätökseen, paina A-painiketta palataksesi takaisin ”thumbnail” ruutuun.</p>\n<p>• Kello palaa ”thumbnail” ruudusta automaattisesti kontrastinasetusruutuun ellet suorita mitään toimenpidettä noin 15 sekuntiin.</p>",
+            "to": "<p>3. Saatettuasi säätämisen päätökseen, paina A-painiketta palataksesi takaisin pikkukuvaruutuun.</p>\n<p>• Kello palaa kontrastinasetusruudusta automaattisesti pikkukuvaruutuun ellet suorita mitään toimenpidettä noin 15 sekuntiin.</p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "8": {
+        "reviewed": true,
+        "flowSHA256": "76caa55eacdb38cbd1504467bf2839cc6de6df134df29261eeff2614fbdb76de",
+        "edits": [
+          {
+            "startLine": 6,
+            "endLine": 7,
+            "from": "<p>3. Pidä A-painiketta painettuna noin yhden sekunnin kunnes SET- valikko ilmestyy näyttöön.</p>\n",
+            "to": "<p>3. Pidä A-painiketta painettuna noin yhden sekunnin kunnes SET-valikko ilmestyy näyttöön.</p>\n"
+          },
+          {
+            "startLine": 10,
+            "endLine": 11,
+            "from": "<p>4. Paina E-painiketta valitaksesi tekstinsyöttöruudun.</p>\n",
+            "to": "<p>4. Paina F-painiketta valitaksesi tekstinsyöttöruudun.</p>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>• B- ja E-painiketta selataksesi kursorilla käytettävissä olevia merkkejä alla esitetyssä järjestyksessä.</p>\n",
+            "to": "<p>• Käytä B- ja E-painiketta selataksesi kursorilla käytettävissä olevia merkkejä alla esitetyssä järjestyksessä.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<p>• Selaaminen nopeutuu pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n",
+            "to": "<p>• Selaaminen nopeutuu pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n"
+          },
+          {
+            "startLine": 19,
+            "endLine": 22,
+            "from": "<p>Kuvat järjestyvät kellon muistissa automaattisesti niihin liittyvän tekstin ensimmäisen merkin (kirjaimet --&gt; numerot --&gt; symbolit) mukaan. Kuvat, joihin ei liity mitään tekstiä tulevat viimeiseksi, äänityspäiväysjärjestyksessä (vanhin ensin).</p>\n<p>• Jos useammalla kuvalla on sama teksti, kyseiset kuvat järjestyvät äänityspäiväysjärjestykseen (vanhin ensin).</p>\n<p>• Kelloon IR-toiminnolla siirretyt kuvat eivät järjesty oikealla tavalla.</p>\n",
+            "to": "<p>Kuvat järjestyvät kellon muistissa automaattisesti niihin liittyvän tekstin ensimmäisen merkin (kirjaimet → numerot → symbolit) mukaan. Kuvat, joihin ei liity mitään tekstiä, tulevat viimeiseksi, tallennuspäiväysjärjestyksessä (vanhin ensin).</p>\n<p>• Jos useammalla kuvalla on sama teksti, kyseiset kuvat järjestyvät tallennuspäiväysjärjestykseen (vanhin ensin).</p>\n<p>• Kelloon IR-toiminnolla siirretyt kuvat eivät välttämättä järjesty oikein.</p>\n"
+          },
+          {
+            "startLine": 23,
+            "endLine": 24,
+            "from": "<p>voit käyttää seuraavia toimenpiteitä pyyhkiäksesi jonkin tietyn kuvan tai kaikki kellon muistiin taltioidut kuvat.</p>\n",
+            "to": "<p>Voit käyttää seuraavia toimenpiteitä pyyhkiäksesi jonkin tietyn kuvan tai kaikki kellon muistiin taltioidut kuvat.</p>\n"
+          },
+          {
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<p>1. Paina F-painiketta VISUAL DATABANK-toiminnolla,  jonkin”thumbnail” ruudun ollessa valittu näyttääksesi kuvan suurennetun version.</p>\n",
+            "to": "<p>1. Kun jokin pikkukuvista on valittuna VISUAL DATABANK-toiminnolla, paina F-painiketta näyttääksesi kuvan suurennetun version.</p>\n"
+          },
+          {
+            "startLine": 28,
+            "endLine": 29,
+            "from": "<p>3. B- tai E-painiketta osoittimen siirtämiseksi DEL-kohtaan.</p>",
+            "to": "<p>3. Paina B- tai E-painiketta osoittimen siirtämiseksi DEL-kohtaan.</p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "9": {
+        "reviewed": true,
+        "flowSHA256": "1c864a464dab52a9c9cf0a8be8f86ae2993b60e223d1eaad62b11bbd3b49365a",
+        "edits": [
+          {
+            "startLine": 2,
+            "endLine": 5,
+            "from": "<p>5. B- tai E-painiketta osoittimen osoittimen siirtämiseksi ALL-kohtaan.</p>\n<p>6. Paina F-painiketta, jolloin näyttöön  ilmestyy hyväksymisviesti.</p>\n<p>7. Jos todella haluat poistaa ko. kuvan, paina B- tai E-painiketta osoittimen siirtämiseksi YES-kohtaan ja paina sitten F-painiketta. Jos haluat pyyhkiä hyväksymisviesti poistamatta mitään muuta, jätä osoitin NO-kohtaan ja paina F.</p>\n",
+            "to": "<p>5. Paina B- tai E-painiketta osoittimen siirtämiseksi ALL-kohtaan.</p>\n<p>6. Paina F-painiketta, jolloin näyttöön ilmestyy vahvistusviesti.</p>\n<p>7. Jos todella haluat poistaa kaikki kuvat, paina B- tai E-painiketta osoittimen siirtämiseksi YES-kohtaan ja paina sitten F-painiketta. Jos haluat sulkea vahvistusviestin poistamatta kuvia, jätä osoitin NO-kohtaan ja paina F.</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<p>1. Käytä B- ja E-painiketta VISUAL DATABANK-toiminnolla rajauksen siirtämiseksi poistettavaksi haluamallesi kuvalle.</p>\n",
+            "to": "<p>1. Käytä B- ja E-painiketta VISUAL DATABANK-toiminnolla rajauksen siirtämiseksi sen kuvan kohdalle, jonka haluat poistaa.</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 17,
+            "from": "<p>7. Paina F-painiketta, jolloin näyttöön ilmestyy hyväksymisviesti.</p>\n<p>8. Jos todella haluat poistaa ko. kuvan, paina B- tai E-painiketta osoittimen siirtämiseksi YES-kohtaan ja paina sitten F-painiketta. Pyyhkiäksesi hyväksymisviestin poistamatta mitään muuta, jätä osoitin NO-kohtaan ja paina F-painiketta.</p>\n",
+            "to": "<p>7. Paina F-painiketta, jolloin näyttöön ilmestyy vahvistusviesti.</p>\n<p>8. Jos todella haluat poistaa ko. kuvan, paina B- tai E-painiketta osoittimen siirtämiseksi YES-kohtaan ja paina sitten F-painiketta. Sulkeaksesi vahvistusviestin poistamatta kuvia, jätä osoitin NO-kohtaan ja paina F-painiketta.</p>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<p><em>Seuraavat toimenpiteet kattavat ainoastaan kahden kellon välisten tietojen vaihtamisen. Tutustu kellon mukana</em> <em>toimitettuun CD-ROM-levyyn ja  infrapuna-adapterin mukana toimitettuihin dokumentteihin saadaksesi tarkempia</em> <em>tietoja koskien  kommunikointia tietokoneen tai muun laitteen  kanssa.</em></p>",
+            "to": "<p><em>Seuraavat toimenpiteet kattavat ainoastaan kahden kellon välisten tietojen vaihtamisen. Tutustu kellon mukana</em> <em>toimitettuun CD-ROM-levyyn ja infrapuna-adapterin mukana toimitettuihin dokumentteihin saadaksesi tarkempia</em> <em>tietoja koskien kommunikointia tietokoneen tai muun laitteen kanssa.</em></p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text.",
+          "Follow-up semantic review, 2026-11-04: Both NO/cancel instructions now explicitly say that no photos are deleted, matching the English original."
+        ]
+      },
+      "10": {
+        "reviewed": true,
+        "flowSHA256": "4f7d9b289bd3eaeaebdd40d46db25296d0919095fff8d7e57c12ead5cc573fd8",
+        "edits": [
+          {
+            "startLine": 3,
+            "endLine": 6,
+            "from": "<p>• 10 cm (4 tuuman) ja 30 asteen maksimiarvot yllä olevassa kuvassa pätevät ainoastaan, kun kellot ovat suunnatut suoraan toisiaan kohti. Suurin sallittu etäisyys on pienempi, jos jompi kumpi kelloista ei ole suorassa suunnassa toiseen nähden.</p>\n<p>• Jos kulma on 15 astetta tai suurempi, molemmat kellot on sijoitettava hyvin lähelle toisiaan.</p>\n<h3 id=\"section-10-7\">IR-toiminnon aktivoiminen</h3>\n",
+            "to": "<p>• 10 cm (4 tuuman) ja 30 asteen maksimiarvot yllä olevassa kuvassa pätevät ainoastaan, kun kellot ovat suunnatut suoraan toisiaan kohti. Suurin sallittu etäisyys on pienempi, jos jompikumpi kelloista ei ole suorassa suunnassa toiseen nähden.</p>\n<p>• Jos kulma on 15 astetta tai suurempi, kellot on ehkä siirrettävä hyvin lähelle toisiaan.</p>\n<h3 id=\"section-10-8\">IR-toiminnon aktivoiminen</h3>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<h3 id=\"section-10-11\">Kuvan lähettäminen</h3>\n",
+            "to": "<h3 id=\"section-10-12\">Kuvan lähettäminen</h3>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 12,
+            "from": "<p>1. Käytä B- tai E-painiketta IR-valikossa ja valitse kello ( ).</p>\n",
+            "to": "<p>1. Käytä B- tai E-painiketta IR-valikossa ja valitse kellon kuvake.</p>\n"
+          },
+          {
+            "startLine": 16,
+            "endLine": 18,
+            "from": "<p>4. Käytä E (+) ja B (-) painikkeita selataksesi kuvia lähetettäväksi haluamasi kuvan valintaa varten.</p>\n<p>• Selaaminen nopeutuu pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n",
+            "to": "<p>4. Käytä E-painiketta (+) ja B-painiketta (−) selataksesi kuvia lähetettäväksi haluamasi kuvan valintaa varten.</p>\n<p>• Selaaminen nopeutuu pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 22,
+            "from": "<p>• Aseta vastaanottava kello vastaanoton valmiustilaan. Tutustu lisätietoja varten kohtaan ”Kuvan vastaanottaminen” .</p>\n",
+            "to": "<p>• Aseta vastaanottava kello vastaanoton valmiustilaan. Tutustu lisätietoja varten kohtaan ”Kuvan vastaanottaminen”.</p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "The original distance caption misspells tuumaa as tumaa. Corrected only that native-text label for SVG export; source text, rectangle and baseline recorded explicitly.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ],
+        "figureTextCorrections": [
+          {
+            "from": "Enintään 10 cm (4 tumaa)",
+            "to": "Enintään 10 cm (4 tuumaa)",
+            "box": [
+              240,
+              163,
+              361,
+              178
+            ],
+            "origin": [
+              241.5,
+              175
+            ],
+            "fontSize": 10
+          }
+        ]
+      },
+      "11": {
+        "reviewed": true,
+        "flowSHA256": "d15529f1a71ecbf10ef379eda948dbaaec7ee9d23b07a16c708177126b98d5f7",
+        "edits": [
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>1. Käytä B- tai E-painiketta IR-valikossa ja valitse kello ( ).</p>\n",
+            "to": "<p>1. Käytä B- tai E-painiketta IR-valikossa ja valitse kellon kuvake.</p>\n"
+          },
+          {
+            "startLine": 8,
+            "endLine": 9,
+            "from": "<p>• Näyttöön ilmestyy hetkeksi viesti OK, jonka jälkeen vastaanotettu kuva ilmestyy näkyviin. Kello palaa tämän jälkeen yllä olevassa vaiheessa 3 esitettyyn ruutuun.</p>\n",
+            "to": "<p>• Näyttöön ilmestyy hetkeksi viesti OK, jonka jälkeen vastaanotettu kuva ilmestyy näkyviin. Kello palaa tämän jälkeen vastaanottovalikkoon, kuten vaiheessa 3.</p>\n"
+          },
+          {
+            "startLine": 10,
+            "endLine": 11,
+            "from": "<p>• Lopetettuasi kuvien lähettämisen, paina D-painiketta palataksesi kellonaikatoiminnolle.</p>\n",
+            "to": "<p>• Lopetettuasi kuvien vastaanottamisen, paina D-painiketta palataksesi kellonaikatoiminnolle.</p>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>IR-toiminnolla ruutuun ilmestyvät viestit kertovat milloin tiedonvälityksessä on syntynyt jokin ongelma.  Tällaisen viestin ilmestyessä näyttöön, lue alla esitetty vaadittavia toimenpiteitä koskevia tarkempia tietoja varten. Voit välttää kommunikointiongelmat huomioimalla huolellisesti kohdassa ”Kommunikointia koskevia varotoimenpiteitä”.</p>\n",
+            "to": "<p>IR-toiminnolla näyttöön ilmestyvät viestit kertovat tiedonsiirron ongelmista. Tarkista alla olevista taulukoista, miten ongelma voidaan korjata. Voit ehkäistä ongelmia noudattamalla kohdan ”Kommunikointia koskevia varotoimenpiteitä” ohjeita.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 27,
+            "from": "<p>Tietojen lähetys tai vastaanotto on jostain epäon- (lähettäjä) nistunut jostain syystä. Yritä uudelleen.</p>\n<p>(vastaanottaja)</p>\n<p>Vastaanottavan kellon muisti on täynnä. Poista tarpeettomat tiedot ja yritä uudelleen.</p>\n<p>Vastaanottavan kellon muisti on täynnä. Poista tarpeettomat tiedot ja yritä uudelleen.</p>\n<p>Lähettävän kellon muistissa ei ole äänitettyjä kuvia.</p>\n<p>IR-porttien välillä on jokin este. Tiedonvälitys jatkuu poistamalla esteen noin 6 sekunnissa. Ellei ongelmaa poisteta 6 sekunnissa, näyttöön ilmestyy viesti NG.</p>\n<p>Tämä viesti ilmestyy näyttöön kellon käsitellessä tietoja ennen lähettämistä tai niiden vastaanottamisen jälkeen.</p>\n<h3 id=\"section-11-44\">Muut viestit</h3>\n<p>On ilmennyt jokin ongelma muistitietoja valitessa.</p>\n<p>Tietojen kirjoittaminen ei onnistu, koska on ilmennyt jokin ongelma muistitietoja valitessa.</p>\n<p>On ilmennyt jokin ongelma muistitietoja valitessa.</p>\n<p>• Jos  ilmenee jokin kolmesta yllä esitetystä virheestä, yritä ensin poistaa kaikki tiedot muistista. Ellei tämä auta, ota yhteys myyjäliikkeeseen.</p>\n<p>On ilmennyt jokin ongelma muistitietoja kirjoitettaessa. Yritä suorittaa toimenpide uudelleen.</p>",
+            "to": "<div class=\"manual-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Kommunikointiruutuviestit\"><table class=\"manual-table\"><thead><tr><th scope=\"col\">Viesti</th><th scope=\"col\">Syy ja toimenpide</th></tr></thead><tbody><tr><th scope=\"row\">WATCH SEND NG (lähettäjä)<br>WATCH RECEIVE NG (vastaanottaja)</th><td>Tietojen lähetys tai vastaanotto epäonnistui. Yritä uudelleen.</td></tr><tr><th scope=\"row\">PLAY FULL</th><td>Vastaanottavan kellon muisti on täynnä. Poista tarpeettomat tiedot ja yritä uudelleen.</td></tr><tr><th scope=\"row\">REC FULL</th><td>Vastaanottavan kellon muisti saattaa olla täynnä. Poista tarpeettomat tiedot ja yritä uudelleen.</td></tr><tr><th scope=\"row\">PLAY EMPTY</th><td>Lähettävän kellon muistissa ei ole tallennettuja kuvia.</td></tr><tr><th scope=\"row\">INTERCEPTION</th><td>IR-porttien välillä on jokin este. Tiedonsiirto jatkuu, jos poistat esteen noin kuuden sekunnin kuluessa. Ellei ongelmaa korjata tässä ajassa, viesti vaihtuu NG-virheilmoitukseksi.</td></tr><tr><th scope=\"row\">CONVERT</th><td>Tämä viesti näkyy kellon käsitellessä kuvatietoja ennen lähettämistä tai vastaanoton jälkeen.</td></tr></tbody></table></div>\n<h3 id=\"section-11-29\">Muut viestit</h3>\n<div class=\"manual-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Muut viestit\"><table class=\"manual-table\"><thead><tr><th scope=\"col\">Viesti</th><th scope=\"col\">Syy ja toimenpide</th></tr></thead><tbody><tr><th scope=\"row\">PLAY ERROR</th><td>Flash-muistin käytössä ilmeni ongelma.</td></tr><tr><th scope=\"row\">REC ERROR</th><td>Tietoja ei voida kirjoittaa flash-muistin käytössä ilmenneen ongelman vuoksi.</td></tr><tr><th scope=\"row\">IR COM ERROR</th><td>Flash-muistin käytössä ilmeni ongelma.</td></tr><tr><th scope=\"row\">WAIT SET NG</th><td>Flash-muistin tietojen uudelleenkirjoittamisessa ilmeni ongelma. Yritä suorittaa toimenpide uudelleen.</td></tr></tbody></table></div>\n<p>• Jos näyttöön tulee PLAY ERROR, REC ERROR tai IR COM ERROR, yritä ensin poistaa kaikki kuvat muistista. Ellei tämä auta, ota yhteys kellon myyjään.</p>\n<div class=\"editorial-supplement\"><span class=\"editorial-note\">Täydennetty englanninkielisestä ohjeesta · 2411-5</span><h3>Kommunikointia koskevia varotoimenpiteitä</h3>\n<p>• IR-porttien on oltava enintään 10 cm:n etäisyydellä toisistaan, ja niiden välinen kulma saa olla enintään 30 astetta.</p>\n<p>• Tiedonsiirto voi epäonnistua myös silloin, kun IR-portit ovat liian lähellä toisiaan.</p>\n<p>• Jos kulma on 15 astetta tai suurempi, IR-portit on ehkä siirrettävä hyvin lähelle toisiaan.</p>\n<p>• Älä liikuta kelloa tiedonsiirron aikana.</p>\n<p>• Varmista, ettei IR-porttien välissä ole infrapunasignaalia estäviä esineitä.</p>\n<p>• Infrapunatiedonsiirto ei välttämättä onnistu kirkkaassa valossa, ikkunan lähellä tai vastaavissa olosuhteissa.</p>\n<p>• Jos käytössä on invertteriohjattu loisteputkivalaisin tai muu hyvin voimakas valo, kokeile sammuttaa valo tai siirtyä paikkaan, jossa valo ei osu suoraan IR-portteihin.</p>\n<p>• Muu lähellä tapahtuva infrapunatiedonsiirto voi häiritä yhteyttä.</p>\n<p>• IR-porttien suurin sallittu etäisyys voi olla alle 10 cm pariston varauksen ollessa vähissä.</p>\n<p>• Kello palaa automaattisesti IR-valikkoon noin viiden minuutin kuluttua kuvanvalintaruudun tai vastaanoton valmiustilan avaamisesta. Jos tiedonsiirto on silloin käynnissä, se suoritetaan loppuun ennen paluuta IR-valikkoon.</p>\n</div>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Post-reception return to the receive menu (step 3) made explicit; active receive standby is entered separately in step 4.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text.",
+          "Follow-up semantic review, 2026-11-04: Communication precaution states the angle as a maximum of 30 degrees rather than an exact required angle."
+        ]
+      },
+      "12": {
+        "reviewed": true,
+        "flowSHA256": "504f908c01c2efb4d5ed344b6ea54492f15403c77c6fdea9567f9ff5f4f84cf4",
+        "edits": [
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>Kellonaikatoiminto on kellon perustoiminto, kun et äänitä kuvia käytä, suoria ajanottoa sekuntikellolla, jne.</p>\n",
+            "to": "<p>Kellonaikatoiminto on kellon perustoiminto, kun et taltioi kuvia, käytä sekuntikelloa jne.</p>\n"
+          },
+          {
+            "startLine": 5,
+            "endLine": 6,
+            "from": "<p>Voit tehdä kellonaika- ja päiväysasetukset myös tietokoneellasi käyttämällä kellon mukana toimitetun CD-ROM-levyn WOV Link 2.0 ohjelmaa.</p>\n",
+            "to": "<p>Voit tehdä kellonaika- ja päiväysasetukset myös tietokoneellasi käyttämällä kellon mukana toimitetun CD-ROM-levyn WQV Link 2.0 -ohjelmaa.</p>\n"
+          },
+          {
+            "startLine": 8,
+            "endLine": 10,
+            "from": "<p>2. Paina E-painiketta sekuntien nolaamiseksi 00. Painamalla E-painiketta painetaan sekuntinäytön ollessa luvun 30-59 välillä, sekuntinäyttö palautuu luvulle 00</p>\n<p>• ja minuutit kasvavat yhdellä. Jos sekuntinäyttö on luvun 00-29 välillä, minuuttiluku ei kasva.</p>\n",
+            "to": "<p>2. Paina E-painiketta sekuntien nollaamiseksi arvoon 00.</p>\n<p>• Kun painat E-painiketta sekuntinäytön ollessa luvun 30–59 välillä, sekunnit palautuvat arvoon 00 ja minuutit kasvavat yhdellä. Jos sekuntinäyttö on luvun 00–29 välillä, minuuttiluku ei kasva.</p>\n"
+          },
+          {
+            "startLine": 16,
+            "endLine": 18,
+            "from": "<p>• Selailu tapahtuu suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Näyttöön ilmestyy viesti ”CASIO” ellei kellon muistiin ole äänitetty mitään kuvia.</p>\n",
+            "to": "<p>• Selailu tapahtuu suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Näyttöön ilmestyy viesti ”CASIO” ellei kellon muistiin ole tallennettu mitään kuvia.</p>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 22,
+            "from": "<p>Kalenteriruudusta näet näyttää juhlapäivät ja muita tietoja kuukauden ajalta.</p>\n",
+            "to": "<p>Kalenteriruudusta näet juhlapäivät ja muita tietoja kuukauden ajalta.</p>\n"
+          },
+          {
+            "startLine": 28,
+            "endLine": 31,
+            "from": "<p>2. Käytä E- (+) ja B (-) painiketta selataksesi kuukausia kunnes haluamasi ilmestyy näyttöön.</p>\n<p>• Selaaminen tapahtuu suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Täysautomaattinen kalenteri huomioi eri  kuukausien pituudet ja karkausvuodet automaattisesti vuoden 2000 Tammikuusta vuoden 2039 Joulukuuhun saakka.</p>",
+            "to": "<p>2. Käytä E-painiketta (+) ja B-painiketta (−) selataksesi kuukausia kunnes haluamasi ilmestyy näyttöön.</p>\n<p>• Selaaminen tapahtuu suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n<p>• Täysautomaattinen kalenteri huomioi eri kuukausien pituudet ja karkausvuodet automaattisesti vuoden 2000 tammikuusta vuoden 2039 joulukuuhun saakka.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "13": {
+        "reviewed": true,
+        "flowSHA256": "29ef567ba51c309fbe1cd4662027cc3c4aee0f3cdc9cc3924063ec9471dee7a9",
+        "edits": [
+          {
+            "startLine": 3,
+            "endLine": 5,
+            "from": "<p>3. Käytä E- (+) ja B (-) painiketta  siirtääksesi vilkkuvaa kursoria kalenterissa korostettavaksi tai peruutettavaksi haluamallesi päiväykselle.</p>\n<p>• Kursori siirtyy suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n",
+            "to": "<p>3. Käytä E-painiketta (+) ja B-painiketta (−) siirtääksesi vilkkuvaa kursoria kalenterissa korostettavaksi tai peruutettavaksi haluamallesi päiväykselle.</p>\n<p>• Kursori siirtyy suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<p>Voit tehdä kellon juhlapäiväasetukset myös tietokoneellasi käyttämällä kellon mukana toimitetun CD-ROM-levyn WOV Link 2.0 ohjelmaa.</p>\n",
+            "to": "<p>Voit tehdä kellon juhlapäiväasetukset myös tietokoneellasi käyttämällä kellon mukana toimitetun CD-ROM-levyn WQV Link 2.0 -ohjelmaa.</p>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>Voit asettaa viisi erillistä päivittäishälytystä ja liittää kellonmuistissa olevia kuvia jokaiseen hälytykseen siten, että vastaava kuva vilkku näytössä hälytyksen soidessa. Kun tasatuntisignaali aktivoidaan, kello piippaa aina tasatunnein.</p>\n",
+            "to": "<p>Voit asettaa viisi erillistä päivittäishälytystä ja liittää kellon muistissa olevia kuvia jokaiseen hälytykseen siten, että vastaava kuva vilkkuu näytössä hälytyksen soidessa. Kun tasatuntisignaali aktivoidaan, kello piippaa aina tasatunnein.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<p>• Hälytysasetukset (ja tasatuntisignaali-asetukset) ovat käytettävissä hälytystoiminnolla, jonka voit valita painamalla D-painiketta (sivu 4).</p>\n",
+            "to": "<p>• Hälytysasetukset (ja tasatuntisignaalin asetukset) ovat käytettävissä hälytystoiminnolla, jonka voit valita painamalla D-painiketta (sivu 4).</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<p>Käytä B- ja E-painiketta valitaksesi asetettavaksi haluamasi hälytyksen</p>\n",
+            "to": "<p>1. Käytä B- ja E-painiketta valitaksesi asetettavaksi haluamasi hälytyksen (1-5).</p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text.",
+          "The adjacent procedure number 1. is removed from the expanded alarm caption crop; its full numbered instruction remains in the HTML text."
+        ],
+        "figureTextCorrections": [
+          {
+            "from": "Jokaisen tässä ilmaistavan hälytyksen päällä/pois-toimintatila.",
+            "to": "Kunkin hälytyksen\npäällä/pois-tila näkyy tässä.",
+            "box": [
+              143,
+              478,
+              311,
+              506
+            ],
+            "origin": [
+              143.5,
+              490
+            ],
+            "fontSize": 10
+          },
+          {
+            "from": "1.",
+            "to": "",
+            "box": [
+              225.5,
+              442,
+              236,
+              458
+            ],
+            "origin": [
+              226.5,
+              454
+            ],
+            "fontSize": 10
+          }
+        ]
+      },
+      "14": {
+        "reviewed": true,
+        "flowSHA256": "ae177457e1c1019f889e5e7eb17991e9e73ff1842c9285e8c4d5d1b849be9ffb",
+        "edits": [
+          {
+            "startLine": 0,
+            "endLine": 1,
+            "from": "<p>4. Käytä E- (+) ja B (-) painiketta vilkkuvan asetuksen muuttamiseksi.</p>\n",
+            "to": "<p>4. Käytä E-painiketta (+) ja B-painiketta (−) vilkkuvan asetuksen muuttamiseksi.</p>\n"
+          },
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>• Asetus muuttuu suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n",
+            "to": "<p>• Asetus muuttuu suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n"
+          },
+          {
+            "startLine": 10,
+            "endLine": 13,
+            "from": "<p>1. Käytä B ja E-painiketta hälytystoiminnolla valitaksesi hälytyksen tai tasatuntisignaalin, jonka haluat kytkeä päälle tai katkaista.</p>\n<p>2. Paina C-painiketta päälle- ja poiskytkentää varten. ) ja tasatuntisignaalin ilmaisin ( ) näkyvät näytössä kellonaika-, hälytys-, ajastin- ja sekunti-</p>\n<p>• Hälytysilmaisin ( kellotoiminnoilla.</p>\n",
+            "to": "<p>1. Käytä B- ja E-painiketta hälytystoiminnolla valitaksesi hälytyksen tai tasatuntisignaalin, jonka haluat kytkeä päälle tai katkaista.</p>\n<p>2. Paina C-painiketta päälle- ja poiskytkentää varten.</p>\n<p>• Hälytyksen ja tasatuntisignaalin ilmaisimet näkyvät näytössä kellonaika-, hälytys-, ajastin- ja sekuntikellotoiminnoilla.</p>\n"
+          },
+          {
+            "startLine": 23,
+            "endLine": 25,
+            "from": "<p>2. Paina C- tai D-painiketta vaihtaaksesi minuuttien asetusruudun ja ajastinruudun ruutukuvan asetusruudun välillä.</p>\n<p>3. Käytä E- (+) ja B (-) painiketta vilkkuvan asetuksen muuttamiseksi.</p>\n",
+            "to": "<p>2. Paina C- tai D-painiketta vaihtaaksesi minuuttien asetusruudun ja ajastinruutukuvan asetusruudun välillä.</p>\n<p>3. Käytä E-painiketta (+) ja B-painiketta (−) vilkkuvan asetuksen muuttamiseksi.</p>\n"
+          },
+          {
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<p>• Asetus muuttuu suurella nopeudella pitämällä jompaa kumpaa painiketta yhtäjaksoisesti painettuna.</p>\n",
+            "to": "<p>• Asetus muuttuu suurella nopeudella pitämällä jompaakumpaa painiketta yhtäjaksoisesti painettuna.</p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "15": {
+        "reviewed": true,
+        "flowSHA256": "aa614fa29882a019a8c6c7f4aa6c960c546856c9da0aabdb1d2dd8d72124d8f9",
+        "edits": [
+          {
+            "startLine": 5,
+            "endLine": 6,
+            "from": "<p>• Painamalla E-painiketta ajastimen ollessa pysäytetty, ajastin palaa takaisin asetetulle käynnistysajalle.</p>\n",
+            "to": "<p>• Painamalla B-painiketta ajastimen ollessa pysäytetty, ajastin palaa takaisin asetetulle käynnistysajalle.</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<p>• Sekuntikellon näyttöalue on 23 tuntia, 59 minuuttia, 59.9 sekuntia.</p>\n",
+            "to": "<p>• Sekuntikellon näyttöalue on 23 tuntia, 59 minuuttia, 59,9 sekuntia.</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>* Ensimmäinen juoksija maalissa.  Ensimmäisen juoksijan loppuaika. ** Toinen juoksija maalissa. *** Toisen juoksijan loppuaika.</p>\n",
+            "to": "<p>* Ensimmäinen juoksija maalissa. Ensimmäisen juoksijan loppuaika. ** Toinen juoksija maalissa. *** Toisen juoksijan loppuaika.</p>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 22,
+            "from": "<p>Paristotehon alkaessa vähetä, kello rajoittaa vastaavasti  eri toimintojen käyttöä jäljellä olevan paristojännitteen säästämiseksi, kuten alla selitetään.</p>\n",
+            "to": "<p>Paristotehon alkaessa vähetä, kello rajoittaa vastaavasti eri toimintojen käyttöä jäljellä olevan paristojännitteen säästämiseksi, kuten alla selitetään.</p>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<p>Matalan paristojännitteen ilmaisin alkaa vilkku näytössä pariston tehon pudotessa tietyn tason alapuolelle. Seuraavat toiminnot kytkeytyvät tällöin pois käytöstä.</p>\n",
+            "to": "<p>Matalan paristojännitteen ilmaisin alkaa vilkkua näytössä pariston tehon pudotessa tietyn tason alapuolelle. Seuraavat toiminnot kytkeytyvät tällöin pois käytöstä.</p>\n"
+          },
+          {
+            "startLine": 30,
+            "endLine": 31,
+            "from": "<p>• Päivittäishälytys ja ajastinhälytys (ainoastaan ruutukuva vilkkuu).</p>",
+            "to": "<p>• Päivittäishälytys ja ajastinhälytys (ainoastaan ruutukuva vilkkuu).</p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "16": {
+        "reviewed": true,
+        "flowSHA256": "0b908b2f0ebe0736f196deaac8cbc51aba51efd113402d8b8302f9ebfbdf9ff8",
+        "edits": [
+          {
+            "startLine": 4,
+            "endLine": 6,
+            "from": "<p>• Jos näyttöön ilmestyy IR COM LOW BATT-viesti valitessasi IR- toiminnon, voit sulkea viestiruudun painamalla D-painiketta.</p>\n<p>CASIO ei vastaa mahdollisista tietojen häviämisistä eikä voittojen menetyksistä, koskien  sinun tai kolmannen osapuolen esittämiä vaatimuksia, johtuen kellon syntyneestä viasta, korjauksesta, pariston vaihdosta, jne.</p>\n",
+            "to": "<p>• Jos näyttöön ilmestyy IR COM LOW BATT-viesti valitessasi IR-toiminnon, voit sulkea viestiruudun painamalla D-painiketta.</p>\n<p>CASIO ei vastaa mahdollisista tietojen häviämisistä eikä voittojen menetyksistä, koskien sinun tai kolmannen osapuolen esittämiä vaatimuksia, johtuen kelloon syntyneestä viasta, korjauksesta, pariston vaihdosta, jne.</p>\n"
+          },
+          {
+            "startLine": 8,
+            "endLine": 9,
+            "from": "<p>• Tämän kellon virtalähteenä toimii yksi lithium-paristo (CR2032).</p>\n",
+            "to": "<p>• Tämän kellon virtalähteenä toimii yksi litiumparisto (CR2032).</p>\n"
+          },
+          {
+            "startLine": 10,
+            "endLine": 11,
+            "from": "<p>• Paristotilan kannen sisäpuolella ja paristotilassa tai kumitiivisteen kanssa kosketukseen joutuvalla pinnalla oleva lika, pöly ja kosteus voi huonontaa kellon vesitiiviyttä. Pidä tällaiset alueet puhtaina ja kuivina.</p>\n",
+            "to": "<p>• Paristotilan kannen sisäpuolella ja paristotilassa tai kumitiivisteen kanssa kosketukseen joutuvalla pinnalla oleva lika, pöly ja kosteus voivat huonontaa kellon vesitiiviyttä. Pidä tällaiset alueet puhtaina ja kuivina.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<p>• Älä koskaan yritä purkaa paristoa osiin tai hävittää sitä polttamalla. EStä pariston positiivista ja negatiivista napaa joutumasta oikosulkuun.</p>\n",
+            "to": "<p>• Älä koskaan yritä purkaa paristoa osiin tai hävittää sitä polttamalla. Estä pariston positiivista ja negatiivista napaa joutumasta oikosulkuun.</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 19,
+            "from": "<h3 id=\"section-16-30\">Pidä paristot poissa pienten lasten ulottuvilta. Jos lapsi nielee pariston, ota välittömästi yhteys</h3>\n<h3 id=\"section-16-31\">lääkäriin.</h3>\n",
+            "to": "<p><strong>Pidä paristot poissa pienten lasten ulottuvilta. Jos lapsi nielee pariston, ota välittömästi yhteys lääkäriin.</strong></p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "17": {
+        "reviewed": true,
+        "flowSHA256": "d264620cc6e7cf2d97d042435c1d5d1f4a29e78195bf0a0b105513070c1db8fe",
+        "edits": [
+          {
+            "startLine": 4,
+            "endLine": 5,
+            "from": "<p>• Älä koskaan nosta paristoa ylös pinsetillä koskettaen samanaikaisesti pariston ylä- ja alapuoleen, sillä se aiheuttaa oikosulun.</p>\n",
+            "to": "<p>• Älä nosta paristoa pinseteillä, jotka koskettavat samanaikaisesti pariston ylä- ja alapintaa, sillä se aiheuttaa oikosulun.</p>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>Kuvatiedot säilyvät kellon muistissa vaihtaessasi paristoa. Kellonaika, päiväys, hälytysaika-asetukset ja  ajastimen käynnistysaika pyyhkiytyvät kuitenkin. Muista suorittaa nämä asetukset uudelleen joka kerta vaihtaessasi pariston.</p>\n",
+            "to": "<p>Kuvatiedot säilyvät kellon muistissa vaihtaessasi paristoa. Kellonaika, päiväys, hälytysaika-asetukset ja ajastimen käynnistysaika pyyhkiytyvät kuitenkin. Muista suorittaa nämä asetukset uudelleen joka kerta vaihtaessasi pariston.</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<p>• Kello vaihtaa kellonaikatoiminnolle automaattisesti ellet suorita mitään toimenpidettä noin kahteen minuuttiin missään toimintoruudussa, lukuunottamatta sekuntikello- ja kameratoimintoruutua.</p>\n",
+            "to": "<p>• Kello vaihtaa kellonaikatoiminnolle automaattisesti ellet suorita mitään toimenpidettä noin kahteen minuuttiin missään toimintoruudussa, lukuun ottamatta sekuntikello- ja kameratoimintoruutua.</p>\n"
+          },
+          {
+            "startLine": 19,
+            "endLine": 20,
+            "from": "<p>• Kello sulkee jokaisen asetusruudun automaattisesti (IR-toimintoruutua lukuunottamatta), ellet suorita mitään toimenpidettä noin yhteen minuuttiin.</p>\n",
+            "to": "<p>• Kello sulkee jokaisen asetusruudun automaattisesti (IR-toimintoruutua lukuun ottamatta), ellet suorita mitään toimenpidettä noin yhteen minuuttiin.</p>\n"
+          },
+          {
+            "startLine": 23,
+            "endLine": 24,
+            "from": "<p>• Vuosiluku voidaan asettaa vuosien 2000 - 2039 väliselle ajalle. Joulukuun 31 päivän, 2039 jälkeen kalenteri palaa Tammikuun 1 päivälle, 2000.</p>\n",
+            "to": "<p>• Vuosiluku voidaan asettaa vuosien 2000 - 2039 väliselle ajalle. Joulukuun 31. päivän 2039 jälkeen kalenteri palaa tammikuun 1. päivään 2000.</p>\n"
+          },
+          {
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<p>• 12-tuntisella kellonaikanäytöllä tuntinumeroiden vasemmalle puolelle syttyy P-ilmaisin (iltapäivä) puolen päivän ja klo 23:59 välisiä aikoja varten. A-ilmaisin (aamupäivä) syttyy näyttöön keskiyön ja 11:59 välisiä aikoja varten .</p>\n",
+            "to": "<p>• 12-tuntisella kellonaikanäytöllä tuntinumeroiden vasemmalle puolelle syttyy P-ilmaisin (iltapäivä) puolen päivän ja klo 23:59 välisiä aikoja varten. A-ilmaisin (aamupäivä) syttyy näyttöön keskiyön ja 11:59 välisiä aikoja varten.</p>\n"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+        ]
+      },
+      "18": {
+        "reviewed": true,
+        "flowSHA256": "850b66f5561f24517876636fc17ba859dd345ee680c9cd31597e23015207c229",
+        "edits": [
+          {
+            "startLine": 1,
+            "endLine": 2,
+            "from": "<p>Päivittäishälytys, tasatuntisignaali ja ajastin ei ala soimaan kellon ollessa kamera- tai IR-toiminnolla tai kalenterin tai VISUAL DATABANK-asetuksen näkyessä näytössä.</p>\n",
+            "to": "<p>Päivittäishälytys, tasatuntisignaali ja ajastinhälytys eivät soi kellon ollessa kamera- tai IR-toiminnolla tai kalenterin tai VISUAL DATABANK-toiminnon asetusruudun näkyessä näytössä.</p>\n"
+          },
+          {
+            "startLine": 3,
+            "endLine": 4,
+            "from": "<p>Kello sammuttaa näyttöruudun automaattisesti ellei sitä siirretä noin 60 minuuttiin. Jos jonkin päivittäishälytyksen tai ajastimen aika nollautuu kellon näytön ollessa tyhjä, näyttö aktivoituu ja siihen ilmestyy soivaa hälytystä vastaava kuva. Tämän jälkeen näyttö muuttuu tyhjäksi uudelleen. Painamalla F-painiketta jonkin hälytyksen soidessa, hälytys katkeaa, herätysruudun kuva ilmestyy näyttöön ja kello palaa kellonaikatoiminnolle. Painamalla jotakin muuta painiketta hälytyksen katkaisemiseksi, näyttö muuttuu tyhjäksi.</p>\n",
+            "to": "<p>Kello sammuttaa näyttöruudun automaattisesti ellei sitä siirretä noin 60 minuuttiin. Jos päivittäishälytyksen aika koittaa tai ajastimen aika päättyy kellon näytön ollessa tyhjä, näyttö aktivoituu ja siihen ilmestyy soivaa hälytystä vastaava kuva. Tämän jälkeen näyttö muuttuu tyhjäksi uudelleen. Painamalla F-painiketta jonkin hälytyksen soidessa, hälytys katkeaa, herätysruudun kuva ilmestyy näyttöön ja kello palaa kellonaikatoiminnolle. Painamalla jotakin muuta painiketta hälytyksen katkaisemiseksi, näyttö muuttuu tyhjäksi.</p>\n"
+          },
+          {
+            "startLine": 5,
+            "endLine": 9,
+            "from": "<p>Tarkkuus huonelämpötilassa: ±15 sekuntia kuukaudessa Kellonaika: tunnit, minuutit, sekunnit, aamupäivä (A)/iltapäivä (P), vuosiluku, kuukausi, päivämäärä, viikonpäivä</p>\n<p>Kellonaikajärjestelmä. 12-/24-tuntinen järjestelmä Kalenterijärjestelmä:</p>\n<p>Täysautomaattinen kalenteri, esiohjelmoitu vuosien 2000 ja 2039 väliselle ajalle. Muuta: Kaikki kuukaudet kattava kalenteriruutu, kontrastin säätö, herätysruutuasetus Hälytys: 5 päivittäishälytystä hälytysruutukuvilla, tasatuntisignaali Ajastin: (hälytysruutukuvalla)</p>\n<p>Mittausyksikkö: 1 sekunti Mittauskapasiteetti: 23: 59´59.9” Mittaustoiminnot: kokonaisaika, väliaika ja kaksi loppuaikaa</p>\n",
+            "to": "<p><strong>Tarkkuus huonelämpötilassa:</strong> ±15 sekuntia kuukaudessa</p>\n<p><strong>Kellonaika:</strong> tunnit, minuutit, sekunnit, aamupäivä (A)/iltapäivä (P), vuosiluku, kuukausi, päivämäärä, viikonpäivä</p>\n<p>Kellonaikajärjestelmä: 12-/24-tuntinen järjestelmä</p>\n<p>Kalenterijärjestelmä: täysautomaattinen kalenteri, esiohjelmoitu vuosien 2000 ja 2039 väliselle ajalle.</p>\n<p>Muuta: kaikki kuukaudet kattava kalenteriruutu, kontrastin säätö, herätysruutuasetus</p>\n<p><strong>Hälytys:</strong> 5 päivittäishälytystä hälytysruutukuvilla, tasatuntisignaali</p>\n<p><strong>Ajastin (hälytysruutukuvalla):</strong> mittausyksikkö 1 sekunti; käynnistysaika 1–60 minuuttia.</p>\n<p><strong>Sekuntikello:</strong> mittausyksikkö 1/10 sekuntia; mittauskapasiteetti 23:59′59,9″; mittaustoiminnot: kokonaisaika, väliaika ja kaksi loppuaikaa.</p>\n"
+          },
+          {
+            "startLine": 10,
+            "endLine": 11,
+            "from": "<p>Äänitysjärjestelmä: JPEG Muisti: sisäänrakennettu muisti (1 Mt) Muistikapasiteetti: noin 80 (todellinen kapasiteetti riippuu JPEG-pakkkaussuhteesta) Kuvaelementti: 1/14 tuuman CMOS-väritunnistin (pixelien kokonaisluku: 28000, Pixel Yield: 25,344) Objektiivi: f/2.8 kiinteä, f = 1.1 mm Tarkennusetäisyys: 30 cm - ∞ Valon mittaus: koko ruudun keskiarvo Suljintyyppi: digitaalinen Suljinnopeus: 1/5 - 1/1660 sekuntia (auto) Taltioitujen kuvien koko: QCIF (176 x 144 pistettä), täydet värit Monitori: 14400 pistettä (120 x 120), 16 värin harmaa-asteikko (monochrome), koko: 20 mm x 20 mm Äänitystoiminnot:; normaali, salamatoiminnon valinta (OUT, IN, DUSK), itselaukaisin (2 tai 10 sekuntia) Infrapuna-kommunikointi: kello -tietokone, kello - kello Tiedonvälitysnopeus: enintään 115200 bps</p>\n",
+            "to": "<p>Tallennusmuoto: JPEG</p>\n<p>Muisti: sisäänrakennettu muisti (1 Mt)</p>\n<p>Muistikapasiteetti: noin 80 kuvaa (todellinen kapasiteetti riippuu JPEG-pakkaussuhteesta)</p>\n<p>Kuvaelementti: 1/14 tuuman CMOS-väritunnistin (kuvapisteiden kokonaismäärä: 28 000; tehollisia kuvapisteitä: 25 344)</p>\n<p>Objektiivi: f/2,8 kiinteä, f = 1,1 mm</p>\n<p>Tarkennusetäisyys: 30 cm - ∞</p>\n<p>Valon mittaus: koko ruudun keskiarvo</p>\n<p>Suljintyyppi: digitaalinen</p>\n<p>Suljinnopeus: 1/5 - 1/1660 sekuntia (auto)</p>\n<p>Taltioitujen kuvien koko: QCIF (176 x 144 pistettä), täydet värit</p>\n<p>Monitori: 14400 pistettä (120 x 120), 16 harmaasävyä (yksivärinen), koko: 20 mm x 20 mm</p>\n<p>Tallennustoiminnot: normaali, valaistustyypin valinta (OUT, IN, DUSK), itselaukaisin (2 tai 10 sekuntia)</p>\n<p>Infrapunatiedonsiirto: kello–tietokone, kello–kello</p>\n<p>Tiedonvälitysnopeus: enintään 115200 bps</p>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>Pääelementit: Virityshaarukkatyyppinen suoristuskykyinen kvartsioskillaattori, yksilastuinen CMOS LSI Käyttölämpötila: 0°C - 40°C (32°F - 104°F) Muuta: automaattinen virransäästö Paristo: Yksi CR2032-lithium-paristo</p>\n",
+            "to": "<p>Pääelementit: Virityshaarukkatyyppinen suorituskykyinen kvartsioskillaattori, yksilastuinen CMOS LSI</p>\n<p>Käyttölämpötila: 0°C - 40°C (32°F - 104°F)</p>\n<p>Muuta: automaattinen virransäästö</p>\n<p>Paristo: Yksi CR2032-litiumparisto</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<p><em>Äänitys- ja tiedonvälitystoimintojen usein toistuva käyttö lyhentävät pariston käyttöikää.</em></p>",
+            "to": "<p><em>Tallennus- ja tiedonsiirtotoimintojen runsas käyttö lyhentää pariston käyttöikää.</em></p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+          }
+        ],
+        "notes": [
+          "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
+          "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained."
+        ]
+      }
+    },
+    "supplement": {
+      "source": "wqv3-en",
+      "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
+      "page": 5,
+      "targetPage": 11,
+      "section": "Communication Precautions",
+      "note": "The Finnish edition references this section but omits it. Restored from the English module 2411 guide with a visible source note. Message tables reflowed and corrected against the same page."
+    }
+  }
+}

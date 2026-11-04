@@ -1,9 +1,15 @@
 # Watch manuals
 
 The Programs screen includes three document files, one for each watch. Opening a
-file selects the English, Russian, Japanese or German edition using the same
-saved language as the watch applications. In German, WQV-3 still opens the
-English edition and its icon remains labelled **User’s Guide**.
+file follows the same saved language as the watch applications: English,
+Russian, Japanese, German, Spanish or Finnish. When a model has no edition in
+that language, the English guide opens and its label remains **User’s Guide**.
+
+| Model | English | Russian | Japanese | German | Spanish | Finnish |
+| --- | --- | --- | --- | --- | --- | --- |
+| WQV-1/2 | ✓ | ✓ | ✓ | ✓ | ✓ | English |
+| WQV-3 | ✓ | ✓ | ✓ | English | English | ✓ |
+| WQV-10 | ✓ | ✓ | ✓ | ✓ | English | English |
 
 | Model | Module | English | Russian | Japanese |
 | --- | --- | --- | --- | --- |
@@ -21,8 +27,8 @@ recognized text and links to the originals. Vector diagrams remain SVG; scanned 
 scan pixels. Decorative page borders and paragraph panels are omitted from the
 HTML text layout. Images retain their own labels and internal shading.
 
-`scripts/build-manuals.py` builds the nine English, Russian and Japanese HTML documents and their shared SVG
-and PNG assets. Scan images are stored as binary PNG files without resampling.
+`scripts/build-manuals.py` builds the English, Russian, Japanese and Finnish HTML
+documents and their shared SVG and PNG assets. Scan images are stored as binary PNG files without resampling.
 The source PDFs and word-coordinate OCR caches are held in the local
 research directory. It requires PyMuPDF 2.0 and ImageMagick. Rebuild with:
 
@@ -69,8 +75,8 @@ button order, including the year and day fields that OCR missed.
 The German originals are Casio’s [module 2220 PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_DE.pdf)
 and [module 2412 PDF](https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_DE.pdf).
 Both are scans. The WQV-2 source has 11 PDF pages; WQV-10 has 27, including its
-PC setup sheet, power-save insert and software licence. These make eleven
-adapted guides in total. No German WQV-3 edition is included.
+PC setup sheet, power-save insert and software licence. No German WQV-3 edition
+is included.
 
 The WQV-2 scan jumps from booklet page G-11 to G-16. The missing G-12–G-15
 material is translated from page 2220-3 of the complete English module 2220
@@ -119,7 +125,65 @@ python scripts/build-german-manuals.py
 
 This generator refuses pages that have not been reviewed. `--draft` is for
 proofreading, and visibly labels the result as a draft. It preserves the other
-nine catalog entries; the main generator also retains the German entries.
+catalog entries; the main generator also retains the German entries.
+
+## Spanish and Finnish editions
+
+There are thirteen adapted guides in total. The Spanish module 2220 booklet is
+from [Baroli's archived PDF](https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf).
+It has eleven scan sheets: booklet pages S-1–S-43 and a power-save insert.
+All four panels on each sheet are retained in reading order. The body is
+Spanish Tesseract text checked against every sheet, with separately reviewed
+button letters, steps, contents and tables. `spanish-proofreading.json` records
+the source and OCR hashes, corrected lines and original illustration bounds.
+The communication-error and water-resistance tables are selectable HTML.
+
+Build the Spanish guide from the local PDF and word-coordinate OCR cache with:
+
+```sh
+python scripts/build-spanish-manual.py
+```
+
+The cache uses Tesseract `spa` from `tessdata_best`, 5× page rendering, and four
+overlapping booklet panels per sheet. TSV fields are parsed without CSV
+quoting, so a recognized quotation mark cannot consume subsequent lines.
+The builder refuses unreviewed pages or changed source/OCR hashes.
+
+The Finnish module 2411 guide comes from [Perkko's PDF](https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf),
+also available in an [archived copy](https://web.archive.org/web/20260518181530/https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf).
+It has eighteen pages with native text. Illustration bounds include complete
+Finnish callouts, while the settings and character-selection diagrams exclude
+the adjacent procedure text. `finnish-proofreading.json` records a page review,
+source and flow hashes, and exact text edits. The contents are linked lists;
+wrapped words and PDF fragments are joined before proofreading. A small gray
+note identifies corrections to printed button, reference and specification
+errors checked against the English module 2411 guide. Original illustrations
+are preserved. The message tables are selectable HTML; their wording was
+checked against the English guide. The Finnish source references a missing
+“Communication Precautions” section. This section is restored on page 11 from
+English page 2411-5, with a small source note and a source hash in the review.
+Photographic terminology and Finnish grammar have also been corrected.
+The native SVG export corrects the printed `4 tumaa` label to `4 tuumaa` and
+aligns the wake-up-screen label with the term used in the body text.
+Its source text, bounds and replacement are recorded under
+`figureTextCorrections`; the builder checks the original label and requires
+the corrected area to stay inside the illustration.
+
+```sh
+python scripts/build-manuals.py --only wqv3-fi
+```
+
+Both guides use the reader's contents and text-size controls. On small screens,
+wide diagrams and tables scroll within their own viewport at a readable size.
+The browser checks cover all 29 new source pages, both interface languages,
+all three applications and each model's English fallback.
+
+A separate crop review checked all 92 illustrations against the surrounding
+PDF content. Thirty-two crops were adjusted to retain complete watch outlines,
+button circles, arrows and captions. The IR angle and alarm-state captions stay
+inside their Finnish diagrams; neighbouring procedure text is kept in the HTML
+instead of appearing as fragments in the images. The rendered illustrations
+were also checked at desktop and narrow screen widths.
 
 The original manuals and their illustrations retain their publishers'
 copyright. They are separate from the application's MIT-licensed code.

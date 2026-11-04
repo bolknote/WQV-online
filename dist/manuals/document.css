@@ -8,3 +8,6 @@
 .diagram-viewport{max-width:100%;overflow-x:auto}.diagram-viewport svg{display:block;margin-inline:auto}.manual-table-wrap{max-width:100%;overflow-x:auto;margin:1rem 0}.manual-table-wrap .manual-table{min-width:32rem;margin:0}.manual-table-wrap.wide-table .manual-table{min-width:42rem}.diagram-viewport:focus-visible,.manual-table-wrap:focus-visible{outline:2px solid #17477b;outline-offset:2px}
 html[lang=de] .illustration:not(.float-left):not(.float-right),html[lang=de] .manual-table-wrap{clear:both}
 @media(max-width:600px){html[lang=de] .illustration{float:none;clear:both;max-width:100%;margin:1rem 0}html[lang=de] .diagram-viewport svg{max-width:none}html[lang=de] .editorial-supplement{padding-left:1.2rem}}
+html:is([lang=es],[lang=fi]) .illustration:not(.float-left):not(.float-right),html:is([lang=es],[lang=fi]) .manual-table-wrap{clear:both}
+.manual-index{padding-left:1.25rem}.manual-index li{margin:.35rem 0}
+@media(max-width:600px){html:is([lang=es],[lang=fi]) .illustration{float:none;clear:both;max-width:100%;margin:1rem 0}html:is([lang=es],[lang=fi]) .diagram-viewport svg{max-width:none}}

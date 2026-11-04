@@ -5,9 +5,9 @@ import { readFileSync, existsSync } from 'node:fs';
 const root = new URL('../dist/manuals/', import.meta.url);
 const catalog = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'));
 
-test('manual catalog includes three original languages and both available German editions', () => {
+test('manual catalog includes every available edition across all six interface languages', () => {
   assert.deepEqual(catalog.map(item => item.id).sort(),
-    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-de', 'wqv2-en', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-ja', 'wqv3-ru']);
+    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-de', 'wqv2-en', 'wqv2-es', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-fi', 'wqv3-ja', 'wqv3-ru']);
   for (const item of catalog) {
     const source = readFileSync(new URL(item.file, root), 'utf8');
     assert.match(source, new RegExp('<html lang="' + item.language + '"'));
@@ -32,6 +32,42 @@ test('manual catalog includes three original languages and both available German
       }
     }
   }
+});
+
+test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
+  const spanish = JSON.parse(readFileSync(new URL('../docs/manuals/spanish-proofreading.json', import.meta.url), 'utf8'));
+  const finnish = JSON.parse(readFileSync(new URL('../docs/manuals/finnish-proofreading.json', import.meta.url), 'utf8'))['wqv3-fi'];
+  for (const [id, review, count] of [['wqv2-es', spanish, 11], ['wqv3-fi', finnish, 18]]) {
+    const item = catalog.find(item => item.id === id);
+    assert.equal(item.sourceSHA256, review.sourceSHA256);
+    assert.equal(item.pages, count);
+    assert.equal(Object.keys(review.pages).length, count);
+    assert.ok(Object.values(review.pages).every(page => page.reviewed && page.notes.length));
+    const source = readFileSync(new URL(item.file, root), 'utf8');
+    assert.match(source, /class="manual-index"/);
+    assert.match(source, /class="diagram-viewport" tabindex="0"/);
+    for (const link of source.matchAll(/href="#([^"#]+)"/g)) assert.ok(source.includes('id="'+link[1]+'"'), id + ': broken contents link');
+  }
+  const es = readFileSync(new URL('wqv2-es.html', root), 'utf8');
+  assert.equal([...es.matchAll(/class="booklet-panel"/g)].length, 44);
+  assert.match(es, /Presione \(F\) para visualizar el menú DEL/);
+  assert.match(es, /presione cinco veces \(D\) para ingresar en el modo/);
+  assert.match(es, /±15 segundos por mes/);
+  assert.match(es, /f\/2,8 fijo/);
+  assert.match(es, /115\.200 bps/);
+  assert.match(es, /OTHERS RECEIVE ERROR/);
+  assert.match(es, /ISO 2281/);
+  assert.match(es, /delantero \(F\)/);
+  assert.equal([...es.matchAll(/class="manual-table"/g)].length, 2);
+  const fi = readFileSync(new URL('wqv3-fi.html', root), 'utf8');
+  assert.match(fi, /4\. Paina F-painiketta valitaksesi tekstinsyöttöruudun/);
+  assert.match(fi, /Painamalla B-painiketta ajastimen ollessa pysäytetty/);
+  assert.match(fi, /Käytä C- ja D-painiketta asetusruudun selaamiseksi alla esitetyssä järjestyksessä/);
+  assert.match(fi, /3\. Paina F-painiketta valitaksesi näyttöön suuremman version valitusta kuvasta/);
+  assert.match(fi, /WQV Link 2\.0/);
+  assert.match(fi, /enintään 115200 bps/);
+  assert.match(fi, /Pariston likimääräinen käyttöikä: 6 kuukautta/);
+  assert.doesNotMatch(fi, /vaihtuu¨|toimin toa|kuvaamine n|osoittimen osoittimen|WOV Link|pakkkaus/);
 });
 
 test('German scan corrections are reviewed and the missing WQV-2 sheet has explicit provenance', () => {

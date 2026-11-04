@@ -2,12 +2,12 @@ import { tr, getLanguage } from './i18n.mjs';
 import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { watchModel } from './watch-models.mjs';
-import { manualLanguage, manualLabel } from './manual-editions.mjs';
+import { manualLanguage, manualLabel, manualSourceURL } from './manual-editions.mjs';
 
 const $ = id => document.getElementById(id);
 const requested = new URL(location.href).searchParams.get('model');
 const profile = watchModel(requested);
-const model = profile.id, name = profile.name, watchModule = String(profile.module);
+const model = profile.id, name = profile.name;
 let opened = '';
 let stopFollowingContents = () => {};
 let updateContents = () => {};
@@ -57,9 +57,7 @@ function showDocument() {
   $('document-title').textContent = title;
   $('document-frame').title = manualLabel(model, getLanguage()) || tr('User’s Guide');
   document.title = title + ' · Pocket Word';
-  $('original-pdf').href = language === 'ru'
-    ? `https://i-watch.ru/image/catalog/info/instruktsii/casio/${watchModule}.pdf`
-    : `https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/${watchModule.slice(0, 2)}/${watchModule}/qw${watchModule}_${language.toUpperCase()}.pdf`;
+  $('original-pdf').href = manualSourceURL(model, getLanguage());
   $('original-pdf').removeAttribute('aria-disabled');
   if (file === opened) {
     const article = $('document-frame').contentDocument?.querySelector('article[data-pages]');

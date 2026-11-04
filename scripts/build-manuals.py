@@ -26,6 +26,7 @@ LANG = {
                ocr='Японский текст распознан со скана. Иллюстрации взяты из оригинала.'),
     'ja': dict(title='取扱説明書', page='ページ', illustration='図', source='原本PDF',
                ocr='本文はスキャンから文字認識したものです。図は原本から抽出しています。'),
+    'fi': dict(title='Käyttöohje', page='Sivu', illustration='Kuva', source='Alkuperäinen PDF'),
 }
 SOURCES = {
     'wqv2-en': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf',
@@ -37,19 +38,22 @@ SOURCES = {
     'wqv10-en': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf',
     'wqv10-ru': 'https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf',
     'wqv10-ja': 'https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_JA.pdf',
+    'wqv3-fi': 'https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf',
 }
 FIGURE_BOUNDS = json.loads((REPO/'docs/manuals/figure-bounds.json').read_text())
 TEXT_CORRECTIONS = json.loads((REPO/'docs/manuals/text-corrections.json').read_text())
 JAPANESE_PROOFREADING = json.loads((REPO/'docs/manuals/japanese-proofreading.json').read_text())
+FINNISH_PROOFREADING = json.loads((REPO/'docs/manuals/finnish-proofreading.json').read_text())
+PROOFREADING = {**JAPANESE_PROOFREADING, **FINNISH_PROOFREADING}
 
-def proofread_japanese(identifier, number, body):
+def proofread_manual(identifier, number, body):
     """Apply source-checked text edits without changing scan illustrations.
 
     The flow hash and original lines guard against silently applying a correction
     to a different OCR extraction. Line ranges refer to the unedited page and
     are applied from the bottom upward.
     """
-    review = JAPANESE_PROOFREADING.get(identifier, {}).get('pages', {}).get(str(number))
+    review = PROOFREADING.get(identifier, {}).get('pages', {}).get(str(number))
     if not review:
         return body
     if hashlib.sha256(body.encode()).hexdigest() != review['flowSHA256']:
@@ -75,6 +79,21 @@ def reviewed_headings(body, number):
         return f'<{level} id="{anchor}">{content}</{level}>'
     body = re.sub(r'<(h[23])(?: id="([^"]+)")?>(.*?)</h[23]>', heading, body)
     return body, headings
+
+def correct_figure_text(page, identifier, number, figures):
+    """Correct reviewed native-text labels before exporting the page as SVG."""
+    review = PROOFREADING.get(identifier, {}).get('pages', {}).get(str(number), {})
+    for correction in review.get('figureTextCorrections', []):
+        box = fitz.Rect(correction['box'])
+        if not any(figure.contains(box) for figure in figures):
+            raise ValueError(f'{identifier}: page {number} label lies outside its illustration')
+        original = ' '.join(page.get_text(clip=box).split())
+        if original != correction['from']:
+            raise ValueError(f'{identifier}: page {number} illustration label changed')
+        page.add_redact_annot(box, fill=None, cross_out=False)
+        page.apply_redactions(images=0, graphics=0, text=0)
+        page.insert_text(correction['origin'], correction['to'],
+                         fontsize=correction['fontSize'], fontname='helv', color=(0, 0, 0))
 
 def escaped(value):
     return html.escape(str(value), quote=True)
@@ -206,7 +225,7 @@ def native_figures(page):
 def picture_line(line, figures):
     return any(overlap(line['box'], box) >= line['box'].get_area()*.94 for box in figures)
 
-def flow_items(lines, figures, page):
+def flow_items(lines, figures, page, single_column=False):
     body = [line for line in lines if not picture_line(line, figures)]
     # Avoid page numbers and the old running header becoming huge headings.
     for line in body:
@@ -226,7 +245,7 @@ def flow_items(lines, figures, page):
     regular = [line for line in body if line['kind'] != 'page-number']
     left = sum(line['box'].x1 < middle+5 for line in regular)
     right = sum(line['box'].x0 > middle-5 for line in regular)
-    columns = left > 5 and right > 5 and (left+right) > len(regular)*.72
+    columns = not single_column and left > 5 and right > 5 and (left+right) > len(regular)*.72
     wide = [item for item in items if item['box'].width > page.rect.width*.62]
     wide.sort(key=lambda item: item['box'].y0)
     ordered, remaining = [], [item for item in items if not any(item is w for w in wide)]
@@ -259,6 +278,9 @@ def render_flow(items, normal, columns, page, number, svgfile, language, raster=
         nonlocal paragraph
         if paragraph:
             text = ('' if language == 'ja' else ' ').join(paragraph).replace('\u00ad','')
+            if language == 'fi':
+                text = re.sub(r'\x02\s*', '', text)
+                text = re.sub(r'(?<=[a-zäöå])-\s+(?!(?:ja|tai|sekä)\b)(?=[a-zäöå])', '', text)
             parts.append('<p>'+text+'</p>')
             paragraph = []
     headings = []
@@ -313,7 +335,7 @@ def build(identifier, source, ocrroot, output):
     directory = output/'assets'
     directory.mkdir(parents=True,exist_ok=True)
     doc = fitz.open(source)
-    review = JAPANESE_PROOFREADING.get(identifier)
+    review = PROOFREADING.get(identifier)
     if review and review['sourceSHA256'] != hashlib.sha256(source.read_bytes()).hexdigest():
         raise ValueError(f'{identifier}: the proofread source PDF has changed')
     sections, allheadings, report = [], [], []
@@ -333,10 +355,28 @@ def build(identifier, source, ocrroot, output):
             raster_count = len(page.get_image_info())
         else:
             lines = native_lines(page)
-            figures,raster_count = native_figures(page)
+            figures = reviewed_scan_figures(identifier,n,page)
+            if figures is None:
+                figures,raster_count = native_figures(page)
+            else:
+                raster_count = len(page.get_image_info())
         for line in lines:
+            if language == 'fi' and (line['text'].startswith('Perkko Oy,') or line['text'] == '(18)'):
+                line['text'] = ''
             for old, new in TEXT_CORRECTIONS.get(identifier,{}).get(str(n),{}).items():
                 line['text'] = line['text'].replace(old,new)
+        lines = [line for line in lines if line['text']]
+        if language == 'fi' and n <= 2:
+            # The contents have right-aligned page numbers in separate PDF spans.
+            # Keep each entry and its number on the same line, in reading order.
+            merged = []
+            for line in sorted(lines, key=lambda line: (round(line['box'].y1), line['box'].x0)):
+                if merged and abs(merged[-1]['box'].y1-line['box'].y1) < 1:
+                    merged[-1]['text'] += ' '+line['text']
+                    merged[-1]['box'] |= line['box']
+                else:
+                    merged.append({**line, 'box': fitz.Rect(line['box'])})
+            lines = merged
         raster=None
         if language=='ja' and len(page.get_image_info())==1:
             # Keep scan pixels in binary PNG files. Large Base64 strings in SVG
@@ -353,11 +393,14 @@ def build(identifier, source, ocrroot, output):
                 raster={'file':imagefile,'transform':page.get_image_info()[0]['transform']}
                 previous=directory/f'{identifier}-{n:02}.svg'
                 if previous.exists():previous.unlink()
-        items,normal,columns = flow_items(lines,figures,page)
+        items,normal,columns = flow_items(lines,figures,page,single_column=language=='fi')
         body,headings = render_flow(items,normal,columns,page,n,f'{identifier}-{n:02}.svg',language,raster)
-        if language == 'ja':
-            body = proofread_japanese(identifier, n, body)
+        if language in ('ja', 'fi'):
+            body = proofread_manual(identifier, n, body)
             body, headings = reviewed_headings(body, n)
+        if language == 'fi':
+            body = re.sub(r'(<figure[^>]*>)(<svg[\s\S]*?</svg>)(</figure>)',
+                r'\1<div class="diagram-viewport" tabindex="0" role="region" aria-label="Kuva">\2</div>\3', body)
         allheadings.extend(headings)
         if language != 'ja':
             for line in lines:
@@ -367,6 +410,7 @@ def build(identifier, source, ocrroot, output):
             # line art and the original lettering inside the illustrations.
             page.apply_redactions(images=0,graphics=0,text=0)
         if not raster:
+            correct_figure_text(page, identifier, n, figures)
             svg = page.get_svg_image(text_as_path=True)
             svg = svg.replace('<svg ', '<svg id="page" ',1)
             (directory/f'{identifier}-{n:02}.svg').write_text(svg)

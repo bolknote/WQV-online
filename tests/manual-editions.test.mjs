@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {manualLanguage, manualLabel} from '../dist/manual-editions.mjs';
+import {manualLanguage, manualLabel, manualSourceURL} from '../dist/manual-editions.mjs';
 
 test('German uses actual German WQV-2/10 editions while WQV-3 keeps its English document and label', () => {
   for (const model of ['wqv2','wqv10']) {
@@ -13,4 +13,17 @@ test('German uses actual German WQV-2/10 editions while WQV-3 keeps its English 
     assert.equal(manualLanguage(model,language),language);
     assert.equal(manualLabel(model,language),null);
   }
+});
+
+test('Spanish and Finnish select only the available originals, with English labels for the other models', () => {
+  for (const [language, translated] of [['es','wqv2'],['fi','wqv3']]) {
+    for (const model of ['wqv2','wqv3','wqv10']) {
+      const available = model === translated;
+      assert.equal(manualLanguage(model, language), available ? language : 'en');
+      assert.equal(manualLabel(model, language), available ? null : 'User’s Guide');
+      const source = manualSourceURL(model, language);
+      assert.match(source, available ? language === 'es' ? /baroli\.es\/manuales\/2220\.pdf$/ : /perkko\.fi.*Casio-2411\.pdf$/ : /_EN\.pdf$/);
+    }
+  }
+  assert.equal(manualLanguage('toString','fi'),'en');
 });

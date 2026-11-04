@@ -1,11 +1,13 @@
 import { russian } from './translations.mjs';
 import { japanese } from './translations-ja.mjs';
 import { german } from './translations-de.mjs';
+import { spanish } from './translations-es.mjs';
+import { finnish } from './translations-fi.mjs';
 
 export const LANGUAGE_KEY = 'wqv-online.language';
-export const languages = Object.freeze(['en', 'ru', 'ja', 'de']);
-const locales = { en: 'en-US', ru: 'ru-RU', ja: 'ja-JP', de: 'de-DE' };
-const translations = { ru: russian, ja: japanese, de: german };
+export const languages = Object.freeze(['en', 'ru', 'ja', 'de', 'es', 'fi']);
+const locales = { en: 'en-US', ru: 'ru-RU', ja: 'ja-JP', de: 'de-DE', es: 'es-ES', fi: 'fi-FI' };
+const translations = { ru: russian, ja: japanese, de: german, es: spanish, fi: finnish };
 const listeners = new Set();
 function browserStorage() { try { return typeof window === 'undefined' ? undefined : window.localStorage; } catch { return undefined; } }
 export function readLanguage(storage = browserStorage()) {
@@ -25,10 +27,10 @@ export function setLanguage(next, { storage = browserStorage(), persist = true }
 export function onLanguageChange(listener) { listeners.add(listener); return () => listeners.delete(listener); }
 
 const nouns = {
-  photos: { en: { one: 'photo', other: 'photos' }, ru: { one: 'снимок', few: 'снимка', many: 'снимков', other: 'снимка' }, ja: { other: '枚' }, de: { one: 'Foto', other: 'Fotos' } },
-  days: { en: { one: 'day', other: 'days' }, ru: { one: 'день', few: 'дня', many: 'дней', other: 'дня' }, ja: { other: '日' }, de: { one: 'Tag', other: 'Tage' } },
-  files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' }, ja: { other: 'ファイル' }, de: { one: 'Datei', other: 'Dateien' } },
-  dates: { en: { one: 'date', other: 'dates' }, ru: { one: 'дата', few: 'даты', many: 'дат', other: 'даты' }, ja: { other: '件' }, de: { one: 'Datum', other: 'Datumsangaben' } },
+  photos: { en: { one: 'photo', other: 'photos' }, ru: { one: 'снимок', few: 'снимка', many: 'снимков', other: 'снимка' }, ja: { other: '枚' }, de: { one: 'Foto', other: 'Fotos' }, es: { one: 'foto', other: 'fotos' }, fi: { one: 'kuva', other: 'kuvaa' } },
+  days: { en: { one: 'day', other: 'days' }, ru: { one: 'день', few: 'дня', many: 'дней', other: 'дня' }, ja: { other: '日' }, de: { one: 'Tag', other: 'Tage' }, es: { one: 'día', other: 'días' }, fi: { one: 'päivä', other: 'päivää' } },
+  files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' }, ja: { other: 'ファイル' }, de: { one: 'Datei', other: 'Dateien' }, es: { one: 'archivo', other: 'archivos' }, fi: { one: 'tiedosto', other: 'tiedostoa' } },
+  dates: { en: { one: 'date', other: 'dates' }, ru: { one: 'дата', few: 'даты', many: 'дат', other: 'даты' }, ja: { other: '件' }, de: { one: 'Datum', other: 'Datumsangaben' }, es: { one: 'fecha', other: 'fechas' }, fi: { one: 'päivämäärä', other: 'päivämäärää' } },
 };
 class Message {
   constructor(key, values, noun = null) { this.key = key; this.values = values; this.noun = noun; }

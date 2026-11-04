@@ -1,0 +1,959 @@
+{
+  "sourceSHA256": "2ba58cb7e1fffd118c5aa798c991ea412e9970417e2352f190ceeb27464adcdc",
+  "sourceURL": "https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf",
+  "pages": {
+    "1": {
+      "reviewed": true,
+      "figures": [
+        [
+          48,
+          123,
+          131,
+          199
+        ]
+      ],
+      "footerY": [
+        429,
+        431,
+        822,
+        822
+      ],
+      "corrections": {
+        "0:7:3:4": "modos.",
+        "0:7:2:4": "ligeramente de aquellos que aparecen",
+        "0:7:3:2": "na la información que necesita para",
+        "0:7:4:2": "deberá ingresar en el modo correcto (modo de",
+        "0:7:4:3": "cámara, modo de hora normal, etc.). Para",
+        "0:7:5:2": "los años de servicio para los que fue"
+      },
+      "headings": [
+        "Conociendo la unidad",
+        "Acerca de este manual"
+      ],
+      "notes": [
+        "Body, original illustrations, booklet order and button letters checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "panelHTML": {
+        "1": "<h2>Índice</h2><ul class=\"manual-index\"><li><a href=\"#booklet-1\">Conociendo la unidad</a> — S-1</li><li><a href=\"#booklet-1\">Acerca de este manual</a> — S-1</li><li><a href=\"#booklet-2\">Índice</a> — S-2</li><li><a href=\"#booklet-4\">Bosquejo de los procedimientos</a> — S-4</li><li><a href=\"#booklet-6\">Antes de usar el reloj...</a> — S-6</li><li><a href=\"#booklet-7\">Desactivación de presentación automática</a> — S-7</li><li><a href=\"#booklet-8\">Guía general</a> — S-8</li><li><a href=\"#booklet-10\">Modo de cámara</a> — S-10</li><li><a href=\"#booklet-11\">Precauciones en el modo de cámara</a> — S-11</li><li><a href=\"#booklet-12\">Controlando la imagen del modo de cámara</a> — S-12</li><li><a href=\"#booklet-14\">Modos de grabación</a> — S-14</li><li><a href=\"#booklet-16\">Modo VISUAL DATABANK™</a> — S-16</li><li><a href=\"#booklet-17\">Fijando un texto a una imagen</a> — S-17</li><li><a href=\"#booklet-18\">Borrando imágenes</a> — S-18</li><li><a href=\"#booklet-21\">Modo de hora normal</a> — S-21</li><li><a href=\"#booklet-22\">Usando la pantalla del visualizador</a> — S-22</li><li><a href=\"#booklet-24\">Modo de alarma</a> — S-24</li><li><a href=\"#booklet-25\">Operación de la alarma diaria</a> — S-25</li><li><a href=\"#booklet-27\">Modo de alarma de cuenta regresiva</a> — S-27</li><li><a href=\"#booklet-28\">Usando la alarma de cuenta regresiva</a> — S-28</li><li><a href=\"#booklet-29\">Modo de cronógrafo</a> — S-29</li></ul>",
+        "2": "<h2>Índice (continuación)</h2><ul class=\"manual-index\"><li><a href=\"#booklet-30\">Modo IR</a> — S-30</li><li><a href=\"#booklet-30\">Intercambiando datos entre dos relojes</a> — S-30</li><li><a href=\"#booklet-33\">Errores de comunicación</a> — S-33</li><li><a href=\"#booklet-35\">Fuente de alimentación</a> — S-35</li><li><a href=\"#booklet-35\">Acerca de la pila instalada en fábrica</a> — S-35</li><li><a href=\"#booklet-36\">Precauciones con la pila</a> — S-36</li><li><a href=\"#booklet-39\">Especificaciones</a> — S-39</li><li><a href=\"#booklet-41\">Mantenimiento por el usuario</a> — S-41</li></ul>",
+        "3": "<h2>Bosquejo de los procedimientos</h2><ul class=\"manual-index\"><li><a href=\"#booklet-6\">Para ajustar la hora y fecha</a> — S-6</li><li><a href=\"#booklet-10\">Para grabar una imagen</a> — S-10</li><li><a href=\"#booklet-12\">Para ajustar el brillo de la imagen</a> — S-12</li><li><a href=\"#booklet-13\">Para especificar el tipo de iluminación</a> — S-13</li><li><a href=\"#booklet-14\">Para seleccionar el modo de grabación</a> — S-14</li><li><a href=\"#booklet-15\">Para grabar usando el modo de fusión</a> — S-15</li><li><a href=\"#booklet-15\">Para grabar usando el modo de arte</a> — S-15</li><li><a href=\"#booklet-16\">Para ver las imágenes grabadas</a> — S-16</li><li><a href=\"#booklet-17\">Para fijar un texto a una imagen</a> — S-17</li><li><a href=\"#booklet-18\">Para borrar todas las imágenes en la memoria del reloj</a> — S-18</li><li><a href=\"#booklet-19\">Para borrar una imagen específica</a> — S-19</li><li><a href=\"#booklet-21\">Para reposicionar la cuenta de segundos a cero</a> — S-21</li><li><a href=\"#booklet-22\">Para cambiar entre los formatos de pantalla de modo de hora normal</a> — S-22</li><li><a href=\"#booklet-23\">Para visualizar la pantalla del visualizador</a> — S-23</li><li><a href=\"#booklet-23\">Para ajustar el contraste de la imagen</a> — S-23</li><li><a href=\"#booklet-24\">Para ajustar la hora de alarma</a> — S-24</li><li><a href=\"#booklet-25\">Para probar la alarma</a> — S-25</li><li><a href=\"#booklet-25\">Para activar y desactivar la alarma diaria y señal horaria</a> — S-25</li></ul>"
+      },
+      "ocrSHA256": "daec4e6c4439c8988e41097eac374ae0122d36acb613dd4fcec8553e85ec6e77"
+    },
+    "2": {
+      "reviewed": true,
+      "figures": [
+        [
+          311,
+          234,
+          394,
+          305
+        ],
+        [
+          305,
+          313,
+          559,
+          367
+        ],
+        [
+          45,
+          710,
+          112,
+          785
+        ],
+        [
+          303,
+          476,
+          577,
+          818
+        ]
+      ],
+      "footerY": [
+        433,
+        428,
+        827,
+        822
+      ],
+      "corrections": {
+        "1:2:1:1": "Antes de usar el reloj...",
+        "1:5:1:1": "1. En el modo de hora normal, sostenga",
+        "1:5:1:6": "• Cada pulsación de (D) mueve la parte",
+        "1:17:1:1": "2. Mientras un ajuste se encuentra destellando, utilice (E) (+) y (B) (−) para",
+        "2:1:1:1": "",
+        "2:1:1:2": "• El reloj sale automáticamente de la pantalla de ajuste si no realiza ninguna",
+        "2:1:1:3": "operación durante unos dos minutos.",
+        "2:3:1:1": "Presionando (D) mientras el día está destellando sobre la pantalla de ajuste,",
+        "2:3:1:3": "destelle sobre la presentación. Cada pulsación de (E) en este momento",
+        "2:5:1:1": "Presionando (D) mientras el indicador de formato de hora normal (12H o",
+        "2:5:1:4": "nivel destellando. Utilice (B) (más oscuro) y (E) (más claro) para ajustar el",
+        "2:5:1:5": "contraste a cualquiera de los siete niveles disponibles.",
+        "2:8:1:2": "de presentación si no es movido durante unos",
+        "2:10:2:1": "presione (F).",
+        "3:1:1:1": "",
+        "3:2:1:1": "Guía general",
+        "3:3:1:1": "Presione (D) para cambiar de un modo a otro.",
+        "1:3:9:1": "• No utilice el reloj dentro de un avión.",
+        "1:3:15:1": "memoria del reloj. Debido a esto, siempre deberá hacer copias de seguridad",
+        "2:3:1:8": "11:59 PM, y el indicador A (AM) aparece a la izquierda de los dígitos de"
+      },
+      "headings": [
+        "Antes de usar el reloj...",
+        "¡Advertencia!",
+        "Para ajustar la hora y fecha",
+        "Indicación de hora normal de 12 y 24 horas",
+        "Ajuste del contraste",
+        "Nota",
+        "Desactivación de presentación automática",
+        "Guía general"
+      ],
+      "notes": [
+        "Body, original illustrations, booklet order and button letters checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "panelHTML": {
+        "0": "<h2>Bosquejo de los procedimientos (continuación)</h2><ul class=\"manual-index\"><li><a href=\"#booklet-27\">Para ajustar el tiempo de inicio de la cuenta regresiva</a> — S-27</li><li><a href=\"#booklet-29\">Para medir tiempos con el cronógrafo</a> — S-29</li><li><a href=\"#booklet-31\">Para ingresar en el modo IR</a> — S-31</li><li><a href=\"#booklet-31\">Para enviar una sola imagen</a> — S-31</li><li><a href=\"#booklet-32\">Para recibir una sola imagen</a> — S-32</li><li><a href=\"#booklet-37\">Para reemplazar la pila</a> — S-37</li></ul>"
+      },
+      "ocrSHA256": "ff9481e7407b185368ae873c92fc9a46e19b77bb1738d2c9f00c95d29603fc03"
+    },
+    "3": {
+      "reviewed": true,
+      "figures": [
+        [
+          56,
+          74,
+          263,
+          139
+        ],
+        [
+          51,
+          181,
+          265,
+          257
+        ],
+        [
+          26,
+          307,
+          280,
+          371
+        ],
+        [
+          329,
+          63,
+          390,
+          178
+        ],
+        [
+          309,
+          209,
+          523,
+          278
+        ],
+        [
+          49,
+          703,
+          133,
+          788
+        ],
+        [
+          326,
+          570,
+          399,
+          665
+        ]
+      ],
+      "footerY": [
+        415,
+        416,
+        813,
+        815
+      ],
+      "corrections": {
+        "0:2:1:1": "• Presionando (B) o (E) mientras el reloj se encuentra en el modo de",
+        "0:4:1:1": "Presione (D) para retornar desde la pantalla del visualizador al modo de",
+        "0:5:1:1": "• Cada pulsación de (C) mientras se encuentra en el modo de hora normal",
+        "0:6:1:1": "",
+        "0:13:1:1": "• Presionando (F) en cualquier modo que no sea el modo IR",
+        "0:15:1:1": "• Presionando (D) mientras el reloj se encuentra en el modo de",
+        "1:3:1:1": "Utilice el modo de cámara para grabar las",
+        "1:6:1:1": "1. Presione (F) para ingresar en el modo de",
+        "1:11:3:1": "3. Presione (F) para liberar el obturador y grabar la imagen.",
+        "2:5:2:1": "• Tenga cuidado de no mover accidentalmente el reloj cuando presiona (F)",
+        "3:1:1:1": "",
+        "3:9:1:2": "presentación, utilice (B) (más oscuro) y (E)",
+        "3:9:3:2": "presionar (B) o (E) antes de que el cambio",
+        "1:8:1:2": "memoria restante durante alrededor de un segundo. A continuación, muestra la imagen",
+        "1:8:1:3": "captada por el objetivo.",
+        "2:2:3:3": "visualiza este mensaje. Si esto llega a ocurrir, borre las imágenes que no",
+        "2:5:3:2": "fotos con luz diurna siempre que sea posible. Durante la noche, tome fotos en",
+        "2:7:1:4": "volver a ingresar al modo de cámara después de salir de él. La longitud del",
+        "3:9:6:1": "en efecto hasta que lo cambie o salga del",
+        "0:13:1:2": "ingresa en el modo de cámara.",
+        "0:15:1:2": "cámara, ingresa en el modo VISUAL DATABANK de modo que",
+        "1:6:2:1": "• Tenga en cuenta que no puede ingresar en el modo",
+        "1:6:2:2": " de cámara desde el modo IR.",
+        "2:2:3:2": "memoria está completa. No podrá ingresar en el modo de cámara mientras se",
+        "3:9:7:3": "omisión siempre que ingresa en el modo de"
+      },
+      "headings": [
+        "Modo de hora normal",
+        "Modo de cámara",
+        "Para grabar una imagen",
+        "Notas",
+        "Precauciones en el modo de cámara",
+        "Generalidades",
+        "Intervalo de reposo de cámara",
+        "Sonidos de alarma, señal horaria y alarma de cuenta regresiva",
+        "Controlando la imagen del modo de cámara",
+        "Ajustando el brillo de la imagen",
+        "Para ajustar el brillo de la imagen",
+        "¡Importante!"
+      ],
+      "notes": [
+        "Brightness B/E, shutter F and rest-interval callouts checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "5f3dc92778f6faa72bd5f01284b2253d2f40675f42054f65bccb11209de5238f",
+      "cropMasks": {
+        "3": [
+          [
+            68.3,
+            307,
+            70.7,
+            371
+          ]
+        ]
+      }
+    },
+    "4": {
+      "reviewed": true,
+      "figures": [
+        [
+          38,
+          183,
+          283,
+          280
+        ],
+        [
+          311,
+          192,
+          547,
+          293
+        ],
+        [
+          53,
+          463,
+          124,
+          559
+        ],
+        [
+          305,
+          613,
+          398,
+          774
+        ]
+      ],
+      "footerY": [
+        437,
+        434,
+        833,
+        829
+      ],
+      "corrections": {
+        "0:4:1:1": "En el modo de cámara, presione (A) para realizar un ciclo a través de los",
+        "1:5:1:1": "En el modo de cámara, presione (C) para realizar un ciclo a través de los",
+        "2:4:1:1": "(C) para seleccionar el modo de fusión.",
+        "2:5:1:2": "presione (F) para grabarla.",
+        "2:5:1:6": "presione (F) para grabarla.",
+        "2:10:1:1": "1. En el modo de cámara, presione dos veces (C) para seleccionar el modo",
+        "2:10:1:5": "2. Componga la imagen, y luego presione (F) para grabarla.",
+        "3:1:1:1": "",
+        "3:2:1:1": "Modo VISUAL DATABANK™",
+        "3:5:2:2": "cuenta regresiva mientras se encuentra en el modo VISUAL DATABANK.",
+        "3:7:1:1": "1. En el modo de hora normal, presione (D) para ingresar en el modo VISUAL",
+        "3:8:1:1": "2. Utilice (E) (+) y (B) (−) para pasar",
+        "3:9:3:1": "• Presione (C) para mostrar u ocultar la",
+        "3:10:1:1": "3. Presione cinco veces (D) para retornar al",
+        "3:10:3:4": "modo VISUAL DATABANK.",
+        "3:13:1:1": "Notas",
+        "3:14:1:1": "• La imagen puede aparecer algo oscura mientras la fecha y hora de grabación (y texto adjunto, si lo hubiera) se encuentran sobre la presentación.",
+        "0:8:2:2": "que lo cambie o salga del modo de cámara. La iluminación exterior es el",
+        "1:8:1:2": "cambie o salga del modo de cámara. El modo normal es el ajuste inicial",
+        "3:9:3:2": "fecha y hora de grabación y el texto",
+        "3:9:3:3": "adjunto (si lo hubiera) de la imagen",
+        "3:9:3:4": "visualizada.",
+        "0:8:2:3": "ajuste inicial fijado por omisión siempre que ingresa en el modo de cámara.",
+        "1:8:1:3": "fijado por omisión siempre que ingresa en el modo de cámara.",
+        "3:9:2:1": "• Mantenga pulsado cualquiera de los dos botones para desplazarse rápidamente.",
+        "3:9:2:2": "",
+        "3:9:2:3": ""
+      },
+      "headings": [
+        "Especificando el tipo de iluminación",
+        "Para especificar el tipo de iluminación",
+        "Modos de grabación",
+        "Modo normal",
+        "Modo de fusión",
+        "Modo de arte",
+        "Para seleccionar el modo de grabación",
+        "Para grabar usando el modo de fusión",
+        "Para grabar usando el modo de arte",
+        "¡Importante!",
+        "Nota",
+        "Modo VISUAL DATABANK™",
+        "Para ver las imágenes grabadas",
+        "Notas"
+      ],
+      "notes": [
+        "The scan clips the final display-darkening note at S-16; its ending follows the matching S-23 wording.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "34361881e2dfe8318b62e51c2b7c2732fbe7f13ef7884e6929b906acbea3421d"
+    },
+    "5": {
+      "reviewed": true,
+      "figures": [
+        [
+          42,
+          99,
+          126,
+          164
+        ],
+        [
+          42,
+          167,
+          124,
+          233
+        ],
+        [
+          42,
+          233,
+          125,
+          322
+        ],
+        [
+          43,
+          340,
+          282,
+          418
+        ],
+        [
+          303,
+          282,
+          389,
+          362
+        ],
+        [
+          315,
+          362,
+          380,
+          438
+        ],
+        [
+          41,
+          448,
+          128,
+          521
+        ]
+      ],
+      "footerY": [
+        434,
+        429,
+        831,
+        821
+      ],
+      "corrections": {
+        "0:4:1:1": "1. En el modo VISUAL DATABANK, utilice (E)",
+        "0:4:1:2": "(+) y (B) (−) para visualizar la imagen a la",
+        "0:5:1:1": "2. Sostenga presionado (A) durante un segundo hasta que aparezca el menú SET.",
+        "0:7:1:1": "3. Presione (F) para visualizar la pantalla de",
+        "0:7:4:1": "• Utilice (E) (+) y (B) (−) para realizar un ciclo",
+        "0:12:1:1": "• Utilice (D) (derecha) y (C) (izquierda) para mover el cursor.",
+        "0:14:1:1": "",
+        "0:15:1:1": "",
+        "0:16:1:1": "",
+        "0:17:1:1": "",
+        "1:1:1:2": "(A) o (F) para almacenarlo.",
+        "1:4:2:1": "acuerdo a las dos primeras letras de su texto fijado (caracteres alfabéticos →",
+        "1:4:3:1": "números → símbolos). Las imágenes que no tienen ningún texto se",
+        "1:7:2:2": "presionado (A) durante un segundo hasta",
+        "1:7:3:1": "2. Presione (E) para mover el puntero a DEL.",
+        "1:9:1:1": "",
+        "1:10:1:1": "3. Presione (F) para visualizar el menú DEL",
+        "2:2:1:1": "4. Presione (F) y sobre la presentación",
+        "2:2:4:1": "imágenes, presione (E) para mover el",
+        "2:2:4:5": "presione (F).",
+        "2:3:1:1": "6. Después de que aparece el mensaje EMPTY, presione (D) para ingresar en el modo",
+        "2:3:1:2": " de alarma o (F) para ingresar en el modo de cámara.",
+        "2:3:1:5": "automáticamente del menú y retorna a la pantalla VISUAL DATABANK.",
+        "2:5:2:1": "• Durante el procedimiento anterior puede retornar al modo VISUAL",
+        "2:7:1:1": "1. En el modo VISUAL DATABANK, utilice (E) (+) y (B) (−) para visualizar la",
+        "2:7:3:1": "2. Sostenga presionado (A) durante alrededor de un segundo hasta que",
+        "2:7:5:1": "3. Presione (E) para mover el puntero a DEL.",
+        "2:7:6:1": "4. Presione (F) para visualizar el menú DEL (borrado).",
+        "2:7:7:1": "5. Presione (E) para mover el puntero a PAGE.",
+        "2:7:8:1": "6. Presione (F) y sobre la presentación aparecerá un mensaje de",
+        "2:7:10:1": "7. Si realmente desea borrar la imagen, presione (E) para mover el",
+        "2:7:11:1": "puntero a YES y luego presione (F). Para eliminar el mensaje de",
+        "2:7:12:1": "confirmación sin borrar nada, deje el puntero en NO y presione (F).",
+        "2:9:1:1": "",
+        "2:10:1:1": "",
+        "2:11:1:1": "",
+        "3:1:1:1": "",
+        "3:2:2:2": "DATABANK, presionando el botón (A) en cualquier punto antes de borrar",
+        "1:4:6:2": "caracteres, aquellas imágenes se clasifican de acuerdo a sus fechas de",
+        "2:5:2:3": "las imágenes en el paso 5.",
+        "3:2:2:3": "la imagen en el paso 7.",
+        "0:7:5:1": "• Mantenga pulsado cualquiera de los dos botones para desplazarse rápidamente.",
+        "0:7:5:2": "",
+        "0:7:5:3": ""
+      },
+      "headings": [
+        "Fijando un texto a una imagen",
+        "Para fijar un texto a una imagen",
+        "Notas",
+        "Nota",
+        "Clasificando las imágenes",
+        "Borrando imágenes",
+        "Para borrar todas las imágenes en la memoria del reloj",
+        "Para borrar una imagen específica"
+      ],
+      "notes": [
+        "Circled button letters and numbered steps checked against the scan. In the single-image deletion step, corrected the printed reference to all images to the selected image.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "596ab45a8206a31e3f9f71f85d648b69a2f036c73f27834954ead9a675f8e8a3"
+    },
+    "6": {
+      "reviewed": true,
+      "figures": [
+        [
+          31,
+          68,
+          128,
+          188
+        ],
+        [
+          308,
+          84,
+          543,
+          163
+        ],
+        [
+          21,
+          448,
+          124,
+          599
+        ],
+        [
+          309,
+          461,
+          394,
+          574
+        ],
+        [
+          309,
+          653,
+          544,
+          715
+        ],
+        [
+          312,
+          715,
+          394,
+          789
+        ]
+      ],
+      "footerY": [
+        425,
+        427,
+        822,
+        819
+      ],
+      "corrections": {
+        "0:1:1:1": "Modo de hora normal",
+        "0:2:3:1": "• Para informarse acerca de la hora y fecha",
+        "0:8:1:1": "1. En el modo de hora normal, sostenga presionado (A) durante alrededor",
+        "0:8:2:1": "2. Presione (E) para reposicionar la cuenta de segundos a 00.",
+        "0:8:4:1": "3. Presione (A) para salir de la pantalla de ajuste y retornar al modo de hora",
+        "1:1:1:1": "Para cambiar entre los formatos de pantalla de modo de hora normal",
+        "1:1:1:2": "",
+        "1:2:1:1": "En el modo de hora normal, cada pulsación de (C) alterna entre los dos",
+        "2:3:1:1": "1. En el modo de hora normal, presione (E) o",
+        "2:3:1:2": "(B) para visualizar la imagen que se",
+        "2:3:2:1": "2. Utilice (E) (+) y (B) (−) para pasar visualizan-",
+        "2:4:1:2": "sobre la presentación.",
+        "2:7:1:1": "3. Para cerrar la pantalla del visualizador y retornar a la presentación del",
+        "2:7:1:2": "modo de hora normal, presione (D).",
+        "2:7:1:3": "• El reloj sale automáticamente de la pantalla del visualizador si no realiza",
+        "2:7:1:4": "ninguna operación durante unos 15 segundos.",
+        "2:8:1:1": "Para ajustar el contraste de la imagen",
+        "2:9:1:1": "1. En el modo de hora normal, presione (E) o (B) para visualizar la pantalla",
+        "2:9:2:1": "2. Presione (A) para visualizar el valor de ajuste de contraste de imagen",
+        "2:9:3:1": "3. Utilice (B) (más oscuro) y (E) (más claro) para ajustar el contraste a",
+        "2:9:4:1": "4. Después que el ajuste del contraste se encuentra de la manera deseada,",
+        "2:9:4:2": "presione (A) para aplicar el ajuste y salir de la pantalla de ajuste.",
+        "2:10:1:1": "Nota",
+        "3:4:2:3": "el modo de cámara, modo VISUAL",
+        "3:8:1:1": "1. En el modo de alarma, utilice (E) (+) y (B) (−) para visualizar la pantalla",
+        "3:3:1:5": "hora en punto.",
+        "2:3:3:1": "• Mantenga pulsado cualquiera de los dos botones para desplazarse rápidamente.",
+        "2:3:4:1": "",
+        "2:3:4:2": ""
+      },
+      "headings": [
+        "Modo de hora normal",
+        "Para reposicionar la cuenta de segundos a cero",
+        "Nota",
+        "Para cambiar entre los formatos de pantalla de modo de hora normal",
+        "Usando la pantalla del visualizador",
+        "¡Importante!",
+        "Para visualizar la pantalla del visualizador",
+        "Para ajustar el contraste de la imagen",
+        "Modo de alarma",
+        "Para ajustar la hora de alarma"
+      ],
+      "notes": [
+        "Body, original illustrations, booklet order and button letters checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Further review: remaining grammar and accents corrected. Sheet 10 focus range, effective pixels and tuning-fork oscillator terminology checked against the German module 2220 specifications, without changing any values.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "1f993d1c90432ab00e07a1c7348a4f0bba369d64585657678e414435f6494182"
+    },
+    "7": {
+      "reviewed": true,
+      "figures": [
+        [
+          30,
+          278,
+          131,
+          418
+        ],
+        [
+          57,
+          592,
+          136,
+          657
+        ],
+        [
+          317,
+          456,
+          398,
+          542
+        ]
+      ],
+      "footerY": [
+        433,
+        431,
+        828,
+        827
+      ],
+      "corrections": {
+        "0:1:1:1": "3. Mientras el ajuste de hora se encuentra destellando, utilice (E) (+) y (B) (−)",
+        "0:2:1:1": "4. Presione (D) de manera que los dígitos de minutos de la hora de alarma",
+        "0:2:1:3": "• Cada pulsación de (D) mueve la parte destellante entre la hora y los",
+        "0:2:1:5": "5. Mientras el ajuste de minutos se encuentra destellando, utilice (E) (+) y",
+        "0:2:1:6": "(B) (−) para cambiarlo.",
+        "0:7:1:2": "(C) para hacer sonar la alarma.",
+        "0:8:1:1": "Para activar y desactivar la alarma diaria y señal horaria",
+        "0:8:1:2": "",
+        "0:9:1:1": "1. En el modo de alarma, utilice (E) (+) y (B)",
+        "0:11:1:1": "presione (C) para activarla y desactivarla.",
+        "2:8:1:5": "destellando, utilice (E) (+) y (B) (−) para",
+        "2:9:1:3": "",
+        "2:9:1:4": "3. Presione (A) para salir de la pantalla de",
+        "3:1:1:2": "Usando la alarma de cuenta regresiva",
+        "3:2:1:1": "• Cada pulsación de (E) inicia y para la cuenta",
+        "3:2:1:6": "• Presionando (B) mientras una cuenta",
+        "0:1:1:3": "• Mantenga pulsado cualquiera de los dos botones para cambiar el ajuste rápidamente.",
+        "0:1:1:4": "",
+        "0:2:1:7": "• Mantenga pulsado cualquiera de los dos botones para cambiar el ajuste rápidamente.",
+        "0:2:1:8": "",
+        "2:9:1:1": "• Mantenga pulsado cualquiera de los dos botones para cambiar el ajuste rápidamente.",
+        "2:9:1:2": ""
+      },
+      "headings": [
+        "Nota",
+        "Operación de la alarma diaria",
+        "Para probar la alarma",
+        "Para activar y desactivar la alarma diaria y señal horaria",
+        "Modo de alarma de cuenta regresiva",
+        "¡Importante!",
+        "Para ajustar el tiempo de inicio de la cuenta regresiva",
+        "Usando la alarma de cuenta regresiva"
+      ],
+      "notes": [
+        "Body, original illustrations, booklet order and button letters checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "5a0de1e77825f167ab216e940d64b0f151f1c148b25c7a853613908d36ee70db"
+    },
+    "8": {
+      "reviewed": true,
+      "figures": [
+        [
+          38,
+          57,
+          146,
+          179
+        ],
+        [
+          34,
+          195,
+          301,
+          362
+        ],
+        [
+          317,
+          178,
+          558,
+          257
+        ],
+        [
+          52,
+          464,
+          261,
+          545
+        ],
+        [
+          24,
+          587,
+          120,
+          805
+        ],
+        [
+          322,
+          476,
+          393,
+          554
+        ],
+        [
+          310,
+          648,
+          401,
+          791
+        ]
+      ],
+      "footerY": [
+        417,
+        413,
+        807,
+        810
+      ],
+      "corrections": {
+        "0:1:1:1": "Modo de cronógrafo",
+        "1:2:1:1": "Modo IR",
+        "1:8:1:1": "",
+        "2:2:1:1": "En el modo de hora normal, presione cinco veces (D) para ingresar en el modo",
+        "2:6:1:1": "",
+        "2:10:1:1": "1. En el menú COM, presione (E) para mover",
+        "2:13:1:1": "2. Presione (F) para visualizar el menú",
+        "2:14:1:3": "3. Presione de nuevo (F) para visualizar la",
+        "2:16:1:1": "4. Utilice (E) (+) y (B) (−) para visualizar a",
+        "3:1:1:1": "",
+        "3:4:1:2": "• Coloque el reloj receptor en la condición de",
+        "3:4:2:1": "6. En el reloj transmisor, presione (F) para",
+        "3:4:3:1": "• La pantalla de envío de datos mostrada",
+        "3:4:3:4": "• El mensaje OK aparece momentáneamente",
+        "3:5:1:1": "• Una vez que finaliza el envío de las imágenes, presione (D) para retornar",
+        "3:8:1:2": "• Presionando (D) durante el procedimiento anterior retorna al modo de hora",
+        "3:15:1:1": "",
+        "3:19:1:1": "",
+        "3:20:1:1": "1. En el menú COM, presione (E) para mover",
+        "3:21:1:1": "2. Presione (F) para visualizar el menú",
+        "3:21:2:1": "3. Presione (E) para mover el puntero a",
+        "0:2:1:1": "El modo de cronógrafo le permite medir el",
+        "0:2:2:2": "dos llegadas a meta. La gama del cronógrafo es de",
+        "2:1:1:2": "Para ingresar en el modo IR",
+        "2:2:1:2": "IR. Aparece una pantalla inicial durante alrededor de un segundo y después se muestra el menú COM (modo IR).",
+        "2:2:1:3": "",
+        "2:16:2:1": "• Mantenga pulsado cualquiera de los dos botones para desplazarse rápidamente.",
+        "2:16:3:1": "",
+        "2:16:3:2": ""
+      },
+      "headings": [
+        "Modo de cronógrafo",
+        "Para medir tiempos con el cronógrafo",
+        "Nota",
+        "Modo IR",
+        "Notas",
+        "Intercambiando datos entre dos relojes",
+        "Para ingresar en el modo IR",
+        "Para enviar una sola imagen",
+        "Para recibir una sola imagen"
+      ],
+      "notes": [
+        "SEND/RECEIVE steps and buttons checked individually; OTHERS is the WQV-1/2 watch protocol.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "ocrSHA256": "fe5f21397a12c66f6385d2dd3b1ba2a1c5cca3dc48c2f3934f448e6cbc49696b",
+      "cropMasks": {
+        "1": [
+          [
+            137,
+            57,
+            146,
+            95
+          ]
+        ]
+      }
+    },
+    "9": {
+      "reviewed": true,
+      "figures": [
+        [
+          45,
+          52,
+          109,
+          122
+        ],
+        [
+          40,
+          570,
+          118,
+          654
+        ]
+      ],
+      "footerY": [
+        435,
+        433,
+        826,
+        825
+      ],
+      "corrections": {
+        "0:4:1:1": "4. Presione de nuevo (F) para activar la espera de recepción,",
+        "0:5:1:1": "• Una vez que finaliza la recepción de las imágenes, presione (D) para",
+        "0:7:1:2": "• Presionando (D) durante el procedimiento anterior retorna al modo de hora",
+        "1:2:10:1": "10 cm cuando la energía de pila del reloj se encuentra baja.",
+        "1:2:11:4": "los cinco minutos sucede mientras una operación de envío/recepción de",
+        "1:2:11:6": "completa, después de eso el reloj retorna automáticamente al menú COM.",
+        "2:2:1:1": "Fuente de alimentación",
+        "2:4:1:2": "miento de inventario. Debido a esto, puede no proporcionar la duración de",
+        "3:1:1:1": "",
+        "3:2:8:1": "• No intente desarmar la pila, ni exponerla al calor o a la llama directa.",
+        "3:3:1:2": "pila llega a ser ingerida accidentalmente, comuníquese de inmediato",
+        "1:2:5:3": "ción de datos bajo la iluminación normal de una sala (alrededor de 500",
+        "2:14:2:3": "cualquier tercera parte debido al borrado de datos o alteración debido a una",
+        "3:2:4:4": "y libres de humedad.",
+        "0:4:1:2": "lo cual",
+        "0:4:5:3": "Luego, el reloj vuelve al menú OTHERS con RECEIVE seleccionado, como en el paso 3 del procedimiento anterior.",
+        "0:4:5:4": "",
+        "0:4:5:5": ""
+      },
+      "headings": [
+        "Notas",
+        "Errores de comunicación",
+        "Precauciones durante la comunicación",
+        "Fuente de alimentación",
+        "Acerca de la pila instalada en fábrica",
+        "Indicación de pila baja",
+        "Paso 1",
+        "Paso 2",
+        "Precauciones con la pila"
+      ],
+      "notes": [
+        "Body, original illustrations, booklet order and button letters checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks.",
+        "Follow-up text/crop audit, 2026-11-04: reception-standby instruction joined without the stray space before its comma; no picture captions changed."
+      ],
+      "blocks": [
+        {
+          "rect": [
+            33,
+            253,
+            291,
+            396
+          ],
+          "html": "<table class=\"manual-table\"><thead><tr><th>Reloj</th><th>Mensaje/Indicador</th><th>Causa y solución</th></tr></thead><tbody><tr><td>Transmisor</td><td>OTHERS SEND ERROR</td><td>La comunicación ha fallado por alguna razón. Intente de nuevo.</td></tr><tr><td>Transmisor</td><td>Marcas de flecha destellando.</td><td>El enlace de comunicación con el receptor fue cortado. Alinee nuevamente los relojes e intente de nuevo.</td></tr><tr><td>Receptor</td><td>OTHERS RECEIVE ERROR</td><td>La comunicación ha fallado por alguna razón. Intente de nuevo.</td></tr><tr><td>Receptor</td><td>PLAY 100 FULL</td><td>La memoria del reloj está completa. Borre las imágenes que no necesite más e intente de nuevo.</td></tr><tr><td>Receptor</td><td>Marcas de flecha destellando.</td><td>El enlace de comunicación con el transmisor fue cortado. Alinee nuevamente los relojes e intente de nuevo.</td></tr></tbody></table>"
+        }
+      ],
+      "ocrSHA256": "1146bc668c2a918930a8c33168b4b1feadcf8222546b5cbad9f1981c2d82ea4a"
+    },
+    "10": {
+      "reviewed": true,
+      "figures": [
+        [
+          43,
+          69,
+          120,
+          175
+        ],
+        [
+          33,
+          184,
+          145,
+          337
+        ],
+        [
+          328,
+          55,
+          382,
+          132
+        ],
+        [
+          331,
+          183,
+          385,
+          238
+        ],
+        [
+          325,
+          263,
+          389,
+          354
+        ]
+      ],
+      "footerY": [
+        433,
+        427,
+        827,
+        824
+      ],
+      "corrections": {
+        "0:7:2:1": "• Si tiene problemas para sacar la pila, trate",
+        "0:7:3:1": "• Tenga cuidado de no aflojar la junta del",
+        "0:7:4:1": "• Mantenga sus dedos alejados del resorte",
+        "1:9:1:1": "• Limpie las superficies de una pila nueva con",
+        "1:9:2:1": "• No tome la pila con pinzas que toquen la",
+        "1:9:3:1": "• Si la junta se llega a salir cuando retira la",
+        "1:9:4:1": "• Siempre que coloque de nuevo la junta,",
+        "1:9:5:1": "• Tenga en cuenta la forma triangular del",
+        "1:9:5:5": "se coloca la junta. La superficie puntiaguda",
+        "1:11:1:1": "4. Cierre la cubierta de pila.",
+        "1:11:1:2": "• Vuelva a colocar la cubierta de pila, y gírela",
+        "2:2:1:1": "",
+        "2:3:1:1": "Precisión a temperatura normal: ±15 segundos por mes.",
+        "2:6:1:1": "Modo de hora normal: Hora, minutos, segundos, AM (A)/PM (P), mes, día,",
+        "2:6:1:4": "Sistema calendario: Calendario automático completo programado desde",
+        "2:6:1:5": "el año 2000 al 2039.",
+        "2:10:5:1": "Objetivo: f/2,8 fijo, f = 1,1 mm.",
+        "2:10:8:1": "Control de exposición: ALC (control de luz).",
+        "3:1:2:3": "solo chip.",
+        "3:1:3:1": "Temperatura de operación: 0 °C a 40 °C (32 °F a 104 °F).",
+        "3:1:4:1": "Pila: Una pila de litio CR-2032.",
+        "1:9:1:4": "(de modo que lo pueda ver).",
+        "2:10:4:2": "(Píxeles totales: 28.000; píxeles efectivos:",
+        "2:10:4:3": "25.344).",
+        "2:10:6:1": "Distancia de enfoque: 30 cm a infinito.",
+        "3:1:2:1": "Elementos principales: Oscilador de cuarzo de alto rendimiento de tipo",
+        "3:1:2:2": "diapasón y LSI CMOS de un",
+        "0:7:1:1": "2. Retire la pila usada."
+      },
+      "headings": [
+        "Para reemplazar la pila",
+        "Ajustes siguiendo al reemplazo de la pila",
+        "Especificaciones",
+        "Modo de alarma de cuenta regresiva",
+        "Modo de cronógrafo",
+        "Modo de cámara",
+        "Generalidades"
+      ],
+      "notes": [
+        "Technical symbols ±, f/2.8, degrees Celsius and Fahrenheit checked against the scan.",
+        "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
+        "Further review: remaining grammar and accents corrected. Sheet 10 focus range, effective pixels and tuning-fork oscillator terminology checked against the German module 2220 specifications, without changing any values.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks.",
+        "Follow-up crop/text audit, 2026-11-04: restored the full step 2 heading after the expanded battery diagram excluded its number from OCR flow; neighbouring text remains masked in the crop."
+      ],
+      "ocrSHA256": "bb4815a0fa19005542aa6b398717b492ed7cb38bd69956fcbee0f3e310dae486",
+      "cropMasks": {
+        "2": [
+          [
+            133,
+            184,
+            145,
+            278
+          ]
+        ]
+      }
+    },
+    "11": {
+      "reviewed": true,
+      "figures": [
+        [
+          365,
+          467,
+          518,
+          545
+        ]
+      ],
+      "footerY": [
+        431,
+        428,
+        827,
+        841
+      ],
+      "corrections": {
+        "0:2:1:1": "Mantenimiento por el usuario",
+        "0:4:1:5": "agua es mayor que la presión estática. Note lo siguiente.",
+        "0:25:1:1": "I No es resistente al agua. Evite todo tipo de humedad.",
+        "0:25:2:1": "III No opere los botones bajo el agua.",
+        "0:25:3:1": "IV Si el reloj se expone al agua salada, lávelo perfectamente y séquelo.",
+        "0:26:1:1": "• Su reloj resistente al agua ha sido probado de acuerdo con la norma",
+        "0:26:1:2": "ISO 2281 de la Organización Internacional de Normalización y la Guía 5",
+        "0:26:1:3": "de la «GUÍA PARA LA INDUSTRIA RELOJERA» del FTC (EE.UU.).",
+        "0:26:2:1": "• Algunos relojes resistentes al agua están provistos de correas de cuero.",
+        "0:27:5:2": "evitar el uso rudo o el dejarlo caer.",
+        "1:1:7:1": "• Algunos modelos vienen con patrones impresos mediante estarcido de",
+        "1:1:7:2": "seda en sus pulseras. Tenga cuidado al limpiar tales pulseras de modo",
+        "2:4:2:1": "• El contacto por un período largo con la humedad, puede ocasionar que",
+        "2:4:2:4": "• El contacto por un período largo con cualquier otra superficie, mientras",
+        "2:4:2:6": "fluorescentes. Cerciórese de mantener las superficies fluorescentes",
+        "2:4:2:8": "• Frotando fuertemente una superficie fluorescente impresa con otra",
+        "2:4:2:9": "superficie, puede ocasionar que el color de la impresión sea transferido a",
+        "2:6:1:1": "",
+        "2:7:1:1": "• CASIO COMPUTER CO., LTD. no asume ninguna responsabilidad",
+        "2:8:1:1": "• CASIO COMPUTER CO., LTD. no asume ninguna responsabilidad ante reclamos de terceras partes por daños debido al uso de este",
+        "2:8:1:2": "producto.",
+        "3:1:1:1": "",
+        "3:1:1:2": "",
+        "3:3:1:1": "",
+        "3:6:1:2": "delantero (F).",
+        "0:24:5:2": "Notas",
+        "0:4:1:2": "estática indicada en su caja (50, 100 o 200 metros), y la inmersión",
+        "0:27:2:1": "• Deberá hacer reemplazar cada 2 o 3 años el sello de goma que evita la"
+      },
+      "headings": [
+        "Mantenimiento por el usuario",
+        "Cuidado de su reloj",
+        "Para los relojes equipados con pulseras de resina...",
+        "Para los relojes equipados con cajas y pulseras fluorescentes...",
+        "Desactivación de presentación automática",
+        "Notas"
+      ],
+      "notes": [
+        "Water-resistance table checked cell by cell. The power-save insert is retained.",
+        "Further review: remaining grammar and accents corrected. Sheet 10 focus range, effective pixels and tuning-fork oscillator terminology checked against the German module 2220 specifications, without changing any values.",
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+      ],
+      "blocks": [
+        {
+          "rect": [
+            43,
+            148,
+            298,
+            213
+          ],
+          "html": "<table class=\"manual-table\"><thead><tr><th>Clasificación</th><th>Designación de la caja</th><th>Salpicaduras, lluvia, etc.</th><th>Natación, lavado de automóvil, etc.</th><th>Buceo con esnórkel, zambullidas, etc.</th><th>Buceo con escafandra</th></tr></thead><tbody><tr><td>I</td><td>—</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>II</td><td>WATER RESISTANT</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr><tr><td>III</td><td>50M WATER RESISTANT</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr><tr><td>IV</td><td>100M WATER RESISTANT</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr><tr><td>V</td><td>200M WATER RESISTANT / 300M WATER RESISTANT</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr></tbody></table>"
+        }
+      ],
+      "ocrSHA256": "f55e56b390cbaa5890fa9c99e795721c1ab07b1d184df20bbdc90ec21c39fa33"
+    }
+  }
+}

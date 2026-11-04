@@ -5,6 +5,8 @@ import { LANGUAGE_KEY, readLanguage, getLanguage, setLanguage, onLanguageChange,
 import { russian } from '../dist/translations.mjs';
 import { japanese } from '../dist/translations-ja.mjs';
 import { german } from '../dist/translations-de.mjs';
+import { spanish } from '../dist/translations-es.mjs';
+import { finnish } from '../dist/translations-fi.mjs';
 import { clockPayload } from '../dist/calendar.mjs';
 
 afterEach(() => setLanguage('en', { persist: false }));
@@ -107,9 +109,27 @@ test('blocked persistence still allows switching, and unsupported languages leav
 });
 
 test('translations preserve every message substitution', () => {
-  for (const dictionary of [russian, japanese, german]) for (const [english, translation] of Object.entries(dictionary)) {
+  for (const dictionary of [russian, japanese, german, spanish, finnish]) for (const [english, translation] of Object.entries(dictionary)) {
     const placeholders = text => [...text.matchAll(/\{\d+\}/g)].map(match => match[0]).sort();
     assert.deepEqual(placeholders(translation), placeholders(english), english);
+  }
+});
+
+test('Spanish and Finnish cover every message, persist and use natural counters and date formats', () => {
+  for (const [language, dictionary, words, month] of [
+    ['es', spanish, ['0 fotos','1 foto','2 fotos'], 'noviembre'],
+    ['fi', finnish, ['0 kuvaa','1 kuva','2 kuvaa'], 'marraskuu'],
+  ]) {
+    assert.deepEqual(Object.keys(dictionary).sort(), Object.keys(russian).sort());
+    assert.ok(Object.values(dictionary).every(value => typeof value === 'string' && value.trim()));
+    const values = new Map();
+    const storage = { getItem: key => values.get(key), setItem: (key, value) => values.set(key, value) };
+    setLanguage(language, { storage });
+    assert.equal(readLanguage(storage), language);
+    assert.deepEqual([0,1,2].map(n => String(quantity(n, 'photos'))), words);
+    assert.equal(new Date(Date.UTC(2026, 10, 4)).toLocaleString(locale(), { month: 'long', timeZone: 'UTC' }), month);
+    assert.equal(String(tr('User’s Guide')), language === 'es' ? 'Guía del usuario' : 'Käyttöohje');
+    assert.match(String(tr('Press the front button on the watch now.')), language === 'es' ? /botón frontal/ : /etupainiketta/);
   }
 });
 
