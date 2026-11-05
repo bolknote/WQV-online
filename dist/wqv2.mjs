@@ -19,6 +19,7 @@ let initialMode = 'pc'; try { if (localStorage.getItem(MODE_KEY) === 'others') i
 const S = { device: null, adapter: null, active: null, client: null, latest: null, pending: null,
   mode: initialMode, tab: 'photos', clockSnapshot: null,
   images: [], selected: null, urls: new Map(), log: [], capture: null, storageFailed: false,
+  unsavedImages: new Set(), failedImageSaves: 0, saveFailureBaseline: 0,
   status: ['idle', tr('Ready'), tr('Connect a USB adapter to communicate with the watch.'), null] };
 let refreshTimer, startReading;
 const now = () => new Date().toISOString();
@@ -33,6 +34,9 @@ function log(level, message) {
   S.log.push({ at: now(), level, message }); if (S.log.length > 500) S.log.shift(); refreshSoon();
 }
 function status(state, heading, detail = '', ratio = null) {
+  if (state !== 'working' && S.active && S.failedImageSaves > S.saveFailureBaseline) {
+    state = 'error'; heading = tr('Photos not saved'); detail = tr('The photos are available in this tab only. Export them before closing or reloading this page.');
+  }
   S.status = [state, heading, detail, ratio]; refreshSoon();
 }
 function refreshSoon() { if (!refreshTimer) refreshTimer = setTimeout(render, 50); }
@@ -134,10 +138,14 @@ function renderGallery() {
 }
 async function addImage(image) {
   const index = S.images.findIndex(item => item.id === image.id);
+  const alreadySaved = index >= 0 && !S.unsavedImages.has(image.id);
   if (index < 0) S.images.push(image); else S.images[index] = { ...image, receivedAt: S.images[index].receivedAt };
   S.selected = image.id;
-  try { await store.saveImage(S.images.find(item => item.id === image.id)); }
-  catch (error) { S.storageFailed = true; log('error', tr('Browser storage: {0}', error.message)); }
+  try { await store.saveImage(S.images.find(item => item.id === image.id)); S.unsavedImages.delete(image.id); }
+  catch (error) {
+    if (!alreadySaved) { S.unsavedImages.add(image.id); S.failedImageSaves++; }
+    S.storageFailed = true; log('error', tr('Browser storage: {0}', error.message));
+  }
   renderGallery();
 }
 function switchTab(name) {
@@ -170,6 +178,8 @@ document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventL
 
 async function simple(task) {
   if (S.active) return;
+  const failedSaves = S.failedImageSaves;
+  S.saveFailureBaseline = failedSaves;
   const controller = new AbortController(); S.active = controller; render();
   try { await task(controller.signal); }
   catch (error) {
@@ -177,8 +187,12 @@ async function simple(task) {
     else if (error.name === 'NotFoundError') status('idle', tr('No USB device selected'));
     else { log('error', error.message); status('error', tr('Operation did not finish'), error.message); }
     if (S.adapter && !S.adapter.opened) S.adapter = null;
-  } finally { if (S.active === controller) S.active = null; render(); }
+  } finally {
+    if (S.failedImageSaves > failedSaves) unsavedPhotosStatus();
+    if (S.active === controller) S.active = null; render();
+  }
 }
+function unsavedPhotosStatus() { status('error', tr('Photos not saved'), tr('The photos are available in this tab only. Export them before closing or reloading this page.')); }
 $('connect').addEventListener('click', () => simple(async signal => {
   const device = await navigator.usb.requestDevice({ filters: [] }); signal.throwIfAborted();
   S.device = device; S.lastAdapter = null; capture('usb');
@@ -223,6 +237,8 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
     try { wqv12ClockPayload(clockValue); }
     catch (error) { status('error', tr('Invalid date or time'), error.message); render(); return; }
   }
+  const failedSaves = S.failedImageSaves;
+  S.saveFailureBaseline = failedSaves;
   const adapter = S.adapter, controller = new AbortController(); S.active = controller; S.latest = null;
   capture(mode);
   if (mode === 'set-clock') record('wqv12-clock-selected', { requested: clockValue, sent: false });
@@ -276,6 +292,7 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
     try { await adapter.close(); } catch {}
   } finally {
     if (controller.signal.aborted) { try { await adapter.close(); } catch {} }
+    if (S.failedImageSaves > failedSaves) unsavedPhotosStatus();
     startReading = null; S.pending = null; S.client = null;
     if (!adapter.opened) S.adapter = null;
     if (S.active === controller) S.active = null;
@@ -336,7 +353,7 @@ $('delete-local-image').addEventListener('click', async () => {
     { confirm: true, accept: tr('Delete copy') })) return;
   simple(async () => {
     if (store.db) await store.removeImage(image.id);
-    const index = S.images.indexOf(image); S.images.splice(index, 1);
+    const index = S.images.indexOf(image); S.images.splice(index, 1); S.unsavedImages.delete(image.id);
     S.selected = S.images[Math.min(index, S.images.length - 1)]?.id ?? null;
     URL.revokeObjectURL(S.urls.get(image.id)); S.urls.delete(image.id);
     status('success', tr('Local copy deleted'), tr('The photo on the watch and exported files have been kept.')); renderGallery();

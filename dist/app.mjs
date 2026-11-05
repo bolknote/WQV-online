@@ -51,15 +51,16 @@ const S = {
   maintenance: null, disconnectTask: null, idleTimer: null,
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
-  operationResult: null, storageFailed: false, detailsImage: null,
+  operationResult: null, storageFailed: false, detailsImage: null, unsavedImages: new Set(), failedImageSaves: 0, saveFailureBaseline: 0,
   mode: readWatchMode(), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
-const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active || S.disconnectTask), close: async () => {
+const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active || S.disconnectTask), confirmLeave: confirmCalendarDiscard, close: async () => {
   clearTimeout(S.idleTimer); await S.disconnectTask; await S.maintenance; clearTimeout(S.idleTimer);
   try { await closeClient(); } catch (error) { log('info', error); }
   if (S.adapter) { try { await S.adapter.close(); } catch (error) { log('info', error); } }
   S.adapter = null;
+  window.removeEventListener('beforeunload', warnCalendarUnload);
 } });
 const stamp = () => new Date().toISOString();
 let logTimer = null, updateTimer = null;
@@ -77,6 +78,9 @@ function renderLog() {
   $('log').scrollTop = $('log').scrollHeight;
 }
 function result(state, heading, detail = '', ratio = null) {
+  if (state !== 'working' && S.active && S.failedImageSaves > S.saveFailureBaseline) {
+    state = 'error'; heading = tr('Photos not saved'); detail = tr('The photos are available in this tab only. Export them before closing or reloading this page.');
+  }
   S.operationResult = [state, heading, detail, ratio];
   $('result-heading').textContent = formatText(heading); $('result-detail').textContent = formatText(detail);
   $('result-heading').closest('.operation-bar').dataset.state = state;
@@ -212,6 +216,8 @@ async function ensureClient(signal) {
 async function run(task, { keep = true, usesUSB = true } = {}) {
   if (S.active) return;
   clearTimeout(S.idleTimer); S.idleTimer = null;
+  const failedSaves = S.failedImageSaves;
+  S.saveFailureBaseline = failedSaves;
   const controller = new AbortController(); S.active = controller; S.activeUSB = usesUSB; update();
   try { await S.disconnectTask; await S.maintenance; controller.signal.throwIfAborted(); await task(controller.signal); }
   catch (error) {
@@ -236,6 +242,7 @@ async function run(task, { keep = true, usesUSB = true } = {}) {
     if (S.client) S.client.signal = null;
     if (S.adapter && !S.adapter.opened) { S.lastAdapter = S.adapter; S.adapter = null; }
     if (S.active === controller) { S.active = null; S.activeUSB = false; }
+    if (S.failedImageSaves > failedSaves) result('error', tr('Photos not saved'), tr('The photos are available in this tab only. Export them before closing or reloading this page.'));
     S.fast = false; update(); scheduleKeepAlive();
     if ($('result-heading').closest('.operation-bar').dataset.state !== 'working') $('progress').hidden = true;
   }
@@ -373,6 +380,7 @@ $('delete-local-image').addEventListener('click', async () => {
   try {
     if (store.db) await store.removeImage(image.id);
     S.images.splice(index, 1);
+    S.unsavedImages.delete(image.id);
     S.selected = S.images[Math.min(index, S.images.length - 1)]?.id ?? null;
     if (S.urls.has(image.id)) { URL.revokeObjectURL(S.urls.get(image.id)); S.urls.delete(image.id); }
     log('info', tr("Deleted the local copy of “{0}”.", image.name));
@@ -394,8 +402,13 @@ async function addImage(image) {
   renderGallery();
 }
 function storageError(error) { S.storageFailed = true; log('error', error); }
-async function saveLocalImage(image) {
-  try { await store.saveImage(image); } catch (error) { storageError(error); }
+async function saveLocalImage(image, { existing = false } = {}) {
+  try { await store.saveImage(image); S.unsavedImages.delete(image.id); }
+  catch (error) {
+    if (!existing) S.unsavedImages.add(image.id);
+    if (S.unsavedImages.has(image.id)) S.failedImageSaves++;
+    storageError(error);
+  }
 }
 
 function renderTransfer() {
@@ -682,11 +695,24 @@ function renderCalendar() {
     fragment.append(button);
   }
   $('calendar-grid').replaceChildren(fragment);
-  const dirty = S.calendar && S.baseline && !equal(S.calendar.raw, S.baseline);
+  const dirty = calendarDirty();
+  syncCalendarUnload();
   $('holiday-state').textContent = !S.calendar ? tr("Not read from watch") : dirty ? tr("Unsaved changes") : S.calendarOrigin;
   $('holiday-count').textContent = S.calendar ? tr("{0} in {1}", quantity(S.calendar.count(year), "days"), year) : '—';
   update();
 }
+function calendarDirty() { return Boolean(S.calendar && S.baseline && !equal(S.calendar.raw, S.baseline)); }
+function warnCalendarUnload(event) {
+  if (calendarDirty()) { event.preventDefault(); event.returnValue = ''; }
+}
+function syncCalendarUnload() {
+  window.removeEventListener('beforeunload', warnCalendarUnload);
+  if (calendarDirty()) window.addEventListener('beforeunload', warnCalendarUnload);
+}
+function confirmCalendarDiscard() {
+  return !calendarDirty() || showDialog(tr('Unsaved calendar changes'), tr('Discard the unsaved calendar changes?'), tr('Discard changes'), true);
+}
+window.addEventListener('pageshow', syncCalendarUnload);
 for (const id of ['calendar-month', 'calendar-year']) $(id).addEventListener('change', renderCalendar);
 for (const [id, delta] of [['month-back', -1], ['month-forward', 1]]) $(id).addEventListener('click', () => {
   let m = +$('calendar-month').value - 1 + delta, y = +$('calendar-year').value;
@@ -708,14 +734,17 @@ async function saveHolidayBackup(calendar, { required = false } = {}) {
     return false;
   }
 }
-$('read-holidays').addEventListener('click', () => run(async signal => {
-  const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr('Calendar settings for 2000–2039.'));
-  const calendar = await client.control(b(9)), saved = await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
-  record('holidayRead', { passed: true, sha256: await sha256(calendar.raw), count: calendar.count() });
-  result(saved ? 'success' : 'idle', tr("Calendar received"), saved ?
-    tr("Marked dates: {0}. The original backup is saved in this browser.", calendar.count()) :
-    tr('The original calendar is available in this tab only. Export the backup before closing it.'));
-}));
+$('read-holidays').addEventListener('click', async () => {
+  if (S.active || !await confirmCalendarDiscard()) return;
+  await run(async signal => {
+    const client = await ensureClient(signal); result('working', tr("Reading calendar"), tr('Calendar settings for 2000–2039.'));
+    const calendar = await client.control(b(9)), saved = await saveHolidayBackup(calendar); await rememberCalendar(calendar, tr("Read from the watch"));
+    record('holidayRead', { passed: true, sha256: await sha256(calendar.raw), count: calendar.count() });
+    result(saved ? 'success' : 'idle', tr("Calendar received"), saved ?
+      tr("Marked dates: {0}. The original backup is saved in this browser.", calendar.count()) :
+      tr('The original calendar is available in this tab only. Export the backup before closing it.'));
+  });
+});
 $('send-holidays').addEventListener('click', async () => {
   if (!S.calendar || S.active) return;
   const desired = new Calendar(S.calendar.raw);
@@ -741,8 +770,9 @@ $('undo-holidays').addEventListener('click', () => { if (S.baseline) { S.calenda
 $('export-holidays').addEventListener('click', () => { if (S.calendar) downloadFile(JSON.stringify(S.calendar.backup(), null, 2), (profile.colourCalendar ? 'WQV-10-calendar.json' : 'WQV-holidays.json'), 'application/json'); });
 $('original-backup').addEventListener('click', () => { if (S.holidayBackup) downloadFile(JSON.stringify(S.holidayBackup, null, 2), (profile.colourCalendar ? 'WQV-10-calendar-original.json' : 'WQV-holidays-original.json'), 'application/json'); });
 $('import-holidays').addEventListener('click', () => $('holiday-file').click());
-$('holiday-file').addEventListener('change', event => {
+$('holiday-file').addEventListener('change', async event => {
   const file = event.target.files[0]; event.target.value = ''; if (!file) return;
+  if (S.active || !await confirmCalendarDiscard()) return;
   run(async signal => {
     if (file.size > 20000) throw new LocalizedError(tr("The calendar file is too large."));
     let backup; try { backup = JSON.parse(await file.text()); } catch { throw new LocalizedError(tr("The file does not contain a JSON calendar.")); }
@@ -805,7 +835,7 @@ try {
     let checked;
     try { checked = await readableImage(image); }
     catch (error) { log('error', tr('{0}: {1}', image.name, error)); S.images.push({ ...image, jpegError: error }); continue; }
-    S.images.push(checked); await saveLocalImage(checked);
+    S.images.push(checked); await saveLocalImage(checked, { existing: true });
   }
   if (S.images.length) { S.selected = S.images[0].id; renderGallery(); }
   const calendar = await store.get('calendar'), backup = await store.get('holidayBackup');

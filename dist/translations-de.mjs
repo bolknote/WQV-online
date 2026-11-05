@@ -2,6 +2,11 @@ import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // German translations; English messages are the keys.
 export const german = {
+  'Photos not saved': 'Fotos nicht gespeichert',
+  'The photos are available in this tab only. Export them before closing or reloading this page.': 'Die Fotos sind nur in diesem Tab verfügbar. Exportieren Sie sie, bevor Sie die Seite schließen oder neu laden.',
+  'Unsaved calendar changes': 'Ungespeicherte Kalenderänderungen',
+  'Discard the unsaved calendar changes?': 'Die ungespeicherten Kalenderänderungen verwerfen?',
+  'Discard changes': 'Änderungen verwerfen',
   ...driverDictionary('de'),
   ...settingsDictionary('de'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Wählen Sie ein Fotoarchiv für WQV-3 oder WQV-10.",

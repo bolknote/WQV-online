@@ -1,5 +1,5 @@
 import { b, concat, toHex } from './formats.mjs';
-import { encodeKingsun, KingsunCounter, kingsunTXFragmentBytes } from './kingsun.mjs';
+import { encodeKingsun, KingsunCounter, KingsunStream, kingsunTXFragmentBytes } from './kingsun.mjs';
 import { WQV12Decoder } from './wqv12-formats.mjs';
 import { sleep } from './irda.mjs';
 import { SwanWatchClient } from './swan-watch-core.mjs';
@@ -34,21 +34,26 @@ export class SwanKingsunStream {
   }
 }
 
-const isKS = a => a.description?.driver === 'KingSun KS-959';
+const isKS = a => a.profile ? a.profile.id === 'ks959' : a.description?.driver === 'KingSun KS-959';
 export async function prepareSwan(adapter, signal) {
   signal?.throwIfAborted();
+  if (adapter.profile && adapter.profile.framing !== 'raw') throw new Error('SWAN requires a driver with raw SIR byte access.');
   await adapter.pauseReader(); await adapter.setupSIR(); await adapter.setSIRSpeed(SWAN_BAUD);
   signal?.throwIfAborted(); adapter.assertOpen();
+  if (adapter.candidate && isKS(adapter)) adapter.setReceiveStream(new SwanKingsunStream(null, adapter.record), { swan: true });
   adapter.decoder.reset(); adapter.decoder.frames.length = 0;
   // Keep the measured WQV-3 threshold. RXDSNS 6 did not eliminate errors
   // at 38400 in the adapter bench; it is not a SWAN default.
-  if (!isKS(adapter)) {
+  if (!adapter.candidate && !isKS(adapter)) {
     const regs = await adapter.registers(1, 9, true);
     if (regs[0] !== 0x2a || regs[1] !== 0x1d || (regs[3] & 0xf8) !== 0x20 || regs[7] !== 0x15) throw new Error('SWAN receiver settings did not match register readback.');
   }
 }
 
 function rawTransport(a, record) {
+  // Installed drivers already expose decoded raw bytes and own the USB reader.
+  // Keep both directions in that driver instead of competing with its URBs.
+  if (a.candidate) return () => { if (isKS(a)) a.setReceiveStream(new KingsunStream()); };
   const oldRead = a.readSIR, oldWrite = a.writeSIR;
   const stream = isKS(a) ? new SwanKingsunStream(a.stream.counter, record) : null;
   a.readSIR = async () => {

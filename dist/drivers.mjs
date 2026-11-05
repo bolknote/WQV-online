@@ -8,7 +8,8 @@ import { checkInstalledDriver } from './driver-usb.mjs';
 import { driverLogMessage } from './driver-log.mjs';
 
 const $ = id => document.getElementById(id), say = key => String(tr(key));
-const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, log: [], lastStatus: null };
+const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, reportKey: null, log: [], lastStatus: null };
+const checkKey = record => record ? JSON.stringify([record.id, record.inputSHA256, record.updatedAt]) : null;
 const selected = () => S.records.find(record => record.id === S.selected);
 function status(state, heading, note = '') {
   S.lastStatus = { state, heading, note };
@@ -37,6 +38,10 @@ function showTab(view) {
   $('tab-check').setAttribute('aria-selected', String(view === 'check'));
 }
 function render() {
+  const match = S.device && chooseInstalledDriver(S.records, S.device);
+  if (S.report && S.reportKey !== checkKey(match?.record)) {
+    S.report = null; S.reportKey = null; $('diagnostic-date').textContent = '';
+  }
   const record = selected();
   document.title = say('Infrared drivers') + ' · CASSIOPEIA';
   $('driver-count').textContent = String(quantity(S.records.length, 'drivers'));
@@ -173,6 +178,7 @@ async function check(method, signal) {
   if (!match) { status('error', tr('No matching installed driver')); return; }
   S.log = []; status('working', tr('Testing…'), match.record.filename);
   const previous = S.report;
+  S.reportKey = checkKey(match.record);
   S.checkMethod = method; renderCheck();
   let report;
   try { report = await checkInstalledDriver(match.record, match.match, S.device, { method, signal, recordEvent: entry => log(entry) }); }

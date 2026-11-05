@@ -61,6 +61,13 @@ def parse_configuration(raw):
     return raw[5], alternates
 
 
+class DeviceDescriptor(C.Structure):
+    _fields_ = [('length', C.c_uint8), ('kind', C.c_uint8), ('usb', C.c_uint16),
+        ('device_class', C.c_uint8), ('subclass', C.c_uint8), ('protocol', C.c_uint8), ('packet_size', C.c_uint8),
+        ('vendor', C.c_uint16), ('product', C.c_uint16), ('device', C.c_uint16),
+        ('manufacturer', C.c_uint8), ('name', C.c_uint8), ('serial', C.c_uint8), ('configurations', C.c_uint8)]
+
+
 class USB:
     def __init__(self, vendor, product, interface=0):
         self.vendor, self.product, self.interface = vendor, product, interface
@@ -73,7 +80,10 @@ class USB:
         pointer = C.POINTER(C.c_ubyte)
         signatures = {
             'init': ([C.POINTER(C.c_void_p)], C.c_int), 'exit': ([C.c_void_p], None),
-            'open_device_with_vid_pid': ([C.c_void_p, C.c_uint16, C.c_uint16], C.c_void_p),
+            'get_device_list': ([C.c_void_p, C.POINTER(C.POINTER(C.c_void_p))], C.c_ssize_t),
+            'free_device_list': ([C.POINTER(C.c_void_p), C.c_int], None),
+            'get_device_descriptor': ([C.c_void_p, C.POINTER(DeviceDescriptor)], C.c_int),
+            'open': ([C.c_void_p, C.POINTER(C.c_void_p)], C.c_int),
             'close': ([C.c_void_p], None), 'get_configuration': ([C.c_void_p, C.POINTER(C.c_int)], C.c_int),
             'set_configuration': ([C.c_void_p, C.c_int], C.c_int),
             'claim_interface': ([C.c_void_p, C.c_int], C.c_int), 'release_interface': ([C.c_void_p, C.c_int], C.c_int),
@@ -89,9 +99,7 @@ class USB:
             function.argtypes, function.restype = args, restype
         self.check(self.lib.libusb_init(C.byref(self.context)))
         try:
-            self.handle = self.lib.libusb_open_device_with_vid_pid(self.context, vendor, product)
-            if not self.handle:
-                raise USBError('USB adapter not found or inaccessible', 'unavailable')
+            self.handle = self.open_unique_device(vendor, product)
             head = self.control(0x80, 6, 0x0200, 0, 9)
             total = int.from_bytes(head[2:4], 'little')
             if not 9 <= total <= 4096:
@@ -110,6 +118,26 @@ class USB:
         except BaseException:
             self.close()
             raise
+
+    def open_unique_device(self, vendor, product):
+        devices = C.POINTER(C.c_void_p)()
+        count = self.check(self.lib.libusb_get_device_list(self.context, C.byref(devices)))
+        try:
+            matches = []
+            for index in range(count):
+                descriptor = DeviceDescriptor()
+                self.check(self.lib.libusb_get_device_descriptor(devices[index], C.byref(descriptor)))
+                if (descriptor.vendor, descriptor.product) == (vendor, product):
+                    matches.append(devices[index])
+            if not matches:
+                raise USBError('USB adapter not found or inaccessible', 'unavailable')
+            if len(matches) != 1:
+                raise USBError('Several adapters have the same USB ID. Disconnect the others before connecting this adapter.', 'ambiguous-device')
+            handle = C.c_void_p()
+            self.check(self.lib.libusb_open(matches[0], C.byref(handle)))
+            return handle
+        finally:
+            self.lib.libusb_free_device_list(devices, 1)
 
     def check(self, status):
         if status < 0:

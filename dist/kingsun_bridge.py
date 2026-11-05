@@ -46,6 +46,13 @@ def validate_control(direction, setup, payload):
     return 0x21, 9, value, index, data
 
 
+class DeviceDescriptor(C.Structure):
+    _fields_ = [('length', C.c_uint8), ('kind', C.c_uint8), ('usb', C.c_uint16),
+        ('device_class', C.c_uint8), ('subclass', C.c_uint8), ('protocol', C.c_uint8), ('packet_size', C.c_uint8),
+        ('vendor', C.c_uint16), ('product', C.c_uint16), ('device', C.c_uint16),
+        ('manufacturer', C.c_uint8), ('name', C.c_uint8), ('serial', C.c_uint8), ('configurations', C.c_uint8)]
+
+
 class USB:
     def __init__(self):
         library = ctypes.util.find_library('usb-1.0')
@@ -58,7 +65,10 @@ class USB:
         self.context, self.handle, self.claimed = C.c_void_p(), None, False
         signatures = {
             'init': ([C.POINTER(C.c_void_p)], C.c_int), 'exit': ([C.c_void_p], None),
-            'open_device_with_vid_pid': ([C.c_void_p, C.c_uint16, C.c_uint16], C.c_void_p),
+            'get_device_list': ([C.c_void_p, C.POINTER(C.POINTER(C.c_void_p))], C.c_ssize_t),
+            'free_device_list': ([C.POINTER(C.c_void_p), C.c_int], None),
+            'get_device_descriptor': ([C.c_void_p, C.POINTER(DeviceDescriptor)], C.c_int),
+            'open': ([C.c_void_p, C.POINTER(C.c_void_p)], C.c_int),
             'close': ([C.c_void_p], None), 'get_configuration': ([C.c_void_p, C.POINTER(C.c_int)], C.c_int),
             'set_configuration': ([C.c_void_p, C.c_int], C.c_int),
             'claim_interface': ([C.c_void_p, C.c_int], C.c_int), 'release_interface': ([C.c_void_p, C.c_int], C.c_int),
@@ -69,9 +79,7 @@ class USB:
             fn = getattr(self.lib, 'libusb_' + name); fn.argtypes, fn.restype = args, result
         self.check(self.lib.libusb_init(C.byref(self.context)))
         try:
-            self.handle = self.lib.libusb_open_device_with_vid_pid(self.context, 0x07d0, 0x4959)
-            if not self.handle:
-                raise RuntimeError('KS-959 (07d0:4959) was not found or is in use by another application')
+            self.handle = self.open_unique_device(0x07d0, 0x4959)
             current = C.c_int()
             self.check(self.lib.libusb_get_configuration(self.handle, C.byref(current)), 'get configuration')
             if current.value != 1:
@@ -79,6 +87,26 @@ class USB:
             self.check(self.lib.libusb_claim_interface(self.handle, 0), 'claim interface 0'); self.claimed = True
         except BaseException:
             self.close(); raise
+
+    def open_unique_device(self, vendor, product):
+        devices = C.POINTER(C.c_void_p)()
+        count = self.check(self.lib.libusb_get_device_list(self.context, C.byref(devices)))
+        try:
+            matches = []
+            for index in range(count):
+                descriptor = DeviceDescriptor()
+                self.check(self.lib.libusb_get_device_descriptor(devices[index], C.byref(descriptor)))
+                if (descriptor.vendor, descriptor.product) == (vendor, product):
+                    matches.append(devices[index])
+            if not matches:
+                raise RuntimeError('KS-959 (07d0:4959) was not found or is in use by another application')
+            if len(matches) != 1:
+                raise RuntimeError('Several adapters have the same USB ID. Disconnect the others before connecting this adapter.')
+            handle = C.c_void_p()
+            self.check(self.lib.libusb_open(matches[0], C.byref(handle)))
+            return handle
+        finally:
+            self.lib.libusb_free_device_list(devices, 1)
 
     def check(self, value, operation='USB request'):
         if value < 0:

@@ -38,6 +38,7 @@ function mockHelper() {
 const protocolModel = `
 import { HolidayCalendar } from './calendar.mjs';
 import { b } from './formats.mjs';
+import { imageFromFile } from './images.mjs';
 const original = new HolidayCalendar(); original.set(2026, 1, 1, true);
 window.__watchCalendar = original.raw; window.__originalCalendar = original.backup();
 window.__commands = []; window.__connections = 0;
@@ -45,7 +46,15 @@ export class WQVClient {
   constructor(adapter) { this.adapter = adapter; this.isPrimary = true; }
   async openPrimary() { this.connected = true; this.model = 3; window.__connections++; }
   async primaryExchange() {}
-  async close() { this.connected = false; }
+  async close() {
+    if (window.__delayProtocolClose) await new Promise(resolve => { window.__finishProtocolClose = resolve; });
+    this.connected = false;
+  }
+  async download({ onImage }) {
+    const bytes = Uint8Array.from(window.__photoHex.match(/../g), value => parseInt(value, 16));
+    const image = await imageFromFile(new File([bytes], 'received.jpg'));
+    await onImage(image); this.disconnectConfirmed = true; return [image];
+  }
   async control(command) {
     window.__commands.push(command[0]);
     if (window.__failCommand === command[0]) throw Error('Simulated infrared failure');
@@ -56,10 +65,18 @@ export class WQVClient {
 }
 `;
 
-async function pageFor(t, { protocol = false, backupFailure = false } = {}) {
+async function pageFor(t, { protocol = false, backupFailure = false, photoFailure = false } = {}) {
   const context = await browser.newContext({ acceptDownloads: true });
   t.after(() => context.close());
   await context.addInitScript(mockHelper);
+  if (photoFailure) await context.addInitScript(hex => {
+    window.__photoHex = hex; window.__photoFailure = true;
+    const put = IDBObjectStore.prototype.put;
+    IDBObjectStore.prototype.put = function (...args) {
+      if (window.__photoFailure && this.name === 'images') throw new DOMException('Simulated full storage', 'QuotaExceededError');
+      return put.apply(this, args);
+    };
+  }, (await fs.readFile(repo + '/tests/fixtures/restart-row.jpg')).toString('hex'));
   if (backupFailure) await context.addInitScript(mode => {
     window.__backupFailure = true;
     const put = IDBObjectStore.prototype.put;
@@ -218,4 +235,96 @@ test('an actual infrared-operation failure still closes the adapter and permits 
   assert.equal(await page.locator('#connection-badge').innerText(), 'USB not connected');
   assert.deepEqual(await page.evaluate(() => window.__helper.calls), ['open', 'close']);
   await connect(page); assert.equal(await page.locator('#connection-badge').innerText(), 'USB connected');
+});
+
+test('a received photo that could not be persisted warns clearly and remains exportable', async t => {
+  const page = await pageFor(t, { protocol: true, photoFailure: true });
+  await connect(page); await page.evaluate(() => { window.__delayProtocolClose = true; });
+  await page.locator('#download-current').click();
+  await page.waitForFunction(() => Boolean(window.__finishProtocolClose));
+  assert.equal(await page.locator('.operation-bar').getAttribute('data-state'), 'error');
+  assert.equal(await page.locator('#result-heading').textContent(), 'Photos not saved');
+  assert.match(await page.locator('#result-detail').textContent(), /Export.*before closing or reloading/);
+  assert.equal(await page.locator('#gallery .thumbnail').count(), 1);
+  const saved = await page.evaluate(async () => {
+    const store = await new (await import('./images.mjs')).LocalStore().open();
+    try { return (await store.images()).length; } finally { store.db.close(); }
+  });
+  assert.equal(saved, 0);
+  const exportPhoto = page.waitForEvent('download'); await page.locator('#save-image').click();
+  assert.ok((await fs.readFile(await (await exportPhoto).path())).length > 100);
+  await page.evaluate(() => { window.__photoFailure = false; window.__delayProtocolClose = false; window.__finishProtocolClose(); });
+  await idle(page);
+  await page.locator('#download-current').click(); await idle(page);
+  assert.equal(await page.locator('.operation-bar').getAttribute('data-state'), 'success');
+  await page.reload({ waitUntil: 'networkidle' });
+  assert.equal(await page.locator('#gallery .thumbnail').count(), 1, 'only the successfully saved reception survives');
+});
+
+test('WQV-1/2 BIN imports report storage failure while retaining the original for export', async t => {
+  const page = await pageFor(t, { photoFailure: true });
+  await page.goto(new URL('wqv2.html', url).href, { waitUntil: 'networkidle' });
+  const bytes = Buffer.alloc(7229); bytes.fill(32, 0, 24); bytes.set([26, 11, 5, 12, 30], 24);
+  await page.locator('#image-files').setInputFiles({ name: 'sample.bin', mimeType: 'application/octet-stream', buffer: bytes });
+  await idle(page);
+  assert.equal(await page.locator('#result-heading').textContent(), 'Photos not saved');
+  assert.match(await page.locator('#result-detail').textContent(), /Export.*before closing or reloading/);
+  await page.locator('#export-format').selectOption('bin');
+  const exported = page.waitForEvent('download'); await page.locator('#save-image').click();
+  assert.deepEqual(await fs.readFile(await (await exported).path()), bytes);
+  await page.reload({ waitUntil: 'networkidle' });
+  assert.equal(await page.locator('#gallery .thumbnail').count(), 0);
+});
+
+test('WQV-1/2 reception reports a failed write and can save the same record on a later retry', async t => {
+  const page = await pageFor(t, { photoFailure: true });
+  await page.route('**/wqv2-adapter.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export function createWQV2Adapter() { return { opened:false,decoder:{badCRC:0},
+      description:{driver:'fixture'},async open(){this.opened=true},async close(){this.opened=false},
+      async prepareWQV2(){return {baud:115200}} }; }
+  ` }));
+  await page.route('**/wqv12-core.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export class WQV12Client { constructor(adapter,options){this.options=options;this.stats={};this.decoder={badChecksum:0};}
+      async run(){const bytes=new Uint8Array(7229);bytes.fill(32,0,24);bytes.set([26,11,5,12,30],24);
+        await this.options.onImage({bytes});return {complete:true,imageCount:1};} }
+  ` }));
+  await page.goto(new URL('wqv2.html', url).href, { waitUntil: 'networkidle' });
+  await connect(page);
+  const read = async () => { await page.locator('#download-current').click(); await page.locator('#transfer-start').click(); await idle(page); };
+  await read(); assert.equal(await page.locator('#result-heading').textContent(), 'Photos not saved');
+  assert.equal(await page.locator('#gallery .thumbnail').count(), 1);
+  await page.evaluate(() => { window.__photoFailure = false; });
+  await read(); assert.equal(await page.locator('.operation-bar').getAttribute('data-state'), 'success');
+  assert.equal(await page.locator('#gallery .thumbnail').count(), 1, 'the same BIN is not duplicated');
+  await page.reload({ waitUntil: 'networkidle' }); assert.equal(await page.locator('#gallery .thumbnail').count(), 1);
+});
+
+test('calendar changes need explicit discard before leaving WQV-3 or WQV-10', async t => {
+  for (const model of [3, 10]) {
+    const page = await pageFor(t);
+    if (model === 10) await page.goto(new URL('wqv3.html?model=wqv10', url).href, { waitUntil: 'networkidle' });
+    await page.locator('#tab-holidays').click();
+    await page.locator('#holiday-file').setInputFiles({ name: 'calendar.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({
+      format: model === 3 ? 'casio-wqv-holidays-v1' : 'casio-wqv10-calendar-v1', data: (model === 3 ? 'ff' : '00').repeat(model === 3 ? 1840 : 7305),
+    })) });
+    await idle(page);
+    await page.locator('#calendar-year').selectOption('2026'); await page.locator('#calendar-month').selectOption('11');
+    await page.locator('#calendar-grid [data-day="5"]').click();
+    assert.equal(await page.locator('#holiday-state').textContent(), 'Unsaved changes');
+    await page.locator('.screen > .titlebar .window-close').click();
+    assert.equal(await page.locator('#dialog-title').textContent(), 'Unsaved calendar changes');
+    await page.locator('#dialog-cancel').click();
+    assert.equal(await page.locator('#calendar-grid [data-day="5"]').getAttribute('aria-pressed'), 'true');
+    assert.equal(await page.evaluate(() => {
+      const event = new Event('beforeunload', { cancelable: true }); window.dispatchEvent(event); return event.defaultPrevented;
+    }), true);
+    let nativeDialogs = 0; page.on('dialog', async dialog => { nativeDialogs++; await dialog.dismiss(); });
+    await page.locator('.screen > .titlebar .window-close').click(); await page.locator('#dialog-accept').click();
+    await page.waitForURL(new URL('./', url).href);
+    assert.equal(nativeDialogs, 0, 'confirmed exit must not ask a second time');
+    await page.locator(`.program-icon[href="./wqv3.html${model === 10 ? '?model=wqv10' : ''}"]`).click();
+    await page.waitForLoadState('networkidle'); await page.locator('#tab-holidays').click();
+    await page.locator('#calendar-year').selectOption('2026'); await page.locator('#calendar-month').selectOption('11');
+    assert.equal(await page.locator('#calendar-grid [data-day="5"]').getAttribute('aria-pressed'), 'false');
+  }
 });

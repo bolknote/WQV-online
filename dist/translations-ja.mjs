@@ -2,6 +2,11 @@ import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // Japanese translations; English messages are the keys.
 export const japanese = {
+  'Photos not saved': '画像は保存されていません',
+  'The photos are available in this tab only. Export them before closing or reloading this page.': '画像はこのタブ内にのみあります。ページを閉じたり再読み込みしたりする前に書き出してください。',
+  'Unsaved calendar changes': 'カレンダーの未保存の変更',
+  'Discard the unsaved calendar changes?': 'カレンダーの未保存の変更を破棄しますか？',
+  'Discard changes': '変更を破棄',
   ...driverDictionary('ja'),
   ...settingsDictionary('ja'),
   "Choose a WQV-3 or WQV-10 photo archive.": "WQV-3またはWQV-10の写真アーカイブを選んでください。",

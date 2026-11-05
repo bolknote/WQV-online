@@ -48,6 +48,10 @@ Sunday. Both choices are remembered in this browser and apply across the apps.
 Changing them keeps your current photo, connection and calendar month.
 Settings opens in a small window. Use the titlebar’s cross to close it.
 
+The USB helpers refuse to open a device if two connected adapters have the
+same USB ID. Unplug the extra adapter before connecting. After updating a
+helper, restart its Python process to use the new version.
+
 Other infrared adapters can use a C driver installed through **Drivers**.
 The available Linux API supports the eight reference drivers listed below;
 another source may need additional API services. **ARK3116T does not
@@ -329,6 +333,11 @@ on the watch before retrying. Completed photos stay in the collection.
 Photos and calendar backups stay in this browser. There is no account, upload
 server or analytics. Keep a ZIP export if you want a copy outside browser
 storage. The hosted app and a localhost copy have separate collections.
+
+If browser storage fills up, received photos remain available in the open tab.
+The app reports that they were not saved. Export them before closing or
+reloading the page. Closing an app with calendar edits asks before discarding
+those changes.
 
 In the WQV-3 album, each received or imported file gets its own entry, including
 identical copies. Downloading a photo again adds another copy. Captions entered

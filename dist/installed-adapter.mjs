@@ -131,7 +131,16 @@ export class InstalledDriverAdapter {
     return { status: 'ok', data: new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength) };
   }
   async readSIR() { const result = await this.readRaw(); return new Uint8Array(result.data.buffer, result.data.byteOffset, result.data.byteLength); }
-  async setupSIR() { this.assertOpen(); if (this.baud !== 9600) await this.setSIRSpeed(9600); }
+  setReceiveStream(stream, { swan = false } = {}) {
+    if (this.profile.id !== 'ks959') throw new Error('Receive counter calibration is available for KS-959 only.');
+    this.calibration = new CounterCalibration(stream); this.swanReceive = swan;
+    this.queue = []; this.queueBytes = 0;
+  }
+  async setupSIR() {
+    this.assertOpen();
+    if (this.swanReceive) this.setReceiveStream(new KingsunStream());
+    if (this.baud !== 9600) await this.setSIRSpeed(9600);
+  }
   async setSIRSpeed(baud) {
     this.assertOpen(); if (![9600, 19200, 38400, 57600, 115200].includes(baud)) throw new RangeError('Unsupported SIR speed.');
     if (baud > this.maxBaud) throw new RangeError('This driver supports at most ' + this.maxBaud + ' bit/s.');

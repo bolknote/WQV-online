@@ -84,6 +84,49 @@ test('the browser acknowledges a primary service reply before sending new payloa
   assert.equal(adapter.sent.length, 2); assert.equal(adapter.sent[1].data.length, 0);
   assert.deepEqual(client.appBuffer, b(0x0d));
 });
+
+test('PC repeats an unreceived I-frame with the same sequence, payload and TinyTP credits', async () => {
+  for (const reply of [0x31, 0x39, 0x3d]) {
+    const adapter = new Frames([incoming(reply), incoming(0x51)]);
+    const client = new WQVClient(adapter); Object.assign(client, { session: 9, watchPort: 0x71, ourPort: 0x70, connected: true });
+    await client.primarySend(b(2));
+    assert.equal(adapter.sent.length, 2);
+    assert.deepEqual(adapter.sent[0], adapter.sent[1]);
+    assert.deepEqual(adapter.sent[0].data, b(3, 9, 0, 0, 2));
+    assert.equal(client.txCredits, 0); assert.equal(client.lower, 2);
+  }
+});
+test('PC polls a busy peer without resending acknowledged application data', async () => {
+  for (const nr of [0x30, 0x50]) {
+    const adapter = new Frames([incoming(nr | 5), incoming(0x51)]);
+    const client = new WQVClient(adapter); Object.assign(client, { session: 9, watchPort: 0x71, ourPort: 0x70, connected: true });
+    await client.primarySend(b(7, 26, 11, 5, 12, 30, 4));
+    assert.equal(adapter.sent.filter(frame => frame.data.length).length, 1);
+    assert.equal(adapter.sent[1].data.length, 0);
+    assert.equal(client.txCredits, 0);
+  }
+});
+test('PC retry updates only the receive acknowledgement and handles send-sequence wrap', async () => {
+  const adapter = new Frames([incoming(0x10, b(9, 3, 1)), incoming(0x31), incoming(0x51)]);
+  const client = new WQVClient(adapter); Object.assign(client, { session: 9, watchPort: 0x71, ourPort: 0x70, connected: true });
+  await client.primaryExchange(b(3, 9, 0, 0, 2));
+  const data = adapter.sent.filter(frame => frame.data.length);
+  assert.deepEqual(data.map(frame => frame.control), [0x12, 0x32]);
+  assert.deepEqual(data[0].data, data[1].data); assert.equal(client.txCredits, 2);
+  const wrapped = new Frames([incoming(0x11), incoming(0x31)]), c = new WQVClient(wrapped);
+  Object.assign(c, { lower: 14, session: 9, watchPort: 0x71, ourPort: 0x70, connected: true });
+  await c.primaryExchange(b(3, 9, 0, 0, 2));
+  assert.deepEqual(wrapped.sent.map(frame => frame.control), [0x10, 0x10]);
+});
+test('PC stops after three frame retries and rejects acknowledgements outside its window', async () => {
+  for (const replies of [[0x31, 0x31, 0x31, 0x31], [0x71]]) {
+    const adapter = new Frames(replies.map(control => incoming(control))), client = new WQVClient(adapter);
+    Object.assign(client, { session: 9, watchPort: 0x71, ourPort: 0x70, connected: true });
+    await assert.rejects(client.primarySend(b(2)), /did not acknowledge/);
+    assert.equal(adapter.sent.length, replies.length);
+    assert.equal(client.txCredits, 0);
+  }
+});
 test('secondary IrCOMM negotiation waits through empty RR polls for control parameters', async () => {
   const parameters = b(9, 3, 0, 3, 0, 1, 4);
   const adapter = new Frames([incoming(0x91), incoming(0x98, parameters)]), client = new WQVClient(adapter);

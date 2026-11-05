@@ -2,6 +2,11 @@ import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // Spanish interface text. Protocol tokens and watch menu labels stay unchanged.
 export const spanish = Object.freeze({
+  'Photos not saved': 'Fotos sin guardar',
+  'The photos are available in this tab only. Export them before closing or reloading this page.': 'Las fotos solo están disponibles en esta pestaña. Expórtelas antes de cerrar o recargar la página.',
+  'Unsaved calendar changes': 'Cambios del calendario sin guardar',
+  'Discard the unsaved calendar changes?': '¿Descartar los cambios del calendario sin guardar?',
+  'Discard changes': 'Descartar cambios',
   ...driverDictionary('es'),
   ...settingsDictionary('es'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Elige un archivo de fotos WQV-3 o WQV-10.",

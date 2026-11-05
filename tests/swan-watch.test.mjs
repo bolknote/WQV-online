@@ -156,6 +156,19 @@ test('USB preparation chooses 38400 without sending IR and retains the measured 
     async registers() { return hx('2a1d00274400001500'); } };
   await prepareSwan(a); assert.deepEqual(calls, ['pause', 'setup', 38400]); assert.deepEqual(a.decoder.frames, []);
 });
+test('installed raw C drivers own SWAN USB setup; packet-only drivers fail before touching USB', async () => {
+  for (const id of ['ks959', 'sigmatel']) {
+    const calls = [], a = { candidate: {}, profile: { id, framing: 'raw' }, decoder: { reset() {}, frames: [] },
+      description: { driver: id + ' · C' }, assertOpen() {}, record() {},
+      async pauseReader() { calls.push('pause'); }, async setupSIR() { calls.push('setup'); },
+      async setSIRSpeed(baud) { calls.push(baud); },
+      async registers() { assert.fail('Must not impose built-in register settings on a C driver'); },
+      setReceiveStream(stream) { assert.ok(stream instanceof SwanKingsunStream); calls.push('SWAN counter'); } };
+    await prepareSwan(a);
+    assert.deepEqual(calls, id === 'ks959' ? ['pause', 'setup', 38400, 'SWAN counter'] : ['pause', 'setup', 38400]);
+  }
+  await assert.rejects(prepareSwan({ profile: { framing: 'packet' }, pauseReader() { assert.fail('No USB request'); } }), /raw SIR/);
+});
 test('KS counter synchronization accepts SWAN challenges and two B3 greetings from every phase', () => {
   for (const phase of [0, 1, 55, 128, 254, 255]) for (const sendMode of [false, true]) {
     const original = sendMode ? concat(...incoming.slice(0, 1).map(wire), ...incoming.slice(0, 1).map(wire)) : wire({ address: 255, control: 0xa3, data: hx('feedcafe') });

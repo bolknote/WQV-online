@@ -2,6 +2,11 @@ import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // Russian translations; English messages are the keys.
 export const russian = {
+  'Photos not saved': 'Снимки не сохранены',
+  'The photos are available in this tab only. Export them before closing or reloading this page.': 'Снимки доступны только в этой вкладке. Экспортируйте их перед закрытием или перезагрузкой страницы.',
+  'Unsaved calendar changes': 'Несохранённые изменения календаря',
+  'Discard the unsaved calendar changes?': 'Отбросить несохранённые изменения календаря?',
+  'Discard changes': 'Отбросить изменения',
   ...driverDictionary('ru'),
   ...settingsDictionary('ru'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Выберите архив снимка WQV-3 или WQV-10.",

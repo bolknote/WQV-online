@@ -2,6 +2,11 @@ import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // Finnish interface text. Protocol tokens and watch menu labels stay unchanged.
 export const finnish = Object.freeze({
+  'Photos not saved': 'Kuvia ei ole tallennettu',
+  'The photos are available in this tab only. Export them before closing or reloading this page.': 'Kuvat ovat käytettävissä vain tässä välilehdessä. Vie ne ennen sivun sulkemista tai lataamista uudelleen.',
+  'Unsaved calendar changes': 'Kalenterin tallentamattomat muutokset',
+  'Discard the unsaved calendar changes?': 'Hylätäänkö kalenterin tallentamattomat muutokset?',
+  'Discard changes': 'Hylkää muutokset',
   ...driverDictionary('fi'),
   ...settingsDictionary('fi'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Valitse WQV-3- tai WQV-10-kuva-arkisto.",

@@ -192,7 +192,7 @@ export class HelperDriverBackend extends WebUSBDriverBackend {
 export async function checkInstalledDriver(record, match, device, { method = 'auto', signal, recordEvent = () => {} } = {}) {
   const { DriverWorkerClient } = await import('./driver-worker-client.mjs');
   const report = { device: { name: device.productName || device.manufacturerName || 'USB device', usbId: usbID(device) },
-    driver: { id: record.id, filename: record.filename, sha256: record.sha256, profile: record.profile },
+    driver: { id: record.id, filename: record.filename, sha256: record.sha256, inputSHA256: record.inputSHA256, profile: record.profile },
     direct: { status: 'untested' }, helper: { status: 'untested' }, infrared: 'not-tested', events: [] };
   const attempt = async transport => {
     const event = entry => { if (report.events.length < 300) report.events.push(entry); recordEvent(entry); };

@@ -326,12 +326,32 @@ export class WQVClient {
   async primaryExchange(payload = null) {
     if (payload !== null) await this.send(payload, this.seq({ data: true, lower: true }));
     else await this.send();
-    for (let i = 0; i < 32; i++) {
-      const frame = await this.read();
+    const information = payload !== null ? this.lastSent : null;
+    const expected = ((this.lower >> 1) + 1) & 7, pending = this.lower >> 1;
+    const deadline = performance.now() + 12000;
+    let retries = 0, acknowledged = false;
+    for (let i = 0; i < 32 && performance.now() < deadline; i++) {
+      const frame = await this.read(Math.min(2000, Math.max(1, deadline - performance.now())));
       if (this.primaryIngest(frame)) await this.send(); // ACK before using the service reply.
       else {
-        const expected = ((this.lower >> 1) + 1) & 7;
-        if ((frame.control & 15) === 1 && (frame.control >> 5) === expected) return;
+        const kind = frame.control & 15, nr = frame.control >> 5;
+        if (frame.data.length || ![1, 5, 9, 13].includes(kind) || (nr !== expected && nr !== pending))
+          throw new LocalizedError(tr("The watch did not acknowledge the sent frame."));
+        if (nr === expected) acknowledged = true;
+        if (!(frame.control & 0x10)) continue;
+        if (kind === 1 && nr === expected) return;
+        if (kind === 5 || nr === expected) {
+          // RNR can acknowledge the frame while asking us to wait. Poll;
+          // never resend a photo's data merely because the peer is busy.
+          await sleep(100); this.check(); await this.send(); continue;
+        }
+        if (information && !acknowledged && retries < 3) {
+          this.log('info', tr('Recovering the connection · retry {0}.', ++retries));
+          // Repeat the same N(S) and TinyTP payload, with the current N(R).
+          // This is not another command/PUT and consumes no extra credits.
+          await this.send(information.data, (this.upper << 4) | (information.control & 15), information.address);
+          continue;
+        }
         throw new LocalizedError(tr("The watch did not acknowledge the sent frame."));
       }
     }

@@ -1,5 +1,5 @@
 // A program owns its USB connection. Release it before another page takes over.
-export function bindApplicationNavigation({ isBusy = () => false, close = async () => {},
+export function bindApplicationNavigation({ isBusy = () => false, confirmLeave = async () => true, close = async () => {},
   root = document, navigate = href => window.location.assign(href) } = {}) {
   let leaving = false;
   const update = () => {
@@ -12,7 +12,7 @@ export function bindApplicationNavigation({ isBusy = () => false, close = async 
     event.preventDefault();
     if (leaving || isBusy()) return;
     leaving = true; update();
-    try { await close(); navigate(link.href); }
+    try { if (!await confirmLeave() || isBusy()) return; await close(); navigate(link.href); }
     finally { leaving = false; update(); }
   });
   update(); return update;

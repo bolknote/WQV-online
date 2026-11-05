@@ -53,6 +53,140 @@ function installUSBModel() {
   };
 }
 
+test('a driver check belongs to its exact source and headers, never a replacement driver', { timeout: 30000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage(); await page.addInitScript(installUSBModel);
+  page.setDefaultTimeout(5000);
+  await page.route('**/driver-compiler.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export async function compileDriver(record) { return { abi: 1, sourceSHA256: record.sha256, inputSHA256: record.inputSHA256,
+      bytes: new Uint8Array([1]), usbMatches: [{vendorId:0x066f,productId:0x4200}],compileMs:1 }; }
+    export async function referenceDriver() { throw Error('Not used'); }
+  ` }));
+  await page.route('**/driver-usb.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export async function checkInstalledDriver(record) {
+      (window.__checkedDrivers ??= []).push({ id:record.id,inputSHA256:record.inputSHA256 });
+      return { driver:{id:record.id,sha256:record.sha256,inputSHA256:record.inputSHA256},
+        direct:{status:'passed'},helper:{status:'untested'} };
+    }
+  ` }));
+  await page.goto(new URL('drivers.html', base).href);
+  const add = async name => {
+    await page.locator('#driver-files').setInputFiles({ name, mimeType: 'text/plain', buffer: Buffer.from('struct stir_cb { int fixture; };') });
+    await page.waitForFunction(name => [...document.querySelectorAll('#driver-rows tr')].some(row => row.textContent.includes(name) && row.querySelector('[data-build="built"]')), name);
+    await page.waitForFunction(() => !document.querySelector('[data-driver-action="import"]').disabled);
+  };
+  const check = async () => { await page.locator('#check-run').click(); await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'passed'); };
+  const untested = async () => {
+    assert.equal(await page.locator('#check-direct-result').getAttribute('data-state'), 'untested');
+    assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'), 'untested');
+    assert.equal(await page.locator('#save-report').isDisabled(), true);
+    assert.equal(await page.locator('#diagnostic-date').textContent(), '');
+  };
+  await add('first.c'); await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
+  await check();
+  await page.locator('#tab-drivers').click(); await add('second.c'); await page.locator('#tab-check').click();
+  assert.match(await page.locator('#check-driver').textContent(), /second\.c/); await untested();
+  assert.equal(await page.evaluate(() => window.__checkedDrivers.length), 1);
+  await check();
+  await page.locator('#tab-drivers').click();
+  await page.locator('#driver-files').setInputFiles({ name: 'extra.h', mimeType: 'text/plain', buffer: Buffer.from('#define REVISION 2') });
+  await page.waitForFunction(() => !document.querySelector('[data-driver-action="import"]').disabled);
+  await page.locator('#tab-check').click(); await untested();
+  await check();
+  const checked = await page.evaluate(() => window.__checkedDrivers);
+  assert.equal(checked[1].id, checked[2].id); assert.notEqual(checked[1].inputSHA256, checked[2].inputSHA256);
+  await page.locator('#tab-drivers').click(); await page.locator('[data-driver-action="remove"]:visible').click();
+  await page.locator('#dialog-accept').click();
+  await page.waitForFunction(() => document.querySelectorAll('#driver-rows tr').length === 1);
+  await page.locator('#tab-check').click(); assert.match(await page.locator('#check-driver').textContent(), /first\.c/); await untested();
+});
+
+test('SWAN uses the installed KS-959 C worker for both directions and restores PC counter discovery', { timeout: 60000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage(); await page.goto(new URL('drivers.html', base).href);
+  const result = await page.evaluate(async () => {
+    const { compileDriver, referenceDriver } = await import('./driver-compiler.mjs');
+    const { driverStore } = await import('./driver-store.mjs');
+    const { InstalledDriverAdapter } = await import('./installed-adapter.mjs');
+    const { DriverWorkerClient } = await import('./driver-worker-client.mjs');
+    const { prepareSwan, transferSwan } = await import('./swan-watch-client.mjs');
+    const { WQV12Decoder, encodeWQV12 } = await import('./wqv12-formats.mjs');
+    const { encodeFrame } = await import('./irda.mjs');
+    const { concat, b, sha256 } = await import('./formats.mjs');
+    const { SWAN_PREFIX, SWAN_RECORD_BYTES } = await import('./swan-watch-formats.mjs');
+    const record = await driverStore.saveSource(await referenceDriver('ks959')), artifact = await compileDriver(record);
+    const device = {
+      controlTransferIn() { throw Error('SWAN bypassed the selected C driver'); },
+      controlTransferOut() { throw Error('SWAN bypassed the selected C driver'); },
+      transferIn() { throw Error('SWAN bypassed the selected C driver'); },
+      transferOut() { throw Error('SWAN bypassed the selected C driver'); },
+    };
+    const adapter = new InstalledDriverAdapter(device, { record });
+    const decoder = new WQV12Decoder(), input = [], blocks = [];
+    const key = new TextEncoder().encode('wangshuofei19710');
+    let opened = false, phase = 137, next = 1, writes = 0;
+    const inject = wire => {
+      const raw = [];
+      for (const byte of wire) {
+        phase = (phase + 1) & 255;
+        if (!phase) { raw.push(0x95 ^ 0x55); phase = 1; }
+        raw.push(byte ^ phase ^ 0x55);
+      }
+      input.push(Uint8Array.from(raw));
+    };
+    const reply = (control, data = b(), address = 7) => inject(concat(SWAN_PREFIX, encodeWQV12(address, control, data)));
+    const backend = {
+      async open() { opened = true; return { fields: [0x07d0,0x4959,0,0,129,0,129,8,0,255,0,0,3,0], description: {} }; },
+      async cancel() {}, async close() { opened = false; }, async rpc() {},
+      async control(request, bytes) {
+        await new Promise(resolve => setTimeout(resolve, 1));
+        if (!opened) throw Error('USB model closed');
+        if (request.type & 128) return adapter.calibration.input({ bytes: input.shift() ?? b() });
+        if (request.index === 0) {
+          writes++;
+          const mask = key[(request.value & 15) ^ 6] ^ 0x55;
+          decoder.feed(Uint8Array.from(bytes.slice(0, request.value), byte => byte ^ mask));
+          for (const frame of decoder.frames.splice(0)) {
+            if (frame.address === 255 && frame.control === 0xb3) reply(0xa3, b(1,2,3,4), 255);
+            else if (frame.address === 255 && frame.control === 0x93) reply(0x63);
+            else if (frame.control === 0x11) reply(blocks.length ? 0x21 : 1);
+            else if (frame.control === 0x10) reply(0x20, b(13));
+            else if (frame.data[0] === 0x11) {
+              if (((frame.control >>> 1) & 7) !== next) throw Error('Duplicate application block');
+              blocks.push(frame.data.slice(1)); next = (next + 1) & 7; reply((next << 5) | 1);
+            } else if (frame.control === 0x31) reply((next << 5) | 2, b(13));
+            else if (frame.control === 0x51) reply((next << 5) | 1);
+            else if (frame.control === 0x53) reply(0x63);
+          }
+        }
+        return { written: bytes.length };
+      },
+    };
+    adapter.client = new DriverWorkerClient(backend, { data: (bytes, packet) => adapter.input(bytes, packet) });
+    await adapter.client.load(artifact.bytes, 'ks959');
+    // The real C driver starts polling immediately, just as it does after open().
+    adapter.setReceiveStream(new (await import('./kingsun.mjs')).KingsunStream());
+    await adapter.client.open();
+    Object.assign(adapter, { claimed: true, configured: true, baud: 9600, description: { driver: 'KingSun KS-959 · C' } });
+    const photo = new Uint8Array(SWAN_RECORD_BYTES); photo.fill(32,0,24); photo.set([26,11,5,12,30],24);
+    for (let i = 29; i < photo.length; i++) photo[i] = i * 73 & 255;
+    try {
+      await prepareSwan(adapter);
+      const summary = await transferSwan(adapter, { direction: 'send', bytes: photo, durationMs: 15000 });
+      inject(concat(encodeFrame(0xfe, 0xbf, b(1,2,3)), encodeFrame(0xfe, 0x73, b(9))));
+      const pcFrame = await adapter.receiveFrame(2000); await adapter.pauseReader();
+      return { complete: summary.complete, error: summary.error, bytesSent: concat(...blocks).length,
+        same: await sha256(photo) === await sha256(concat(...blocks)), writes,
+        counterRestored: adapter.swanReceive === false && adapter.calibration.stream.constructor.name === 'KingsunStream',
+        pcFrame: pcFrame && { address: pcFrame.address, control: pcFrame.control, data: [...pcFrame.data] } };
+    } finally { await adapter.close(); }
+  });
+  assert.equal(result.complete, true, JSON.stringify(result));
+  assert.equal(result.same, true); assert.equal(result.bytesSent, 25373); assert.ok(result.writes > 100);
+  assert.equal(result.counterRestored, true);
+  assert.deepEqual(result.pcFrame, { address: 0xfe, control: 0xbf, data: [1,2,3] });
+});
+
 test('drivers install, survive reload, initialize through C and are chosen by watch applications', { timeout: 120000 }, async t => {
   const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
   const context = await browser.newContext({ acceptDownloads: true }); await context.addInitScript(installUSBModel);
