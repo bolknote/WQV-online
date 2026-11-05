@@ -13,9 +13,9 @@ export function installSystemSettings({ closeMenus = () => {} } = {}) {
     <div class="dialog-body">
       <section id="settings-home">
         <div class="system-settings-grid">
-          <button type="button" class="system-setting" id="settings-language"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="./icons.svg#language"/></svg><span data-i18n="Language">Language</span></button>
-          <button type="button" class="system-setting" id="settings-calendar"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="./icons.svg#calendar"/></svg><span data-i18n="Calendar display">Calendar display</span></button>
-          <a class="system-setting" href="./drivers.html" data-application-exit><svg viewBox="0 0 16 16" aria-hidden="true"><use href="./icons.svg#chip"/></svg><span data-i18n="Infrared drivers">Infrared drivers</span></a>
+          <button type="button" class="system-setting" id="settings-language"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg#settings-language"/></svg><span data-i18n="Language">Language</span></button>
+          <button type="button" class="system-setting" id="settings-calendar"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg#settings-calendar"/></svg><span data-i18n="Calendar display">Calendar display</span></button>
+          <a class="system-setting" href="./drivers.html" data-application-exit><svg viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg#settings-drivers"/></svg><span data-i18n="Infrared drivers">Infrared drivers</span></a>
         </div>
       </section>
       <section id="settings-language-panel" hidden>
