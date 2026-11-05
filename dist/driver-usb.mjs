@@ -198,21 +198,28 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
     const event = entry => { if (report.events.length < 300) report.events.push(entry); recordEvent(entry); };
     const backend = transport === 'direct' ? new WebUSBDriverBackend(device, match, { onTransfer: event }) : new HelperDriverBackend(device, match, { onTransfer: event });
     const client = new DriverWorkerClient(backend, { event });
+    event({ kind: 'check-started', transport });
     try {
       signal?.throwIfAborted();
       const abort = () => { client.abort(); };
       signal?.addEventListener('abort', abort, { once: true });
       try {
         await client.load(record.artifact.bytes, record.profile); signal?.throwIfAborted();
+        event({ kind: 'usb-opening', transport });
         const description = await client.open(); signal?.throwIfAborted();
         if (!backend.completed) throw new DriverUSBError('initialization-failed', 'The driver did not complete any USB request.');
         report[transport] = { status: 'passed', description, completedTransfers: backend.completed };
+        event({ kind: 'check-passed', transport });
       } finally { signal?.removeEventListener('abort', abort); }
     } catch (error) {
       if (signal?.aborted) throw signal.reason;
       const reason = backend.lastError ?? classifyUSBFailure(error);
       report[transport] = { status: reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
-    } finally { await client.close().catch(error => { report[transport].cleanupError = error.message; report[transport].status = 'failed'; }); }
+      event({ kind: 'check-failed', transport, code: reason.code, message: reason.message });
+    } finally {
+      try { await client.close(); event({ kind: 'usb-released', transport }); }
+      catch (error) { report[transport].cleanupError = error.message; report[transport].status = 'failed'; event({ kind: 'check-cleanup-failed', transport, message: error.message }); }
+    }
   };
   if (method !== 'helper') await attempt('direct');
   if (method === 'helper' || method === 'auto' && report.direct.code === 'helper-needed') await attempt('helper');

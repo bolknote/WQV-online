@@ -9,6 +9,7 @@ import { HolidayCalendar, ColourCalendar, DATE_COLOURS, FIRST_YEAR, LAST_YEAR, m
 import { colourWatchModel } from './watch-models.mjs';
 import { manualLabel } from './manual-editions.mjs';
 import { installMenus } from './menus.mjs';
+import { installScreenDialogs } from './screen-dialogs.mjs';
 import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
 import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
@@ -150,6 +151,7 @@ function switchTab(name) {
   }
   closeMenus(); if (name === 'connection') renderLog();
 }
+installScreenDialogs();
 const closeMenus = installMenus();
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => switchTab(button.dataset.tab)));
 document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventListener('keydown', event => {

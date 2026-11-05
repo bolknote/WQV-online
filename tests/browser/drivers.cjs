@@ -59,8 +59,11 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   const page = await context.newPage(), errors = [];
   page.on('pageerror', error => errors.push(error.message)); page.setDefaultTimeout(12000);
   await page.goto(new URL('drivers.html', base).href);
-  await page.locator('#driver-empty').waitFor();
+  await page.locator('#driver-library').waitFor();
+  await page.waitForFunction(() => document.getElementById('driver-status').textContent === 'No drivers installed');
   assert.equal(await page.locator('#driver-rows tr').count(), 0);
+  assert.equal(await page.locator('#driver-selected').isVisible(), false);
+  assert.equal(await page.locator('.desktop-footer').count(), 0);
 
   // Build all eight sources with the actual compiler and read their C ID tables.
   const matrix = await page.evaluate(async () => {
@@ -85,24 +88,41 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   assert.equal(await page.locator('.driver-state[data-build="built"]').count(), 8);
   const sourceCount = await page.evaluate(async () => (await (await import('./driver-store.mjs')).driverStore.list()).length);
   assert.equal(sourceCount, 8);
+  await page.locator('.driver-select').first().click();
+  assert.equal(await page.locator('#driver-rows tr.selected .icon').count(), 1);
+  await page.waitForFunction(() => document.querySelector('#driver-rows tr.selected .icon').getBBox().width > 0);
+  assert.equal(await page.locator('#driver-rows tr.selected').evaluate(row => getComputedStyle(row).backgroundColor), 'rgb(11, 49, 108)');
+  assert.equal(await page.locator('#driver-rows tr.selected td').first().evaluate(cell => getComputedStyle(cell).color), 'rgb(255, 255, 255)');
 
   // Real Worker, real Linux C initialization; the USB transport is a fixture.
   await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
-  await page.locator('[data-driver-action="check-auto"]').click();
+  await page.locator('#check-method').selectOption('direct'); await page.locator('#check-run').click();
   await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'passed');
   assert.match(await page.locator('#check-direct-result').innerText(), /initialization passed/);
   assert.equal(await page.evaluate(() => window.__sig.opened), false);
   assert.equal(await page.evaluate(() => window.__sig.writes.length), 0, 'USB check must send no optical frame');
   const diag = await page.evaluate(() => window.__sig.calls);
   assert.ok(diag.includes('reset')); assert.ok(diag.some(call => Array.isArray(call) && call[0] === 'out'));
+  assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'), 'untested');
+  assert.match(await page.locator('#driver-log').textContent(), /Driver loaded\./);
+  assert.match(await page.locator('#driver-log').textContent(), /USB released\./);
+  assert.doesNotMatch(await page.locator('#driver-log').textContent(), /host_submit|"imports"|dataHex/);
+  const reportDownload = page.waitForEvent('download'); await page.locator('#save-report').click();
+  const exportedReport = JSON.parse(await fs.readFile(await (await reportDownload).path(), 'utf8'));
+  assert.ok(exportedReport.log.some(event => event.kind === 'module-loaded' && Array.isArray(event.imports)));
+  assert.ok(exportedReport.log.some(event => event.request && typeof event.dataHex === 'string'));
 
   // KS-959's nonexistent interface is detected before the control reaches USB.
   await page.evaluate(() => { window.__selectedUSB = window.__king; });
-  await page.locator('[data-driver-action="choose"]').click(); await page.locator('[data-driver-action="check-auto"]').click();
+  await page.locator('[data-driver-action="choose"]').click(); await page.locator('#check-method').selectOption('auto'); await page.locator('#check-run').click();
   await page.waitForFunction(() => document.getElementById('check-helper-result').dataset.state === 'passed');
   assert.equal(await page.locator('#check-direct-result').getAttribute('data-state'), 'blocked');
   assert.equal(await page.evaluate(() => window.__helper.opened), false);
   assert.ok((await page.evaluate(() => window.__helper.writes)).some(item => item.request.index === 1 && item.hex === '8025000003000000'));
+  await page.locator('#check-method').selectOption('helper'); await page.locator('#check-run').click();
+  await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'), 'passed');
+  assert.equal(await page.evaluate(() => window.__helper.opened), false);
 
   // Source is saved even if it cannot compile; no fabricated ready state.
   await page.locator('#tab-drivers').click();

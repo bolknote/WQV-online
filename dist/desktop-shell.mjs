@@ -1,7 +1,9 @@
 import { tr, getLanguage, setLanguage, onLanguageChange, translateDOM, locale } from './i18n.mjs';
 import { installMenus } from './menus.mjs';
+import { installScreenDialogs } from './screen-dialogs.mjs';
 
 export function installDesktopShell({ help, changed = () => {} } = {}) {
+  installScreenDialogs();
   const $ = id => document.getElementById(id);
   const start = $('start-menu');
   if (start && !start.querySelector('a[href="./drivers.html"]')) {

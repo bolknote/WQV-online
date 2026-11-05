@@ -5,6 +5,7 @@ import { driverStore } from './driver-store.mjs';
 import { DRIVER_PROFILES, DRIVER_ABI, chooseInstalledDriver, usbID, sourceDigest } from './driver-catalog.mjs';
 import { compileDriver, referenceDriver } from './driver-compiler.mjs';
 import { checkInstalledDriver } from './driver-usb.mjs';
+import { driverLogMessage } from './driver-log.mjs';
 
 const $ = id => document.getElementById(id), say = key => String(tr(key));
 const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, log: [], lastStatus: null };
@@ -17,7 +18,16 @@ function status(state, heading, note = '') {
 function log(entry) {
   S.log.push({ at: new Date().toISOString(), ...entry });
   if (S.log.length > 300) S.log.shift();
-  $('driver-log').textContent = S.log.map(item => JSON.stringify(item)).join('\n');
+  renderLog();
+}
+function renderLog() {
+  const journal = $('driver-log'); journal.replaceChildren();
+  for (const entry of S.log) {
+    const message = driverLogMessage(entry); if (!message) continue;
+    const line = document.createElement('li'), time = document.createElement('time'), text = document.createElement('span');
+    time.dateTime = entry.at; time.textContent = new Date(entry.at).toLocaleTimeString(locale(), { hour12: false });
+    text.textContent = String(tr(message.key, ...message.values)); line.append(time, text); journal.append(line);
+  }
 }
 function showTab(view) {
   S.view = view;
@@ -34,15 +44,22 @@ function render() {
   for (const item of S.records) {
     const row = document.createElement('tr'); row.classList.toggle('selected', item.id === S.selected);
     const cell = row.insertCell(), button = document.createElement('button'); button.className = 'driver-select'; button.type = 'button';
-    button.textContent = item.name; button.setAttribute('aria-pressed', String(item.id === S.selected));
-    button.disabled = Boolean(S.active); button.addEventListener('click', () => { S.selected = item.id; render(); }); cell.append(button);
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg'), use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    icon.classList.add('icon'); icon.setAttribute('aria-hidden', 'true'); icon.setAttribute('viewBox', '0 0 16 16');
+    use.setAttribute('href', './icons.svg#chip'); use.setAttribute('width', '16'); use.setAttribute('height', '16'); icon.append(use);
+    button.append(icon, document.createTextNode(item.name)); button.setAttribute('aria-pressed', String(item.id === S.selected));
+    button.dataset.driverId = item.id;
+    button.disabled = Boolean(S.active); button.addEventListener('click', () => {
+      S.selected = item.id; render();
+      [...rows.querySelectorAll('button')].find(button => button.dataset.driverId === item.id)?.focus({ preventScroll: true });
+    }); cell.append(button);
     row.insertCell().textContent = item.filename;
     const state = row.insertCell(); state.className = 'driver-state';
     state.dataset.build = item.artifact ? 'built' : item.buildError ? 'error' : 'saved';
     state.textContent = say(item.artifact ? 'Built' : item.buildError ? 'Build failed' : 'Saved'); rows.append(row);
   }
-  $('driver-empty').hidden = S.records.length > 0;
-  $('driver-name').textContent = record?.name ?? '—';
+  $('driver-selected').hidden = !record;
+  $('driver-name').textContent = record?.name ?? '';
   $('driver-source-info').textContent = record ? record.filename + ' · ' + say(record.artifact ? 'Built' : 'Saved') : '';
   $('driver-details').hidden = !record;
   const props = $('driver-properties'); props.replaceChildren();
@@ -58,10 +75,16 @@ function render() {
   for (const button of document.querySelectorAll('[data-driver-action]')) {
     const action = button.dataset.driverAction;
     button.disabled = action === 'stop' ? !S.active : Boolean(S.active) || ['build', 'remove', 'export-source'].includes(action) && !record;
-    if (action.startsWith('check-') && !S.device) button.disabled = true;
+    if (action === 'check' && !S.device) button.disabled = true;
   }
+  $('check-method').disabled = Boolean(S.active);
   $('check-stop').hidden = !S.active; $('check-progress').hidden = !S.active || S.view !== 'check';
   $('save-report').disabled = !S.report || Boolean(S.active);
+  if (!S.lastStatus) {
+    $('driver-status').textContent = say(S.records.length ? 'Drivers are selected automatically by WQV Link.' : 'No drivers installed');
+    $('driver-status-note').textContent = S.records.length ? '' : say('Choose Add… to install a driver.');
+  }
+  renderLog();
   renderCheck();
 }
 function renderCheck() {
@@ -161,7 +184,7 @@ async function check(method, signal) {
     helper: report.helper.status === 'untested' && previous ? previous.helper : report.helper, at: new Date().toISOString() };
   $('diagnostic-date').textContent = new Date().toLocaleTimeString(locale());
   const passed = report.direct.status === 'passed' || report.helper.status === 'passed';
-  status(passed ? 'success' : 'error', tr(passed ? 'USB initialization passed' : 'USB check failed'), tr('Installing a driver does not verify infrared communication.'));
+  status(passed ? 'success' : 'error', tr(passed ? 'USB initialization passed' : 'USB check failed'));
 }
 function download(filename, blob) {
   const url = URL.createObjectURL(blob), link = document.createElement('a'); link.href = url; link.download = filename; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -192,7 +215,7 @@ document.addEventListener('click', event => {
       S.device = device; S.report = null; S.log = []; log({ kind: 'device-selected', usbId: usbID(device), name: device.productName }); render();
     }); return;
   }
-  if (action.startsWith('check-')) { run(signal => check(action.slice(6), signal)); return; }
+  if (action === 'check') { const method = $('check-method').value; run(signal => check(method, signal)); return; }
   if (action === 'export-source' && selected()) download(selected().filename.split('/').at(-1), new Blob([selected().source], { type: 'text/x-c;charset=utf-8' }));
   if (action === 'export-report' && S.report) download('WQV-driver-check-' + new Date().toISOString().replaceAll(':', '-') + '.json', new Blob([JSON.stringify({ ...S.report, log: S.log, language: getLanguage() }, null, 2)], { type: 'application/json' }));
 });
