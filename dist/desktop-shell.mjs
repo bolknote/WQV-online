@@ -1,4 +1,5 @@
-import { tr, onLanguageChange, translateDOM, locale } from './i18n.mjs';
+import { tr, onLanguageChange, translateDOM } from './i18n.mjs';
+import { installDesktopClock } from './desktop-clock.mjs';
 import { installMenus } from './menus.mjs';
 import { installScreenDialogs } from './screen-dialogs.mjs';
 import { installSystemSettings } from './system-settings.mjs';
@@ -9,11 +10,9 @@ export function installDesktopShell({ help, changed = () => {} } = {}) {
   const closeMenus = installMenus();
   installSystemSettings({ closeMenus });
   for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id)?.addEventListener('click', () => { closeMenus(); help?.(); });
-  const tick = () => { $('pc-clock').textContent = new Date().toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit', hour12: false }); };
-  const apply = () => { translateDOM(); tick(); changed(); };
+  installDesktopClock();
+  const apply = () => { translateDOM(); changed(); };
   onLanguageChange(apply); apply();
-  const timer = setInterval(tick, 1000);
-  window.addEventListener('pagehide', () => clearInterval(timer), { once: true });
   return { closeMenus };
 }
 

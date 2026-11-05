@@ -1,5 +1,6 @@
 import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
   getLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
+import { installDesktopClock } from './desktop-clock.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
@@ -618,7 +619,7 @@ function localDateTime(date = new Date()) {
 }
 function fillClock() { const [date, time] = localDateTime().split('T'); $('clock-date').value = date; $('clock-time').value = time; }
 function tickClock() {
-  const now = new Date(); $('pc-clock').textContent = now.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit' });
+  const now = new Date();
   $('desktop-time').textContent = now.toLocaleTimeString(locale(), { hour12: false });
   $('desktop-date').textContent = now.toLocaleDateString(locale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('desktop-zone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -791,6 +792,7 @@ function applyLanguage() {
 }
 onLanguageChange(applyLanguage);
 onWeekStartChange(renderCalendar);
+installDesktopClock();
 fillClock(); applyLanguage(); setInterval(tickClock, 1000);
 if (!supported) {
   $('compatibility').hidden = false;
