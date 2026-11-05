@@ -44,7 +44,7 @@ export class WQVClient {
       await page.locator('.program-icon[href="./wqv3.html?model=wqv10"]').click();
       await page.waitForLoadState('networkidle');
       assert.match(await page.title(), /^WQV-10/);
-      assert.equal(await page.locator('.app-title').innerText(), 'WQV-10');
+      assert.equal(await page.locator('.screen > .titlebar .app-title').innerText(), 'WQV-10');
       assert.equal(await page.locator('[data-watch-icon]').getAttribute('href'),'./watches.svg#wqv10');
       assert.match(await page.locator('.menubar-note').innerText(), /2412/);
       assert.match(await page.locator('.upload-box legend').innerText(), /WQV-10/);
@@ -80,11 +80,11 @@ export class WQVClient {
       const exported = page.waitForEvent('download'); await page.locator('#save-image').click();
       const archive = JSON.parse(await fs.readFile(await (await exported).path(),'utf8'));
       assert.equal(archive.model,10);
-      await page.locator('.window-close').click(); await page.waitForURL(base);
+      await page.locator('.window-close:visible').click(); await page.waitForURL(base);
       await page.locator('.program-icon[href="./wqv3.html"]').click(); await page.waitForLoadState('networkidle');
       assert.equal(await page.locator('#gallery .thumbnail').count(),0);
       await page.locator('#tab-holidays').click(); assert.equal(await page.locator('.calendar-colour-choice').isVisible(),false);
-      await page.locator('.window-close').click(); await page.waitForURL(base);
+      await page.locator('.window-close:visible').click(); await page.waitForURL(base);
       await page.locator('.program-icon[href="./wqv3.html?model=wqv10"]').click(); await page.waitForLoadState('networkidle');
       assert.equal(await page.locator('#gallery .thumbnail').count(),1);
       await page.locator('#tab-holidays').click();

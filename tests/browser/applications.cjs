@@ -148,15 +148,15 @@ if(require.main===module)(async()=>{
     const png=await pngDownload;const pngBytes=await fs.readFile(await png.path());assert.equal(pngBytes.readUInt32BE(16),120);
     await page.locator('#export-format').selectOption('bin');const binDownload=page.waitForEvent('download');await page.locator('#save-image').click();
     const bin=await binDownload;assert.deepEqual(await fs.readFile(await bin.path()),Buffer.from(syntheticRecord()));
-    await page.locator('.window-close').click();await page.waitForURL(base);
+    await page.locator('.window-close:visible').click();await page.waitForURL(base);
     await page.locator('.program-icon[href="./wqv3.html"]').click();await page.waitForLoadState('networkidle');assert.equal(await page.locator('#gallery .thumbnail').count(),0);
-    await page.locator('.window-close').click();await page.waitForURL(base);
+    await page.locator('.window-close:visible').click();await page.waitForURL(base);
     await page.locator('.program-icon[href="./wqv2.html"]').click();await page.waitForLoadState('networkidle');assert.equal(await page.locator('#gallery .thumbnail').count(),1);
     await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();await page.locator('input[value="ru"]').check();await page.locator('#options-accept').click();
     assert.equal((await page.locator('#tab-photos').textContent()).trim(),'Снимки');
     await page.locator('[data-mode="others"]').click();assert.equal(await page.locator('#download-current').isVisible(),false);assert.equal(await page.locator('#receive-photo').isVisible(),true);
     await page.screenshot({path:output+'/wqv2-ru.png',fullPage:true});
-    await page.locator('.window-close').click();await page.waitForURL(base);assert.match(await page.title(),/Программы/);
+    await page.locator('.window-close:visible').click();await page.waitForURL(base);assert.match(await page.title(),/Программы/);
     await page.screenshot({path:output+'/programs-ru.png',fullPage:true});
     await page.locator('.program-icon[href="./wqv2.html"]').click();await page.waitForLoadState('networkidle');
     assert.equal(await page.locator('[data-mode="others"]').getAttribute('aria-pressed'),'true');
@@ -177,7 +177,7 @@ if(require.main===module)(async()=>{
     assert.equal((await page.locator('#photo-count').textContent()).trim(),'0枚');
     await page.screenshot({path:output+'/wqv2-ja.png',fullPage:true});
     await page.reload({waitUntil:'networkidle'});assert.equal(await page.locator('html').getAttribute('lang'),'ja');
-    await page.locator('.window-close').click();await page.waitForURL(base);assert.match(await page.title(),/プログラム/);
+    await page.locator('.window-close:visible').click();await page.waitForURL(base);assert.match(await page.title(),/プログラム/);
     await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();
     assert.equal(await page.locator('input[value="ja"]').isChecked(),true);
     assert.equal((await page.locator('#options-title').textContent()).trim(),'言語');
@@ -197,7 +197,7 @@ if(require.main===module)(async()=>{
     await mobile.reload({waitUntil:'networkidle'});assert.equal(await mobile.locator('html').getAttribute('lang'),'ja');
     assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await mobile.screenshot({path:output+'/wqv2-ja-mobile.png',fullPage:true});
-    await mobile.locator('.window-close').click();await mobile.waitForURL(base);
+    await mobile.locator('.window-close:visible').click();await mobile.waitForURL(base);
     await mobile.locator('.program-icon[href="./wqv3.html"]').click();await mobile.waitForLoadState('networkidle');
     assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await mobile.screenshot({path:output+'/wqv3-ja-mobile.png',fullPage:true});
@@ -232,7 +232,7 @@ if(require.main===module)(async()=>{
       await page.locator('#transfer-cancel').click();await page.waitForFunction(()=>!document.querySelector('#transfer-dialog').open);
       assert.equal(await page.locator('#gallery .thumbnail').count(),3);assert.equal(closed,1);
       await page.locator('#connect').click();await page.waitForFunction(()=>!document.querySelector('#disconnect').disabled);
-      await page.locator('.window-close').click();await page.waitForURL(base);assert.equal(closed,2);
+      await page.locator('.window-close:visible').click();await page.waitForURL(base);assert.equal(closed,2);
       checks.push(kind+': simulated PC and OTHERS wire exchanges, no transmission before Start/SEND, stop preserves photos, navigation releases USB');
       await context.close();
     }

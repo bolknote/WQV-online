@@ -44,7 +44,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
           await frame.locator('#page-7').evaluate(node => node.scrollIntoView());
           await page.screenshot({ path: path.join(output, model + '-ja-annotations.png'), fullPage: true });
         }
-        await page.locator('.window-close').click(); await page.waitForURL(base);
+        await page.locator('.window-close:visible').click(); await page.waitForURL(base);
         checked.push(model + '-' + language);
       }
       await page.setViewportSize({ width: 390, height: 844 }); await page.reload({ waitUntil: 'networkidle' });

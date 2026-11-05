@@ -46,6 +46,7 @@ Choose **Start → Settings → Language** to switch to Russian, Japanese, Germa
 Spanish or Finnish. **Calendar display** lets you start the week on Monday or
 Sunday. Both choices are remembered in this browser and apply across the apps.
 Changing them keeps your current photo, connection and calendar month.
+Settings opens in a small window. Use the titlebar’s cross to close it.
 
 Other infrared adapters can use a C driver installed through **Drivers**.
 The available Linux API supports the eight reference drivers listed below;

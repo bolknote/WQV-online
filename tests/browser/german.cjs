@@ -156,7 +156,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       if (model === 'wqv2') await frame.locator('#supplement-g12-g15').evaluate(n => n.scrollIntoView());
       await page.screenshot({ path: path.join(output, model + '-de-mobile.png'), fullPage: true });
       await page.setViewportSize({ width: 1366, height: 1050 });
-      await page.locator('.window-close').click();
+      await page.locator('.window-close:visible').click();
       await page.waitForURL(base); checked.push(model);
     }
     for (const [file, label] of [['wqv2.html','Bedienungsanleitung'],['wqv3.html','User’s Guide'],['wqv3.html?model=wqv10','Bedienungsanleitung']]) {

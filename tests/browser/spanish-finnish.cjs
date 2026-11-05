@@ -69,7 +69,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
         await page.screenshot({ path: path.join(output, `${model}-${language}-reader-mobile.png`), fullPage: true });
         await page.setViewportSize({ width: 1366, height: 1000 });
-        await page.locator('.window-close').click(); await page.waitForURL(base);
+        await page.locator('.window-close:visible').click(); await page.waitForURL(base);
         const app = model === 'wqv2' ? './wqv2.html' : model === 'wqv3' ? './wqv3.html' : './wqv3.html?model=wqv10';
         await page.locator(`.program-icon[href="${app}"]`).click();
         await page.waitForLoadState('networkidle');
@@ -90,11 +90,11 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         await page.screenshot({ path: path.join(output, `${model}-${language}-app-mobile.png`), fullPage: true });
         await page.locator('#start-menu-button').click(); await page.locator('#start-options').click(); await page.locator('#settings-language').click();
         assert.equal(await page.locator(`input[value="${language}"]`).isChecked(), true);
-        assert.equal(await page.locator('#options-dialog').evaluate(node => node.scrollHeight <= node.clientHeight + 1), true);
+        assert.equal(await page.locator('#settings-window').evaluate(node => node.scrollHeight <= node.clientHeight + 1), true);
         await page.screenshot({ path: path.join(output, `${model}-${language}-options-mobile.png`), fullPage: true });
         await page.locator('#options-cancel').click();
         await page.setViewportSize({ width: 1366, height: 1000 });
-        await page.locator('.window-close').click(); await page.waitForURL(base);
+        await page.locator('.window-close:visible').click(); await page.waitForURL(base);
         checked.push(model + '-' + language + ' UI and ' + edition + ' manual');
       }
       // Every new source page is rendered at desktop and phone widths.
