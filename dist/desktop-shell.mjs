@@ -1,28 +1,13 @@
-import { tr, getLanguage, setLanguage, onLanguageChange, translateDOM, locale } from './i18n.mjs';
+import { tr, onLanguageChange, translateDOM, locale } from './i18n.mjs';
 import { installMenus } from './menus.mjs';
 import { installScreenDialogs } from './screen-dialogs.mjs';
+import { installSystemSettings } from './system-settings.mjs';
 
 export function installDesktopShell({ help, changed = () => {} } = {}) {
   installScreenDialogs();
   const $ = id => document.getElementById(id);
-  const start = $('start-menu');
-  if (start && !start.querySelector('a[href="./drivers.html"]')) {
-    const drivers = document.createElement('a'); drivers.href = './drivers.html';
-    drivers.dataset.applicationExit = ''; drivers.dataset.i18n = 'Infrared drivers'; drivers.textContent = 'Infrared drivers';
-    start.insertBefore(drivers, $('start-options'));
-  }
   const closeMenus = installMenus();
-  const showOptions = () => {
-    closeMenus(); const dialog = $('options-dialog');
-    const radio = dialog.querySelector('input[value="' + getLanguage() + '"]');
-    radio.checked = true; dialog.showModal(); radio.focus();
-  };
-  for (const id of ['menu-options', 'start-options']) $(id)?.addEventListener('click', showOptions);
-  $('options-accept').addEventListener('click', () => {
-    const next = $('options-dialog').querySelector('input[name="display-language"]:checked').value;
-    $('options-dialog').close(); setLanguage(next);
-  });
-  $('options-cancel').addEventListener('click', () => $('options-dialog').close());
+  installSystemSettings({ closeMenus });
   for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id)?.addEventListener('click', () => { closeMenus(); help?.(); });
   const tick = () => { $('pc-clock').textContent = new Date().toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit', hour12: false }); };
   const apply = () => { translateDOM(); tick(); changed(); };

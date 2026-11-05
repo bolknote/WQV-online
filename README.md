@@ -8,7 +8,7 @@ handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
 
-The opening screen has three watch apps and an Infrared drivers utility. Click your watch’s icon to open its app; the
+The opening screen has three watch apps, their guides and Settings. Click your watch’s icon to open its app; the
 close button returns to Programs and releases the USB adapter. Each app has
 its own local album. WQV-1 and WQV-2 share module 2220, so they use one app,
 album and user guide. English, Russian, Japanese, German, Spanish and Finnish
@@ -42,8 +42,10 @@ uses the USB ID to choose its driver and displays the name supplied by the devic
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
-Choose **Tools → Options…** to switch to Russian, Japanese, German, Spanish or Finnish. It remembers your
-choice in this browser, and switching languages keeps your current photo and connection.
+Choose **Start → Settings → Language** to switch to Russian, Japanese, German,
+Spanish or Finnish. **Calendar display** lets you start the week on Monday or
+Sunday. Both choices are remembered in this browser and apply across the apps.
+Changing them keeps your current photo, connection and calendar month.
 
 Other infrared adapters can use a C driver installed through **Drivers**.
 The available Linux API supports the eight reference drivers listed below;
@@ -52,7 +54,7 @@ work yet.** WQV-1, WQV-10 and other operating systems have not been tested.
 
 ### Installing a C driver
 
-Open **Drivers** in Programs or the Start menu. Use **Add…** to select a Linux
+Open **Settings → Infrared drivers**. Use **Add…** to select a Linux
 driver's C file and any extra headers, or choose **Reference sources…**. The
 source is saved before compilation. WCC compiles it locally in a Worker, and
 the resulting Wasm module stays in this browser. You can cancel a build,

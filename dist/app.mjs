@@ -1,5 +1,5 @@
 import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
-  getLanguage, setLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
+  getLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
 import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
@@ -10,6 +10,8 @@ import { colourWatchModel } from './watch-models.mjs';
 import { manualLabel } from './manual-editions.mjs';
 import { installMenus } from './menus.mjs';
 import { installScreenDialogs } from './screen-dialogs.mjs';
+import { installSystemSettings } from './system-settings.mjs';
+import { getWeekStart, onWeekStartChange, weekdayOrder, monthOffset } from './preferences.mjs';
 import { b, equal, sha256, jpegFromUPF, packSCEP, putCommand, toHex } from './formats.mjs';
 import { imageFromFile, prepareRaster, readableImage, newAlbumImage, photoName, photoFilename, LocalStore } from './images.mjs';
 import { watchPhotoDetails, photoUpload } from './wqv3-photo-details.mjs';
@@ -175,19 +177,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
 const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200 or KingSun KS-959 and choose PC, OTHERS or SWAN above the album. Keep the infrared windows 5–10 cm apart. KS-959 uses the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. OTHERS and SWAN: one photo per connection. Prepare USB before starting infrared transfer on the watch, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls and transfer-mode icons.", profile.name));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
-function showOptions() {
-  closeMenus();
-  const dialog = $('options-dialog');
-  const selected = dialog.querySelector('input[value="' + getLanguage() + '"]');
-  selected.checked = true;
-  dialog.showModal(); selected.focus();
-}
-for (const id of ['menu-options', 'start-options']) $(id).addEventListener('click', showOptions);
-$('options-accept').addEventListener('click', () => {
-  const language = $('options-dialog').querySelector('input[name="display-language"]:checked').value;
-  $('options-dialog').close(); setLanguage(language);
-});
-$('options-cancel').addEventListener('click', () => $('options-dialog').close());
+installSystemSettings({ closeMenus });
 
 async function closeClient() {
   clearTimeout(S.idleTimer); S.idleTimer = null;
@@ -664,7 +654,14 @@ renderMonthNames();
 for (let y = FIRST_YEAR; y <= LAST_YEAR; y++) $('calendar-year').add(new Option(y, y));
 $('calendar-month').value = new Date().getMonth() + 1; $('calendar-year').value = Math.max(FIRST_YEAR, Math.min(LAST_YEAR, new Date().getFullYear()));
 function renderCalendar() {
-  const year = +$('calendar-year').value, month = +$('calendar-month').value, first = (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() + 6) % 7;
+  const year = +$('calendar-year').value, month = +$('calendar-month').value, first = monthOffset(year, month, getWeekStart());
+  const order = weekdayOrder(getWeekStart()), names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  document.querySelector('.calendar-weekdays').replaceChildren(...order.map(day => {
+    const span = document.createElement('span'); span.textContent = String(tr(names[day])); span.dataset.weekday = day;
+    span.classList.toggle('weekend', day === 0 || day === 6); return span;
+  }));
+  const choices = document.querySelector('.weekday-options');
+  for (const day of order) choices.append(choices.querySelector('input[value="' + day + '"]').parentElement);
   const today = new Date(), fragment = document.createDocumentFragment();
   for (let cell = 0; cell < 42; cell++) {
     const day = cell - first + 1, button = document.createElement('button');
@@ -793,6 +790,7 @@ function applyLanguage() {
   if (!supported) $('compatibility').textContent = compatibilityText();
 }
 onLanguageChange(applyLanguage);
+onWeekStartChange(renderCalendar);
 fillClock(); applyLanguage(); setInterval(tickClock, 1000);
 if (!supported) {
   $('compatibility').hidden = false;

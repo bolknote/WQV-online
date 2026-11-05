@@ -152,7 +152,7 @@ if(require.main===module)(async()=>{
     await page.locator('.program-icon[href="./wqv3.html"]').click();await page.waitForLoadState('networkidle');assert.equal(await page.locator('#gallery .thumbnail').count(),0);
     await page.locator('.window-close').click();await page.waitForURL(base);
     await page.locator('.program-icon[href="./wqv2.html"]').click();await page.waitForLoadState('networkidle');assert.equal(await page.locator('#gallery .thumbnail').count(),1);
-    await page.locator('#start-menu-button').click();await page.locator('#start-options').click();await page.locator('input[value="ru"]').check();await page.locator('#options-accept').click();
+    await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();await page.locator('input[value="ru"]').check();await page.locator('#options-accept').click();
     assert.equal((await page.locator('#tab-photos').textContent()).trim(),'Снимки');
     await page.locator('[data-mode="others"]').click();assert.equal(await page.locator('#download-current').isVisible(),false);assert.equal(await page.locator('#receive-photo').isVisible(),true);
     await page.screenshot({path:output+'/wqv2-ru.png',fullPage:true});
@@ -170,7 +170,7 @@ if(require.main===module)(async()=>{
     await mobile.locator('.program-icon[href="./wqv2.html"]').click();await mobile.waitForLoadState('networkidle');
     assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await mobile.screenshot({path:output+'/wqv2-mobile.png',fullPage:true});
-    await page.locator('#start-menu-button').click();await page.locator('#start-options').click();
+    await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();
     await page.locator('input[value="ja"]').check();await page.locator('#options-accept').click();
     assert.equal(await page.locator('html').getAttribute('lang'),'ja');
     assert.equal((await page.locator('#tab-photos').textContent()).trim(),'写真');
@@ -178,9 +178,9 @@ if(require.main===module)(async()=>{
     await page.screenshot({path:output+'/wqv2-ja.png',fullPage:true});
     await page.reload({waitUntil:'networkidle'});assert.equal(await page.locator('html').getAttribute('lang'),'ja');
     await page.locator('.window-close').click();await page.waitForURL(base);assert.match(await page.title(),/プログラム/);
-    await page.locator('#start-menu-button').click();await page.locator('#start-options').click();
+    await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();
     assert.equal(await page.locator('input[value="ja"]').isChecked(),true);
-    assert.equal((await page.locator('#options-title').textContent()).trim(),'オプション');
+    assert.equal((await page.locator('#options-title').textContent()).trim(),'言語');
     await page.locator('input[value="en"]').check();await page.locator('#options-cancel').click();
     assert.equal(await page.locator('html').getAttribute('lang'),'ja');
     await page.screenshot({path:output+'/programs-ja.png',fullPage:true});

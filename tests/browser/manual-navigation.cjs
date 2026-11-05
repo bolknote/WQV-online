@@ -92,6 +92,7 @@ async function followsScroll(browser, manual) {
     // Reloading the language must bind the menu to the replacement document.
     await page.locator('.menubar details.menu summary').nth(1).click();
     await page.locator('#menu-options').click();
+    await page.locator('#settings-language').click();
     const nextLanguage = manual.language === 'en' ? 'ru' : 'en';
     await page.locator('input[value="' + nextLanguage + '"]').check();
     await page.locator('#options-accept').click();

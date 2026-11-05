@@ -17,7 +17,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
   page.on('request', request => requests.push(request.url()));
   async function language(value) {
     await page.locator('#start-menu-button').click();
-    await page.locator('#start-options').click();
+    await page.locator('#start-options').click(); await page.locator('#settings-language').click();
     await page.locator('input[name="display-language"][value="' + value + '"]').check();
     await page.locator('#options-accept').click();
     await page.waitForFunction(value => document.documentElement.lang === value, value);

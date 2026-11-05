@@ -38,11 +38,11 @@ test('the existing WQV-3 album keeps its database while WQV-1/2 uses its own', (
 test('returning to Programs waits for USB release and refuses navigation during an operation', async () => {
   let busy = true, click, release;
   const events = [], attributes = {};
-  const link = { href: 'http://example.test/', setAttribute(k, v) { attributes[k] = v; }, addEventListener(name, fn) { click = fn; } };
-  const update = bindApplicationNavigation({ root: { querySelectorAll: () => [link] }, isBusy: () => busy,
+  const link = { href: 'http://example.test/', setAttribute(k, v) { attributes[k] = v; } };
+  const update = bindApplicationNavigation({ root: { querySelectorAll: () => [link], addEventListener(name, fn) { click = fn; } }, isBusy: () => busy,
     close: () => { events.push('close'); return new Promise(resolve => { release = resolve; }); },
     navigate: href => events.push(href) });
-  const event = () => ({ button: 0, preventDefault() {} });
+  const event = () => ({ button: 0, target: { closest: () => link }, preventDefault() {} });
   await click(event()); assert.deepEqual(events, []); assert.equal(attributes['aria-disabled'], 'true');
   busy = false; update(); assert.equal(attributes['aria-disabled'], 'false');
   const pending = click(event()); await click(event());

@@ -15,5 +15,6 @@
 <symbol id="document" viewBox="0 0 40 48"><path fill="#354963" d="M6 1h19l10 10v35H6z"/><path fill="#fffffb" d="M8 3h15v11h10v30H8z"/><path fill="#b9c9da" d="M25 4v8h8zM12 19h17v2H12zM12 25h17v2H12zM12 31h17v2H12zM12 37h12v2H12z"/><path fill="#163a73" d="M1 13h18v22H1z"/><path fill="#fff" shape-rendering="geometricPrecision" d="M4 18h2l1.5 8L9 20h2l1.5 6 1.5-8h2l-2.5 12h-2L10 24l-1.5 6h-2z"/></symbol>
 <symbol id="chip" viewBox="0 0 16 16"><path fill="#344d66" d="M3 3h10v10H3zM1 4h2v2H1zM1 8h2v2H1zM13 4h2v2h-2zM13 8h2v2h-2zM4 1h2v2H4zM8 1h2v2H8zM4 13h2v2H4zM8 13h2v2H8z"/><path fill="#bed3be" d="M4 4h8v8H4z"/><path fill="#64837b" d="M6 6h4v4H6z"/></symbol>
 <symbol id="driver-program" viewBox="0 0 40 48"><path fill="#294d69" d="M4 8h32v32H4zM0 13h4v5H0zM0 24h4v5H0zM36 13h4v5h-4zM36 24h4v5h-4zM11 3h5v5h-5zM24 3h5v5h-5zM11 40h5v5h-5zM24 40h5v5h-5z"/><path fill="#e3eadb" d="M6 10h28v28H6z"/><path fill="#789f8d" d="M11 15h18v18H11z"/><path fill="#d2dfcc" d="M14 18h12v12H14z"/><path fill="#476d7e" d="M17 21h6v6h-6z"/></symbol>
+<symbol id="language" viewBox="0 0 16 16"><path fill="#344d66" d="M1 1h14v14H1z"/><path fill="#fffff5" d="M2 2h12v12H2z"/><path fill="#315782" d="M4 4h3v1H4zM3 5h2v5H3zM6 5h2v5H6zM4 7h3v1H4zM9 4h3v1H9zM9 7h3v1H9zM9 10h3v1H9z"/></symbol>
 <use href="#photos"/>
 </svg>

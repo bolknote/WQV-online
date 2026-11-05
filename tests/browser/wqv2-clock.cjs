@@ -48,14 +48,14 @@ const artifacts=process.env.WQV_BROWSER_ARTIFACTS||path.join(require('node:os').
       assert.equal(await page.locator('#tab-clock').isVisible(),false);assert.equal(await page.locator('#panel-clock').isVisible(),false);
       assert.equal(await page.locator('#panel-photos').isVisible(),true);
       await page.locator('[data-mode=pc]').click();await page.locator('#tab-clock').click();
-      await page.locator('#start-menu-button').click();await page.locator('#start-options').click();
+      await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();
       await page.locator('input[value=ru]').check();await page.locator('#options-accept').click();
       assert.equal(await page.locator('#read-clock').innerText(),'Прочитать время часов');
       await page.screenshot({path:path.join(artifacts,kind+'-clock-ru.png'),fullPage:true});
       await page.setViewportSize({width:390,height:844});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
       await page.screenshot({path:path.join(artifacts,kind+'-clock-mobile.png'),fullPage:true});
-      await page.locator('#start-menu-button').click();await page.locator('#start-options').click();
+      await page.locator('#start-menu-button').click();await page.locator('#start-options').click(); await page.locator('#settings-language').click();
       await page.locator('input[value=ja]').check();await page.locator('#options-accept').click();
       assert.equal(await page.locator('#read-clock').innerText(),'腕時計の時刻を読み取る');
       await page.screenshot({path:path.join(artifacts,kind+'-clock-ja.png'),fullPage:true});

@@ -1,7 +1,9 @@
+import { settingsDictionary } from './settings-translations.mjs';
 import { driverDictionary } from './driver-translations.mjs';
 // Finnish interface text. Protocol tokens and watch menu labels stay unchanged.
 export const finnish = Object.freeze({
   ...driverDictionary('fi'),
+  ...settingsDictionary('fi'),
   "Choose a WQV-3 or WQV-10 photo archive.": "Valitse WQV-3- tai WQV-10-kuva-arkisto.",
   "3 applications": "3 sovellusta",
   "Open WQV-10": "Avaa WQV-10",

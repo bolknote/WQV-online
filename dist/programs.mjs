@@ -14,5 +14,5 @@ installDesktopShell({ changed: () => {
       ? watchModel(model).name + ' ' + label : tr(guide.getAttribute('data-i18n-aria-label')));
   }
 }, help: () => messageDialog('CASSIOPEIA · WQV Link',
-  tr('Open WQV-1/2, WQV-3 or WQV-10 to use your wrist camera. Each application keeps its own photo collection. Use Tools → Options to choose the display language.')) });
+  tr('Choose your watch to open its application.') + '\n\n' + tr('Use Settings to change the language and the first day of week.')) });
 bindApplicationNavigation();

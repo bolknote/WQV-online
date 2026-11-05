@@ -18,9 +18,9 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
       page.on('response', response => { if (response.status() >= 400) errors.push(response.url() + ': ' + response.status()); });
       await page.goto(base, { waitUntil: 'networkidle' });
-      assert.deepEqual(await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getAttribute('href'))),
-        ['./wqv2.html', './wqv3.html', './wqv3.html?model=wqv10', './manual.html?model=wqv2', './manual.html?model=wqv3', './manual.html?model=wqv10', './drivers.html']);
-      const desktop = await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
+      assert.deepEqual(await page.locator('.programs-grid>.program-icon').evaluateAll(items => items.map(item => item.getAttribute('href'))),
+        ['./wqv2.html', './wqv3.html', './wqv3.html?model=wqv10', './manual.html?model=wqv2', './manual.html?model=wqv3', './manual.html?model=wqv10', null]);
+      const desktop = await page.locator('.programs-grid>.program-icon').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
       assert.ok(desktop.every(top => Math.abs(top - desktop[0]) < 1));
       for (const model of ['wqv2', 'wqv3', 'wqv10']) {
         await page.locator('.document-icon[href="./manual.html?model=' + model + '"]').click();
@@ -48,7 +48,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         checked.push(model + '-' + language);
       }
       await page.setViewportSize({ width: 390, height: 844 }); await page.reload({ waitUntil: 'networkidle' });
-      const mobile = await page.locator('.programs-grid>a').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
+      const mobile = await page.locator('.programs-grid>.program-icon').evaluateAll(items => items.map(item => item.getBoundingClientRect().top));
       assert.ok(mobile.slice(0,3).every(top => Math.abs(top - mobile[0]) < 1));
       assert.ok(mobile.slice(3,6).every(top => Math.abs(top - mobile[3]) < 1));
       assert.ok(mobile[3] > mobile[0]);
@@ -60,7 +60,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
       await page.screenshot({ path: path.join(output, 'reader-' + language + '-mobile.png'), fullPage: true });
       if (language === 'en') {
-        await page.locator('#start-menu-button').click(); await page.locator('#start-options').click();
+        await page.locator('#start-menu-button').click(); await page.locator('#start-options').click(); await page.locator('#settings-language').click();
         await page.locator('input[value="ru"]').check(); await page.locator('#options-accept').click();
         await page.waitForFunction(() => document.querySelector('#document-frame').contentDocument?.documentElement.lang === 'ru');
         assert.match(await page.title(), /Руководство/);

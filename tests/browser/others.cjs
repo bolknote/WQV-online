@@ -132,6 +132,7 @@ export function createAdapter(device) {
     assert.ok(+await page.locator('#retry-count').innerText()>0);
     await page.locator('.menubar details').nth(2).locator('summary').click();
     await page.locator('#menu-options').click();
+    await page.locator('#settings-language').click();
     await page.locator('input[name=display-language][value=ru]').check();await page.locator('#options-accept').click();
     assert.equal(await page.locator('#receive-photo').innerText(),'↓ Принять снимок…');
     await page.screenshot({path:artifacts+'/cassiopeia-others-main.png',fullPage:true});
