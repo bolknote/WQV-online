@@ -10,7 +10,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf",
     "sourceSHA256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
     "scanned": false,
-    "illustrations": 43,
+    "illustrations": 46,
     "headings": [
       {
         "id": "section-1-0",
@@ -29,6 +29,26 @@
         "text": "BEFORE USING THE WATCH..."
       },
       {
+        "id": "section-1-27",
+        "text": "Warning!"
+      },
+      {
+        "id": "section-1-42",
+        "text": "To set the time and date"
+      },
+      {
+        "id": "section-1-53",
+        "text": "12-hour/24-hour Timekeeping"
+      },
+      {
+        "id": "section-1-65",
+        "text": "Contrast Adjustment"
+      },
+      {
+        "id": "section-1-70",
+        "text": "Note"
+      },
+      {
         "id": "section-1-74",
         "text": "Auto Display Off"
       },
@@ -37,52 +57,240 @@
         "text": "GENERAL GUIDE"
       },
       {
+        "id": "section-2-2",
+        "text": "Timekeeping Mode"
+      },
+      {
         "id": "section-2-4",
         "text": "CAMERA MODE"
+      },
+      {
+        "id": "section-2-16",
+        "text": "Note"
+      },
+      {
+        "id": "section-2-20",
+        "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode"
+      },
+      {
+        "id": "section-2-21",
+        "text": "and displays the last image recorded. See “Camera Rest Interval” for"
+      },
+      {
+        "id": "section-2-22",
+        "text": "more information."
       },
       {
         "id": "section-2-27",
         "text": "Camera Mode Precautions"
       },
       {
+        "id": "section-2-28",
+        "text": "General"
+      },
+      {
+        "id": "section-2-34",
+        "text": "Camera Rest Interval"
+      },
+      {
+        "id": "section-2-43",
+        "text": "Alarm, Hourly Time Signal, Countdown Alarm Sounds"
+      },
+      {
         "id": "section-3-0",
         "text": "Controlling the Camera Mode Image"
       },
       {
-        "id": "section-3-46",
+        "id": "section-3-3",
+        "text": "Adjusting the Image Brightness"
+      },
+      {
+        "id": "section-3-7",
+        "text": "To adjust image brightness"
+      },
+      {
+        "id": "section-3-22",
+        "text": "Important!"
+      },
+      {
+        "id": "section-3-26",
+        "text": "Specifying the Lighting Type"
+      },
+      {
+        "id": "section-3-35",
+        "text": "To specify the lighting type"
+      },
+      {
+        "id": "section-3-44",
         "text": "Recording Modes"
       },
       {
-        "id": "section-3-79",
+        "id": "section-3-47",
+        "text": "Normal Mode"
+      },
+      {
+        "id": "section-3-49",
+        "text": "Merge Mode"
+      },
+      {
+        "id": "section-3-52",
+        "text": "Art Mode"
+      },
+      {
+        "id": "section-3-55",
+        "text": "To select the recording mode"
+      },
+      {
+        "id": "section-3-58",
+        "text": "Normal Mode"
+      },
+      {
+        "id": "section-3-59",
+        "text": "Merge Mode"
+      },
+      {
+        "id": "section-3-60",
+        "text": "Art Mode"
+      },
+      {
+        "id": "section-3-65",
+        "text": "To record using the Merge Mode"
+      },
+      {
+        "id": "section-3-78",
+        "text": "Important!"
+      },
+      {
+        "id": "section-3-80",
+        "text": "Note"
+      },
+      {
+        "id": "section-3-84",
+        "text": "To record using the Art Mode"
+      },
+      {
+        "id": "section-3-87",
         "text": "VISUAL DATABANK™ MODE"
+      },
+      {
+        "id": "section-3-90",
+        "text": "Important!"
+      },
+      {
+        "id": "section-3-96",
+        "text": "To view recorded images"
+      },
+      {
+        "id": "section-3-117",
+        "text": "Note"
       },
       {
         "id": "section-4-0",
         "text": "Attaching Text to an Image"
       },
       {
+        "id": "section-4-3",
+        "text": "To attach text to an image"
+      },
+      {
+        "id": "section-4-11",
+        "text": "Note"
+      },
+      {
+        "id": "section-4-16",
+        "text": "Image Sorting"
+      },
+      {
         "id": "section-4-23",
         "text": "Deleting Images"
+      },
+      {
+        "id": "section-4-26",
+        "text": "To delete all images in watch memory"
+      },
+      {
+        "id": "section-4-47",
+        "text": "Note"
+      },
+      {
+        "id": "section-4-51",
+        "text": "To delete a specific image"
+      },
+      {
+        "id": "section-4-66",
+        "text": "Note"
       },
       {
         "id": "section-4-70",
         "text": "TIMEKEEPING MODE"
       },
       {
+        "id": "section-4-72",
+        "text": "To reset the seconds count to zero"
+      },
+      {
+        "id": "section-4-81",
+        "text": "Note"
+      },
+      {
+        "id": "section-4-84",
+        "text": "To switch between Timekeeping Mode screen formats"
+      },
+      {
         "id": "section-5-0",
         "text": "Using the Viewer Screen"
+      },
+      {
+        "id": "section-5-3",
+        "text": "Important!"
+      },
+      {
+        "id": "section-5-8",
+        "text": "To display the Viewer Screen"
+      },
+      {
+        "id": "section-5-30",
+        "text": "To adjust image contrast"
+      },
+      {
+        "id": "section-5-38",
+        "text": "Note"
       },
       {
         "id": "section-5-41",
         "text": "ALARM MODE"
       },
       {
+        "id": "section-5-47",
+        "text": "To set the alarm time"
+      },
+      {
+        "id": "section-5-61",
+        "text": "Note"
+      },
+      {
         "id": "section-5-64",
         "text": "Daily Alarm Operation"
       },
       {
+        "id": "section-5-67",
+        "text": "To test the alarm"
+      },
+      {
         "id": "section-5-74",
         "text": "COUNTDOWN ALARM MODE"
+      },
+      {
+        "id": "section-5-77",
+        "text": "Important!"
+      },
+      {
+        "id": "section-5-84",
+        "text": "To set the countdown start time"
+      },
+      {
+        "id": "section-5-94",
+        "text": "Note"
       },
       {
         "id": "section-5-97",
@@ -93,16 +301,52 @@
         "text": "STOPWATCH MODE"
       },
       {
-        "id": "section-6-7",
+        "id": "section-6-6",
+        "text": "To measure times with the stopwatch"
+      },
+      {
+        "id": "section-6-8",
+        "text": "Note"
+      },
+      {
+        "id": "section-6-11",
         "text": "IR MODE"
       },
       {
-        "id": "section-6-15",
+        "id": "section-6-14",
+        "text": "Note"
+      },
+      {
+        "id": "section-6-19",
         "text": "Exchanging Data Between Two Watches"
+      },
+      {
+        "id": "section-6-29",
+        "text": "To enter the IR Mode"
+      },
+      {
+        "id": "section-6-36",
+        "text": "To send a single image"
+      },
+      {
+        "id": "section-6-68",
+        "text": "Note"
+      },
+      {
+        "id": "section-6-71",
+        "text": "To receive a single image"
+      },
+      {
+        "id": "section-6-93",
+        "text": "Note"
       },
       {
         "id": "section-7-0",
         "text": "Communication Errors"
+      },
+      {
+        "id": "section-7-2",
+        "text": "Communication Precautions"
       },
       {
         "id": "section-7-24",
@@ -113,8 +357,40 @@
         "text": "About the Pre-installed Battery"
       },
       {
-        "id": "section-7-63",
+        "id": "section-7-31",
+        "text": "Low Battery Indication"
+      },
+      {
+        "id": "section-7-35",
+        "text": "Step 1"
+      },
+      {
+        "id": "section-7-46",
+        "text": "Step 2"
+      },
+      {
+        "id": "section-7-54",
+        "text": "Note"
+      },
+      {
+        "id": "section-7-62",
         "text": "Battery Precautions"
+      },
+      {
+        "id": "section-7-87",
+        "text": "Keep batteries out of the reach of small children. If accidentally"
+      },
+      {
+        "id": "section-7-88",
+        "text": "swallowed, immediately contact a physician."
+      },
+      {
+        "id": "section-7-89",
+        "text": "To replace the battery"
+      },
+      {
+        "id": "section-8-1",
+        "text": "Settings Following Battery Replacement"
       }
     ]
   },
@@ -130,7 +406,456 @@
     "sourceSHA256": "a84079c8f717e59e3c64e091862ac7b556b36d44a02e0139a22c2d601f016073",
     "scanned": false,
     "illustrations": 45,
-    "headings": []
+    "headings": [
+      {
+        "id": "section-1-1",
+        "text": "CASIO"
+      },
+      {
+        "id": "section-1-2",
+        "text": "WQV-1/2"
+      },
+      {
+        "id": "section-1-3",
+        "text": "Модуль 2220"
+      },
+      {
+        "id": "section-1-4",
+        "text": "Наручные часы с камерой WQV-1"
+      },
+      {
+        "id": "section-1-5",
+        "text": "FCC (федеральная комиссия связи)"
+      },
+      {
+        "id": "section-1-12",
+        "text": "Предупреждения FCC"
+      },
+      {
+        "id": "section-1-44",
+        "text": "Меры предосторожности FCC"
+      },
+      {
+        "id": "section-1-51",
+        "text": "Общие сведения"
+      },
+      {
+        "id": "section-1-58",
+        "text": "О руководстве"
+      },
+      {
+        "id": "section-1-76",
+        "text": "Перед использованием часов..."
+      },
+      {
+        "id": "section-1-77",
+        "text": "Меры предосторожности!"
+      },
+      {
+        "id": "section-1-78",
+        "text": "Перед тем, как работать с часами убедитесь, что Вы находитесь в безопасном"
+      },
+      {
+        "id": "section-1-79",
+        "text": "месте."
+      },
+      {
+        "id": "section-1-85",
+        "text": "Не пользуйтесь часами в самолете"
+      },
+      {
+        "id": "section-1-89",
+        "text": "Всегда делайте копии особенно важных данных"
+      },
+      {
+        "id": "section-1-102",
+        "text": "Установка времени и даты"
+      },
+      {
+        "id": "section-2-12",
+        "text": "12-/24-часовой формат представления времени"
+      },
+      {
+        "id": "section-2-24",
+        "text": "Регулировка контрастности"
+      },
+      {
+        "id": "section-2-31",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-2-44",
+        "text": "Автоматическое отключение изображения"
+      },
+      {
+        "id": "section-2-49",
+        "text": "Общие указания"
+      },
+      {
+        "id": "section-2-51",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-3-1",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-6",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-11",
+        "text": "Как записать изображение"
+      },
+      {
+        "id": "section-3-26",
+        "text": "Примечания"
+      },
+      {
+        "id": "section-3-36",
+        "text": "Меры предосторожности в Режиме Камеры"
+      },
+      {
+        "id": "section-3-37",
+        "text": "Общие меры предосторожности"
+      },
+      {
+        "id": "section-3-44",
+        "text": "Интервал Покоя Камеры"
+      },
+      {
+        "id": "section-3-61",
+        "text": "Звуковые сигналы Будильника, Начала часа, Таймера"
+      },
+      {
+        "id": "section-3-64",
+        "text": "Регулировка изображения в Режиме Камеры"
+      },
+      {
+        "id": "section-3-69",
+        "text": "Регулировка яркости изображения"
+      },
+      {
+        "id": "section-3-74",
+        "text": "Как отрегулировать яркость"
+      },
+      {
+        "id": "section-4-7",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-4-11",
+        "text": "Установка типа освещенности"
+      },
+      {
+        "id": "section-4-20",
+        "text": "Как определить тип освещения"
+      },
+      {
+        "id": "section-4-29",
+        "text": "Режимы записи"
+      },
+      {
+        "id": "section-4-32",
+        "text": "Нормальный режим"
+      },
+      {
+        "id": "section-4-35",
+        "text": "Режим Слияния"
+      },
+      {
+        "id": "section-4-37",
+        "text": "Художественный режим"
+      },
+      {
+        "id": "section-4-39",
+        "text": "Как выбрать режим записи"
+      },
+      {
+        "id": "section-4-47",
+        "text": "Как осуществить запись в режиме слияния"
+      },
+      {
+        "id": "section-4-59",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-4-62",
+        "text": "Примечания:"
+      },
+      {
+        "id": "section-5-2",
+        "text": "Как осуществить запись в художественном режиме"
+      },
+      {
+        "id": "section-5-7",
+        "text": "Режим Памяти Изображений"
+      },
+      {
+        "id": "section-5-10",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-5-16",
+        "text": "Как посмотреть записанные изображения"
+      },
+      {
+        "id": "section-5-35",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-5-41",
+        "text": "Сопровождающий текст"
+      },
+      {
+        "id": "section-5-44",
+        "text": "Как прикрепить к изображению сопровождающий текст"
+      },
+      {
+        "id": "section-5-74",
+        "text": "Примечания"
+      },
+      {
+        "id": "section-5-79",
+        "text": "Сортировка изображений"
+      },
+      {
+        "id": "section-6-0",
+        "text": "Удаление изображения"
+      },
+      {
+        "id": "section-6-3",
+        "text": "Как удалить из памяти часов все изображения"
+      },
+      {
+        "id": "section-6-32",
+        "text": "Важно"
+      },
+      {
+        "id": "section-6-36",
+        "text": "Как удалить определенное изображение"
+      },
+      {
+        "id": "section-6-54",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-6-57",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-6-74",
+        "text": "Начальная установка отсчета секунд"
+      },
+      {
+        "id": "section-6-84",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-6-87",
+        "text": "Переключение форматов экрана в Режиме Текущего времени"
+      },
+      {
+        "id": "section-6-96",
+        "text": "Использование экрана"
+      },
+      {
+        "id": "section-6-97",
+        "text": "просмотра"
+      },
+      {
+        "id": "section-7-3",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-7-9",
+        "text": "Как войти в режим просмотра"
+      },
+      {
+        "id": "section-7-32",
+        "text": "Как отрегулировать контрастность изображения"
+      },
+      {
+        "id": "section-7-45",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-7-49",
+        "text": "Режим Будильника"
+      },
+      {
+        "id": "section-7-55",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-7-70",
+        "text": "Как установить время звукового сигнала"
+      },
+      {
+        "id": "section-7-94",
+        "text": "Работа Ежедневного будильника"
+      },
+      {
+        "id": "section-7-97",
+        "text": "Проверка будильника"
+      },
+      {
+        "id": "section-8-2",
+        "text": "Включение и выключение Будильника и Ежечасного сигнала"
+      },
+      {
+        "id": "section-8-17",
+        "text": "Режим таймера"
+      },
+      {
+        "id": "section-8-23",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-8-30",
+        "text": "Как установить стартовое время Таймера"
+      },
+      {
+        "id": "section-8-39",
+        "text": "Примечания"
+      },
+      {
+        "id": "section-8-42",
+        "text": "Использование Таймера"
+      },
+      {
+        "id": "section-8-52",
+        "text": "Режим Секундомера"
+      },
+      {
+        "id": "section-8-65",
+        "text": "Режим Обмена Данными"
+      },
+      {
+        "id": "section-8-68",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-8-70",
+        "text": "Обмен данными между двумя часами"
+      },
+      {
+        "id": "section-9-7",
+        "text": "Как войти в Режим Обмена данными"
+      },
+      {
+        "id": "section-9-14",
+        "text": "Как переслать одно изображение"
+      },
+      {
+        "id": "section-9-50",
+        "text": "Важно"
+      },
+      {
+        "id": "section-9-56",
+        "text": "Как принять одно изображение"
+      },
+      {
+        "id": "section-9-78",
+        "text": "Важно:"
+      },
+      {
+        "id": "section-9-83",
+        "text": "Ошибки обмена данными"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Меры предосторожности при обмене данными"
+      },
+      {
+        "id": "section-10-21",
+        "text": "Источник питания"
+      },
+      {
+        "id": "section-10-22",
+        "text": "Батарея"
+      },
+      {
+        "id": "section-10-29",
+        "text": "Индикатор ослабления мощности батареи"
+      },
+      {
+        "id": "section-10-32",
+        "text": "Шаг 1"
+      },
+      {
+        "id": "section-10-40",
+        "text": "Шаг 2"
+      },
+      {
+        "id": "section-10-46",
+        "text": "Важно"
+      },
+      {
+        "id": "section-10-54",
+        "text": "Меры предосторожности при работе с батареей"
+      },
+      {
+        "id": "section-10-80",
+        "text": "Как заменить батарею"
+      },
+      {
+        "id": "section-11-53",
+        "text": "Установки, следующие за заменой батареи"
+      },
+      {
+        "id": "section-11-58",
+        "text": "Технические характеристики"
+      },
+      {
+        "id": "section-11-113",
+        "text": "Водонепроницаемость"
+      },
+      {
+        "id": "section-12-32",
+        "text": "Меры предосторожности при эксплуатации Ваших часов"
+      },
+      {
+        "id": "section-12-101",
+        "text": "Информация о товаре"
+      },
+      {
+        "id": "section-12-105",
+        "text": "Торговая марка:"
+      },
+      {
+        "id": "section-12-107",
+        "text": "Фирма изготовитель:"
+      },
+      {
+        "id": "section-12-110",
+        "text": "Адрес изготовителя:"
+      },
+      {
+        "id": "section-12-113",
+        "text": "Импортер:"
+      },
+      {
+        "id": "section-12-115",
+        "text": "Страна-изготовитель:"
+      },
+      {
+        "id": "section-12-116",
+        "text": "Гарантийный срок:"
+      },
+      {
+        "id": "section-12-118",
+        "text": "Адрес уполномоченной"
+      },
+      {
+        "id": "section-12-119",
+        "text": "организации для принятия"
+      },
+      {
+        "id": "section-12-120",
+        "text": "претензий:"
+      }
+    ]
   },
   {
     "id": "wqv2-ja",
@@ -143,7 +868,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_JA.pdf",
     "sourceSHA256": "bc0c4c1371d5f07d23b3df766e3cbe36eb89a91c69fbc6d9633c0f714d3c9f44",
     "scanned": true,
-    "illustrations": 146,
+    "illustrations": 135,
     "headings": [
       {
         "id": "section-3-0",
@@ -227,7 +952,7 @@
       },
       {
         "id": "section-10-8",
-        "text": "画像を選ぶ"
+        "text": "2. 画像を選ぶ"
       },
       {
         "id": "section-10-17",
@@ -268,14 +993,6 @@
       {
         "id": "section-11-5",
         "text": "1. ビジュアルDBモードに切り替える"
-      },
-      {
-        "id": "section-11-6",
-        "text": "Dボタンを5回押します。"
-      },
-      {
-        "id": "section-11-8",
-        "text": "時刻モードのときにDボタンを1回押します。"
       },
       {
         "id": "section-11-14",
@@ -710,7 +1427,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf",
     "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
     "scanned": false,
-    "illustrations": 40,
+    "illustrations": 41,
     "headings": [
       {
         "id": "section-1-0",
@@ -725,12 +1442,32 @@
         "text": "About This Manual"
       },
       {
+        "id": "section-1-29",
+        "text": "Warning!"
+      },
+      {
         "id": "section-1-43",
         "text": "BEFORE USING THE WATCH..."
       },
       {
+        "id": "section-1-44",
+        "text": "To set the time and date"
+      },
+      {
+        "id": "section-1-61",
+        "text": "To adjust the display contrast"
+      },
+      {
+        "id": "section-1-75",
+        "text": "Note"
+      },
+      {
         "id": "section-1-81",
         "text": "Auto Power Save"
+      },
+      {
+        "id": "section-1-91",
+        "text": "About the wake up screen"
       },
       {
         "id": "section-2-0",
@@ -741,24 +1478,112 @@
         "text": "CAMERA MODE"
       },
       {
+        "id": "section-2-5",
+        "text": "Note"
+      },
+      {
+        "id": "section-2-14",
+        "text": "To record an image"
+      },
+      {
+        "id": "section-2-23",
+        "text": "Timekeeping Mode"
+      },
+      {
+        "id": "section-2-26",
+        "text": "Note"
+      },
+      {
+        "id": "section-2-30",
+        "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode"
+      },
+      {
+        "id": "section-2-31",
+        "text": "and displays the last image recorded. See “Camera Rest Interval” for"
+      },
+      {
+        "id": "section-2-32",
+        "text": "more information."
+      },
+      {
         "id": "section-2-37",
         "text": "Camera Mode Precautions"
+      },
+      {
+        "id": "section-2-38",
+        "text": "General"
+      },
+      {
+        "id": "section-2-47",
+        "text": "Camera Rest Interval"
+      },
+      {
+        "id": "section-2-56",
+        "text": "Displayed Image Size and Memory Image Size"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Alarm, Hourly Time Signal, Countdown Timer Sounds"
       },
       {
         "id": "section-3-3",
         "text": "Controlling the Camera Mode Image"
       },
       {
-        "id": "section-3-79",
+        "id": "section-3-7",
+        "text": "Adjusting Image Brightness"
+      },
+      {
+        "id": "section-3-11",
+        "text": "To adjust image brightness"
+      },
+      {
+        "id": "section-3-29",
+        "text": "Important!"
+      },
+      {
+        "id": "section-3-33",
+        "text": "Specifying the Lighting Type"
+      },
+      {
+        "id": "section-3-38",
+        "text": "To specify the lighting type"
+      },
+      {
+        "id": "section-3-50",
+        "text": "Using the Camera Timer to Record Images"
+      },
+      {
+        "id": "section-3-52",
+        "text": "To record an image using the camera timer"
+      },
+      {
+        "id": "section-3-76",
         "text": "VISUAL DATABANKTM"
       },
       {
-        "id": "section-3-102",
+        "id": "section-3-79",
+        "text": "Important!"
+      },
+      {
+        "id": "section-3-82",
+        "text": "To view recorded images"
+      },
+      {
+        "id": "section-3-108",
         "text": "Adjusting Image Contrast"
       },
       {
-        "id": "section-3-126",
+        "id": "section-3-114",
+        "text": "To adjust image contrast"
+      },
+      {
+        "id": "section-3-132",
         "text": "Attaching Text to an Image"
+      },
+      {
+        "id": "section-3-135",
+        "text": "To attach text to an image"
       },
       {
         "id": "section-4-7",
@@ -769,36 +1594,124 @@
         "text": "Deleting Images"
       },
       {
+        "id": "section-4-19",
+        "text": "To delete all images in watch memory"
+      },
+      {
+        "id": "section-4-31",
+        "text": "To delete a specific image"
+      },
+      {
         "id": "section-4-53",
         "text": "IR MODE"
+      },
+      {
+        "id": "section-4-56",
+        "text": "Note"
       },
       {
         "id": "section-4-62",
         "text": "Exchanging Data Between Two Watches"
       },
       {
+        "id": "section-4-72",
+        "text": "To enter the IR Mode"
+      },
+      {
+        "id": "section-4-77",
+        "text": "To send an image"
+      },
+      {
+        "id": "section-5-15",
+        "text": "To receive an image"
+      },
+      {
         "id": "section-5-41",
         "text": "Communication Errors"
+      },
+      {
+        "id": "section-5-47",
+        "text": "Communication Screen Messages"
+      },
+      {
+        "id": "section-5-49",
+        "text": "Other Messages"
+      },
+      {
+        "id": "section-5-52",
+        "text": "Communication Precautions"
       },
       {
         "id": "section-5-76",
         "text": "TIMEKEEPING"
       },
       {
+        "id": "section-5-78",
+        "text": "To reset the second’s count to zero"
+      },
+      {
+        "id": "section-5-86",
+        "text": "To specify the wake up screen image"
+      },
+      {
         "id": "section-5-101",
         "text": "Using the Calendar Screen"
+      },
+      {
+        "id": "section-5-103",
+        "text": "To view the calendar of a specific month"
+      },
+      {
+        "id": "section-6-0",
+        "text": "To turn holiday highlighting on and off"
+      },
+      {
+        "id": "section-6-15",
+        "text": "Note"
       },
       {
         "id": "section-6-19",
         "text": "ALARM"
       },
       {
+        "id": "section-6-37",
+        "text": "Alarm Operation"
+      },
+      {
+        "id": "section-6-41",
+        "text": "To test the alarm"
+      },
+      {
+        "id": "section-6-45",
+        "text": "To turn a Daily Alarm and the Hourly Time Signal on and off"
+      },
+      {
         "id": "section-6-55",
         "text": "COUNTDOWN TIMER"
       },
       {
+        "id": "section-6-70",
+        "text": "To set the countdown start time and countdown timer screen"
+      },
+      {
+        "id": "section-6-71",
+        "text": "image"
+      },
+      {
+        "id": "section-6-91",
+        "text": "Countdown Timer Operation"
+      },
+      {
+        "id": "section-6-97",
+        "text": "To use the Countdown Timer"
+      },
+      {
         "id": "section-7-0",
         "text": "STOPWATCH"
+      },
+      {
+        "id": "section-7-2",
+        "text": "To measure times with the stopwatch"
       },
       {
         "id": "section-7-4",
@@ -809,8 +1722,32 @@
         "text": "About the Pre-installed Battery"
       },
       {
+        "id": "section-7-11",
+        "text": "Low Battery Indication"
+      },
+      {
+        "id": "section-7-14",
+        "text": "Step 1"
+      },
+      {
+        "id": "section-7-16",
+        "text": "Step 2"
+      },
+      {
+        "id": "section-7-23",
+        "text": "Note"
+      },
+      {
         "id": "section-7-38",
         "text": "Battery Precautions"
+      },
+      {
+        "id": "section-7-62",
+        "text": "Keep batteries out of the reach of small children. If accidentally"
+      },
+      {
+        "id": "section-7-63",
+        "text": "swallowed, immediately contact a physician."
       },
       {
         "id": "section-7-110",
@@ -827,6 +1764,10 @@
       {
         "id": "section-8-20",
         "text": "Timekeeping"
+      },
+      {
+        "id": "section-8-25",
+        "text": "12-hour/24-hour Timekeeping Formats"
       },
       {
         "id": "section-8-33",
@@ -849,7 +1790,7 @@
     "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf",
     "sourceSHA256": "379d849e02f1648fd1f1e555da12f54c51c0701967c64642f60af5c1fd34846b",
     "scanned": false,
-    "illustrations": 55,
+    "illustrations": 44,
     "headings": [
       {
         "id": "section-1-1",
@@ -884,48 +1825,404 @@
         "text": "Перед использованием часов…"
       },
       {
-        "id": "section-2-83",
+        "id": "section-1-69",
+        "text": "Меры предосторожности!"
+      },
+      {
+        "id": "section-1-88",
+        "text": "Установка времени и даты"
+      },
+      {
+        "id": "section-2-16",
+        "text": "12-/24-часовой формат представления времени"
+      },
+      {
+        "id": "section-2-31",
+        "text": "Регулировка контрастности"
+      },
+      {
+        "id": "section-2-47",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-2-52",
+        "text": "Автоматическое отключение питания"
+      },
+      {
+        "id": "section-2-60",
+        "text": "Об «Экране"
+      },
+      {
+        "id": "section-2-61",
+        "text": "пробуждения»"
+      },
+      {
+        "id": "section-2-73",
         "text": "Общие указания"
       },
       {
-        "id": "section-3-14",
+        "id": "section-3-0",
         "text": "Режим Камеры"
       },
       {
-        "id": "section-4-83",
+        "id": "section-3-7",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-3-13",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-17",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-3-27",
+        "text": "Как записать изображение"
+      },
+      {
+        "id": "section-3-47",
+        "text": "Примечания"
+      },
+      {
+        "id": "section-3-61",
+        "text": "Меры предосторожности в Режиме Камеры"
+      },
+      {
+        "id": "section-3-62",
+        "text": "Общие меры предосторожности"
+      },
+      {
+        "id": "section-3-75",
+        "text": "Интервал Покоя Камеры"
+      },
+      {
+        "id": "section-3-91",
+        "text": "Размеры изображений на экране и в памяти"
+      },
+      {
+        "id": "section-4-2",
+        "text": "Звуковые сигналы Будильника, Начала часа, Таймера"
+      },
+      {
+        "id": "section-4-5",
+        "text": "Регулировка изображения в Режиме Камеры"
+      },
+      {
+        "id": "section-4-8",
+        "text": "Регулировка яркости изображения"
+      },
+      {
+        "id": "section-4-12",
+        "text": "Как отрегулировать яркость"
+      },
+      {
+        "id": "section-4-29",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-4-34",
+        "text": "Установка типа освещения"
+      },
+      {
+        "id": "section-4-40",
+        "text": "Как определить тип освещения"
+      },
+      {
+        "id": "section-4-62",
+        "text": "Использование Таймера при записи изображений"
+      },
+      {
+        "id": "section-4-64",
+        "text": "Как записать изображение, используя Таймер"
+      },
+      {
+        "id": "section-4-85",
         "text": "Режим Памяти Изображений"
+      },
+      {
+        "id": "section-4-88",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-4-91",
+        "text": "Как посмотреть записанные изображения"
+      },
+      {
+        "id": "section-5-24",
+        "text": "Регулировка контрастности изображения"
+      },
+      {
+        "id": "section-5-33",
+        "text": "Как отрегулировать контрастность изображения"
+      },
+      {
+        "id": "section-5-53",
+        "text": "Сопровождающий текст"
+      },
+      {
+        "id": "section-5-57",
+        "text": "Как прикрепись к изображению сопровождающий"
+      },
+      {
+        "id": "section-5-58",
+        "text": "текст"
+      },
+      {
+        "id": "section-5-93",
+        "text": "Сортировка изображений"
+      },
+      {
+        "id": "section-5-106",
+        "text": "Удаление изображения"
+      },
+      {
+        "id": "section-5-110",
+        "text": "Как удалить из памяти часов все изображения"
+      },
+      {
+        "id": "section-6-27",
+        "text": "Как удалить определенное изображение"
       },
       {
         "id": "section-6-63",
         "text": "Режим Обмена Данными"
       },
       {
+        "id": "section-6-67",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-6-71",
+        "text": "Обмен данными между двумя часами"
+      },
+      {
+        "id": "section-6-81",
+        "text": "Как войти в Режим Обмена данными"
+      },
+      {
+        "id": "section-6-86",
+        "text": "Как переслать одно изображение"
+      },
+      {
+        "id": "section-7-32",
+        "text": "Как принять одно изображение"
+      },
+      {
+        "id": "section-7-60",
+        "text": "Ошибки обмена данными"
+      },
+      {
+        "id": "section-7-65",
+        "text": "Другие сообщения"
+      },
+      {
+        "id": "section-7-80",
+        "text": "Меры предосторожности при обмене данными"
+      },
+      {
         "id": "section-8-10",
         "text": "Режим Текущего времени"
       },
       {
-        "id": "section-8-115",
+        "id": "section-8-15",
+        "text": "Обратите внимание"
+      },
+      {
+        "id": "section-8-22",
+        "text": "Начальная установка отсчета секунд"
+      },
+      {
+        "id": "section-8-39",
+        "text": "Как установить вид «Экрана пробуждения»"
+      },
+      {
+        "id": "section-8-58",
+        "text": "Использование календаря"
+      },
+      {
+        "id": "section-8-69",
+        "text": "Как посмотреть календарь на выбранный месяц"
+      },
+      {
+        "id": "section-8-84",
+        "text": "Как включить или отключить подсветку праздничных дат"
+      },
+      {
+        "id": "section-8-111",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-8-113",
         "text": "Режим Звуковых сигналов"
       },
       {
-        "id": "section-9-62",
+        "id": "section-9-3",
+        "text": "Как установить время звукового сигнала"
+      },
+      {
+        "id": "section-9-37",
+        "text": "Работа Ежедневного будильника"
+      },
+      {
+        "id": "section-9-40",
+        "text": "Проверка будильника"
+      },
+      {
+        "id": "section-9-42",
+        "text": "Включение и выключение Будильника и Ежечасного сигнала"
+      },
+      {
+        "id": "section-9-57",
         "text": "Режим Таймера"
       },
       {
-        "id": "section-10-1",
+        "id": "section-9-67",
+        "text": "Как установить стартовое время Таймера"
+      },
+      {
+        "id": "section-9-88",
+        "text": "Как работает Таймер"
+      },
+      {
+        "id": "section-9-96",
+        "text": "Использование Таймера"
+      },
+      {
+        "id": "section-10-3",
         "text": "Режим Секундомера"
       },
       {
-        "id": "section-10-45",
+        "id": "section-10-20",
         "text": "Источник питания"
+      },
+      {
+        "id": "section-10-21",
+        "text": "Батарея"
+      },
+      {
+        "id": "section-10-29",
+        "text": "Индикатор ослабления мощности батареи"
+      },
+      {
+        "id": "section-10-32",
+        "text": "Шаг 1"
+      },
+      {
+        "id": "section-10-46",
+        "text": "Шаг 2"
+      },
+      {
+        "id": "section-10-53",
+        "text": "Важно"
+      },
+      {
+        "id": "section-10-67",
+        "text": "Меры предосторожности при работе с батареей"
+      },
+      {
+        "id": "section-11-3",
+        "text": "Как заменить батарею"
+      },
+      {
+        "id": "section-11-55",
+        "text": "Установки, следующие за заменой батареи"
+      },
+      {
+        "id": "section-11-59",
+        "text": "Справочная информация"
+      },
+      {
+        "id": "section-11-63",
+        "text": "Операция автовозврата"
+      },
+      {
+        "id": "section-11-84",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-11-91",
+        "text": "12-/24-часовой формат представления времени"
+      },
+      {
+        "id": "section-11-101",
+        "text": "Режимы Звуковых сигналов и Таймера"
+      },
+      {
+        "id": "section-11-105",
+        "text": "Автоматическое отключение питания"
       },
       {
         "id": "section-12-4",
         "text": "Технические характеристики"
       },
       {
+        "id": "section-12-15",
+        "text": "Режим Таймера"
+      },
+      {
+        "id": "section-12-18",
+        "text": "Режим секундомера"
+      },
+      {
+        "id": "section-12-23",
+        "text": "Режим Камеры"
+      },
+      {
         "id": "section-12-52",
         "text": "Рекомендации по эксплуатации часов"
+      },
+      {
+        "id": "section-12-53",
+        "text": "Батарея"
+      },
+      {
+        "id": "section-12-59",
+        "text": "Водонепроницаемость"
+      },
+      {
+        "id": "section-12-65",
+        "text": "*Примечания"
+      },
+      {
+        "id": "section-12-81",
+        "text": "Меры предосторожности при эксплуатации Ваших часов"
+      },
+      {
+        "id": "section-13-75",
+        "text": "Торговая марка:"
+      },
+      {
+        "id": "section-13-77",
+        "text": "Фирма изготовитель:"
+      },
+      {
+        "id": "section-13-80",
+        "text": "Адрес изготовителя:"
+      },
+      {
+        "id": "section-13-83",
+        "text": "Импортер:"
+      },
+      {
+        "id": "section-13-85",
+        "text": "Страна-изготовитель:"
+      },
+      {
+        "id": "section-13-86",
+        "text": "Гарантийный срок:"
+      },
+      {
+        "id": "section-13-88",
+        "text": "Адрес уполномоченной"
+      },
+      {
+        "id": "section-13-89",
+        "text": "организации для принятия"
+      },
+      {
+        "id": "section-13-90",
+        "text": "претензий:"
       }
     ]
   },
@@ -940,7 +2237,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf",
     "sourceSHA256": "d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0",
     "scanned": true,
-    "illustrations": 151,
+    "illustrations": 136,
     "headings": [
       {
         "id": "section-3-0",
@@ -1563,7 +2860,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf",
     "sourceSHA256": "8aa270f79cf50f48e3590ce1d130a1bc5049a3541923308d7679157332f160fd",
     "scanned": false,
-    "illustrations": 41,
+    "illustrations": 40,
     "headings": [
       {
         "id": "section-1-0",
@@ -1594,11 +2891,11 @@
         "text": "Note"
       },
       {
-        "id": "section-1-77",
+        "id": "section-1-76",
         "text": "Specifying the Display Color Pattern"
       },
       {
-        "id": "section-1-83",
+        "id": "section-1-82",
         "text": "Auto Power Save"
       },
       {
@@ -1618,27 +2915,27 @@
         "text": "To record an image"
       },
       {
-        "id": "section-2-25",
+        "id": "section-2-24",
         "text": "Timekeeping Mode"
       },
       {
-        "id": "section-2-37",
+        "id": "section-2-36",
         "text": "Note"
       },
       {
-        "id": "section-2-41",
+        "id": "section-2-40",
         "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode. See"
       },
       {
-        "id": "section-2-42",
-        "text": "“Camera Rest Interval”  for more information."
+        "id": "section-2-41",
+        "text": "“Camera Rest Interval” for more information."
       },
       {
-        "id": "section-2-47",
+        "id": "section-2-46",
         "text": "Camera Mode Precautions"
       },
       {
-        "id": "section-2-48",
+        "id": "section-2-47",
         "text": "General"
       },
       {
@@ -1646,48 +2943,56 @@
         "text": "Camera Rest Interval"
       },
       {
-        "id": "section-3-18",
+        "id": "section-3-17",
         "text": "Displayed Image Size and Memory Image Size"
       },
       {
-        "id": "section-3-24",
+        "id": "section-3-23",
         "text": "Alarm, and Hourly Time Signal Sounds"
       },
       {
-        "id": "section-3-27",
+        "id": "section-3-26",
         "text": "Controlling the Camera Mode Image"
       },
       {
-        "id": "section-3-31",
+        "id": "section-3-30",
         "text": "Adjusting Image Brightness"
       },
       {
-        "id": "section-3-35",
+        "id": "section-3-34",
         "text": "To adjust image brightness"
       },
       {
-        "id": "section-3-55",
+        "id": "section-3-53",
         "text": "Important!"
       },
       {
-        "id": "section-3-59",
+        "id": "section-3-57",
         "text": "Specifying the Lighting Type"
       },
       {
-        "id": "section-3-63",
+        "id": "section-3-61",
         "text": "To specify the lighting type"
       },
       {
-        "id": "section-3-77",
+        "id": "section-3-74",
         "text": "Using the Camera Timer to Record Images"
       },
       {
-        "id": "section-3-100",
+        "id": "section-3-77",
+        "text": "To record an image using the camera timer"
+      },
+      {
+        "id": "section-3-104",
         "text": "VISUAL DATABANKTM"
       },
       {
-        "id": "section-3-103",
+        "id": "section-3-107",
         "text": "Important!"
+      },
+      {
+        "id": "section-3-110",
+        "text": "To view recorded images"
       },
       {
         "id": "section-4-0",
@@ -1706,23 +3011,23 @@
         "text": "Image Sorting"
       },
       {
-        "id": "section-4-23",
+        "id": "section-4-22",
         "text": "Deleting Images"
       },
       {
-        "id": "section-4-26",
+        "id": "section-4-25",
         "text": "To delete all images in watch memory"
       },
       {
-        "id": "section-4-28",
+        "id": "section-4-27",
         "text": "To delete a specific image"
       },
       {
-        "id": "section-4-54",
+        "id": "section-4-53",
         "text": "Formatting Image Memory"
       },
       {
-        "id": "section-4-57",
+        "id": "section-4-56",
         "text": "Important!"
       },
       {
@@ -1738,23 +3043,23 @@
         "text": "Exchanging Data Between Two Watches"
       },
       {
-        "id": "section-5-39",
+        "id": "section-5-38",
         "text": "To receive an image"
       },
       {
-        "id": "section-5-63",
+        "id": "section-5-62",
         "text": "Communication Errors"
       },
       {
-        "id": "section-5-69",
+        "id": "section-5-68",
         "text": "Communication Screen Messages"
       },
       {
-        "id": "section-5-71",
+        "id": "section-5-70",
         "text": "Other Messages"
       },
       {
-        "id": "section-5-73",
+        "id": "section-5-72",
         "text": "Communication Precautions"
       },
       {
@@ -1774,19 +3079,19 @@
         "text": "To set date colors"
       },
       {
-        "id": "section-6-60",
+        "id": "section-6-59",
         "text": "Alarm Operation"
       },
       {
-        "id": "section-6-64",
+        "id": "section-6-63",
         "text": "Note"
       },
       {
-        "id": "section-6-68",
+        "id": "section-6-67",
         "text": "To test the alarm"
       },
       {
-        "id": "section-6-71",
+        "id": "section-6-70",
         "text": "Stopwatch"
       },
       {
@@ -1802,55 +3107,59 @@
         "text": "Low Battery Indication"
       },
       {
-        "id": "section-7-13",
+        "id": "section-7-11",
+        "text": "Step 1"
+      },
+      {
+        "id": "section-7-20",
         "text": "Step 2"
       },
       {
-        "id": "section-7-18",
+        "id": "section-7-25",
         "text": "Note"
       },
       {
-        "id": "section-7-26",
+        "id": "section-7-33",
         "text": "Note that CASIO shall not be held responsible for any"
       },
       {
-        "id": "section-7-27",
+        "id": "section-7-34",
         "text": "damage or loss, including but not limited to lost profits, by"
       },
       {
-        "id": "section-7-28",
+        "id": "section-7-35",
         "text": "you or any third party due to data deletion or modification"
       },
       {
-        "id": "section-7-29",
+        "id": "section-7-36",
         "text": "due to malfunction, repairs, battery replacement, etc."
       },
       {
-        "id": "section-7-30",
+        "id": "section-7-37",
         "text": "Battery Precautions"
       },
       {
-        "id": "section-7-52",
+        "id": "section-7-59",
         "text": "Keep batteries out of the reach of small children. If accidentally"
       },
       {
-        "id": "section-7-53",
+        "id": "section-7-60",
         "text": "swallowed, immediately contact a physician."
       },
       {
-        "id": "section-7-54",
+        "id": "section-7-61",
         "text": "To replace the battery"
       },
       {
-        "id": "section-7-72",
+        "id": "section-7-109",
         "text": "Settings Following Battery Replacement"
       },
       {
-        "id": "section-7-76",
+        "id": "section-7-113",
         "text": "Reference"
       },
       {
-        "id": "section-7-80",
+        "id": "section-7-117",
         "text": "Auto Return Features"
       }
     ]
@@ -1866,7 +3175,7 @@
     "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf",
     "sourceSHA256": "ddedd75a4783767ff2ddad9f6528193ca189b6de3a2c809e7e020188b9fd3947",
     "scanned": false,
-    "illustrations": 56,
+    "illustrations": 48,
     "headings": [
       {
         "id": "section-1-1",
@@ -1901,44 +3210,388 @@
         "text": "Перед использованием часов…"
       },
       {
-        "id": "section-2-54",
+        "id": "section-1-65",
+        "text": "Меры предосторожности!"
+      },
+      {
+        "id": "section-1-84",
+        "text": "Установка времени и даты"
+      },
+      {
+        "id": "section-2-8",
+        "text": "12-/24-часовой формат представления времени"
+      },
+      {
+        "id": "section-2-22",
+        "text": "Регулировка контрастности"
+      },
+      {
+        "id": "section-2-29",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-2-34",
+        "text": "Установка цветовой структуры экрана"
+      },
+      {
+        "id": "section-2-36",
+        "text": "Как изменить цветовую структуру"
+      },
+      {
+        "id": "section-2-48",
+        "text": "Автоматическое отключение изображения"
+      },
+      {
+        "id": "section-2-56",
         "text": "Общие указания"
       },
       {
-        "id": "section-3-14",
+        "id": "section-2-59",
         "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-9",
+        "text": "Режим Текущего времени"
+      },
+      {
+        "id": "section-3-12",
+        "text": "Время"
+      },
+      {
+        "id": "section-3-13",
+        "text": "Календарь"
+      },
+      {
+        "id": "section-3-15",
+        "text": "Режим Камеры"
+      },
+      {
+        "id": "section-3-19",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-3-28",
+        "text": "Как записать изображение"
+      },
+      {
+        "id": "section-3-49",
+        "text": "Примечания"
+      },
+      {
+        "id": "section-3-61",
+        "text": "Меры предосторожности в Режиме Камеры"
+      },
+      {
+        "id": "section-3-62",
+        "text": "Общие меры предосторожности"
+      },
+      {
+        "id": "section-3-80",
+        "text": "Интервал Покоя Камеры"
+      },
+      {
+        "id": "section-4-11",
+        "text": "Размеры изображений на экране и в памяти"
+      },
+      {
+        "id": "section-4-16",
+        "text": "Звуковые сигналы Будильника и Начала часа"
+      },
+      {
+        "id": "section-4-18",
+        "text": "Регулировка изображения в Режиме Камеры"
+      },
+      {
+        "id": "section-4-21",
+        "text": "Регулировка яркости изображения"
+      },
+      {
+        "id": "section-4-25",
+        "text": "Как отрегулировать яркость"
+      },
+      {
+        "id": "section-4-44",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-4-49",
+        "text": "Установка типа освещения"
+      },
+      {
+        "id": "section-4-56",
+        "text": "Как определить тип освещения"
+      },
+      {
+        "id": "section-4-75",
+        "text": "Использование Таймера при записи изображений"
+      },
+      {
+        "id": "section-4-79",
+        "text": "Как записать изображение, используя Таймер"
       },
       {
         "id": "section-5-0",
         "text": "Режим Памяти Изображений"
       },
       {
-        "id": "section-7-2",
+        "id": "section-5-3",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-5-6",
+        "text": "Как посмотреть записанные изображения"
+      },
+      {
+        "id": "section-5-41",
+        "text": "Регулировка контрастности изображения"
+      },
+      {
+        "id": "section-5-48",
+        "text": "Как отрегулировать контрастность изображения"
+      },
+      {
+        "id": "section-5-81",
+        "text": "Сопровождающий текст"
+      },
+      {
+        "id": "section-5-84",
+        "text": "Как прикрепись к изображению сопровождающий текст"
+      },
+      {
+        "id": "section-6-11",
+        "text": "Сортировка изображений"
+      },
+      {
+        "id": "section-6-22",
+        "text": "Удаление изображения"
+      },
+      {
+        "id": "section-6-25",
+        "text": "Как удалить из памяти часов все изображения"
+      },
+      {
+        "id": "section-6-61",
+        "text": "Как удалить определенное изображение"
+      },
+      {
+        "id": "section-6-99",
+        "text": "Форматирование памяти изображений"
+      },
+      {
+        "id": "section-6-102",
+        "text": "Внимание:"
+      },
+      {
+        "id": "section-6-107",
+        "text": "Как выполнить форматирование памяти"
+      },
+      {
+        "id": "section-7-1",
         "text": "Режим Обмена Данными"
+      },
+      {
+        "id": "section-7-6",
+        "text": "Обратите внимание:"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Обмен данными между двумя часами"
+      },
+      {
+        "id": "section-7-20",
+        "text": "Как войти в Режим Обмена данными"
+      },
+      {
+        "id": "section-7-26",
+        "text": "Как переслать изображение"
+      },
+      {
+        "id": "section-7-71",
+        "text": "Как принять изображение"
+      },
+      {
+        "id": "section-7-100",
+        "text": "Ошибки обмена данными"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Другие сообщения"
+      },
+      {
+        "id": "section-8-3",
+        "text": "Меры предосторожности при обмене данными"
       },
       {
         "id": "section-8-34",
         "text": "Режим Текущего времени"
       },
       {
+        "id": "section-8-38",
+        "text": "Обратите внимание"
+      },
+      {
+        "id": "section-8-45",
+        "text": "Начальная установка отсчета секунд"
+      },
+      {
+        "id": "section-8-59",
+        "text": "Использование календаря"
+      },
+      {
+        "id": "section-8-71",
+        "text": "Как посмотреть календарь на выбранный месяц"
+      },
+      {
+        "id": "section-8-91",
+        "text": "Как установить цвета различных дат"
+      },
+      {
         "id": "section-9-1",
         "text": "Режим Звуковых сигналов"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Как установить время звукового сигнала"
+      },
+      {
+        "id": "section-9-37",
+        "text": "Работа Ежедневного будильника"
+      },
+      {
+        "id": "section-9-42",
+        "text": "Проверка будильника"
+      },
+      {
+        "id": "section-9-44",
+        "text": "Включение и выключение Будильника и Ежечасного сигнала"
       },
       {
         "id": "section-9-62",
         "text": "Режим Секундомера"
       },
       {
-        "id": "section-9-63",
+        "id": "section-9-73",
         "text": "Источник питания"
+      },
+      {
+        "id": "section-9-74",
+        "text": "Батарея"
+      },
+      {
+        "id": "section-9-82",
+        "text": "Индикатор ослабления мощности батареи"
+      },
+      {
+        "id": "section-9-85",
+        "text": "Шаг 1"
+      },
+      {
+        "id": "section-9-95",
+        "text": "Шаг 2"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Важно"
+      },
+      {
+        "id": "section-10-12",
+        "text": "Меры предосторожности при работе с батареей"
+      },
+      {
+        "id": "section-10-45",
+        "text": "Как заменить батарею"
+      },
+      {
+        "id": "section-10-102",
+        "text": "Установки, следующие за заменой батареи"
+      },
+      {
+        "id": "section-10-106",
+        "text": "Справочная информация"
+      },
+      {
+        "id": "section-10-109",
+        "text": "Операция автовозврата"
       },
       {
         "id": "section-11-2",
         "text": "Технические характеристики"
       },
       {
+        "id": "section-11-8",
+        "text": "Возможные неисправности и способы их устранения"
+      },
+      {
+        "id": "section-11-13",
+        "text": "Режим секундомера"
+      },
+      {
+        "id": "section-11-18",
+        "text": "Режим Камеры"
+      },
+      {
         "id": "section-11-47",
         "text": "Рекомендации по эксплуатации часов"
+      },
+      {
+        "id": "section-11-48",
+        "text": "Батарея"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Водонепроницаемость"
+      },
+      {
+        "id": "section-12-6",
+        "text": "*Примечания"
+      },
+      {
+        "id": "section-12-21",
+        "text": "Меры предосторожности при эксплуатации Ваших часов"
+      },
+      {
+        "id": "section-12-78",
+        "text": "Информация о товаре"
+      },
+      {
+        "id": "section-12-82",
+        "text": "Торговая марка:"
+      },
+      {
+        "id": "section-12-84",
+        "text": "Фирма изготовитель:"
+      },
+      {
+        "id": "section-12-87",
+        "text": "Адрес изготовителя:"
+      },
+      {
+        "id": "section-12-90",
+        "text": "Импортер:"
+      },
+      {
+        "id": "section-12-92",
+        "text": "Страна-изготовитель:"
+      },
+      {
+        "id": "section-12-93",
+        "text": "Гарантийный срок:"
+      },
+      {
+        "id": "section-12-95",
+        "text": "Адрес уполномоченной"
+      },
+      {
+        "id": "section-12-96",
+        "text": "организации для принятия"
+      },
+      {
+        "id": "section-12-97",
+        "text": "претензий:"
       }
     ]
   },
@@ -1953,7 +3606,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_JA.pdf",
     "sourceSHA256": "ee6aaf651e090163975d55f2f2319b39fa768e4577c6969334d2bb0e3c18f14d",
     "scanned": true,
-    "illustrations": 208,
+    "illustrations": 144,
     "headings": [
       {
         "id": "section-3-1",

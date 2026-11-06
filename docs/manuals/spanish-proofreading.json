@@ -215,7 +215,8 @@
         "Brightness B/E, shutter F and rest-interval callouts checked against the scan.",
         "Second Spanish proofreading pass: grammar, accents and ambiguous instructions corrected without changing the button sequence or original illustrations.",
         "Final instruction review: missing prepositions and awkward long-press sentences corrected. After receiving a photo, the referenced step 3 is the OTHERS/RECEIVE menu, not active reception; menu wording clarified without changing the steps.",
-        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks."
+        "Dedicated crop audit, 2026-11-04: every crop compared with expanded original-page context. Complete button circles, watch outlines, labels and arrowheads retained; adjacent prose and the camera-panel border excluded by recorded masks.",
+        "Follow-up illustration review, 2026-11-06: widened the camera-panel border mask by 0.8 pt to remove its remaining right-hand fringe. The entry arrow ends before the mask, and the F callout starts after it."
       ],
       "ocrSHA256": "5f3dc92778f6faa72bd5f01284b2253d2f40675f42054f65bccb11209de5238f",
       "cropMasks": {
@@ -223,7 +224,7 @@
           [
             68.3,
             307,
-            70.7,
+            71.5,
             371
           ]
         ]

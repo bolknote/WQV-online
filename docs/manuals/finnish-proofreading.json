@@ -837,7 +837,7 @@
             "startLine": 10,
             "endLine": 11,
             "from": "<p>Äänitysjärjestelmä: JPEG Muisti: sisäänrakennettu muisti (1 Mt) Muistikapasiteetti: noin 80 (todellinen kapasiteetti riippuu JPEG-pakkkaussuhteesta) Kuvaelementti: 1/14 tuuman CMOS-väritunnistin (pixelien kokonaisluku: 28000, Pixel Yield: 25,344) Objektiivi: f/2.8 kiinteä, f = 1.1 mm Tarkennusetäisyys: 30 cm - ∞ Valon mittaus: koko ruudun keskiarvo Suljintyyppi: digitaalinen Suljinnopeus: 1/5 - 1/1660 sekuntia (auto) Taltioitujen kuvien koko: QCIF (176 x 144 pistettä), täydet värit Monitori: 14400 pistettä (120 x 120), 16 värin harmaa-asteikko (monochrome), koko: 20 mm x 20 mm Äänitystoiminnot:; normaali, salamatoiminnon valinta (OUT, IN, DUSK), itselaukaisin (2 tai 10 sekuntia) Infrapuna-kommunikointi: kello -tietokone, kello - kello Tiedonvälitysnopeus: enintään 115200 bps</p>\n",
-            "to": "<p>Tallennusmuoto: JPEG</p>\n<p>Muisti: sisäänrakennettu muisti (1 Mt)</p>\n<p>Muistikapasiteetti: noin 80 kuvaa (todellinen kapasiteetti riippuu JPEG-pakkaussuhteesta)</p>\n<p>Kuvaelementti: 1/14 tuuman CMOS-väritunnistin (kuvapisteiden kokonaismäärä: 28 000; tehollisia kuvapisteitä: 25 344)</p>\n<p>Objektiivi: f/2,8 kiinteä, f = 1,1 mm</p>\n<p>Tarkennusetäisyys: 30 cm - ∞</p>\n<p>Valon mittaus: koko ruudun keskiarvo</p>\n<p>Suljintyyppi: digitaalinen</p>\n<p>Suljinnopeus: 1/5 - 1/1660 sekuntia (auto)</p>\n<p>Taltioitujen kuvien koko: QCIF (176 x 144 pistettä), täydet värit</p>\n<p>Monitori: 14400 pistettä (120 x 120), 16 harmaasävyä (yksivärinen), koko: 20 mm x 20 mm</p>\n<p>Tallennustoiminnot: normaali, valaistustyypin valinta (OUT, IN, DUSK), itselaukaisin (2 tai 10 sekuntia)</p>\n<p>Infrapunatiedonsiirto: kello–tietokone, kello–kello</p>\n<p>Tiedonvälitysnopeus: enintään 115200 bps</p>\n"
+            "to": "<p>Tallennusmuoto: JPEG</p>\n<p>Muisti: sisäänrakennettu muisti (1 Mt)</p>\n<p>Muistikapasiteetti: noin 80 kuvaa (todellinen kapasiteetti riippuu JPEG-pakkaussuhteesta)</p>\n<p>Kuvaelementti: 1/14 tuuman CMOS-väritunnistin (kuvapisteiden kokonaismäärä: 28 000; tehollisia kuvapisteitä: 25 344)</p>\n<p>Objektiivi: f/2,8 kiinteä, f = 1,1 mm</p>\n<p>Tarkennusetäisyys: 30 cm - ∞</p>\n<p>Valon mittaus: koko ruudun keskiarvo</p>\n<p>Suljintyyppi: digitaalinen</p>\n<p>Suljinnopeus: 1/5,5 - 1/1660 sekuntia (auto)</p>\n<p>Taltioitujen kuvien koko: QCIF (176 x 144 pistettä), täydet värit</p>\n<p>Monitori: 14400 pistettä (120 x 120), 16 harmaasävyä (yksivärinen), koko: 20 mm x 20 mm</p>\n<p>Tallennustoiminnot: normaali, valaistustyypin valinta (OUT, IN, DUSK), itselaukaisin (2 tai 10 sekuntia)</p>\n<p>Infrapunatiedonsiirto: kello–tietokone, kello–kello</p>\n<p>Tiedonvälitysnopeus: enintään 115200 bps</p>\n"
           },
           {
             "startLine": 12,
@@ -849,13 +849,14 @@
             "startLine": 14,
             "endLine": 15,
             "from": "<p><em>Äänitys- ja tiedonvälitystoimintojen usein toistuva käyttö lyhentävät pariston käyttöikää.</em></p>",
-            "to": "<p><em>Tallennus- ja tiedonsiirtotoimintojen runsas käyttö lyhentää pariston käyttöikää.</em></p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella.</p>"
+            "to": "<p><em>Tallennus- ja tiedonsiirtotoimintojen runsas käyttö lyhentää pariston käyttöikää.</em></p>\n<p class=\"source-note\">Alkuperäisen ohjeen painike- ja viitevirheitä on korjattu englanninkielisen käyttöohjeen perusteella. Suljinnopeus on tarkistettu japaninkielisestä moduulin 2411 alkuperäisohjeesta.</p>"
           }
         ],
         "notes": [
           "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
           "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
-          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained."
+          "Further semantic review: display overlays, conditional sorting, alarm behaviour and camera terminology compared with English module 2411; grammar and compound words corrected. Button operations and illustrations retained.",
+          "Follow-up specification review, 2026-11-06: corrected shutter speed from printed 1/5 to 1/5.5–1/1660 second against the original Japanese module 2411 booklet, PDF page 29 (printed page 52), source SHA-256 d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0. A small source note identifies the correction; the Finnish PDF is unchanged."
         ]
       }
     },

@@ -40,6 +40,26 @@ Source filenames match the catalog IDs, such as `wqv2-en.pdf`. OCR directories
 use the same IDs, with a JSON word-coordinate file and rendered PNG for each
 source page. The generator never writes over the source PDFs.
 
+`native-proofreading.json` records corrections to the English and Russian
+editions, with the same source and flow hash guards used for OCR. Russian
+procedures and specifications are checked against the matching module's
+original guide: button assignments, stopwatch resolution, display dimensions
+and camera specifications differ between models. A small gray note identifies
+the corrected adaptation. Reviewed native and bitmap label repairs are applied
+only to the exported SVG, including the WQV-1/2 stopwatch's printed D/E error.
+
+Native PDF captions are separated from adjacent paragraphs using visible
+character positions rather than the whitespace padded into the source line.
+This keeps body text selectable without removing a caption from its diagram.
+Compound setting sequences retain their connecting arrows. Figure bounds were
+also checked against the surrounding source page to remove clipped prose,
+page numbers and panel borders without cutting button circles or leader lines.
+The extraction regression checks run with:
+
+```sh
+research/manuals/.venv/bin/python scripts/test-manual-native.py
+```
+
 Faint callouts can be missed by OCR. `figure-bounds.json` records reviewed
 regions for the operation-overview drawings in the Japanese editions. The
 coordinates refer to the full source-page renders at the recorded dimensions;
@@ -157,7 +177,8 @@ the adjacent procedure text. `finnish-proofreading.json` records a page review,
 source and flow hashes, and exact text edits. The contents are linked lists;
 wrapped words and PDF fragments are joined before proofreading. A small gray
 note identifies corrections to printed button, reference and specification
-errors checked against the English module 2411 guide. Original illustrations
+errors checked against the original module 2411 guides. The shutter speed is
+checked against the Japanese specification (1/5.5–1/1660 s). Original illustrations
 are preserved. The message tables are selectable HTML; their wording was
 checked against the English guide. The Finnish source references a missing
 “Communication Precautions” section. This section is restored on page 11 from

@@ -44,7 +44,8 @@ FIGURE_BOUNDS = json.loads((REPO/'docs/manuals/figure-bounds.json').read_text())
 TEXT_CORRECTIONS = json.loads((REPO/'docs/manuals/text-corrections.json').read_text())
 JAPANESE_PROOFREADING = json.loads((REPO/'docs/manuals/japanese-proofreading.json').read_text())
 FINNISH_PROOFREADING = json.loads((REPO/'docs/manuals/finnish-proofreading.json').read_text())
-PROOFREADING = {**JAPANESE_PROOFREADING, **FINNISH_PROOFREADING}
+NATIVE_PROOFREADING = json.loads((REPO/'docs/manuals/native-proofreading.json').read_text())
+PROOFREADING = {**JAPANESE_PROOFREADING, **FINNISH_PROOFREADING, **NATIVE_PROOFREADING}
 
 def proofread_manual(identifier, number, body):
     """Apply source-checked text edits without changing scan illustrations.
@@ -81,7 +82,7 @@ def reviewed_headings(body, number):
     return body, headings
 
 def correct_figure_text(page, identifier, number, figures):
-    """Correct reviewed native-text labels before exporting the page as SVG."""
+    """Correct reviewed labels in the adapted SVG; leave the source PDF intact."""
     review = PROOFREADING.get(identifier, {}).get('pages', {}).get(str(number), {})
     for correction in review.get('figureTextCorrections', []):
         box = fitz.Rect(correction['box'])
@@ -94,6 +95,27 @@ def correct_figure_text(page, identifier, number, figures):
         page.apply_redactions(images=0, graphics=0, text=0)
         page.insert_text(correction['origin'], correction['to'],
                          fontsize=correction['fontSize'], fontname='helv', color=(0, 0, 0))
+    for correction in review.get('figureRasterLabelCorrections', []):
+        box = fitz.Rect(correction['box'])
+        if not any(figure.contains(box) for figure in figures):
+            raise ValueError(f'{identifier}: page {number} raster label lies outside its illustration')
+        # Printed button letters can be part of a bitmap, with no PDF text to
+        # redact. Cover only the reviewed glyph, retaining the original arrows.
+        page.draw_rect(box, color=None, fill=(1, 1, 1), overlay=True)
+        page.insert_text(correction['origin'], correction['to'],
+                         fontsize=correction['fontSize'], fontname='hebo', color=(0, 0, 0))
+    for repair in review.get('figureLabelRepairs', []):
+        box = fitz.Rect(repair['box'])
+        if not any(figure.contains(box) for figure in figures):
+            raise ValueError(f'{identifier}: page {number} repaired label lies outside its illustration')
+        page.draw_rect(box, color=None, fill=(1, 1, 1), overlay=True)
+        if repair['text']:
+            text = html.escape(repair['text']).replace('\n', '<br>')
+            spare, _ = page.insert_htmlbox(box, text,
+                css=f'* {{font-family: sans-serif; font-size: {repair["fontSize"]}pt; line-height: 1; margin: 0; padding: 0;}}',
+                scale_low=1)
+            if spare < 0:
+                raise ValueError(f'{identifier}: page {number} repaired label does not fit')
 
 def escaped(value):
     return html.escape(str(value), quote=True)
@@ -116,7 +138,45 @@ def merge_boxes(boxes, tolerance=0):
         result.append(box)
     return result
 
-def native_lines(page):
+def native_lines(page, separate_labels=False):
+    if separate_labels:
+        # Some PDFs pad a caption with spaces until it reaches the body column.
+        # Use visible character positions so those captions retain their own
+        # bounds and cannot be redacted together with a neighbouring paragraph.
+        result = []
+        for block in page.get_text('rawdict', flags=fitz.TEXTFLAGS_DICT & ~fitz.TEXT_PRESERVE_IMAGES)['blocks']:
+            if block['type']:
+                continue
+            for line in block['lines']:
+                groups, current, previous, pending_space = [], [], None, False
+                for span in line['spans']:
+                    for char in span['chars']:
+                        if char['c'].isspace():
+                            pending_space = True
+                            continue
+                        box = fitz.Rect(char['bbox'])
+                        gap = box.x0-previous['box'].x1 if previous else 0
+                        marker = re.fullmatch(r'[•●]|\d+[.)]', ''.join(c['text'] for c in current).strip())
+                        if current and not marker and gap > max(span['size'], previous['size'])*1.7:
+                            groups.append(current)
+                            current = []
+                        space = bool(current and (pending_space or gap > span['size']*.16))
+                        entry = dict(text=(' ' if space else '')+char['c'], box=box,
+                                     size=span['size'], flags=span['flags'])
+                        current.append(entry)
+                        previous = entry
+                        pending_space = False
+                if current:
+                    groups.append(current)
+                for group in groups:
+                    box = fitz.Rect(group[0]['box'])
+                    for char in group[1:]:
+                        box |= char['box']
+                    result.append(dict(box=box, text=''.join(c['text'] for c in group),
+                        paragraph=block['number'], size=max(c['size'] for c in group),
+                        bold=all(c['flags'] & 16 for c in group),
+                        italic=all(c['flags'] & 2 for c in group)))
+        return result
     lines = []
     for block in page.get_text('dict', flags=fitz.TEXTFLAGS_DICT & ~fitz.TEXT_PRESERVE_IMAGES)['blocks']:
         if block['type']:
@@ -354,7 +414,7 @@ def build(identifier, source, ocrroot, output):
                 figures = scanned_figures(cache,page,data)
             raster_count = len(page.get_image_info())
         else:
-            lines = native_lines(page)
+            lines = native_lines(page, separate_labels=language in ('en', 'ru'))
             figures = reviewed_scan_figures(identifier,n,page)
             if figures is None:
                 figures,raster_count = native_figures(page)
@@ -395,7 +455,7 @@ def build(identifier, source, ocrroot, output):
                 if previous.exists():previous.unlink()
         items,normal,columns = flow_items(lines,figures,page,single_column=language=='fi')
         body,headings = render_flow(items,normal,columns,page,n,f'{identifier}-{n:02}.svg',language,raster)
-        if language in ('ja', 'fi'):
+        if identifier in PROOFREADING:
             body = proofread_manual(identifier, n, body)
             body, headings = reviewed_headings(body, n)
         if language == 'fi':
@@ -423,6 +483,8 @@ def build(identifier, source, ocrroot, output):
     model_name = 'WQV-1/2' if model == 'wqv2' else model.upper().replace('WQV','WQV-')
     title = model_name+' — '+LANG[language]['title']
     note = '<p class="source-note">'+LANG[language]['ocr']+'</p>' if language=='ja' else ''
+    if review and review.get('adaptationNote'):
+        note += '<p class="source-note">'+escaped(review['adaptationNote'])+'</p>'
     markup = f'''<!doctype html>
 <html lang="{language}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escaped(title)}</title><link rel="stylesheet" href="document.css"></head><body>
