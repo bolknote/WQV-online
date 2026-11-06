@@ -178,9 +178,9 @@ and the recovered clock packets.
 
 ![The WQV-3 app with photos downloaded from the watch](docs/screenshot.png)
 
-Choose **PC**, **OTHERS** or **SWAN** on the toolbar to match the watch menu.
-PC has photo, clock and calendar controls. OTHERS and SWAN have Photos and
-Connection, for sending one photo at a time. All three modes use the same
+Choose **PC**, **WATCH**, **OTHERS** or **SWAN** on the toolbar to match the watch menu.
+PC has photo, clock and calendar controls. WATCH, OTHERS and SWAN have Photos and
+Connection, for sending one photo at a time. All four modes use the same
 local album. The page remembers the mode you last used.
 
 ### PC
@@ -200,6 +200,37 @@ The single arrows move one photo on the watch. Tap a double arrow to move
 five photos, or hold it for continuous browsing; release to stop. **Connection
 → Exit REMOTE** sends Casio's quit command and closes the watch connection.
 Enter IR → PC again for the next session.
+
+### WATCH
+
+This is the watch-to-watch destination in the WQV-3 menu. The app can act as
+the other WQV-3 to receive a photo or send one back.
+
+1. Choose **WATCH**, connect USB, and click **Receive photo…**.
+2. On the watch, choose **IR → WATCH → SEND**. Press the front **F** button
+   once to open the photos, then choose one with the side buttons.
+3. Wait for **USB ready**, click **Start receiving**, and press **F** again
+   when the page asks. This second press sends the photo.
+
+To send a photo back, select or import it in the album and click **To watch →**.
+Choose **IR → WATCH → RECEIVE** on the watch. Once USB is ready, click
+**Start sending**, then press **F** on the watch. One copy is added; the
+original in the browser stays unchanged.
+
+WATCH uses IrDA/IrCOMM/IrTran-P, including the same UPF/JPEG format as OTHERS.
+Discovery starts at **9600 bit/s**; the connection uses the fastest shared
+rate, up to **115200 bit/s**. It keeps 256-byte IrLAP frames and one pending
+frame. SCEP uses the peer's packet limit, 2048 bytes on the tested WQV-3.
+Lost link frames are retried without restarting the file upload.
+
+Both directions were checked at 9600 and 115200 with a physical WQV-3 and
+KS-959 using a native client. The 10.5 KB test photo took about 6.5 seconds
+to receive and 10.9 seconds to send at 115200, including discovery and
+closure. Neither transfer had a CRC error; the upload needed one extra poll
+for its reply. Automated tests replay all four exchanges, including the five
+recovered frames in the older 9600 upload. A physical browser transfer at
+115200 and WATCH with SigmaTel still need checking. This mode is offered in the WQV-3 app; WQV-1/2 and
+WQV-10 keep their existing mode choices. See [the WATCH notes](docs/watch-peer.md).
 
 ### OTHERS
 
@@ -222,14 +253,14 @@ The sender uses the watch's SCEP packet limit (2048 bytes on the tested WQV-3)
 and retries lost IrLAP frames without starting another upload. Clock, calendar
 and remote photo-browsing commands are available in PC mode.
 
-In all three modes, **Send to WQV-3 → Photo details** lets you set the caption
+In all four modes, **Send to WQV-3 → Photo details** lets you set the caption
 and recording date for the sent copy. Check **Change details in sent copy**,
 enter up to 24 ASCII characters and a date between 2000 and 2039, then send.
 This adds a new photo on the watch. It keeps the original in the browser and
-changes the photo metadata. PC and OTHERS keep the compressed JPEG bytes;
+changes the photo metadata. PC, WATCH and OTHERS keep the compressed JPEG bytes;
 SWAN keeps the original RGB332 pixels when sending a received SWAN photo.
 
-PC and OTHERS discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
+PC, WATCH and OTHERS discovery starts at 9600 bit/s. Once the watch replies, the app negotiates the
 fastest shared SIR speed, up to **115200 bit/s**. It negotiates again when the
 watch takes over to send photos, and returns to 9600 after disconnecting.
 The Connection tab and transfer log show the current speed. Photo downloads at

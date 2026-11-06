@@ -25,6 +25,7 @@ import { swanImage, swanSendRecord } from './swan-watch-images.mjs';
 import { WATCH_MODE_KEY, watchTabs, readWatchMode, prepareOthers, transferOthers, othersImage, othersOutcome } from './others-client.mjs';
 
 const profile = colourWatchModel(new URL(location.href).searchParams.get('model'));
+const photoModes = profile.number === 3 ? ['watch', 'others', 'swan'] : ['others', 'swan'];
 const Calendar = profile.colourCalendar ? ColourCalendar : HolidayCalendar;
 const $ = id => document.getElementById(id), store = new LocalStore({ name: profile.album });
 document.title = profile.name + ' · CASSIOPEIA';
@@ -32,6 +33,7 @@ document.body.classList.toggle('colour-calendar', profile.colourCalendar);
 document.querySelector('[data-watch-icon]').setAttribute('href', './watches.svg#' + profile.id);
 $('watch-guide').href = './manual.html?model=' + profile.id;
 document.querySelector('.calendar-colour-choice').hidden = !profile.colourCalendar;
+document.querySelector('[data-mode="watch"]').hidden = !photoModes.includes('watch');
 if (profile.colourCalendar) {
   for (const [from, to] of [['Holidays', 'Calendar'], ['▦ Holidays', '▦ Calendar'], ['Holiday calendar', 'Colour calendar'],
     ['Holiday on watch', 'Coloured dates on watch'],
@@ -52,7 +54,7 @@ const S = {
   images: [], selected: null, urls: new Map(), events: [], tests: {}, tab: 'photos',
   calendar: null, baseline: null, holidayBackup: null, calendarOrigin: '', fast: false, stopFast: false,
   operationResult: null, storageFailed: false, detailsImage: null, unsavedImages: new Set(), failedImageSaves: 0, saveFailureBaseline: 0,
-  mode: readWatchMode(), transfer: null, protocolEvents: [],
+  mode: readWatchMode(undefined, photoModes), transfer: null, protocolEvents: [],
 };
 const supported = Boolean(navigator.usb && isSecureContext);
 const updateNavigation = bindApplicationNavigation({ isBusy: () => Boolean(S.active || S.disconnectTask), confirmLeave: confirmCalendarDiscard, close: async () => {
@@ -103,6 +105,7 @@ function update() {
   document.querySelectorAll('[data-usb]').forEach(button => { button.disabled = !connected || busy || (S.mode !== 'pc' && Boolean(button.closest('[data-pc-only]'))); });
   document.querySelectorAll('[data-pc-only]').forEach(element => { element.hidden = S.mode !== 'pc'; });
   document.querySelectorAll('[data-others-only]').forEach(element => { element.hidden = S.mode !== 'others'; });
+  document.querySelectorAll('[data-watch-only]').forEach(element => { element.hidden = S.mode !== 'watch'; });
   document.querySelectorAll('[data-photo-transfer]').forEach(element => { element.hidden = S.mode === 'pc'; });
   document.querySelectorAll('[data-swan-only]').forEach(element => { element.hidden = S.mode !== 'swan'; });
   document.querySelectorAll('[data-upf-only]').forEach(element => { element.hidden = S.mode === 'swan'; });
@@ -110,7 +113,7 @@ function update() {
     button.disabled = busy; button.setAttribute('aria-pressed', String(button.dataset.mode === S.mode));
   });
   $('mode-description').textContent = S.mode === 'pc' ? tr('Photos, clock and calendar') : tr('One photo per connection');
-  $('transfer-protocol').textContent = { pc: 'PC', others: 'OTHERS / IrTran-P', swan: 'SWAN / SUM16' }[S.mode];
+  $('transfer-protocol').textContent = { pc: 'PC', watch: 'WATCH / IrTran-P', others: 'OTHERS / IrTran-P', swan: 'SWAN / SUM16' }[S.mode];
   for (const id of ['import-images', 'rotate-image', 'delete-local-image']) $(id).disabled = busy || (id !== 'import-images' && !selected());
   $('upload-image').disabled = !connected || busy || !selected() || Boolean(selected()?.jpegError);
   $('upload-name').disabled = busy;
@@ -179,7 +182,7 @@ function showDialog(title, message, accept = 'OK', confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200 or KingSun KS-959 and choose PC, OTHERS or SWAN above the album. Keep the infrared windows 5–10 cm apart. KS-959 uses the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. OTHERS and SWAN: one photo per connection. Prepare USB before starting infrared transfer on the watch, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls and transfer-mode icons.", profile.name));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200 or KingSun KS-959, choose the same mode here and on the watch, and keep their infrared windows 5–10 cm apart. KS-959 uses the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. The other modes exchange one photo per connection. Prepare USB first, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls.", profile.name));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 installSystemSettings({ closeMenus });
@@ -249,14 +252,14 @@ async function run(task, { keep = true, usesUSB = true } = {}) {
 }
 document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
   const mode = button.dataset.mode;
-  if (S.active || mode === S.mode) return;
+  if (S.active || mode === S.mode || mode !== 'pc' && !photoModes.includes(mode)) return;
   run(async signal => {
     await closeClient(); signal.throwIfAborted();
     S.mode = mode;
     try { localStorage.setItem(WATCH_MODE_KEY, mode); } catch {}
     if (!watchTabs(mode).includes(S.tab)) switchTab('photos');
     $('capabilities-output').hidden = true;
-    result('idle', mode === 'pc' ? tr('PC mode') : mode === 'swan' ? tr('SWAN mode') : tr('OTHERS mode'), mode === 'pc' ?
+    result('idle', mode === 'pc' ? tr('PC mode') : mode === 'swan' ? tr('SWAN mode') : mode === 'watch' ? tr('WATCH mode') : tr('OTHERS mode'), mode === 'pc' ?
       tr('Select IR → PC on the watch to use photos, clock and calendar.') :
       tr('Choose Receive photo or To watch. Each connection transfers one photo.'));
     log('info', tr('Watch mode: {0}', mode.toUpperCase())); renderGallery();
@@ -441,7 +444,7 @@ function recordTransfer(kind, details) {
   if (S.protocolEvents.length > 10000) S.protocolEvents.shift();
   if ((kind === 'irlap-connected' || kind === 'swan-phase' && details.phase === 'connected') && S.transfer) {
     S.transfer.linked = true; S.transfer.baud = details.baud;
-    log('ok', tr(S.mode === 'swan' ? 'SWAN connected at {0} bit/s.' : 'OTHERS connected at {0} bit/s.', details.baud));
+    log('ok', tr(S.mode === 'swan' ? 'SWAN connected at {0} bit/s.' : S.mode === 'watch' ? 'WATCH connected at {0} bit/s.' : 'OTHERS connected at {0} bit/s.', details.baud));
     renderTransfer(); updateSoon();
   } else if (['swan-retry', 'irlap-data-retry', 'irlap-turn-retry'].includes(kind)) {
     log('info', tr('Recovering the connection · retry {0}.', details.retry ?? details.attempt)); updateSoon();
@@ -451,7 +454,7 @@ function recordTransfer(kind, details) {
 }
 function finishOthers(summary) {
   const outcome = othersOutcome(summary);
-  record(summary.direction === 'send' ? 'othersUpload' : 'othersDownload', { outcome, ...summary });
+  record(S.mode + (summary.direction === 'send' ? 'Upload' : 'Download'), { outcome, ...summary });
   switch (outcome) {
     case 'received': result('success', tr('Photo received'), tr('Saved in this browser’s collection.')); break;
     case 'received-incomplete': result('error', tr('Photo received; connection did not close normally'), tr('The photo is saved in the collection. Restart the watch mode before the next transfer.')); break;
@@ -497,9 +500,9 @@ async function openPhotoTransfer(direction, input = null) {
       result('working', tr('USB ready'), tr('Start here, then press the front button on the watch.'));
       if (!await start) { result('idle', tr('Ready'), tr('No photo was sent.')); return; }
       signal.throwIfAborted(); transfer.state = 'running'; renderTransfer(); $('transfer-cancel').focus();
-      const options = { direction, signal,
+      const options = { direction, signal, protocol: S.mode,
         file: image ? { filename, bytes: input.upf } : undefined,
-        onFile: async file => addImage(await othersImage(file, { model: profile.number })), record: recordTransfer,
+        onFile: async file => addImage(await othersImage(file, { model: profile.number, protocol: S.mode })), record: recordTransfer,
         progress: (phase, details = {}) => {
           transfer.phase = phase; Object.assign(transfer, details); renderTransfer();
           result('working', $('transfer-status').textContent, $('transfer-detail').textContent);
