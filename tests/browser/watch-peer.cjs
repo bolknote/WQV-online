@@ -106,11 +106,28 @@ export function createAdapter(){
       assert.equal(await page.locator('#result-heading').innerText(),'Photo sent',await page.locator('#result-detail').innerText());
       assert.deepEqual(await page.evaluate(()=>window.__frames),fixture.upload.groups.map(g=>g.tx));
       assert.equal(await page.locator('#gallery .thumbnail').count(),1);
+      // SCEP closes and the photo is complete, but the final IrLAP DISC is
+      // missing. Keep the photo, warn about the session and release USB.
+      await page.evaluate(async()=>{
+        const {FrameDecoder,encodeFrame}=await import('./irda.mjs');
+        const {fromHex,toHex,concat}=await import('./formats.mjs');
+        const decoder=new FrameDecoder();decoder.feed(fromHex(window.__fixture.download.sirHex));
+        const frames=decoder.frames.filter(f=>f.address!==0x71||f.control!==0x53);
+        window.__fixture.download.sirHex=toHex(concat(...frames.map(f=>encodeFrame(f.address,f.control,f.data))));
+        window.__fixture.download.expectedHostFrames.pop();
+        window.__direction='receive';window.__allowWatch=false;window.__localID=window.__fixture.download.localID;
+      });
+      await page.locator('#receive-photo').click();await page.waitForFunction(()=>!document.getElementById('transfer-start').disabled);
+      await page.locator('#transfer-start').click();await page.evaluate(()=>window.__allowWatch=true);
+      await page.waitForFunction(()=>!document.getElementById('transfer-dialog').open);
+      assert.equal(await page.locator('#result-heading').innerText(),'Photo received; connection did not close normally');
+      assert.equal(await page.locator('#gallery .thumbnail').count(),2);
+      assert.equal(await page.evaluate(()=>window.__adapter.opened),false);
       // Both modes share the same original local photo, and WATCH persists.
-      await page.locator('[data-mode=pc]').click();assert.equal(await page.locator('#gallery .thumbnail').count(),1);
+      await page.locator('[data-mode=pc]').click();assert.equal(await page.locator('#gallery .thumbnail').count(),2);
       await page.locator('[data-mode=watch]').click();await page.reload();
       await page.waitForFunction(()=>document.querySelector('[data-mode=watch]').getAttribute('aria-pressed')==='true');
-      assert.equal(await page.locator('#gallery .thumbnail').count(),1);
+      assert.equal(await page.locator('#gallery .thumbnail').count(),2);
       for(const [language,heading] of [['ru','Режим WATCH'],['ja','WATCHモード'],['en','WATCH mode']]){
         await page.evaluate(async lang=>(await import('./i18n.mjs')).setLanguage(lang),language);
         await page.locator('[data-mode=pc]').click();await page.locator('[data-mode=watch]').click();
@@ -125,6 +142,6 @@ export function createAdapter(){
       assert.equal(await page.locator('[data-mode=pc]').getAttribute('aria-pressed'),'true');
       assert.deepEqual(errors,[]);await context.close();
     }
-    console.log('PASS: WATCH physical receive/upload replay, one PUT, no TX before Start, exact UPF export, shared album, persistence, translations, mobile, WQV-10 exclusion');
+    console.log('PASS: WATCH physical receive/upload replay, missing link close preserves photo and releases USB, one PUT, no TX before Start, exact UPF export, shared album, persistence, translations, mobile, WQV-10 exclusion');
   }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

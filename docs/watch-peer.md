@@ -25,11 +25,24 @@ The sender uses the peer's SCEP limit, 2048 bytes in the physical test, and
 sends exactly one PUT per connection. IrLAP retransmissions retain that
 request and sequence, rather than making another application upload.
 
+WATCH and OTHERS transfers in the main app use a 60-second inactivity
+timeout. Establishing a link, accepting a new peer I frame or sending a
+new I frame restarts it. Polls, duplicate frames, retransmissions and raw
+noise do not. A valid file can therefore take more than a minute at 9600
+without restarting PUT. Explicit research recording windows still have
+their fixed total duration, and lower-layer retry limits still apply.
+
 Received UPFs retain their original bytes. Album records and WQV backups
 identify their source as `watch`; image export and imports use the same
 formats as OTHERS. The normal photo-details editor can change metadata in
 a sent copy. An interrupted upload is reported as uncertain, with advice
 to check the watch memory before trying again.
+
+A completed receive requires the final IrLAP DISC/UA exchange as well as
+delivery of all queued replies. SCEP Disconnect alone does not mark the
+session complete. If the link does not close, the app keeps the received
+photo, reports the incomplete session and releases USB before the next
+attempt.
 
 ## Hardware evidence, 6 November 2026
 
@@ -75,9 +88,15 @@ bytes. Native speed commands prove 9600 → 115200 → 9600 for both tests.
 
 `tests/watch-peer.test.mjs` replays every protocol reply in both directions,
 checks the exact UPF, one PUT, retransmissions, link limits and restoration
-of adapter settings. `tests/browser/watch-peer.cjs` runs the real app with
+of adapter settings. It also removes the final DISC from a capture to check
+that the photo survives without reporting a complete session.
+`tests/irtranp-send.test.mjs` exercises both protocols at simulated 9600 wire
+timing with a valid file that cannot fit in a minute. It checks fixed
+recording windows and that duplicates, polls and noise do not extend an
+inactive session. `tests/browser/watch-peer.cjs` runs the real app with
 the recorded exchanges at a simulated adapter boundary: both transfer
-directions, manual start, UPF export, shared album, persistence, translations
+directions, manual start, UPF export, USB cleanup after missing DISC,
+shared album, persistence, translations
 and a narrow viewport. These tests do not replace a physical browser run at
 115200. The user confirmed a browser transfer at the earlier 9600 default.
 The native experiments used KS-959; WATCH through SigmaTel is unverified.

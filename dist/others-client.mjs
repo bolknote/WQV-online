@@ -34,7 +34,7 @@ export async function othersImage(file, { model = 3, protocol = 'others' } = {})
 // The normal client sends one PUT per connection. Retrying an IrLAP frame
 // does not restart PUT or create another photo on the watch.
 export async function transferOthers(adapter, { direction, signal, file, onFile,
-  record = () => {}, progress = () => {}, durationMs = 60000, localID, protocol = 'others', maxBaud = 115200 } = {}) {
+  record = () => {}, progress = () => {}, durationMs, localID, protocol = 'others', maxBaud = 115200 } = {}) {
   if (!['others', 'watch'].includes(protocol)) throw new RangeError('Unknown IrTran-P photo mode.');
   if (!['receive', 'send'].includes(direction)) throw new RangeError('Unknown photo transfer direction.');
   if (direction === 'send') validateSendFile(file?.bytes, file?.filename);
@@ -54,7 +54,9 @@ export async function transferOthers(adapter, { direction, signal, file, onFile,
     if (protocol === 'watch' && direction === 'receive') {
       progress('starting'); await transfer.prime(); signal?.throwIfAborted(); progress('discovery');
     }
-    const summary = await transfer.run(durationMs);
+    // A valid file can take over a minute at 9600. Normal transfers time out
+    // on lack of progress; explicit research windows retain their total limit.
+    const summary = await transfer.run(durationMs, { timeoutMode: durationMs === undefined ? 'progress' : 'absolute' });
     return { ...summary, direction, negotiatedBaud, protocol };
   } finally { Object.assign(adapter.decoder, recovery); }
 }

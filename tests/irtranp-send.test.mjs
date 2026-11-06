@@ -5,7 +5,9 @@ import { IrTranPSender, csiPutPackets, parsePutReply, parseSendCapabilities } fr
 import { IAS_QUERIES, iasRequest } from '../dist/irtranp-ias.mjs';
 import { FrameDecoder, encodeFrame } from '../dist/irda.mjs';
 import { takeSCEP, compactSCEP, scepCommandEnds, IrTranPReceiver } from '../dist/irtranp-core.mjs';
-import { b, concat, ascii, equal, fromHex as hx, toHex, parseCommand, putCommand, makeCommand, attribute, be16, unpackSCEP, u16, u32, sha256, jpegFromUPF } from '../dist/formats.mjs';
+import { b, concat, ascii, equal, fromHex as hx, toHex, parseCommand, putCommand, makeCommand, attribute, be16, unpackSCEP, u16, u32, sha256, jpegFromUPF, makeUPF } from '../dist/formats.mjs';
+import { transferOthers, othersOutcome } from '../dist/others-client.mjs';
+import { WATCH_QOS } from '../dist/watch-peer.mjs';
 import { metadataUPF } from '../dist/irtranp-metadata.mjs';
 import { attemptFiles } from '../dist/research-core.mjs';
 import { analyseAttempt } from '../dist/irtranp-suite.mjs';
@@ -189,6 +191,91 @@ class Peer {
     }
   }
 }
+
+// Advance protocol timers and performance.now together without spending over
+// a minute on a 9600-bit/s regression. USB and the IrDA peer remain asynchronous.
+function virtualClock(t) {
+  let now = 0;
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  t.mock.method(performance, 'now', () => now);
+  return async (operation, limit) => {
+    let finished = false, result, error;
+    operation.then(value => { result = value; finished = true; }, caught => { error = caught; finished = true; });
+    while (!finished && now < limit) {
+      now += 10; t.mock.timers.tick(10);
+      await new Promise(resolve => setImmediate(resolve));
+    }
+    assert.ok(finished, 'operation finishes within the virtual time limit');
+    if (error) throw error;
+    return result;
+  };
+}
+
+for (const protocol of ['others', 'watch']) for (const absolute of [false, true]) test(`a valid large ${protocol} upload at 9600 ${absolute ? 'honors an explicit recording window' : 'outlives one minute while making progress'}`, async t => {
+  const drive = virtualClock(t), jpeg = jpegFromUPF(UPF);
+  // A legal JPEG comment makes the file exceed one minute of raw 8N1 wire
+  // time. The image dimensions and sampling still meet the watch's limits.
+  const comment = new Uint8Array(60000).fill(65), size = comment.length + 2;
+  const bytes = makeUPF(concat(jpeg.slice(0, 2), b(255, 254, size >>> 8, size & 255), comment, jpeg.slice(2)));
+  assert.ok(bytes.length * 10000 / 9600 > 60000);
+  const peer = new Peer({ expectedUPF: bytes, ...(protocol === 'watch' ? { uaParameters: toHex(WATCH_QOS) } : {}) });
+  const send = peer.sendFrame.bind(peer), read = peer.device.transferIn;
+  const delay = bytes => new Promise(resolve => setTimeout(resolve, Math.ceil(bytes.length * 10000 / peer.baud)));
+  peer.sendFrame = async (address, control, data, bof, opts) => {
+    await delay(encodeFrame(address, control, data, bof));
+    return send(address, control, data, bof, opts);
+  };
+  peer.device.transferIn = async () => {
+    const result = await read(); await delay(new Uint8Array(result.data.buffer)); return result;
+  };
+  const events = [];
+  const result = await drive(transferOthers(peer, { protocol, direction: 'send', maxBaud: 9600, localID: LOCAL,
+    file: { filename: 'MC000001.UPF', bytes }, ...(absolute ? { durationMs: 60000 } : {}),
+    record: (kind, details) => events.push({ kind, ...details }) }), 240000);
+  assert.equal(events.find(event => event.kind === 'irtranp-start').timeoutMode, absolute ? 'absolute' : 'progress');
+  assert.equal(result.putRequests, 1, 'link progress never queues another PUT: ' + JSON.stringify(result.error));
+  if (absolute) {
+    assert.equal(result.complete, false); assert.equal(result.putAccepted, 0); assert.equal(peer.uploads.length, 0);
+    assert.ok(result.elapsedMs >= 60000 && result.elapsedMs < 60100);
+  } else {
+    assert.equal(othersOutcome(result), 'accepted', JSON.stringify(result.error));
+    assert.equal(result.complete, true); assert.equal(result.putAccepted, 1); assert.equal(peer.uploads.length, 1);
+    assert.ok(result.elapsedMs > 60000); assert.equal(result.negotiatedBaud, 9600);
+    assert.equal(toHex(peer.uploads[0].attributes.BDY0), toHex(bytes));
+  }
+});
+
+test('polls, repeated frames and raw noise do not extend a progress deadline', async t => {
+  const drive = virtualClock(t), peer = new Peer(), receiver = new IrTranPReceiver(peer, { localID: LOCAL });
+  Object.assign(receiver, { linkAddress: 0x70, peerSAP: 3 });
+  let ordinal = 0;
+  peer.device.transferIn = async () => {
+    await new Promise(resolve => setTimeout(resolve, 300));
+    // One fresh I frame, then its duplicate, an RR and undecodable noise.
+    const bytes = [encodeFrame(0x71, 0, b(9, 3, 0)), encodeFrame(0x71, 0x01), b(0, 255)][ordinal++ % 3];
+    return { status: 'ok', data: new DataView(bytes.buffer, bytes.byteOffset, bytes.length) };
+  };
+  const result = await drive(receiver.run(2000, { timeoutMode: 'progress' }), 5000);
+  assert.equal(result.complete, false); assert.equal(result.status, 'session-timeout');
+  assert.equal(result.duplicates, 2); assert.ok(result.rxBytes > 0);
+  assert.ok(result.elapsedMs >= 2300 && result.elapsedMs < 2400);
+  assert.equal(peer.opened, false, 'deadline closes USB even while another read is pending');
+});
+
+test('retransmitting the same I frame cannot refresh a progress deadline', async t => {
+  const drive = virtualClock(t), peer = new Peer(), receiver = new IrTranPReceiver(peer, { localID: LOCAL });
+  peer.sendFrame = async () => { peer.txFrames++; };
+  peer.device.transferIn = async () => {
+    await new Promise(resolve => setTimeout(resolve, 300));
+    return { status: 'ok', data: new DataView(b().buffer) };
+  };
+  receiver.tick = () => receiver.transmit({ address: 0x70, control: 0, data: b(9, 3, 0) }, 'irlap-retransmission');
+  const result = await drive(receiver.run(2000, { timeoutMode: 'progress' }), 5000);
+  assert.ok(result.txFrames > 1); assert.equal(result.complete, false);
+  assert.ok(result.elapsedMs >= 2000 && result.elapsedMs < 2100);
+  assert.equal(peer.opened, false);
+});
+
 // A real stop-and-wait peer model for retries. Retain each unacknowledged
 // response and reject duplicate host I frames before any TinyTP accounting.
 class RecoveryPeer extends Peer {

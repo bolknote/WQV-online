@@ -57,6 +57,28 @@ for (const speed of [9600, 115200]) test(`WATCH receive at ${speed} reproduces e
   assert.equal(decoder.recoverFrames, true); assert.equal(decoder.recoverBOF, true, 'restore PC recovery flags');
 });
 
+test('a received photo remains available, but SCEP close without IrLAP DISC is an incomplete session', async () => {
+  const session = fixture.download115200, decoder = new FrameDecoder();
+  decoder.feed(hx(session.sirHex));
+  const count = decoder.frames.length;
+  decoder.frames = decoder.frames.filter(frame => frame.address !== 0x71 || frame.control !== 0x53);
+  assert.equal(decoder.frames.length, count - 1, 'remove only the final link disconnect');
+  const files = [];
+  const adapter = { decoder, opened: true, configured: true, baud: 9600, readerTask: null, revision: null,
+    rxBytes: 0, txFrames: 0, readPending: false,
+    assertOpen() { assert.ok(this.opened); }, async close() { this.opened = false; },
+    async setSIRSpeed(baud) { this.baud = baud; }, async sendFrame() { this.txFrames++; },
+    async readRaw() { return { status: 'ok', data: new DataView(b().buffer) }; },
+  };
+  const result = await transferOthers(adapter, { protocol: 'watch', direction: 'receive', durationMs: 4000,
+    localID: hx(session.localID), onFile: async file => files.push(file) });
+  assert.equal(result.status, 'received-incomplete-session'); assert.equal(result.complete, false);
+  assert.equal(result.linkClosed, false); assert.equal(othersOutcome(result), 'received-incomplete');
+  assert.equal(result.fileCount, 1); assert.equal(result.error, null);
+  assert.equal(toHex(files[0].bytes), fixture.upf115200Hex);
+  assert.ok(result.elapsedMs < 4000, 'the SCEP grace period still bounds link closure');
+});
+
 for (const speed of [9600, 115200]) test(`WATCH sender at ${speed} replays the physical upload and recovery with exactly one PUT`, { timeout: 18000 }, async () => {
   const session = speed === 9600 ? fixture.upload : fixture.upload115200, queued = [], events = []; let index = 0;
   const adapter = { decoder: new FrameDecoder(), opened: true, configured: true, baud: 9600, readerTask: null,

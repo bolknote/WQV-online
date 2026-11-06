@@ -116,7 +116,8 @@ export class InstalledDriverAdapter {
       bytes = encodeFrame(bytes[0], bytes[1], bytes.slice(2), 1);
     }
     if (this.queueBytes + bytes.length > 262144) { this.readError = new Error('Driver receive queue exceeded 256 KiB.'); this.client.abort(this.readError); return; }
-    this.queue.push(bytes); this.queueBytes += bytes.length; this.rxBytes += bytes.length;
+    // As with built-in adapters, the active protocol reader owns RX counts.
+    this.queue.push(bytes); this.queueBytes += bytes.length;
     this.raw('sir-rx', bytes); this.waiter?.(); this.update();
   }
   async readRaw() {
@@ -178,7 +179,7 @@ export class InstalledDriverAdapter {
       try {
         while (this.readerActive && this.opened) {
           const bytes = await this.readSIR();
-          if (bytes.length) this.decoder.feed(bytes);
+          if (bytes.length) { this.rxBytes += bytes.length; this.decoder.feed(bytes); this.update(); }
           if (this.decoder.frames.some(frame => frame.control & 0x10)) break;
         }
       } catch (error) { if (!this.closing) this.readError = error; }

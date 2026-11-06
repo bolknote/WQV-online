@@ -9,6 +9,10 @@ import { InstalledDriverAdapter } from '../dist/installed-adapter.mjs';
 import { encodeFrame } from '../dist/irda.mjs';
 import { WQVClient } from '../dist/protocol.mjs';
 import { IrTranPReceiver } from '../dist/irtranp-core.mjs';
+import { transferOthers } from '../dist/others-client.mjs';
+import { WQV12Client } from '../dist/wqv12-core.mjs';
+import { WQV12Decoder, encodeWQV12 } from '../dist/wqv12-formats.mjs';
+import { fromHex, toHex } from '../dist/formats.mjs';
 
 const device = (vendorId = 0x066f, productId = 0x4200, interfaceClass = 255) => ({ vendorId, productId,
   configurations: [{ configurationValue: 1, interfaces: [{ interfaceNumber: 0, alternates: [{ alternateSetting: 0,
@@ -113,4 +117,51 @@ test('C SigmaTel input retains PAD-5 CRC recheck on real empty USB completions o
   const other = new InstalledDriverAdapter({}, { record: { profile: 'ks959' } });
   other.decoder.feed(wire); other.usbTransfer({ direction: 'in', request: { transfer: 'bulk', type: 128 }, dataHex: '' });
   assert.equal(other.decoder.frames.length, 0);
+});
+
+test('installed PC background reader counts each consumed SIR byte once', async () => {
+  const counts = [], adapter = new InstalledDriverAdapter({}, { record: { profile: 'sigmatel' } },
+    { update: () => counts.push(adapter.rxBytes) });
+  adapter.claimed = true;
+  const wire = encodeFrame(2, 0x73, Uint8Array.of(1, 2, 3));
+  adapter.input(wire.slice(0, 5), false); adapter.input(wire.slice(5), false);
+  assert.equal(adapter.rxBytes, 0, 'queued input is counted when consumed, like built-in adapters');
+  adapter.startReader(); await adapter.readerTask;
+  assert.equal(adapter.rxBytes, wire.length); assert.equal(adapter.queueBytes, 0);
+  assert.equal(counts.at(-1), wire.length, 'the UI sees the consumed byte count');
+  assert.deepEqual(adapter.decoder.frames[0].data, Uint8Array.of(1, 2, 3));
+});
+
+test('installed raw WATCH receiver reports the actual capture length, without counting driver input twice', async () => {
+  const fixture = JSON.parse(await fs.readFile(new URL('./fixtures/wqv3-watch-hardware.json', import.meta.url)));
+  const session = fixture.download115200, bytes = fromHex(session.sirHex), files = [];
+  const adapter = new InstalledDriverAdapter({}, { record: { profile: 'ks959' } });
+  Object.assign(adapter, { claimed: true, configured: true, baud: 9600 });
+  adapter.sendFrame = async () => { adapter.txFrames++; };
+  adapter.setSIRSpeed = async baud => { adapter.baud = baud; };
+  adapter.input(bytes, false);
+  const result = await transferOthers(adapter, { protocol: 'watch', direction: 'receive', durationMs: 2000,
+    localID: fromHex(session.localID), onFile: async file => files.push(file) });
+  assert.equal(result.status, 'received', JSON.stringify(result.error));
+  assert.equal(result.rxBytes, bytes.length); assert.equal(adapter.rxBytes, bytes.length);
+  assert.equal(adapter.queueBytes, 0); assert.equal(toHex(files[0].bytes), fixture.upf115200Hex);
+});
+
+test('installed raw WQV-1/2 transport counts the handshake bytes once in both client and adapter', async () => {
+  const adapter = new InstalledDriverAdapter({}, { record: { profile: 'ks959' } });
+  Object.assign(adapter, { claimed: true, configured: true, baud: 115200 });
+  let receivedBytes = 0;
+  adapter.writeSIR = async bytes => {
+    const decoder = new WQV12Decoder(); decoder.feed(bytes);
+    const frame = decoder.frames[0]; assert.ok(frame);
+    const control = { 179: 0xa3, 147: 0x63, 17: 1, 83: 0x63 }[frame.control];
+    assert.ok(control, 'probe sends no photo or clock-setting command');
+    const reply = encodeWQV12(frame.address === 255 && frame.control === 0xb3 ? 255 : 2,
+      control, frame.control === 0xb3 ? Uint8Array.of(13, 57, 25, 128) : new Uint8Array());
+    receivedBytes += reply.length; adapter.input(reply, false);
+    return { status: 'ok', bytesWritten: bytes.length };
+  };
+  const result = await new WQV12Client(adapter).run({ mode: 'probe' });
+  assert.equal(result.status, 'connected-and-closed', JSON.stringify(result.error)); assert.equal(result.complete, true);
+  assert.equal(result.rxBytes, receivedBytes); assert.equal(adapter.rxBytes, receivedBytes);
 });

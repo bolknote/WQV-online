@@ -167,6 +167,12 @@ export class IrTranPReceiver {
     this.transmitting = true;
     try { await this.wait(this.adapter.sendFrame(frame.address, frame.control, frame.data, 11, { receive: false })); }
     finally { this.transmitting = false; }
+    // Only a new numbered frame advances the transfer. Discovery, polls and
+    // retransmissions must not keep an otherwise stalled session alive.
+    if (!(frame.control & 1)) {
+      const ns = (frame.control >>> 1) & 7;
+      if (ns !== this.lastSentNS) { this.lastSentNS = ns; this.refreshDeadline?.(); }
+    }
     this.record('tx-frame', { address: frame.address, control: frame.control, dataHex: toHex(frame.data),
       phase: this.phase, purpose, baud: this.adapter.baud });
   }
@@ -343,8 +349,9 @@ export class IrTranPReceiver {
     else { this.slot = this.slot === 5 ? 255 : this.slot + 1; this.nextSearch = performance.now() + 100; }
   }
   summarize(result) { return result; }
-  async run(durationMs = 60000) {
+  async run(durationMs = 60000, { timeoutMode = 'absolute' } = {}) {
     if (!Number.isFinite(durationMs) || durationMs < 2000 || durationMs > 120000) throw new RangeError('Invalid receive window.');
+    if (!['absolute', 'progress'].includes(timeoutMode)) throw new RangeError('Invalid transfer timeout mode.');
     const a = this.adapter; this.signal?.throwIfAborted(); a.assertOpen();
     if (!a.configured || a.baud !== 9600 || a.readerTask) throw new Error('Prepare the infrared adapter at 9600 before starting.');
     if (this.runSignal) throw new Error('Start a fresh receiver for each attempt.');
@@ -363,9 +370,15 @@ export class IrTranPReceiver {
     };
     const abort = () => end('interrupted');
     this.signal?.addEventListener('abort', abort, { once: true });
-    const timer = setTimeout(() => end('deadline'), durationMs);
+    let timer;
+    const armDeadline = () => {
+      if (ending) return;
+      clearTimeout(timer); timer = setTimeout(() => end('deadline'), durationMs);
+    };
+    if (timeoutMode === 'progress') this.refreshDeadline = armDeadline;
+    armDeadline();
     this.record('irtranp-start', { profile: { ...CSI_PROFILE, capabilities: IMAGE_CAPABILITIES[this.imageProfile] }, imageProfile: this.imageProfile,
-      durationMs, localID: toHex(this.localID), maxBaud: this.maxBaud,
+      durationMs, timeoutMode, localID: toHex(this.localID), maxBaud: this.maxBaud,
       localBaudMask: this.rates, acceptingConnections: this.acceptingConnections, initiateConnection: this.initiateConnection,
       frameRecovery: this.frameRecovery, transportProfile: this.transportProfile ?? 'current', linkRecovery: this.linkRecovery ?? false,
       recoverFrames: Boolean(a.decoder.recoverFrames),
@@ -375,7 +388,13 @@ export class IrTranPReceiver {
       while (!ending && !this.closed) {
         this.signal?.throwIfAborted(); a.assertOpen();
         const frame = a.decoder.frames.shift();
-        if (frame) { this.lastRX = performance.now(); await this.frame(frame); continue; }
+        if (frame) {
+          this.lastRX = performance.now();
+          const previousNR = this.vr, previousAddress = this.linkAddress;
+          await this.frame(frame);
+          if (this.vr !== previousNR || this.linkAddress !== previousAddress) this.refreshDeadline?.();
+          continue;
+        }
         if (this.scepClosedAt !== null && performance.now() - this.scepClosedAt > 2000) break;
         await this.tick();
         if (ending) break;
@@ -397,8 +416,8 @@ export class IrTranPReceiver {
       }
     } catch (caught) {
       if (!ending) { ending = this.signal?.aborted ? 'interrupted' : 'error'; error = { name: caught.name, message: caught.message }; }
-    } finally { clearTimeout(timer); this.signal?.removeEventListener('abort', abort); }
-    const complete = Boolean(this.closed || this.scepClosedAt !== null) && !this.application.length && !this.parts.length && !this.outgoing.length && !this.unacked;
+    } finally { clearTimeout(timer); this.refreshDeadline = null; this.signal?.removeEventListener('abort', abort); }
+    const complete = Boolean(this.closed) && !this.application.length && !this.parts.length && !this.outgoing.length && !this.unacked;
     const status = ending === 'interrupted' || ending === 'error' ? ending :
       complete && this.files.length ? 'received' : complete ? 'session-closed' : this.files.length ? 'received-incomplete-session' :
       this.linkAddress !== null ? 'session-timeout' : a.rxBytes ? 'data-no-connection' : !this.stats.processedReads ? 'usb-read-timeout' : 'no-data';
@@ -406,7 +425,7 @@ export class IrTranPReceiver {
       elapsedMs: performance.now() - started, baud: a.baud, rxBytes: a.rxBytes, txFrames: a.txFrames,
       ...this.stats, badCRC: a.decoder.badCRC, recoveredFrames: a.decoder.recoveredFrames,
       recoveredBOF: a.decoder.recoveredBOF ?? 0, rejectedBOF: a.decoder.rejectedBOF ?? 0,
-      complete, error, pendingBytes: this.application.length + this.partBytes };
+      complete, linkClosed: Boolean(this.closed), error, pendingBytes: this.application.length + this.partBytes };
     result.pendingUSBRead = a.readPending;
     result.fileCount = this.stats.files; result.files = this.files.map(f => ({ filename: f.filename, bytes: f.bytes.length, jpegBytes: f.jpeg?.length ?? 0, previewError: f.previewError }));
     const summary = this.summarize(result);
