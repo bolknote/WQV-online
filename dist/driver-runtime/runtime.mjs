@@ -49,7 +49,7 @@ export class LinuxKingsun {
   }
   submit(pointer,generation) {
     if(this.closing)return -19;
-    const request=this.request(pointer), input=Boolean(request.type&0x80);
+    const request={...this.request(pointer),transferId:pointer+':'+generation}, input=Boolean(request.type&0x80);
     const bytes=input?null:this.view().slice(request.dataPointer,request.dataPointer+request.length);
     const kind=input?'rx':request.index===1?'speed':'tx';
     const task={pointer,generation,request,kind,bytes,cancelled:false,finished:false};
@@ -76,6 +76,7 @@ export class LinuxKingsun {
         count=bytes?result.written:reply.length;
         if(!Number.isInteger(count)||count<0||count>request.capacity)throw new Error('Invalid USB transfer length');
         if(!bytes&&count>request.length)throw new Error('Oversized USB input');
+        if(bytes&&status===0&&count!==request.length)throw new Error('Short USB write: '+count+' of '+request.length+' bytes.');
       }
     } catch(error) {
       status=error.linuxStatus || -5;

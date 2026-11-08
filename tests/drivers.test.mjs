@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { DRIVER_ABI, identifyDriver, chooseInstalledDriver, matchingDriverIDs, normalizeDriverPath } from '../dist/driver-catalog.mjs';
-import { WebUSBDriverBackend, DriverUSBError, classifyUSBFailure, usbDescriptorSnapshot } from '../dist/driver-usb.mjs';
+import { WebUSBDriverBackend, HelperDriverBackend, DriverUSBError, classifyUSBFailure, usbDescriptorSnapshot } from '../dist/driver-usb.mjs';
+import { DriverWorkerClient } from '../dist/driver-worker-client.mjs';
 import { compileDriver } from '../dist/driver-compiler.mjs';
 import { InstalledDriverAdapter } from '../dist/installed-adapter.mjs';
 import { encodeFrame } from '../dist/irda.mjs';
@@ -141,6 +142,89 @@ test('driver teardown aborts WinUSB reads with close and restores access for the
   await backend.close(); assert.equal(usb.opened, false);
 });
 
+test('cancelling a live URB restores other endpoints without inventing data or cancelling their C reads', { timeout: 2000 }, async () => {
+  const usb = device(), pending = new Map(), calls = [];
+  const iface = usb.configurations[0].interfaces[0]; iface.alternate = iface.alternates[0];
+  Object.assign(usb, { configuration: usb.configurations[0], opened: false,
+    async open() { this.opened = true; calls.push('open'); }, async claimInterface() { calls.push('claim'); },
+    async releaseInterface() { calls.push('release'); },
+    async close() {
+      calls.push('close'); this.opened = false;
+      for (const task of pending.values()) task.reject(new DOMException('Native read aborted', 'AbortError'));
+      pending.clear();
+    },
+    transferIn(endpoint) { calls.push(['read', endpoint]); return new Promise((resolve, reject) => pending.set(endpoint, { resolve, reject })); },
+  });
+  const backend = new WebUSBDriverBackend(usb); await backend.open();
+  const bulk = { transfer: 'bulk', type: 128, index: 2, length: 64, transferId: 'bulk:1' };
+  const irq = { transfer: 'interrupt', type: 128, index: 1, length: 4, transferId: 'irq:1' };
+  const bulkRead = assert.rejects(backend.control(bulk), { name: 'AbortError' });
+  let irqFinished = false;
+  const irqRead = backend.control(irq).then(result => { irqFinished = true; return result; });
+  await backend.cancel({ ...bulk }); await bulkRead;
+  await Promise.resolve();
+  assert.equal(irqFinished, false); assert.equal(backend.claimed, true);
+  assert.equal(calls.filter(call => Array.isArray(call) && call[1] === 1).length, 2, 'the unrelated IRQ read is restored');
+  assert.equal(calls.filter(call => Array.isArray(call) && call[1] === 2).length, 1, 'the cancelled bulk read is never repeated');
+  pending.get(1).resolve({ status: 'ok', data: new DataView(Uint8Array.of(9, 8).buffer) }); pending.delete(1);
+  assert.deepEqual([...(await irqRead).bytes], [9, 8]);
+  assert.equal(backend.lastError, null);
+  await backend.close(); assert.equal(usb.opened, false);
+});
+
+test('a close racing live-read recovery cannot reopen and reclaim USB afterwards', { timeout: 2000 }, async () => {
+  const usb = device(); let finishRead, finishOpen, claims = 0, opens = 0;
+  usb.configuration = usb.configurations[0]; usb.configuration.interfaces[0].alternate = usb.configuration.interfaces[0].alternates[0];
+  Object.assign(usb, { opened: false,
+    async open() { if (++opens === 2) await new Promise(resolve => { finishOpen = resolve; }); this.opened = true; },
+    async close() { this.opened = false; finishRead?.({ status: 'ok', data: new DataView(new ArrayBuffer(0)) }); },
+    async claimInterface() { claims++; }, async releaseInterface() {},
+    transferIn() { return new Promise(resolve => { finishRead = resolve; }); },
+  });
+  const backend = new WebUSBDriverBackend(usb); await backend.open();
+  const read = assert.rejects(backend.control({ transfer: 'bulk', type: 128, index: 2, length: 64 }), { name: 'AbortError' });
+  const cancel = backend.cancel();
+  while (!finishOpen) await new Promise(resolve => setTimeout(resolve, 0));
+  const closing = backend.close(); finishOpen(); await closing; await cancel; await read;
+  assert.equal(usb.opened, false); assert.equal(claims, 1);
+});
+
+test('short bulk, control and helper writes fail and preserve the actual byte count without retry', async () => {
+  for (const transport of ['bulk', 'control', 'helper']) {
+    const writes = [], events = [], payload = Uint8Array.of(1, 2, 3, 4);
+    const usb = { async transferOut(endpoint, bytes) { writes.push(bytes); return { status: 'ok', bytesWritten: 3 }; },
+      async controlTransferOut(setup, bytes) { writes.push(bytes); return { status: 'ok', bytesWritten: 3 }; } };
+    const backend = transport === 'helper' ? new HelperDriverBackend(usb, null, { onTransfer: event => events.push(event),
+      fetch: async () => { writes.push(payload); return Response.json({ result: { written: 3 } }); } })
+      : new WebUSBDriverBackend(usb, null, { onTransfer: event => events.push(event) });
+    backend.claimed = true; backend.session = 'fixture'; backend.alternate = { endpoints: [] };
+    const request = { type: 0x40, request: 1, index: 2, length: 4, ...(transport === 'bulk' ? { transfer: 'bulk' } : {}) };
+    await assert.rejects(backend.control(request, payload), error => error.code === 'short-write');
+    assert.equal(writes.length, 1); assert.equal(backend.completed, 0);
+    assert.equal(events[0].dataHex, '010203'); assert.equal(events[0].requestedDataHex, '01020304');
+    assert.equal(events[0].bytesWritten, 3); assert.equal(events[0].status, 'short-write');
+  }
+});
+
+test('forced cleanup failures survive a subsequent close and concurrent callers share the failure', async () => {
+  let calls = 0, terminated = 0; const events = [], failure = new Error('Native close refused');
+  const client = new DriverWorkerClient({ async close() { calls++; throw failure; } }, { event: entry => events.push(entry) });
+  client.worker = { terminate() { terminated++; } };
+  const results = await Promise.allSettled([client.abort(), client.close()]);
+  assert.ok(results.every(result => result.status === 'rejected' && result.reason === failure));
+  await assert.rejects(client.close(), error => error === failure);
+  assert.equal(calls, 1); assert.equal(terminated, 1);
+  assert.equal(events.find(event => event.kind === 'usb-cleanup-failed').message, failure.message);
+});
+
+test('a driver timeout still reports a failed native cleanup without an unhandled rejection', async () => {
+  const events = [], client = new DriverWorkerClient({ async close() { throw new Error('Native close refused'); } }, { event: entry => events.push(entry) });
+  client.worker = { postMessage() {}, terminate() {} };
+  await assert.rejects(client.call('fixture', [], 5), /timed out/);
+  await assert.rejects(client.close(), /Native close refused/);
+  assert.ok(events.some(event => event.kind === 'usb-cleanup-failed'));
+});
+
 test('busy, permission and initialization failures are not relabeled as helper requirements', () => {
   assert.equal(classifyUSBFailure(new DOMException('busy', 'NetworkError'), 'claim').code, 'busy');
   assert.equal(classifyUSBFailure(new DOMException('no', 'NotAllowedError')).code, 'permission');
@@ -154,7 +238,7 @@ test('cancellation during native open closes a late USB handle', async () => {
   const usb = { ...device(), opened: false, open: () => new Promise(resolve => { finishOpen = () => { usb.opened = true; resolve(); }; }),
     close: async () => { usb.opened = false; closed++; } };
   const backend = new WebUSBDriverBackend(usb);
-  const open = backend.open(); await backend.close(); finishOpen();
+  const open = backend.open(), closing = backend.close(); finishOpen(); await closing;
   await assert.rejects(open, error => error.code === 'cancelled');
   assert.equal(usb.opened, false); assert.ok(closed >= 1);
 });

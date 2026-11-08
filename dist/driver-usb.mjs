@@ -48,13 +48,13 @@ export function classifyUSBFailure(error, stage = '') {
 export class WebUSBDriverBackend {
   constructor(device, match, { onTransfer = () => {}, onEvent = () => {}, synchronize = null } = {}) {
     this.device = device; this.match = match; this.onTransfer = onTransfer; this.onEvent = onEvent; this.synchronize = synchronize;
-    this.claimed = false; this.closing = false; this.reads = new Set(); this.completed = 0; this.lastError = null;
+    this.claimed = false; this.closing = false; this.reads = new Set(); this.readTasks = new Set(); this.completed = 0; this.lastError = null;
     this.transport = 'direct';
   }
   async open() {
     this.closing = false; this.driverClosing = false;
     try {
-      await this.device.open();
+      await this.openDevice();
       if (this.closing) { await this.device.close(); throw new DOMException('USB connection cancelled.', 'AbortError'); }
       this.onEvent({ kind: 'usb-descriptors', ...usbDescriptorSnapshot(this.device) });
       const iface = this.match?.interface ?? usbAlternates(this.device)[0];
@@ -88,6 +88,11 @@ export class WebUSBDriverBackend {
       description: { name: this.device.productName || this.device.manufacturerName || 'USB device', usbId: usbID(this.device),
         configuration: this.info.configuration.configurationValue, interface: interfaceNumber, interfaceClass: alternate.interfaceClass, transport: this.transport } };
   }
+  async openDevice() {
+    const pending = this.device.open(); this.opening = pending;
+    try { await pending; }
+    finally { if (this.opening === pending) this.opening = null; }
+  }
   validateControl(request) {
     const recipient = request.type & 31;
     if (recipient === 1) {
@@ -100,12 +105,13 @@ export class WebUSBDriverBackend {
   }
   async control(request, bytes) {
     const input = Boolean(request.type & 128);
-    if (this.closing || !this.claimed) throw new DOMException('USB connection closed.', 'AbortError');
     try {
+      if (this.cancelTask) await this.cancelTask;
+      if (this.closing || !this.claimed) throw new DOMException('USB connection closed.', 'AbortError');
       const transfer = async () => {
         let result;
         if (request.bulk || request.transfer) {
-          result = input ? await this.device.transferIn(request.index, request.length) : await this.device.transferOut(request.index, bytes);
+          result = input ? await this.readTransfer(request, () => this.device.transferIn(request.index, request.length)) : await this.device.transferOut(request.index, bytes);
           const endpoint = this.alternate.endpoints.find(endpoint => endpoint.direction === 'out' && endpoint.endpointNumber === request.index);
           if (!input && result.status === 'ok' && result.bytesWritten === bytes.length && request.flags & 0x40 && bytes.length && endpoint?.packetSize && bytes.length % endpoint.packetSize === 0) {
             const zlp = await this.device.transferOut(request.index, new Uint8Array());
@@ -115,54 +121,90 @@ export class WebUSBDriverBackend {
           this.validateControl(request);
           const setup = { requestType: types[request.type >> 5 & 3], recipient: recipients[request.type & 31],
             request: request.request, value: request.value, index: request.index };
-          result = input ? await this.device.controlTransferIn(setup, request.length) : await this.device.controlTransferOut(setup, bytes ?? new Uint8Array());
+          result = input ? await this.readTransfer(request, () => this.device.controlTransferIn(setup, request.length)) : await this.device.controlTransferOut(setup, bytes ?? new Uint8Array());
         }
         if (result.status !== 'ok') throw new DriverUSBError('transfer-failed', 'USB transfer returned ' + result.status + '.');
-        this.completed++;
         const answer = input ? { bytes: copy(result.data) } : { written: result.bytesWritten };
-        this.onTransfer({ request, direction: input ? 'in' : 'out', dataHex: hex(input ? answer.bytes : bytes ?? new Uint8Array()) });
-        return input && this.synchronize ? this.synchronize(answer) : answer;
+        return this.completeTransfer(request, bytes, answer);
       };
-      const promise = transfer();
-      if (input) { this.reads.add(promise); try { return await promise; } finally { this.reads.delete(promise); } }
-      return await promise;
+      return await transfer();
     } catch (error) {
-      if (this.closing || this.cancelling) throw new DOMException('USB request cancelled.', 'AbortError');
+      if (error?.name === 'AbortError' || this.closing) throw new DOMException('USB request cancelled.', 'AbortError');
       this.lastError = classifyUSBFailure(error); throw this.lastError;
     }
   }
+  completeTransfer(request, bytes, answer) {
+    const input = Boolean(request.type & 128), expected = bytes?.length ?? 0;
+    const short = !input && (!Number.isInteger(answer.written) || answer.written !== expected);
+    const validCount = Number.isInteger(answer.written) && answer.written >= 0 && answer.written <= expected;
+    let data = input ? answer.bytes : bytes ?? new Uint8Array();
+    if (short) data = validCount ? data.slice(0, answer.written) : new Uint8Array();
+    this.onTransfer({ request, direction: input ? 'in' : 'out', dataHex: hex(data),
+      ...(!input ? { bytesWritten: answer.written, requestedBytes: expected } : {}),
+      ...(short ? { status: 'short-write', requestedDataHex: hex(bytes ?? new Uint8Array()) } : {}) });
+    if (short) throw new DriverUSBError('short-write', 'Short USB write: ' + answer.written + ' of ' + expected + ' bytes.');
+    this.completed++;
+    return input && this.synchronize ? this.synchronize(answer) : answer;
+  }
+  async readTransfer(request, start) {
+    const task = { request, cancelled: false, recovery: null }; this.readTasks.add(task);
+    try {
+      for (;;) {
+        if (this.cancelTask) await this.cancelTask;
+        if (task.cancelled || this.closing) throw new DOMException('USB read cancelled.', 'AbortError');
+        let result, error, pending;
+        try { pending = start(); this.reads.add(pending); result = await pending; }
+        catch (reason) { error = reason; }
+        finally { this.reads.delete(pending); }
+        const recovery = task.recovery;
+        if (recovery) { await recovery.promise; task.recovery = null; if (recovery.error) throw recovery.error; }
+        if (task.cancelled || this.closing) {
+          if (result?.data) this.onTransfer({ request, direction: 'in', dataHex: hex(copy(result.data)), status: 'cancelled' });
+          throw new DOMException('USB read cancelled.', 'AbortError');
+        }
+        // A native handle close also aborts other endpoints. Keep their C URBs
+        // pending and reissue just the interrupted reads after restoring USB.
+        if (recovery && (error || result?.status === 'cancelled')) continue;
+        if (error) throw error;
+        return result;
+      }
+    } finally { this.readTasks.delete(task); }
+  }
   prepareClose() { this.driverClosing = true; }
-  async cancel() {
-    if (!this.reads.size || !this.claimed || this.closing) return;
+  async cancel(request) {
+    for (const task of this.readTasks) {
+      if (this.driverClosing || !request || task.request === request ||
+          request.transferId != null && task.request.transferId === request.transferId) task.cancelled = true;
+    }
     if (this.cancelTask) return this.cancelTask;
+    if (!this.reads.size || !this.claimed || this.closing) return;
+    let resume;
+    const recovery = { promise: new Promise(resolve => { resume = resolve; }), error: null };
+    for (const task of this.readTasks) task.recovery = recovery;
     this.cancelTask = (async () => {
       this.cancelling = true;
-      const reconnect = this.driverClosing;
       this.onEvent({ kind: 'usb-cancel-started', pendingReads: this.reads.size,
-        strategy: reconnect ? 'close-reopen' : 'release-reclaim' });
+        strategy: 'close-reopen', transferId: request?.transferId ?? null });
       try {
-        // WinUSB releaseInterface leaves outstanding reads alive. During C
-        // teardown close the native handle to abort them, then restore access
-        // so the unmodified driver's remaining shutdown requests can finish.
-        if (reconnect) await this.device.close();
-        else await this.device.releaseInterface(this.interfaceNumber);
+        // releaseInterface does not abort pending reads on WinUSB. Closing the
+        // native handle does; unrelated reads resume on the restored handle.
+        await this.device.close();
         this.claimed = false;
         await Promise.allSettled([...this.reads]);
         if (!this.closing) {
-          if (reconnect) {
-            await this.device.open();
-            if (this.closing) { await this.device.close(); return; }
-            if (this.device.configuration?.configurationValue !== this.info.configuration.configurationValue) {
-              await this.device.selectConfiguration(this.info.configuration.configurationValue);
-            }
+          await this.openDevice();
+          if (this.closing) { await this.device.close(); return; }
+          if (this.device.configuration?.configurationValue !== this.info.configuration.configurationValue) {
+            await this.device.selectConfiguration(this.info.configuration.configurationValue);
           }
           if (this.closing) { if (this.device.opened) await this.device.close(); return; }
           await this.device.claimInterface(this.interfaceNumber); this.claimed = true;
           if (this.closing) { await this.device.close(); this.claimed = false; return; }
-          if (reconnect && this.alternate.alternateSetting) await this.device.selectAlternateInterface(this.interfaceNumber, this.alternate.alternateSetting);
+          if (this.alternate.alternateSetting) await this.device.selectAlternateInterface(this.interfaceNumber, this.alternate.alternateSetting);
         }
-        this.onEvent({ kind: 'usb-cancel-complete', reconnected: reconnect && this.claimed });
-      } finally { this.cancelling = false; this.cancelTask = null; }
+        this.onEvent({ kind: 'usb-cancel-complete', reconnected: this.claimed });
+      } catch (error) { recovery.error = error; this.lastError = classifyUSBFailure(error); throw error; }
+      finally { this.cancelling = false; this.cancelTask = null; resume(); }
     })();
     return this.cancelTask;
   }
@@ -189,9 +231,17 @@ export class WebUSBDriverBackend {
     };
     this.closeTask = (async () => {
       try {
+        // Abort must also observe a late native open/recovery. Otherwise its
+        // failure could arrive after the UI has already announced release.
+        let pendingError;
+        try {
+          if (this.opening) await bounded(this.opening);
+          if (this.cancelTask) await bounded(this.cancelTask);
+        } catch (error) { pendingError = error; }
         if (this.claimed && this.device.opened) await bounded(this.device.releaseInterface(this.interfaceNumber)).catch(() => {});
         this.claimed = false;
         if (this.device.opened) await bounded(this.device.close());
+        if (pendingError) throw pendingError;
       } finally { this.closeTask = null; }
     })();
     return this.closeTask;
@@ -225,10 +275,8 @@ export class HelperDriverBackend extends WebUSBDriverBackend {
     if (!this.session || this.closing) throw new DOMException('USB helper session closed.', 'AbortError');
     try {
       const reply = await this.call('transfer', [{ ...request, dataPointer: undefined, pointer: undefined, actual: undefined }, bytes ? hex(bytes) : null]);
-      this.completed++;
       const input = Boolean(request.type & 128), result = input ? { bytes: unhex(reply.hex) } : { written: reply.written };
-      this.onTransfer({ request, direction: input ? 'in' : 'out', dataHex: input ? reply.hex : hex(bytes ?? new Uint8Array()) });
-      return input && this.synchronize ? this.synchronize(result) : result;
+      return this.completeTransfer(request, bytes, result);
     } catch (error) { this.lastError = classifyUSBFailure(error); throw this.lastError; }
   }
   async cancel() { /* Native reads have a bounded 100 ms timeout. */ }
@@ -251,29 +299,28 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
     const backend = transport === 'direct' ? new WebUSBDriverBackend(device, match, { onTransfer: event, onEvent: event }) : new HelperDriverBackend(device, match, { onTransfer: event, onEvent: event });
     const client = new DriverWorkerClient(backend, { event });
     event({ kind: 'check-started', transport });
+    const abort = () => { void client.abort().catch(() => {}); };
+    signal?.addEventListener('abort', abort, { once: true });
     try {
       signal?.throwIfAborted();
-      const abort = () => { client.abort(); };
-      signal?.addEventListener('abort', abort, { once: true });
-      try {
-        await client.load(record.artifact.bytes, record.profile); signal?.throwIfAborted();
-        event({ kind: 'usb-opening', transport });
-        const description = await client.open(); signal?.throwIfAborted();
-        if (!backend.completed) throw new DriverUSBError('initialization-failed', 'The driver did not complete any USB request.');
-        report[transport] = { status: 'passed', description, completedTransfers: backend.completed };
-        event({ kind: 'check-passed', transport });
-      } finally { signal?.removeEventListener('abort', abort); }
+      await client.load(record.artifact.bytes, record.profile); signal?.throwIfAborted();
+      event({ kind: 'usb-opening', transport });
+      const description = await client.open(); signal?.throwIfAborted();
+      if (!backend.completed) throw new DriverUSBError('initialization-failed', 'The driver did not complete any USB request.');
+      report[transport] = { status: 'passed', description, completedTransfers: backend.completed };
+      event({ kind: 'check-passed', transport });
     } catch (error) {
-      if (signal?.aborted) throw signal.reason;
       const reason = backend.lastError ?? classifyUSBFailure(error);
-      report[transport] = { status: reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
-      event({ kind: 'check-failed', transport, code: reason.code, message: reason.message });
+      report[transport] = { status: signal?.aborted ? 'cancelled' : reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
+      event({ kind: signal?.aborted ? 'check-cancelled' : 'check-failed', transport, code: reason.code, message: reason.message });
     } finally {
       try { await client.close(); event({ kind: 'usb-released', transport }); }
       catch (error) { report[transport].cleanupError = error.message; report[transport].status = 'failed'; event({ kind: 'check-cleanup-failed', transport, message: error.message }); }
+      finally { signal?.removeEventListener('abort', abort); }
     }
+    if (signal?.aborted && report[transport].status === 'passed') report[transport].status = 'cancelled';
   };
   if (method !== 'helper') await attempt('direct');
-  if (method === 'helper' || method === 'auto' && report.direct.code === 'helper-needed') await attempt('helper');
-  report.complete = true; return report;
+  if (!signal?.aborted && (method === 'helper' || method === 'auto' && report.direct.code === 'helper-needed' && !report.direct.cleanupError)) await attempt('helper');
+  report.cancelled = Boolean(signal?.aborted); report.complete = !report.cancelled; return report;
 }

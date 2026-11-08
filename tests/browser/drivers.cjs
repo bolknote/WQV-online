@@ -101,6 +101,117 @@ test('a driver check belongs to its exact source and headers, never a replacemen
   await page.locator('#tab-check').click(); assert.match(await page.locator('#check-driver').textContent(), /first\.c/); await untested();
 });
 
+test('each driver check clears the other access method instead of carrying an old success into UI or JSON', { timeout: 30000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage({ acceptDownloads: true }); await page.addInitScript(installUSBModel);
+  await page.route('**/driver-compiler.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export async function compileDriver(record) { return { abi:1,sourceSHA256:record.sha256,inputSHA256:record.inputSHA256,
+      bytes:new Uint8Array([1]),usbMatches:[{vendorId:0x066f,productId:0x4200}],compileMs:1 }; }
+    export async function referenceDriver() { throw Error('Not used'); }
+  ` }));
+  await page.route('**/driver-usb.mjs', route => route.fulfill({ contentType: 'text/javascript', body: `
+    export async function checkInstalledDriver(record, match, device, { method }) {
+      if(window.__bothFail) return {driver:{id:record.id,sha256:record.sha256,inputSHA256:record.inputSHA256},complete:true,
+        direct:{status:'blocked'},helper:{status:'failed'}};
+      return { driver:{id:record.id,sha256:record.sha256,inputSHA256:record.inputSHA256},complete:true,
+        direct:{status:method==='helper'?'untested':window.__fail?'failed':'passed'},
+        helper:{status:method==='helper'?window.__fail?'failed':'passed':'untested'} };
+    }
+  ` }));
+  await page.goto(new URL('drivers.html', base).href);
+  await page.locator('#driver-files').setInputFiles({ name: 'fixture.c', mimeType: 'text/plain', buffer: Buffer.from('struct stir_cb { int fixture; };') });
+  await page.locator('[data-build="built"]').waitFor();
+  await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
+  const run = async method => {
+    await page.locator('#check-method').selectOption(method); await page.locator('#check-run').click();
+    await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  };
+  const report = async () => {
+    const download = page.waitForEvent('download'); await page.locator('#save-report').click();
+    return JSON.parse(await fs.readFile(await (await download).path(), 'utf8'));
+  };
+  await run('helper'); assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'), 'passed');
+  await page.evaluate(() => { window.__fail = true; }); await run('auto');
+  assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'), 'untested');
+  assert.equal(await page.locator('#check-heading').textContent(), 'USB check failed');
+  assert.equal(await page.locator('#driver-status').textContent(), 'USB check failed');
+  assert.equal((await report()).helper.status, 'untested');
+  await page.evaluate(() => { window.__fail = false; }); await run('direct');
+  await page.evaluate(() => { window.__fail = true; }); await run('helper');
+  const last = await report(); assert.equal(last.direct.status, 'untested'); assert.equal(last.helper.status, 'failed');
+  assert.equal(await page.locator('#check-heading').textContent(), 'USB check failed');
+  await page.evaluate(() => { window.__bothFail = true; }); await run('auto');
+  assert.equal(await page.locator('#check-heading').textContent(), 'USB check failed');
+});
+
+test('Stop preserves a native cleanup failure in both the screen and the downloadable report', { timeout: 30000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage({ acceptDownloads: true }), errors = [];
+  page.on('pageerror', error => errors.push(error.message)); await page.addInitScript(installUSBModel);
+  await page.goto(new URL('drivers.html', base).href);
+  await page.evaluate(async () => {
+    const { driverStore } = await import('./driver-store.mjs'), { referenceDriver, compileDriver } = await import('./driver-compiler.mjs');
+    const record = await driverStore.saveSource(await referenceDriver('ark3116'));
+    await driverStore.saveBuild(record.id, record.sha256, await compileDriver(record));
+  });
+  await page.reload(); await page.locator('[data-build="built"]').waitFor();
+  await page.evaluate(() => {
+    Object.assign(window.__sig, { vendorId:0x18ec,productId:0x3118,
+      controlTransferIn() { window.__blocked = true; return new Promise(() => {}); },
+      async close() { throw Error('Native close refused after Stop'); },
+    });
+  });
+  await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
+  await page.locator('#check-run').click(); await page.waitForFunction(() => window.__blocked);
+  await page.locator('#check-stop').click(); await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  assert.equal(await page.locator('#check-direct-result').getAttribute('data-state'), 'failed');
+  assert.equal(await page.locator('#driver-status').textContent(), 'USB check failed');
+  assert.match(await page.locator('#check-note').textContent(), /Native close refused after Stop/);
+  const download = page.waitForEvent('download'); await page.locator('#save-report').click();
+  const report = JSON.parse(await fs.readFile(await (await download).path(), 'utf8'));
+  assert.equal(report.cancelled, true); assert.equal(report.complete, false);
+  assert.match(report.direct.cleanupError, /Native close refused after Stop/);
+  assert.equal(report.log.some(event => event.kind === 'usb-released'), false);
+  assert.ok(report.log.some(event => event.kind === 'check-cleanup-failed'));
+  assert.deepEqual(errors, []);
+});
+
+test('real C ARK rejects a short write and C SigmaTel cancels live WinUSB reads while switching to TX', { timeout: 30000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage(); await page.addInitScript(installUSBModel);
+  await page.goto(new URL('drivers.html', base).href);
+  const result = await page.evaluate(async () => {
+    const { driverStore } = await import('./driver-store.mjs'), { referenceDriver, compileDriver } = await import('./driver-compiler.mjs');
+    const { DriverWorkerClient } = await import('./driver-worker-client.mjs');
+    const record = await driverStore.saveSource(await referenceDriver('ark3116')), artifact = await compileDriver(record);
+    const reads = [], writes = []; let opened = false, shortError;
+    const backend = { async open() { opened=true; return {fields:[0x18ec,0x3118,0,0,0x82,2,0x81,64,64,255,0,0,2,1],description:{}}; },
+      async control(request,bytes) {
+        if(request.type&128) { if(request.transfer)return new Promise(resolve=>reads.push(resolve)); return {bytes:new Uint8Array(request.length)}; }
+        if(request.transfer) { writes.push(bytes.length); return {written:bytes.length-1}; }
+        return {written:bytes.length};
+      }, async cancel() { for(const resolve of reads.splice(0))resolve({bytes:new Uint8Array()}); },
+      async close() { opened=false; await this.cancel(); }, async rpc() {},
+    };
+    const client = new DriverWorkerClient(backend);
+    try { await client.load(artifact.bytes,'ark3116'); await client.open(); try { await client.send(Uint8Array.of(1,2,3,4)); } catch(error) { shortError=error.message; } }
+    finally { await client.close(); }
+    const sig = await driverStore.saveSource(await referenceDriver('sigmatel'));
+    await driverStore.saveBuild(sig.id,sig.sha256,await compileDriver(sig));
+    window.__releaseCancelsReads=false;
+    const events=[], { findInstalledAdapter } = await import('./installed-adapter.mjs');
+    const adapter=await findInstalledAdapter(window.__sig,{record:(kind,event)=>events.push({kind,...event})});
+    try { await adapter.open(); await adapter.setSIRSpeed(115200); await adapter.writeSIR(Uint8Array.of(1,2,3,4)); await adapter.writeSIR(Uint8Array.of(5,6)); }
+    finally { await adapter.close(); }
+    return {shortError,writes,arkClosed:!opened,sigmaClosed:!window.__sig.opened,
+      liveCancellations:events.filter(event=>event.kind==='usb-cancel-started').length,
+      sigmaOutput:window.__sig.writes.map(bytes=>bytes.slice(4)),faults:events.filter(event=>['usb-error','runtime-error'].includes(event.kind))};
+  });
+  assert.match(result.shortError, /Short USB write: 3 of 4/); assert.deepEqual(result.writes, [4]); assert.equal(result.arkClosed,true);
+  assert.equal(result.sigmaClosed,true); assert.ok(result.liveCancellations>=2);
+  assert.deepEqual(result.sigmaOutput, [[1,2,3,4],[5,6]]); assert.deepEqual(result.faults, []);
+});
+
 test('SWAN uses the installed KS-959 C worker for both directions and restores PC counter discovery', { timeout: 60000 }, async t => {
   const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
   const page = await browser.newPage(); await page.goto(new URL('drivers.html', base).href);

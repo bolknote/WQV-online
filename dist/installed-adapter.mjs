@@ -84,7 +84,11 @@ export class InstalledDriverAdapter {
       });
       await client.load(record.artifact.bytes, record.profile);
       try { return await client.open(); }
-      catch (error) { await client.close().catch(() => {}); throw backend.lastError ?? error; }
+      catch (error) {
+        try { await client.close(); }
+        catch (cleanup) { throw new AggregateError([error, cleanup], error.message + '; USB cleanup failed: ' + cleanup.message); }
+        throw backend.lastError ?? error;
+      }
     };
     try {
       try { this.description = await attempt('direct'); }
@@ -100,7 +104,11 @@ export class InstalledDriverAdapter {
       if (this.profile.id === 'sigmatel') this.revision = (await this.registers(4, 1))[0] & 7;
       this.log('info', record.filename + ' · ' + record.sha256 + ' · ' + this.description.transport);
       return this.description;
-    } catch (error) { await this.close().catch(() => {}); throw error; }
+    } catch (error) {
+      try { await this.close(); }
+      catch (cleanup) { throw new AggregateError([error, cleanup], error.message + '; USB cleanup failed: ' + cleanup.message); }
+      throw error;
+    }
   }
   usbTransfer(transfer) {
     this.record('driver-usb', transfer);
@@ -116,7 +124,7 @@ export class InstalledDriverAdapter {
       if (bytes.length < 2) { this.readError = new Error('Incomplete IrDA packet from driver.'); return; }
       bytes = encodeFrame(bytes[0], bytes[1], bytes.slice(2), 1);
     }
-    if (this.queueBytes + bytes.length > 262144) { this.readError = new Error('Driver receive queue exceeded 256 KiB.'); this.client.abort(this.readError); return; }
+    if (this.queueBytes + bytes.length > 262144) { this.readError = new Error('Driver receive queue exceeded 256 KiB.'); void this.client.abort(this.readError).catch(() => {}); return; }
     // As with built-in adapters, the active protocol reader owns RX counts.
     this.queue.push(bytes); this.queueBytes += bytes.length;
     this.raw('sir-rx', bytes); this.waiter?.(); this.update();

@@ -10,7 +10,7 @@ const backend = {
   async open() { const reply = await usb('open'); fields = reply.fields; description = reply.description; },
   control: (request, bytes) => usb('control', [request, bytes]),
   rpc: (method, args) => usb('rpc', [method, args]),
-  cancel: () => usb('cancel'), close: () => usb('close'),
+  cancel: request => usb('cancel', [request]), close: () => usb('close'),
 };
 function flush() {
   if (!driver) return;

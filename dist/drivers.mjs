@@ -110,10 +110,10 @@ function renderCheck() {
   else if (!device) $('check-heading').textContent = say('Choose an adapter to test its driver.');
   else if (!matched) $('check-heading').textContent = say('No matching installed driver');
   else if (S.report) {
-    const last = S.report.helper?.status === 'passed' ? S.report.helper : S.report.direct?.status !== 'untested' ? S.report.direct : S.report.helper;
+    const last = S.report.helper && S.report.helper.status !== 'untested' ? S.report.helper : S.report.direct;
     $('check-heading').textContent = say(labels[last?.status] || 'Not tested');
   } else $('check-heading').textContent = say('Not tested');
-  const errors = [S.report?.direct, S.report?.helper].filter(result => result?.message).map(result => result.message);
+  const errors = [S.report?.direct, S.report?.helper].flatMap(result => [result?.message, result?.cleanupError]).filter(Boolean);
   $('check-note').textContent = errors.join('\n') || say('This check initializes USB without sending an infrared frame.');
 }
 function knownModel(device) {
@@ -177,20 +177,18 @@ async function check(method, signal) {
   const match = chooseInstalledDriver(S.records, S.device);
   if (!match) { status('error', tr('No matching installed driver')); return; }
   S.log = []; status('working', tr('Testing…'), match.record.filename);
-  const previous = S.report;
+  S.report = null; $('diagnostic-date').textContent = '';
   S.reportKey = checkKey(match.record);
   S.checkMethod = method; renderCheck();
   let report;
   try { report = await checkInstalledDriver(match.record, match.match, S.device, { method, signal, recordEvent: entry => log(entry) }); }
-  catch (error) {
-    if (signal.aborted) S.report = { ...previous, direct: method === 'helper' ? previous?.direct : { status: 'cancelled' }, helper: method === 'direct' ? previous?.helper : { status: 'cancelled' } };
-    throw error;
-  } finally { S.checkMethod = null; }
-  S.report = { ...report, direct: report.direct.status === 'untested' && previous ? previous.direct : report.direct,
-    helper: report.helper.status === 'untested' && previous ? previous.helper : report.helper, at: new Date().toISOString() };
+  finally { S.checkMethod = null; }
+  S.report = { ...report, at: new Date().toISOString() };
   $('diagnostic-date').textContent = new Date().toLocaleTimeString(locale());
   const passed = report.direct.status === 'passed' || report.helper.status === 'passed';
-  status(passed ? 'success' : 'error', tr(passed ? 'USB initialization passed' : 'USB check failed'));
+  const cleanupFailed = report.direct.cleanupError || report.helper.cleanupError;
+  if (report.cancelled && !cleanupFailed) status('idle', tr('Operation cancelled'));
+  else status(passed ? 'success' : 'error', tr(passed ? 'USB initialization passed' : 'USB check failed'));
 }
 function download(filename, blob) {
   const url = URL.createObjectURL(blob), link = document.createElement('a'); link.href = url; link.download = filename; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);

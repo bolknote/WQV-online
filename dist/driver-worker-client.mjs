@@ -21,32 +21,47 @@ export class DriverWorkerClient {
         data.error ? task.reject(new Error(data.error)) : task.resolve(data.result);
       }
     };
-    this.worker.onerror = error => this.abort(new Error(error.message || 'The driver worker stopped.'));
+    this.worker.onerror = error => { void this.abort(new Error(error.message || 'The driver worker stopped.')).catch(() => {}); };
     await this.call('load', [new Uint8Array(bytes).slice(), profile]);
   }
   call(method, args = [], timeout = 6000) {
     if (!this.worker) return Promise.reject(new DOMException('Driver is closed.', 'AbortError'));
     const id = ++this.sequence;
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => { this.pending.delete(id); reject(new Error('Driver operation timed out: ' + method)); this.abort(); }, timeout);
+      const timer = setTimeout(() => {
+        const error = new Error('Driver operation timed out: ' + method);
+        this.pending.delete(id); reject(error); void this.abort(error).catch(() => {});
+      }, timeout);
       this.pending.set(id, { resolve, reject, timer }); this.worker.postMessage({ id, method, args });
     });
   }
   open() { return this.call('open'); }
   speed(baud) { return this.call('speed', [baud]); }
   send(bytes) { return this.call('send', [bytes], 10000); }
-  async abort(error = new DOMException('Driver operation cancelled.', 'AbortError')) {
+  abort(error = new DOMException('Driver operation cancelled.', 'AbortError')) {
     const worker = this.worker; this.worker = null; worker?.terminate();
     for (const task of this.pending.values()) { clearTimeout(task.timer); task.reject(error); }
-    this.pending.clear(); await this.backend.close().catch(() => {});
+    this.pending.clear();
+    // Concurrent abort/close callers share cleanup. Background handlers may
+    // observe the rejection, but close() must still receive its actual result.
+    if (!this.cleanupTask) this.cleanupTask = Promise.resolve().then(() => this.backend.close()).catch(error => {
+      this.cleanupError = error; this.event({ kind: 'usb-cleanup-failed', message: error.message }); throw error;
+    });
+    return this.cleanupTask;
   }
   async close() {
+    let driverError;
     try {
       if (this.worker) {
         this.backend.prepareClose?.();
         await this.call('close', [], 4000);
       }
+    } catch (error) { driverError = error; }
+    try { await this.abort(); }
+    catch (error) {
+      if (driverError && driverError !== error) throw new AggregateError([driverError, error], driverError.message + '; USB cleanup failed: ' + error.message);
+      throw error;
     }
-    finally { await this.abort(); }
+    if (driverError) throw driverError;
   }
 }
