@@ -141,6 +141,10 @@ export class LinuxKingsun {
   }
   async close() {
     this.closing=true;
+    // Closing one WebUSB handle can abort multiple native reads. All pending
+    // URBs are being killed here; their cancellation must not become a fault
+    // or allow an interrupt callback to rearm work during C teardown.
+    for(const task of this.pending.values())task.cancelled=true;
     if(this.exports?.lab_state(0))await WebAssembly.promising(this.exports.lab_close)();
     await Promise.all([...this.pending.values()].map(task=>task.settled));
     await this.backend.close();this.opened=false;this.event('driver-closed');

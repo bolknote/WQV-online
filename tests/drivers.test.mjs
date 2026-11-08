@@ -113,6 +113,34 @@ test('a failed native claim with configuration zero remains a native failure', a
   assert.equal(usb.opened, false);
 });
 
+test('driver teardown aborts WinUSB reads with close and restores access for the remaining C shutdown', async () => {
+  const usb = device(), calls = [], pending = [];
+  const iface = usb.configurations[0].interfaces[0];
+  iface.alternates[0].alternateSetting = 1; iface.alternate = iface.alternates[0];
+  Object.assign(usb, { configuration: usb.configurations[0], opened: false,
+    async open() { this.opened = true; calls.push('open'); },
+    async close() {
+      calls.push('close'); this.opened = false; iface.alternate = { alternateSetting: 0 };
+      for (const reject of pending.splice(0)) reject(new DOMException('Native read aborted', 'AbortError'));
+    },
+    async claimInterface() { calls.push('claim'); },
+    async releaseInterface() { calls.push('release'); }, // Does not abort reads on WinUSB.
+    async selectAlternateInterface(number, alternateSetting) { calls.push(['alternate', number, alternateSetting]); iface.alternate = { alternateSetting }; },
+    transferIn() { return new Promise((resolve, reject) => pending.push(reject)); },
+    async controlTransferOut() { calls.push('shutdown-control'); return { status: 'ok', bytesWritten: 0 }; },
+  });
+  const backend = new WebUSBDriverBackend(usb); await backend.open();
+  const reads = Promise.allSettled([backend.control({ transfer: 'bulk', type: 128, index: 2, length: 64 }),
+    backend.control({ transfer: 'interrupt', type: 128, index: 1, length: 4 })]);
+  backend.prepareClose(); await backend.cancel();
+  assert.ok((await reads).every(read => read.status === 'rejected' && read.reason.name === 'AbortError'));
+  assert.equal(backend.reads.size, 0); assert.equal(backend.claimed, true);
+  assert.deepEqual(calls, ['open', 'claim', 'close', 'open', 'claim', ['alternate', 0, 1]]);
+  await backend.control({ type: 0x40, request: 0xfe, value: 0, index: 1, length: 0 }, new Uint8Array());
+  assert.equal(calls.at(-1), 'shutdown-control');
+  await backend.close(); assert.equal(usb.opened, false);
+});
+
 test('busy, permission and initialization failures are not relabeled as helper requirements', () => {
   assert.equal(classifyUSBFailure(new DOMException('busy', 'NetworkError'), 'claim').code, 'busy');
   assert.equal(classifyUSBFailure(new DOMException('no', 'NotAllowedError')).code, 'permission');

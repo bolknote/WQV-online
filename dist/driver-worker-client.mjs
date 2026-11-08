@@ -41,7 +41,12 @@ export class DriverWorkerClient {
     this.pending.clear(); await this.backend.close().catch(() => {});
   }
   async close() {
-    try { if (this.worker) await this.call('close', [], 4000); }
+    try {
+      if (this.worker) {
+        this.backend.prepareClose?.();
+        await this.call('close', [], 4000);
+      }
+    }
     finally { await this.abort(); }
   }
 }

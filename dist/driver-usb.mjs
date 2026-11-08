@@ -52,7 +52,7 @@ export class WebUSBDriverBackend {
     this.transport = 'direct';
   }
   async open() {
-    this.closing = false;
+    this.closing = false; this.driverClosing = false;
     try {
       await this.device.open();
       if (this.closing) { await this.device.close(); throw new DOMException('USB connection cancelled.', 'AbortError'); }
@@ -131,15 +131,37 @@ export class WebUSBDriverBackend {
       this.lastError = classifyUSBFailure(error); throw this.lastError;
     }
   }
+  prepareClose() { this.driverClosing = true; }
   async cancel() {
     if (!this.reads.size || !this.claimed || this.closing) return;
     if (this.cancelTask) return this.cancelTask;
     this.cancelTask = (async () => {
       this.cancelling = true;
+      const reconnect = this.driverClosing;
+      this.onEvent({ kind: 'usb-cancel-started', pendingReads: this.reads.size,
+        strategy: reconnect ? 'close-reopen' : 'release-reclaim' });
       try {
-        await this.device.releaseInterface(this.interfaceNumber); this.claimed = false;
+        // WinUSB releaseInterface leaves outstanding reads alive. During C
+        // teardown close the native handle to abort them, then restore access
+        // so the unmodified driver's remaining shutdown requests can finish.
+        if (reconnect) await this.device.close();
+        else await this.device.releaseInterface(this.interfaceNumber);
+        this.claimed = false;
         await Promise.allSettled([...this.reads]);
-        if (!this.closing) { await this.device.claimInterface(this.interfaceNumber); this.claimed = true; }
+        if (!this.closing) {
+          if (reconnect) {
+            await this.device.open();
+            if (this.closing) { await this.device.close(); return; }
+            if (this.device.configuration?.configurationValue !== this.info.configuration.configurationValue) {
+              await this.device.selectConfiguration(this.info.configuration.configurationValue);
+            }
+          }
+          if (this.closing) { if (this.device.opened) await this.device.close(); return; }
+          await this.device.claimInterface(this.interfaceNumber); this.claimed = true;
+          if (this.closing) { await this.device.close(); this.claimed = false; return; }
+          if (reconnect && this.alternate.alternateSetting) await this.device.selectAlternateInterface(this.interfaceNumber, this.alternate.alternateSetting);
+        }
+        this.onEvent({ kind: 'usb-cancel-complete', reconnected: reconnect && this.claimed });
       } finally { this.cancelling = false; this.cancelTask = null; }
     })();
     return this.cancelTask;

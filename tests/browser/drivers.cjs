@@ -14,10 +14,10 @@ function installUSBModel() {
     calls: [], writes: [], registers: {},
     async open() { this.opened = true; this.configuration = this.configurations[0]; this.calls.push('open'); },
     async claimInterface() { this.calls.push('claim'); },
-    async releaseInterface() { this.calls.push('release'); for (const resolve of bulkPending.splice(0)) resolve({ status: 'ok', data: new DataView(new ArrayBuffer(0)) }); },
+    async releaseInterface() { this.calls.push('release'); if (window.__releaseCancelsReads !== false) for (const resolve of bulkPending.splice(0)) resolve({ status: 'ok', data: new DataView(new ArrayBuffer(0)) }); },
     async selectAlternateInterface() {}, async selectConfiguration() { this.configuration = this.configurations[0]; },
     async clearHalt() {}, async reset() { this.calls.push('reset'); },
-    async close() { this.opened = false; await this.releaseInterface(); this.calls.push('close'); },
+    async close() { this.opened = false; await this.releaseInterface(); for (const resolve of bulkPending.splice(0)) resolve({ status: 'ok', data: new DataView(new ArrayBuffer(0)) }); this.calls.push('close'); },
     async controlTransferOut(setup, data = new Uint8Array()) { this.calls.push(['out', setup.index, setup.value]); this.registers[setup.index] = setup.value; return { status: 'ok', bytesWritten: data.byteLength }; },
     async controlTransferIn(setup, length) { this.calls.push(['in', setup.index, length]); const bytes = new Uint8Array(length); if (setup.index === 5) bytes[0] = 4; else for (let i = 0; i < length; i++) bytes[i] = this.registers[setup.index + i] ?? 0; return { status: 'ok', data: new DataView(bytes.buffer) }; },
     transferIn() { return new Promise(resolve => bulkPending.push(resolve)); },
@@ -331,7 +331,7 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   assert.deepEqual(errors, []);
 });
 
-test('ARK configuration zero reaches its C initializer and exports evidence on a genuinely missing interface', { timeout: 30000 }, async t => {
+test('ARK configuration zero closes idle WinUSB reads and exports evidence on a genuinely missing interface', { timeout: 30000 }, async t => {
   const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
   const page = await browser.newPage({ acceptDownloads: true }); await page.addInitScript(installUSBModel);
   await page.goto(new URL('drivers.html', base).href);
@@ -343,6 +343,9 @@ test('ARK configuration zero reaches its C initializer and exports evidence on a
   });
   await page.reload(); await page.locator('[data-build="built"]').waitFor();
   await page.evaluate(() => {
+    // WinUSB keeps pending bulk/interrupt reads alive after releaseInterface.
+    // Only close aborts them. No watch traffic is needed to exercise shutdown.
+    window.__releaseCancelsReads = false;
     window.__ark = { ...window.__sig, vendorId: 0x18ec, productId: 0x3118, productName: 'USB TO IRDA ',
       calls: [], writes: [], registers: {},
       configurations: [{ configurationValue: 0, interfaces: [{ interfaceNumber: 0, alternates: [{
@@ -356,7 +359,8 @@ test('ARK configuration zero reaches its C initializer and exports evidence on a
   });
   await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
   await page.locator('#check-run').click();
-  await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'passed');
+  await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  assert.equal(await page.locator('#check-direct-result').getAttribute('data-state'), 'passed');
   const downloadReport = async () => {
     const download = page.waitForEvent('download'); await page.locator('#save-report').click();
     return JSON.parse(await fs.readFile(await (await download).path(), 'utf8'));
@@ -369,6 +373,25 @@ test('ARK configuration zero reaches its C initializer and exports evidence on a
   assert.equal(descriptors.configurations[0].interfaces[0].alternates[0].endpoints.length, 3);
   assert.equal(await page.evaluate(() => window.__ark.opened), false);
   assert.equal(await page.evaluate(() => window.__ark.writes.length), 0);
+  assert.ok(passed.log.some(event => event.kind === 'driver-closed'));
+  assert.equal(passed.direct.cleanupError, undefined);
+  assert.ok(passed.log.some(event => event.kind === 'usb-cancel-started' && event.strategy === 'close-reopen'));
+  assert.ok(passed.log.some(event => event.kind === 'usb-cancel-complete' && event.reconnected));
+  assert.equal(passed.log.some(event => event.kind === 'usb-error' || event.kind === 'runtime-error'), false);
+  // A second check must be able to reclaim the same device without unplugging.
+  await page.locator('#check-run').click(); await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  assert.equal(await page.locator('#check-direct-result').getAttribute('data-state'), 'passed');
+  assert.equal(await page.evaluate(() => window.__ark.opened), false);
+  // A real native-close failure must still overturn an initialization pass.
+  await page.evaluate(() => {
+    window.__ark.nativeClose = window.__ark.close;
+    window.__ark.close = async () => { throw Error('Native WinUSB close failed'); };
+  });
+  await page.locator('#check-run').click(); await page.waitForFunction(() => !document.getElementById('check-run').disabled);
+  const closeFailure = await downloadReport();
+  assert.equal(closeFailure.direct.status, 'failed');
+  assert.match(closeFailure.direct.cleanupError, /Native WinUSB close failed/);
+  await page.evaluate(async () => { window.__ark.close = window.__ark.nativeClose; await window.__ark.close(); });
   await page.evaluate(() => { window.__ark.configurations[0].interfaces = []; });
   await page.locator('[data-driver-action="choose"]').click(); await page.locator('#check-run').click();
   await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'failed');
