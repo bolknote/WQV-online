@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { DRIVER_ABI, identifyDriver, chooseInstalledDriver, matchingDriverIDs, normalizeDriverPath } from '../dist/driver-catalog.mjs';
-import { WebUSBDriverBackend, DriverUSBError, classifyUSBFailure } from '../dist/driver-usb.mjs';
+import { WebUSBDriverBackend, DriverUSBError, classifyUSBFailure, usbDescriptorSnapshot } from '../dist/driver-usb.mjs';
 import { compileDriver } from '../dist/driver-compiler.mjs';
 import { InstalledDriverAdapter } from '../dist/installed-adapter.mjs';
 import { encodeFrame } from '../dist/irda.mjs';
@@ -63,6 +63,54 @@ test('invalid interface command requires helper before submitting any USB reques
   assert.throws(() => backend.validateControl({ type: 0x21, index: 1 }), error => error.code === 'helper-needed');
   // A device-recipient register index is not an interface number.
   assert.doesNotThrow(() => backend.validateControl({ type: 0x40, index: 8 }));
+});
+
+test('a zero-valued active configuration reaches the real interface claim and is retained in diagnostics', async () => {
+  const usb = device(0x18ec, 0x3118), calls = [], events = [];
+  const configuration = usb.configurations[0]; configuration.configurationValue = 0;
+  const iface = configuration.interfaces[0]; iface.alternate = iface.alternates[0];
+  iface.alternate.endpoints = [{ endpointNumber: 2, direction: 'in', type: 'bulk', packetSize: 64 },
+    { endpointNumber: 2, direction: 'out', type: 'bulk', packetSize: 64 }];
+  Object.assign(usb, { configuration, opened: false,
+    async open() { this.opened = true; calls.push('open'); },
+    async close() { this.opened = false; calls.push('close'); },
+    async claimInterface(number) { calls.push(['claim', number]); },
+    async releaseInterface(number) { calls.push(['release', number]); },
+    async selectConfiguration() { assert.fail('an already active configuration must not be selected again'); },
+  });
+  const backend = new WebUSBDriverBackend(usb, null, { onEvent: event => events.push(event) });
+  const description = await backend.open();
+  assert.equal(description.description.configuration, 0);
+  assert.deepEqual(description.fields.slice(4, 6), [0x82, 2]);
+  assert.deepEqual(calls, ['open', ['claim', 0]]);
+  const snapshot = JSON.parse(JSON.stringify(events.find(event => event.kind === 'usb-descriptors')));
+  assert.equal(snapshot.opened, true); assert.equal(snapshot.activeConfiguration.configurationValue, 0);
+  assert.equal(snapshot.configurations[0].interfaces[0].alternates[0].endpoints.length, 2);
+  await backend.close(); assert.deepEqual(calls.slice(2), [['release', 0], 'close']);
+});
+
+test('missing interfaces still fail without a helper fallback and keep their descriptor evidence', async () => {
+  const events = [], usb = { vendorId: 1, productId: 2, opened: false, configuration: null,
+    configurations: [{ configurationValue: 0, interfaces: [] }],
+    async open() { this.opened = true; }, async close() { this.opened = false; },
+    async claimInterface() { assert.fail('no interface may be invented'); },
+  };
+  const backend = new WebUSBDriverBackend(usb, null, { onEvent: event => events.push(event) });
+  await assert.rejects(backend.open(), error => error.code === 'no-interfaces');
+  assert.equal(usb.opened, false);
+  assert.equal(events[0].configurations[0].configurationValue, 0);
+  assert.deepEqual(events[0].configurations[0].interfaces, []);
+  assert.equal(usbDescriptorSnapshot(usb).activeConfiguration, null);
+});
+
+test('a failed native claim with configuration zero remains a native failure', async () => {
+  const usb = device(0x18ec, 0x3118);
+  usb.configuration = usb.configurations[0]; usb.configuration.configurationValue = 0;
+  Object.assign(usb, { opened: false, async open() { this.opened = true; }, async close() { this.opened = false; },
+    async claimInterface() { throw new DOMException('Cannot claim this interface', 'NetworkError'); },
+  });
+  await assert.rejects(new WebUSBDriverBackend(usb).open(), error => error.code === 'busy');
+  assert.equal(usb.opened, false);
 });
 
 test('busy, permission and initialization failures are not relabeled as helper requirements', () => {

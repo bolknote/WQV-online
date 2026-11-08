@@ -71,6 +71,7 @@ export class InstalledDriverAdapter {
     const attempt = async method => {
       const Backend = method === 'helper' ? HelperDriverBackend : WebUSBDriverBackend;
       const options = { onTransfer: transfer => this.usbTransfer(transfer),
+        onEvent: event => this.record('driver-usb-state', event),
         synchronize: this.calibration ? result => this.calibration.input(result) : null };
       const backend = this.backend = new Backend(this.device, match, options);
       if (this.calibration) {

@@ -9,6 +9,34 @@ const hex = bytes => Array.from(bytes, n => n.toString(16).padStart(2, '0')).joi
 const unhex = text => Uint8Array.from(text?.match(/../g) ?? [], n => parseInt(n, 16));
 const types = ['standard', 'class', 'vendor', 'reserved'], recipients = ['device', 'interface', 'endpoint', 'other'];
 
+// WebUSB descriptor objects have getters, so JSON.stringify(device) loses them.
+// Preserve configuration value 0: it is distinct from an absent configuration.
+export function usbDescriptorSnapshot(device) {
+  const configuration = value => value ? {
+    configurationValue: value.configurationValue,
+    interfaces: Array.from(value.interfaces ?? [], iface => ({
+      interfaceNumber: iface.interfaceNumber,
+      claimed: Boolean(iface.claimed),
+      alternateSetting: iface.alternate?.alternateSetting ?? null,
+      alternates: Array.from(iface.alternates ?? [], alternate => ({
+        alternateSetting: alternate.alternateSetting,
+        interfaceClass: alternate.interfaceClass,
+        interfaceSubclass: alternate.interfaceSubclass,
+        interfaceProtocol: alternate.interfaceProtocol,
+        endpoints: Array.from(alternate.endpoints ?? [], endpoint => ({
+          endpointNumber: endpoint.endpointNumber, direction: endpoint.direction,
+          type: endpoint.type, packetSize: endpoint.packetSize,
+        })),
+      })),
+    })),
+  } : null;
+  return {
+    opened: Boolean(device.opened),
+    activeConfiguration: configuration(device.configuration),
+    configurations: Array.from(device.configurations ?? [], configuration),
+  };
+}
+
 export function classifyUSBFailure(error, stage = '') {
   if (error instanceof DriverUSBError) return error;
   if (error?.name === 'AbortError' || error?.name === 'NotFoundError') return new DriverUSBError('cancelled', error.message, error);
@@ -18,8 +46,8 @@ export function classifyUSBFailure(error, stage = '') {
 }
 
 export class WebUSBDriverBackend {
-  constructor(device, match, { onTransfer = () => {}, synchronize = null } = {}) {
-    this.device = device; this.match = match; this.onTransfer = onTransfer; this.synchronize = synchronize;
+  constructor(device, match, { onTransfer = () => {}, onEvent = () => {}, synchronize = null } = {}) {
+    this.device = device; this.match = match; this.onTransfer = onTransfer; this.onEvent = onEvent; this.synchronize = synchronize;
     this.claimed = false; this.closing = false; this.reads = new Set(); this.completed = 0; this.lastError = null;
     this.transport = 'direct';
   }
@@ -28,8 +56,9 @@ export class WebUSBDriverBackend {
     try {
       await this.device.open();
       if (this.closing) { await this.device.close(); throw new DOMException('USB connection cancelled.', 'AbortError'); }
+      this.onEvent({ kind: 'usb-descriptors', ...usbDescriptorSnapshot(this.device) });
       const iface = this.match?.interface ?? usbAlternates(this.device)[0];
-      if (!iface || !iface.configuration) throw new DriverUSBError('no-interfaces', 'The operating system does not provide usable USB interfaces for this adapter.');
+      if (!iface || iface.configuration == null) throw new DriverUSBError('no-interfaces', 'The operating system does not provide usable USB interfaces for this adapter.');
       if (this.device.configuration?.configurationValue !== iface.configuration) await this.device.selectConfiguration(iface.configuration);
       if (protectedClasses.has(iface.alternate.interfaceClass)) throw new DriverUSBError('helper-needed', 'WebUSB does not allow this USB interface class.');
       this.interfaceNumber = iface.interfaceNumber; this.alternate = iface.alternate;
@@ -191,12 +220,13 @@ export class HelperDriverBackend extends WebUSBDriverBackend {
 
 export async function checkInstalledDriver(record, match, device, { method = 'auto', signal, recordEvent = () => {} } = {}) {
   const { DriverWorkerClient } = await import('./driver-worker-client.mjs');
-  const report = { device: { name: device.productName || device.manufacturerName || 'USB device', usbId: usbID(device) },
+  const report = { device: { name: device.productName || device.manufacturerName || 'USB device', usbId: usbID(device), descriptors: usbDescriptorSnapshot(device) },
+    environment: { userAgent: globalThis.navigator?.userAgent ?? null },
     driver: { id: record.id, filename: record.filename, sha256: record.sha256, inputSHA256: record.inputSHA256, profile: record.profile },
     direct: { status: 'untested' }, helper: { status: 'untested' }, infrared: 'not-tested', events: [] };
   const attempt = async transport => {
     const event = entry => { if (report.events.length < 300) report.events.push(entry); recordEvent(entry); };
-    const backend = transport === 'direct' ? new WebUSBDriverBackend(device, match, { onTransfer: event }) : new HelperDriverBackend(device, match, { onTransfer: event });
+    const backend = transport === 'direct' ? new WebUSBDriverBackend(device, match, { onTransfer: event, onEvent: event }) : new HelperDriverBackend(device, match, { onTransfer: event, onEvent: event });
     const client = new DriverWorkerClient(backend, { event });
     event({ kind: 'check-started', transport });
     try {

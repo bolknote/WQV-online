@@ -106,7 +106,9 @@ class USB:
                 raise USBError('Invalid USB descriptor size')
             configuration, alternates = parse_configuration(self.control(0x80, 6, 0x0200, 0, total))
             self.alternates = [item for item in alternates if item['interfaceNumber'] == interface]
-            if not configuration or not self.alternates:
+            # A zero-valued descriptor does not imply missing interfaces. Let
+            # the host's actual configure/claim operations decide availability.
+            if not self.alternates:
                 raise USBError('No usable USB interfaces. The OS configuration is unavailable.', 'no-interfaces')
             self.alternate = self.alternates[0]
             current = C.c_int()

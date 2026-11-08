@@ -1,6 +1,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+from unittest.mock import MagicMock, patch
 
 spec = importlib.util.spec_from_file_location('irda_usb_helper', Path(__file__).parents[1] / 'dist/irda_usb_helper.py')
 helper = importlib.util.module_from_spec(spec)
@@ -8,6 +9,27 @@ spec.loader.exec_module(helper)
 
 
 class HelperTests(unittest.TestCase):
+    def test_active_configuration_zero_reaches_native_claim(self):
+        raw = bytes.fromhex('0902270001000080fa0904000003ff000000070581030400010705020240000007058202400000')
+        library = MagicMock()
+        library.libusb_init.return_value = 0
+        library.libusb_claim_interface.return_value = 0
+        library.libusb_release_interface.return_value = 0
+        def configuration(handle, pointer):
+            pointer._obj.value = 0
+            return 0
+        library.libusb_get_configuration.side_effect = configuration
+        with patch.object(helper.ctypes.util, 'find_library', return_value='usb-1.0'), \
+                patch.object(helper.C, 'CDLL', return_value=library), \
+                patch.object(helper.USB, 'open_unique_device', return_value=helper.C.c_void_p(1)), \
+                patch.object(helper.USB, 'control', side_effect=[raw[:9], raw]):
+            adapter = helper.USB(0x18ec, 0x3118)
+            self.assertEqual(adapter.configuration, 0)
+            self.assertEqual(len(adapter.alternate['endpoints']), 3)
+            library.libusb_claim_interface.assert_called_once_with(adapter.handle, 0)
+            library.libusb_set_configuration.assert_not_called()
+            adapter.close()
+
     def test_descriptor_is_read_and_truncated_descriptors_rejected(self):
         raw = bytes.fromhex('0902200001010080320904000002ff0000000705810240000007050202400000')
         config, alternates = helper.parse_configuration(raw)

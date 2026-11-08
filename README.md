@@ -85,6 +85,11 @@ reported separately. The two access methods can also be tested individually.
 This initializes USB and releases it afterwards; it sends no infrared frame.
 Use the watch app to check an actual photo transfer.
 
+Saved check reports include the browser's active and advertised USB
+configurations, interfaces and endpoints. A configuration numbered zero is
+not treated as a missing interface; the real OS selection and claim must
+still succeed. This does not establish ARK3116T hardware support.
+
 C drivers that need the helper use [irda_usb_helper.py](dist/irda_usb_helper.py):
 
 ```sh

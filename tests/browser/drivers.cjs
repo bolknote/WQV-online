@@ -245,6 +245,9 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   const exportedReport = JSON.parse(await fs.readFile(await (await reportDownload).path(), 'utf8'));
   assert.ok(exportedReport.log.some(event => event.kind === 'module-loaded' && Array.isArray(event.imports)));
   assert.ok(exportedReport.log.some(event => event.request && typeof event.dataHex === 'string'));
+  assert.equal(exportedReport.device.descriptors.configurations[0].configurationValue, 1);
+  assert.ok(exportedReport.log.some(event => event.kind === 'usb-descriptors' && event.opened));
+  assert.match(exportedReport.environment.userAgent, /Chrome/);
 
   // KS-959's nonexistent interface is detected before the control reaches USB.
   await page.evaluate(() => { window.__selectedUSB = window.__king; });
@@ -326,6 +329,54 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   const artifacts = process.env.WQV_BROWSER_ARTIFACTS;
   if (artifacts) { await fs.mkdir(artifacts, { recursive: true }); await page.setViewportSize({ width: 1024, height: 1050 }); await page.screenshot({ path: path.join(artifacts, 'drivers.png'), fullPage: true }); }
   assert.deepEqual(errors, []);
+});
+
+test('ARK configuration zero reaches its C initializer and exports evidence on a genuinely missing interface', { timeout: 30000 }, async t => {
+  const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
+  const page = await browser.newPage({ acceptDownloads: true }); await page.addInitScript(installUSBModel);
+  await page.goto(new URL('drivers.html', base).href);
+  await page.evaluate(async () => {
+    const { driverStore } = await import('./driver-store.mjs');
+    const { referenceDriver, compileDriver } = await import('./driver-compiler.mjs');
+    const record = await driverStore.saveSource(await referenceDriver('ark3116'));
+    await driverStore.saveBuild(record.id, record.sha256, await compileDriver(record));
+  });
+  await page.reload(); await page.locator('[data-build="built"]').waitFor();
+  await page.evaluate(() => {
+    window.__ark = { ...window.__sig, vendorId: 0x18ec, productId: 0x3118, productName: 'USB TO IRDA ',
+      calls: [], writes: [], registers: {},
+      configurations: [{ configurationValue: 0, interfaces: [{ interfaceNumber: 0, alternates: [{
+        alternateSetting: 0, interfaceClass: 255, interfaceSubclass: 0, interfaceProtocol: 0,
+        endpoints: [{ endpointNumber: 1, direction: 'in', type: 'interrupt', packetSize: 4 },
+          { endpointNumber: 2, direction: 'out', type: 'bulk', packetSize: 64 },
+          { endpointNumber: 2, direction: 'in', type: 'bulk', packetSize: 64 }],
+      }] }] }],
+    };
+    window.__selectedUSB = window.__ark;
+  });
+  await page.locator('#tab-check').click(); await page.locator('[data-driver-action="choose"]').click();
+  await page.locator('#check-run').click();
+  await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'passed');
+  const downloadReport = async () => {
+    const download = page.waitForEvent('download'); await page.locator('#save-report').click();
+    return JSON.parse(await fs.readFile(await (await download).path(), 'utf8'));
+  };
+  const passed = await downloadReport();
+  assert.equal(passed.direct.description.configuration, 0);
+  assert.ok(passed.direct.completedTransfers > 0);
+  const descriptors = passed.log.find(event => event.kind === 'usb-descriptors');
+  assert.equal(descriptors.activeConfiguration.configurationValue, 0);
+  assert.equal(descriptors.configurations[0].interfaces[0].alternates[0].endpoints.length, 3);
+  assert.equal(await page.evaluate(() => window.__ark.opened), false);
+  assert.equal(await page.evaluate(() => window.__ark.writes.length), 0);
+  await page.evaluate(() => { window.__ark.configurations[0].interfaces = []; });
+  await page.locator('[data-driver-action="choose"]').click(); await page.locator('#check-run').click();
+  await page.waitForFunction(() => document.getElementById('check-direct-result').dataset.state === 'failed');
+  const failed = await downloadReport();
+  assert.equal(failed.direct.code, 'no-interfaces');
+  assert.equal(failed.helper.status, 'untested');
+  assert.deepEqual(failed.log.find(event => event.kind === 'usb-descriptors').configurations[0].interfaces, []);
+  assert.equal(await page.evaluate(() => window.__ark.opened), false);
 });
 
 test('all eight installed C modules execute receive, transmit and cleanup against USB models', { timeout: 120000 }, async t => {
