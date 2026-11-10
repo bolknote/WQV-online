@@ -40,7 +40,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
       assert.equal(await page.locator('[data-i18n="Tools"]').textContent(), tools);
       await page.screenshot({ path: path.join(output, language + '-programs.png'), fullPage: true });
       for (const model of ['wqv2', 'wqv3', 'wqv10']) {
-        const translated = language === 'es' ? model === 'wqv2' : model === 'wqv3';
+        const translated = language === 'es' ? model !== 'wqv10' : model === 'wqv3';
         const edition = translated ? language : 'en';
         const guideLabel = translated ? label : 'User’s Guide';
         const guide = page.locator(`.document-icon[href="./manual.html?model=${model}"]`);
@@ -55,7 +55,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         assert.equal(await page.locator('#document-frame').getAttribute('title'), guideLabel);
         assert.equal(await page.locator('#document-contents option').first().textContent(), contents);
         assert.match(await page.locator('#original-pdf').getAttribute('href'), translated
-          ? new RegExp(language === 'es' ? 'baroli.*2220' : 'perkko.*2411') : /_EN\.pdf$/);
+          ? new RegExp(language === 'es' ? 'baroli.*' + (model === 'wqv2' ? '2220' : '2411') : 'perkko.*2411') : /_EN\.pdf$/);
         await page.locator('#document-size').selectOption('larger');
         assert.equal(await frame.locator('html').evaluate(root => getComputedStyle(root).fontSize), '20px');
         if (!translated) {
@@ -98,30 +98,32 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         checked.push(model + '-' + language + ' UI and ' + edition + ' manual');
       }
       // Every new source page is rendered at desktop and phone widths.
-      const model = language === 'es' ? 'wqv2' : 'wqv3';
-      const proof = await context.newPage(); observe(proof);
-      await proof.setViewportSize({ width: 820, height: 1000 });
-      await proof.goto(base + `manuals/${model}-${language}.html`, { waitUntil: 'networkidle' });
-      for (const section of await proof.locator('.source-page').all()) {
-        const n = (await section.getAttribute('data-page')).padStart(2, '0');
-        await section.screenshot({ path: path.join(output, `${model}-${language}-page-${n}.png`) });
-      }
-      const ratios = await proof.locator('.illustration svg').evaluateAll(items => items.map(svg => {
-        const box = svg.getBoundingClientRect(), viewport = svg.viewBox.baseVal;
-        return (box.width / box.height) / (viewport.width / viewport.height);
-      }));
-      assert.ok(ratios.length > 30 && ratios.every(value => Math.abs(value - 1) < .015));
-      assert.deepEqual(await proof.locator('.manual-index a').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash)), []);
-      await proof.setViewportSize({ width: 320, height: 844 });
-      await fits(proof);
-      assert.equal(await proof.locator('.illustration').evaluateAll(items => items.every(item => getComputedStyle(item).float === 'none')), true);
-      assert.ok(await proof.locator('.diagram-viewport').evaluateAll(items => items.some(item => item.scrollWidth > item.clientWidth + 8)));
-      for (const n of (language === 'es' ? [2,5,8,11] : [3,7,8,11,16,18])) {
-        await proof.locator('#page-' + n).screenshot({ path: path.join(output, `${model}-${language}-page-${n}-mobile.png`) });
+      for (const model of (language === 'es' ? ['wqv2', 'wqv3'] : ['wqv3'])) {
+        const proof = await context.newPage(); observe(proof);
+        await proof.setViewportSize({ width: 820, height: 1000 });
+        await proof.goto(base + `manuals/${model}-${language}.html`, { waitUntil: 'networkidle' });
+        for (const section of await proof.locator('.source-page').all()) {
+          const n = (await section.getAttribute('data-page')).padStart(2, '0');
+          await section.screenshot({ path: path.join(output, `${model}-${language}-page-${n}.png`) });
+        }
+        const ratios = await proof.locator('.illustration svg').evaluateAll(items => items.map(svg => {
+          const box = svg.getBoundingClientRect(), viewport = svg.viewBox.baseVal;
+          return (box.width / box.height) / (viewport.width / viewport.height);
+        }));
+        assert.ok(ratios.length > 30 && ratios.every(value => Math.abs(value - 1) < .015));
+        assert.deepEqual(await proof.locator('.manual-index a').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash)), []);
+        await proof.setViewportSize({ width: 320, height: 844 });
+        await fits(proof);
+        assert.equal(await proof.locator('.illustration').evaluateAll(items => items.every(item => getComputedStyle(item).float === 'none')), true);
+        assert.ok(await proof.locator('.diagram-viewport').evaluateAll(items => items.some(item => item.scrollWidth > item.clientWidth + 8)));
+        for (const n of (language === 'es' ? model === 'wqv3' ? [3,4,5,6,8,11,13] : [2,5,8,11] : [3,7,8,11,16,18])) {
+          await proof.locator('#page-' + n).screenshot({ path: path.join(output, `${model}-${language}-page-${n}-mobile.png`) });
+        }
+        await proof.close();
       }
       await context.close();
     }
     assert.deepEqual(errors, []);
-    console.log(JSON.stringify({ status: 'passed', checked, newManualPages: 29, errors, hardwareUSBUsed: false }, null, 2));
+    console.log(JSON.stringify({ status: 'passed', checked, newManualPages: 42, errors, hardwareUSBUsed: false }, null, 2));
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

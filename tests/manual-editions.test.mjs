@@ -16,13 +16,15 @@ test('German uses actual German WQV-2/10 editions while WQV-3 keeps its English 
 });
 
 test('Spanish and Finnish select only the available originals, with English labels for the other models', () => {
-  for (const [language, translated] of [['es','wqv2'],['fi','wqv3']]) {
+  for (const [language, translated] of [['es',['wqv2','wqv3']],['fi',['wqv3']]]) {
     for (const model of ['wqv2','wqv3','wqv10']) {
-      const available = model === translated;
+      const available = translated.includes(model);
       assert.equal(manualLanguage(model, language), available ? language : 'en');
       assert.equal(manualLabel(model, language), available ? null : 'User’s Guide');
       const source = manualSourceURL(model, language);
-      assert.match(source, available ? language === 'es' ? /baroli\.es\/manuales\/2220\.pdf$/ : /perkko\.fi.*Casio-2411\.pdf$/ : /_EN\.pdf$/);
+      assert.match(source, available ? language === 'es'
+        ? model === 'wqv3' ? /baroli\.es\/wp-content\/uploads\/2015\/12\/2411\.pdf$/ : /baroli\.es\/manuales\/2220\.pdf$/
+        : /perkko\.fi.*Casio-2411\.pdf$/ : /_EN\.pdf$/);
     }
   }
   assert.equal(manualLanguage('toString','fi'),'en');

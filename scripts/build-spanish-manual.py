@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build the Spanish module 2220 guide from reviewed OCR and original crops.
+"""Build Spanish guides from reviewed transcriptions and original crops.
 
 Source PDF and word-coordinate Tesseract caches stay in research/manuals.
 The published review records the source hash, corrections and crop rectangles.
 """
 from pathlib import Path
-import hashlib, html, importlib.util, json, re
+import argparse, hashlib, html, importlib.util, json, re
 import pymupdf as fitz
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +29,7 @@ def paragraph_text(parts):
     return re.sub(r'\s+', ' ', text).strip()
 
 
-def build():
+def build_wqv2():
     review = json.loads((ROOT/'docs/manuals/spanish-proofreading.json').read_text())
     source = ROOT/'research/manuals/sources/wqv2-es.pdf'
     assert hashlib.sha256(source.read_bytes()).hexdigest() == review['sourceSHA256'], 'Source PDF changed'
@@ -160,5 +160,57 @@ def build():
     print('wqv2-es: 11 pages,', figure_count, 'illustrations')
 
 
+def build_wqv3():
+    record = json.loads((ROOT/'docs/manuals/wqv3-es-proofreading.json').read_text())
+    source = ROOT/'research/manuals/sources/wqv3-es.pdf'
+    transcription = (ROOT/'docs/manuals/wqv3-es-transcription.html').read_text()
+    assert hashlib.sha256(source.read_bytes()).hexdigest() == record['sourceSHA256'], 'Source PDF changed'
+    assert hashlib.sha256(transcription.encode()).hexdigest() == record['transcriptionSHA256'], 'Spanish transcription changed; review it again'
+    document = fitz.open(source)
+    output = ROOT/'dist/manuals'
+    assets = output/'assets'
+    assets.mkdir(exist_ok=True)
+    figures = {}
+    for number, page in enumerate(document, 1):
+        review = record['pages'][str(number)]
+        if not review['reviewed']:
+            raise ValueError(f'WQV-3 Spanish page {number} has not been reviewed')
+        for index, figure in enumerate(review['figures'], 1):
+            key = f'{number}-{index}'
+            box = fitz.Rect(figure['rect'])
+            assert page.rect.contains(box), f'Illustration {key} lies outside the page'
+            pixels = page.get_pixmap(matrix=fitz.Matrix(600/72, 600/72), clip=box, alpha=False)
+            filename = f'wqv3-es-{number:02}-{index:02}.png'
+            pixels.save(assets/filename)
+            label = html.escape(figure['alt'], quote=True)
+            width = figure.get('displayWidth', box.width*3)
+            height = width*pixels.height/pixels.width
+            cleanup = shared.crop_masks(dict(box=box, width=pixels.width, height=pixels.height), figure.get('masks', []))
+            caption = '<figcaption>'+html.escape(figure['caption'])+'</figcaption>' if figure.get('caption') else ''
+            figures[key] = f'<figure class="illustration" data-source-figure="{key}"><div class="diagram-viewport" tabindex="0" role="region" aria-label="{label}"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{label}" viewBox="0 0 {pixels.width} {pixels.height}" width="{width:.2f}" height="{height:.2f}"><image href="assets/{filename}" width="{pixels.width}" height="{pixels.height}"/>{cleanup}</svg></div>{caption}</figure>'
+    referenced = re.findall(r'<figure data-source="([\d-]+)"></figure>', transcription)
+    assert len(referenced) == len(set(referenced)), 'An illustration is repeated'
+    assert set(referenced) == set(figures), 'Unmatched original illustration'
+    transcription = re.sub(r'<figure data-source="([\d-]+)"></figure>', lambda match: figures[match[1]], transcription)
+    assert len(re.findall(r'<section class="source-page"', transcription)) == len(document)
+    transcription, headings = shared.base.reviewed_headings(transcription, 'wqv3-es')
+    title = 'WQV-3 — Guía del usuario'
+    markup = '<!doctype html>\n<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><link rel="stylesheet" href="document.css"></head><body><article data-pages="13"><h1>'+title+'</h1><p class="source-note">Texto adaptado y cotejado con el original escaneado. Las ilustraciones proceden del original.</p>'+transcription+f'<footer><a href="{record["sourceURL"]}" target="_blank" rel="noopener">PDF original</a> · CASIO COMPUTER CO., LTD.</footer></article></body></html>\n'
+    (output/'wqv3-es.html').write_text(markup)
+    manifest = output/'manifest.json'
+    catalog = {entry['id']: entry for entry in json.loads(manifest.read_text())}
+    catalog['wqv3-es'] = dict(id='wqv3-es', model='WQV-3', language='es', module=2411,
+        title=title, pages=len(document), file='wqv3-es.html', sourceURL=record['sourceURL'],
+        sourceSHA256=record['sourceSHA256'], scanned=True, illustrations=len(figures), headings=headings)
+    manifest.write_text(json.dumps(list(catalog.values()), ensure_ascii=False, indent=2)+'\n')
+    print('wqv3-es:', len(document), 'pages,', len(figures), 'illustrations')
+
+
 if __name__ == '__main__':
-    build()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--only', choices=['wqv2', 'wqv3'])
+    args = parser.parse_args()
+    if args.only != 'wqv3':
+        build_wqv2()
+    if args.only != 'wqv2':
+        build_wqv3()

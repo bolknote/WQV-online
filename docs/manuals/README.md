@@ -8,7 +8,7 @@ that language, the English guide opens and its label remains **User’s Guide**.
 | Model | English | Russian | Japanese | German | Spanish | Finnish |
 | --- | --- | --- | --- | --- | --- | --- |
 | WQV-1/2 | ✓ | ✓ | ✓ | ✓ | ✓ | English |
-| WQV-3 | ✓ | ✓ | ✓ | English | English | ✓ |
+| WQV-3 | ✓ | ✓ | ✓ | English | ✓ | ✓ |
 | WQV-10 | ✓ | ✓ | ✓ | ✓ | English | English |
 
 | Model | Module | English | Russian | Japanese |
@@ -149,7 +149,7 @@ catalog entries; the main generator also retains the German entries.
 
 ## Spanish and Finnish editions
 
-There are thirteen adapted guides in total. The Spanish module 2220 booklet is
+There are fourteen adapted guides in total. The Spanish module 2220 booklet is
 from [Baroli's archived PDF](https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf).
 It has eleven scan sheets: booklet pages S-1–S-43 and a power-save insert.
 All four panels on each sheet are retained in reading order. The body is
@@ -162,6 +162,32 @@ Build the Spanish guide from the local PDF and word-coordinate OCR cache with:
 
 ```sh
 python scripts/build-spanish-manual.py
+```
+
+The Spanish module 2411 guide is from [Baroli's PDF](https://www.baroli.es/wp-content/uploads/2015/12/2411.pdf),
+also found on Scribd. Its thirteen sheets contain booklet pages S–S-44,
+the software licence, CD-ROM inserts and the distributor's warranty sheets.
+`wqv3-es-transcription.html` holds the reviewed adaptation;
+`wqv3-es-proofreading.json` guards its hash and the original PDF hash and
+records all 56 illustration bounds, Spanish descriptions and crop-edge masks.
+The masks remove adjacent prose without changing diagrams or their callouts.
+Procedures, button letters, tables and specifications were checked against the
+scan. An incorrect printed reference from display contrast to image brightness
+is corrected and identified beside the adapted paragraph. The historical
+software licence is labelled as adapted wording; the original remains linked.
+
+A further comparison with the original English, Japanese and Finnish guides is
+recorded under `crossLanguageReview`. It distinguishes setting screens from
+ordinary calendar and image viewing when describing muted signals, identifies
+movement as the condition for power saving, and clarifies the image-contrast
+timeout and D-button return behaviour. The unusual 1/14 sensor format is kept:
+it is printed in the Japanese specifications and the Finnish source. The
+contents also link to the appended software and warranty material.
+
+Build only this edition with:
+
+```sh
+python scripts/build-spanish-manual.py --only wqv3
 ```
 
 The cache uses Tesseract `spa` from `tessdata_best`, 5× page rendering, and four
@@ -194,13 +220,13 @@ the corrected area to stay inside the illustration.
 python scripts/build-manuals.py --only wqv3-fi
 ```
 
-Both guides use the reader's contents and text-size controls. On small screens,
+These guides use the reader's contents and text-size controls. On small screens,
 wide diagrams and tables scroll within their own viewport at a readable size.
-The browser checks cover all 29 new source pages, both interface languages,
+The browser checks cover all 42 Spanish and Finnish source pages, both interface languages,
 all three applications and each model's English fallback.
 
-A separate crop review checked all 92 illustrations against the surrounding
-PDF content. Thirty-two crops were adjusted to retain complete watch outlines,
+A separate crop review of the WQV-1/2 Spanish and WQV-3 Finnish guides checked
+all 92 illustrations against the surrounding PDF content. Thirty-two crops were adjusted to retain complete watch outlines,
 button circles, arrows and captions. The IR angle and alarm-state captions stay
 inside their Finnish diagrams; neighbouring procedure text is kept in the HTML
 instead of appearing as fragments in the images. The rendered illustrations

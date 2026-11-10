@@ -7,7 +7,7 @@ const catalog = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'))
 
 test('manual catalog includes every available edition across all six interface languages', () => {
   assert.deepEqual(catalog.map(item => item.id).sort(),
-    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-de', 'wqv2-en', 'wqv2-es', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-fi', 'wqv3-ja', 'wqv3-ru']);
+    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-de', 'wqv2-en', 'wqv2-es', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-es', 'wqv3-fi', 'wqv3-ja', 'wqv3-ru']);
   for (const item of catalog) {
     const source = readFileSync(new URL(item.file, root), 'utf8');
     assert.match(source, new RegExp('<html lang="' + item.language + '"'));
@@ -36,8 +36,9 @@ test('manual catalog includes every available edition across all six interface l
 
 test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
   const spanish = JSON.parse(readFileSync(new URL('../docs/manuals/spanish-proofreading.json', import.meta.url), 'utf8'));
+  const spanishColor = JSON.parse(readFileSync(new URL('../docs/manuals/wqv3-es-proofreading.json', import.meta.url), 'utf8'));
   const finnish = JSON.parse(readFileSync(new URL('../docs/manuals/finnish-proofreading.json', import.meta.url), 'utf8'))['wqv3-fi'];
-  for (const [id, review, count] of [['wqv2-es', spanish, 11], ['wqv3-fi', finnish, 18]]) {
+  for (const [id, review, count] of [['wqv2-es', spanish, 11], ['wqv3-es', spanishColor, 13], ['wqv3-fi', finnish, 18]]) {
     const item = catalog.find(item => item.id === id);
     assert.equal(item.sourceSHA256, review.sourceSHA256);
     assert.equal(item.pages, count);

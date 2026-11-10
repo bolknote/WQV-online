@@ -1,7 +1,7 @@
 // Only use an edition whose original has been found and adapted.
 const editions = {
   wqv2: ['en', 'ru', 'ja', 'de', 'es'],
-  wqv3: ['en', 'ru', 'ja', 'fi'],
+  wqv3: ['en', 'ru', 'ja', 'es', 'fi'],
   wqv10: ['en', 'ru', 'ja', 'de'],
 };
 export function manualLanguage(model, language) {
@@ -12,7 +12,9 @@ export function manualLabel(model, language) {
 }
 export function manualSourceURL(model, language) {
   const edition = manualLanguage(model, language);
-  if (edition === 'es') return 'https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf';
+  if (edition === 'es') return model === 'wqv3'
+    ? 'https://www.baroli.es/wp-content/uploads/2015/12/2411.pdf'
+    : 'https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf';
   if (edition === 'fi') return 'https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf';
   const module = String({ wqv2: 2220, wqv3: 2411, wqv10: 2412 }[model]);
   return edition === 'ru'

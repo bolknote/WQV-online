@@ -5927,5 +5927,432 @@
         "text": "Desactivación de presentación automática"
       }
     ]
+  },
+  {
+    "id": "wqv3-es",
+    "model": "WQV-3",
+    "language": "es",
+    "module": 2411,
+    "title": "WQV-3 — Guía del usuario",
+    "pages": 13,
+    "file": "wqv3-es.html",
+    "sourceURL": "https://www.baroli.es/wp-content/uploads/2015/12/2411.pdf",
+    "sourceSHA256": "129730cc47d53bc5b5fd3f7a23d6110cc22bc9ad3fce3ba2c4967f9ed9a74166",
+    "scanned": true,
+    "illustrations": 56,
+    "headings": [
+      {
+        "id": "section-wqv3-es-review-0",
+        "text": "Conociendo la unidad"
+      },
+      {
+        "id": "section-wqv3-es-review-1",
+        "text": "Acerca de este manual"
+      },
+      {
+        "id": "section-wqv3-es-review-2",
+        "text": "¡Advertencia!"
+      },
+      {
+        "id": "section-wqv3-es-review-3",
+        "text": "Índice"
+      },
+      {
+        "id": "section-wqv3-es-review-4",
+        "text": "Índice (continuación)"
+      },
+      {
+        "id": "section-wqv3-es-review-5",
+        "text": "Bosquejo de los procedimientos"
+      },
+      {
+        "id": "section-wqv3-es-review-6",
+        "text": "Bosquejo de los procedimientos (continuación)"
+      },
+      {
+        "id": "section-wqv3-es-review-7",
+        "text": "Antes de usar el reloj..."
+      },
+      {
+        "id": "section-wqv3-es-review-8",
+        "text": "Para ajustar la hora y la fecha"
+      },
+      {
+        "id": "section-wqv3-es-review-9",
+        "text": "Para ajustar el contraste de la presentación"
+      },
+      {
+        "id": "section-wqv3-es-review-10",
+        "text": "Ahorro de energía automático"
+      },
+      {
+        "id": "section-wqv3-es-review-11",
+        "text": "Acerca de la pantalla de inicio"
+      },
+      {
+        "id": "section-wqv3-es-review-12",
+        "text": "Guía general"
+      },
+      {
+        "id": "section-wqv3-es-review-13",
+        "text": "Modo de hora normal"
+      },
+      {
+        "id": "section-wqv3-es-review-14",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-15",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-16",
+        "text": "Notas sobre la memoria"
+      },
+      {
+        "id": "section-wqv3-es-review-17",
+        "text": "Para grabar una imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-18",
+        "text": "Notas sobre la grabación"
+      },
+      {
+        "id": "section-wqv3-es-review-19",
+        "text": "Precauciones en el modo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-20",
+        "text": "Intervalo de reposo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-21",
+        "text": "Tamaño de la imagen mostrada y de la imagen en memoria"
+      },
+      {
+        "id": "section-wqv3-es-review-22",
+        "text": "Sonidos de alarma, señal horaria y temporizador de cuenta regresiva"
+      },
+      {
+        "id": "section-wqv3-es-review-23",
+        "text": "Controlando la imagen del modo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-24",
+        "text": "Ajustando el brillo de la imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-25",
+        "text": "Para ajustar el brillo de la imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-26",
+        "text": "Especificando el tipo de iluminación"
+      },
+      {
+        "id": "section-wqv3-es-review-27",
+        "text": "Para especificar el tipo de iluminación"
+      },
+      {
+        "id": "section-wqv3-es-review-28",
+        "text": "Usando el temporizador de la cámara para grabar imágenes"
+      },
+      {
+        "id": "section-wqv3-es-review-29",
+        "text": "Para grabar una imagen usando el temporizador"
+      },
+      {
+        "id": "section-wqv3-es-review-30",
+        "text": "VISUAL DATABANK™"
+      },
+      {
+        "id": "section-wqv3-es-review-31",
+        "text": "Para ver las imágenes grabadas"
+      },
+      {
+        "id": "section-wqv3-es-review-32",
+        "text": "Ajustando el contraste de la imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-33",
+        "text": "Para ajustar el contraste de la imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-34",
+        "text": "Fijando un texto a una imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-35",
+        "text": "Para fijar un texto a una imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-36",
+        "text": "Clasificación de imágenes"
+      },
+      {
+        "id": "section-wqv3-es-review-37",
+        "text": "Borrando imágenes"
+      },
+      {
+        "id": "section-wqv3-es-review-38",
+        "text": "Para borrar todas las imágenes de la memoria del reloj"
+      },
+      {
+        "id": "section-wqv3-es-review-39",
+        "text": "Para borrar una imagen específica"
+      },
+      {
+        "id": "section-wqv3-es-review-40",
+        "text": "Modo IR"
+      },
+      {
+        "id": "section-wqv3-es-review-41",
+        "text": "Intercambiando datos entre dos relojes"
+      },
+      {
+        "id": "section-wqv3-es-review-42",
+        "text": "Para ingresar en el modo IR"
+      },
+      {
+        "id": "section-wqv3-es-review-43",
+        "text": "Para enviar una imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-44",
+        "text": "Para recibir una imagen"
+      },
+      {
+        "id": "section-wqv3-es-review-45",
+        "text": "Errores de comunicación"
+      },
+      {
+        "id": "section-wqv3-es-review-46",
+        "text": "Mensajes de la pantalla de comunicación"
+      },
+      {
+        "id": "section-wqv3-es-review-47",
+        "text": "Otros mensajes"
+      },
+      {
+        "id": "section-wqv3-es-review-48",
+        "text": "Precauciones durante la comunicación"
+      },
+      {
+        "id": "section-wqv3-es-review-49",
+        "text": "Hora normal"
+      },
+      {
+        "id": "section-wqv3-es-review-50",
+        "text": "Para poner los segundos a cero"
+      },
+      {
+        "id": "section-wqv3-es-review-51",
+        "text": "Para especificar la imagen de la pantalla de inicio"
+      },
+      {
+        "id": "section-wqv3-es-review-52",
+        "text": "Usando la pantalla de calendario"
+      },
+      {
+        "id": "section-wqv3-es-review-53",
+        "text": "Para ver el calendario de un mes específico"
+      },
+      {
+        "id": "section-wqv3-es-review-54",
+        "text": "Para activar y desactivar el realce de los días festivos"
+      },
+      {
+        "id": "section-wqv3-es-review-55",
+        "text": "Alarma"
+      },
+      {
+        "id": "section-wqv3-es-review-56",
+        "text": "Para ajustar la hora y la imagen de la alarma"
+      },
+      {
+        "id": "section-wqv3-es-review-57",
+        "text": "Operación de la alarma"
+      },
+      {
+        "id": "section-wqv3-es-review-58",
+        "text": "Para probar la alarma"
+      },
+      {
+        "id": "section-wqv3-es-review-59",
+        "text": "Para activar y desactivar la alarma diaria y la señal horaria"
+      },
+      {
+        "id": "section-wqv3-es-review-60",
+        "text": "Temporizador de cuenta regresiva"
+      },
+      {
+        "id": "section-wqv3-es-review-61",
+        "text": "Para ajustar el tiempo inicial y la imagen del temporizador"
+      },
+      {
+        "id": "section-wqv3-es-review-62",
+        "text": "Operación del temporizador de cuenta regresiva"
+      },
+      {
+        "id": "section-wqv3-es-review-63",
+        "text": "Para usar el temporizador de cuenta regresiva"
+      },
+      {
+        "id": "section-wqv3-es-review-64",
+        "text": "Cronógrafo"
+      },
+      {
+        "id": "section-wqv3-es-review-65",
+        "text": "Para medir tiempos con el cronógrafo"
+      },
+      {
+        "id": "section-wqv3-es-review-66",
+        "text": "Fuente de alimentación"
+      },
+      {
+        "id": "section-wqv3-es-review-67",
+        "text": "Acerca de la pila instalada en fábrica"
+      },
+      {
+        "id": "section-wqv3-es-review-68",
+        "text": "Indicación de pila baja"
+      },
+      {
+        "id": "section-wqv3-es-review-69",
+        "text": "Paso 1"
+      },
+      {
+        "id": "section-wqv3-es-review-70",
+        "text": "Paso 2"
+      },
+      {
+        "id": "section-wqv3-es-review-71",
+        "text": "Notas sobre LOW BATT"
+      },
+      {
+        "id": "section-wqv3-es-review-72",
+        "text": "Precauciones con la pila"
+      },
+      {
+        "id": "section-wqv3-es-review-73",
+        "text": "Para reemplazar la pila"
+      },
+      {
+        "id": "section-wqv3-es-review-74",
+        "text": "Ajustes después de reemplazar la pila"
+      },
+      {
+        "id": "section-wqv3-es-review-75",
+        "text": "Referencia"
+      },
+      {
+        "id": "section-wqv3-es-review-76",
+        "text": "Funciones de retorno automático"
+      },
+      {
+        "id": "section-wqv3-es-review-77",
+        "text": "Hora normal"
+      },
+      {
+        "id": "section-wqv3-es-review-78",
+        "text": "Formatos de 12 y 24 horas"
+      },
+      {
+        "id": "section-wqv3-es-review-79",
+        "text": "Alarma y temporizador de cuenta regresiva"
+      },
+      {
+        "id": "section-wqv3-es-review-80",
+        "text": "Ahorro de energía automático"
+      },
+      {
+        "id": "section-wqv3-es-review-81",
+        "text": "Especificaciones"
+      },
+      {
+        "id": "section-wqv3-es-review-82",
+        "text": "Modo de cámara"
+      },
+      {
+        "id": "section-wqv3-es-review-83",
+        "text": "Mantenimiento por el usuario"
+      },
+      {
+        "id": "section-wqv3-es-review-84",
+        "text": "Resistencia al agua"
+      },
+      {
+        "id": "section-wqv3-es-review-85",
+        "text": "Cuidado de su reloj"
+      },
+      {
+        "id": "section-wqv3-es-review-86",
+        "text": "Pulseras de resina"
+      },
+      {
+        "id": "section-wqv3-es-review-87",
+        "text": "Cajas y pulseras fluorescentes"
+      },
+      {
+        "id": "section-wqv3-es-review-88",
+        "text": "Acuerdo de licencia para el usuario final"
+      },
+      {
+        "id": "section-wqv3-es-review-89",
+        "text": "Aviso al usuario"
+      },
+      {
+        "id": "section-wqv3-es-review-90",
+        "text": "1. Uso del software"
+      },
+      {
+        "id": "section-wqv3-es-review-91",
+        "text": "2. Copias"
+      },
+      {
+        "id": "section-wqv3-es-review-92",
+        "text": "3. Transferencia"
+      },
+      {
+        "id": "section-wqv3-es-review-93",
+        "text": "4. Ingeniería inversa"
+      },
+      {
+        "id": "section-wqv3-es-review-94",
+        "text": "5. Derechos de autor"
+      },
+      {
+        "id": "section-wqv3-es-review-95",
+        "text": "6. Garantía limitada"
+      },
+      {
+        "id": "section-wqv3-es-review-96",
+        "text": "7. Limitación de responsabilidad"
+      },
+      {
+        "id": "section-wqv3-es-review-97",
+        "text": "8. Finalización del acuerdo"
+      },
+      {
+        "id": "section-wqv3-es-review-98",
+        "text": "9. Otros"
+      },
+      {
+        "id": "section-wqv3-es-review-99",
+        "text": "Ahorro de energía automático: hoja adicional"
+      },
+      {
+        "id": "section-wqv3-es-review-100",
+        "text": "Registro de Ulead PhotoExplorer 7.0 Lite"
+      },
+      {
+        "id": "section-wqv3-es-review-101",
+        "text": "Documentación del software en el CD-ROM"
+      },
+      {
+        "id": "warranty",
+        "text": "Certificado de garantía y servicios técnicos"
+      }
+    ]
   }
 ]

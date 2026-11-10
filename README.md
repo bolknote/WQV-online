@@ -15,7 +15,7 @@ album and user guide. English, Russian, Japanese, German, Spanish and Finnish
 settings apply to all three apps.
 
 The three manual files beside the watch apps open in a Pocket Word-style reader.
-They follow the selected display language. Spanish has the WQV-1/2 guide;
+They follow the selected display language. Spanish has WQV-1/2 and WQV-3;
 Finnish has WQV-3. German has WQV-1/2 and WQV-10. Where a guide is unavailable,
 the reader opens the English edition and keeps the “User’s Guide” label.
 The guides use reflowable HTML with the original illustrations; the Japanese,

@@ -1,0 +1,765 @@
+{
+  "sourceURL": "https://www.baroli.es/wp-content/uploads/2015/12/2411.pdf",
+  "sourceSHA256": "129730cc47d53bc5b5fd3f7a23d6110cc22bc9ad3fce3ba2c4967f9ed9a74166",
+  "transcriptionSHA256": "92a797b6eceb819539f8cd981183c3a41ec04b4c0ae68c4586d5ea9ba5b81e1c",
+  "pages": {
+    "1": {
+      "reviewed": true,
+      "ocrSHA256": "e2006fb14cb419a073baf7589cd9e3afaf67dc0f5bb485cafd7b1baa26b68e3c",
+      "figures": [
+        {
+          "rect": [
+            41,
+            119,
+            136,
+            216
+          ],
+          "alt": "Ubicación de los botones A a F"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Follow-up extraction audit: the adapted HTML contains readable prose, not a run of list numbers.",
+        "Contents now link to the original appended licence, CD-ROM inserts and historical warranty; original S/S-1 numbering is preserved."
+      ]
+    },
+    "2": {
+      "reviewed": true,
+      "ocrSHA256": "0876f39708ad811f0f80f2823164abee0d5ac3b7af61bce37aa0008166d0e6b0",
+      "figures": [
+        {
+          "rect": [
+            40,
+            479,
+            126,
+            540
+          ],
+          "alt": "Pantalla de ajuste de la hora"
+        },
+        {
+          "rect": [
+            32,
+            552,
+            289,
+            617
+          ],
+          "alt": "Secuencia de ajustes con los botones C y D"
+        },
+        {
+          "rect": [
+            316,
+            453,
+            392,
+            505
+          ],
+          "alt": "Ajuste del contraste de la pantalla"
+        },
+        {
+          "rect": [
+            316,
+            641,
+            390,
+            711
+          ],
+          "alt": "Pantalla de inicio tras el ahorro de energía"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Printed S-7 incorrectly refers image contrast to S-13; the adaptation links to S-16 and marks the correction.",
+        "Follow-up button check against printed S-6: C/D change fields; E (+) and B (-) change values. No button substitution was needed.",
+        "Cross-language review: Auto Power Save depends on the watch remaining unmoved for about 60 minutes, as in original English PDF 1 and Japanese PDF 5."
+      ]
+    },
+    "3": {
+      "reviewed": true,
+      "ocrSHA256": "dcd59edb0959b3ab70185188c244493513d1c0ce0c7c226e2e7c116e86aced7c",
+      "figures": [
+        {
+          "rect": [
+            32,
+            99,
+            292,
+            422.5
+          ],
+          "alt": "Secuencia de los seis modos del reloj"
+        },
+        {
+          "rect": [
+            329,
+            76,
+            568,
+            146
+          ],
+          "alt": "Paso de hora normal a calendario y regreso"
+        },
+        {
+          "rect": [
+            328,
+            329,
+            568,
+            383
+          ],
+          "alt": "Entrada en el modo de cámara con F"
+        },
+        {
+          "rect": [
+            45,
+            647,
+            294,
+            752
+          ],
+          "alt": "Capacidad de memoria, objetivo e indicadores de la cámara"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Cross-language review: the special direct return via D after an operation is now distinguished from the normal mode cycle; English PDF 8 and Japanese PDF 17 confirm it."
+      ]
+    },
+    "4": {
+      "reviewed": true,
+      "ocrSHA256": "27ac97a539f2f9d8c6f82bdfa097ae8071cddcd58ecd08ee09a4f926d1bb5053",
+      "figures": [
+        {
+          "rect": [
+            40,
+            35,
+            160,
+            124
+          ],
+          "alt": "Indicador WAIT y tiempo de reposo restante",
+          "masks": [
+            [
+              134,
+              35,
+              160,
+              91
+            ],
+            [
+              143,
+              89,
+              160,
+              102
+            ]
+          ]
+        },
+        {
+          "rect": [
+            310,
+            54,
+            399,
+            143
+          ],
+          "alt": "Indicador de brillo de la imagen"
+        },
+        {
+          "rect": [
+            305,
+            341,
+            562,
+            424
+          ],
+          "alt": "Tipos de iluminación OUT, IN y DUSK"
+        },
+        {
+          "rect": [
+            42,
+            561,
+            137,
+            676
+          ],
+          "alt": "Temporizador de la cámara y su tiempo inicial"
+        },
+        {
+          "rect": [
+            321,
+            593,
+            540,
+            677
+          ],
+          "alt": "Número de imágenes y pantalla de miniaturas",
+          "masks": [
+            [
+              400,
+              675,
+              540,
+              677
+            ]
+          ]
+        },
+        {
+          "rect": [
+            310,
+            681,
+            411,
+            756
+          ],
+          "alt": "Selección de una miniatura con B y E",
+          "masks": [
+            [
+              400,
+              681,
+              411,
+              699
+            ]
+          ]
+        },
+        {
+          "rect": [
+            310,
+            762,
+            395,
+            825
+          ],
+          "alt": "Imagen ampliada con el botón F"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Cross-language review: S-15 now says the VISUAL DATABANK setting screen suppresses signals, rather than the whole mode; confirmed in original English PDF 3 and Japanese PDF 9."
+      ]
+    },
+    "5": {
+      "reviewed": true,
+      "ocrSHA256": "0fabde727ae7e44c5772ad06460afcddc671cb963a4bd00965659a1609e0afc5",
+      "figures": [
+        {
+          "rect": [
+            48,
+            188,
+            115,
+            245
+          ],
+          "alt": "Nivel de contraste de una imagen"
+        },
+        {
+          "rect": [
+            49,
+            263,
+            121,
+            313
+          ],
+          "alt": "Botones para ajustar el contraste de la imagen"
+        },
+        {
+          "rect": [
+            316,
+            122,
+            388,
+            184
+          ],
+          "alt": "Puntero NAME en el menú SET"
+        },
+        {
+          "rect": [
+            313,
+            190,
+            390,
+            254
+          ],
+          "alt": "Cursor en la pantalla de entrada de texto"
+        },
+        {
+          "rect": [
+            312,
+            259,
+            552,
+            334
+          ],
+          "alt": "Secuencia de caracteres disponibles"
+        },
+        {
+          "rect": [
+            40,
+            588,
+            114,
+            650
+          ],
+          "alt": "Selección de DEL en el menú SET"
+        },
+        {
+          "rect": [
+            44,
+            669,
+            113,
+            722
+          ],
+          "alt": "Selección de ALL en el menú DEL"
+        },
+        {
+          "rect": [
+            43,
+            729,
+            112,
+            780
+          ],
+          "alt": "Confirmación YES o NO para borrar todas las imágenes"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Follow-up wording review: plural image-classification heading; holding B/E scrolls available characters, while C/D move the text cursor."
+      ]
+    },
+    "6": {
+      "reviewed": true,
+      "ocrSHA256": "eb64e6280f63504d3d39ee5e2da054fbf70f65b9a5df595db9d189ada1c6b502",
+      "figures": [
+        {
+          "rect": [
+            50,
+            181,
+            270,
+            267
+          ],
+          "alt": "Alineación de los puertos IR y distancia máxima de 10 cm"
+        },
+        {
+          "rect": [
+            314,
+            80,
+            530,
+            136
+          ],
+          "alt": "Pantalla inicial IRCOM y menú IR"
+        },
+        {
+          "rect": [
+            307,
+            156,
+            375,
+            214
+          ],
+          "alt": "Selección del reloj en el menú IR"
+        },
+        {
+          "rect": [
+            307,
+            215,
+            370,
+            269
+          ],
+          "alt": "Menú WATCH SEND"
+        },
+        {
+          "rect": [
+            307,
+            279,
+            375,
+            333
+          ],
+          "alt": "Selección de la imagen que se enviará"
+        },
+        {
+          "rect": [
+            43,
+            435,
+            107,
+            494
+          ],
+          "alt": "Pantalla durante el envío entre relojes"
+        },
+        {
+          "rect": [
+            42,
+            497,
+            106,
+            548
+          ],
+          "alt": "Confirmación WATCH SEND OK"
+        },
+        {
+          "rect": [
+            41,
+            610,
+            112,
+            663
+          ],
+          "alt": "Pantalla WATCH RECEIVE en espera de una imagen"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Follow-up menu check against printed S-22: F opens watch communication, then B/E selects WATCH RECEIVE. The common menu is named neutrally to avoid suggesting reception has already been selected."
+      ]
+    },
+    "7": {
+      "reviewed": true,
+      "ocrSHA256": "0a8e386b316daa7885e88d2694decfada02c536d07be94145c140bc32fe622e8",
+      "figures": [
+        {
+          "rect": [
+            309,
+            65,
+            395,
+            180
+          ],
+          "alt": "Año, mes, día, día de la semana y hora normal"
+        },
+        {
+          "rect": [
+            320,
+            294,
+            391,
+            345
+          ],
+          "alt": "Selección de la imagen de inicio"
+        },
+        {
+          "rect": [
+            42,
+            457,
+            110,
+            541
+          ],
+          "alt": "Mes, año y fecha actual en el calendario"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges."
+      ]
+    },
+    "8": {
+      "reviewed": true,
+      "ocrSHA256": "1c2ae2deecafe4acccea73c9e17dd57c8e64fb0c2b9dc68fd68d1fe49552569c",
+      "figures": [
+        {
+          "rect": [
+            30,
+            52,
+            112,
+            151
+          ],
+          "alt": "Número y hora de alarma"
+        },
+        {
+          "rect": [
+            40,
+            207,
+            236,
+            284
+          ],
+          "alt": "Indicadores de activación de la alarma",
+          "masks": [
+            [
+              119,
+              207,
+              236,
+              252
+            ]
+          ]
+        },
+        {
+          "rect": [
+            50,
+            290,
+            268,
+            359
+          ],
+          "alt": "Selección de las cinco alarmas y la señal horaria"
+        },
+        {
+          "rect": [
+            328,
+            89,
+            535,
+            142
+          ],
+          "alt": "Secuencia de ajuste de hora, minutos e imagen de alarma"
+        },
+        {
+          "rect": [
+            312,
+            450,
+            395,
+            541
+          ],
+          "alt": "Minutos y segundos del temporizador de cuenta regresiva"
+        },
+        {
+          "rect": [
+            308,
+            626,
+            387,
+            677
+          ],
+          "alt": "Ajuste del tiempo inicial del temporizador"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges."
+      ]
+    },
+    "9": {
+      "reviewed": true,
+      "ocrSHA256": "af9d3c7038d819776f66cec36c405b67eefe3c66ec38109b65bb4e53d965de5b",
+      "figures": [
+        {
+          "rect": [
+            42,
+            221,
+            109,
+            293
+          ],
+          "alt": "Cuenta regresiva en marcha"
+        },
+        {
+          "rect": [
+            305,
+            65,
+            400,
+            175
+          ],
+          "alt": "Horas, minutos, segundos y décimas del cronógrafo"
+        },
+        {
+          "rect": [
+            302,
+            229,
+            562,
+            267
+          ],
+          "alt": "Botones para medir tiempo transcurrido"
+        },
+        {
+          "rect": [
+            302,
+            271,
+            562,
+            316
+          ],
+          "alt": "Botones para medir tiempo fraccionado"
+        },
+        {
+          "rect": [
+            302,
+            319,
+            562,
+            395
+          ],
+          "alt": "Botones para medir dos llegadas a meta"
+        },
+        {
+          "rect": [
+            45,
+            574,
+            135,
+            645
+          ],
+          "alt": "Indicador de pila baja"
+        },
+        {
+          "rect": [
+            44,
+            716,
+            105,
+            765
+          ],
+          "alt": "Mensaje WAIT LOW BATT"
+        },
+        {
+          "rect": [
+            35,
+            771,
+            106,
+            822
+          ],
+          "alt": "Mensaje IR COM LOW BATT"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges."
+      ]
+    },
+    "10": {
+      "reviewed": true,
+      "ocrSHA256": "d004980d459c1f397bf5f391b3531ddcfd4432333749e43ad249e18cfd8fd1ed",
+      "figures": [
+        {
+          "rect": [
+            42,
+            63,
+            139,
+            144
+          ],
+          "alt": "Giro de la tapa de la pila hasta OPEN"
+        },
+        {
+          "rect": [
+            39,
+            157,
+            144,
+            295
+          ],
+          "alt": "Junta, resorte y compartimento de la pila",
+          "masks": [
+            [
+              137,
+              157,
+              144,
+              166
+            ]
+          ]
+        },
+        {
+          "rect": [
+            341,
+            52,
+            390,
+            132
+          ],
+          "alt": "Pila nueva con el polo positivo hacia arriba"
+        },
+        {
+          "rect": [
+            336,
+            169,
+            398,
+            246
+          ],
+          "alt": "Posición de la sección triangular de la junta"
+        },
+        {
+          "rect": [
+            308,
+            254,
+            395,
+            343
+          ],
+          "alt": "Giro de la tapa de la pila hasta CLOSE"
+        }
+      ],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Cross-language review: Calendar and VISUAL DATABANK setting-screen restrictions and movement-based power saving clarified; the image-contrast 15-second timeout is identified as the specific exception to the generic setting timeout."
+      ]
+    },
+    "11": {
+      "reviewed": true,
+      "ocrSHA256": "8553327f1813e25ad504c48989ff76e1192efb3b06c7118e7156e035cbdeef52",
+      "figures": [],
+      "notes": [
+        "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
+        "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
+        "Follow-up extraction audit: specifications and maintenance paragraphs are intact in the adapted HTML.",
+        "Cross-language review: 1/14 sensor format confirmed directly in Japanese PDF 29 and Finnish PDF 18; no change to 1/4. Cosmetic terminology normalized to cremas solares."
+      ]
+    },
+    "12": {
+      "reviewed": true,
+      "ocrSHA256": "f17784e25ad94b0af262a43d2e9dcdc9eae8d010945adcafa7584118a4d53e9b",
+      "figures": [],
+      "notes": [
+        "Maintenance continuation, original software licence and both CD-ROM inserts checked against the source. The adapted licence is identified as such and the complete source PDF is linked.",
+        "Follow-up source check: the scan reads WQV Link, FIJADOS and Y/O (and/or). Reported WOW, FLIADOS and YO are extraction errors; Y/O must not be reduced to O.",
+        "Software licence section 8 now explicitly says Finalización del acuerdo. Historical product identifiers and software-specific licence wording are not mistaken for watch-model errors."
+      ]
+    },
+    "13": {
+      "reviewed": true,
+      "ocrSHA256": "f283142fdf26fece3cc13583e81662849c12aa519ad13cb3809f57c3dadf9549",
+      "figures": [
+        {
+          "rect": [
+            103,
+            269,
+            511,
+            477
+          ],
+          "alt": "Certificado de garantía del distribuidor de la edición original"
+        },
+        {
+          "rect": [
+            96,
+            493,
+            505,
+            720
+          ],
+          "alt": "Red de servicios técnicos que figura en el escaneo original"
+        }
+      ],
+      "notes": [
+        "CD-ROM instructions checked as a full-width source block. Distributor warranty and historical service directory retained as complete original illustrations.",
+        "Follow-up extraction check: warranty and service contacts are retained as scan images; corrupted third-party OCR address strings are not part of the adapted HTML."
+      ]
+    }
+  },
+  "crossLanguageReview": {
+    "references": [
+      {
+        "id": "wqv3-en",
+        "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf",
+        "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
+        "pdfPages": [
+          1,
+          3,
+          8
+        ]
+      },
+      {
+        "id": "wqv3-ja",
+        "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_JA.pdf",
+        "sourceSHA256": "d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0",
+        "pdfPages": [
+          5,
+          9,
+          15,
+          16,
+          17,
+          29
+        ]
+      },
+      {
+        "id": "wqv3-fi",
+        "sourceURL": "https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf",
+        "sourceSHA256": "a47ebd77e9860cf4ade28267552577dc05cfe3ad1ba07ef9e208a3aee059b100",
+        "pdfPages": [
+          7,
+          17,
+          18
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "topic": "Sensor format",
+        "result": "Keep 1/14: explicitly printed in the original Japanese specifications and Finnish PDF, not 1/4."
+      },
+      {
+        "topic": "Audible signals",
+        "result": "Camera/IR modes and Calendar/VISUAL DATABANK setting screens suppress sounds; ordinary image/calendar viewing is not the stated condition. Spanish S-15 and S-39 corrected from English PDF 3/8 and Japanese PDF 9."
+      },
+      {
+        "topic": "Auto Power Save",
+        "result": "Approximately 60 minutes without moving the watch; Spanish S-7/S-39 aligned with English PDF 1/8 and Japanese PDF 5."
+      },
+      {
+        "topic": "D button",
+        "result": "Mode cycling and direct return after an operation are separate documented behaviours. English PDF 8 and Japanese PDF 17 confirm direct return; do not replace it with repeated mode cycling."
+      },
+      {
+        "topic": "Contrast timeout",
+        "result": "15 seconds confirmed in English PDF 3 and Japanese PDF 15. The generic one-minute setting timeout now explicitly identifies this specific case."
+      },
+      {
+        "topic": "IR alignment",
+        "result": "The 10 cm / 30 degree text, 15 degree illustration and close-distance cautions recur in other originals. No numeric limit changed."
+      },
+      {
+        "topic": "Appended materials",
+        "result": "Linked software licence, inserts, CD-ROM documentation and warranty from the contents without renumbering the original booklet."
+      }
+    ]
+  }
+}
