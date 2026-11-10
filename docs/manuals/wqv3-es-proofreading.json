@@ -1,7 +1,7 @@
 {
   "sourceURL": "https://www.baroli.es/wp-content/uploads/2015/12/2411.pdf",
   "sourceSHA256": "129730cc47d53bc5b5fd3f7a23d6110cc22bc9ad3fce3ba2c4967f9ed9a74166",
-  "transcriptionSHA256": "92a797b6eceb819539f8cd981183c3a41ec04b4c0ae68c4586d5ea9ba5b81e1c",
+  "transcriptionSHA256": "3d66ad0ca9badf5c4671261df427dd006cf2cdab4d30cb10925813a560dc18d6",
   "pages": {
     "1": {
       "reviewed": true,
@@ -21,7 +21,8 @@
         "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
         "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
         "Follow-up extraction audit: the adapted HTML contains readable prose, not a run of list numbers.",
-        "Contents now link to the original appended licence, CD-ROM inserts and historical warranty; original S/S-1 numbering is preserved."
+        "Contents now link to the original appended licence, CD-ROM inserts and historical warranty; original S/S-1 numbering is preserved.",
+        "Second full-text proofreading pass completed; source-checked corrections are recorded under secondPassReview."
       ]
     },
     "2": {
@@ -117,7 +118,8 @@
       "notes": [
         "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
         "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
-        "Cross-language review: the special direct return via D after an operation is now distinguished from the normal mode cycle; English PDF 8 and Japanese PDF 17 confirm it."
+        "Cross-language review: the special direct return via D after an operation is now distinguished from the normal mode cycle; English PDF 8 and Japanese PDF 17 confirm it.",
+        "Second full-text proofreading pass completed; source-checked corrections are recorded under secondPassReview."
       ]
     },
     "4": {
@@ -304,7 +306,8 @@
       "notes": [
         "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
         "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
-        "Follow-up wording review: plural image-classification heading; holding B/E scrolls available characters, while C/D move the text cursor."
+        "Follow-up wording review: plural image-classification heading; holding B/E scrolls available characters, while C/D move the text cursor.",
+        "Second full-text proofreading pass completed; source-checked corrections are recorded under secondPassReview."
       ]
     },
     "6": {
@@ -387,7 +390,8 @@
       "notes": [
         "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
         "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
-        "Follow-up menu check against printed S-22: F opens watch communication, then B/E selects WATCH RECEIVE. The common menu is named neutrally to avoid suggesting reception has already been selected."
+        "Follow-up menu check against printed S-22: F opens watch communication, then B/E selects WATCH RECEIVE. The common menu is named neutrally to avoid suggesting reception has already been selected.",
+        "Second full-text proofreading pass completed; source-checked corrections are recorded under secondPassReview."
       ]
     },
     "7": {
@@ -642,7 +646,8 @@
       "notes": [
         "All four booklet panels checked against the original sheet; Spanish accents, procedure order, button letters and technical values reviewed.",
         "Original diagram bounds inspected with surrounding source context. Adjacent prose is retained as HTML and masked only at recorded crop edges.",
-        "Cross-language review: Calendar and VISUAL DATABANK setting-screen restrictions and movement-based power saving clarified; the image-contrast 15-second timeout is identified as the specific exception to the generic setting timeout."
+        "Cross-language review: Calendar and VISUAL DATABANK setting-screen restrictions and movement-based power saving clarified; the image-contrast 15-second timeout is identified as the specific exception to the generic setting timeout.",
+        "Second full-text proofreading pass completed; source-checked corrections are recorded under secondPassReview."
       ]
     },
     "11": {
@@ -703,7 +708,9 @@
         "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
         "pdfPages": [
           1,
+          2,
           3,
+          4,
           8
         ]
       },
@@ -713,7 +720,9 @@
         "sourceSHA256": "d7e6535081ea174ddc6d8751b23420fb9f86dd6af33c89c06fe301080aea33d0",
         "pdfPages": [
           5,
+          7,
           9,
+          12,
           15,
           16,
           17,
@@ -746,7 +755,7 @@
       },
       {
         "topic": "D button",
-        "result": "Mode cycling and direct return after an operation are separate documented behaviours. English PDF 8 and Japanese PDF 17 confirm direct return; do not replace it with repeated mode cycling."
+        "result": "D has screen-specific destinations: Camera to VISUAL DATABANK; IR send/receive to Timekeeping. The generic after-operation return description must not override the individual procedure."
       },
       {
         "topic": "Contrast timeout",
@@ -759,6 +768,72 @@
       {
         "topic": "Appended materials",
         "result": "Linked software licence, inserts, CD-ROM documentation and warranty from the contents without renumbering the original booklet."
+      }
+    ]
+  },
+  "secondPassReview": {
+    "reviewedPDFPages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "scope": "Complete reread of the adapted text, contents, procedures, specifications, historical software licence and appendices. Changes were checked against the matching source procedures, not inferred from the model-cycle diagram.",
+    "corrections": [
+      {
+        "pages": [
+          "S"
+        ],
+        "change": "Natural Spanish sentence for the expected years of service."
+      },
+      {
+        "pages": [
+          "S-8",
+          "S-38"
+        ],
+        "change": "Qualified the generic D-button return rule: camera D enters VISUAL DATABANK, while IR send/receive D returns to timekeeping. Specific procedures retain precedence.",
+        "references": [
+          "wqv3-en PDF 2/8",
+          "wqv3-ja PDF 7/17"
+        ]
+      },
+      {
+        "pages": [
+          "S-11"
+        ],
+        "change": "Restored the daylight recommendation; the adaptation had incorrectly generalized it to as much light as possible.",
+        "references": [
+          "wqv3-en PDF 2",
+          "wqv3-ja PDF 9"
+        ]
+      },
+      {
+        "pages": [
+          "S-19"
+        ],
+        "change": "Removed an extra D press after deleting every image: D returns to timekeeping, then F enters Camera Mode. The printed correction is marked in the adapted text.",
+        "references": [
+          "wqv3-en PDF 4",
+          "wqv3-ja PDF 12"
+        ]
+      },
+      {
+        "pages": [
+          "S-21"
+        ],
+        "change": "Explicitly select WATCH SEND before confirming with F, rather than relying on the initial menu selection.",
+        "references": [
+          "wqv3-ja PDF 17"
+        ]
       }
     ]
   }
