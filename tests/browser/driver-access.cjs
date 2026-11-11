@@ -14,7 +14,7 @@ function usbModel() {
   async close(){this.opened=false},async claimInterface(){},async releaseInterface(){},async selectAlternateInterface(){},
   async controlTransferOut(setup,bytes){return {status:'ok',bytesWritten:bytes.length}}
  };
- const usb=new EventTarget();usb.requestDevice=async()=>window.__usb;Object.defineProperty(navigator,'usb',{value:usb});
+ const usb=new EventTarget();usb.requestDevice=async()=>{window.__usbChoices=(window.__usbChoices||0)+1;return window.__usb};Object.defineProperty(navigator,'usb',{value:usb});
  window.__helper={held:false,opens:0,pings:0,online:true};
  const fetchOriginal=window.fetch.bind(window);
  window.fetch=async(url,options={})=>{
@@ -38,11 +38,12 @@ const clientFixture = `export class DriverWorkerClient {
  async speed(){} async close(){await this.backend.close();if(window.__cleanupFail&&this.backend.transport==='direct')throw Error('Cleanup failed');}
  async abort(){await this.close();} async send(){throw Error('USB initialization must not send a watch frame');}
 }`;
-async function setup(t) {
+async function setup(t,{driver=true}={}) {
  const browser=await chromium.launch({headless:true});t.after(()=>browser.close());
  const page=await browser.newPage();await page.addInitScript(usbModel);
  await page.route('**/driver-worker-client.mjs',route=>route.fulfill({contentType:'text/javascript',body:clientFixture}));
  await page.goto(new URL('drivers.html',base).href);
+ if(!driver)return page;
  await page.evaluate(async()=>{
   const {driverStore}=await import('./driver-store.mjs'),{referenceDriver,compileDriver}=await import('./driver-compiler.mjs');
   const record=await driverStore.saveSource(await referenceDriver('ma620'));await driverStore.saveBuild(record.id,record.sha256,await compileDriver(record));
@@ -97,10 +98,58 @@ test('closing an adapter during initialization cannot reopen it through the help
  assert.deepEqual(result,{helperOpens:0,opened:false,remembered:false});
 });
 
+test('helper mode opens startup instructions before any USB choice or driver installation', {timeout:15000},async t=>{
+ const page=await setup(t,{driver:false});await page.locator('#tab-check').click();
+ await page.evaluate(async()=>{window.__helper.online=false;(await import('./i18n.mjs')).setLanguage('ru')});
+ assert.equal(await page.locator('#check-run').isEnabled(),false);
+ await page.locator('#check-method').selectOption('helper');await page.locator('#usb-helper-dialog').waitFor({state:'visible'});
+ assert.equal(await page.locator('[data-helper-command]').textContent(),'python3 irda_usb_helper.py');
+ assert.equal(await page.locator('[data-helper-download]').getAttribute('download'),'irda_usb_helper.py');
+ assert.match(await page.locator('[data-helper-state]').textContent(),/это окно закроется автоматически/);
+ assert.equal(await page.locator('[data-helper-cancel]').textContent(),'Отмена');
+ assert.equal(await page.locator('#usb-helper-dialog details, [data-helper-probe], [data-helper-close]').count(),0);
+ await page.keyboard.press('Escape');assert.equal(await page.locator('#usb-helper-dialog').isVisible(),true);
+ assert.deepEqual(await page.evaluate(()=>[window.__usbChoices||0,window.__helper.opens,window.__loads||0]),[0,0,0]);
+ if(process.env.WQV_BROWSER_ARTIFACTS){await fs.mkdir(process.env.WQV_BROWSER_ARTIFACTS,{recursive:true});await page.screenshot({path:path.join(process.env.WQV_BROWSER_ARTIFACTS,'helper-before-usb.png'),fullPage:true})}
+ await page.evaluate(()=>{window.__helper.online=true});await page.locator('#usb-helper-dialog').waitFor({state:'detached'});
+ await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ assert.equal(await page.locator('#check-method').inputValue(),'helper');
+ assert.equal(await page.locator('#check-run').isEnabled(),false);
+ for(const method of ['direct','helper'])assert.equal(await page.locator('#check-'+method+'-result').getAttribute('data-state'),'untested');
+ assert.deepEqual(await page.evaluate(()=>[window.__usbChoices||0,window.__helper.opens,window.__loads||0]),[0,0,0]);
+ assert.equal(await page.evaluate(()=>Object.keys(localStorage).some(key=>key.startsWith('wqv-online.driver-access.'))),false);
+});
+
+test('selecting helper mode detects a running program without instructions or a USB session', {timeout:15000},async t=>{
+ const page=await setup(t,{driver:false});await page.locator('#tab-check').click();
+ await page.locator('#check-method').selectOption('helper');await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ assert.equal(await page.locator('#usb-helper-dialog, [data-helper-probe], [data-usb-helper-help]').count(),0);
+ assert.deepEqual(await page.evaluate(()=>[window.__helper.pings,window.__usbChoices||0,window.__helper.opens]),[1,0,0]);
+ assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'),'untested');
+ assert.equal(await page.locator('#check-run').isEnabled(),false);
+});
+
+test('cancelling helper preparation restores the previous method and stops automatic polling', {timeout:15000},async t=>{
+ const page=await setup(t,{driver:false});await page.locator('#tab-check').click();
+ await page.locator('#check-method').selectOption('direct');await page.evaluate(()=>{window.__helper.online=false});
+ await page.locator('#check-method').selectOption('helper');await page.locator('#usb-helper-dialog').waitFor({state:'visible'});
+ await page.locator('[data-helper-cancel]').click();await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ assert.equal(await page.locator('#check-method').inputValue(),'direct');
+ assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'),'untested');
+ const pings=await page.evaluate(()=>window.__helper.pings);await page.evaluate(()=>{window.__helper.online=true});await page.waitForTimeout(750);
+ assert.equal(await page.evaluate(()=>window.__helper.pings),pings);
+ assert.deepEqual(await page.evaluate(()=>[window.__usbChoices||0,window.__helper.opens]),[0,0]);
+ assert.equal(await page.locator('#usb-helper-dialog').count(),0);
+ await page.locator('#check-method').selectOption('helper');await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ assert.equal(await page.locator('#check-method').inputValue(),'helper');
+ assert.equal(await page.locator('#usb-helper-dialog').count(),0);
+});
+
 test('missing helper opens complete instructions and resumes the check automatically after startup', {timeout:30000},async t=>{
- const page=await setup(t);await page.evaluate(()=>{window.__helper.online=false});
+ const page=await setup(t);
  await page.locator('#tab-check').click();await page.locator('[data-driver-action="choose"]').click();
- await page.locator('#check-method').selectOption('helper');await page.locator('#check-run').click();
+ await page.locator('#check-method').selectOption('helper');await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ await page.evaluate(()=>{window.__helper.online=false});await page.locator('#check-run').click();
  await page.locator('#usb-helper-dialog').waitFor({state:'visible'});
  assert.equal(await page.locator('#usb-helper-dialog details, [data-helper-probe], [data-helper-close], [data-usb-helper-help]').count(),0);
  assert.equal(await page.locator('[data-helper-command]').isVisible(),true);
@@ -133,9 +182,10 @@ test('missing helper opens complete instructions and resumes the check automatic
 });
 
 test('cancelling helper startup stops polling and never connects later', {timeout:15000},async t=>{
- const page=await setup(t);await page.evaluate(()=>{window.__helper.online=false});
+ const page=await setup(t);
  await page.locator('#tab-check').click();await page.locator('[data-driver-action="choose"]').click();
- await page.locator('#check-method').selectOption('helper');await page.locator('#check-run').click();
+ await page.locator('#check-method').selectOption('helper');await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ await page.evaluate(()=>{window.__helper.online=false});await page.locator('#check-run').click();
  await page.locator('#usb-helper-dialog').waitFor({state:'visible'});await page.locator('[data-helper-cancel]').click();
  await page.waitForFunction(()=>!document.getElementById('check-run').disabled);
  assert.equal(await page.locator('#usb-helper-dialog').count(),0);
@@ -184,7 +234,8 @@ test('watch startup cancellation works before opening a remembered helper transp
 test('a running helper with a busy adapter reports the access error without startup instructions or retries', {timeout:15000},async t=>{
  const page=await setup(t);await page.evaluate(()=>{window.__helper.openError='USB adapter is busy'});
  await page.locator('#tab-check').click();await page.locator('[data-driver-action="choose"]').click();
- await page.locator('#check-method').selectOption('helper');await page.locator('#check-run').click();
+ await page.locator('#check-method').selectOption('helper');await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ await page.evaluate(()=>{window.__helper.pings=0});await page.locator('#check-run').click();
  await page.waitForFunction(()=>document.getElementById('check-helper-result').dataset.state==='failed');
  assert.equal(await page.locator('#usb-helper-dialog').count(),0);
  assert.match(await page.locator('#check-note').textContent(),/busy/);

@@ -35,7 +35,7 @@ export async function waitForUSBHelper({ signal, probe = probeUSBHelper, interva
 }
 
 let activeWait = false;
-export async function ensureUSBHelperReady({ script = 'irda_usb_helper.py', signal } = {}) {
+export async function ensureUSBHelperReady({ script = 'irda_usb_helper.py', signal, connecting = true } = {}) {
   if (!helpers[script]) throw new Error('Unknown USB helper');
   if (activeWait) throw new DOMException('Another USB connection is pending.', 'InvalidStateError');
   const controller = new AbortController();
@@ -52,11 +52,16 @@ export async function ensureUSBHelperReady({ script = 'irda_usb_helper.py', sign
         <p data-i18n="USB Helper runs on the computer with the adapter. Python 3 and libusb are required."></p>
         <ol><li><a data-helper-download download data-i18n="Download USB Helper"></a></li>
         <li><p data-i18n="Open a terminal in the folder where you saved the file, then run:"></p><code data-helper-command></code></li>
-        <li><p data-i18n="Leave the terminal open. This window will close and the connection will continue automatically."></p></li></ol>
+        <li><p data-helper-started data-i18n="Leave the terminal open. This window will close and the connection will continue automatically."></p></li></ol>
         <p data-i18n="If the helper reports missing Python or libusb, install the missing requirement before trying again."></p>
         <p data-i18n="If the browser asks for access to the local network, allow it for this connection."></p>
         <p data-i18n="Address already in use means the port is occupied. If the helper is already running, check that you started the correct file on this computer."></p>
         </section><div class="dialog-actions"><button type="button" data-helper-cancel data-i18n="Cancel connection"></button></div></div>`;
+      if (!connecting) {
+        dialog.querySelector('[data-helper-state]').dataset.i18n = 'Waiting for the helper. This window will close automatically when it starts.';
+        dialog.querySelector('[data-helper-started]').dataset.i18n = 'Leave the terminal open while using the adapter.';
+        dialog.querySelector('[data-helper-cancel]').dataset.i18n = 'Cancel';
+      }
       for (const node of dialog.querySelectorAll('[data-i18n]')) node.textContent = tr(node.dataset.i18n);
       const link = dialog.querySelector('[data-helper-download]'); link.href = './' + script; link.download = script;
       dialog.querySelector('[data-helper-command]').textContent = 'python3 ' + script;

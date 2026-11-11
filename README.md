@@ -119,6 +119,11 @@ instructions and keeps checking in the background. Start the downloaded file wit
 continues automatically. **Cancel connection** stops waiting. Detecting the helper
 does not start a photo transfer or hide errors such as an adapter being busy.
 
+In Drivers → Check, selecting **Through helper** also checks readiness immediately
+and opens these instructions if needed. No USB selection or installed driver is
+required to download and start the helper. This preparation does not open USB or
+mark any driver check as passed; choose the adapter and run its check afterwards.
+
 Saved check reports include the browser's active and advertised USB
 configurations, interfaces and endpoints. A configuration numbered zero is
 not treated as a missing interface; the real OS selection and claim must

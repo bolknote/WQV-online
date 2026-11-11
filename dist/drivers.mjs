@@ -10,7 +10,7 @@ import { readDriverAccess } from './driver-access.mjs';
 import { ensureUSBHelperReady } from './usb-helper-help.mjs';
 
 const $ = id => document.getElementById(id), say = key => String(tr(key));
-const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, reportKey: null, log: [], lastStatus: null };
+const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, preparingHelper: false, device: null, report: null, reportKey: null, log: [], lastStatus: null };
 const checkKey = record => record ? JSON.stringify([record.id, record.inputSHA256, record.updatedAt]) : null;
 const selected = () => S.records.find(record => record.id === S.selected);
 function status(state, heading, note = '') {
@@ -109,7 +109,8 @@ function renderCheck() {
   }
   const preferred = matched ? readDriverAccess(matched.record, device) : 'auto';
   $('remembered-access').textContent = say(preferred === 'helper' ? 'Through USB Helper' : preferred === 'direct' ? 'Without helper · WebUSB' : 'Not tested');
-  if (S.active && S.view === 'check') $('check-heading').textContent = say('Testing…');
+  if (S.preparingHelper) $('check-heading').textContent = say('Checking USB Helper…');
+  else if (S.active && S.view === 'check') $('check-heading').textContent = say('Testing…');
   else if (!device) $('check-heading').textContent = say('Choose an adapter to test its driver.');
   else if (!matched) $('check-heading').textContent = say('No matching installed driver');
   else if (S.report) {
@@ -228,7 +229,20 @@ document.addEventListener('click', event => {
 });
 $('driver-files').addEventListener('change', () => { const files = [...$('driver-files').files]; $('driver-files').value = ''; if (files.length) run(signal => importFiles(files, signal)); });
 $('driver-build-dialog').addEventListener('cancel', event => { event.preventDefault(); S.active?.abort(); });
-$('check-method').addEventListener('change', renderCheck);
+let selectedCheckMethod = $('check-method').value;
+$('check-method').addEventListener('change', () => {
+  if (S.active) return;
+  const previous = selectedCheckMethod;
+  selectedCheckMethod = $('check-method').value; renderCheck();
+  if (selectedCheckMethod !== 'helper') return;
+  S.preparingHelper = true;
+  run(async signal => {
+    try { await ensureUSBHelperReady({ signal, connecting: false }); }
+    catch (error) {
+      selectedCheckMethod = previous; $('check-method').value = previous; throw error;
+    } finally { S.preparingHelper = false; }
+  });
+});
 for (const [id, tab] of [['tab-drivers', 'drivers'], ['tab-check', 'check']]) $(id).addEventListener('click', () => { if (!S.active) { showTab(tab); render(); } });
 $('driver-library').addEventListener('dragover', event => { if (event.dataTransfer.types.includes('Files')) event.preventDefault(); });
 $('driver-library').addEventListener('drop', event => { event.preventDefault(); if (!S.active) run(signal => importFiles([...event.dataTransfer.files], signal)); });
