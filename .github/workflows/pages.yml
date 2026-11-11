@@ -23,15 +23,22 @@ jobs:
 
   browser:
     name: Browser tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
+    # Match package-lock.json. Browsers and OS dependencies are preinstalled,
+    # so Ubuntu mirror DNS failures cannot block the test environment setup.
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      options: --init --ipc=host
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
         env:
           WQV_BROWSER_ARTIFACTS: ${{ runner.temp }}/wqv-browser
