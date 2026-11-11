@@ -230,11 +230,9 @@ document.addEventListener('click', event => {
 $('driver-files').addEventListener('change', () => { const files = [...$('driver-files').files]; $('driver-files').value = ''; if (files.length) run(signal => importFiles(files, signal)); });
 $('driver-build-dialog').addEventListener('cancel', event => { event.preventDefault(); S.active?.abort(); });
 let selectedCheckMethod = $('check-method').value;
-$('check-method').addEventListener('change', () => {
+function prepareHelper(previous) {
   if (S.active) return;
-  const previous = selectedCheckMethod;
-  selectedCheckMethod = $('check-method').value; renderCheck();
-  if (selectedCheckMethod !== 'helper') return;
+  selectedCheckMethod = $('check-method').value;
   S.preparingHelper = true;
   run(async signal => {
     try { await ensureUSBHelperReady({ signal, connecting: false }); }
@@ -242,8 +240,18 @@ $('check-method').addEventListener('change', () => {
       selectedCheckMethod = previous; $('check-method').value = previous; throw error;
     } finally { S.preparingHelper = false; }
   });
+}
+$('check-method').addEventListener('change', () => {
+  if (S.active) return;
+  const previous = selectedCheckMethod;
+  selectedCheckMethod = $('check-method').value; renderCheck();
+  if (selectedCheckMethod === 'helper') prepareHelper(previous);
 });
-for (const [id, tab] of [['tab-drivers', 'drivers'], ['tab-check', 'check']]) $(id).addEventListener('click', () => { if (!S.active) { showTab(tab); render(); } });
+for (const [id, tab] of [['tab-drivers', 'drivers'], ['tab-check', 'check']]) $(id).addEventListener('click', () => {
+  if (S.active) return;
+  showTab(tab); render();
+  if (tab === 'check' && $('check-method').value === 'helper') prepareHelper('helper');
+});
 $('driver-library').addEventListener('dragover', event => { if (event.dataTransfer.types.includes('Files')) event.preventDefault(); });
 $('driver-library').addEventListener('drop', event => { event.preventDefault(); if (!S.active) run(signal => importFiles([...event.dataTransfer.files], signal)); });
 const referenceLabels = new Map();

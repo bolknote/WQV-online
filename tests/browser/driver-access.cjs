@@ -129,6 +129,21 @@ test('selecting helper mode detects a running program without instructions or a 
  assert.equal(await page.locator('#check-run').isEnabled(),false);
 });
 
+test('entering Check with a restored helper selection offers instructions again when the program is absent', {timeout:15000},async t=>{
+ const page=await setup(t,{driver:false});
+ await page.evaluate(()=>{document.getElementById('check-method').value='helper';window.__helper.online=false});
+ await page.locator('#tab-check').click();await page.locator('#usb-helper-dialog').waitFor({state:'visible'});
+ await page.evaluate(()=>{window.__helper.online=true});await page.locator('#usb-helper-dialog').waitFor({state:'detached'});
+ await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ await page.locator('#tab-drivers').click();await page.evaluate(()=>{window.__helper.online=false});
+ await page.locator('#tab-check').click();await page.locator('#usb-helper-dialog').waitFor({state:'visible'});
+ assert.equal(await page.locator('[data-helper-command]').textContent(),'python3 irda_usb_helper.py');
+ assert.deepEqual(await page.evaluate(()=>[window.__usbChoices||0,window.__helper.opens]),[0,0]);
+ await page.locator('[data-helper-cancel]').click();await page.waitForFunction(()=>!document.getElementById('check-method').disabled);
+ assert.equal(await page.locator('#check-method').inputValue(),'helper');
+ assert.equal(await page.locator('#check-helper-result').getAttribute('data-state'),'untested');
+});
+
 test('cancelling helper preparation restores the previous method and stops automatic polling', {timeout:15000},async t=>{
  const page=await setup(t,{driver:false});await page.locator('#tab-check').click();
  await page.locator('#check-method').selectOption('direct');await page.evaluate(()=>{window.__helper.online=false});
