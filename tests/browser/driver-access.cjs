@@ -101,11 +101,14 @@ test('helper instructions are available before checking, detect an existing proc
  assert.equal(await page.locator('#helper-instructions').isVisible(),true);
  await page.locator('#helper-instructions [data-usb-helper-help]').click();
  await page.waitForFunction(()=>document.querySelector('[data-helper-state]').dataset.state==='running');
- assert.equal(await page.locator('[data-helper-steps]').getAttribute('open'),null);
+ assert.equal(await page.locator('[data-helper-command]').isVisible(),true);
+ assert.equal(await page.locator('#usb-helper-dialog details').count(),0);
  assert.equal(await page.evaluate(()=>window.__helper.opens),0,'readiness only pings the helper');
  await page.evaluate(()=>{window.__helper.online=false});await page.locator('[data-helper-probe]').click();
  await page.waitForFunction(()=>document.querySelector('[data-helper-state]').dataset.state==='unavailable');
- assert.equal(await page.locator('[data-helper-steps]').evaluate(node=>node.open),true);
+ assert.equal(await page.locator('[data-helper-steps]').isVisible(),true);
+ const probe=await page.locator('[data-helper-probe]').boundingBox(),close=await page.locator('[data-helper-close]').last().boundingBox();
+ assert.ok(probe.x<close.x&&Math.abs(probe.y-close.y)<2,'check button belongs at the bottom left');
  assert.equal(await page.locator('[data-helper-command]').textContent(),'python3 irda_usb_helper.py');
  assert.equal(await page.locator('[data-helper-download]').getAttribute('download'),'irda_usb_helper.py');
  const downloading=page.waitForEvent('download');await page.locator('[data-helper-download]').click();
@@ -120,6 +123,10 @@ test('helper instructions are available before checking, detect an existing proc
    assert.ok(rect.x>=0&&rect.x+rect.width<=width&&rect.y>=0&&rect.y+rect.height<=950,JSON.stringify({language,width,rect}));
   }
  }
+ await page.evaluate(async()=>(await import('./i18n.mjs')).setLanguage('ru'));
+ assert.equal(await page.locator('#usb-helper-title').textContent(),'Вспомогательная программа');
+ assert.equal(await page.locator('[data-helper-probe]').textContent(),'Проверить вспомогательную программу');
+ assert.equal(await page.locator('[data-helper-command]').isVisible(),true);
  if(process.env.WQV_BROWSER_ARTIFACTS){await fs.mkdir(process.env.WQV_BROWSER_ARTIFACTS,{recursive:true});await page.screenshot({path:path.join(process.env.WQV_BROWSER_ARTIFACTS,'helper-dialog.png'),fullPage:true})}
  await page.locator('[data-helper-close]').last().click();
  for(const app of ['wqv2.html','wqv3.html']){await page.goto(new URL(app,base).href);await page.locator('#tab-connection').click();await page.locator('#panel-connection [data-usb-helper-help]').click();await page.locator('#usb-helper-dialog').waitFor({state:'visible'});await page.locator('[data-helper-close]').last().click()}
