@@ -148,6 +148,10 @@ test('reference sources show USB IDs and the helper uses a real Window.fetch', {
   assert.equal(await page.locator('#reference-usb-ids').isVisible(), false);
   for (const width of [1280, 400]) {
     await page.setViewportSize({ width, height: 900 });
+    await page.waitForFunction(width => {
+      const bounds = document.getElementById('reference-dialog').getBoundingClientRect();
+      return bounds.x >= 0 && bounds.right <= width;
+    }, width, { timeout: 3000 });
     const bounds = await page.locator('#reference-dialog').boundingBox();
     assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= width, 'the dialog fits the viewport');
     assert.ok(await page.locator('#reference-source').evaluate(select => select.clientWidth <= select.parentElement.clientWidth));
