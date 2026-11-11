@@ -2,7 +2,7 @@ import { tr, quantity, locale, getLanguage } from './i18n.mjs';
 import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { driverStore } from './driver-store.mjs';
-import { DRIVER_PROFILES, DRIVER_ABI, chooseInstalledDriver, usbID, sourceDigest } from './driver-catalog.mjs';
+import { DRIVER_PROFILES, DRIVER_ABI, chooseInstalledDriver, usbID, usbMatchLabels, sourceDigest } from './driver-catalog.mjs';
 import { compileDriver, referenceDriver } from './driver-compiler.mjs';
 import { checkInstalledDriver } from './driver-usb.mjs';
 import { driverLogMessage } from './driver-log.mjs';
@@ -117,7 +117,7 @@ function renderCheck() {
   $('check-note').textContent = errors.join('\n') || say('This check initializes USB without sending an infrared frame.');
 }
 function knownModel(device) {
-  const known = { '066f:4200': 'SigmaTel STIr4200', '07d0:4959': 'KingSun KS-959', '07d0:4100': 'KingSun Dazzle', '07c0:4200': 'KingSun / DonShine', '9710:7780': 'MosChip MCS7780', '18ec:3118': 'ARK3116T' };
+  const known = { '066f:4200': 'SigmaTel STIr4200', '07d0:4959': 'KingSun KS-959', '07d0:4100': 'KingSun Dazzle', '07c0:4200': 'KingSun / DonShine', '9710:7780': 'MosChip MCS7780', '18ec:3118': 'ARK3116T', '0df7:0620': 'Mobile Action MA-620', '067b:2303': 'Prolific PL2303' };
   return known[usbID(device)] ?? null;
 }
 async function reload() {
@@ -228,7 +228,24 @@ $('driver-build-dialog').addEventListener('cancel', event => { event.preventDefa
 for (const [id, tab] of [['tab-drivers', 'drivers'], ['tab-check', 'check']]) $(id).addEventListener('click', () => { if (!S.active) { showTab(tab); render(); } });
 $('driver-library').addEventListener('dragover', event => { if (event.dataTransfer.types.includes('Files')) event.preventDefault(); });
 $('driver-library').addEventListener('drop', event => { event.preventDefault(); if (!S.active) run(signal => importFiles([...event.dataTransfer.files], signal)); });
+const referenceLabels = new Map();
 for (const profile of DRIVER_PROFILES) { const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name + ' · ' + profile.file; $('reference-source').append(option); }
+function showReferenceIDs() {
+  const labels = referenceLabels.get($('reference-source').value) ?? [];
+  $('reference-usb-ids').textContent = labels.join(', '); $('reference-usb-ids').hidden = labels.length <= 3;
+}
+$('reference-source').addEventListener('change', showReferenceIDs);
+fetch(new URL('./driver-runtime/corpus/sources.json', import.meta.url)).then(response => {
+  if (!response.ok) throw new Error('Source catalogue HTTP ' + response.status); return response.json();
+}).then(manifest => {
+  for (const option of $('reference-source').options) {
+    const profile = DRIVER_PROFILES.find(profile => profile.id === option.value);
+    const labels = usbMatchLabels(manifest.files[profile.id].usbMatches ?? []); referenceLabels.set(profile.id, labels);
+    const short = labels.slice(0, 3).join(', ') + (labels.length > 3 ? ' (+' + (labels.length - 3) + ')' : '');
+    option.textContent = [profile.name, short, profile.file].filter(Boolean).join(' · '); option.title = labels.join(', ');
+  }
+  showReferenceIDs();
+}).catch(error => console.error('Reference USB IDs:', error));
 installDesktopShell({ changed: () => { render(); if (S.lastStatus) status(S.lastStatus.state, S.lastStatus.heading, S.lastStatus.note); },
   help: () => messageDialog(tr('Infrared drivers'), tr('Sources and compiled drivers stay in this browser.') + '\n\n' + tr('Drivers are selected automatically by WQV Link.') + '\n\n' + tr('This check initializes USB without sending an infrared frame.')) });
 bindApplicationNavigation({ isBusy: () => Boolean(S.active), close: async () => { S.active?.abort(); } });

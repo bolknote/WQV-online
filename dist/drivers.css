@@ -49,6 +49,8 @@
 .driver-build-steps{font-size:12px;line-height:1.8;padding-left:20px;margin:15px 0;color:#566c7a}
 .driver-build-steps li:first-child{color:#3f7143}.driver-build-steps li:nth-child(2){color:#244f77;font-weight:bold}
 #reference-dialog select{width:100%;margin:9px 0 0}#reference-dialog .small-note{font-size:11px;margin-bottom:13px;color:#354e60}
+#reference-dialog{width:590px;max-width:calc(100% - 24px)}
+#reference-usb-ids{font-size:11px;line-height:1.5;overflow-wrap:anywhere;max-height:110px;overflow:auto;color:#354e60;user-select:text}
 #driver-operation[data-state=error]{background:#efdfd2}#driver-operation[data-state=success] #driver-dot{color:#3d7935}
 @media(max-width:660px){
   .driver-panel{padding:14px 11px;min-height:398px}.driver-toolbar{padding:9px;gap:5px}

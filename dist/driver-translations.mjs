@@ -85,6 +85,7 @@ const rows = {
   'Check stopped. USB released.': ['Проверка остановлена. USB освобождён.', '確認を中止し、USBを解放しました。', 'Prüfung beendet. USB freigegeben.', 'Prueba detenida. USB liberado.', 'Tarkistus pysäytetty. USB vapautettu.'],
   'Source': ['Источник', 'ソース', 'Quelle', 'Fuente', 'Lähde'],
   'USB matches': ['Поддерживаемые USB', '対応USB', 'USB-Zuordnungen', 'Coincidencias USB', 'USB-vastaavuudet'],
+  'This driver provides a serial port. Infrared transfer requires an infrared adapter driver.': ['Этот драйвер управляет последовательным портом. Для ИК-обмена нужен драйвер самого ИК-адаптера.', 'このドライバーはシリアルポート用です。赤外線通信には赤外線アダプターのドライバーが必要です。', 'Dieser Treiber stellt einen seriellen Port bereit. Für Infrarotübertragung wird ein Infrarotadapter-Treiber benötigt.', 'Este controlador proporciona un puerto serie. La transferencia por infrarrojos requiere un controlador de adaptador infrarrojo.', 'Tämä ajuri tarjoaa sarjaportin. Infrapunasiirto edellyttää infrapunasovittimen ajuria.'],
   'Compiled size': ['Размер сборки', 'ビルドサイズ', 'Ergebnisgröße', 'Tamaño compilado', 'Käännöksen koko'],
   'Remove this driver and its saved source?': ['Удалить драйвер и его сохранённый исходник?', 'ドライバーと保存済みソースを削除しますか？', 'Treiber und gespeicherte Quelle löschen?', '¿Eliminar el controlador y su fuente guardada?', 'Poistetaanko ajuri ja sen tallennettu lähdekoodi?'],
   'Driver removed': ['Драйвер удалён', 'ドライバーを削除しました', 'Treiber entfernt', 'Controlador eliminado', 'Ajuri poistettu'],

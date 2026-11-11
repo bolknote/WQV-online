@@ -10,6 +10,8 @@ export const DRIVER_PROFILES = Object.freeze([
   { id: 'irda-usb', name: 'USB IrDA', file: 'irda-usb.c', signature: /struct\s+irda_usb_cb\b/, framing: 'packet' },
   { id: 'ark3116', name: 'ARK3116', file: 'ark3116.c', signature: /struct\s+ark3116_private\b/, framing: 'raw' },
   { id: 'ir-usb', name: 'USB IrDA serial', file: 'ir-usb.c', signature: /\bir_set_termios\b/, framing: 'packet' },
+  { id: 'pl2303', name: 'Prolific PL2303', file: 'pl2303.c', signature: /struct\s+pl2303_private\b/, framing: 'raw', infrared: false },
+  { id: 'ma620', name: 'Mobile Action MA-620', file: 'ma600-sir.c', signature: /\bma600_change_speed\b/, framing: 'raw' },
 ]);
 export function identifyDriver(source) {
   const code = source.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, ' ');
@@ -17,6 +19,11 @@ export function identifyDriver(source) {
 }
 export const driverProfile = id => DRIVER_PROFILES.find(profile => profile.id === id) ?? null;
 export const usbID = device => [device.vendorId, device.productId].map(v => v.toString(16).padStart(4, '0')).join(':');
+export function usbMatchLabels(matches) {
+  const byte = n => n == null ? '*' : n.toString(16).padStart(2, '0');
+  return [...new Set(matches.map(match => match.vendorId || match.productId ? usbID(match) :
+    'class ' + [match.interfaceClass, match.interfaceSubclass, match.interfaceProtocol].map(byte).join('/')))];
+}
 export function usbAlternates(device) {
   const configurations = [device.configuration, ...(device.configurations ?? [])].filter((configuration, index, all) =>
     configuration && all.findIndex(item => item?.configurationValue === configuration.configurationValue) === index);
@@ -42,7 +49,9 @@ export function matchingDriverIDs(record, device) {
 export function chooseInstalledDriver(records, device) {
   return records.filter(record => record.artifact?.abi === DRIVER_ABI && record.artifact.sourceSHA256 === record.sha256 && record.artifact.inputSHA256 === record.inputSHA256)
     .flatMap(record => matchingDriverIDs(record, device).map(match => ({ record, match })))
-    .sort((a, b) => Number(b.match.exact) - Number(a.match.exact) || b.record.updatedAt - a.record.updatedAt)[0] ?? null;
+    .sort((a, b) => Number(b.match.exact) - Number(a.match.exact) ||
+      Number(driverProfile(a.record.profile)?.infrared === false) - Number(driverProfile(b.record.profile)?.infrared === false) ||
+      b.record.updatedAt - a.record.updatedAt)[0] ?? null;
 }
 export async function sourceDigest(source) {
   return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(source))), n => n.toString(16).padStart(2, '0')).join('');

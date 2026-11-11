@@ -2,11 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { DRIVER_ABI, identifyDriver, chooseInstalledDriver, matchingDriverIDs, normalizeDriverPath } from '../dist/driver-catalog.mjs';
+import { DRIVER_ABI, identifyDriver, chooseInstalledDriver, matchingDriverIDs, normalizeDriverPath, usbMatchLabels } from '../dist/driver-catalog.mjs';
 import { WebUSBDriverBackend, HelperDriverBackend, DriverUSBError, classifyUSBFailure, usbDescriptorSnapshot } from '../dist/driver-usb.mjs';
 import { DriverWorkerClient } from '../dist/driver-worker-client.mjs';
 import { compileDriver } from '../dist/driver-compiler.mjs';
-import { InstalledDriverAdapter } from '../dist/installed-adapter.mjs';
+import { InstalledDriverAdapter, findInstalledAdapter } from '../dist/installed-adapter.mjs';
+import { driverStore } from '../dist/driver-store.mjs';
 import { encodeFrame } from '../dist/irda.mjs';
 import { WQVClient } from '../dist/protocol.mjs';
 import { IrTranPReceiver } from '../dist/irtranp-core.mjs';
@@ -34,9 +35,38 @@ test('profile identification uses C declarations, not filenames or comments', ()
   assert.equal(identifyDriver('struct stir_cb { int x; };').id, 'sigmatel');
   assert.equal(identifyDriver('/* struct stir_cb; */\nstruct ks959_cb {int x;};').id, 'ks959');
   assert.equal(identifyDriver('// struct stir_cb\nint main(void){return 0;}'), null);
+  assert.equal(identifyDriver('struct pl2303_private { int x; };').id, 'pl2303');
+  assert.equal(identifyDriver('static int ma600_change_speed(struct sir_dev *, unsigned);').id, 'ma620');
   assert.throws(() => normalizeDriverPath('../../driver.h'), /Invalid/);
   assert.throws(() => normalizeDriverPath('/etc/file'), /Invalid/);
   assert.equal(normalizeDriverPath('linux/usb/irda.h'), 'linux/usb/irda.h');
+});
+
+test('MA-620 infrared support takes precedence over a newer USB-only PL2303 module', () => {
+  const ids = [{ vendorId: 0x0df7, productId: 0x0620 }];
+  const serial = { ...record('serial', ids, 100), profile: 'pl2303' };
+  const infrared = { ...record('infrared', ids, 1), profile: 'ma620' };
+  assert.equal(chooseInstalledDriver([serial, infrared], device(0x0df7, 0x0620)).record.id, 'infrared');
+  assert.equal(chooseInstalledDriver([serial], device(0x0df7, 0x0620)).record.id, 'serial');
+});
+
+test('watch applications require an infrared layer instead of using bare PL2303 as IrDA', async () => {
+  const ids = [{ vendorId:0x0df7,productId:0x0620 }], original = driverStore.list;
+  const serial = { ...record('serial', ids), profile:'pl2303' }, infrared = { ...record('infrared', ids), profile:'ma620' };
+  try {
+    driverStore.list = async () => [serial];
+    await assert.rejects(findInstalledAdapter(device(0x0df7,0x0620), { model:'wqv2' }), /[Ii]nfrared|ИК/);
+    driverStore.list = async () => [serial, infrared];
+    const adapter = await findInstalledAdapter(device(0x0df7,0x0620), { model:'wqv2' });
+    assert.equal(adapter.candidate.record.profile, 'ma620'); assert.equal(adapter.opened, false);
+  } finally { driverStore.list = original; }
+});
+
+test('USB match labels retain zeroes, deduplicate pairs and distinguish class matches', () => {
+  assert.deepEqual(usbMatchLabels([{ vendorId:0x0df7,productId:0x0620 },{ vendorId:0x0df7,productId:0x0620 },
+    {vendorId:0,productId:0,interfaceClass:254,interfaceSubclass:2,interfaceProtocol:null},
+    {vendorId:0,productId:0,interfaceClass:254,interfaceSubclass:2,interfaceProtocol:0}]),
+  ['0df7:0620', 'class fe/02/*', 'class fe/02/00']);
 });
 
 test('installed exact USB IDs outrank a newer generic class driver', () => {
@@ -64,6 +94,17 @@ test('invalid interface command requires helper before submitting any USB reques
   assert.throws(() => backend.validateControl({ type: 0x21, index: 1 }), error => error.code === 'helper-needed');
   // A device-recipient register index is not an interface number.
   assert.doesNotThrow(() => backend.validateControl({ type: 0x40, index: 8 }));
+});
+
+test('the helper invokes browser fetch with its Window receiver', async () => {
+  const original = globalThis.fetch;
+  try {
+    globalThis.fetch = function () {
+      assert.equal(this, globalThis, 'native Window.fetch rejects a backend object as this');
+      return Promise.resolve(Response.json({ result: { helper: 'reachable' } }));
+    };
+    assert.deepEqual(await new HelperDriverBackend({}).call('fixture'), { helper: 'reachable' });
+  } finally { globalThis.fetch = original; }
 });
 
 test('a zero-valued active configuration reaches the real interface claim and is retained in diagnostics', async () => {

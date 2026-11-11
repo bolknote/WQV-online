@@ -28,6 +28,12 @@ export async function referenceDriver(id) {
   const manifest = await response.json(), entry = manifest.files[id];
   const source = await fetch(new URL(entry.localPath, base));
   if (!source.ok) throw new Error('Cannot load the reference source.');
-  return { filename: entry.path.split('/').at(-1), source: await source.text(), files: {},
+  const files = {};
+  for (const dependency of entry.dependencies ?? []) {
+    const spec = manifest.files[dependency], response = await fetch(new URL(spec.localPath, base));
+    if (!response.ok) throw new Error('Cannot load the reference source: ' + spec.path);
+    files[spec.path.split('/').at(-1)] = await response.text();
+  }
+  return { filename: entry.path.split('/').at(-1), source: await source.text(), files,
     provenance: { url: entry.url, version: entry.tag || manifest.tag, sha256: entry.sha256 } };
 }

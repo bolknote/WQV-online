@@ -23,7 +23,7 @@ ALLOWED_DEVICES = {(0x066f, 0x4200), (0x07d0, 0x4959), (0x07d0, 0x4100),
     (0x07c0, 0x4200), (0x9710, 0x7780), (0x18ec, 0x3118),
     (0x6547, 0x0232), (0x09c4, 0x0011), (0x4428, 0x0012),
     (0x050f, 0x0180), (0x08e9, 0x0100), (0x066f, 0x4210),
-    (0x066f, 0x4220), (0x066f, 0x4116)}
+    (0x066f, 0x4220), (0x066f, 0x4116), (0x0df7, 0x0620), (0x067b, 0x2303)}
 
 
 class USBError(RuntimeError):
@@ -188,9 +188,12 @@ class USB:
                 empty, empty_actual = (C.c_ubyte * 0)(), C.c_int()
                 self.check(function(self.handle, endpoint, empty, 0, C.byref(empty_actual), 1000))
         else:
-            # Class/vendor requests only. Standard configuration and reset
-            # operations are provided as separate, bounded services below.
-            if (kind & 0x60) not in (0x20, 0x40) or (kind & 31) > 3:
+            # PL2303 needs the real EP0 packet size to select legacy/HX.
+            # Permit only this read-only standard descriptor request; standard
+            # configuration/reset stay separate bounded services below.
+            device_descriptor = (kind == 0x80 and request.get('request') == 6
+                and request.get('value') == 0x100 and request.get('index') == 0 and length == 18)
+            if not device_descriptor and ((kind & 0x60) not in (0x20, 0x40) or (kind & 31) > 3):
                 raise ValueError('Only class/vendor controls are allowed')
             result = self.control(kind, integer(request.get('request'), 0, 255),
                 integer(request.get('value')), integer(request.get('index')), length if input_request else data)

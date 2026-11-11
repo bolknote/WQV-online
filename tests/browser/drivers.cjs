@@ -310,29 +310,31 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   assert.equal(await page.locator('#driver-selected').isVisible(), false);
   assert.equal(await page.locator('.desktop-footer').count(), 0);
 
-  // Build all eight sources with the actual compiler and read their C ID tables.
+  // Build all ten sources with the actual compiler and read their C ID tables.
   const matrix = await page.evaluate(async () => {
     const { DRIVER_PROFILES } = await import('./driver-catalog.mjs');
     const { compileDriver, referenceDriver } = await import('./driver-compiler.mjs');
     const { driverStore } = await import('./driver-store.mjs');
     const results = [];
+    const manifest = await (await fetch('./driver-runtime/corpus/sources.json')).json();
     for (const profile of DRIVER_PROFILES) {
       const source = await referenceDriver(profile.id), record = await driverStore.saveSource(source);
       const artifact = await compileDriver(record);
       await driverStore.saveBuild(record.id, record.sha256, artifact);
       results.push({ profile: profile.id, bytes: artifact.bytes.byteLength, ids: artifact.usbMatches,
-        sourcePreserved: record.sha256 === source.provenance.sha256 });
+        expectedIDs: manifest.files[profile.id].usbMatches, sourcePreserved: record.sha256 === source.provenance.sha256 });
     }
     return results;
   });
-  assert.equal(matrix.length, 8); assert.ok(matrix.every(result => result.bytes > 0 && result.ids.length && result.sourcePreserved));
+  assert.equal(matrix.length, 10); assert.ok(matrix.every(result => result.bytes > 0 && result.ids.length && result.sourcePreserved));
+  for (const row of matrix) assert.deepEqual(row.ids, row.expectedIDs, row.profile + ': catalogue labels come from the compiled C table');
   const classMatch = matrix.find(row => row.profile === 'irda-usb').ids.at(-1);
   assert.equal(classMatch.interfaceProtocol, null);
   assert.equal(matrix.find(row => row.profile === 'ir-usb').ids.at(-1).interfaceProtocol, 0);
-  await page.reload(); await page.waitForFunction(() => document.querySelectorAll('#driver-rows tr').length === 8);
-  assert.equal(await page.locator('.driver-state[data-build="built"]').count(), 8);
+  await page.reload(); await page.waitForFunction(() => document.querySelectorAll('#driver-rows tr').length === 10);
+  assert.equal(await page.locator('.driver-state[data-build="built"]').count(), 10);
   const sourceCount = await page.evaluate(async () => (await (await import('./driver-store.mjs')).driverStore.list()).length);
-  assert.equal(sourceCount, 8);
+  assert.equal(sourceCount, 10);
   await page.locator('.driver-select').first().click();
   assert.equal(await page.locator('#driver-rows tr.selected .icon').count(), 1);
   await page.waitForFunction(() => document.querySelector('#driver-rows tr.selected .icon').getBBox().width > 0);
@@ -376,7 +378,7 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   await page.locator('#tab-drivers').click();
   await page.locator('#driver-files').setInputFiles({ name: 'broken.c', mimeType: 'text/plain', buffer: Buffer.from('struct stir_cb;\nthis is not C;') });
   await page.waitForFunction(() => Array.from(document.querySelectorAll('#driver-rows tr')).some(row => row.textContent.includes('broken.c') && row.querySelector('[data-build="error"]')));
-  await page.reload(); await page.waitForFunction(() => document.querySelectorAll('#driver-rows tr').length === 9);
+  await page.reload(); await page.waitForFunction(() => document.querySelectorAll('#driver-rows tr').length === 11);
   const failed = await page.evaluate(async () => (await (await import('./driver-store.mjs')).driverStore.list()).find(record => record.filename === 'broken.c'));
   assert.equal(failed.source, 'struct stir_cb;\nthis is not C;'); assert.equal(failed.artifact, null); assert.ok(failed.buildError);
 
@@ -525,7 +527,7 @@ test('all eight installed C modules execute receive, transmit and cleanup agains
     const payload = Uint8Array.from({ length: 17 }, (_, i) => i * 73 & 255);
     const same = (a, b) => a.length === b.length && a.every((n, i) => n === b[i]);
     const results = [];
-    for (const profile of DRIVER_PROFILES) {
+    for (const profile of DRIVER_PROFILES.filter(profile => !['pl2303','ma620'].includes(profile.id))) {
       const source = await driverStore.saveSource(await referenceDriver(profile.id)), artifact = await compileDriver(source);
       const chosenIndex = profile.id === 'ark3116' ? 1 : 0, match = artifact.usbMatches[chosenIndex];
       const input = [], output = [], received = [];

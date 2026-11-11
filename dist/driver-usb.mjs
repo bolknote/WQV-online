@@ -249,7 +249,7 @@ export class WebUSBDriverBackend {
 }
 
 export class HelperDriverBackend extends WebUSBDriverBackend {
-  constructor(device, match, options = {}) { super(device, match, options); this.transport = 'helper'; this.fetch = options.fetch ?? globalThis.fetch; this.url = options.url ?? 'http://127.0.0.1:8768/usb'; this.session = null; }
+  constructor(device, match, options = {}) { super(device, match, options); this.transport = 'helper'; this.fetch = options.fetch ?? globalThis.fetch.bind(globalThis); this.url = options.url ?? 'http://127.0.0.1:8768/usb'; this.session = null; }
   async call(method, args = []) {
     let response;
     try {

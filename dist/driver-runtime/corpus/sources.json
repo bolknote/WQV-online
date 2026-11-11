@@ -17,7 +17,16 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 17867,
-      "sha256": "aa144d99d420490042fb9f85a4273656082e83ebd2f25ee7f49bf0a60f9651e1"
+      "sha256": "aa144d99d420490042fb9f85a4273656082e83ebd2f25ee7f49bf0a60f9651e1",
+      "usbMatches": [
+        {
+          "vendorId": 1984,
+          "productId": 16896,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "ksdazzle": {
       "path": "drivers/staging/irda/drivers/ksdazzle-sir.c",
@@ -26,7 +35,16 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 23412,
-      "sha256": "d9ce9edf05d2d0f37ef1eda0cc555cc2aad21a7a59292284b3384ec36c501197"
+      "sha256": "d9ce9edf05d2d0f37ef1eda0cc555cc2aad21a7a59292284b3384ec36c501197",
+      "usbMatches": [
+        {
+          "vendorId": 2000,
+          "productId": 16640,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "ks959": {
       "path": "drivers/staging/irda/drivers/ks959-sir.c",
@@ -35,7 +53,16 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 28366,
-      "sha256": "a1f20c5dd3ec48f4d896076f84f201542974aa2c639f4b95cd5838acd6e1f229"
+      "sha256": "a1f20c5dd3ec48f4d896076f84f201542974aa2c639f4b95cd5838acd6e1f229",
+      "usbMatches": [
+        {
+          "vendorId": 2000,
+          "productId": 18777,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "sigmatel": {
       "path": "drivers/staging/irda/drivers/stir4200.c",
@@ -44,7 +71,16 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 26317,
-      "sha256": "299617d6290155b92153f86dbfa711bb2b6432041f41ef81f69953d14a847e07"
+      "sha256": "299617d6290155b92153f86dbfa711bb2b6432041f41ef81f69953d14a847e07",
+      "usbMatches": [
+        {
+          "vendorId": 1647,
+          "productId": 16896,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "mcs7780": {
       "path": "drivers/staging/irda/drivers/mcs7780.c",
@@ -53,7 +89,16 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 24640,
-      "sha256": "686bdb7e736191208e204b4f0c06aeae900f58274cf75ec97525ed37711a6c7e"
+      "sha256": "686bdb7e736191208e204b4f0c06aeae900f58274cf75ec97525ed37711a6c7e",
+      "usbMatches": [
+        {
+          "vendorId": 38672,
+          "productId": 30592,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "irda-usb": {
       "path": "drivers/staging/irda/drivers/irda-usb.c",
@@ -62,7 +107,65 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 58515,
-      "sha256": "dab3035b49e213cfe1f40bac2a751213b08361a2ff3991d8c2a1c45d5ac55348"
+      "sha256": "dab3035b49e213cfe1f40bac2a751213b08361a2ff3991d8c2a1c45d5ac55348",
+      "usbMatches": [
+        {
+          "vendorId": 2500,
+          "productId": 17,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 17448,
+          "productId": 18,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1295,
+          "productId": 384,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 2281,
+          "productId": 256,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1647,
+          "productId": 16912,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1647,
+          "productId": 16928,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1647,
+          "productId": 16662,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 0,
+          "productId": 0,
+          "interfaceClass": 254,
+          "interfaceSubclass": 2,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "ark3116": {
       "path": "drivers/usb/serial/ark3116.c",
@@ -71,7 +174,23 @@
       "tag": "v4.16",
       "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
       "bytes": 21255,
-      "sha256": "b3c7189fc531ad62603fed8003678e3e73d0d8a87af3d9abb4f8ff9c136dcfc2"
+      "sha256": "b3c7189fc531ad62603fed8003678e3e73d0d8a87af3d9abb4f8ff9c136dcfc2",
+      "usbMatches": [
+        {
+          "vendorId": 25927,
+          "productId": 562,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 6380,
+          "productId": 12568,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     },
     "ir-usb-legacy": {
       "path": "drivers/usb/serial/ir-usb.c",
@@ -182,7 +301,37 @@
       "sha256": "a9d7d1974f03228fc5df07f45bb21b87e2c5c1202d2da2a1fefda364536bc9c1",
       "headerOverrides": {
         "usb-irda-header": "usb-irda-fixed-header"
-      }
+      },
+      "usbMatches": [
+        {
+          "vendorId": 1295,
+          "productId": 384,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 2281,
+          "productId": 256,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 2500,
+          "productId": 17,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 0,
+          "productId": 0,
+          "interfaceClass": 254,
+          "interfaceSubclass": 2,
+          "interfaceProtocol": 0
+        }
+      ]
     },
     "usb-irda-fixed-header": {
       "path": "include/linux/usb/irda.h",
@@ -192,6 +341,450 @@
       "commit": "7111951b8d4973bda27ff663f2cf18b663d15b48",
       "bytes": 3853,
       "sha256": "83bd2cd465c90f2c323314bae8522c42f38ca1ed74c850f359e876dd9662ac1c"
+    },
+    "pl2303": {
+      "path": "drivers/usb/serial/pl2303.c",
+      "localPath": "sources/drivers/usb/serial/pl2303.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/usb/serial/pl2303.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 27410,
+      "sha256": "bc1ab78781dfac96f095e002f246e9f172924cdf44faf12e486249ab950001fd",
+      "dependencies": [
+        "pl2303-header"
+      ],
+      "usbMatches": [
+        {
+          "vendorId": 1659,
+          "productId": 8963,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 1211,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 4660,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 43682,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 43688,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 43680,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 1553,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 1554,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 1545,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 13082,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 775,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1659,
+          "productId": 57841,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1211,
+          "productId": 2563,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1211,
+          "productId": 2574,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1367,
+          "productId": 8200,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1367,
+          "productId": 8225,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1367,
+          "productId": 8472,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1351,
+          "productId": 8200,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1390,
+          "productId": 20483,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1390,
+          "productId": 20484,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 3770,
+          "productId": 4224,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 3770,
+          "productId": 8320,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 3575,
+          "productId": 1568,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1412,
+          "productId": 45056,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 9336,
+          "productId": 8200,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 5203,
+          "productId": 16422,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1841,
+          "productId": 1320,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 24969,
+          "productId": 8296,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4599,
+          "productId": 735,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4597,
+          "productId": 1,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4597,
+          "productId": 3,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4597,
+          "productId": 4,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4597,
+          "productId": 5,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1189,
+          "productId": 16423,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1861,
+          "productId": 1,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1931,
+          "productId": 4660,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4277,
+          "productId": 44144,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1947,
+          "productId": 39,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1043,
+          "productId": 8449,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 3669,
+          "productId": 4363,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1841,
+          "productId": 8195,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1293,
+          "productId": 599,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1423,
+          "productId": 38688,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4598,
+          "productId": 8193,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1962,
+          "productId": 42,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1453,
+          "productId": 4026,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 21362,
+          "productId": 8963,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1008,
+          "productId": 13604,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1008,
+          "productId": 2873,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1008,
+          "productId": 12601,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1008,
+          "productId": 12857,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1208,
+          "productId": 1313,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1208,
+          "productId": 1314,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 1356,
+          "productId": 1079,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 4525,
+          "productId": 1,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 2915,
+          "productId": 25904,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        },
+        {
+          "vendorId": 2956,
+          "productId": 8963,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
+    },
+    "pl2303-header": {
+      "path": "drivers/usb/serial/pl2303.h",
+      "localPath": "sources/drivers/usb/serial/pl2303.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/usb/serial/pl2303.h",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 4134,
+      "sha256": "a18ac4e203ca1b231c5dd2f72850ed9e30abb0cd3a4242b113bb2a5a281f4ae7"
+    },
+    "ma620": {
+      "path": "drivers/staging/irda/drivers/ma600-sir.c",
+      "localPath": "sources/drivers/staging/irda/drivers/ma600-sir.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/0adb32858b0bddf4ada5f364a84ed60b196dbcda/drivers/staging/irda/drivers/ma600-sir.c",
+      "tag": "v4.16",
+      "commit": "0adb32858b0bddf4ada5f364a84ed60b196dbcda",
+      "bytes": 6624,
+      "sha256": "56ed781b1a7eaf398b9b38df0ddcb67e07aa2f371c734eb77860dbd7b9c658a2",
+      "dependencies": [
+        "pl2303",
+        "pl2303-header"
+      ],
+      "usbMatches": [
+        {
+          "vendorId": 3575,
+          "productId": 1568,
+          "interfaceClass": null,
+          "interfaceSubclass": null,
+          "interfaceProtocol": null
+        }
+      ]
     }
   }
 }

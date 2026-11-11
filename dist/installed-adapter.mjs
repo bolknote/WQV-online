@@ -43,6 +43,7 @@ export async function findInstalledAdapter(device, options = {}) {
   const candidate = chooseInstalledDriver(records, device);
   if (!candidate) return null;
   const profile = driverProfile(candidate.record.profile);
+  if (profile.infrared === false) throw new Error(tr('This driver provides a serial port. Infrared transfer requires an infrared adapter driver.'));
   if (options.model === 'wqv2' && profile.framing !== 'raw') throw new Error('This driver uses hardware IrDA framing and cannot carry the WQV-1/2 raw SUM16 protocol.');
   if (options.model === 'wqv2' && profile.id === 'kingsun') throw new Error('This driver supports 9600 bit/s only. WQV-1/2 requires 115200 bit/s.');
   return new InstalledDriverAdapter(device, candidate, options);

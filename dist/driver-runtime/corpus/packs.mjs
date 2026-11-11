@@ -10,20 +10,28 @@ export async function makePack(name,read=async path=>{
     compat+='\n'+await read('../sigmatel/extra-compat.h');entry=await read('../sigmatel/entry.c');
   }else if(name==='ks959')entry=await read('../entry.c');
   else {
-    if(['mcs7780','irda-usb','ark3116','ir-usb'].includes(name))compat+='\n#define netif_rx corpus_unused_fir_delivery\n'+await read('../sigmatel/extra-compat.h')+'\n#undef netif_rx\n';
+    if(['mcs7780','irda-usb','ark3116','ir-usb','pl2303','ma620'].includes(name))compat+='\n#define netif_rx corpus_unused_fir_delivery\n'+await read('../sigmatel/extra-compat.h')+'\n#undef netif_rx\n';
     compat+='\n'+await read('compat.h');
     if(name==='mcs7780'||name==='irda-usb'){
       localFiles[name+'.h']=await read(manifest.files[name+'-header'].localPath);
     }
-    if(name==='ark3116'||name==='ir-usb'){
+    if(['ark3116','ir-usb','pl2303','ma620'].includes(name)){
       const headers={'uart-header':'linux/serial_reg.h','usb-irda-header':'linux/usb/irda.h',
         'termbits-header':'asm/termbits.h','termios-header':'asm/termios.h','ioctls-header':'asm/ioctls.h','ioctl-header':'linux/ioctl.h'};
       for(const [key,path] of Object.entries(headers))localFiles['include/'+path]=await read(manifest.files[spec.headerOverrides?.[key]||key].localPath);
       localFiles['include/linux/posix_types.h']='#include <linux-compat.h>\n';
       compat+='\n#define LAB_SERIAL_ID_INDEX '+(name==='ark3116'?1:0)+'\n';
       compat+='\n#define LAB_SERIAL_MODULE_INIT '+(name==='ir-usb'?1:0)+'\n';
+      compat+='\n#define LAB_PL2303 '+(['pl2303','ma620'].includes(name)?1:0)+'\n#define LAB_MA620 '+(name==='ma620'?1:0)+'\n';
       compat+='\n'+await read('serial-compat.h');
       entry=await read('serial-entry.c');
+      if(name==='pl2303'||name==='ma620')localFiles['pl2303.h']=await read(manifest.files['pl2303-header'].localPath);
+      if(name==='ma620'){
+        compat+='\n'+await read('ma620-compat.h');
+        localFiles['sir-dev.h']='#include <linux-compat.h>\n';
+        localFiles['pl2303.c']=await read(manifest.files.pl2303.localPath);
+        entry='#include "pl2303.c"\n'+entry+'\n'+await read('ma620-entry.c');
+      }
     }else{
       const interrupt=name==='kingsun'||name==='ksdazzle';
       compat+='\n#define LAB_ENDPOINT_TYPE '+(interrupt?3:2)+'\n#define LAB_PACKET_SIZE '+(interrupt?8:64)+'\n';

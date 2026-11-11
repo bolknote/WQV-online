@@ -73,11 +73,13 @@ struct usb_host_interface {
     struct { unsigned char bNumEndpoints,bInterfaceNumber,bAlternateSetting,bInterfaceClass,bInterfaceSubClass; } desc;
     struct usb_host_endpoint *endpoint; unsigned char *extra; unsigned extralen;
 };
+struct usb_interface;
+struct usb_host_config { struct { unsigned char bConfigurationValue; } desc; struct usb_interface *interface[1]; };
 struct usb_device {
     struct device dev;
     unsigned devnum;
-    struct { uint16_t idVendor, idProduct, bcdDevice; unsigned char bNumConfigurations; } descriptor;
-    struct { struct { unsigned char bConfigurationValue; } desc; } *actconfig;
+    struct { uint16_t idVendor, idProduct, bcdDevice; unsigned char bNumConfigurations,bDeviceClass,bMaxPacketSize0; } descriptor;
+    struct usb_host_config *actconfig;
 };
 struct usb_interface { struct device dev; struct usb_device *usbdev; void *data;
     struct usb_host_interface *cur_altsetting,*altsetting; unsigned num_altsetting; };

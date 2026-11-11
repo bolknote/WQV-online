@@ -53,7 +53,7 @@ same USB ID. Unplug the extra adapter before connecting. After updating a
 helper, restart its Python process to use the new version.
 
 Other infrared adapters can use a C driver installed through **Drivers**.
-The available Linux API supports the eight reference drivers listed below;
+The available Linux API supports the ten reference sources listed below;
 another source may need additional API services. **ARK3116T does not
 work yet.** WQV-1, WQV-10 and other operating systems have not been tested.
 
@@ -66,10 +66,32 @@ the resulting Wasm module stays in this browser. You can cancel a build,
 add a missing header later, rebuild, save the source or remove the driver.
 
 The reference sources are SigmaTel STIr4200, KingSun KS-959, KingSun/DonShine,
-KingSun Dazzle, MosChip MCS7780, ARK3116, `irda-usb` and the corrected Linux 5.6
-`ir-usb`. The C files are unchanged and keep their GPL notices. The compiler,
+KingSun Dazzle, MosChip MCS7780, ARK3116, `irda-usb`, the corrected Linux 5.6
+`ir-usb`, Prolific PL2303 and Mobile Action MA-620. The C files are unchanged
+and keep their GPL notices. The compiler,
 compatibility layer and source files ship with the site; no remote compiler
 is involved.
+
+The source selector includes USB VID:PID pairs extracted from compiled C
+registration tables. A long list is shortened in the selector, with the full
+list below it. Regenerate these labels after changing a reference source with
+`node scripts/update-driver-usb-matches.mjs`; browser tests compare them with
+the real compiled tables.
+
+**MA-620 (`0df7:0620`)** combines the original PL2303 USB-serial driver with
+`ma600-sir.c`, as described in Linux's MA600 Kconfig entry. Adding the MA-620
+reference source also saves `pl2303.c` and `pl2303.h`. The C dongle driver
+controls DTR/RTS, reset, command echo and SIR rates from 9600 to 115200 bit/s.
+USB initialization and speed changes are separate from testing a photo
+transfer. On a physical MA-620 connected to macOS, initialization, echoed
+commands and all five SIR speeds passed through USB Helper; the captured
+sequence is in `tests/fixtures/ma620-usb-hardware.json`. A photo transfer with
+this adapter has not yet been tested. The PL2303-only source initializes a
+serial port; it cannot configure
+an infrared transceiver by itself. An installed MA-620 driver takes precedence
+over a PL2303-only match. Other PL2303 serial devices are never sent MA600
+commands. Devices requiring endpoints on separate USB interfaces are not
+supported by this compatibility layer.
 
 WQV Link reads the USB match table exported by each compiled C driver and
 chooses an installed match when connecting. An exact USB ID takes precedence
@@ -103,7 +125,7 @@ For a USB ID outside the bundled list, the new helper requires an explicit
 `--device 1234:5678` argument.
 
 The compiler and driver runtime need a current Chromium browser with
-WebAssembly JSPI. Eight C sources pass browser compilation and USB-model
+WebAssembly JSPI. Ten C sources pass browser compilation and USB-model
 tests. Earlier optical tests of the C drivers covered SigmaTel and KS-959;
 the new utility has not yet had a physical watch transfer. Packet-oriented
 USB-IrDA drivers cannot carry WQV-1/2's raw SUM16 framing. ARK3116T's macOS

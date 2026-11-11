@@ -9,6 +9,19 @@ spec.loader.exec_module(helper)
 
 
 class HelperTests(unittest.TestCase):
+    def test_pl2303_device_descriptor_is_read_only_and_narrowly_scoped(self):
+        adapter = helper.USB.__new__(helper.USB)
+        adapter.control = MagicMock(return_value=bytes(18))
+        request = {'type': 0x80, 'request': 6, 'value': 0x100, 'index': 0, 'length': 18}
+        self.assertEqual(adapter.transfer(request, None), {'hex': '00' * 18})
+        adapter.control.assert_called_once_with(0x80, 6, 0x100, 0, 18)
+        for change in ({'type': 0}, {'request': 9}, {'value': 0x200}, {'index': 1}, {'length': 64}):
+            with self.assertRaises(ValueError):
+                changed = {**request, **change}
+                adapter.transfer(changed, None if changed['type'] & 128 else '00' * changed['length'])
+        self.assertEqual(adapter.control.call_count, 1)
+        self.assertIn((0x0df7, 0x0620), helper.ALLOWED_DEVICES)
+
     def test_active_configuration_zero_reaches_native_claim(self):
         raw = bytes.fromhex('0902270001000080fa0904000003ff000000070581030400010705020240000007058202400000')
         library = MagicMock()
