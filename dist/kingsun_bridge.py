@@ -175,7 +175,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         if self.permitted():
             self.send_header('Access-Control-Allow-Origin', self.headers['Origin'])
-            self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
             self.send_header('Access-Control-Allow-Headers', 'Content-Type')
             self.send_header('Access-Control-Allow-Private-Network', 'true')
             self.send_header('Vary', 'Origin')

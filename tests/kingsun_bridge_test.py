@@ -1,4 +1,6 @@
 import importlib.util
+import io
+import json
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -74,6 +76,26 @@ class Tests(unittest.TestCase):
             ('null', '127.0.0.1:8767', False), ('https://bolknote.github.io', 'example.org:8767', False)]:
             handler.headers = {'Origin': origin, 'Host': host}
             self.assertEqual(module.Handler.permitted(handler), allowed)
+
+    def test_browser_can_probe_readiness_without_opening_usb(self):
+        handler = object.__new__(module.Handler)
+        bridge = module.Bridge(factory=lambda: self.fail('Readiness must not open USB'))
+        handler.server = SimpleNamespace(server_port=8767, bridge=bridge)
+        handler.headers = {'Origin': 'https://bolknote.github.io', 'Host': '127.0.0.1:8767'}
+        headers, statuses = {}, []
+        handler.send_response = statuses.append
+        handler.send_header = headers.__setitem__
+        handler.end_headers = lambda: None
+        handler.wfile = io.BytesIO()
+        handler.do_OPTIONS()
+        self.assertIn('GET', headers['Access-Control-Allow-Methods'].split(', '))
+        self.assertEqual(headers['Access-Control-Allow-Private-Network'], 'true')
+        handler.wfile.seek(0); handler.wfile.truncate()
+        handler.do_GET()
+        self.assertEqual(statuses, [200, 200])
+        self.assertEqual(json.loads(handler.wfile.getvalue()),
+                         {'helper': 'WQV Link / KingSun KS-959', 'usbId': '07d0:4959', 'version': 1})
+        self.assertIsNone(bridge.adapter)
 
 
 if __name__ == '__main__':
