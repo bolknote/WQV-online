@@ -85,6 +85,11 @@ export function createAdapter() {
         const usb=new EventTarget();usb.requestDevice=async()=>({vendorId:ks?0x07d0:0x066f,productId:ks?0x4959:0x4200});
         Object.defineProperty(navigator,'usb',{configurable:true,value:usb});
       },{fixture,sender,ks});
+      await page.route('http://127.0.0.1:8767/**',route=>{
+        assert.equal(route.request().method(),'GET','adapter fixture must only probe readiness');
+        return route.fulfill({contentType:'application/json',headers:{'Access-Control-Allow-Origin':new URL(url).origin},
+          body:JSON.stringify({helper:'WQV Link / KingSun KS-959',version:1})});
+      });
       await page.route('**/adapters.mjs',route=>route.fulfill({contentType:'text/javascript',body:mock}));
       await page.goto(url);await page.locator('[data-mode=swan]').click();
       await page.waitForFunction(()=>document.querySelector('[data-mode=swan]').getAttribute('aria-pressed')==='true');
