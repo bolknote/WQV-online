@@ -6,6 +6,8 @@ import { DRIVER_PROFILES, DRIVER_ABI, chooseInstalledDriver, usbID, usbMatchLabe
 import { compileDriver, referenceDriver } from './driver-compiler.mjs';
 import { checkInstalledDriver } from './driver-usb.mjs';
 import { driverLogMessage } from './driver-log.mjs';
+import { readDriverAccess } from './driver-access.mjs';
+import './usb-helper-help.mjs';
 
 const $ = id => document.getElementById(id), say = key => String(tr(key));
 const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, reportKey: null, log: [], lastStatus: null };
@@ -105,7 +107,10 @@ function renderCheck() {
     const running = S.checkMethod === 'auto' || S.checkMethod === method;
     target.dataset.state = running ? 'running' : result?.status ?? 'untested'; target.textContent = say(running ? 'Testing…' : labels[result?.status] || 'Not tested');
   }
-  $('helper-instructions').hidden = !(S.report?.direct?.code === 'helper-needed' || S.report?.helper?.status === 'unavailable');
+  const preferred = matched ? readDriverAccess(matched.record, device) : 'auto';
+  $('remembered-access').textContent = say(preferred === 'helper' ? 'Through USB Helper' : preferred === 'direct' ? 'Without helper · WebUSB' : 'Not tested');
+  $('helper-instructions').hidden = !($('check-method').value === 'helper' || preferred === 'helper' ||
+    ['helper-needed', 'initialization-failed'].includes(S.report?.direct?.code) || S.report?.helper?.status && S.report.helper.status !== 'untested');
   if (S.active && S.view === 'check') $('check-heading').textContent = say('Testing…');
   else if (!device) $('check-heading').textContent = say('Choose an adapter to test its driver.');
   else if (!matched) $('check-heading').textContent = say('No matching installed driver');
@@ -225,6 +230,7 @@ document.addEventListener('click', event => {
 });
 $('driver-files').addEventListener('change', () => { const files = [...$('driver-files').files]; $('driver-files').value = ''; if (files.length) run(signal => importFiles(files, signal)); });
 $('driver-build-dialog').addEventListener('cancel', event => { event.preventDefault(); S.active?.abort(); });
+$('check-method').addEventListener('change', renderCheck);
 for (const [id, tab] of [['tab-drivers', 'drivers'], ['tab-check', 'check']]) $(id).addEventListener('click', () => { if (!S.active) { showTab(tab); render(); } });
 $('driver-library').addEventListener('dragover', event => { if (event.dataTransfer.types.includes('Files')) event.preventDefault(); });
 $('driver-library').addEventListener('drop', event => { event.preventDefault(); if (!S.active) run(signal => importFiles([...event.dataTransfer.files], signal)); });

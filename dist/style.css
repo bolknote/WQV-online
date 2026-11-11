@@ -63,3 +63,7 @@ html[lang=ja],html[lang=ja] dialog{font-family:"MS UI Gothic","Yu Gothic UI",Mei
 .programs-grid button.program-icon{background:none;box-shadow:none;border:1px solid transparent;border-radius:0;white-space:normal;font:inherit}
 .programs-grid button.program-icon:hover{background:#ffffff0d}
 .settings-utility-icon svg{width:64px;height:68px}
+
+.usb-helper-dialog{width:470px}.usb-helper-dialog .dialog-body{line-height:1.55}.usb-helper-dialog code{display:block;padding:9px;background:#f7f8f0;border:1px inset #a9b3b9;overflow-wrap:anywhere;user-select:all}.usb-helper-dialog ol{padding-left:22px}.usb-helper-dialog li{margin:9px 0}.usb-helper-dialog a{color:#184f86}.usb-helper-dialog [data-helper-state][data-state=running]{color:#356b39}.usb-helper-dialog details{margin-top:16px}.usb-helper-dialog summary{cursor:pointer}
+
+.helper-help-toolbar{padding:0 3px 12px}.helper-help-toolbar button{white-space:normal}

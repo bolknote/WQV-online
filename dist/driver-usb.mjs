@@ -1,4 +1,5 @@
 import { usbAlternates, usbID } from './driver-catalog.mjs';
+import { readDriverAccess, rememberDriverAccess, canTryUSBHelper } from './driver-access.mjs';
 
 export class DriverUSBError extends Error {
   constructor(code, message, cause) { super(message, { cause }); this.name = 'DriverUSBError'; this.code = code; }
@@ -43,6 +44,10 @@ export function classifyUSBFailure(error, stage = '') {
   if (error?.name === 'NotAllowedError') return new DriverUSBError('permission', 'USB access was not allowed.', error);
   if (stage === 'claim' && error?.name === 'NetworkError') return new DriverUSBError('busy', 'Cannot claim the USB interface. Disconnect it in the other application and try again.', error);
   return new DriverUSBError('usb-error', error?.message || String(error), error);
+}
+export function classifyDriverOpenFailure(error, backend) {
+  return backend.lastError ?? (error?.name === 'Error'
+    ? new DriverUSBError('initialization-failed', error.message, error) : classifyUSBFailure(error));
 }
 
 export class WebUSBDriverBackend {
@@ -295,6 +300,7 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
     driver: { id: record.id, filename: record.filename, sha256: record.sha256, inputSHA256: record.inputSHA256, profile: record.profile },
     direct: { status: 'untested' }, helper: { status: 'untested' }, infrared: 'not-tested', events: [] };
   const attempt = async transport => {
+    let initializing = false;
     const event = entry => { if (report.events.length < 300) report.events.push(entry); recordEvent(entry); };
     const backend = transport === 'direct' ? new WebUSBDriverBackend(device, match, { onTransfer: event, onEvent: event }) : new HelperDriverBackend(device, match, { onTransfer: event, onEvent: event });
     const client = new DriverWorkerClient(backend, { event });
@@ -305,12 +311,13 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
       signal?.throwIfAborted();
       await client.load(record.artifact.bytes, record.profile); signal?.throwIfAborted();
       event({ kind: 'usb-opening', transport });
+      initializing = true;
       const description = await client.open(); signal?.throwIfAborted();
       if (!backend.completed) throw new DriverUSBError('initialization-failed', 'The driver did not complete any USB request.');
       report[transport] = { status: 'passed', description, completedTransfers: backend.completed };
       event({ kind: 'check-passed', transport });
     } catch (error) {
-      const reason = backend.lastError ?? classifyUSBFailure(error);
+      const reason = initializing ? classifyDriverOpenFailure(error, backend) : backend.lastError ?? classifyUSBFailure(error);
       report[transport] = { status: signal?.aborted ? 'cancelled' : reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
       event({ kind: signal?.aborted ? 'check-cancelled' : 'check-failed', transport, code: reason.code, message: reason.message });
     } finally {
@@ -319,8 +326,11 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
       finally { signal?.removeEventListener('abort', abort); }
     }
     if (signal?.aborted && report[transport].status === 'passed') report[transport].status = 'cancelled';
+    if (!signal?.aborted && report[transport].status === 'passed') rememberDriverAccess(record, device, transport);
   };
-  if (method !== 'helper') await attempt('direct');
-  if (!signal?.aborted && (method === 'helper' || method === 'auto' && report.direct.code === 'helper-needed' && !report.direct.cleanupError)) await attempt('helper');
+  const first = method === 'auto' ? readDriverAccess(record, device) === 'helper' ? 'helper' : 'direct' : method;
+  report.preferredAccess = first;
+  await attempt(first);
+  if (!signal?.aborted && method === 'auto' && first === 'direct' && canTryUSBHelper(report.direct) && !report.direct.cleanupError) await attempt('helper');
   report.cancelled = Boolean(signal?.aborted); report.complete = !report.cancelled; return report;
 }

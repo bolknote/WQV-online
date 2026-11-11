@@ -91,7 +91,8 @@ function render() {
   $('power-led').title = connected ? tr('{0} connected', info.label) : tr('USB not connected');
   $('title-connection').textContent = connected ? 'IrDA / USB' : tr('Offline');
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
-  $('adapter-support').textContent = info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? 'WebUSB' : tr('Not supported') : '—';
+  const installed = S.adapter || S.lastAdapter;
+  $('adapter-support').textContent = installed?.candidate ? installed.candidate.record.name + ' · ' + (installed.backend?.transport === 'helper' ? tr('Through USB Helper') : 'WebUSB') : info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? 'WebUSB' : tr('Not supported') : '—';
   renderDriverHelper($('kingsun-help'), S.device, S.adapter || S.lastAdapter);
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   const metrics = S.client?.stats || S.latest || {};

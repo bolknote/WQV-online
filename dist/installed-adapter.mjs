@@ -1,6 +1,8 @@
 import { driverStore } from './driver-store.mjs';
 import { chooseInstalledDriver, driverProfile } from './driver-catalog.mjs';
-import { WebUSBDriverBackend, HelperDriverBackend, DriverUSBError } from './driver-usb.mjs';
+import { WebUSBDriverBackend, HelperDriverBackend, classifyDriverOpenFailure } from './driver-usb.mjs';
+import { readDriverAccess, rememberDriverAccess, canTryUSBHelper } from './driver-access.mjs';
+import { openUSBHelperHelp } from './usb-helper-help.mjs';
 import { DriverWorkerClient } from './driver-worker-client.mjs';
 import { FrameDecoder, encodeFrame, sleep } from './irda.mjs';
 import { KingsunStream } from './kingsun.mjs';
@@ -10,11 +12,17 @@ export function renderDriverHelper(element, device, adapter) {
   const installed = Boolean(adapter?.candidate);
   const needed = installed ? adapter.backend?.transport === 'helper' : device?.vendorId === 0x07d0 && device?.productId === 0x4959;
   element.hidden = !device || !needed;
-  const script = installed ? 'irda_usb_helper.py' : 'kingsun_bridge.py';
-  const message = installed ? 'Start USB Helper on this computer.' : 'KS-959 needs the local USB helper. Download it, run it in a terminal, then connect again.';
+  const script = !installed && device?.vendorId === 0x07d0 && device?.productId === 0x4959 ? 'kingsun_bridge.py' : 'irda_usb_helper.py';
+  const message = installed ? 'Through USB Helper' : 'KS-959 needs the local USB helper. Download it, run it in a terminal, then connect again.';
   const label = element.querySelector('span'); label.dataset.i18n = message; label.textContent = tr(message);
   const link = element.querySelector('a'); link.href = './' + script; link.download = script;
   element.querySelector('code').textContent = 'python3 ' + script;
+  for (const node of element.children) if (node.matches('a, code, span[data-i18n="Leave the terminal open while using the adapter."]')) node.hidden = installed;
+  for (const button of document.querySelectorAll('[data-usb-helper-help]')) button.dataset.usbHelperHelp = script;
+  let help = element.querySelector('[data-helper-details]');
+  if (!help) { help = document.createElement('button'); help.type = 'button'; help.dataset.helperDetails = ''; element.append(help); }
+  help.dataset.i18n = 'How to start USB Helper…'; help.textContent = tr('How to start USB Helper…');
+  help.onclick = () => openUSBHelperHelp(script);
 }
 
 // The host only finds the receive counter's phase. The unmodified C driver
@@ -88,21 +96,23 @@ export class InstalledDriverAdapter {
       catch (error) {
         try { await client.close(); }
         catch (cleanup) { throw new AggregateError([error, cleanup], error.message + '; USB cleanup failed: ' + cleanup.message); }
-        throw backend.lastError ?? error;
+        throw classifyDriverOpenFailure(error, backend);
       }
     };
     try {
-      try { this.description = await attempt('direct'); }
+      try { this.description = await attempt(readDriverAccess(record, this.device) === 'helper' ? 'helper' : 'direct'); }
       catch (error) {
-        if (!(error instanceof DriverUSBError) || error.code !== 'helper-needed') throw error;
+        if (this.closing || this.backend.transport === 'helper' || !canTryUSBHelper(error)) throw error;
         this.log('info', error.message); this.description = await attempt('helper');
       }
+      if (this.closing) throw new DOMException('The adapter connection is closed.', 'AbortError');
       this.description.driver = record.name + ' · C';
       const fields = this.backend.descriptors().fields;
       this.inEndpoint = fields[4] & 15; this.outEndpoint = fields[5] & 15;
       if (this.profile.id === 'ks959') this.description.controlEndpoint = 0;
       this.claimed = true; this.configured = true; this.baud = 9600;
       if (this.profile.id === 'sigmatel') this.revision = (await this.registers(4, 1))[0] & 7;
+      rememberDriverAccess(record, this.device, this.backend.transport);
       this.log('info', record.filename + ' · ' + record.sha256 + ' · ' + this.description.transport);
       return this.description;
     } catch (error) {

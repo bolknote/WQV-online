@@ -100,12 +100,22 @@ KS-959 implementations remain available. Installing a C driver does not
 require reinstalling the watch apps.
 
 The **Check** tab shows the device name, USB ID, known model and matching
-installed driver. **Test automatically** tries direct WebUSB first. It tries
-the local helper only when WebUSB blocks an operation required by the driver.
-Busy devices, denied permissions, USB errors and missing OS interfaces are
-reported separately. The two access methods can also be tested individually.
+installed driver. **Test automatically** uses the last successful access method
+for this adapter and compiled driver in this browser. Without a saved result,
+it tries direct WebUSB first, then the helper if WebUSB blocks a required
+operation or the C driver's USB initialization fails. A failed direct attempt
+must finish cleanup before the helper can open USB. Busy devices, denied
+permissions, USB transfer errors and missing OS interfaces are reported
+separately. The two access methods can also be tested individually; a new
+successful check updates the remembered choice used by both watch apps.
 This initializes USB and releases it afterwards; it sends no infrared frame.
 Use the watch app to check an actual photo transfer.
+
+**How to start USB Helper…** opens a shared instruction window from the check
+tab or either watch app's Connection tab. It offers the helper download,
+`python3 irda_usb_helper.py` to run from the download folder, requirements and
+startup troubleshooting. A read-only service check detects an already running
+helper without claiming USB and avoids prompting for a second copy.
 
 Saved check reports include the browser's active and advertised USB
 configurations, interfaces and endpoints. A configuration numbered zero is
