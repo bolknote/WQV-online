@@ -111,6 +111,7 @@ function mockUSB(kind) {
     const realFetch=window.fetch;
     window.fetch=async(url,options)=>{
       if(!String(url).startsWith('http://127.0.0.1:8767/'))return realFetch(url,options);
+      if(!options.method)return Response.json({helper:'WQV Link / KingSun KS-959',version:1});
       const request=JSON.parse(options.body);let result;
       if(request.method==='open'){device.opened=true;result={vendorId:0x07d0,productId:0x4959,session:'mock-only'};}
       else if(request.method==='close'){await device.close();result={};}

@@ -7,7 +7,7 @@ import { compileDriver, referenceDriver } from './driver-compiler.mjs';
 import { checkInstalledDriver } from './driver-usb.mjs';
 import { driverLogMessage } from './driver-log.mjs';
 import { readDriverAccess } from './driver-access.mjs';
-import './usb-helper-help.mjs';
+import { ensureUSBHelperReady } from './usb-helper-help.mjs';
 
 const $ = id => document.getElementById(id), say = key => String(tr(key));
 const S = { records: [], selected: null, view: 'drivers', active: null, checkMethod: null, device: null, report: null, reportKey: null, log: [], lastStatus: null };
@@ -109,8 +109,6 @@ function renderCheck() {
   }
   const preferred = matched ? readDriverAccess(matched.record, device) : 'auto';
   $('remembered-access').textContent = say(preferred === 'helper' ? 'Through USB Helper' : preferred === 'direct' ? 'Without helper · WebUSB' : 'Not tested');
-  $('helper-instructions').hidden = !($('check-method').value === 'helper' || preferred === 'helper' ||
-    ['helper-needed', 'initialization-failed'].includes(S.report?.direct?.code) || S.report?.helper?.status && S.report.helper.status !== 'untested');
   if (S.active && S.view === 'check') $('check-heading').textContent = say('Testing…');
   else if (!device) $('check-heading').textContent = say('Choose an adapter to test its driver.');
   else if (!matched) $('check-heading').textContent = say('No matching installed driver');
@@ -186,7 +184,7 @@ async function check(method, signal) {
   S.reportKey = checkKey(match.record);
   S.checkMethod = method; renderCheck();
   let report;
-  try { report = await checkInstalledDriver(match.record, match.match, S.device, { method, signal, recordEvent: entry => log(entry) }); }
+  try { report = await checkInstalledDriver(match.record, match.match, S.device, { method, signal, waitForHelper: ensureUSBHelperReady, recordEvent: entry => log(entry) }); }
   finally { S.checkMethod = null; }
   S.report = { ...report, at: new Date().toISOString() };
   $('diagnostic-date').textContent = new Date().toLocaleTimeString(locale());

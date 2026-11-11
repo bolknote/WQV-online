@@ -111,11 +111,13 @@ successful check updates the remembered choice used by both watch apps.
 This initializes USB and releases it afterwards; it sends no infrared frame.
 Use the watch app to check an actual photo transfer.
 
-**How to start USB Helper…** opens a shared instruction window from the check
-tab or either watch app's Connection tab. It offers the helper download,
-`python3 irda_usb_helper.py` to run from the download folder, requirements and
-startup troubleshooting. A read-only service check detects an already running
-helper without claiming USB and avoids prompting for a second copy.
+When a connection needs USB Helper, the app checks its local service automatically
+without claiming USB. If it is already running, USB initialization proceeds without
+an instruction window. Otherwise the app opens the complete download and startup
+instructions and keeps checking in the background. Start the downloaded file with
+`python3 irda_usb_helper.py` from its folder; the window closes and USB connection
+continues automatically. **Cancel connection** stops waiting. Detecting the helper
+does not start a photo transfer or hide errors such as an adapter being busy.
 
 Saved check reports include the browser's active and advertised USB
 configurations, interfaces and endpoints. A configuration numbered zero is
@@ -150,7 +152,8 @@ python3 ~/Downloads/kingsun_bridge.py
 ```
 
 Leave that terminal open, then click **Connect USB…** in the app and choose
-**USB to IRDA**. The page shows the helper instructions when you select a KS-959.
+**USB to IRDA**. If the helper is missing, the page shows its instructions and
+continues connecting automatically after it starts.
 The helper needs Python 3 and libusb (`brew install libusb` on macOS); it uses no
 Python packages. Press Ctrl+C when you are done.
 

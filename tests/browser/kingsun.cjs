@@ -21,9 +21,13 @@ const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:o
   await page.route('http://127.0.0.1:8767/**', async route => {
     if (!online) { await route.abort(); return; }
     const headers = { 'Access-Control-Allow-Origin': new URL(appURL).origin,
-      'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type',
       'Access-Control-Allow-Private-Network': 'true' };
     if (route.request().method() === 'OPTIONS') { await route.fulfill({ status: 204, headers }); return; }
+    if (route.request().method() === 'GET') {
+      await route.fulfill({ status: 200, contentType: 'application/json', headers,
+        body: JSON.stringify({ helper: 'WQV Link / KingSun KS-959', version: 1 }) }); return;
+    }
     const call = route.request().postDataJSON(); calls.push(call);
     const result = call.method === 'open' ? { vendorId: 0x07d0, productId: 0x4959, session: 'owned-browser-session' } :
       call.method === 'controlTransferIn' ? { status: 'ok', hex: '' } :
@@ -40,13 +44,13 @@ const artifacts = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:o
       Kingsun.prototype.open = async function (...args) { window.__ksAdapter = this; return open.apply(this, args); };
     });
     await page.locator('#connect').click();
-    await page.waitForFunction(() => document.querySelector('#result-detail').textContent.includes('Cannot reach the KS-959 USB helper'));
-    assert.equal(await page.locator('#kingsun-help').isVisible(), true);
-    assert.match(await page.locator('#kingsun-help').innerText(), /python3 kingsun_bridge.py/);
-    assert.equal(await page.locator('#connect').isEnabled(), true);
+    await page.locator('#usb-helper-dialog').waitFor({ state: 'visible' });
+    assert.equal(await page.locator('[data-helper-command]').textContent(), 'python3 kingsun_bridge.py');
+    assert.equal(await page.locator('[data-helper-download]').getAttribute('download'), 'kingsun_bridge.py');
+    assert.equal(calls.length, 0, 'waiting for startup must not open USB');
     online = true;
-    await page.locator('#connect').click();
     await page.waitForFunction(() => document.querySelector('#connection-badge').textContent === 'USB connected');
+    assert.equal(await page.locator('#usb-helper-dialog, #kingsun-help, [data-usb-helper-help]').count(), 0);
     await page.locator('#tab-connection').click();
     assert.equal(await page.locator('#adapter-label').innerText(), 'USB to IRDA · 07d0:4959');
     assert.equal(await page.locator('#endpoints').innerText(), 'Control endpoint 0');

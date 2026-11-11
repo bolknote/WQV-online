@@ -2,7 +2,8 @@ import { tr, LocalizedError, formatText, formatNumber, quantity, locale,
   getLanguage, onLanguageChange, translateDOM } from './i18n.mjs';
 import { installDesktopClock } from './desktop-clock.mjs';
 import { createAdapter, describeUSBDevice } from './adapters.mjs';
-import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
+import { findInstalledAdapter } from './installed-adapter.mjs';
+import { ensureUSBHelperReady } from './usb-helper-help.mjs';
 import { KingsunBridgeDevice } from './kingsun-bridge.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { WQVClient } from './protocol.mjs';
@@ -98,7 +99,6 @@ function update() {
   const connected = Boolean(S.adapter?.opened), busy = Boolean(S.active), source = S.adapter || S.lastAdapter;
   const info = S.device ? describeUSBDevice(S.device) : null;
   const installed = Boolean(source?.candidate);
-  renderDriverHelper($('kingsun-help'), S.device, source);
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   $('connect').disabled = !supported || busy || connected || Boolean(S.disconnectTask);
   $('disconnect').disabled = (!S.adapter && !S.device) || busy;
@@ -280,7 +280,8 @@ $('connect').addEventListener('click', () => run(async signal => {
   }
   const transport = info.driver === 'KingSun KS-959' ? new KingsunBridgeDevice(device) : device;
   S.adapter = installed ?? createAdapter(transport, { log, update: updateSoon, rawLog: $('raw-log').checked, record: recordTransfer }); S.lastAdapter = S.adapter;
-  const description = await S.adapter.open(); signal.throwIfAborted();
+  if (!installed && info.driver === 'KingSun KS-959') await ensureUSBHelperReady({ script: 'kingsun_bridge.py', signal });
+  const description = await S.adapter.open(signal); signal.throwIfAborted();
   record('usb', { passed: true, description });
   log('ok', installed ? description.driver : info.driver === 'KingSun KS-959' ? tr('{0} opened through the local USB helper.', info.label) : tr("{0} opened through WebUSB.", info.label));
   result('success', tr("USB adapter connected"), S.mode === 'pc' ? tr('{0}. Select IR → PC on the {1}, then choose an operation.', info.label, profile.name) : tr('{0}. Choose Receive photo or To watch; the transfer window will guide you.', info.label));

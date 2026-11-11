@@ -3,7 +3,8 @@ import { installDesktopShell, messageDialog } from './desktop-shell.mjs';
 import { bindApplicationNavigation } from './application-navigation.mjs';
 import { createWQV2Adapter } from './wqv2-adapter.mjs';
 import { describeUSBDevice } from './adapters.mjs';
-import { findInstalledAdapter, renderDriverHelper } from './installed-adapter.mjs';
+import { findInstalledAdapter } from './installed-adapter.mjs';
+import { ensureUSBHelperReady } from './usb-helper-help.mjs';
 import { WQV12Client } from './wqv12-core.mjs';
 import { wqv12ClockPayload } from './wqv12-clock.mjs';
 import { LocalStore } from './images.mjs';
@@ -93,7 +94,6 @@ function render() {
   $('device-name').textContent = info?.name || '—'; $('usb-id').textContent = info?.usbId || '—';
   const installed = S.adapter || S.lastAdapter;
   $('adapter-support').textContent = installed?.candidate ? installed.candidate.record.name + ' · ' + (installed.backend?.transport === 'helper' ? tr('Through USB Helper') : 'WebUSB') : info ? info.driver === 'KingSun KS-959' ? tr('Local USB helper') : info.supported ? 'WebUSB' : tr('Not supported') : '—';
-  renderDriverHelper($('kingsun-help'), S.device, S.adapter || S.lastAdapter);
   $('storage-label').textContent = S.storageFailed ? tr('this tab only') : tr('local storage');
   const metrics = S.client?.stats || S.latest || {};
   $('tx-count').textContent = metrics.txFrames ?? 0; $('rx-count').textContent = metrics.rxBytes ?? 0;
@@ -203,7 +203,10 @@ $('connect').addEventListener('click', () => simple(async signal => {
     log: (level, message) => log(level, message), update: refreshSoon });
   S.adapter = adapter;
   S.lastAdapter = adapter;
-  try { await adapter.open(); signal.throwIfAborted(); }
+  try {
+    if (!adapter.candidate && device.vendorId === 0x07d0 && device.productId === 0x4959) await ensureUSBHelperReady({ script: 'kingsun_bridge.py', signal });
+    await adapter.open(signal); signal.throwIfAborted();
+  }
   catch (error) { try { await adapter.close(); } catch {} S.adapter = null; throw error; }
   status('success', tr('USB adapter connected'), S.mode === 'pc' ? tr('Choose Current photo, All photos or Find watch.') :
     tr('Choose Receive photo, then send a photo from OTHERS → SEND on WQV-1/2.'));

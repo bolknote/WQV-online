@@ -37,3 +37,29 @@ test('helper readiness only recognizes the expected service and never opens a US
  assert.ok(calls.every(call=>!call.options.body&&!call.options.method));
  assert.equal(await probeUSBHelper({fetcher:async()=>{throw Error('Offline')}}),false);
 });
+
+test('helper wait returns immediately for a running service without showing instructions', async () => {
+ const {waitForUSBHelper}=await import('../dist/usb-helper-help.mjs');let count=0;
+ await waitForUSBHelper({probe:async()=>{count++;return true},onWaiting:()=>assert.fail('running helper needs no window')});
+ assert.equal(count,1);
+});
+test('helper wait polls sequentially and shows instructions once until ready', async () => {
+ const {waitForUSBHelper}=await import('../dist/usb-helper-help.mjs');let calls=0,waiting=0,active=0;
+ await waitForUSBHelper({interval:1,probe:async()=>{assert.equal(active++,0);await new Promise(resolve=>setTimeout(resolve,1));active--;return ++calls===3},onWaiting:()=>waiting++});
+ assert.equal(calls,3);assert.equal(waiting,1);
+});
+test('cancelling helper wait during a probe discards a late successful response', async () => {
+ const {waitForUSBHelper}=await import('../dist/usb-helper-help.mjs');const controller=new AbortController();let finish;
+ const pending=waitForUSBHelper({signal:controller.signal,probe:()=>new Promise(resolve=>{finish=resolve}),onWaiting:()=>assert.fail('cancelled wait must not open a window')});
+ controller.abort();finish(true);await assert.rejects(pending,{name:'AbortError'});
+});
+test('cancelling helper wait stops the polling timer', async () => {
+ const {waitForUSBHelper}=await import('../dist/usb-helper-help.mjs');const controller=new AbortController();let calls=0;
+ await assert.rejects(waitForUSBHelper({signal:controller.signal,interval:1,probe:async()=>{calls++;return false},onWaiting:()=>controller.abort()}),{name:'AbortError'});
+ await new Promise(resolve=>setTimeout(resolve,5));assert.equal(calls,1);
+});
+test('legacy KS-959 readiness checks its own service and port', async () => {
+ let url;
+ assert.equal(await probeUSBHelper({script:'kingsun_bridge.py',fetcher:async target=>{url=target;return Response.json({helper:'WQV Link / KingSun KS-959',version:1})}}),true);
+ assert.equal(url,'http://127.0.0.1:8767/usb');
+});

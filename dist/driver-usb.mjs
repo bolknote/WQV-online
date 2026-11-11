@@ -293,7 +293,7 @@ export class HelperDriverBackend extends WebUSBDriverBackend {
   }
 }
 
-export async function checkInstalledDriver(record, match, device, { method = 'auto', signal, recordEvent = () => {} } = {}) {
+export async function checkInstalledDriver(record, match, device, { method = 'auto', signal, waitForHelper, recordEvent = () => {} } = {}) {
   const { DriverWorkerClient } = await import('./driver-worker-client.mjs');
   const report = { device: { name: device.productName || device.manufacturerName || 'USB device', usbId: usbID(device), descriptors: usbDescriptorSnapshot(device) },
     environment: { userAgent: globalThis.navigator?.userAgent ?? null },
@@ -309,6 +309,8 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
     signal?.addEventListener('abort', abort, { once: true });
     try {
       signal?.throwIfAborted();
+      if (transport === 'helper' && waitForHelper) await waitForHelper({ signal });
+      signal?.throwIfAborted();
       await client.load(record.artifact.bytes, record.profile); signal?.throwIfAborted();
       event({ kind: 'usb-opening', transport });
       initializing = true;
@@ -318,8 +320,9 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
       event({ kind: 'check-passed', transport });
     } catch (error) {
       const reason = initializing ? classifyDriverOpenFailure(error, backend) : backend.lastError ?? classifyUSBFailure(error);
-      report[transport] = { status: signal?.aborted ? 'cancelled' : reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
-      event({ kind: signal?.aborted ? 'check-cancelled' : 'check-failed', transport, code: reason.code, message: reason.message });
+      const cancelled = signal?.aborted || reason.code === 'cancelled';
+      report[transport] = { status: cancelled ? 'cancelled' : reason.code === 'helper-needed' ? 'blocked' : reason.code === 'helper-unavailable' ? 'unavailable' : 'failed', code: reason.code, message: reason.message };
+      event({ kind: cancelled ? 'check-cancelled' : 'check-failed', transport, code: reason.code, message: reason.message });
     } finally {
       try { await client.close(); event({ kind: 'usb-released', transport }); }
       catch (error) { report[transport].cleanupError = error.message; report[transport].status = 'failed'; event({ kind: 'check-cleanup-failed', transport, message: error.message }); }
@@ -332,5 +335,5 @@ export async function checkInstalledDriver(record, match, device, { method = 'au
   report.preferredAccess = first;
   await attempt(first);
   if (!signal?.aborted && method === 'auto' && first === 'direct' && canTryUSBHelper(report.direct) && !report.direct.cleanupError) await attempt('helper');
-  report.cancelled = Boolean(signal?.aborted); report.complete = !report.cancelled; return report;
+  report.cancelled = Boolean(signal?.aborted || report.direct.status === 'cancelled' || report.helper.status === 'cancelled'); report.complete = !report.cancelled; return report;
 }

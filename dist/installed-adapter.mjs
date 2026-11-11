@@ -2,28 +2,11 @@ import { driverStore } from './driver-store.mjs';
 import { chooseInstalledDriver, driverProfile } from './driver-catalog.mjs';
 import { WebUSBDriverBackend, HelperDriverBackend, classifyDriverOpenFailure } from './driver-usb.mjs';
 import { readDriverAccess, rememberDriverAccess, canTryUSBHelper } from './driver-access.mjs';
-import { openUSBHelperHelp } from './usb-helper-help.mjs';
+import { ensureUSBHelperReady } from './usb-helper-help.mjs';
 import { DriverWorkerClient } from './driver-worker-client.mjs';
 import { FrameDecoder, encodeFrame, sleep } from './irda.mjs';
 import { KingsunStream } from './kingsun.mjs';
 import { tr } from './i18n.mjs';
-
-export function renderDriverHelper(element, device, adapter) {
-  const installed = Boolean(adapter?.candidate);
-  const needed = installed ? adapter.backend?.transport === 'helper' : device?.vendorId === 0x07d0 && device?.productId === 0x4959;
-  element.hidden = !device || !needed;
-  const script = !installed && device?.vendorId === 0x07d0 && device?.productId === 0x4959 ? 'kingsun_bridge.py' : 'irda_usb_helper.py';
-  const message = installed ? 'Through USB Helper' : 'KS-959 needs the local USB helper. Download it, run it in a terminal, then connect again.';
-  const label = element.querySelector('span'); label.dataset.i18n = message; label.textContent = tr(message);
-  const link = element.querySelector('a'); link.href = './' + script; link.download = script;
-  element.querySelector('code').textContent = 'python3 ' + script;
-  for (const node of element.children) if (node.matches('a, code, span[data-i18n="Leave the terminal open while using the adapter."]')) node.hidden = installed;
-  for (const button of document.querySelectorAll('[data-usb-helper-help]')) button.dataset.usbHelperHelp = script;
-  let help = element.querySelector('[data-helper-details]');
-  if (!help) { help = document.createElement('button'); help.type = 'button'; help.dataset.helperDetails = ''; element.append(help); }
-  help.dataset.i18n = 'How to start USB Helper…'; help.textContent = tr('How to start USB Helper…');
-  help.onclick = () => openUSBHelperHelp(script);
-}
 
 // The host only finds the receive counter's phase. The unmodified C driver
 // still decodes every delivered USB byte, including counter wrap markers.
@@ -68,16 +51,21 @@ export class InstalledDriverAdapter {
     this.configured = false; this.claimed = false; this.closing = false; this.baud = null;
     this.queue = []; this.queueBytes = 0; this.readerTask = null; this.readerActive = false;
     this.readPending = false; this.readError = null; this.waiter = null;
+    this.connectionAbort = new AbortController();
   }
   get opened() { return this.claimed && !this.closing; }
   assertOpen() { if (!this.opened) throw new DOMException('The adapter connection is closed.', 'AbortError'); }
-  async open() {
+  async open(signal) {
+    const connectionSignal = signal ? AbortSignal.any([signal, this.connectionAbort.signal]) : this.connectionAbort.signal;
     const { record, match } = this.candidate;
     if (this.profile.id === 'ks959') {
       const stream = this.model === 'wqv2' ? new (await import('./wqv2-adapter.mjs')).WQV2KingsunStream() : new KingsunStream();
       this.calibration = new CounterCalibration(stream);
     }
     const attempt = async method => {
+      connectionSignal.throwIfAborted();
+      if (method === 'helper') await ensureUSBHelperReady({ signal: connectionSignal });
+      connectionSignal.throwIfAborted();
       const Backend = method === 'helper' ? HelperDriverBackend : WebUSBDriverBackend;
       const options = { onTransfer: transfer => this.usbTransfer(transfer),
         onEvent: event => this.record('driver-usb-state', event),
@@ -102,7 +90,7 @@ export class InstalledDriverAdapter {
     try {
       try { this.description = await attempt(readDriverAccess(record, this.device) === 'helper' ? 'helper' : 'direct'); }
       catch (error) {
-        if (this.closing || this.backend.transport === 'helper' || !canTryUSBHelper(error)) throw error;
+        if (this.closing || this.backend?.transport === 'helper' || !canTryUSBHelper(error)) throw error;
         this.log('info', error.message); this.description = await attempt('helper');
       }
       if (this.closing) throw new DOMException('The adapter connection is closed.', 'AbortError');
@@ -229,6 +217,7 @@ export class InstalledDriverAdapter {
   async testTurnaround(signal) { this.assertOpen(); signal?.throwIfAborted(); await this.client.speed(this.baud); signal?.throwIfAborted(); }
   io(promise) { return promise; }
   async close() {
+    this.connectionAbort.abort(new DOMException('The adapter connection is closed.', 'AbortError'));
     this.closing = true; this.readerActive = false; this.waiter?.();
     try { if (this.client) await this.client.close(); }
     finally { this.claimed = false; this.configured = false; this.queue = []; this.queueBytes = 0; }

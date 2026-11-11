@@ -43,8 +43,6 @@
 .check-log li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:9px;padding:4px 0;line-height:1.5;overflow-wrap:anywhere}
 .check-log time{color:#566c7a;font-variant-numeric:tabular-nums}
 .check-log ol:empty{display:none}
-#helper-instructions{padding:12px 14px;border:1px solid #b5bfbf;background:#e7e9dd;margin:14px 0;font-size:12px}
-#helper-instructions a{color:#254f7c}#helper-instructions code{display:block;margin:9px 0 0;font-size:11px;user-select:all}
 #driver-build-dialog{width:420px}#driver-build-dialog .dialog-body>strong{font-size:12px;overflow-wrap:anywhere}
 .driver-build-steps{font-size:12px;line-height:1.8;padding-left:20px;margin:15px 0;color:#566c7a}
 .driver-build-steps li:first-child{color:#3f7143}.driver-build-steps li:nth-child(2){color:#244f77;font-weight:bold}

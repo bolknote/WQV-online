@@ -19,6 +19,7 @@ function mockHelper() {
   const fetch = window.fetch;
   window.fetch = async (url, options) => {
     if (!String(url).startsWith('http://127.0.0.1:8767/')) return fetch(url, options);
+    if (!options.method) return Response.json({ helper: 'WQV Link / KingSun KS-959', version: 1 });
     const call = JSON.parse(options.body), state = window.__helper;
     state.calls.push(call.method);
     if (call.method === 'open') {

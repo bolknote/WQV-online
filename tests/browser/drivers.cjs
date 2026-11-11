@@ -35,8 +35,10 @@ function installUSBModel() {
   const originalFetch = window.fetch;
   window.fetch = async (url, options) => {
     if (!String(url).startsWith('http://127.0.0.1:8768/')) return originalFetch(url, options);
-    const state = window.__helper, body = JSON.parse(options.body);
+    const state = window.__helper;
     if (state.fail) throw new TypeError('Helper unavailable');
+    if (!options.method) return Response.json({ helper: 'WQV Link USB Helper', version: 1 });
+    const body = JSON.parse(options.body);
     if (body.method === 'open') {
       if (state.opened) throw Error('Helper already held'); state.opened = true;
       return Response.json({ result: { session: 'fixture', vendorId: 0x07d0, productId: 0x4959, configuration: { configurationValue: 1 }, interfaceNumber: 0,
@@ -408,7 +410,8 @@ test('drivers install, survive reload, initialize through C and are chosen by wa
   await page.goto(new URL('wqv3.html', base).href); await page.evaluate(() => { window.__selectedUSB = window.__king; });
   await page.locator('#connect').click();
   await page.waitForFunction(() => document.getElementById('connection-badge').textContent === 'USB connected');
-  assert.match(await page.locator('#kingsun-help a').getAttribute('href'), /irda_usb_helper\.py$/);
+  assert.equal(await page.locator('#kingsun-help, [data-usb-helper-help], #usb-helper-dialog').count(), 0);
+  assert.equal(await page.evaluate(() => window.__helper.opened), true);
   await page.locator('#disconnect').click(); await page.waitForFunction(() => !window.__helper.opened);
 
   // A compiled table, rather than the built-in manufacturer list, selects a new ID.
