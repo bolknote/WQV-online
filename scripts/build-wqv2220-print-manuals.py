@@ -101,7 +101,9 @@ def render_edition(code, edition):
             elif kind in ('h2','h3','p'):
                 for index, item in chunk:
                     if kind == 'p':
-                        body.append('<p>' + render_text(item['text'], edition['prefix'], len(pages)) + '</p>')
+                        direction = item.get('dir')
+                        attribute = f' dir="{direction}"' if direction in ('ltr', 'rtl') else ''
+                        body.append(f'<p{attribute}>' + render_text(item['text'], edition['prefix'], len(pages)) + '</p>')
                     else:
                         anchor = f'section-{number}-{index}'
                         body.append(f'<{kind} id="{anchor}">{html.escape(item["text"])}</{kind}>')

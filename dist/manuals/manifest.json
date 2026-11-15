@@ -6488,7 +6488,7 @@
       ]
     },
     "scanned": true,
-    "illustrations": 44,
+    "illustrations": 45,
     "headings": [
       {
         "id": "section-1-0",
@@ -6572,7 +6572,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "Pour spécifier le type d’éclairage"
+        "text": "Choix de l’éclairage"
       },
       {
         "id": "section-13-0",
@@ -6607,11 +6607,11 @@
         "text": "Ajout de texte à une image"
       },
       {
-        "id": "section-18-4",
+        "id": "section-18-7",
         "text": "Classement des images"
       },
       {
-        "id": "section-18-6",
+        "id": "section-18-9",
         "text": "Effacement d’images"
       },
       {
@@ -6651,7 +6651,7 @@
         "text": "Mode Avertisseur"
       },
       {
-        "id": "section-24-3",
+        "id": "section-24-4",
         "text": "Pour régler l’heure de l’avertisseur"
       },
       {
@@ -6739,11 +6739,11 @@
         "text": "Indication de pile faible"
       },
       {
-        "id": "section-33-4",
+        "id": "section-33-5",
         "text": "Étape 1"
       },
       {
-        "id": "section-33-11",
+        "id": "section-33-12",
         "text": "Étape 2"
       },
       {
@@ -6871,7 +6871,7 @@
       ]
     },
     "scanned": true,
-    "illustrations": 45,
+    "illustrations": 46,
     "headings": [
       {
         "id": "section-1-0",
@@ -6955,7 +6955,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "Per specificare il tipo di illuminazione"
+        "text": "Scelta dell’illuminazione"
       },
       {
         "id": "section-13-0",
@@ -7034,7 +7034,7 @@
         "text": "Modo di suoneria"
       },
       {
-        "id": "section-24-3",
+        "id": "section-24-4",
         "text": "Per impostare l’ora per la suoneria"
       },
       {
@@ -7070,15 +7070,15 @@
         "text": "Per misurare i tempi con il cronometro"
       },
       {
-        "id": "section-29-4",
+        "id": "section-29-5",
         "text": "Tempo trascorso"
       },
       {
-        "id": "section-29-6",
+        "id": "section-29-7",
         "text": "Tempo parziale"
       },
       {
-        "id": "section-29-8",
+        "id": "section-29-9",
         "text": "Due tempi di arrivo"
       },
       {
@@ -7122,11 +7122,11 @@
         "text": "Indicatore di pila debole"
       },
       {
-        "id": "section-35-4",
+        "id": "section-35-5",
         "text": "Punto 1"
       },
       {
-        "id": "section-35-11",
+        "id": "section-35-12",
         "text": "Punto 2"
       },
       {
@@ -7248,7 +7248,7 @@
       ]
     },
     "scanned": true,
-    "illustrations": 45,
+    "illustrations": 46,
     "headings": [
       {
         "id": "section-1-0",
@@ -7332,7 +7332,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "Att specificera belysningstyp"
+        "text": "Val av belysning"
       },
       {
         "id": "section-13-0",
@@ -7411,7 +7411,7 @@
         "text": "Alarmläge"
       },
       {
-        "id": "section-21-3",
+        "id": "section-21-4",
         "text": "Inställning av alarmtid"
       },
       {
@@ -7447,15 +7447,15 @@
         "text": "Att mäta tider med tidtagaruret"
       },
       {
-        "id": "section-24-4",
+        "id": "section-24-5",
         "text": "Förfluten tid"
       },
       {
-        "id": "section-24-6",
+        "id": "section-24-7",
         "text": "Mellantid"
       },
       {
-        "id": "section-24-8",
+        "id": "section-24-9",
         "text": "Två sluttider"
       },
       {
@@ -7499,11 +7499,11 @@
         "text": "Indikator för svagt batteri"
       },
       {
-        "id": "section-29-4",
+        "id": "section-29-5",
         "text": "Steg 1"
       },
       {
-        "id": "section-29-11",
+        "id": "section-29-12",
         "text": "Steg 2"
       },
       {
@@ -7713,7 +7713,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "Specificeren van het type belichting"
+        "text": "Keuze van de verlichting"
       },
       {
         "id": "section-13-0",
@@ -7776,11 +7776,11 @@
         "text": "Schakelen tussen de schermformaten van de tijdaanwijsfunctie"
       },
       {
-        "id": "section-22-4",
+        "id": "section-22-3",
         "text": "Gebruiken van het zoekerscherm"
       },
       {
-        "id": "section-22-7",
+        "id": "section-22-6",
         "text": "Het zoekerscherm openen"
       },
       {
@@ -7792,7 +7792,7 @@
         "text": "Alarmfunctie"
       },
       {
-        "id": "section-24-3",
+        "id": "section-24-4",
         "text": "Instellen van de alarmtijd"
       },
       {
@@ -7828,15 +7828,15 @@
         "text": "Tijden opnemen met de stopwatch"
       },
       {
-        "id": "section-27-4",
+        "id": "section-27-5",
         "text": "Verstreken tijd"
       },
       {
-        "id": "section-27-6",
+        "id": "section-27-7",
         "text": "Tussentijd"
       },
       {
-        "id": "section-27-8",
+        "id": "section-27-9",
         "text": "Twee eindtijden"
       },
       {
@@ -7880,11 +7880,11 @@
         "text": "Aanduiding voor lage batterijspanning"
       },
       {
-        "id": "section-33-4",
+        "id": "section-33-5",
         "text": "Stap 1"
       },
       {
-        "id": "section-33-11",
+        "id": "section-33-12",
         "text": "Stap 2"
       },
       {
@@ -8008,7 +8008,7 @@
       ]
     },
     "scanned": true,
-    "illustrations": 43,
+    "illustrations": 44,
     "headings": [
       {
         "id": "section-1-0",
@@ -8092,7 +8092,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "Para especificar o tipo de iluminação"
+        "text": "Escolha da iluminação"
       },
       {
         "id": "section-13-0",
@@ -8171,7 +8171,7 @@
         "text": "Modo do despertador"
       },
       {
-        "id": "section-23-3",
+        "id": "section-23-4",
         "text": "Para definir a hora do despertador"
       },
       {
@@ -8207,15 +8207,15 @@
         "text": "Para cronometrar o tempo com o cronômetro"
       },
       {
-        "id": "section-26-4",
+        "id": "section-26-5",
         "text": "Tempo decorrido"
       },
       {
-        "id": "section-26-6",
+        "id": "section-26-7",
         "text": "Tempo intermediário"
       },
       {
-        "id": "section-26-8",
+        "id": "section-26-9",
         "text": "Tempos dos dois primeiros colocados"
       },
       {
@@ -8259,11 +8259,11 @@
         "text": "Indicador de pilha fraca"
       },
       {
-        "id": "section-31-4",
+        "id": "section-31-5",
         "text": "Passo 1"
       },
       {
-        "id": "section-31-11",
+        "id": "section-31-12",
         "text": "Passo 2"
       },
       {
@@ -8385,7 +8385,7 @@
       ]
     },
     "scanned": true,
-    "illustrations": 45,
+    "illustrations": 46,
     "headings": [
       {
         "id": "section-1-0",
@@ -8469,7 +8469,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "조명 종류 선택"
+        "text": "조명 설정에 관하여"
       },
       {
         "id": "section-13-0",
@@ -8548,7 +8548,7 @@
         "text": "알람 모드"
       },
       {
-        "id": "section-21-3",
+        "id": "section-21-4",
         "text": "알람 시간 설정"
       },
       {
@@ -8584,15 +8584,15 @@
         "text": "스톱워치로 시간 측정"
       },
       {
-        "id": "section-24-4",
+        "id": "section-24-5",
         "text": "경과 시간"
       },
       {
-        "id": "section-24-6",
+        "id": "section-24-7",
         "text": "중간 기록"
       },
       {
-        "id": "section-24-8",
+        "id": "section-24-9",
         "text": "1·2위 결승 기록"
       },
       {
@@ -8636,11 +8636,11 @@
         "text": "전지 부족 표시"
       },
       {
-        "id": "section-29-4",
+        "id": "section-29-5",
         "text": "1단계"
       },
       {
-        "id": "section-29-11",
+        "id": "section-29-12",
         "text": "2단계"
       },
       {
@@ -8846,7 +8846,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "指定照明種類"
+        "text": "選擇照明的依據"
       },
       {
         "id": "section-13-0",
@@ -8925,7 +8925,7 @@
         "text": "鬧鈴功能"
       },
       {
-        "id": "section-21-3",
+        "id": "section-21-4",
         "text": "鬧鈴時間的設定"
       },
       {
@@ -9013,11 +9013,11 @@
         "text": "低電量指示"
       },
       {
-        "id": "section-29-4",
+        "id": "section-29-5",
         "text": "步驟一"
       },
       {
-        "id": "section-29-11",
+        "id": "section-29-12",
         "text": "步驟二"
       },
       {
@@ -9223,7 +9223,7 @@
       },
       {
         "id": "section-12-7",
-        "text": "لتحديد نوع الإضاءة"
+        "text": "اختيار الإضاءة"
       },
       {
         "id": "section-13-0",
@@ -9302,7 +9302,7 @@
         "text": "وضع المنبّه"
       },
       {
-        "id": "section-21-3",
+        "id": "section-21-4",
         "text": "ضبط موعد المنبّه"
       },
       {
@@ -9390,11 +9390,11 @@
         "text": "مؤشر ضعف البطارية"
       },
       {
-        "id": "section-29-4",
+        "id": "section-29-5",
         "text": "المرحلة الأولى"
       },
       {
-        "id": "section-29-11",
+        "id": "section-29-12",
         "text": "المرحلة الثانية"
       },
       {

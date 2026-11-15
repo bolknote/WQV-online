@@ -11,5 +11,13 @@ html[lang=de] .illustration:not(.float-left):not(.float-right),html[lang=de] .ma
 html:is([lang=es],[lang=fi]) .illustration:not(.float-left):not(.float-right),html:is([lang=es],[lang=fi]) .manual-table-wrap{clear:both}
 .manual-index{padding-left:1.25rem}.manual-index li{margin:.35rem 0}
 @media(max-width:600px){html:is([lang=es],[lang=fi]) .illustration{float:none;clear:both;max-width:100%;margin:1rem 0}html:is([lang=es],[lang=fi]) .diagram-viewport svg{max-width:none}}
-.print-transcription .diagram-viewport svg{max-width:none}
+.print-transcription .illustration {
+  inline-size: fit-content;
+  margin-inline: auto;
+}
+@media screen {
+  :root:is(.size-large, .size-larger) .print-transcription .diagram-viewport svg {
+    max-width: none;
+  }
+}
 .print-transcription .manual-table :is(th,td){text-align:start}

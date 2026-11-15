@@ -177,6 +177,8 @@ the other editions were used to check the button sequences and values. The
 order of the clock settings and modes also appears as text alongside the
 original diagrams. The Korean K-7 and Swedish Sw-15 drawings are taken from
 their original booklet pages.
+The caption character sequence is selectable text. The French sequence on
+F-18 and the IR startup diagram on F-29 were recovered from the photographs.
 
 Two notes identify errors in the printed text. The Dutch D-16 places the ALM
 indicator on the right, where the other editions and the Dutch Viewer diagram

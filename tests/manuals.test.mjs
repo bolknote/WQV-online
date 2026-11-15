@@ -63,6 +63,20 @@ test('printed module 2220 editions preserve table rows and inline page links', (
   assert.match(korean, /<a href="#page-20"><bdi>K-20<\/bdi><\/a>을/);
 });
 
+test('printed module 2220 editions retain the caption characters and the IR screen sequence', () => {
+  const symbols = '&amp; → &#x27; → ( → ) → , → - → . → / → : → ? → _ → ~ → •';
+  for (const item of catalog.filter(item => !item.sourceURL)) {
+    const source = readFileSync(new URL(item.file, root), 'utf8');
+    assert.ok(source.includes(symbols), item.id);
+    if (item.language === 'ar') assert.ok(source.includes(`<p dir="ltr">${symbols}</p>`));
+  }
+  const french = readFileSync(new URL('wqv2-fr.html', root), 'utf8');
+  assert.match(french, /assets\/wqv2-print\/fr-29-03\.png/);
+  assert.match(french, /id="page-30"[\s\S]*?<li value="6">[^<]*<\/li>\s*<\/ol>\s*<figure[^\n]+fr-30-03\.png/);
+  const italian = readFileSync(new URL('wqv2-it.html', root), 'utf8');
+  assert.match(italian, /assets\/wqv2-print\/it-31-02\.png[\s\S]*?assets\/wqv2-print\/it-31-01\.png/);
+});
+
 test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
   const spanish = JSON.parse(readFileSync(new URL('../docs/manuals/spanish-proofreading.json', import.meta.url), 'utf8'));
   const spanishColor = JSON.parse(readFileSync(new URL('../docs/manuals/wqv3-es-proofreading.json', import.meta.url), 'utf8'));
