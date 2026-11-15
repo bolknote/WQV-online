@@ -1,0 +1,16 @@
+export const localeDefinitions = Object.freeze({
+  en: { name: 'English', locale: 'en-US' },
+  ru: { name: 'Русский', locale: 'ru-RU' },
+  ja: { name: '日本語', locale: 'ja-JP' },
+  de: { name: 'Deutsch', locale: 'de-DE' },
+  es: { name: 'Español', locale: 'es-ES' },
+  fi: { name: 'Suomi', locale: 'fi-FI' },
+  fr: { name: 'Français', locale: 'fr-FR' },
+  it: { name: 'Italiano', locale: 'it-IT' },
+  sv: { name: 'Svenska', locale: 'sv-SE' },
+  nl: { name: 'Nederlands', locale: 'nl-NL' },
+  pt: { name: 'Português', locale: 'pt-BR' },
+  ko: { name: '한국어', locale: 'ko-KR' },
+  'zh-Hant': { name: '繁體中文', locale: 'zh-Hant-TW' },
+  ar: { name: 'العربية', locale: 'ar-EG' },
+});

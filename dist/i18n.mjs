@@ -4,11 +4,12 @@ import { german } from './translations-de.mjs';
 import { spanish } from './translations-es.mjs';
 import { finnish } from './translations-fi.mjs';
 import { driverTranslation } from './driver-translations.mjs';
+import { localeDefinitions } from './locales.mjs';
+import { extendedTranslations } from './translations-extended.mjs';
 
 export const LANGUAGE_KEY = 'wqv-online.language';
-export const languages = Object.freeze(['en', 'ru', 'ja', 'de', 'es', 'fi']);
-const locales = { en: 'en-US', ru: 'ru-RU', ja: 'ja-JP', de: 'de-DE', es: 'es-ES', fi: 'fi-FI' };
-const translations = { ru: russian, ja: japanese, de: german, es: spanish, fi: finnish };
+export const languages = Object.freeze(Object.keys(localeDefinitions));
+const translations = { ru: russian, ja: japanese, de: german, es: spanish, fi: finnish, ...extendedTranslations };
 const listeners = new Set();
 function browserStorage() { try { return typeof window === 'undefined' ? undefined : window.localStorage; } catch { return undefined; } }
 export function readLanguage(storage = browserStorage()) {
@@ -17,7 +18,7 @@ export function readLanguage(storage = browserStorage()) {
 }
 let language = readLanguage();
 export const getLanguage = () => language;
-export const locale = () => locales[language];
+export const locale = () => localeDefinitions[language].locale;
 export function setLanguage(next, { storage = browserStorage(), persist = true } = {}) {
   if (!languages.includes(next)) throw new RangeError('Unknown display language: ' + next);
   if (persist) { try { storage?.setItem(LANGUAGE_KEY, next); } catch {} }
@@ -34,12 +35,32 @@ const nouns = {
   files: { en: { one: 'file', other: 'files' }, ru: { one: 'файл', few: 'файла', many: 'файлов', other: 'файла' }, ja: { other: 'ファイル' }, de: { one: 'Datei', other: 'Dateien' }, es: { one: 'archivo', other: 'archivos' }, fi: { one: 'tiedosto', other: 'tiedostoa' } },
   dates: { en: { one: 'date', other: 'dates' }, ru: { one: 'дата', few: 'даты', many: 'дат', other: 'даты' }, ja: { other: '件' }, de: { one: 'Datum', other: 'Datumsangaben' }, es: { one: 'fecha', other: 'fechas' }, fi: { one: 'päivämäärä', other: 'päivämäärää' } },
 };
+const extraNouns = {
+  fr: ['pilote/pilotes', 'photo/photos', 'jour/jours', 'fichier/fichiers', 'date/dates'],
+  it: ['driver', 'foto', 'giorno/giorni', 'file', 'data/date'],
+  sv: ['drivrutin/drivrutiner', 'foto/foton', 'dag/dagar', 'fil/filer', 'datum'],
+  nl: ['stuurprogramma/stuurprogramma’s', 'foto/foto’s', 'dag/dagen', 'bestand/bestanden', 'datum/datums'],
+  pt: ['driver/drivers', 'foto/fotos', 'dia/dias', 'arquivo/arquivos', 'data/datas'],
+  ko: ['개', '장', '일', '개', '건'],
+  'zh-Hant': ['個驅動程式', '張相片', '天', '個檔案', '個日期'],
+  ar: ['برنامج تشغيل/برنامجا تشغيل/برامج تشغيل', 'صورة/صورتان/صور', 'يوم/يومان/أيام', 'ملف/ملفان/ملفات', 'تاريخ/تاريخان/تواريخ'],
+};
+for (const [index, forms] of Object.values(nouns).entries()) {
+  for (const [code, words] of Object.entries(extraNouns)) {
+    const [one, other = one, few] = words[index].split('/');
+    forms[code] = code === 'ar' ? { one, two: other, few, other: one } : { one, other };
+  }
+}
 class Message {
   constructor(key, values, noun = null) { this.key = key; this.values = values; this.noun = noun; }
   toString() {
     if (this.noun) {
       const count = this.values[0], words = nouns[this.noun][language];
-      return count + (language === 'ja' ? '' : ' ') + (words[new Intl.PluralRules(locale()).select(count)] || words.other);
+      const category = new Intl.PluralRules(locale()).select(count);
+      const word = words[category] || words.other;
+      if (language === 'ar' && (category === 'one' || category === 'two')) return word;
+      const separator = ['ja', 'zh-Hant'].includes(language) ? '' : ' ';
+      return (language === 'ar' ? formatNumber(count) : count) + separator + word;
     }
     const dictionary = translations[language];
     const template = dictionary && Object.hasOwn(dictionary, this.key) ? dictionary[this.key] : driverTranslation(language, this.key) ?? this.key;
@@ -81,5 +102,8 @@ export function translateDOM(root = document) {
       element.setAttribute(attribute, formatText(tr(element.getAttribute('data-i18n-' + attribute))));
     }
   }
-  if (root.documentElement) root.documentElement.lang = language;
+  if (root.documentElement) {
+    root.documentElement.lang = language;
+    root.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+  }
 }

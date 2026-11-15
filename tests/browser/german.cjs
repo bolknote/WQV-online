@@ -127,7 +127,7 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
           });
           assert.ok(Math.abs(ratio - 1) < .015, model + ': distorted illustration ' + key);
         }
-        if (model === 'wqv2') await proof.locator('#supplement-g12-g15').screenshot({ path: path.join(output, 'wqv2-de-supplement.png') });
+        if (model === 'wqv2') await proof.locator('#original-g12-g15').screenshot({ path: path.join(output, 'wqv2-de-supplement.png') });
         await proof.setViewportSize({ width: 320, height: 844 });
         assert.equal(await proof.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
         assert.equal(await proof.locator('.illustration').evaluateAll(figures => figures.every(figure => getComputedStyle(figure).float === 'none')), true,
@@ -146,14 +146,15 @@ const output = process.env.WQV_BROWSER_ARTIFACTS || path.join(require('node:os')
         await proof.close();
       }
       if (model === 'wqv2') {
-        const note = frame.locator('.editorial-note');
-        assert.equal(await note.textContent(), 'Aus dem englischen Original ergänzt · 2220-3');
-        assert.deepEqual(await note.evaluate(n => { const s=getComputedStyle(n);return [s.fontSize,s.color,s.writingMode]; }), ['10.4px','rgb(119, 119, 119)','vertical-rl']);
+        const restored = frame.locator('#original-g12-g15');
+        assert.equal(await restored.locator('.booklet-panel').count(), 4);
+        assert.equal(await restored.locator('figure').count(), 4);
+        assert.match(await restored.textContent(), /gedruckten deutschen Original/);
       }
       await page.setViewportSize({ width: 390, height: 844 });
       await fits();
       assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
-      if (model === 'wqv2') await frame.locator('#supplement-g12-g15').evaluate(n => n.scrollIntoView());
+      if (model === 'wqv2') await frame.locator('#original-g12-g15').evaluate(n => n.scrollIntoView());
       await page.screenshot({ path: path.join(output, model + '-de-mobile.png'), fullPage: true });
       await page.setViewportSize({ width: 1366, height: 1050 });
       await page.locator('.window-close:visible').click();

@@ -4344,31 +4344,51 @@
         "text": "Ton für Alarm, stündliches Zeitsignal und Countdown-Alarm"
       },
       {
-        "id": "supplement-bildsteuerung",
+        "id": "original-g12-bildsteuerung",
         "text": "Steuerung des Bildes im Kameramodus"
       },
       {
-        "id": "supplement-helligkeit",
+        "id": "original-g12-helligkeit",
+        "text": "Einstellung der Bildhelligkeit"
+      },
+      {
+        "id": "original-g12-helligkeit-einstellen",
         "text": "Einstellen der Bildhelligkeit"
       },
       {
-        "id": "supplement-beleuchtung",
+        "id": "original-g12-beleuchtung",
+        "text": "Spezifizierung des Beleuchtungstyps"
+      },
+      {
+        "id": "original-g13-beleuchtung-einstellen",
         "text": "Spezifizieren des Beleuchtungstyps"
       },
       {
-        "id": "supplement-aufnahmemodi",
+        "id": "original-g13-aufnahmemodi",
         "text": "Aufnahmemodi"
       },
       {
-        "id": "supplement-moduswahl",
+        "id": "original-g13-normalmodus",
+        "text": "Normaler Modus"
+      },
+      {
+        "id": "original-g13-mischmodus",
+        "text": "Mischmodus"
+      },
+      {
+        "id": "original-g13-kunstmodus",
+        "text": "Kunstmodus"
+      },
+      {
+        "id": "original-g14-moduswahl",
         "text": "Wahl des Aufnahmemodus"
       },
       {
-        "id": "supplement-mischmodus",
+        "id": "original-g14-mischaufnahme",
         "text": "Aufnahme unter Verwendung des Mischmodus"
       },
       {
-        "id": "supplement-kunstmodus",
+        "id": "original-g15-kunstaufnahme",
         "text": "Aufnahme unter Verwendung des Kunstmodus"
       },
       {
@@ -4636,13 +4656,69 @@
         "text": "GARANTIEBEDINGUNGEN"
       }
     ],
-    "supplement": {
-      "file": "libble-eu_22031.pdf",
-      "sha256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
-      "module": 2220,
-      "page": 3,
-      "method": "German translation of the complete English original supplied by the user; clearly marked in the margin.",
-      "illustrationLabels": "Dunkler / Heller and Erstes Bild / Zweites Bild translated from the complete English labels. Leader lines and button letters retained."
+    "printSource": {
+      "kind": "printed manual photographed by the owner",
+      "pages": {
+        "12": {
+          "file": "20261114_211304.jpg",
+          "sha256": "35076fc0d28aa3dd5271a52bc0ebb1f9209ec73b7a41c9914f28a4705b529647",
+          "figures": [
+            {
+              "file": "wqv2-de-g12-brightness.png",
+              "crop": [
+                140,
+                640,
+                449,
+                1039
+              ]
+            }
+          ]
+        },
+        "13": {
+          "file": "20261114_211308.jpg",
+          "sha256": "ff17a25b76521e24a72bcbf1113b3518db4e640514fa529a410a742802d8d0d5",
+          "figures": [
+            {
+              "file": "wqv2-de-g13-lighting.png",
+              "crop": [
+                50,
+                531,
+                1158,
+                912
+              ]
+            }
+          ]
+        },
+        "14": {
+          "file": "20261114_211317.jpg",
+          "sha256": "00b9234fabdc122a935b6bd17d38db9dd23a6fe1d5e056e2fa169bf8f3375456",
+          "figures": [
+            {
+              "file": "wqv2-de-g14-modes.png",
+              "crop": [
+                54,
+                278,
+                1144,
+                699
+              ]
+            },
+            {
+              "file": "wqv2-de-g14-merge.png",
+              "crop": [
+                150,
+                930,
+                445,
+                1344
+              ]
+            }
+          ]
+        },
+        "15": {
+          "file": "20261114_211320.jpg",
+          "sha256": "5a085fddc492fe43ff0b04fce86be1295ce5f7147c5a3b97a7a1662f303e2762",
+          "figures": []
+        }
+      }
     },
     "missingOriginalPages": [
       "G-12",
@@ -6352,6 +6428,2326 @@
       {
         "id": "warranty",
         "text": "Certificado de garantía y servicios técnicos"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-fr",
+    "model": "WQV-1/2",
+    "language": "fr",
+    "module": 2220,
+    "title": "WQV-1/2 — Mode d’emploi",
+    "pages": 41,
+    "file": "wqv2-fr.html",
+    "sourceURL": null,
+    "sourceSHA256": "2bad97ec2e7b1c180fac8a5848caee40dd99b5fbf94b8a2acfc264d56222f6e7",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "F-1",
+        "F-2",
+        "F-3",
+        "F-4",
+        "F-5",
+        "F-6",
+        "F-7",
+        "F-8",
+        "F-9",
+        "F-10",
+        "F-11",
+        "F-12",
+        "F-13",
+        "F-14",
+        "F-15",
+        "F-16",
+        "F-17",
+        "F-18",
+        "F-19",
+        "F-20",
+        "F-21",
+        "F-22",
+        "F-23",
+        "F-24",
+        "F-25",
+        "F-26",
+        "F-27",
+        "F-28",
+        "F-29",
+        "F-30",
+        "F-31",
+        "F-32",
+        "F-33",
+        "F-34",
+        "F-35",
+        "F-36",
+        "F-37",
+        "F-38",
+        "F-39",
+        "F-40",
+        "F-41"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 45,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Familiarisation"
+      },
+      {
+        "id": "section-1-2",
+        "text": "À propos de ce manuel"
+      },
+      {
+        "id": "section-2-0",
+        "text": "Sommaire"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Sommaire"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Aperçu des procédures"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Aperçu des procédures"
+      },
+      {
+        "id": "section-6-0",
+        "text": "Informations préliminaires"
+      },
+      {
+        "id": "section-6-5",
+        "text": "Pour régler l’heure et la date"
+      },
+      {
+        "id": "section-7-9",
+        "text": "Extinction automatique de l’afficheur"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Guide général"
+      },
+      {
+        "id": "section-9-0",
+        "text": "Mode Indication de l’heure"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Mode Caméra"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Mode Caméra"
+      },
+      {
+        "id": "section-10-3",
+        "text": "Pour enregistrer une image"
+      },
+      {
+        "id": "section-11-0",
+        "text": "Précautions concernant le mode Caméra"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Contrôle de l’image en mode Caméra"
+      },
+      {
+        "id": "section-12-1",
+        "text": "Vous pouvez procéder de la façon suivante pour régler la luminosité et"
+      },
+      {
+        "id": "section-13-0",
+        "text": "Pour spécifier le type d'éclairage"
+      },
+      {
+        "id": "section-13-1",
+        "text": "Dans le mode Caméra, appuyez sur (A pour parcourir les différents types"
+      },
+      {
+        "id": "section-13-4",
+        "text": "Modes d’enregistrement"
+      },
+      {
+        "id": "section-14-0",
+        "text": "Pour sélectionner le mode d'enregistrement"
+      },
+      {
+        "id": "section-14-4",
+        "text": "Pour enregistrer dans le mode Fusion"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Pour enregistrer dans le mode Art"
+      },
+      {
+        "id": "section-16-0",
+        "text": "Mode VISUAL DATABANK"
+      },
+      {
+        "id": "section-16-1",
+        "text": "Dans le mode VISUAL DATABANK, vous pouvez non seulement afficher des"
+      },
+      {
+        "id": "section-16-2",
+        "text": "images mais aussi en effacer, joindre du texte aux images et effectuer"
+      },
+      {
+        "id": "section-16-6",
+        "text": "Pour regarder les images enregistrées"
+      },
+      {
+        "id": "section-17-4",
+        "text": "Ajout de texte à une image"
+      },
+      {
+        "id": "section-18-8",
+        "text": "Effacement d’images"
+      },
+      {
+        "id": "section-19-0",
+        "text": "pour effacer toutes les images de mémoire de la montre"
+      },
+      {
+        "id": "section-19-11",
+        "text": "Remarque"
+      },
+      {
+        "id": "section-21-0",
+        "text": "Mode Indication de l’heure"
+      },
+      {
+        "id": "section-21-5",
+        "text": "Pour remettre les secondes à zéro"
+      },
+      {
+        "id": "section-21-12",
+        "text": "Pour changer d'écran dans le mode Indication de l'heure"
+      },
+      {
+        "id": "section-22-0",
+        "text": "Utilisation de l’écran de visualisation"
+      },
+      {
+        "id": "section-22-1",
+        "text": "L'écran de visualisation s'affiche par une pression d'un bouton dans le mode"
+      },
+      {
+        "id": "section-22-2",
+        "text": "Indication de l'heure. Cet écran permet de voir les images stockées dans la"
+      },
+      {
+        "id": "section-23-0",
+        "text": "Pour régler le contraste de l'image"
+      },
+      {
+        "id": "section-24-0",
+        "text": "Mode Avertisseur"
+      },
+      {
+        "id": "section-24-2",
+        "text": "Vous pouvez utiliser le mode Avertisseur pour"
+      },
+      {
+        "id": "section-25-0",
+        "text": "Fonctionnement de l’avertisseur quotidien"
+      },
+      {
+        "id": "section-27-0",
+        "text": "Mode Avertisseur de temps écoulé"
+      },
+      {
+        "id": "section-28-0",
+        "text": "Mode Chronomètre"
+      },
+      {
+        "id": "section-28-1",
+        "text": "temps écoulé, les temps de partiels et de deux"
+      },
+      {
+        "id": "section-29-0",
+        "text": "Mode IR"
+      },
+      {
+        "id": "section-29-1",
+        "text": "Utilisez le mode IR pour échanger des données entre deux montres ou entre"
+      },
+      {
+        "id": "section-29-4",
+        "text": "Pour de plus amples informations sur l'échange de données avec un"
+      },
+      {
+        "id": "section-29-6",
+        "text": "Échange de données entre deux montres"
+      },
+      {
+        "id": "section-29-7",
+        "text": "Pour échanger des donnees entre deux montres, orientez les montres de la"
+      },
+      {
+        "id": "section-30-0",
+        "text": "us laissez la montre dans le mode IR pendant deux minutes environ"
+      },
+      {
+        "id": "section-30-1",
+        "text": "effectuer aucune opération, elle reviendra automatiquement au mode"
+      },
+      {
+        "id": "section-31-1",
+        "text": "Pour recevoir une seule image"
+      },
+      {
+        "id": "section-31-12",
+        "text": "Remarques"
+      },
+      {
+        "id": "section-32-0",
+        "text": "Erreurs de communication"
+      },
+      {
+        "id": "section-33-0",
+        "text": "À propos de la pile préinstallée"
+      },
+      {
+        "id": "section-34-0",
+        "text": "Précautions concernant la pile"
+      },
+      {
+        "id": "section-34-1",
+        "text": "Un mauvais emploi de la pile peut entraîner une rupture ou une fuite de la"
+      },
+      {
+        "id": "section-37-0",
+        "text": "Fiche technique"
+      },
+      {
+        "id": "section-37-2",
+        "text": "Mode Indication de l'heure : Heures, minutes, secondes, matin (A)/après-"
+      },
+      {
+        "id": "section-37-6",
+        "text": "Mode Avertisseur : 5 avertisseurs quotidiens, signal horaire"
+      },
+      {
+        "id": "section-38-0",
+        "text": "Eléments principaux : Oscillateur au quartz à haute performance a"
+      },
+      {
+        "id": "section-39-1",
+        "text": "le: La pile a été insérée en usine et doit être remplacée par votre"
+      },
+      {
+        "id": "section-39-5",
+        "text": "Entretien de la montre"
+      },
+      {
+        "id": "section-40-1",
+        "text": "chiffon doux imbibé d'une solution d'eau et de détergent neutre. N'utilisez"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-it",
+    "model": "WQV-1/2",
+    "language": "it",
+    "module": 2220,
+    "title": "WQV-1/2 — Guida dell’utilizzatore",
+    "pages": 43,
+    "file": "wqv2-it.html",
+    "sourceURL": null,
+    "sourceSHA256": "120295fe4cef12fa1da89a29988ee992c99bc3e83908406227fecba60fa13a1f",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "I-1",
+        "I-2",
+        "I-3",
+        "I-4",
+        "I-5",
+        "I-6",
+        "I-7",
+        "I-8",
+        "I-9",
+        "I-10",
+        "I-11",
+        "I-12",
+        "I-13",
+        "I-14",
+        "I-15",
+        "I-16",
+        "I-17",
+        "I-18",
+        "I-19",
+        "I-20",
+        "I-21",
+        "I-22",
+        "I-23",
+        "I-24",
+        "I-25",
+        "I-26",
+        "I-27",
+        "I-28",
+        "I-29",
+        "I-30",
+        "I-31",
+        "I-32",
+        "I-33",
+        "I-34",
+        "I-35",
+        "I-36",
+        "I-37",
+        "I-38",
+        "I-39",
+        "I-40",
+        "I-41",
+        "I-42",
+        "I-43"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 44,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Introduzione"
+      },
+      {
+        "id": "section-1-2",
+        "text": "Per ottenere il massimo delle prestazioni da questo acquisto, leggere con"
+      },
+      {
+        "id": "section-1-11",
+        "text": "per eventuali perdite o richieste di risarcimento da parte di terzi che"
+      },
+      {
+        "id": "section-2-0",
+        "text": "Indice"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Indice"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Descrizione dei procedimenti"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Descrizione dei procedimenti"
+      },
+      {
+        "id": "section-6-5",
+        "text": "Per impostare l’ora e la data"
+      },
+      {
+        "id": "section-7-2",
+        "text": "Formato di indicazione dell'ora di 12 ore/24 ore"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Disattivazione automatica della visualizzazione"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Guida generale"
+      },
+      {
+        "id": "section-9-0",
+        "text": "Modo di indicazione dell’ora"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Modo di fotocamera"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Modo di fotocamera"
+      },
+      {
+        "id": "section-10-3",
+        "text": "Per registrare un’immagine"
+      },
+      {
+        "id": "section-11-0",
+        "text": "Il messaggio FULL appare sul display a indicare che la memoria è piena"
+      },
+      {
+        "id": "section-11-2",
+        "text": "Avvertenze sul modo di fotocamera"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Controllo dell’immagine del modo di fotocamera"
+      },
+      {
+        "id": "section-12-1",
+        "text": "È possibile usare i seguenti procedimenti per regolare la luminosita e per"
+      },
+      {
+        "id": "section-13-0",
+        "text": "pur non essendo visibile, la luce prodotta da apparati per l'illuminazione di"
+      },
+      {
+        "id": "section-13-1",
+        "text": "interni in realtà tremola ad una frequenza tissa, che è la stessa del ciclo"
+      },
+      {
+        "id": "section-13-4",
+        "text": "Per specificare il tipo di illuminazione"
+      },
+      {
+        "id": "section-13-7",
+        "text": "Modi di registrazione"
+      },
+      {
+        "id": "section-14-0",
+        "text": "Per selezionare il modo di registrazione"
+      },
+      {
+        "id": "section-14-1",
+        "text": "Nel modo di fotocamera, premere (C) per scorrere i modi di registrazione"
+      },
+      {
+        "id": "section-14-5",
+        "text": "Per registrare usando il modo di fusione"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Per registrare usando il modo arte"
+      },
+      {
+        "id": "section-16-0",
+        "text": "Modo VISUAL DATABANK"
+      },
+      {
+        "id": "section-16-1",
+        "text": "Oltre che per vedere le immagini, è possibile usare il modo VISUAL DATABANK"
+      },
+      {
+        "id": "section-17-0",
+        "text": "Allegazione di un testo ad un’immagine"
+      },
+      {
+        "id": "section-18-1",
+        "text": "schermata di introduzione testo se non si esegue alcuna operazione por"
+      },
+      {
+        "id": "section-18-4",
+        "text": "Cancellazione delle immagini"
+      },
+      {
+        "id": "section-19-7",
+        "text": "Per cancellare un'immagine specifica"
+      },
+      {
+        "id": "section-21-0",
+        "text": "Modo di indicazione dell’ora"
+      },
+      {
+        "id": "section-21-5",
+        "text": "Per riportare il conteggio dei secondi a zero"
+      },
+      {
+        "id": "section-22-0",
+        "text": "Uso della schermata di visore"
+      },
+      {
+        "id": "section-22-1",
+        "text": "Per passare da un formato di schermata del modo di"
+      },
+      {
+        "id": "section-22-3",
+        "text": "Nel modo di indicazione dell'ora, ogni pressione di O fa passare l'orologio"
+      },
+      {
+        "id": "section-23-1",
+        "text": "per visualizzare la schermata dí visore"
+      },
+      {
+        "id": "section-24-0",
+        "text": "Modo di suoneria"
+      },
+      {
+        "id": "section-24-2",
+        "text": "impostare cinque suonerie indipendenti. E"
+      },
+      {
+        "id": "section-24-10",
+        "text": "per la suoneria iniziano a lampeggiare sul"
+      },
+      {
+        "id": "section-25-0",
+        "text": "Funzionamento della suoneria quotidiana"
+      },
+      {
+        "id": "section-25-2",
+        "text": "Mentre le cifre delle ore lampeggiano, usare E (+) e B (-) per far"
+      },
+      {
+        "id": "section-26-1",
+        "text": "attivato vengono visualizzati sul display nei modi di indicazione dell'ora"
+      },
+      {
+        "id": "section-27-0",
+        "text": "Modo di suoneria con conto alla rovescia"
+      },
+      {
+        "id": "section-27-1",
+        "text": "modo di suoneria con conto alla rovescia consente di impostare una durata"
+      },
+      {
+        "id": "section-27-3",
+        "text": "Per impostare la durata iniziale del conto alla rovescia"
+      },
+      {
+        "id": "section-29-1",
+        "text": "Modo di cronometro"
+      },
+      {
+        "id": "section-29-4",
+        "text": "per misurare i tempi con il cronometro"
+      },
+      {
+        "id": "section-30-0",
+        "text": "Modo di ir"
+      },
+      {
+        "id": "section-30-1",
+        "text": "Usare il modo IR (trasmissione a infrarossi) per scambiare i dati tra due"
+      },
+      {
+        "id": "section-30-7",
+        "text": "Scambio di dati tra due orologi"
+      },
+      {
+        "id": "section-31-1",
+        "text": "modo IR. Una schermata iniziale appare per un secondo circa, seguita dal"
+      },
+      {
+        "id": "section-33-7",
+        "text": "Errori di comunicazione"
+      },
+      {
+        "id": "section-35-0",
+        "text": "Pila preinstallata"
+      },
+      {
+        "id": "section-36-0",
+        "text": "Avvertenze sulla pila"
+      },
+      {
+        "id": "section-36-1",
+        "text": "Un uso inappropriato delle pile può causare esplosioni e perdite del liquido"
+      },
+      {
+        "id": "section-36-2",
+        "text": "interno, che possono danneggiare l'interno dell'orologio. Osservare le"
+      },
+      {
+        "id": "section-39-0",
+        "text": "Caratteristiche tecniche"
+      },
+      {
+        "id": "section-39-2",
+        "text": "Modo di indicazione dell'ora: Ore, minuti, secondi, antimeridiane (A)/"
+      },
+      {
+        "id": "section-41-0",
+        "text": "Avvertenze sull’uso"
+      },
+      {
+        "id": "section-41-1",
+        "text": "Pila: La pila è stata installata in fabbrica e deve essere sostituita ai primi"
+      },
+      {
+        "id": "section-42-1",
+        "text": "panno morbido inumidito con una soluzione di acqua e detergente neut"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-sv",
+    "model": "WQV-1/2",
+    "language": "sv",
+    "module": 2220,
+    "title": "WQV-1/2 — Instruktionshäfte",
+    "pages": 37,
+    "file": "wqv2-sv.html",
+    "sourceURL": null,
+    "sourceSHA256": "d8e31f785ead0af570631913f773440d4db58277cca154c426b89ecf45910416",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "Sw-1",
+        "Sw-2",
+        "Sw-3",
+        "Sw-4",
+        "Sw-5",
+        "Sw-6",
+        "Sw-7",
+        "Sw-8",
+        "Sw-9",
+        "Sw-10",
+        "Sw-11",
+        "Sw-12",
+        "Sw-13",
+        "Sw-14",
+        "Sw-15",
+        "Sw-16",
+        "Sw-17",
+        "Sw-18",
+        "Sw-19",
+        "Sw-20",
+        "Sw-21",
+        "Sw-22",
+        "Sw-23",
+        "Sw-24",
+        "Sw-25",
+        "Sw-26",
+        "Sw-27",
+        "Sw-28",
+        "Sw-29",
+        "Sw-30",
+        "Sw-31",
+        "Sw-32",
+        "Sw-33",
+        "Sw-34",
+        "Sw-35",
+        "Sw-36",
+        "Sw-37"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 45,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Att lära känna enheten"
+      },
+      {
+        "id": "section-1-1",
+        "text": "Ni gratulerar till valet av CASIO Wrist Camera (denna klocka). Läs noga detta"
+      },
+      {
+        "id": "section-2-0",
+        "text": "Innehåll"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Innehåll"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Översikt över procedurer"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Översikt över procedurer"
+      },
+      {
+        "id": "section-6-5",
+        "text": "Inställning av tid och datum"
+      },
+      {
+        "id": "section-7-1",
+        "text": "Elto pe ermlan 12 timmars (rankar skärmon Vat nyck ba n tor"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Automatiskt skärmavslag"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Allmän översikt"
+      },
+      {
+        "id": "section-9-0",
+        "text": "Tidsvisningsläge"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Kameraläge"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Kameraläge"
+      },
+      {
+        "id": "section-10-3",
+        "text": "Inspelning av en bild"
+      },
+      {
+        "id": "section-11-0",
+        "text": "Att observera gällande kameraläget"
+      },
+      {
+        "id": "section-11-1",
+        "text": "Att observera gällande kameraläget ma* i lono»b"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Bildkontroll i kameraläget"
+      },
+      {
+        "id": "section-12-1",
+        "text": "Bilkontroll i kameraläget mex streiffe biovise"
+      },
+      {
+        "id": "section-13-0",
+        "text": "aft specificera belysningst p"
+      },
+      {
+        "id": "section-13-1",
+        "text": "Tryck i kameraläget på knappen A för att kretsa genom tillgängliga /"
+      },
+      {
+        "id": "section-13-4",
+        "text": "Inspelningslägen"
+      },
+      {
+        "id": "section-14-1",
+        "text": "Tryck i kameraläget på knappen C för att kretsa genom tillgängliga"
+      },
+      {
+        "id": "section-14-16",
+        "text": "Inspelning med konstläget"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Läget VISUAL DATABANK"
+      },
+      {
+        "id": "section-15-3",
+        "text": "att titta på inspelade bilder"
+      },
+      {
+        "id": "section-16-0",
+        "text": "Vidhäftning av text på en bild"
+      },
+      {
+        "id": "section-17-1",
+        "text": "textinmatningsskärmen om du inte utför någon åtgärd inom cirka tvá"
+      },
+      {
+        "id": "section-17-2",
+        "text": "Se \"Att titta pa inspelade bilder\" på sidan Sw-15 för information om att"
+      },
+      {
+        "id": "section-17-7",
+        "text": "Radering av bilder"
+      },
+      {
+        "id": "section-19-0",
+        "text": "Tidsvisningsläge"
+      },
+      {
+        "id": "section-19-5",
+        "text": "Att skifta mellan tidsvisningslägets skärmformat"
+      },
+      {
+        "id": "section-20-0",
+        "text": "Användning av tittarskärmen"
+      },
+      {
+        "id": "section-20-1",
+        "text": "Ett enkelt tryck på en knapp i tidsvisningsläget uppvisar titfarskärmen, p4"
+      },
+      {
+        "id": "section-20-5",
+        "text": "att visa bilden som befann sig på skärmen"
+      },
+      {
+        "id": "section-20-12",
+        "text": "Att justera bildens kontrast"
+      },
+      {
+        "id": "section-21-0",
+        "text": "Alarmläge"
+      },
+      {
+        "id": "section-22-0",
+        "text": "Användning av dagligt alarm"
+      },
+      {
+        "id": "section-22-11",
+        "text": "Att slå dagligt alarm och timsignal på"
+      },
+      {
+        "id": "section-23-0",
+        "text": "Alarmläge med nedräkning"
+      },
+      {
+        "id": "section-24-0",
+        "text": "Tidtagarläge"
+      },
+      {
+        "id": "section-24-1",
+        "text": "Tidtagarläge Tidtagarläget gör det möjligt att mäta förtun"
+      },
+      {
+        "id": "section-24-2",
+        "text": "tid, varvtider och två sluttider. Tidtagarurets"
+      },
+      {
+        "id": "section-24-3",
+        "text": "omfång är 23 timmar, 59 minuter och 59,99"
+      },
+      {
+        "id": "section-24-6",
+        "text": "Att mäta tider med tidtagaruret"
+      },
+      {
+        "id": "section-25-0",
+        "text": "Läget IR"
+      },
+      {
+        "id": "section-25-1",
+        "text": "Använd läget IR för alt utbyta data mellan två klockor eller mellan din klocka"
+      },
+      {
+        "id": "section-25-3",
+        "text": "Datautbyte mellan två klockor"
+      },
+      {
+        "id": "section-28-0",
+        "text": "Kommunikationsfel"
+      },
+      {
+        "id": "section-29-1",
+        "text": "Angående det förinstallerade batteriet"
+      },
+      {
+        "id": "section-30-0",
+        "text": "Att observera angående batteriet"
+      },
+      {
+        "id": "section-32-1",
+        "text": "Torka av det nya batteriet med en mjuk, torl"
+      },
+      {
+        "id": "section-32-5",
+        "text": "att sätta i denna före isättning av det nya"
+      },
+      {
+        "id": "section-33-0",
+        "text": "Tekniska data"
+      },
+      {
+        "id": "section-33-1",
+        "text": "Exakthet vid normal temperatur: ±15 sekunder i månaden"
+      },
+      {
+        "id": "section-33-6",
+        "text": "Alarmiäge: 5 dagliga akarn. imsignal"
+      },
+      {
+        "id": "section-34-1",
+        "text": "Huvudelement: Högeffektiv kvartsoscillator av stämgaffeltyp, enchips"
+      },
+      {
+        "id": "section-35-0",
+        "text": "Underhåll"
+      },
+      {
+        "id": "section-35-2",
+        "text": "tecknet på att det börjar bli svagt (inget ljus eller suddig skärm) av din"
+      },
+      {
+        "id": "section-36-0",
+        "text": "eller andra toalettartiklar då dessa ämnen kan försvaga plastdelama i"
+      },
+      {
+        "id": "section-36-1",
+        "text": "klockan. Torka omedelbart av klockan med en torr, mjuk trasa om den"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-nl",
+    "model": "WQV-1/2",
+    "language": "nl",
+    "module": 2220,
+    "title": "WQV-1/2 — Gebruiksaanwijzing",
+    "pages": 41,
+    "file": "wqv2-nl.html",
+    "sourceURL": null,
+    "sourceSHA256": "d657e1512a73e0159fc542fd1a5793e209868bd7426832f02e927c8ddca749ef",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "D-1",
+        "D-2",
+        "D-3",
+        "D-4",
+        "D-5",
+        "D-6",
+        "D-7",
+        "D-8",
+        "D-9",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "D-15",
+        "D-16",
+        "D-17",
+        "D-18",
+        "D-19",
+        "D-20",
+        "D-21",
+        "D-22",
+        "D-23",
+        "D-24",
+        "D-25",
+        "D-26",
+        "D-27",
+        "D-28",
+        "D-29",
+        "D-30",
+        "D-31",
+        "D-32",
+        "D-33",
+        "D-34",
+        "D-35",
+        "D-36",
+        "D-37",
+        "D-38",
+        "D-39",
+        "D-40",
+        "D-41"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 47,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Kennismaken"
+      },
+      {
+        "id": "section-1-1",
+        "text": "Gefeliciteerd met uw keuze van de CASIO Wrist Camera (dit horloge). Lees"
+      },
+      {
+        "id": "section-1-2",
+        "text": "au.b. deze gebruiksaanwijzing aandachtig door en houd de gebruiksaanwijzing"
+      },
+      {
+        "id": "section-1-11",
+        "text": "voor eventuele verliezen of aanspraken van derden die kunnen"
+      },
+      {
+        "id": "section-2-0",
+        "text": "Inhoudsopgave"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Inhoudsopgave"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Overzicht van bedieningsprocedures"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Overzicht van bedieningsprocedures"
+      },
+      {
+        "id": "section-6-5",
+        "text": "Instellen van de tijd en datum"
+      },
+      {
+        "id": "section-7-0",
+        "text": "Het horloge verlaat automatisch het instelscherm weer aan als u"
+      },
+      {
+        "id": "section-7-4",
+        "text": "voor de uren voor tijden tussen 12:00 's-middags tot 11:59 's-nachts terwi]"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Automatische display uit"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Algemene gids"
+      },
+      {
+        "id": "section-9-0",
+        "text": "Tijdaanwijsfunctie"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Camerafunctie"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Camerafunctie"
+      },
+      {
+        "id": "section-10-3",
+        "text": "Een beeld opnemen"
+      },
+      {
+        "id": "section-11-0",
+        "text": ", De melding FULL (vol) verschijnt in de display om aan te geven dat het"
+      },
+      {
+        "id": "section-11-1",
+        "text": "geheugen vol is. U kunt de camerafunctie niet inschakelen zolang deze"
+      },
+      {
+        "id": "section-11-2",
+        "text": "melding aangegeven wordt. Mocht dit gebeuren, wis dan beelden uit die u"
+      },
+      {
+        "id": "section-11-4",
+        "text": "Voorzorgsmaatregelen voor de camera"
+      },
+      {
+        "id": "section-11-7",
+        "text": "pauze onderbreking bij de camera"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Regelen van het camerafunctiebeeld"
+      },
+      {
+        "id": "section-12-1",
+        "text": "U kunt de volgende procedure gebruiken om de helderheid fe regelen en het"
+      },
+      {
+        "id": "section-13-0",
+        "text": "Specificeren van het type belichting mango sb ney nise"
+      },
+      {
+        "id": "section-13-1",
+        "text": "oruk tijdens de camerafunctie op de (A) toets om door de beschikbare"
+      },
+      {
+        "id": "section-13-4",
+        "text": "Opnamefuncties"
+      },
+      {
+        "id": "section-14-1",
+        "text": "Druk tijdens de camerafunctie op de C toets om door de beschikbare"
+      },
+      {
+        "id": "section-14-13",
+        "text": "Opmerking"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Opnemen met de kunstfunctie"
+      },
+      {
+        "id": "section-16-0",
+        "text": "VISUAL DATABANK-functie"
+      },
+      {
+        "id": "section-17-0",
+        "text": "Toevoegen van tekst aan een beeld"
+      },
+      {
+        "id": "section-18-6",
+        "text": "Om alle beelden in het geheugen van het horloge te wissen"
+      },
+      {
+        "id": "section-18-7",
+        "text": "Wissen van beelden"
+      },
+      {
+        "id": "section-18-10",
+        "text": "Nur 3. Druk op de E toets om het DEL (wissen)"
+      },
+      {
+        "id": "section-21-0",
+        "text": "Tijdaanwijsfunctie"
+      },
+      {
+        "id": "section-21-1",
+        "text": "Tijdaanwijsfunctie De tijdaanwijsfunctie is de normale default"
+      },
+      {
+        "id": "section-22-0",
+        "text": "Gebruiken van het zoekerscherm"
+      },
+      {
+        "id": "section-22-1",
+        "text": "Telkens bij indrukken van de C toets tijdens de tijdaanwijsfunctie worde"
+      },
+      {
+        "id": "section-22-2",
+        "text": "Schakelen tussen de schermformaten van de tijdaanwijsfua"
+      },
+      {
+        "id": "section-24-0",
+        "text": "Alarmfunctie"
+      },
+      {
+        "id": "section-24-2",
+        "text": "instellen van vijf onafhankelijke alarmen. U"
+      },
+      {
+        "id": "section-25-0",
+        "text": "Werking van het dagelijkse alarm"
+      },
+      {
+        "id": "section-25-2",
+        "text": "Let er bij het instellen van de alarmtijd tijdens het 12-uren formaat op dat G"
+      },
+      {
+        "id": "section-26-0",
+        "text": "Aftelalarmfunctie"
+      },
+      {
+        "id": "section-26-1",
+        "text": "Met de aftelalarmfunctie kunt u een starttijd tot maximaal 60 minuten"
+      },
+      {
+        "id": "section-26-2",
+        "text": "instellen. Een aftelalarm gaat at wanneer tijdens het aftellen nul wordt berei"
+      },
+      {
+        "id": "section-26-12",
+        "text": "Opmerking"
+      },
+      {
+        "id": "section-27-0",
+        "text": "Stopwatchfunctie"
+      },
+      {
+        "id": "section-27-3",
+        "text": "om tijden op te nemen met de stopwatch"
+      },
+      {
+        "id": "section-28-0",
+        "text": "IR-functie"
+      },
+      {
+        "id": "section-28-6",
+        "text": "Uitwisselen van data tussen twee horloges"
+      },
+      {
+        "id": "section-31-2",
+        "text": "opmerkingen"
+      },
+      {
+        "id": "section-31-4",
+        "text": "Communicatiefoutmeldingen"
+      },
+      {
+        "id": "section-33-0",
+        "text": "Betreffende de geïnstalleerde batterij"
+      },
+      {
+        "id": "section-33-3",
+        "text": "Lege batterij aanduiding"
+      },
+      {
+        "id": "section-33-12",
+        "text": "Opmerkingen"
+      },
+      {
+        "id": "section-34-0",
+        "text": "Voorzorgsmaatregelen voor de batterij"
+      },
+      {
+        "id": "section-34-1",
+        "text": "Onjuist gebruik van een batterij kan hem doen barsten of lekken waardoor de"
+      },
+      {
+        "id": "section-37-0",
+        "text": "Technische gegevens"
+      },
+      {
+        "id": "section-37-1",
+        "text": "Nauwkeurigheid bij normale temperatuur: ±15 seconden per maand"
+      },
+      {
+        "id": "section-39-0",
+        "text": "Gebruikersonderhoud"
+      },
+      {
+        "id": "section-40-1",
+        "text": "doek of een zachte doek bevochtigd in een oplossing van water en een"
+      },
+      {
+        "id": "section-40-2",
+        "text": "neutraal schoonmaakmiddel. Gebruik nooit vluchtige oplossingen (zoals"
+      },
+      {
+        "id": "section-41-1",
+        "text": "Langdurig blootstellen aan direct zonlicht kan de fluorescerende kleuren"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-pt",
+    "model": "WQV-1/2",
+    "language": "pt",
+    "module": 2220,
+    "title": "WQV-1/2 — Guia do usuário",
+    "pages": 39,
+    "file": "wqv2-pt.html",
+    "sourceURL": null,
+    "sourceSHA256": "f23130de0ed0b0b62986322c84485279d5bdfafd29734515fcb41463302d9a02",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-4",
+        "P-5",
+        "P-6",
+        "P-7",
+        "P-8",
+        "P-9",
+        "P-10",
+        "P-11",
+        "P-12",
+        "P-13",
+        "P-14",
+        "P-15",
+        "P-16",
+        "P-17",
+        "P-18",
+        "P-19",
+        "P-20",
+        "P-21",
+        "P-22",
+        "P-23",
+        "P-24",
+        "P-25",
+        "P-26",
+        "P-27",
+        "P-28",
+        "P-29",
+        "P-30",
+        "P-31",
+        "P-32",
+        "P-33",
+        "P-34",
+        "P-35",
+        "P-36",
+        "P-37",
+        "P-38",
+        "P-39"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 43,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "Apresentação"
+      },
+      {
+        "id": "section-1-2",
+        "text": "Para obter o máximo de sua compra, certitique-se de ler este manual"
+      },
+      {
+        "id": "section-2-0",
+        "text": "Sumário"
+      },
+      {
+        "id": "section-3-0",
+        "text": "Sumário"
+      },
+      {
+        "id": "section-4-0",
+        "text": "Referência dos procedimentos"
+      },
+      {
+        "id": "section-5-0",
+        "text": "Referência dos procedimentos"
+      },
+      {
+        "id": "section-6-6",
+        "text": "Para ajustar a hora e a data"
+      },
+      {
+        "id": "section-7-1",
+        "text": "tonar O enquanto o dia estiver piscando na tela de definição faz que o"
+      },
+      {
+        "id": "section-7-2",
+        "text": "no mostrador. Cada pressão de E neste momento alterna o formato entre"
+      },
+      {
+        "id": "section-7-10",
+        "text": "Apagamento automático do mostrador"
+      },
+      {
+        "id": "section-8-0",
+        "text": "Guia geral"
+      },
+      {
+        "id": "section-9-0",
+        "text": "Modo de indicação das horas"
+      },
+      {
+        "id": "section-9-5",
+        "text": "Modo da câmera"
+      },
+      {
+        "id": "section-10-0",
+        "text": "Modo da câmera"
+      },
+      {
+        "id": "section-10-3",
+        "text": "Para gravar uma imagem"
+      },
+      {
+        "id": "section-11-0",
+        "text": "Precauções no modo da câmera"
+      },
+      {
+        "id": "section-12-0",
+        "text": "Controle da imagem no modo da câmera"
+      },
+      {
+        "id": "section-12-1",
+        "text": "Você pode utliza da isminação ao gravar uma para ajustar o brilho e para"
+      },
+      {
+        "id": "section-12-2",
+        "text": "Ajuste do brilho da imagem"
+      },
+      {
+        "id": "section-12-12",
+        "text": "para informar o relógio sobre o tipo de iluminação que está usando, de"
+      },
+      {
+        "id": "section-12-13",
+        "text": "modo que o relógio possa fazer os ajustes necessários para garantir"
+      },
+      {
+        "id": "section-13-2",
+        "text": "Modos de gravação"
+      },
+      {
+        "id": "section-14-0",
+        "text": "Para selecionar o modo de gravação ai"
+      },
+      {
+        "id": "section-14-1",
+        "text": "No modo da câmera, pressione (C) para mudar através dos modos de"
+      },
+      {
+        "id": "section-14-5",
+        "text": "Para gravar uma imagem usando o modo de fusão"
+      },
+      {
+        "id": "section-15-0",
+        "text": "Para gravar uma imagem no modo de arte"
+      },
+      {
+        "id": "section-16-0",
+        "text": "Modo VISUAL DATABANK"
+      },
+      {
+        "id": "section-16-1",
+        "text": "Além de ver as imagens, você pode utilizar o modo VISUAL DATABANK"
+      },
+      {
+        "id": "section-16-13",
+        "text": "Notas"
+      },
+      {
+        "id": "section-17-0",
+        "text": "Anexação de texto a uma imagem"
+      },
+      {
+        "id": "section-18-1",
+        "text": "tela de introdução de texto se nenhuma operação for realizada dentro de"
+      },
+      {
+        "id": "section-18-6",
+        "text": "Apagamento de imagens"
+      },
+      {
+        "id": "section-18-8",
+        "text": "Para apagar todas as imagens na memória do relógio"
+      },
+      {
+        "id": "section-20-0",
+        "text": "Modo de indicação das horas"
+      },
+      {
+        "id": "section-20-5",
+        "text": "Para reposicionar os segundos a zero"
+      },
+      {
+        "id": "section-20-11",
+        "text": "Para mudar entre os formatos de tela do modo de indicação"
+      },
+      {
+        "id": "section-21-0",
+        "text": "Utilização da tela de visualização"
+      },
+      {
+        "id": "section-21-1",
+        "text": "A pressão de um botao no modo de indicaçao das horas exibe a tela de"
+      },
+      {
+        "id": "section-21-2",
+        "text": "visualização, que voce pode utilizar para ver as imagens armazenadas na"
+      },
+      {
+        "id": "section-21-5",
+        "text": "para exibir a tela de visualização"
+      },
+      {
+        "id": "section-23-0",
+        "text": "Modo do despertador"
+      },
+      {
+        "id": "section-24-0",
+        "text": "Operação do despertador diário"
+      },
+      {
+        "id": "section-24-16",
+        "text": "modo de indicação das horas, modo do"
+      },
+      {
+        "id": "section-25-0",
+        "text": "Modo do alarme de contagem regressiva"
+      },
+      {
+        "id": "section-25-2",
+        "text": "nicial de até 60 minutos. Um alarme de contagem regressiva soa quando a"
+      },
+      {
+        "id": "section-25-5",
+        "text": "modo da câmera, modo VISUAL DATABANK ou modo IR, ou enquanto a"
+      },
+      {
+        "id": "section-26-0",
+        "text": "Modo do cronômetro"
+      },
+      {
+        "id": "section-26-1",
+        "text": "O modo do cronômetro permite-lhe cronometar"
+      },
+      {
+        "id": "section-26-5",
+        "text": "Para cronometrar o tempo com o cronômetro"
+      },
+      {
+        "id": "section-27-0",
+        "text": "Modo de infravermelho"
+      },
+      {
+        "id": "section-27-4",
+        "text": "Troca de dados entre dois relógios"
+      },
+      {
+        "id": "section-28-1",
+        "text": "minutos sem realizar nenhuma operaçao, ele muda automaticamente para"
+      },
+      {
+        "id": "section-29-2",
+        "text": "para receber uma única imagem"
+      },
+      {
+        "id": "section-30-0",
+        "text": "Erros de comunicação"
+      },
+      {
+        "id": "section-31-0",
+        "text": "Fornecimento de energia"
+      },
+      {
+        "id": "section-31-1",
+        "text": "Sobre a pilha pré-instalada"
+      },
+      {
+        "id": "section-32-1",
+        "text": "possivelmente avariando o interior do relógio. Observe as seguintes"
+      },
+      {
+        "id": "section-32-2",
+        "text": "Precauções com a pilha"
+      },
+      {
+        "id": "section-34-5",
+        "text": "adequadamente se a gaxeta não estiver emame de co"
+      },
+      {
+        "id": "section-35-0",
+        "text": "Especificações"
+      },
+      {
+        "id": "section-35-5",
+        "text": "Modo do despertador: 5 despertadores diários, sinal de marcação das horas"
+      },
+      {
+        "id": "section-35-6",
+        "text": "Modo do alarme de contagem regressiva"
+      },
+      {
+        "id": "section-36-1",
+        "text": "Elementos principais: Oscilador de quartzo de alta performance do tip"
+      },
+      {
+        "id": "section-37-0",
+        "text": "Manutenção pelo usuário"
+      },
+      {
+        "id": "section-38-1",
+        "text": "suave molhado em uma soluçao de água e uma mistura de detergente"
+      },
+      {
+        "id": "section-39-0",
+        "text": "O contato longo com qualquer outra superfície molhada pode causar a"
+      },
+      {
+        "id": "section-39-1",
+        "text": "descoloração das cores fluorescentes. Certifique-se de remover qualquer"
+      },
+      {
+        "id": "section-39-2",
+        "text": "umidade da superficie fluorescente e evite o contato com outras"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-ko",
+    "model": "WQV-1/2",
+    "language": "ko",
+    "module": 2220,
+    "title": "WQV-1/2 — 사용설명서",
+    "pages": 37,
+    "file": "wqv2-ko.html",
+    "sourceURL": null,
+    "sourceSHA256": "d2acebef9fae97a8f23b9558a87521d1dce4f411912cdf9780ad8effdef5b8f0",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "K-1",
+        "K-2",
+        "K-3",
+        "K-4",
+        "K-5",
+        "K-6",
+        "K-7",
+        "K-8",
+        "K-9",
+        "K-10",
+        "K-11",
+        "K-12",
+        "K-13",
+        "K-14",
+        "K-15",
+        "K-16",
+        "K-17",
+        "K-18",
+        "K-19",
+        "K-20",
+        "K-21",
+        "K-22",
+        "K-23",
+        "K-24",
+        "K-25",
+        "K-26",
+        "K-27",
+        "K-28",
+        "K-29",
+        "K-30",
+        "K-31",
+        "K-32",
+        "K-33",
+        "K-34",
+        "K-35",
+        "K-36",
+        "K-37"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 45,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "처음 사용하기"
+      },
+      {
+        "id": "section-1-1",
+        "text": "cAsiO Wrist Camera(이시계)를 선정한여 주셔서 축하합니다. 이 시계"
+      },
+      {
+        "id": "section-1-3",
+        "text": "이 매뉴얼에 관하여"
+      },
+      {
+        "id": "section-2-0",
+        "text": "내용"
+      },
+      {
+        "id": "section-3-0",
+        "text": "내용"
+      },
+      {
+        "id": "section-4-0",
+        "text": "절차의 순람"
+      },
+      {
+        "id": "section-5-0",
+        "text": "절차의 순람"
+      },
+      {
+        "id": "section-6-4",
+        "text": "시간과 날짜 설정"
+      },
+      {
+        "id": "section-7-0",
+        "text": "자동 표시 끄기"
+      },
+      {
+        "id": "section-7-2",
+        "text": "날이 세팅 스크린에서 절멸하는 동안 D 를 누르면 현재의 계시 포맷"
+      },
+      {
+        "id": "section-8-0",
+        "text": "일반적인 안내"
+      },
+      {
+        "id": "section-9-0",
+        "text": "계시 모드"
+      },
+      {
+        "id": "section-9-5",
+        "text": "카메라 모드"
+      },
+      {
+        "id": "section-10-0",
+        "text": "카메라 모드"
+      },
+      {
+        "id": "section-10-3",
+        "text": "화상을 기록하려면"
+      },
+      {
+        "id": "section-11-0",
+        "text": "카메라 모드의 주의 사항"
+      },
+      {
+        "id": "section-12-0",
+        "text": "카메라 모드의 화상 조정"
+      },
+      {
+        "id": "section-12-2",
+        "text": "다음의 절차를 사용하여, 휘도를 조정하고 화상을 기록할 때 조명의 종"
+      },
+      {
+        "id": "section-13-0",
+        "text": "조영의 타입을 지정한다"
+      },
+      {
+        "id": "section-13-1",
+        "text": "카메라 모드에 있어서 A 를 눌러 아래에서 나타낸 사용할 수 있는 조"
+      },
+      {
+        "id": "section-13-6",
+        "text": "기록 모드"
+      },
+      {
+        "id": "section-14-3",
+        "text": "운 한다"
+      },
+      {
+        "id": "section-14-15",
+        "text": "아트 모드를 사용하여 기록하기"
+      },
+      {
+        "id": "section-15-0",
+        "text": "VISUAL DATABANK 모드"
+      },
+      {
+        "id": "section-16-0",
+        "text": "화상에 텍스트 첨부"
+      },
+      {
+        "id": "section-17-1",
+        "text": "/s. 텍스트가 원하는 방향으로 간 후"
+      },
+      {
+        "id": "section-17-8",
+        "text": "화상 삭제"
+      },
+      {
+        "id": "section-19-0",
+        "text": "계시 모드"
+      },
+      {
+        "id": "section-19-9",
+        "text": "93 계시 모드 스크린 포맷간을 절환한다"
+      },
+      {
+        "id": "section-20-0",
+        "text": "뷰어 화면 사용"
+      },
+      {
+        "id": "section-20-2",
+        "text": "계서 모드에 있는 버튼을 누르면 메모리에 기억된 화상을 보기위해"
+      },
+      {
+        "id": "section-20-7",
+        "text": "뷰어 스크린또는 VISUAL DATABANK 모드"
+      },
+      {
+        "id": "section-21-0",
+        "text": "알람 모드"
+      },
+      {
+        "id": "section-22-6",
+        "text": "일일 알람 조작"
+      },
+      {
+        "id": "section-23-0",
+        "text": "카운트다운 알람 모드"
+      },
+      {
+        "id": "section-23-3",
+        "text": "기운트다운의 시작시간을 설정한다"
+      },
+      {
+        "id": "section-23-10",
+        "text": "다운 알람을 사용한다"
+      },
+      {
+        "id": "section-24-0",
+        "text": "스톱워치 모드"
+      },
+      {
+        "id": "section-24-1",
+        "text": "스톱워치 모드에서는 경과시간, 스플리트"
+      },
+      {
+        "id": "section-25-0",
+        "text": "적외선 모드"
+      },
+      {
+        "id": "section-25-2",
+        "text": "1p 모드를 사용하여 2개의 시계 또는 귀하의 시계와 컴퓨터간의 데이터"
+      },
+      {
+        "id": "section-25-4",
+        "text": "두 시계 사이의 데이터 교환"
+      },
+      {
+        "id": "section-26-0",
+        "text": "시계를 어느 조작이라도 실행하지 않고 약 2분간 IR 모드에 방치하게"
+      },
+      {
+        "id": "section-28-0",
+        "text": "통신 오류"
+      },
+      {
+        "id": "section-29-0",
+        "text": "미리 장착된 전지"
+      },
+      {
+        "id": "section-29-2",
+        "text": "한 정치는 성격과 재교를 저장 합니다"
+      },
+      {
+        "id": "section-30-0",
+        "text": "전지 사용 시 주의 사항"
+      },
+      {
+        "id": "section-31-1",
+        "text": "전지를 교환한다"
+      },
+      {
+        "id": "section-32-4",
+        "text": "오봉 표명 하부 표면을 동심에 전축하는"
+      },
+      {
+        "id": "section-33-0",
+        "text": "사양"
+      },
+      {
+        "id": "section-33-5",
+        "text": "알람 모드: 다섯의 데일리 알람, 시간당 시간신호"
+      },
+      {
+        "id": "section-34-1",
+        "text": "주요소: 튜닝 포크형 고성능 석영 오실레이터, 단일칩 CMoS LSI"
+      },
+      {
+        "id": "section-35-0",
+        "text": "사용자 유지 관리"
+      },
+      {
+        "id": "section-35-2",
+        "text": "없거나 또는 희미한 표시)가 있으면 구입처나 CASIO 취급점에 의해"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-zh-Hant",
+    "model": "WQV-1/2",
+    "language": "zh-Hant",
+    "module": 2220,
+    "title": "WQV-1/2 — 用戶說明書",
+    "pages": 37,
+    "file": "wqv2-zh-Hant.html",
+    "sourceURL": null,
+    "sourceSHA256": "66db3c1b0056e055959780e9a1444f2c6591b74170cc4cb03907f1fb89d959b6",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "C-1",
+        "C-2",
+        "C-3",
+        "C-4",
+        "C-5",
+        "C-6",
+        "C-7",
+        "C-8",
+        "C-9",
+        "C-10",
+        "C-11",
+        "C-12",
+        "C-13",
+        "C-14",
+        "C-15",
+        "C-16",
+        "C-17",
+        "C-18",
+        "C-19",
+        "C-20",
+        "C-21",
+        "C-22",
+        "C-23",
+        "C-24",
+        "C-25",
+        "C-26",
+        "C-27",
+        "C-28",
+        "C-29",
+        "C-30",
+        "C-31",
+        "C-32",
+        "C-33",
+        "C-34",
+        "C-35",
+        "C-36",
+        "C-37"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 47,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "事前準備"
+      },
+      {
+        "id": "section-2-0",
+        "text": "目錄"
+      },
+      {
+        "id": "section-3-0",
+        "text": "目錄"
+      },
+      {
+        "id": "section-4-0",
+        "text": "操作索引"
+      },
+      {
+        "id": "section-5-0",
+        "text": "操作索引"
+      },
+      {
+        "id": "section-6-5",
+        "text": "設定時間與日期"
+      },
+      {
+        "id": "section-7-0",
+        "text": "畫面自動熄滅"
+      },
+      {
+        "id": "section-7-2",
+        "text": "當日數位在設定畫面中閃動時，按D 鈕時制指示符（12H或24H）"
+      },
+      {
+        "id": "section-7-3",
+        "text": "會在畫面中閃動。每次按E 鈕可交替選換12小時（12H）及24小時（24H）"
+      },
+      {
+        "id": "section-8-0",
+        "text": "部位說明"
+      },
+      {
+        "id": "section-9-0",
+        "text": "計時功能"
+      },
+      {
+        "id": "section-9-5",
+        "text": "照相機功能"
+      },
+      {
+        "id": "section-10-0",
+        "text": "照相機功能"
+      },
+      {
+        "id": "section-10-3",
+        "text": "拍攝影像"
+      },
+      {
+        "id": "section-11-0",
+        "text": "照相機的使用注意"
+      },
+      {
+        "id": "section-12-0",
+        "text": "照相機的影像控制"
+      },
+      {
+        "id": "section-13-2",
+        "text": "拍攝模式"
+      },
+      {
+        "id": "section-14-14",
+        "text": "使用藝術拍照模式拍照"
+      },
+      {
+        "id": "section-15-0",
+        "text": "VISUAL DATABANK 功能"
+      },
+      {
+        "id": "section-16-0",
+        "text": "為影像輸入附帶文字"
+      },
+      {
+        "id": "section-17-0",
+        "text": "隆不作任何操作經過約2分鐘，本錶會自動儲存所輸入的文字及退出"
+      },
+      {
+        "id": "section-17-1",
+        "text": "有關如何顯示及隱蔽影像的附帶文字，請參閱第C-15頁“瀏覽拍照的"
+      },
+      {
+        "id": "section-17-7",
+        "text": "刪除影像"
+      },
+      {
+        "id": "section-19-0",
+        "text": "計時功能"
+      },
+      {
+        "id": "section-20-0",
+        "text": "瀏覽畫面的使用"
+      },
+      {
+        "id": "section-21-0",
+        "text": "鬧鈴功能"
+      },
+      {
+        "id": "section-22-0",
+        "text": "每日鬧鈴的運作"
+      },
+      {
+        "id": "section-22-12",
+        "text": "⑧ 鈕（-）顯示您要的鬧鈴畫面或整點響"
+      },
+      {
+        "id": "section-23-0",
+        "text": "倒數鬧鈴功能"
+      },
+      {
+        "id": "section-23-1",
+        "text": "本錶的倒數鬧鈴功能可進行長達60分鐘的倒數。當倒數至零時，倒"
+      },
+      {
+        "id": "section-23-4",
+        "text": "图數開始時間的設定"
+      },
+      {
+        "id": "section-23-9",
+        "text": "注意"
+      },
+      {
+        "id": "section-24-0",
+        "text": "秒錶功能"
+      },
+      {
+        "id": "section-25-0",
+        "text": "紅外線通訊功能"
+      },
+      {
+        "id": "section-25-1",
+        "text": "使用本錶的紅外線通訊功能可與其他手錶（2只手錶間）或電腦進行資"
+      },
+      {
+        "id": "section-25-4",
+        "text": "兩隻手錶間的資料交換"
+      },
+      {
+        "id": "section-28-0",
+        "text": "通訊錯誤"
+      },
+      {
+        "id": "section-29-0",
+        "text": "有關原裝電池的說明"
+      },
+      {
+        "id": "section-30-0",
+        "text": "電池使用注意"
+      },
+      {
+        "id": "section-30-2",
+        "text": "不正確使用電池會導致電池爆裂或漏液，而會有損壞手錶內部的可"
+      },
+      {
+        "id": "section-33-0",
+        "text": "規格"
+      },
+      {
+        "id": "section-33-2",
+        "text": "溫時的精確度：每月士15秒"
+      },
+      {
+        "id": "section-35-0",
+        "text": "用戶維護保養"
+      },
+      {
+        "id": "section-35-1",
+        "text": "池：原配電池是在製作廠內安裝，一發現有電源不足的現象（照明不"
+      },
+      {
+        "id": "section-35-2",
+        "text": "亮或顯示畫面暗淡不清），務請銷售店或CASIO經銷商代為更換"
+      }
+    ]
+  },
+  {
+    "id": "wqv2-ar",
+    "model": "WQV-1/2",
+    "language": "ar",
+    "module": 2220,
+    "title": "WQV-1/2 — دليل المستخدم",
+    "pages": 37,
+    "file": "wqv2-ar.html",
+    "sourceURL": null,
+    "sourceSHA256": "c26b73aef3e67be765711f925118e9a3e6eed6a99c2dd6044e9981810429e2e8",
+    "printSource": {
+      "kind": "photographed Casio booklet",
+      "pageLabels": [
+        "A-1",
+        "A-2",
+        "A-3",
+        "A-4",
+        "A-5",
+        "A-6",
+        "A-7",
+        "A-8",
+        "A-9",
+        "A-10",
+        "A-11",
+        "A-12",
+        "A-13",
+        "A-14",
+        "A-15",
+        "A-16",
+        "A-17",
+        "A-18",
+        "A-19",
+        "A-20",
+        "A-21",
+        "A-22",
+        "A-23",
+        "A-24",
+        "A-25",
+        "A-26",
+        "A-27",
+        "A-28",
+        "A-29",
+        "A-30",
+        "A-31",
+        "A-32",
+        "A-33",
+        "A-34",
+        "A-35",
+        "A-36",
+        "A-37"
+      ]
+    },
+    "scanned": true,
+    "illustrations": 46,
+    "headings": [
+      {
+        "id": "section-1-0",
+        "text": "الإلمام بالمعلومات الأساسية"
+      },
+      {
+        "id": "section-1-1",
+        "text": "الإلمام بالمعلومات الاساسية"
+      },
+      {
+        "id": "section-2-0",
+        "text": "المحتويات"
+      },
+      {
+        "id": "section-3-0",
+        "text": "المحتويات"
+      },
+      {
+        "id": "section-4-0",
+        "text": "فهرس الإجراءات"
+      },
+      {
+        "id": "section-5-0",
+        "text": "فهرس الإجراءات"
+      },
+      {
+        "id": "section-6-3",
+        "text": "ضبط الوقت والتاريخ"
+      },
+      {
+        "id": "section-7-0",
+        "text": "إيقاف العرض تلقائياً"
+      },
+      {
+        "id": "section-8-0",
+        "text": "دليل عام"
+      },
+      {
+        "id": "section-9-0",
+        "text": "وضع عرض التوقيت"
+      },
+      {
+        "id": "section-9-5",
+        "text": "وضع الكاميرا"
+      },
+      {
+        "id": "section-10-0",
+        "text": "وضع الكاميرا"
+      },
+      {
+        "id": "section-10-3",
+        "text": "لتسجيل صورة"
+      },
+      {
+        "id": "section-11-0",
+        "text": "تنبيهات احتياطية حول وضع الكاميرا"
+      },
+      {
+        "id": "section-12-0",
+        "text": "التحكم في صور وضع الكاميرا"
+      },
+      {
+        "id": "section-12-2",
+        "text": "لضبط سطوع الصورة"
+      },
+      {
+        "id": "section-13-4",
+        "text": "أوضاع التسجيل"
+      },
+      {
+        "id": "section-14-10",
+        "text": "التسجيل باستعمال الوضع الفني"
+      },
+      {
+        "id": "section-15-0",
+        "text": "وضع VISUAL DATABANK"
+      },
+      {
+        "id": "section-15-3",
+        "text": "لمشاهدة الصور المسجلة"
+      },
+      {
+        "id": "section-16-0",
+        "text": "إضافة النص إلى الصور"
+      },
+      {
+        "id": "section-17-5",
+        "text": "محو الصور"
+      },
+      {
+        "id": "section-18-2",
+        "text": "إضغط (٣) لنقل المؤشر الى البند YES (نعم) ثم اخرة"
+      },
+      {
+        "id": "section-19-0",
+        "text": "وضع عرض التوقيت"
+      },
+      {
+        "id": "section-20-0",
+        "text": "استعمال شاشة المشاهدة"
+      },
+      {
+        "id": "section-21-0",
+        "text": "وضع المنبّه"
+      },
+      {
+        "id": "section-22-7",
+        "text": "تشغيل المنبّه اليومي"
+      },
+      {
+        "id": "section-22-10",
+        "text": "في وضع المنبَه، إحتفظ بالزر 0 مضغوطاً لإصدار صور"
+      },
+      {
+        "id": "section-22-13",
+        "text": "تشغيل وإيقاف المنبّه اليومي وإعلان تمام"
+      },
+      {
+        "id": "section-23-0",
+        "text": "وضع منبّه العد التنازلي"
+      },
+      {
+        "id": "section-23-12",
+        "text": "إستعمال منبّه العدّ التنازلي"
+      },
+      {
+        "id": "section-24-0",
+        "text": "وضع ساعة الإيقاف"
+      },
+      {
+        "id": "section-25-0",
+        "text": "وضع الأشعة تحت الحمراء IR"
+      },
+      {
+        "id": "section-25-5",
+        "text": "تبادل البيانات بين ساعتين"
+      },
+      {
+        "id": "section-27-1",
+        "text": "استقبال صورة واحدة"
+      },
+      {
+        "id": "section-28-0",
+        "text": "أخطاء الاتصالات"
+      },
+      {
+        "id": "section-29-1",
+        "text": "حول البطارية المركّبة مسبقاً"
+      },
+      {
+        "id": "section-30-0",
+        "text": "تنبيهات احتياطية حول البطارية"
+      },
+      {
+        "id": "section-32-3",
+        "text": "بتركيب البطاري في الساعة جاعلاً الجانب الموجب (٠)"
+      },
+      {
+        "id": "section-33-0",
+        "text": "المواصفات"
+      },
+      {
+        "id": "section-33-5",
+        "text": "وضع المنبّه: ٥ منبّهات يومية، إعلان تمام الساعة"
+      },
+      {
+        "id": "section-35-0",
+        "text": "الصيانة من قبل المستخدم"
       }
     ]
   }

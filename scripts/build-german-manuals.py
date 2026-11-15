@@ -96,7 +96,7 @@ def build(model,review,draft):
     body=[];headings=[];report=[];allfigures=0
     for number,page in enumerate(doc,1):
         if model=='wqv2' and number==4:
-            supplement=(ROOT/'docs/manuals/wqv2-de-supplement.html').read_text()
+            supplement=(ROOT/'docs/manuals/wqv2-de-original-g12-g15.html').read_text()
             body.append(supplement);allfigures+=4
             for level,anchor,text in re.findall(r'<(h[23]) id="([^"]+)">([^<]+)</h[23]>',supplement):
                 headings.append(dict(id=anchor,text=html.unescape(text)))
@@ -196,17 +196,12 @@ def build(model,review,draft):
     if any(p.get('labelRepairs') for p in record['pages'].values()):
         note=note.replace('Die Abbildungen stammen unverändert aus dem Original.','Die Abbildungen stammen aus dem Original; angeschnittene Beschriftungen wurden ergänzt.')
     if any(p.get('clippedLines') for p in record['pages'].values()):note+=' Im Original abgeschnittene Textstellen sind ausdrücklich gekennzeichnet.'
+    if model=='wqv2':note+=' Die Seiten G-12 bis G-15 stammen aus der gedruckten Ausgabe.'
     content=f'<!doctype html>\n<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><link rel="stylesheet" href="document.css"></head><body><article data-pages="{len(doc)}"><h1>{title}</h1><p class="source-note">{note}</p>'+''.join(body)+f'<footer><a href="{url}" target="_blank" rel="noopener">Original-PDF</a> · CASIO COMPUTER CO., LTD.</footer></article></body></html>\n'
     (output/(identifier+'.html')).write_text(content)
     (ROOT/'research/manuals/qa'/(identifier+'-lines.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    if model=='wqv2':
-        original=ROOT/'research/manuals/sources/wqv2-en.pdf'
-        assert hashlib.sha256(original.read_bytes()).hexdigest()==record['supplementSource']['sha256']
-        english=fitz.open(original)[2]
-        for name,box in {'brightness':(78,207,151,300),'lighting':(57,504,303,582),'modes':(366,157,600,239),'merge':(376,286,445,381)}.items():
-            english.get_pixmap(matrix=fitz.Matrix(6,6),clip=fitz.Rect(box),alpha=False).save(assets/f'wqv2-de-supplement-{name}.png')
     return dict(id=identifier,model=model_name,language='de',module=module,title=title,pages=len(doc),file=identifier+'.html',sourceURL=url,sourceSHA256=record['sourceSHA256'],scanned=True,illustrations=allfigures,headings=headings,
-                **({'supplement':record['supplementSource'],'missingOriginalPages':record['missingOriginalPages']} if model=='wqv2' else {}))
+                **({'printSource':record['printSource'],'missingOriginalPages':record['missingOriginalPages']} if model=='wqv2' else {}))
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--draft',action='store_true');parser.add_argument('--only',nargs='+',choices=MODELS);args=parser.parse_args()

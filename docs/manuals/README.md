@@ -1,15 +1,19 @@
 # Watch manuals
 
-The Programs screen includes three document files, one for each watch. Opening a
-file follows the same saved language as the watch applications: English,
-Russian, Japanese, German, Spanish or Finnish. When a model has no edition in
-that language, the English guide opens and its label remains **User’s Guide**.
+The Programs screen includes a guide for each watch application. It follows the
+saved display language. When a model has no edition in that language, the English
+guide opens and its label remains **User’s Guide**. The WQV-1/2 reader also has
+its own language selector.
 
 | Model | English | Russian | Japanese | German | Spanish | Finnish |
 | --- | --- | --- | --- | --- | --- | --- |
 | WQV-1/2 | ✓ | ✓ | ✓ | ✓ | ✓ | English |
 | WQV-3 | ✓ | ✓ | ✓ | English | ✓ | ✓ |
 | WQV-10 | ✓ | ✓ | ✓ | ✓ | English | English |
+
+French, Italian, Swedish, Dutch, Portuguese, Korean, Traditional Chinese and
+Arabic editions are available for WQV-1/2. In those display languages, WQV-3
+and WQV-10 open the English edition.
 
 | Model | Module | English | Russian | Japanese |
 | --- | --- | --- | --- | --- |
@@ -98,15 +102,12 @@ Both are scans. The WQV-2 source has 11 PDF pages; WQV-10 has 27, including its
 PC setup sheet, power-save insert and software licence. No German WQV-3 edition
 is included.
 
-The WQV-2 scan jumps from booklet page G-11 to G-16. The missing G-12–G-15
-material is translated from page 2220-3 of the complete English module 2220
-manual supplied by the owner (`libble-eu_22031.pdf`). Its hash is identical to
-the English source already in the catalog. The addition covers brightness,
-50/60 Hz lighting, Mix and Art modes. A small gray vertical margin note marks
-it as a translation from the English original. `wqv2-de-supplement.html` holds
-the translated text; its illustrations are crops from that English page. The
-brightness and Mix diagrams include their complete leader lines and translated
-German labels.
+The WQV-1/2 PDF jumps from G-11 to G-16. The HTML edition includes G-12–G-15
+transcribed from the owner’s German booklet. They cover brightness,
+50/60 Hz lighting, Mix and Art modes. The text is in
+`wqv2-de-original-g12-g15.html`, and the figures are cropped from those pages.
+The original PDF remains available in the reader. The photograph hashes are
+in `german-proofreading.json`.
 
 German scans were recognized by German Tesseract and checked against a separate
 macOS Vision pass and the page images. `german-proofreading.json` records the
@@ -147,9 +148,45 @@ This generator refuses pages that have not been reviewed. `--draft` is for
 proofreading, and visibly labels the result as a draft. It preserves the other
 catalog entries; the main generator also retains the German entries.
 
+## Multilingual module 2220 booklet
+
+The photographed Casio booklet supplied by the owner contains these eight
+editions. All 312 numbered pages are represented in the transcription.
+
+| Edition | Printed pages |
+| --- | --- |
+| French | F-1–F-41 |
+| Italian | I-1–I-43 |
+| Swedish | Sw-1–Sw-37 |
+| Dutch | D-1–D-41 |
+| Portuguese | P-1–P-39 |
+| Korean | K-1–K-37 |
+| Traditional Chinese | C-1–C-37 |
+| Arabic | A-1–A-37 |
+
+The photographed Arabic section is ordered by the printed page numbers.
+The French section uses the clearer of two F-25 photos. The K-2 footer is
+covered in its photo. Its contents and neighbouring pages identify it.
+
+`wqv2220-print-transcription.json` holds the selectable text, printed page
+references, figure bounds and source filenames and hashes. The HTML uses
+individual figure crops. The Japanese, English and German module 2220 guides
+provide cross-checks for procedures and button letters. Text was recognized
+from both the original photos and a pass correcting page curvature and uneven
+lighting. Some lines near the binding, particularly in the Korean, Chinese and
+Arabic sections, still need a closer proofread against the paper booklet.
+
+```sh
+python3 scripts/build-wqv2220-print-manuals.py
+```
+
+The build uses the checked-in transcription and figure crops and preserves the
+other catalog entries. The eight display languages are selectable in Settings.
+The Arabic interface and manual use right-to-left layout.
+
 ## Spanish and Finnish editions
 
-There are fourteen adapted guides in total. The Spanish module 2220 booklet is
+The Spanish module 2220 booklet is
 from [Baroli's archived PDF](https://web.archive.org/web/20120629191015/http://www.baroli.es/manuales/2220.pdf).
 It has eleven scan sheets: booklet pages S-1–S-43 and a power-save insert.
 All four panels on each sheet are retained in reading order. The body is

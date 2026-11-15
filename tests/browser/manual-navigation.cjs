@@ -66,6 +66,11 @@ async function followsScroll(browser, manual) {
     };
     const frame = page.frames().find(frame => frame.url().includes('/manuals/'));
     assert.ok(frame);
+    if (!manual.sourceURL) {
+      assert.equal(await page.locator('#original-pdf').getAttribute('href'), null);
+      assert.equal(await page.locator('#document-language').inputValue(), '');
+      assert.equal(await frame.locator('html').getAttribute('dir'), manual.language === 'ar' ? 'rtl' : null);
+    }
     const ids = await frame.locator('h2[id],h3[id]').evaluateAll(nodes => nodes.map(node => node.id));
     assert.ok(ids.length > 2);
     const middle = ids[Math.floor(ids.length / 2)];
@@ -111,7 +116,9 @@ async function followsScroll(browser, manual) {
   const failures = [], passed = [];
   try {
     for (const manual of catalog) {
-      for (const [name, check] of [['PDF while loading', earlyPDF], ['contents follow scrolling', followsScroll]]) {
+      const checks = [['contents follow scrolling', followsScroll]];
+      if (manual.sourceURL) checks.unshift(['PDF while loading', earlyPDF]);
+      for (const [name, check] of checks) {
         const label = manual.id + ': ' + name;
         try { await check(browser, manual); passed.push(label); }
         catch (error) { failures.push({ test: label, error: error.message }); }

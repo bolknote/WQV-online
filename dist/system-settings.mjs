@@ -1,3 +1,4 @@
+import { localeDefinitions } from './locales.mjs';
 import { tr, getLanguage, setLanguage, translateDOM } from './i18n.mjs';
 import { getWeekStart, setWeekStart, weekdayOrder } from './preferences.mjs';
 
@@ -20,12 +21,9 @@ export function installSystemSettings({ closeMenus = () => {} } = {}) {
       </section>
       <section id="settings-language-panel" hidden>
         <fieldset><legend data-i18n="Display language">Display language</legend>
-          <label class="language-choice" translate="no" lang="en"><input type="radio" name="display-language" value="en">English</label>
-          <label class="language-choice" translate="no" lang="ru"><input type="radio" name="display-language" value="ru">Русский</label>
-          <label class="language-choice" translate="no" lang="ja"><input type="radio" name="display-language" value="ja">日本語</label>
-          <label class="language-choice" translate="no" lang="de"><input type="radio" name="display-language" value="de">Deutsch</label>
-          <label class="language-choice" translate="no" lang="es"><input type="radio" name="display-language" value="es">Español</label>
-          <label class="language-choice" translate="no" lang="fi"><input type="radio" name="display-language" value="fi">Suomi</label>
+          <div class="language-choice-list">${Object.entries(localeDefinitions).map(([code, { name }]) =>
+            `<label class="language-choice" translate="no" lang="${code}"><input type="radio" name="display-language" value="${code}"><bdi>${name}</bdi></label>`,
+          ).join('')}</div>
         </fieldset>
         <div class="dialog-actions"><button type="button" class="settings-back" data-settings-back data-i18n="Back">Back</button><button type="button" id="options-accept">OK</button><button type="button" id="options-cancel" data-i18n="Cancel">Cancel</button></div>
       </section>

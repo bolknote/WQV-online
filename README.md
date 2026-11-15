@@ -11,18 +11,16 @@ handhelds and Pocket PC 2000.
 The opening screen has three watch apps, their guides and Settings. Click your watch’s icon to open its app; the
 close button returns to Programs and releases the USB adapter. Each app has
 its own local album. WQV-1 and WQV-2 share module 2220, so they use one app,
-album and user guide. English, Russian, Japanese, German, Spanish and Finnish
-settings apply to all three apps.
+album and user guide. The display language applies to all three apps.
 
 The three manual files beside the watch apps open in a Pocket Word-style reader.
-They follow the selected display language. Spanish has WQV-1/2 and WQV-3;
-Finnish has WQV-3. German has WQV-1/2 and WQV-10. Where a guide is unavailable,
-the reader opens the English edition and keeps the “User’s Guide” label.
-The guides use reflowable HTML with the original illustrations; the Japanese,
-German and Spanish editions have text recognized from scanned PDFs. The reader
-has a contents list and a text-size setting.
-Original PDF links are available in its File menu. Sources and file hashes are
-listed in [the manual catalog](dist/manuals/manifest.json).
+They follow the display language. The WQV-1/2 reader also lets you pick an
+edition directly. It includes the French, Italian, Swedish, Dutch, Portuguese,
+Korean, Traditional Chinese and Arabic sections from the printed Casio
+booklet. Where a guide is unavailable, the reader opens the English edition
+and keeps the “User’s Guide” label. The guides have selectable text, a contents
+list, illustrations and a text-size setting. The File menu links to an
+original PDF when one is available. [Manual catalog](dist/manuals/manifest.json)
 
 ![The Programs screen, with three watch apps and their guides](docs/programs.png)
 
@@ -42,8 +40,8 @@ uses the USB ID to choose its driver and displays the name supplied by the devic
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
-Choose **Start → Settings → Language** to switch to Russian, Japanese, German,
-Spanish or Finnish. **Calendar display** lets you start the week on Monday or
+Choose **Start → Settings → Language** to switch among fourteen languages.
+**Calendar display** lets you start the week on Monday or
 Sunday. Both choices are remembered in this browser and apply across the apps.
 Changing them keeps your current photo, connection and calendar month.
 Settings opens in a small window. Use the titlebar’s cross to close it.

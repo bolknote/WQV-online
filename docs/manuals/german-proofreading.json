@@ -975,20 +975,76 @@
       "G-14",
       "G-15"
     ],
-    "supplementSource": {
-      "file": "libble-eu_22031.pdf",
-      "sha256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
-      "module": 2220,
-      "page": 3,
-      "method": "German translation of the complete English original supplied by the user; clearly marked in the margin.",
-      "illustrationLabels": "Dunkler / Heller and Erstes Bild / Zweites Bild translated from the complete English labels. Leader lines and button letters retained."
-    },
     "recognition": {
       "primary": "Tesseract, German tessdata_fast, PSM 3; logical panels",
       "comparison": "macOS Vision, de-DE/en-US; full source pages",
       "sourceImages": "600 dpi scan crops; clipped labels reconstructed as separate SVG text, with a small gray margin note.",
       "reviewedOn": "2026-11-02",
       "wordCompletion": "Clipped words are completed from their sentence, diagram meaning and parallel English module guide. Remaining scan-edge losses are repaired in selectable SVG text, not left as fragments."
+    },
+    "printSource": {
+      "kind": "printed manual photographed by the owner",
+      "pages": {
+        "12": {
+          "file": "20261114_211304.jpg",
+          "sha256": "35076fc0d28aa3dd5271a52bc0ebb1f9209ec73b7a41c9914f28a4705b529647",
+          "figures": [
+            {
+              "file": "wqv2-de-g12-brightness.png",
+              "crop": [
+                140,
+                640,
+                449,
+                1039
+              ]
+            }
+          ]
+        },
+        "13": {
+          "file": "20261114_211308.jpg",
+          "sha256": "ff17a25b76521e24a72bcbf1113b3518db4e640514fa529a410a742802d8d0d5",
+          "figures": [
+            {
+              "file": "wqv2-de-g13-lighting.png",
+              "crop": [
+                50,
+                531,
+                1158,
+                912
+              ]
+            }
+          ]
+        },
+        "14": {
+          "file": "20261114_211317.jpg",
+          "sha256": "00b9234fabdc122a935b6bd17d38db9dd23a6fe1d5e056e2fa169bf8f3375456",
+          "figures": [
+            {
+              "file": "wqv2-de-g14-modes.png",
+              "crop": [
+                54,
+                278,
+                1144,
+                699
+              ]
+            },
+            {
+              "file": "wqv2-de-g14-merge.png",
+              "crop": [
+                150,
+                930,
+                445,
+                1344
+              ]
+            }
+          ]
+        },
+        "15": {
+          "file": "20261114_211320.jpg",
+          "sha256": "5a085fddc492fe43ff0b04fce86be1295ce5f7147c5a3b97a7a1662f303e2762",
+          "figures": []
+        }
+      }
     }
   },
   "wqv10-de": {

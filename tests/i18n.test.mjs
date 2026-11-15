@@ -6,6 +6,7 @@ import { russian } from '../dist/translations.mjs';
 import { japanese } from '../dist/translations-ja.mjs';
 import { german } from '../dist/translations-de.mjs';
 import { spanish } from '../dist/translations-es.mjs';
+import { extendedTranslations } from '../dist/translations-extended.mjs';
 import { finnish } from '../dist/translations-fi.mjs';
 import { clockPayload } from '../dist/calendar.mjs';
 
@@ -13,7 +14,7 @@ afterEach(() => setLanguage('en', { persist: false }));
 
 test('English is the default; only an explicit saved language changes it', () => {
   assert.equal(getLanguage(), 'en');
-  for (const saved of [null, '', 'fr', 'RU', '{"language":"ru"}']) {
+  for (const saved of [null, '', 'da', 'RU', '{"language":"ru"}']) {
     assert.equal(readLanguage({ getItem: () => saved }), 'en');
   }
   assert.equal(readLanguage({ getItem: () => 'ru' }), 'ru');
@@ -103,13 +104,13 @@ test('errors retain Error behavior and translate when read in another language',
 test('blocked persistence still allows switching, and unsupported languages leave state intact', () => {
   setLanguage('ru', { storage: { setItem() { throw new Error('storage blocked'); } } });
   assert.equal(getLanguage(), 'ru');
-  assert.throws(() => setLanguage('fr'), RangeError);
+  assert.throws(() => setLanguage('da'), RangeError);
   assert.equal(getLanguage(), 'ru');
   assert.equal(String(tr('Photo {0}', '{1}<img>')), 'Снимок {1}<img>');
 });
 
 test('translations preserve every message substitution', () => {
-  for (const dictionary of [russian, japanese, german, spanish, finnish]) for (const [english, translation] of Object.entries(dictionary)) {
+  for (const dictionary of [russian, japanese, german, spanish, finnish, ...Object.values(extendedTranslations)]) for (const [english, translation] of Object.entries(dictionary)) {
     const placeholders = text => [...text.matchAll(/\{\d+\}/g)].map(match => match[0]).sort();
     assert.deepEqual(placeholders(translation), placeholders(english), english);
   }

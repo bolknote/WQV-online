@@ -5,9 +5,9 @@ import { readFileSync, existsSync } from 'node:fs';
 const root = new URL('../dist/manuals/', import.meta.url);
 const catalog = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'));
 
-test('manual catalog includes every available edition across all six interface languages', () => {
+test('manual catalog includes every available edition', () => {
   assert.deepEqual(catalog.map(item => item.id).sort(),
-    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-de', 'wqv2-en', 'wqv2-es', 'wqv2-ja', 'wqv2-ru', 'wqv3-en', 'wqv3-es', 'wqv3-fi', 'wqv3-ja', 'wqv3-ru']);
+    ['wqv10-de', 'wqv10-en', 'wqv10-ja', 'wqv10-ru', 'wqv2-ar', 'wqv2-de', 'wqv2-en', 'wqv2-es', 'wqv2-fr', 'wqv2-it', 'wqv2-ja', 'wqv2-ko', 'wqv2-nl', 'wqv2-pt', 'wqv2-ru', 'wqv2-sv', 'wqv2-zh-Hant', 'wqv3-en', 'wqv3-es', 'wqv3-fi', 'wqv3-ja', 'wqv3-ru']);
   for (const item of catalog) {
     const source = readFileSync(new URL(item.file, root), 'utf8');
     assert.match(source, new RegExp('<html lang="' + item.language + '"'));
@@ -15,7 +15,13 @@ test('manual catalog includes every available edition across all six interface l
     assert.equal([...source.matchAll(/<figure\b/g)].length, item.illustrations, item.id);
     assert.ok(item.illustrations > 0, item.id + ': original illustrations missing');
     assert.match(item.sourceSHA256, /^[a-f\d]{64}$/);
-    assert.equal(new URL(item.sourceURL).protocol, 'https:');
+    if (item.sourceURL) assert.equal(new URL(item.sourceURL).protocol, 'https:');
+    else {
+      assert.equal(item.printSource.kind, 'photographed Casio booklet');
+      assert.equal(item.pages, item.printSource.pageLabels.length);
+      assert.doesNotMatch(source, /2220-photos|<img\b/);
+      for (const link of source.matchAll(/href="#([^"]+)"/g)) assert.ok(source.includes('id="' + link[1] + '"'), item.id);
+    }
     assert.ok(source.replace(/<[^>]*>/g, '').length > 10000, item.id + ': body text missing');
     assert.doesNotMatch(source, /<object|<embed|<script|onload=/i);
     const ids = [...source.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
@@ -85,15 +91,17 @@ test('German scan corrections are reviewed and the missing WQV-2 sheet has expli
     assert.match(source, /2000 bis 2039/);
     assert.match(source, /115\.200 bps/);
   }
-  const english = catalog.find(item => item.id === 'wqv2-en');
   const german = catalog.find(item => item.id === 'wqv2-de');
-  assert.equal(german.supplement.sha256, english.sourceSHA256);
-  assert.equal(german.supplement.page, 3);
+  assert.deepEqual(Object.keys(german.printSource.pages), ['12','13','14','15']);
+  assert.deepEqual(german.printSource, review['wqv2-de'].printSource);
   assert.deepEqual(german.missingOriginalPages, ['G-12','G-13','G-14','G-15']);
   const source = readFileSync(new URL(german.file, root), 'utf8');
-  assert.match(source, /class="editorial-note">Aus dem englischen Original ergänzt · 2220-3/);
-  for (const text of ['B (dunkler) und E (heller)', '15 Helligkeitsstufen', 'Stufe 8',
-    'Innenbeleuchtung 50 Hz', 'Innenbeleuchtung 60 Hz', 'Mischmodus', 'Kunstmodus']) assert.ok(source.includes(text), text);
+  assert.match(source, /G-12 bis G-15 sind aus einem gedruckten deutschen Original übertragen/);
+  assert.doesNotMatch(source, /Aus dem englischen Original ergänzt/);
+  assert.match(source, /das erste Bild zusammen und drücken Sie danach den Knopf \(F\)/);
+  assert.match(source, /das zweite Bild zusammen und drücken Sie danach den Knopf \(F\)/);
+  for (const text of ['B (dunkler) und E (heller)', '15 Pegeln', 'Pegel 8',
+    'in Räumen mit 50 Hz', 'in Räumen mit 60 Hz', 'Mischmodus', 'Kunstmodus']) assert.ok(source.includes(text), text);
   assert.equal(existsSync(new URL('wqv3-de.html', root)), false);
   const color = readFileSync(new URL('wqv10-de.html', root), 'utf8');
   assert.match(color, /CNT1 bis CNT9/);
@@ -172,7 +180,9 @@ test('German guides keep complete procedure paragraphs and readable tables', () 
   assert.match(color, /bevor Sie die Bilder in Schritt 6 tatsächlich löschen/);
   assert.match(color, /<td>REC ERROR<\/td>/);
   const mono = readFileSync(new URL('wqv2-de.html', root), 'utf8');
-  for (const label of ['Dunkler','Heller','Erstes','Zweites']) assert.ok(mono.includes('>' + label + '</text>'));
+  for (const asset of ['g12-brightness','g13-lighting','g14-modes','g14-merge']) {
+    assert.ok(mono.includes('assets/wqv2-de-' + asset + '.png'));
+  }
 });
 
 test('Japanese watch diagrams retain their button letters and time-display callouts', () => {
