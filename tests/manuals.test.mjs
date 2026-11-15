@@ -75,6 +75,12 @@ test('printed module 2220 editions retain the caption characters and the IR scre
   assert.match(french, /id="page-30"[\s\S]*?<li value="6">[^<]*<\/li>\s*<\/ol>\s*<figure[^\n]+fr-30-03\.png/);
   const italian = readFileSync(new URL('wqv2-it.html', root), 'utf8');
   assert.match(italian, /assets\/wqv2-print\/it-31-02\.png[\s\S]*?assets\/wqv2-print\/it-31-01\.png/);
+  const arabic = readFileSync(new URL('wqv2-ar.html', root), 'utf8');
+  const receive = arabic.slice(arabic.indexOf('id="page-27"'), arabic.indexOf('id="page-28"'));
+  const menus = receive.indexOf('ar-27-01.png');
+  const standby = receive.indexOf('ar-27-02.png');
+  assert.ok(receive.indexOf('value="2"') < menus && menus < receive.indexOf('value="3"'));
+  assert.ok(receive.indexOf('value="4"') < standby && standby < receive.indexOf('value="5"'));
 });
 
 test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
