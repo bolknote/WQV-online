@@ -170,11 +170,22 @@ covered in its photo. Its contents and neighbouring pages identify it.
 
 `wqv2220-print-transcription.json` holds the selectable text, printed page
 references, figure bounds and source filenames and hashes. The HTML uses
-individual figure crops. The Japanese, English and German module 2220 guides
-provide cross-checks for procedures and button letters. Text was recognized
-from both the original photos and a pass correcting page curvature and uneven
-lighting. Some lines near the binding, particularly in the Korean, Chinese and
-Arabic sections, still need a closer proofread against the paper booklet.
+individual figure crops and selectable tables for infrared errors and water
+resistance. The transcription was checked against the photographs and the
+parallel module 2220 guides. Where the binding obscured letters or numbers,
+the other editions were used to check the button sequences and values. The
+order of the clock settings and modes also appears as text alongside the
+original diagrams. The Korean K-7 and Swedish Sw-15 drawings are taken from
+their original booklet pages.
+
+Two notes identify errors in the printed text. The Dutch D-16 places the ALM
+indicator on the right, where the other editions and the Dutch Viewer diagram
+show it on the left. The Arabic A-20 gives an idle timeout of 15 minutes for
+the Viewer, which closes after about 15 seconds.
+
+Several printings call step 3 of infrared reception the standby screen. Step 3
+selects RECEIVE in the OTHERS menu. Press F as in step 4 to enter standby for
+the next image.
 
 ```sh
 python3 scripts/build-wqv2220-print-manuals.py

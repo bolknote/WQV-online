@@ -13,7 +13,7 @@ OUTPUT = ROOT / 'dist/manuals'
 
 
 def render_text(text, prefix, page_count):
-    reference = re.compile(rf'\b{re.escape(prefix)}[-–](\d{{1,2}})\b')
+    reference = re.compile(rf'(?<![A-Za-z0-9]){re.escape(prefix)}[-–]([0-9]{{1,2}})(?![A-Za-z0-9])')
     pieces = []
     offset = 0
     for match in reference.finditer(text):
@@ -42,6 +42,23 @@ def render_figure(figure, caption):
         f'<image href="assets/{asset}" width="{width}" height="{height}"/></svg>'
     )
     return f'<figure class="illustration">{wrapper}{picture}</div></figure>'
+
+
+def render_table(table):
+    headers = table['headers']
+    rows = table['rows']
+    if not headers or any(len(row) != len(headers) for row in rows):
+        raise ValueError(f'Invalid table: {table["label"]}')
+    width = ' wide-table' if len(headers) > 4 else ''
+    label = html.escape(table['label'])
+    head = ''.join(f'<th scope="col">{html.escape(cell)}</th>' for cell in headers)
+    body = ''.join(
+        '<tr>' + ''.join(f'<td>{html.escape(cell)}</td>' for cell in row) + '</tr>'
+        for row in rows
+    )
+    return (f'<div class="manual-table-wrap{width}" tabindex="0" role="region" aria-label="{label}">'
+            f'<table class="manual-table"><thead><tr>{head}</tr></thead>'
+            f'<tbody>{body}</tbody></table></div>')
 
 
 def render_edition(code, edition):
@@ -79,6 +96,8 @@ def render_edition(code, edition):
                 for _, item in chunk:
                     body.append(render_figure(page['figures'][item['index']], edition['illustration'] + ' · ' + page['label']))
                     figures += 1
+            elif kind == 'table':
+                body.extend(render_table(item) for _, item in chunk)
             elif kind in ('h2','h3','p'):
                 for index, item in chunk:
                     if kind == 'p':

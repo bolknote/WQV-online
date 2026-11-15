@@ -40,6 +40,29 @@ test('manual catalog includes every available edition', () => {
   }
 });
 
+test('printed module 2220 editions preserve table rows and inline page links', () => {
+  for (const item of catalog.filter(item => !item.sourceURL)) {
+    const source = readFileSync(new URL(item.file, root), 'utf8');
+    const tables = [...source.matchAll(/<table class="manual-table">([\s\S]*?)<\/table>/g)];
+    assert.equal(tables.length, 2, item.id);
+    const [[, errors], [, waterResistance]] = tables;
+    for (const label of ['OTHERS SEND ERROR', 'OTHERS RECEIVE ERROR', 'PLAY 100 FULL']) {
+      assert.ok(errors.includes('<td>' + label + '</td>'), item.id + ': ' + label);
+    }
+    const rows = [...waterResistance.matchAll(/<tr>(<td>.*?)<\/tr>/g)].map(([, row]) =>
+      [...row.matchAll(/<td>([^<]*)<\/td>/g)].map(([, cell]) => cell));
+    assert.deepEqual(rows.map(row => row[0]), ['I', 'II', 'III', 'IV', 'V'], item.id);
+    const yes = rows[4][2];
+    const no = rows[0][2];
+    assert.notEqual(yes, no, item.id);
+    for (const [index, row] of rows.entries()) {
+      assert.deepEqual(row.slice(2), Array.from({ length: 4 }, (_, column) => column < index ? yes : no), item.id + ': ' + row[0]);
+    }
+  }
+  const korean = readFileSync(new URL('wqv2-ko.html', root), 'utf8');
+  assert.match(korean, /<a href="#page-20"><bdi>K-20<\/bdi><\/a>을/);
+});
+
 test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
   const spanish = JSON.parse(readFileSync(new URL('../docs/manuals/spanish-proofreading.json', import.meta.url), 'utf8'));
   const spanishColor = JSON.parse(readFileSync(new URL('../docs/manuals/wqv3-es-proofreading.json', import.meta.url), 'utf8'));
