@@ -99,7 +99,7 @@ export const japanese = {
   "Read all photos": "すべての写真を読み取り",
   "Read current photo": "現在の写真を読み取り",
   "Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.": "WQV-1/2でIR → PCを選び、前面のFボタンを押してください。時計をアダプターに向けたままにしてください。",
-  "Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.": "時計ではまだIR → PCを開始しないでください。「読み取り開始」をクリックしてから、IR → PCを選んでFボタンを押してください。",
+  "Keep the watch outside IR → PC for now. Click “{0}”, then activate IR → PC and press F on the watch.": "時計ではまだIR → PCを開始しないでください。パソコンで「{0}」を選んでから、時計でIR → PCを選び、Fボタンを押してください。",
   "Preparing USB": "USBを準備しています",
   "Start here before activating PC mode on the watch.": "時計のPCモードを開始する前に、ここで読み取りを開始してください。",
   "Looking for the watch": "時計を探しています",

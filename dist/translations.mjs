@@ -99,7 +99,7 @@ export const russian = {
   "Read all photos": "Чтение всех снимков",
   "Read current photo": "Чтение текущего снимка",
   "Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.": "Теперь выберите IR → PC на WQV-1/2 и нажмите переднюю кнопку F. Оставьте часы напротив адаптера.",
-  "Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.": "Пока не включайте IR → PC на часах. Нажмите «Начать чтение», затем включите IR → PC и нажмите F на часах.",
+  "Keep the watch outside IR → PC for now. Click “{0}”, then activate IR → PC and press F on the watch.": "Пока не включайте IR → PC на часах. Нажмите «{0}», затем выберите IR → PC на часах и нажмите F.",
   "Preparing USB": "Подготовка USB",
   "Start here before activating PC mode on the watch.": "Запустите чтение здесь, прежде чем включать режим PC на часах.",
   "Looking for the watch": "Поиск часов",

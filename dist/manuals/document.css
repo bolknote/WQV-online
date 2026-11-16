@@ -4,6 +4,7 @@
 .editorial-supplement ul,.editorial-supplement ol{display:flow-root}
 .manual-table{width:100%;table-layout:fixed;border-collapse:collapse;margin:1rem 0;font-size:.87em;line-height:1.4}.manual-table th,.manual-table td{border:1px solid #aaa;padding:.4em;text-align:left;vertical-align:top;overflow-wrap:anywhere}.manual-table th{background:#f4f4f4}.manual-table ul{padding-left:1em;margin:.2em 0}
 .booklet-panel{display:flow-root;clear:both}
+.manual-procedure{display:flow-root;clear:both}
 .restored-figure{position:relative;padding-left:1rem}.illustration-repair-note{position:absolute;left:0;top:.3rem;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.6rem;line-height:1.2;font-weight:400;color:#777;white-space:nowrap}
 .diagram-viewport{max-width:100%;overflow-x:auto}.diagram-viewport svg{display:block;margin-inline:auto}.manual-table-wrap{max-width:100%;overflow-x:auto;margin:1rem 0}.manual-table-wrap .manual-table{min-width:32rem;margin:0}.manual-table-wrap.wide-table .manual-table{min-width:42rem}.diagram-viewport:focus-visible,.manual-table-wrap:focus-visible{outline:2px solid #17477b;outline-offset:2px}
 html[lang=de] .illustration:not(.float-left):not(.float-right),html[lang=de] .manual-table-wrap{clear:both}

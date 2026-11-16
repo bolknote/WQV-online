@@ -23,6 +23,8 @@ const artifacts=process.env.WQV_BROWSER_ARTIFACTS||path.join(require('node:os').
       await page.locator('#clock-date').fill('2024-02-29');await page.locator('#clock-time').fill('23:59');
       await page.locator('#set-clock').click();await page.waitForFunction(()=>!document.querySelector('#transfer-start').disabled);
       assert.equal(await page.locator('#transfer-title').innerText(),'Set date and time');
+      assert.equal(await page.locator('#transfer-start').innerText(),'Set on watch');
+      assert.match(await page.locator('#transfer-instructions').innerText(),/Click “Set on watch”/);
       assert.match(await page.locator('#transfer-detail').innerText(),/Seconds will stay unchanged/);
       assert.equal(await page.evaluate(()=>window.__mock.tx.length),0);
       assert.equal(await page.locator('#clock-date').isEnabled(),false);
@@ -38,6 +40,7 @@ const artifacts=process.env.WQV_BROWSER_ARTIFACTS||path.join(require('node:os').
       assert.equal(await page.locator('#gallery .thumbnail').count(),0);
       await page.evaluate(()=>window.__mock.startPC());
       await page.locator('#read-clock').click();await page.waitForFunction(()=>!document.querySelector('#transfer-start').disabled);
+      assert.match(await page.locator('#transfer-instructions').innerText(),/Click “Start reading”/);
       await page.locator('#transfer-start').click();await page.waitForFunction(()=>!document.querySelector('#transfer-dialog').open);
       assert.equal(await page.locator('#result-heading').innerText(),'Watch time read');
       assert.equal(await page.evaluate(()=>window.__mock.clockWrites.length),1);
@@ -62,10 +65,16 @@ const artifacts=process.env.WQV_BROWSER_ARTIFACTS||path.join(require('node:os').
       // Cancel after a request was sent, while its application ACK is missing.
       await page.evaluate(()=>{window.__mock.startPC();window.__mock.dropClockReply=true;});
       await page.locator('#set-clock').click();await page.waitForFunction(()=>!document.querySelector('#transfer-start').disabled);
+      assert.match(await page.locator('#transfer-instructions').innerText(),/「時計に設定」/);
       await page.locator('#transfer-start').click();await page.waitForFunction(()=>window.__mock.clockWrites.length===2);
       await page.locator('#transfer-cancel').click();await page.waitForFunction(()=>!document.querySelector('#transfer-dialog').open);
       assert.equal(await page.locator('#result-heading').innerText(),'日時の設定を確認できませんでした');
       assert.equal(await page.evaluate(()=>window.__mock.clockWrites.length),2);
+      await page.locator('#connect').click();await page.waitForFunction(()=>!document.querySelector('#read-clock').disabled);
+      await page.locator('#read-clock').click();await page.waitForFunction(()=>!document.querySelector('#transfer-start').disabled);
+      await page.locator('#transfer-cancel').click();await page.waitForFunction(()=>!document.querySelector('#transfer-dialog').open);
+      assert.equal(await page.locator('#result-heading').innerText(),'操作をキャンセルしました');
+      assert.equal(await page.locator('#result-detail').innerText(),'');
       await context.close();
     }
     assert.deepEqual(errors,[]);

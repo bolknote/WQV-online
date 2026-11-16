@@ -220,14 +220,15 @@ $('disconnect').addEventListener('click', () => simple(async () => {
 function renderTransfer() {
   const pending = S.pending; if (!pending) return;
   const others = pending.mode === 'others', settingClock = pending.mode === 'set-clock';
+  const startLabel = tr(settingClock ? 'Set on watch' : others ? 'Start receiving' : 'Start reading');
   $('transfer-title').textContent = settingClock ? tr('Set date and time') : pending.clockRead ? tr('Read watch time') : others ? tr('Receive photo from watch') : pending.mode === 'all' ? tr('Read all photos') : pending.mode === 'probe' ? tr('Find watch') : tr('Read current photo');
   $('transfer-watch-path').textContent = others ? 'IR → OTHERS → SEND' : 'IR → PC → F';
-  $('transfer-start').textContent = settingClock ? tr('Set on watch') : others ? tr('Start receiving') : tr('Start reading');
+  $('transfer-start').textContent = startLabel;
   $('transfer-instructions').textContent = others ? pending.state === 'running' ?
     tr('Press the front F button on WQV-1/2 now to send the selected photo. Keep the watch facing the adapter.') :
     tr('From COM, select OTHERS and press F. With SEND selected, press F again to open the photos. Choose a photo and wait before the final F press.') : pending.state === 'running' ?
     tr('Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.') :
-    tr('Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.');
+    tr('Keep the watch outside IR → PC for now. Click “{0}”, then activate IR → PC and press F on the watch.', startLabel);
   $('transfer-start').disabled = pending.state !== 'ready';
   $('transfer-status').textContent = pending.heading;
   $('transfer-detail').textContent = pending.detail;
@@ -242,6 +243,8 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
     catch (error) { status('error', tr('Invalid date or time'), error.message); render(); return; }
   }
   const failedSaves = S.failedImageSaves;
+  const cancelDetail = mode === 'probe' || mode === 'set-clock' ? '' :
+    tr('Photos already received have been saved. Reconnect USB to continue.');
   S.saveFailureBaseline = failedSaves;
   const adapter = S.adapter, controller = new AbortController(); S.active = controller; S.latest = null;
   capture(mode);
@@ -284,14 +287,14 @@ async function read(mode, { clockValue, clockRead = false } = {}) {
           tr('The watch may have applied the date and time. Read its time before trying again.'));
       if (!result.complete) await adapter.close();
     }
-    else if (controller.signal.aborted) status('idle', tr('Operation cancelled'), mode === 'set-clock' ? '' : tr('Photos already received have been saved. Reconnect USB to continue.'));
+    else if (controller.signal.aborted) status('idle', tr('Operation cancelled'), cancelDetail);
     else if (!result.complete) {
       status('error', result.imageCount ? tr('Photos saved; connection did not finish') : tr('Operation did not finish'), result.error?.message || '');
       await adapter.close();
     } else if (mode === 'probe') status('success', clockRead ? tr('Watch time read') : tr('WQV-1/2 replied'), tr('The watch connection opened and closed normally.'));
     else status('success', tr('Received: {0}', quantity(result.imageCount, 'photos')), tr('Original BIN files and PNG images are saved in this browser.'));
   } catch (error) {
-    if (controller.signal.aborted) status('idle', tr('Operation cancelled'), mode === 'set-clock' ? '' : tr('Photos already received have been saved. Reconnect USB to continue.'));
+    if (controller.signal.aborted) status('idle', tr('Operation cancelled'), cancelDetail);
     else { log('error', error.message); status('error', tr('Operation did not finish'), error.message); }
     try { await adapter.close(); } catch {}
   } finally {

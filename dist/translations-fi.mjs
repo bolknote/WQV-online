@@ -99,7 +99,7 @@ export const finnish = Object.freeze({
   "Read all photos": "Lue kaikki kuvat",
   "Read current photo": "Lue nykyinen kuva",
   "Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.": "Valitse nyt WQV-1/2:ssa IR → PC ja paina etupuolen F-painiketta. Pidä kello suunnattuna sovitinta kohti.",
-  "Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.": "Älä vielä avaa kellon IR → PC -tilaa. Valitse Aloita luku, avaa sitten IR → PC ja paina kellon F-painiketta.",
+  "Keep the watch outside IR → PC for now. Click “{0}”, then activate IR → PC and press F on the watch.": "Älä vielä avaa kellon IR → PC -tilaa. Valitse ”{0}”, avaa sitten kellossa IR → PC ja paina F-painiketta.",
   "Preparing USB": "Valmistellaan USB:tä",
   "Start here before activating PC mode on the watch.": "Käynnistä toiminto tässä ennen kellon PC-tilan avaamista.",
   "Looking for the watch": "Etsitään kelloa",

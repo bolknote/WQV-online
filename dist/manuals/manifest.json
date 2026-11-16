@@ -2860,7 +2860,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2412/qw2412_EN.pdf",
     "sourceSHA256": "8aa270f79cf50f48e3590ce1d130a1bc5049a3541923308d7679157332f160fd",
     "scanned": false,
-    "illustrations": 40,
+    "illustrations": 58,
     "headings": [
       {
         "id": "section-1-0",
@@ -2879,23 +2879,27 @@
         "text": "To set the time and date"
       },
       {
-        "id": "section-1-44",
+        "id": "section-1-50",
         "text": "To toggle between 12-hour and 24-hour timekeeping"
       },
       {
-        "id": "section-1-56",
+        "id": "section-1-62",
         "text": "To adjust the display contrast"
       },
       {
-        "id": "section-1-71",
+        "id": "section-1-77",
         "text": "Note"
       },
       {
-        "id": "section-1-76",
+        "id": "section-1-82",
         "text": "Specifying the Display Color Pattern"
       },
       {
-        "id": "section-1-82",
+        "id": "section-1-85",
+        "text": "To change the display color pattern"
+      },
+      {
+        "id": "section-1-92",
         "text": "Auto Power Save"
       },
       {
@@ -2903,40 +2907,36 @@
         "text": "General Guide"
       },
       {
-        "id": "section-2-2",
+        "id": "section-2-3",
         "text": "Camera Mode"
       },
       {
-        "id": "section-2-5",
+        "id": "section-2-6",
         "text": "Note"
       },
       {
-        "id": "section-2-15",
+        "id": "section-2-16",
         "text": "To record an image"
       },
       {
-        "id": "section-2-24",
-        "text": "Timekeeping Mode"
-      },
-      {
-        "id": "section-2-36",
+        "id": "section-2-48",
         "text": "Note"
       },
       {
-        "id": "section-2-40",
-        "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode. See"
-      },
-      {
-        "id": "section-2-41",
-        "text": "“Camera Rest Interval” for more information."
-      },
-      {
-        "id": "section-2-46",
+        "id": "section-2-58",
         "text": "Camera Mode Precautions"
       },
       {
-        "id": "section-2-47",
+        "id": "section-2-59",
         "text": "General"
+      },
+      {
+        "id": "section-2-25",
+        "text": "Timekeeping Mode"
+      },
+      {
+        "id": "section-2-review-8",
+        "text": "Camera Mode shortcuts"
       },
       {
         "id": "section-3-0",
@@ -3003,32 +3003,40 @@
         "text": "To adjust image contrast"
       },
       {
-        "id": "section-4-8",
+        "id": "section-4-34",
         "text": "Attaching Text to an Image"
       },
       {
-        "id": "section-4-12",
+        "id": "section-4-38",
+        "text": "To attach text to an image"
+      },
+      {
+        "id": "section-4-64",
         "text": "Image Sorting"
       },
       {
-        "id": "section-4-22",
+        "id": "section-4-74",
         "text": "Deleting Images"
       },
       {
-        "id": "section-4-25",
+        "id": "section-4-77",
         "text": "To delete all images in watch memory"
       },
       {
-        "id": "section-4-27",
+        "id": "section-4-101",
         "text": "To delete a specific image"
       },
       {
-        "id": "section-4-53",
+        "id": "section-4-127",
         "text": "Formatting Image Memory"
       },
       {
-        "id": "section-4-56",
+        "id": "section-4-130",
         "text": "Important!"
+      },
+      {
+        "id": "section-4-133",
+        "text": "To format image memory"
       },
       {
         "id": "section-5-0",
@@ -3043,23 +3051,31 @@
         "text": "Exchanging Data Between Two Watches"
       },
       {
-        "id": "section-5-38",
+        "id": "section-5-21",
+        "text": "To enter the IR Mode"
+      },
+      {
+        "id": "section-5-26",
+        "text": "To send an image"
+      },
+      {
+        "id": "section-5-65",
         "text": "To receive an image"
       },
       {
-        "id": "section-5-62",
+        "id": "section-5-88",
         "text": "Communication Errors"
       },
       {
-        "id": "section-5-68",
+        "id": "section-5-94",
         "text": "Communication Screen Messages"
       },
       {
-        "id": "section-5-70",
+        "id": "section-5-96",
         "text": "Other Messages"
       },
       {
-        "id": "section-5-72",
+        "id": "section-5-98",
         "text": "Communication Precautions"
       },
       {
@@ -3067,32 +3083,60 @@
         "text": "Timekeeping"
       },
       {
-        "id": "section-6-2",
-        "text": "To reset the seconds to zero"
-      },
-      {
-        "id": "section-6-12",
-        "text": "To view the calendar of a specific month"
-      },
-      {
-        "id": "section-6-30",
-        "text": "To set date colors"
-      },
-      {
-        "id": "section-6-59",
-        "text": "Alarm Operation"
-      },
-      {
-        "id": "section-6-63",
+        "id": "section-6-8",
         "text": "Note"
       },
       {
-        "id": "section-6-67",
+        "id": "section-6-14",
+        "text": "To reset the seconds to zero"
+      },
+      {
+        "id": "section-6-23",
+        "text": "Using the Calendar Screen"
+      },
+      {
+        "id": "section-6-33",
+        "text": "To view the calendar of a specific month"
+      },
+      {
+        "id": "section-6-51",
+        "text": "To set date colors"
+      },
+      {
+        "id": "section-6-71",
+        "text": "Note"
+      },
+      {
+        "id": "section-6-75",
+        "text": "Alarm"
+      },
+      {
+        "id": "section-6-84",
+        "text": "To set an alarm time"
+      },
+      {
+        "id": "section-6-103",
+        "text": "Alarm Operation"
+      },
+      {
+        "id": "section-6-107",
+        "text": "Note"
+      },
+      {
+        "id": "section-6-111",
         "text": "To test the alarm"
       },
       {
-        "id": "section-6-70",
+        "id": "section-6-113",
+        "text": "To turn a Daily Alarm and the Hourly Time Signal on and off"
+      },
+      {
+        "id": "section-6-124",
         "text": "Stopwatch"
+      },
+      {
+        "id": "section-6-137",
+        "text": "To measure times with the stopwatch"
       },
       {
         "id": "section-7-0",

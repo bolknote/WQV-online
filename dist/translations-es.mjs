@@ -99,7 +99,7 @@ export const spanish = Object.freeze({
   "Read all photos": "Leer todas las fotos",
   "Read current photo": "Leer foto actual",
   "Now select IR → PC on WQV-1/2 and press the front F button. Keep the watch facing the adapter.": "Selecciona ahora IR → PC en WQV-1/2 y pulsa el botón frontal F. Mantén el reloj orientado hacia el adaptador.",
-  "Keep the watch outside IR → PC for now. Click Start reading, then activate IR → PC and press F on the watch.": "Deja el reloj fuera de IR → PC por ahora. Pulsa Iniciar lectura y después activa IR → PC y pulsa F en el reloj.",
+  "Keep the watch outside IR → PC for now. Click “{0}”, then activate IR → PC and press F on the watch.": "Por ahora, deja el reloj fuera del modo IR → PC. Pulsa «{0}» y después selecciona IR → PC en el reloj y pulsa F.",
   "Preparing USB": "Preparando USB",
   "Start here before activating PC mode on the watch.": "Inicia aquí antes de activar el modo PC en el reloj.",
   "Looking for the watch": "Buscando reloj",

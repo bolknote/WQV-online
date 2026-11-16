@@ -40,6 +40,23 @@ test('manual catalog includes every available edition', () => {
   }
 });
 
+test('module 2412 setup, image deletion and IR steps are available as document text', () => {
+  const source = readFileSync(new URL('wqv10-en.html', root), 'utf8');
+  const page = number => source.match(new RegExp(`id="page-${number}"[\\s\\S]*?</section>`))[0];
+  assert.match(page(1), /<p>1\. In the Timekeeping Mode, hold down A for about one second/);
+  assert.match(page(4), /<p>6\. To delete all images, press B or E to select YES and then press F\./);
+  assert.match(page(4), /before confirming YES with F in step 6\./);
+  assert.match(page(5), /<p>3\. Press C to display the image selection screen\.<\/p>/);
+  assert.match(page(5), /<p>6\. On the sending watch, press F to send the displayed image\.<\/p>/);
+  assert.match(page(6), /<p>5\. After setting the date colors for the month, press A to save your settings/);
+});
+
+test('the Russian module 2411 guide distinguishes the receive menu from receive standby', () => {
+  const source = readFileSync(new URL('wqv3-ru.html', root), 'utf8');
+  assert.match(source, /появляется OK, затем показывается принятый снимок/);
+  assert.match(source, /возвращаются в меню приёма из шага 3\. Чтобы снова включить ожидание снимка, нажмите F, как в шаге 4\./);
+});
+
 test('printed module 2220 editions preserve table rows and inline page links', () => {
   for (const item of catalog.filter(item => !item.sourceURL)) {
     const source = readFileSync(new URL(item.file, root), 'utf8');
