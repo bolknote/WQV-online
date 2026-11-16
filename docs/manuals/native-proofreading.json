@@ -55,6 +55,42 @@
         "notes": [
           "Recovered the mode-cycle and Viewer buttons, date display toggle, first camera step, and the WAIT message and limit. Rejoined the original camera notes."
         ]
+      },
+      "4": {
+        "reviewed": true,
+        "flowSHA256": "65eba2364d1011b21047c84e98e5d71c6cc98d6bd166c4344a1261f3813f2e95",
+        "edits": [
+          {
+            "startLine": 18,
+            "endLine": 19,
+            "from": "<p>• See “To view recorded images” for information about showing and hiding text attached to images.</p>\n",
+            "to": "<p>• See “<a href=\"#section-3-96\">To view recorded images</a>” for information about showing and hiding text attached to images.</p>\n"
+          },
+          {
+            "startLine": 57,
+            "endLine": 58,
+            "from": "<p>• Pressing E while the seconds count is in the range of 30 to 59 resets the seconds to 00 and add 1 to the minutes. In the range of 00 to 29, the minutes count is unchanged.</p>\n",
+            "to": "<p>• Pressing E while the seconds count is in the range of 30 to 59 resets the seconds to 00 and adds 1 to the minutes. In the range of 00 to 29, the minutes count is unchanged.</p>\n"
+          }
+        ],
+        "notes": [
+          "Restored the NAME menu and text-entry steps as searchable text beside the original illustrations."
+        ]
+      },
+      "5": {
+        "reviewed": true,
+        "flowSHA256": "2cfe77d7872930209f135dc1cd527f7f9b8917a0ea30866c7420626e180d895c",
+        "edits": [
+          {
+            "startLine": 49,
+            "endLine": 51,
+            "from": "<h3 id=\"section-5-89\">To turn a daily alarm and the Hourly</h3>\n<h3 id=\"section-5-90\">Time Signal on and off</h3>\n",
+            "to": "<h3 id=\"section-5-89\">To turn a daily alarm and the Hourly Time Signal on and off</h3>\n"
+          }
+        ],
+        "notes": [
+          "Recovered the second alarm-setting step and both steps for toggling an alarm or the Hourly Time Signal. Preserved the watch labels."
+        ]
       }
     }
   },
@@ -1366,7 +1402,8 @@
         "reviewed": true,
         "flowSHA256": "12d4d08f85e62ddd91032487844d925e6318f34207b11c59b426ead3caaaff71",
         "notes": [
-          "Native-text/source review, 2026-11-06. Module-specific procedure and specification errors checked against the original guides."
+          "Native-text/source review, 2026-11-06. Module-specific procedure and specification errors checked against the original guides.",
+          "Rejoined the first step of resetting the seconds, which was interrupted by the display illustration."
         ],
         "edits": [
           {
@@ -1374,6 +1411,18 @@
             "endLine": 11,
             "from": "<p>• Максимальное расстояние между часами может стать &gt;10 см, если часы нагрелись.</p>\n",
             "to": "<p>• Максимальное расстояние между часами может стать менее 10 см, если часы нагрелись.</p>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 21,
+            "from": "<p>1. В Режиме Текущего времени нажмите и</p>\n",
+            "to": "<p>1. В режиме текущего времени удерживайте кнопку «А» около одной секунды, пока секунды на экране не начнут мигать.</p>\n"
+          },
+          {
+            "startLine": 22,
+            "endLine": 23,
+            "from": "<p>удержите кнопку «А» в течение одной секунды до тех пор, пока значение секунд не замигает на экране. Мигающее значение можно изменять.</p>\n",
+            "to": ""
           }
         ]
       },
@@ -1420,6 +1469,51 @@
             "fontSize": 8
           }
         ]
+      },
+      "5": {
+        "reviewed": true,
+        "flowSHA256": "1adba20043b56e7efd123e7264522c496519e1ca403032ae5dabf8580765aa6b",
+        "edits": [
+          {
+            "startLine": 6,
+            "endLine": 7,
+            "from": "<p>4. Вначале на экране появится количество изображений, занесенных в памяти, которое через 1 секунду сменится экраном 4-х уменьшенных изображений. Изображение, которое Вы в последний раз просматривали или то, которое было записано последним, будет помещено в рамку.</p>\n",
+            "to": "<p>• Сначала часы покажут количество снимков в памяти, а примерно через секунду — четыре миниатюры. Рамкой будет выделен последний просмотренный или последний снятый кадр.</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Иллюстрация\" viewBox=\"32.000 432.000 353.000 27.000\" width=\"627.56\" height=\"48.00\"><use href=\"assets/wqv10-ru-05.svg#page\"/></svg></figure>\n",
+            "to": ""
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<p>3. Нажмите кнопку «С» для того чтобы увеличить выбранное изображение и вывести его в сопровождении даты и текста.</p>\n",
+            "to": "<p>3. Нажмите кнопку «С», чтобы показать выбранный снимок в увеличенном виде с датой и временем съёмки.</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>4. При следующем нажатии кнопки «С» на экране появится даты записи и пояснительный текст (если он существует).</p>\n",
+            "to": "<p>4. Нажмите кнопку «С» ещё раз, чтобы показать прикреплённый к снимку текст, если он есть.</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 17,
+            "from": "",
+            "to": "<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Иллюстрация\" viewBox=\"32.000 432.000 353.000 27.000\" width=\"627.56\" height=\"48.00\"><use href=\"assets/wqv10-ru-05.svg#page\"/></svg></figure>\n"
+          },
+          {
+            "startLine": 36,
+            "endLine": 37,
+            "from": "<h3 id=\"section-5-84\">Как прикрепись к изображению сопровождающий текст</h3>\n",
+            "to": "<h3 id=\"section-5-84\">Как прикрепить к изображению сопровождающий текст</h3>\n"
+          }
+        ],
+        "notes": [
+          "The printed “4.” after step 1 is a description of the automatic thumbnail display. The original 2412 guide shows date and time at step 3 and attached text at step 4."
+        ]
       }
     },
     "adaptationNote": "В адаптированной версии исправлены ошибки распознавания и исходного перевода; операции и характеристики сверены с оригинальными руководствами CASIO."
@@ -1458,6 +1552,123 @@
         ],
         "notes": [
           "Recovered the full camera procedure, calendar and camera shortcuts, and the WAIT message and 60-second rest limit. Rejoined the automatic return to VISUAL DATABANK note."
+        ]
+      },
+      "4": {
+        "reviewed": true,
+        "flowSHA256": "2a74b45bedf03bc72760f862b153e3581196c4ec4c86202b8394d1dea285f1ed",
+        "edits": [
+          {
+            "startLine": 15,
+            "endLine": 15,
+            "from": "",
+            "to": "<div class=\"manual-procedure\">\n"
+          },
+          {
+            "startLine": 25,
+            "endLine": 26,
+            "from": "<p>7. If you really want to delete the image, press B or E to move the pointer to YES and then press F. To clear the confirmation message without deleting anything, leave the pointer at NO and press F.</p>\n",
+            "to": "<p>7. To delete all images, press B or E to move the pointer to YES and then press F. To clear the confirmation message without deleting anything, leave the pointer at NO and press F.</p>\n"
+          },
+          {
+            "startLine": 28,
+            "endLine": 29,
+            "from": "<p>• You can return to the normal VISUAL DATABANK Mode during the above procedure by pressing A at any point before actually deleting the image in step 7.</p>\n",
+            "to": "<p>• You can return to the normal VISUAL DATABANK Mode during the above procedure by pressing A at any point before confirming YES with F in step 7.</p>\n</div>\n"
+          },
+          {
+            "startLine": 56,
+            "endLine": 56,
+            "from": "",
+            "to": "<div class=\"manual-procedure\">\n"
+          },
+          {
+            "startLine": 57,
+            "endLine": 58,
+            "from": "<p>1. On the IR menu, use B or E to select ). watch (</p>\n",
+            "to": "<p>1. On the IR menu, use B or E to select the watch icon.</p>\n</div>\n<div class=\"manual-procedure\">\n"
+          },
+          {
+            "startLine": 60,
+            "endLine": 60,
+            "from": "",
+            "to": "</div>\n<div class=\"manual-procedure\">\n"
+          },
+          {
+            "startLine": 62,
+            "endLine": 63,
+            "from": "<p>4. Use E(+) and B (–) to scroll through the images and display the one you want to send.</p>\n",
+            "to": "</div>\n<p>4. Use E (+) and B (–) to scroll through the images and display the one you want to send.</p>\n"
+          },
+          {
+            "startLine": 66,
+            "endLine": 67,
+            "from": "<p>• Put the receiving watch into receive standby at this time. See “To receive an image” for more information.</p>",
+            "to": "<p>• Put the receiving watch into receive standby at this time. See “<a href=\"#section-5-15\">To receive an image</a>” for more information.</p>"
+          }
+        ],
+        "notes": [
+          "Restored text-entry steps 4–5, all-image deletion steps, and the second F press for choosing an image in WATCH SEND. Step 7 confirms deletion of all images."
+        ]
+      },
+      "5": {
+        "reviewed": true,
+        "flowSHA256": "4a9b468b27aef8681725ac28e41056d7f09e67995af47dffbe76ea21e25d857d",
+        "edits": [
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<p>1. On the IR menu, use B or E to select ). watch (</p>\n",
+            "to": "<p>1. On the IR menu, use B or E to select the watch icon.</p>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 12,
+            "from": "<p>3. Press B or E to display the watch-to- watch receive menu.</p>\n",
+            "to": "<p>3. Press B or E to display the watch-to-watch receive menu.</p>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 15,
+            "from": "<p>• See “To send an image” for more information.</p>\n",
+            "to": "<p>• See “<a href=\"#section-4-104\">To send an image</a>” for more information.</p>\n"
+          }
+        ],
+        "notes": [
+          "Restored the watch icon reference to the first receive step and linked the sending procedure."
+        ]
+      },
+      "6": {
+        "reviewed": true,
+        "flowSHA256": "91da33e7ddc02f38a5c044cb12be8e239eeeea2971c42556a3978e3f62930e9b",
+        "edits": [
+          {
+            "startLine": 18,
+            "endLine": 19,
+            "from": "<p>1. In the Alarm Mode, use B and E to select the alarm (1 to 5) whose time you</p>\n",
+            "to": "<p>1. In the Alarm Mode, use B and E to select the alarm (1 to 5) whose time you want to set.</p>\n"
+          },
+          {
+            "startLine": 44,
+            "endLine": 46,
+            "from": "<h3 id=\"section-6-86\">To set the countdown start time and countdown timer screen</h3>\n<h3 id=\"section-6-87\">image</h3>\n",
+            "to": "<h3 id=\"section-6-86\">To set the countdown start time and countdown timer screen image</h3>\n"
+          }
+        ],
+        "notes": [
+          "Restored the alarm overview and the first selection step. Removed the relocated final line of step 1 from the nearby figure."
+        ],
+        "figureLabelRepairs": [
+          {
+            "box": [
+              152,
+              413,
+              188,
+              420.4
+            ],
+            "text": "",
+            "fontSize": 7
+          }
         ]
       }
     }

@@ -63,6 +63,25 @@ test('module 2411 camera and calendar buttons are available as document text', (
   assert.match(finnish, /<p>• Paina D-painiketta kameratoiminnossa\. Kello siirtyy VISUAL DATABANK/);
 });
 
+test('the English 2220 and 2411 procedures retain steps previously inside illustrations', () => {
+  const monochrome = readFileSync(new URL('wqv2-en.html', root), 'utf8');
+  assert.match(monochrome, /<p>3\. Press F to display the text input screen\.<\/p>/);
+  assert.match(monochrome, /<p>2\. After you select an alarm, hold down A until the hour digits/);
+
+  const colour = readFileSync(new URL('wqv3-en.html', root), 'utf8');
+  assert.match(colour, /<p>7\. To delete all images, press B or E to move the pointer to YES and then press F\./);
+  assert.match(colour, /<p>3\. Press F again to display the image selection screen\.<\/p>/);
+  assert.match(colour, /<p>1\. In the Alarm Mode, use B and E to select the alarm \(1 to 5\) whose time you want to set\.<\/p>/);
+});
+
+test('the Russian module 2412 image viewer uses four steps in order', () => {
+  const source = readFileSync(new URL('wqv10-ru.html', root), 'utf8');
+  const procedure = source.match(/Как посмотреть записанные изображения<\/h3>[\s\S]*?<h3\b/)[0];
+  assert.deepEqual([...procedure.matchAll(/<p>(\d)\. /g)].map(match => match[1]), ['1', '2', '3', '4']);
+  assert.match(procedure, /3\. Нажмите кнопку «С»[^<]+с датой и временем съёмки/);
+  assert.match(procedure, /4\. Нажмите кнопку «С» ещё раз, чтобы показать прикреплённый к снимку текст/);
+});
+
 test('module 2412 setup, image deletion and IR steps are available as document text', () => {
   const source = readFileSync(new URL('wqv10-en.html', root), 'utf8');
   const page = number => source.match(new RegExp(`id="page-${number}"[\\s\\S]*?</section>`))[0];

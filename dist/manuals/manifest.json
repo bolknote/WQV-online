@@ -10,7 +10,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf",
     "sourceSHA256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
     "scanned": false,
-    "illustrations": 48,
+    "illustrations": 52,
     "headings": [
       {
         "id": "section-1-0",
@@ -189,28 +189,20 @@
         "text": "To attach text to an image"
       },
       {
-        "id": "section-4-11",
+        "id": "section-4-24",
         "text": "Note"
       },
       {
-        "id": "section-4-16",
+        "id": "section-4-29",
         "text": "Image Sorting"
       },
       {
-        "id": "section-4-23",
+        "id": "section-4-36",
         "text": "Deleting Images"
       },
       {
-        "id": "section-4-26",
+        "id": "section-4-39",
         "text": "To delete all images in watch memory"
-      },
-      {
-        "id": "section-4-47",
-        "text": "Note"
-      },
-      {
-        "id": "section-4-51",
-        "text": "To delete a specific image"
       },
       {
         "id": "section-4-66",
@@ -218,18 +210,26 @@
       },
       {
         "id": "section-4-70",
-        "text": "TIMEKEEPING MODE"
+        "text": "To delete a specific image"
       },
       {
-        "id": "section-4-72",
-        "text": "To reset the seconds count to zero"
-      },
-      {
-        "id": "section-4-81",
+        "id": "section-4-85",
         "text": "Note"
       },
       {
-        "id": "section-4-84",
+        "id": "section-4-89",
+        "text": "TIMEKEEPING MODE"
+      },
+      {
+        "id": "section-4-100",
+        "text": "To reset the seconds count to zero"
+      },
+      {
+        "id": "section-4-109",
+        "text": "Note"
+      },
+      {
+        "id": "section-4-112",
         "text": "To switch between Timekeeping Mode screen formats"
       },
       {
@@ -258,38 +258,46 @@
       },
       {
         "id": "section-5-47",
-        "text": "To set the alarm time"
-      },
-      {
-        "id": "section-5-61",
-        "text": "Note"
-      },
-      {
-        "id": "section-5-64",
-        "text": "Daily Alarm Operation"
-      },
-      {
-        "id": "section-5-67",
-        "text": "To test the alarm"
-      },
-      {
-        "id": "section-5-74",
-        "text": "COUNTDOWN ALARM MODE"
-      },
-      {
-        "id": "section-5-77",
         "text": "Important!"
       },
       {
-        "id": "section-5-84",
-        "text": "To set the countdown start time"
+        "id": "section-5-57",
+        "text": "To set the alarm time"
       },
       {
-        "id": "section-5-94",
+        "id": "section-5-79",
         "text": "Note"
       },
       {
-        "id": "section-5-97",
+        "id": "section-5-82",
+        "text": "Daily Alarm Operation"
+      },
+      {
+        "id": "section-5-86",
+        "text": "To test the alarm"
+      },
+      {
+        "id": "section-5-89",
+        "text": "To turn a daily alarm and the Hourly Time Signal on and off"
+      },
+      {
+        "id": "section-5-103",
+        "text": "COUNTDOWN ALARM MODE"
+      },
+      {
+        "id": "section-5-106",
+        "text": "Important!"
+      },
+      {
+        "id": "section-5-113",
+        "text": "To set the countdown start time"
+      },
+      {
+        "id": "section-5-123",
+        "text": "Note"
+      },
+      {
+        "id": "section-5-126",
         "text": "Using the Countdown Alarm"
       },
       {
@@ -1423,7 +1431,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf",
     "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
     "scanned": false,
-    "illustrations": 41,
+    "illustrations": 49,
     "headings": [
       {
         "id": "section-1-0",
@@ -1574,39 +1582,39 @@
         "text": "To attach text to an image"
       },
       {
-        "id": "section-4-7",
+        "id": "section-4-14",
         "text": "Image Sorting"
       },
       {
-        "id": "section-4-16",
+        "id": "section-4-23",
         "text": "Deleting Images"
       },
       {
-        "id": "section-4-19",
+        "id": "section-4-26",
         "text": "To delete all images in watch memory"
       },
       {
-        "id": "section-4-31",
+        "id": "section-4-58",
         "text": "To delete a specific image"
       },
       {
-        "id": "section-4-53",
+        "id": "section-4-80",
         "text": "IR MODE"
       },
       {
-        "id": "section-4-56",
+        "id": "section-4-83",
         "text": "Note"
       },
       {
-        "id": "section-4-62",
+        "id": "section-4-89",
         "text": "Exchanging Data Between Two Watches"
       },
       {
-        "id": "section-4-72",
+        "id": "section-4-99",
         "text": "To enter the IR Mode"
       },
       {
-        "id": "section-4-77",
+        "id": "section-4-104",
         "text": "To send an image"
       },
       {
@@ -1662,35 +1670,35 @@
         "text": "ALARM"
       },
       {
-        "id": "section-6-37",
+        "id": "section-6-33",
+        "text": "To set the alarm time and alarm screen image"
+      },
+      {
+        "id": "section-6-53",
         "text": "Alarm Operation"
       },
       {
-        "id": "section-6-41",
+        "id": "section-6-57",
         "text": "To test the alarm"
       },
       {
-        "id": "section-6-45",
+        "id": "section-6-61",
         "text": "To turn a Daily Alarm and the Hourly Time Signal on and off"
       },
       {
-        "id": "section-6-55",
+        "id": "section-6-71",
         "text": "COUNTDOWN TIMER"
       },
       {
-        "id": "section-6-70",
-        "text": "To set the countdown start time and countdown timer screen"
+        "id": "section-6-86",
+        "text": "To set the countdown start time and countdown timer screen image"
       },
       {
-        "id": "section-6-71",
-        "text": "image"
-      },
-      {
-        "id": "section-6-91",
+        "id": "section-6-107",
         "text": "Countdown Timer Operation"
       },
       {
-        "id": "section-6-97",
+        "id": "section-6-113",
         "text": "To use the Countdown Timer"
       },
       {
@@ -3391,7 +3399,7 @@
       },
       {
         "id": "section-5-84",
-        "text": "Как прикрепись к изображению сопровождающий текст"
+        "text": "Как прикрепить к изображению сопровождающий текст"
       },
       {
         "id": "section-6-11",
