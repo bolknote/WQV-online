@@ -83,6 +83,20 @@ test('printed module 2220 editions retain the caption characters and the IR scre
   assert.ok(receive.indexOf('value="4"') < standby && standby < receive.indexOf('value="5"'));
 });
 
+test('printed date-format comparisons are included in the timekeeping procedures', () => {
+  for (const [language, page, image] of [
+    ['fr', 21, 'fr-21-02'],
+    ['it', 22, 'it-22-01'],
+    ['pt', 20, 'pt-20-02'],
+    ['sv', 19, 'sv-19-02'],
+  ]) {
+    const html = readFileSync(new URL(`wqv2-${language}.html`, root), 'utf8');
+    const section = html.slice(html.indexOf(`id="page-${page}"`), html.indexOf(`id="page-${page + 1}"`));
+    assert.ok(section.includes(`assets/wqv2-print/${image}.png`), image);
+    if (language === 'it') assert.equal([...section.matchAll(/<figure\b/g)].length, 1);
+  }
+});
+
 test('Spanish and Finnish manuals retain reviewed procedures, linked contents and original-source provenance', () => {
   const spanish = JSON.parse(readFileSync(new URL('../docs/manuals/spanish-proofreading.json', import.meta.url), 'utf8'));
   const spanishColor = JSON.parse(readFileSync(new URL('../docs/manuals/wqv3-es-proofreading.json', import.meta.url), 'utf8'));

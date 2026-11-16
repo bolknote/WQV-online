@@ -179,6 +179,8 @@ original diagrams. The Korean K-7 and Swedish Sw-15 drawings are taken from
 their original booklet pages.
 The caption character sequence is selectable text. The French sequence on
 F-18 and the IR startup diagram on F-29 were recovered from the photographs.
+The date-format diagrams for P-20 and Sw-19 use the complete drawings from
+P-9 and Sw-9 in the same editions, where both watch screens are visible.
 
 Two notes identify errors in the printed text. The Dutch D-16 places the ALM
 indicator on the right, where the other editions and the Dutch Viewer diagram
