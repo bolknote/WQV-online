@@ -249,6 +249,7 @@ test('German illustration crops include source callouts at the edges', () => {
     ['wqv10-de',11,[19,243,27,253]], // complete circled A callout
     ['wqv10-de',12,[25,353,33,363]],
     ['wqv10-de',13,[450,501,497,507]],
+    ['wqv10-de',18,[103,392,189,408]], // Ein/Aus-Status label with its leader line
     ['wqv10-de',26,[282,626,327,632]],
     ['wqv10-de',26,[355,626,399,632]],
   ];
@@ -378,4 +379,15 @@ test('Japanese guide text has readable contents, button names and model-specific
   assert.match(color, /上記C（白地に青文字）/);
   for (const label of ['A：青地に白文字', 'B：黒地に白文字', 'C：白地に青文字',
     'D：青地に白文字', 'E：黒地に白文字', 'F：白地に青文字']) assert.ok(color.includes(label), label);
+});
+
+test('Japanese battery removal precautions remain in the procedure text', () => {
+  for (const [id, number] of [['wqv2-ja', 27], ['wqv3-ja', 31], ['wqv10-ja', 30]]) {
+    const source = readFileSync(new URL(id + '.html', root), 'utf8');
+    const page = source.split(`id="page-${number}"`)[1].split('</section>')[0];
+    const removal = page.split('2. 古い電池を取り出す')[1].split('3. 新しい電池を入れる')[0];
+    assert.match(removal, /時計本体を逆さにすると電池が出てきます。/);
+    assert.match(removal, /パッキンをなくさないようにしてください。/);
+    assert.match(removal, /板バネに触れますと、ケガや故障の原因になります/);
+  }
 });

@@ -192,7 +192,7 @@
         ]
       },
       "9": {
-        "flowSHA256": "0979ba461dcbf50f1aeea77449ee11fc3ea39f8d475912bdf1bcf1e19489f108",
+        "flowSHA256": "e1be48cb9d4cba60f1429974b7bf42d729737c532e15537db3dab88b1083eda4",
         "edits": [
           {
             "startLine": 1,
@@ -207,44 +207,57 @@
             "to": "<h2 id=\"section-9-3\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n<p>→残り枚数を約1秒間表示後、被写体が写ります。</p>\n<p>※残り枚数が0で撮影できないときは、「FULL」と表示して撮影モードに切り替わりません。このようなときは、不要な画像を削除してから撮影してください。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 19,
+            "startLine": 8,
+            "endLine": 9,
+            "from": "<h2 id=\"section-9-9\">2. 被写体にレンズを向ける</h2>\n",
+            "to": "\n<h2 id=\"section-9-11\">2. 被写体にレンズを向ける</h2>\n"
+          },
+          {
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<h2 id=\"section-9-13\">3.撮影する</h2>\n",
+            "to": "<h2 id=\"section-9-15\">3.撮影する</h2>\n"
+          },
+          {
+            "startLine": 14,
+            "endLine": 17,
             "from": "<p>® ボタン（シャッター）を押します。</p>\n<p>→撮影した画像をメモリーし、約2秒間撮影した画</p>\n<p>像を表示します。</p>\n",
             "to": "<p>Fボタン（シャッター）を押します。</p>\n<p>→撮影した画像をメモリーし、約2秒間撮影した画像を表示します。</p>\n"
           },
           {
-            "startLine": 20,
-            "endLine": 24,
-            "from": "<p>※撮影後の画像データは撮影日時の古い順に並び</p>\n<p>ます。</p>\n<p>・撮影モードでは約1分後、ビジュアルDBモードに切</p>\n<p>り替わります。</p>\n",
-            "to": "<p>※撮影後の画像データは撮影日時の古い順に並びます。</p>\n<p>・撮影モードでは約1分後、ビジュアルDBモードに切り替わります。</p>\n"
+            "startLine": 18,
+            "endLine": 23,
+            "from": "<p>※撮影後の画像データは撮影日時の古い順に並び</p>\n<p>ます。</p>\n<p>・撮影モードでは約1分後、ビジュアルDBモードに切</p>\n<p>り替わります。</p>\n<h2 id=\"section-9-25\">■撮影上のご注意</h2>\n",
+            "to": "<p>※撮影後の画像データは撮影日時の古い順に並びます。</p>\n<p>・撮影モードでは約1分後、ビジュアルDBモードに切り替わります。</p>\n<h2 id=\"section-9-27\">■撮影上のご注意</h2>\n"
           },
           {
-            "startLine": 26,
-            "endLine": 29,
+            "startLine": 24,
+            "endLine": 27,
             "from": "<p>●手ぶれをおこさないように、シャッター（ ボタン）は静かに押してください。</p>\n<p>・暗い場所では写りが悪くなることがありますので、日中はなるべく屋外で、夜間</p>\n<p>はなるべく照明の明るい屋内で撮影することをお勧めします。撮影インターバル</p>\n",
             "to": "<p>●手ぶれをおこさないように、シャッター（Fボタン）は静かに押してください。</p>\n<p>・暗い場所では写りが悪くなることがありますので、日中はなるべく屋外で、夜間はなるべく照明の明るい屋内で撮影することをお勧めします。</p><h2 id=\"section-9-review-7\">撮影インターバル</h2>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 31,
+            "startLine": 28,
+            "endLine": 29,
             "from": "<p>※休止時間は最大で60秒までです。</p>\n",
             "to": ""
           },
           {
-            "startLine": 32,
-            "endLine": 32,
+            "startLine": 30,
+            "endLine": 30,
             "from": "",
             "to": "<p>※休止時間は最大で60秒までです。例） 撮影モードでの時間＝20秒</p>\n<p>休止時間＝20秒</p>\n"
           },
           {
-            "startLine": 35,
-            "endLine": 39,
+            "startLine": 32,
+            "endLine": 36,
             "from": "<p>★ 撮影モードおよびワンタッチビジュアルDB、ビジュアルDB</p>\n<p>モード、通信モードではアラーム・時報・タイマーの電子音は鳴りません。</p>\n<p>※ワンタッチビジュアルDBとビジュアルDBモードではアラーム・タイマーの</p>\n<p>報音時間分に“ALM&quot;または&quot;TMR&quot;と表示します。</p>",
             "to": "<p>★ 撮影モードおよびワンタッチビジュアルDB、ビジュアルDBモード、通信モードではアラーム・時報・タイマーの電子音は鳴りません。</p>\n<p>※ワンタッチビジュアルDBとビジュアルDBモードではアラーム・タイマーの報音時間分に“ALM”または“TMR”と表示します。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "10": {
@@ -602,7 +615,7 @@
         ]
       },
       "16": {
-        "flowSHA256": "3b1507045cb3ff92adb91b5e87cc6bba15dc2365252dad7d0a3947640c1b3812",
+        "flowSHA256": "da99b223ce45acb084eb45062bd089831abcade930694299c4e193c0a54263ce",
         "edits": [
           {
             "startLine": 2,
@@ -618,105 +631,131 @@
           },
           {
             "startLine": 7,
-            "endLine": 8,
-            "from": "<p>2人目にレンズを向けて ボタンを押します。</p>\n",
-            "to": "<p>2人目にレンズを向けてFボタンを押します。</p>\n"
+            "endLine": 7,
+            "from": "",
+            "to": "<p>2人目にレンズを向けてFボタンを押します。</p>\n<p>2人目の画像</p>\n"
           },
           {
-            "startLine": 11,
-            "endLine": 20,
-            "from": "<p>※ボタンを押す前に、B・Eボタンを押して画</p>\n<p>⑧</p>\n<p>像の明るさを調整することができます。</p>\n<p>●ツーショット撮影を終わるときは、©ボタンを2回押して通常の撮影パターンに</p>\n<p>戻します。</p>\n<p>●他のモードに切り替えてから撮影モードに戻ってきたときは、通常の撮影パター</p>\n<p>ンに戻ります。</p>\n<p>左半分（1人目）の撮影だけで終了した場合は、その画像はメモリーされませ</p>\n<p>劇団門撮影</p>\n",
+            "startLine": 8,
+            "endLine": 9,
+            "from": "<p>2人目にレンズを向けて ボタンを押します。</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 10,
+            "endLine": 18,
+            "from": "<p>※ボタンを押す前に、B・Eボタンを押して画</p>\n<p>像の明るさを調整することができます。</p>\n<p>●ツーショット撮影を終わるときは、©ボタンを2回押して通常の撮影パターンに</p>\n<p>戻します。</p>\n<p>●他のモードに切り替えてから撮影モードに戻ってきたときは、通常の撮影パター</p>\n<p>ンに戻ります。</p>\n<p>左半分（1人目）の撮影だけで終了した場合は、その画像はメモリーされませ</p>\n<p>劇団門撮影</p>\n",
             "to": "<p>※Fボタンを押す前に、B・Eボタンを押して画像の明るさを調整することができます。</p>\n<p>B</p>\n<p>●ツーショット撮影を終わるときは、Cボタンを2回押して通常の撮影パターンに戻します。</p>\n<p>●他のモードに切り替えてから撮影モードに戻ってきたときは、通常の撮影パターンに戻ります。</p>\n<p>左半分（1人目）の撮影だけで終了した場合は、その画像はメモリーされません。</p>\n\n<p>劇画調撮影</p>\n"
           },
           {
-            "startLine": 21,
-            "endLine": 23,
-            "from": "<h2 id=\"section-16-24\">1. 撮影モードに切り替える</h2>\n<p>通言モード以外のときに ボタンを約0.1秒間押します。残り枚数を約1秒間表示後、被写体が写ります。</p>\n",
+            "startLine": 19,
+            "endLine": 21,
+            "from": "<h2 id=\"section-16-22\">1. 撮影モードに切り替える</h2>\n<p>通言モード以外のときに ボタンを約0.1秒間押します。残り枚数を約1秒間表示後、被写体が写ります。</p>\n",
             "to": "<h2 id=\"section-16-25\">1. 撮影モードに切り替える</h2>\n<p>通信モード以外のときにFボタンを約0.1秒間押します。→残り枚数を約1秒間表示後、被写体が写ります。</p>\n"
           },
           {
-            "startLine": 25,
-            "endLine": 27,
-            "from": "<h2 id=\"section-16-29\">2. 撮影パターンを切り替える</h2>\n<h2 id=\"section-16-30\">© ボタンを2回押します。</h2>\n",
-            "to": "<h2 id=\"section-16-30\">2. 撮影パターンを切り替える</h2>\n<h2 id=\"section-16-31\">Cボタンを2回押します。</h2>\n"
+            "startLine": 22,
+            "endLine": 23,
+            "from": "<h2 id=\"section-16-26\">2. 撮影パターンを切り替える</h2>\n",
+            "to": "\n<h2 id=\"section-16-30\">2. 撮影パターンを切り替える</h2>\n<h2 id=\"section-16-31\">Cボタンを2回押します。</h2>\n<p>2階調画像</p>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 32,
-            "from": "<h2 id=\"section-16-34\">3.3</h2>\n<p>撮影する</p>\n",
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<h2 id=\"section-16-28\">© ボタンを2回押します。</h2>\n",
+            "to": ""
+          },
+          {
+            "startLine": 26,
+            "endLine": 28,
+            "from": "<h2 id=\"section-16-30\">3.3</h2>\n<p>撮影する</p>\n",
             "to": "<h2 id=\"section-16-35\">3. 撮影する</h2>\n"
           },
           {
-            "startLine": 33,
-            "endLine": 39,
+            "startLine": 29,
+            "endLine": 35,
             "from": "<p>F ボタンを押します。1→2階調の画像で撮影されます。</p>\n<p>※€ボタンを押す前に、®・ボタンを押して画</p>\n<p>像の明るさを調整することができます。</p>\n<p>・劇画調撮影を終わるときは、©ボタンを1回押して通常の撮影パターンに戻します。</p>\n<p>●他のモードに切り替えてから撮影モードに戻ってきたときは、通常の撮影パター</p>\n<p>ンに戻ります。</p>",
             "to": "<p>Fボタンを押します。→2階調の画像で撮影されます。</p>\n<p>※Fボタンを押す前に、B・Eボタンを押して画像の明るさを調整することができます。</p>\n<p>・劇画調撮影を終わるときは、Cボタンを1回押して通常の撮影パターンに戻します。</p>\n<p>●他のモードに切り替えてから撮影モードに戻ってきたときは、通常の撮影パターンに戻ります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "17": {
-        "flowSHA256": "bbc2fbcd5126b40cf39b8d79c55b069b7851dcfbc213f5ded2661b9fe2a21bc3",
+        "flowSHA256": "4a76896cb4ffad5fee0fa5ca9cd3b5b5e0587f7c71fa5b25518ba68b25152601",
         "edits": [
           {
             "startLine": 3,
-            "endLine": 7,
-            "from": "<p>※撮影した画像は120✕120ドットで表示されるため、通常のコントラスト設定</p>\n<p>（41ページ）.とは別に行ないます。</p>\n<h2 id=\"section-17-6\">7. コントラスト設定状態に切り替える</h2>\n<p>ワンタッチビジュアルDBでAボタンを約</p>\n",
+            "endLine": 6,
+            "from": "<p>※撮影した画像は120✕120ドットで表示されるため、通常のコントラスト設定</p>\n<p>（41ページ）.とは別に行ないます。</p>\n<h2 id=\"section-17-6\">7. コントラスト設定状態に切り替える</h2>\n",
             "to": "<p>※撮影した画像は120✕120ドットで表示されるため、通常のコントラスト設定（41ページ）とは別に行ないます。</p>\n<h2 id=\"section-17-6\">1. コントラスト設定状態に切り替える</h2>\n<p>ワンタッチビジュアルDBでAボタンを約1秒間押し続けます。</p>\n"
           },
           {
-            "startLine": 9,
-            "endLine": 10,
-            "from": "<p>1秒間押し続けます。</p>\n",
+            "startLine": 7,
+            "endLine": 9,
+            "from": "<p>ワンタッチビジュアルDBでAボタンを約</p>\n<p>1秒間押し続けます。</p>\n",
             "to": ""
           },
           {
-            "startLine": 14,
-            "endLine": 16,
+            "startLine": 10,
+            "endLine": 11,
+            "from": "<h2 id=\"section-17-11\">2．設定する</h2>\n",
+            "to": "<h2 id=\"section-17-12\">2．設定する</h2>\n"
+          },
+          {
+            "startLine": 13,
+            "endLine": 15,
             "from": "<p>→ ボタンを押すごとに1つずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<p>→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 19,
-            "endLine": 20,
-            "from": "<h2 id=\"section-17-20\">④ボタンを押します。</h2>\n",
+            "startLine": 16,
+            "endLine": 17,
+            "from": "<h2 id=\"section-17-17\">3. 設定を終わる</h2>\n",
+            "to": "<h2 id=\"section-17-18\">3. 設定を終わる</h2>\n"
+          },
+          {
+            "startLine": 18,
+            "endLine": 19,
+            "from": "<h2 id=\"section-17-19\">④ボタンを押します。</h2>\n",
             "to": "<h2 id=\"section-17-20\">Aボタンを押します。</h2>\n"
           },
           {
-            "startLine": 23,
-            "endLine": 27,
-            "from": "<p>※撮影モード、ワンタッチビジュアルDB、ビジュアルDBモード、通モードで</p>\n<p>はアラーム・時報の電子音は鳴りません。ワンタッチビジュアル DB、ビジュアルDBモードでは、報音のかわりに表示窓</p>\n<h2 id=\"section-17-30\">左上で“ALM&quot; マークが点滅表示します。</h2>\n<p>アラームモードに切り替えるには時刻モードのときに◎ボタンを2回押します。</p>\n",
-            "to": "<p>※撮影モード、ワンタッチビジュアルDB、ビジュアルDBモード、通信モードではアラーム・時報の電子音は鳴りません。ワンタッチビジュアル DB、ビジュアルDBモードでは、報音のかわりに表示窓左上で“ALM” マークが点滅表示します。</p>\n<p>アラームモードに切り替えるには時刻モードのときにDボタンを2回押します。</p>\n"
+            "startLine": 20,
+            "endLine": 21,
+            "from": "<h2 id=\"section-17-22\">アラーム・時報の使い方</h2>\n",
+            "to": "<h2 id=\"section-17-23\">アラーム・時報の使い方</h2>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 30,
-            "from": "<h2 id=\"section-17-35\">ボタンまたは⑧ボタンを押します。</h2>\n",
-            "to": "<h2 id=\"section-17-35\">EボタンまたはBボタンを押します。</h2>\n"
+            "startLine": 22,
+            "endLine": 29,
+            "from": "<p>※撮影モード、ワンタッチビジュアルDB、ビジュアルDBモード、通モードで</p>\n<p>はアラーム・時報の電子音は鳴りません。ワンタッチビジュアル DB、ビジュアルDBモードでは、報音のかわりに表示窓</p>\n<h2 id=\"section-17-29\">左上で“ALM&quot; マークが点滅表示します。</h2>\n<p>アラームモードに切り替えるには時刻モードのときに◎ボタンを2回押します。</p>\n<h2 id=\"section-17-32\">■アラーム時刻のセット</h2>\n<h2 id=\"section-17-33\">1. アラームを選ぶ</h2>\n<h2 id=\"section-17-34\">ボタンまたは⑧ボタンを押します。</h2>\n",
+            "to": "<p>※撮影モード、ワンタッチビジュアルDB、ビジュアルDBモード、通信モードではアラーム・時報の電子音は鳴りません。ワンタッチビジュアル DB、ビジュアルDBモードでは、報音のかわりに表示窓左上で“ALM” マークが点滅表示します。</p>\n<p>アラームモードに切り替えるには時刻モードのときにDボタンを2回押します。</p>\n<h2 id=\"section-17-33\">■アラーム時刻のセット</h2>\n<h2 id=\"section-17-34\">1. アラームを選ぶ</h2>\n<h2 id=\"section-17-35\">EボタンまたはBボタンを押します。</h2>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 33,
+            "startLine": 30,
+            "endLine": 31,
             "from": "<p>m押すごとに以下の順に切り替わります。</p>\n",
             "to": "<p>→押すごとに以下の順に切り替わります。</p>\n<p>アラームの選択順：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n"
           },
           {
-            "startLine": 34,
-            "endLine": 37,
-            "from": "<p>（B.</p>\n<h2 id=\"section-17-41\">2.</h2>\n<p>セット状態にする</p>\n",
+            "startLine": 32,
+            "endLine": 34,
+            "from": "<h2 id=\"section-17-38\">2.</h2>\n<p>セット状態にする</p>\n",
             "to": "<h2 id=\"section-17-50\">2. セット状態にする</h2>\n"
           },
           {
-            "startLine": 38,
-            "endLine": 45,
-            "from": "<p>Aボタンを約1秒間押し続けます。1→時が点滅します。</p>\n<p>※自動的にアラームがオンとなり、アラームオン</p>\n<p>マークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのア</p>\n<p>ラームがオンのとき点灯します。</p>\n<p>※&quot;ON”表示は選ばれているアラーム番号がオン</p>\n<p>のとき表示されます。</p>\n",
-            "to": "<p>Aボタンを約1秒間押し続けます。→時が点滅します。</p>\n<p>※自動的にアラームがオンとなり、アラームオンマークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのアラームがオンのとき点灯します。</p>\n<p>※“ON”表示は選ばれているアラーム番号がオンのとき表示されます。</p>\n"
+            "startLine": 35,
+            "endLine": 42,
+            "from": "<p>Aボタンを約1秒間押し続けます。1→時が点滅します。</p>\n<p>※自動的にアラームがオンとなり、アラームオン</p>\n<p>マークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのア</p>\n<p>ラームがオンのとき点灯します。</p>\n<p>※&quot;ON”表示は選ばれているアラーム番号がオン</p>\n<p>のとき表示されます。</p>",
+            "to": "<p>Aボタンを約1秒間押し続けます。→時が点滅します。</p>\n<p>※自動的にアラームがオンとなり、アラームオンマークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのアラームがオンのとき点灯します。</p>\n<p>※“ON”表示は選ばれているアラーム番号がオンのとき表示されます。</p>\n<p>アラームオンマーク</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "18": {
@@ -841,7 +880,7 @@
         ]
       },
       "20": {
-        "flowSHA256": "a310f4bc189fbd16fa0ae72dfee2cf9fdd6edc9682fa1a1d7267d091b0eb27fb",
+        "flowSHA256": "e09fa0ffd273fbc8ca567b67c609f2978cbfc222e830110bc03addd999e6fd04",
         "edits": [
           {
             "startLine": 1,
@@ -853,41 +892,30 @@
             "startLine": 3,
             "endLine": 4,
             "from": "<p>時刻モードのときに◎ボタンを4回押します。</p>\n",
-            "to": "<p>時刻モードのときにDボタンを4回押します。</p>\n"
+            "to": "<p>時刻モードのときにDボタンを4回押します。</p>\n<h2 id=\"section-20-5\">■計測のしかた</h2>\n<p>●Eボタンを押すごとに計測がスタート／ストップします。</p>\n\n"
           },
           {
-            "startLine": 7,
-            "endLine": 8,
-            "from": "<p>●Eボタンを押すごとに計測がスタート／ストップし</p>\n",
-            "to": "<p>●Eボタンを押すごとに計測がスタート／ストップします。</p>\n\n"
+            "startLine": 5,
+            "endLine": 18,
+            "from": "<h2 id=\"section-20-6\">■計測のしかた</h2>\n<p>●Eボタンを押すごとに計測がスタート／ストップし</p>\n<p>●計測がストップしているときにボタンを押すと、</p>\n<p>0時間00分00秒00（リセット表示）になります。</p>\n<p>●計測中にBボタンを押すと、表示は止まりますが、内</p>\n<p>部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n<h2 id=\"section-20-13\">●通常の計測</h2>\n<p>（0）</p>\n<p>€E</p>\n<p>E</p>\n<p>スタート</p>\n<p>ストップ</p>\n<p>リセット</p>\n",
+            "to": "<p>●計測がストップしているときにBボタンを押すと、0時間00分00秒00（リセット表示）になります。</p>\n<p>●計測中にBボタンを押すと、表示は止まりますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n<h2 id=\"section-20-20\">●通常の計測</h2>\n<p>E：スタート → E：ストップ → B：リセット。</p>\n"
           },
           {
-            "startLine": 9,
-            "endLine": 13,
-            "from": "<p>●計測がストップしているときにボタンを押すと、</p>\n<p>0時間00分00秒00（リセット表示）になります。</p>\n<p>●計測中にBボタンを押すと、表示は止まりますが、内</p>\n<p>部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n",
-            "to": "<p>●計測がストップしているときにBボタンを押すと、0時間00分00秒00（リセット表示）になります。</p>\n<p>●計測中にBボタンを押すと、表示は止まりますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n"
-          },
-          {
-            "startLine": 16,
-            "endLine": 23,
-            "from": "<h2 id=\"section-20-19\">●通常の計測</h2>\n<p>（0）</p>\n<p>€E</p>\n<p>E</p>\n<p>スタート</p>\n<p>ストップ</p>\n<p>リセット</p>\n",
-            "to": "<h2 id=\"section-20-20\">●通常の計測</h2>\n<p>E：スタート → E：ストップ → B：リセット。</p>\n"
-          },
-          {
-            "startLine": 24,
-            "endLine": 49,
-            "from": "<h2 id=\"section-20-29\">スプリットタイム計測</h2>\n<p>B</p>\n<p>（B）</p>\n<p>スプリット計測</p>\n<p>スタート</p>\n<p>スプリット解除</p>\n<p>ストップ</p>\n<p>リセット</p>\n<h2 id=\"section-20-37\">1着・2着同時計測</h2>\n<p>E</p>\n<p>スタート</p>\n<p>1着ゴール</p>\n<p>2着ゴール</p>\n<p>2着タイム表示</p>\n<p>リセット</p>\n<p>（1着タイム表示）</p>\n<p>計測中に©ボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-20-47\">通信機能の使い方</h2>\n<p>通信機能は時計同士で画像データ交換をしたり、パソコンに画像データを送って管理したりする機能です。なお、パソコンとのデータを行なうには、赤外線アダプター＜PAD-2＞が必要です。また、</p>\n<p>パソコンとのデータ通のしかたは、赤外線アダプター ＜PAD-2＞ に付属</p>\n<p>のCD-ROMに納められている説明書をご覧ください。</p>\n<h2 id=\"section-20-55\">通言モードに切り替えるには</h2>\n<p>時刻モードのときに◎ ボタンを5回押します。</p>\n<p>※通言モードで何もボタン操作をしないと、約2分後時刻モードに戻ります。</p>\n<h2 id=\"section-20-58\">時計同士を合わせる</h2>\n",
+            "startLine": 19,
+            "endLine": 44,
+            "from": "<h2 id=\"section-20-23\">スプリットタイム計測</h2>\n<p>B</p>\n<p>（B）</p>\n<p>スプリット計測</p>\n<p>スタート</p>\n<p>スプリット解除</p>\n<p>ストップ</p>\n<p>リセット</p>\n<h2 id=\"section-20-31\">1着・2着同時計測</h2>\n<p>E</p>\n<p>スタート</p>\n<p>1着ゴール</p>\n<p>2着ゴール</p>\n<p>2着タイム表示</p>\n<p>リセット</p>\n<p>（1着タイム表示）</p>\n<p>計測中に©ボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-20-41\">通信機能の使い方</h2>\n<p>通信機能は時計同士で画像データ交換をしたり、パソコンに画像データを送って管理したりする機能です。なお、パソコンとのデータを行なうには、赤外線アダプター＜PAD-2＞が必要です。また、</p>\n<p>パソコンとのデータ通のしかたは、赤外線アダプター ＜PAD-2＞ に付属</p>\n<p>のCD-ROMに納められている説明書をご覧ください。</p>\n<h2 id=\"section-20-49\">通言モードに切り替えるには</h2>\n<p>時刻モードのときに◎ ボタンを5回押します。</p>\n<p>※通言モードで何もボタン操作をしないと、約2分後時刻モードに戻ります。</p>\n<h2 id=\"section-20-52\">時計同士を合わせる</h2>\n",
             "to": "<h2 id=\"section-20-30\">スプリットタイム計測</h2>\n<p>E：スタート → B：スプリット計測 → B：スプリット解除 → E：ストップ → B：リセット。</p>\n<h2 id=\"section-20-38\">1着・2着同時計測</h2>\n<p>E：スタート → B：1着ゴール（1着タイム表示） → E：2着ゴール → B：2着タイム表示 → B：リセット。</p>\n<p>計測中にDボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-20-48\">通信機能の使い方</h2>\n<p>通信機能は時計同士で画像データ交換をしたり、パソコンに画像データを送って管理したりする機能です。なお、パソコンとのデータ通信を行なうには、赤外線アダプター＜PAD-2＞が必要です。</p>\n<p>パソコンとのデータ通信のしかたは、赤外線アダプター ＜PAD-2＞ に付属のCD-ROMに納められている説明書をご覧ください。</p>\n<h2 id=\"section-20-56\">通信モードに切り替えるには</h2>\n<p>時刻モードのときにDボタンを5回押します。</p>\n<p>※通信モードで何もボタン操作をしないと、約2分後時刻モードに戻ります。</p>\n<h2 id=\"section-20-59\">時計同士を合わせる</h2>\n"
           },
           {
-            "startLine": 52,
-            "endLine": 55,
+            "startLine": 46,
+            "endLine": 49,
             "from": "<p>●通告できる距離は最大約10cmで、角度は最大約30度です。</p>\n<p>※通言距離が近すぎても、うまく通できないことがあります。</p>\n<p>●通言角度が 15度以上あるときは、通距離が極端に短くなります。</p>",
             "to": "<p>●通信できる距離は最大約10cmで、角度は最大約30度です。</p>\n<p>※通信距離が近すぎても、うまく通信できないことがあります。</p>\n<p>●通信角度が 15度以上あるときは、通信距離が極端に短くなります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "21": {
@@ -935,7 +963,7 @@
         ]
       },
       "22": {
-        "flowSHA256": "df0fa96aa014af240382cbdfc8500cd11edfd0e4017673605ae97e39d72c5c90",
+        "flowSHA256": "52820ad9ba6df0738baa0245aec5caa7607f3d224639baad439278685bf935d5",
         "edits": [
           {
             "startLine": 0,
@@ -950,50 +978,57 @@
             "to": "<p>時計同士を向け合い、送信側はFボタンを押します。</p>\n<p>→相手の時計と同調すると、通信が開始されます。</p>\n<p>＜送信の場合＞画像選択（操作4）に戻ります。</p>\n<p>＜受信の場合＞送信／受信選択（操作3）に戻ります。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 23,
+            "startLine": 14,
+            "endLine": 14,
+            "from": "",
+            "to": "<p>SEND</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 22,
             "from": "<p>送終了後に D ボタンを押す</p>\n<p>※受信した画像データは、通モード解</p>\n<p>と、時刻モードに戻ります。</p>\n<p>除後にソート順に並べ替えられます。</p>\n<p>適合エラーについて</p>\n<p>送側：OTHERS SEND ERROR受（側：OTHERS RECEIVE ERROR</p>\n<p>は何らかの原因で送または受が失敗しました。</p>\n",
             "to": "<p>送信終了後にDボタンを押すと、時刻モードに戻ります。</p>\n<p>※受信した画像データは、通信モード解除後にソート順に並べ替えられます。</p>\n\n<p>通信エラーについて</p>\n<p>送信側：OTHERS SEND ERROR　受信側：OTHERS RECEIVE ERROR</p>\n<p>→何らかの原因で送信または受信が失敗しました。</p>\n"
           },
           {
-            "startLine": 24,
-            "endLine": 26,
+            "startLine": 23,
+            "endLine": 25,
             "from": "<p>受側：PLAY 100 FULL</p>\n<p>応 受言側のメモリーが一杯です</p>\n",
             "to": "<p>受信側：PLAY 100 FULL</p>\n<p>→受信側のメモリーが一杯です。</p>\n"
           },
           {
-            "startLine": 28,
-            "endLine": 29,
+            "startLine": 27,
+            "endLine": 28,
             "from": "<p>は通言が切断されています。</p>\n",
             "to": "<p>→通信が切断されています。</p>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 31,
-            "from": "<h2 id=\"section-22-34\">通信中のご注意</h2>\n",
+            "startLine": 29,
+            "endLine": 30,
+            "from": "<h2 id=\"section-22-33\">通信中のご注意</h2>\n",
             "to": "<h2 id=\"section-22-35\">通信中のご注意</h2>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 33,
+            "startLine": 31,
+            "endLine": 32,
             "from": "<p>●通言距離が近すぎても、うまく通できないことがあります。</p>\n",
             "to": "<p>●通信距離が近すぎても、うまく通信できないことがあります。</p>\n"
           },
           {
-            "startLine": 35,
-            "endLine": 37,
+            "startLine": 34,
+            "endLine": 36,
             "from": "<p>●通中は時計同士の間を遮らないようにしてください。</p>\n<p>●屋外などの明るい場所や窓際では通できないことがあります。</p>\n",
             "to": "<p>●通信中は時計同士の間を遮らないようにしてください。</p>\n<p>●屋外などの明るい場所や窓際では通信できないことがあります。</p>\n"
           },
           {
-            "startLine": 39,
-            "endLine": 44,
+            "startLine": 38,
+            "endLine": 43,
             "from": "<p>●通信している近くで別の赤外線通が行なわれているときは、通信できない</p>\n<p>ことがあります。</p>\n<p>●電池が消耗してくると通距離が短くなります。</p>\n<p>●送時の画像選択画面や受時の待機状態では、約5分後自動的に通言を終</p>\n<p>了します。ただし、通中に約5分経過した場合はその後に終了します。</p>",
             "to": "<p>●通信している近くで別の赤外線通信が行なわれているときは、通信できないことがあります。</p>\n<p>●電池が消耗してくると通信距離が短くなります。</p>\n<p>●送信時の画像選択画面や受信時の待機状態では、約5分後自動的に通信を終了します。ただし、通信中に約5分経過した場合はその通信後に終了します。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "23": {
@@ -1195,50 +1230,53 @@
         ]
       },
       "27": {
-        "flowSHA256": "6e4d9dbd461c78167121220070e25371701f111a38983839e0d15639069b6c3d",
+        "flowSHA256": "5a7240c29c84d22301863f41f92c402c84233110e19ff5c3e4b67ba1c1be5d5d",
         "edits": [
           {
             "startLine": 2,
-            "endLine": 3,
-            "from": "<p>時計本体表面にある電池ブタのみぞにコイ</p>\n",
+            "endLine": 2,
+            "from": "",
             "to": "<p>時計本体裏面にある電池ブタのみぞにコインなどを入れて矢印の位置（OPEN）まで回します。</p>\n"
           },
           {
-            "startLine": 5,
-            "endLine": 6,
-            "from": "<p>ンなどを入れて矢印の位置（OPEN）まで回します。</p>\n",
+            "startLine": 3,
+            "endLine": 5,
+            "from": "<p>時計本体表面にある電池ブタのみぞにコイ</p>\n<p>ンなどを入れて矢印の位置（OPEN）まで回します。</p>\n",
             "to": ""
           },
           {
-            "startLine": 8,
-            "endLine": 9,
-            "from": "<h2 id=\"section-27-11\">2.</h2>\n",
+            "startLine": 6,
+            "endLine": 8,
+            "from": "<h2 id=\"section-27-9\">2.</h2>\n<h2 id=\"section-27-10\">2. 古い電池を取り出す</h2>\n",
+            "to": "<h2 id=\"section-27-12\">2. 古い電池を取り出す</h2>\n<p>※電池が取り出しにくいときは、時計本体を逆さにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないようにしてください。</p>\n<p>電池を取り出す際に板バネに触れますと、ケガや故障の原因になりますのでご注意ください。</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 15,
+            "from": "<p>※電池が取り出しにくいときは、時計本体を逆さ</p>\n<p>まにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないよ</p>\n<p>うにしてください。</p>\n<h2 id=\"section-27-16\">電池を取り出す際に板バネに触れますと、ケガ</h2>\n<h2 id=\"section-27-17\">や故障の原因になりますのでご注意ください。</h2>\n",
             "to": ""
           },
           {
-            "startLine": 10,
-            "endLine": 11,
-            "from": "<p>※電池が取り出しにくいときは、時計本体を逆さ</p>\n",
-            "to": "<p>※電池が取り出しにくいときは、時計本体を逆さにしてください。</p>\n"
-          },
-          {
-            "startLine": 15,
-            "endLine": 16,
-            "from": "<p>新しい電池の表裏を乾いた布で拭いてから、</p>\n",
-            "to": "<p>新しい電池の表裏を乾いた布で拭いてから、プラス（＋）を上にして入れます。</p>\n"
+            "startLine": 16,
+            "endLine": 17,
+            "from": "<h2 id=\"section-27-20\">3. 新しい電池を入れる</h2>\n",
+            "to": "<h2 id=\"section-27-18\">3. 新しい電池を入れる</h2>\n<p>新しい電池の表裏を乾いた布で拭いてから、プラス（＋）を上にして入れます。</p>\n"
           },
           {
             "startLine": 18,
-            "endLine": 21,
-            "from": "<p>プラス（＋）を上にして入れます。</p>\n<p>※電池の表や裏をピンセットなどでつままないで</p>\n<p>ください。電池がショートして危険です。</p>\n",
+            "endLine": 22,
+            "from": "<p>新しい電池の表裏を乾いた布で拭いてから、</p>\n<p>プラス（＋）を上にして入れます。</p>\n<p>※電池の表や裏をピンセットなどでつままないで</p>\n<p>ください。電池がショートして危険です。</p>\n",
             "to": "<p>※電池の表や裏をピンセットなどでつままないでください。電池がショートして危険です。</p>\n"
           },
           {
             "startLine": 24,
             "endLine": 27,
-            "from": "<p>パッキンの汚れやゴミを取り除き、上下を確認し</p>\n<p>て凸部が電池ブタ側になるように入れてください。</p>\n<p>パツキン</p>\n",
-            "to": "<p>パッキンの汚れやゴミを取り除き、上下を確認して凸部が電池ブタ側になるように入れてください。</p>\n<p>パッキン</p>\n"
+            "from": "<p>パッキンの汚れやゴミを取り除き、上下を確認し</p>\n<p>て凸部が電池ブタ側になるように入れてください。</p>\n<h2 id=\"section-27-30\">4. 電池ブタをしめる</h2>\n",
+            "to": "<p>パッキンの汚れやゴミを取り除き、上下を確認して凸部が電池ブタ側になるように入れてください。</p>\n<h2 id=\"section-27-31\">4. 電池ブタをしめる</h2>\n"
           }
+        ],
+        "notes": [
+          "Recovered the original battery removal instructions as selectable text and retained each original diagram label."
         ]
       },
       "28": {
@@ -1512,7 +1550,7 @@
         ]
       },
       "9": {
-        "flowSHA256": "44cca00cfa441085988088686547b3c071db46c35c88ac003c97d16bebabbd0f",
+        "flowSHA256": "8943ca546fb1a429be83454e2a2e6b9e8f13dd450875724b3e26c234b338d06b",
         "edits": [
           {
             "startLine": 2,
@@ -1527,66 +1565,67 @@
             "to": "<p>※残り枚数が0またはメモリー容量が足りない場合は、「REC FULL」と表示されて撮影画像が保存できません。このようなときは、不要な画像を削除してから撮影してください。</p>\n"
           },
           {
-            "startLine": 15,
+            "startLine": 9,
+            "endLine": 9,
+            "from": "",
+            "to": "\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 13,
+            "from": "<h2 id=\"section-9-11\">2. 被写体にレンズを向ける</h2>\n<h2 id=\"section-9-12\">時計上部にあるレンズを被写体に向けます。</h2>\n",
+            "to": "<h2 id=\"section-9-19\">2. 被写体にレンズを向ける</h2>\n<h2 id=\"section-9-20\">時計上部にあるレンズを被写体に向けます。</h2>\n"
+          },
+          {
+            "startLine": 14,
             "endLine": 16,
-            "from": "<p>．撮景場所</p>\n",
-            "to": "<p>撮影場所</p>\n"
+            "from": "<p>m 表示を見ながら調整してください。</p>\n<h2 id=\"section-9-15\">3. 撮影する</h2>\n",
+            "to": "<p>→表示を見ながら調整してください。</p>\n<h2 id=\"section-9-24\">3. 撮影する</h2>\n"
           },
           {
-            "startLine": 20,
-            "endLine": 21,
-            "from": "<p>レンス</p>\n",
-            "to": "<p>レンズ</p>\n"
-          },
-          {
-            "startLine": 22,
-            "endLine": 23,
-            "from": "<p>m 表示を見ながら調整してください。</p>\n",
-            "to": "<p>→表示を見ながら調整してください。</p>\n"
-          },
-          {
-            "startLine": 25,
-            "endLine": 27,
+            "startLine": 17,
+            "endLine": 19,
             "from": "<p>F ボタン（シャッター）を押します。ル撮影した画像をメモリーし、約3～4秒間撮影し</p>\n<p>た画像を表示します。</p>\n",
             "to": "<p>Fボタン（シャッター）を押します。→撮影した画像をメモリーし、約3～4秒間撮影した画像を表示します。</p>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 31,
-            "from": "<p>※通で送られてきた画像はソートされない場合があります。</p>\n",
-            "to": "<p>※通信で送られてきた画像はソートされない場合があります。</p>\n"
+            "startLine": 22,
+            "endLine": 24,
+            "from": "<p>※通で送られてきた画像はソートされない場合があります。</p>\n<h2 id=\"section-9-28\">撮影上のご注意</h2>\n",
+            "to": "<p>※通信で送られてきた画像はソートされない場合があります。</p>\n<h2 id=\"section-9-37\">撮影上のご注意</h2>\n"
           },
           {
-            "startLine": 33,
-            "endLine": 38,
+            "startLine": 25,
+            "endLine": 30,
             "from": "<p>● レンズ面が指紋やゴミなどで汚れているとカメラ本体の性能が十分に発揮できま</p>\n<p>せんので、レンズには触れないようにしてください。なお、レンズの汚れは、ブロアーでゴミやホコリを軽く吹き払ってから、乾いた柔らかい布で軽くふいてください。</p>\n<p>●手ぶれをおこさないように、ボタン（シャッター）は静かに押してください。</p>\n<p>●暗い場所では写りが悪くなることがありますので、日中はなるべく屋外で、夜間</p>\n<p>はなるべく照明の明るい屋内で撮影することをお勧めします。</p>\n",
             "to": "<p>● レンズ面が指紋やゴミなどで汚れているとカメラ本体の性能が十分に発揮できませんので、レンズには触れないようにしてください。なお、レンズの汚れは、ブロアーでゴミやホコリを軽く吹き払ってから、乾いた柔らかい布で軽くふいてください。</p>\n<p>●手ぶれをおこさないように、Fボタン（シャッター）は静かに押してください。</p>\n<p>●暗い場所では写りが悪くなることがありますので、日中はなるべく屋外で、夜間はなるべく照明の明るい屋内で撮影することをお勧めします。</p>\n"
           },
           {
-            "startLine": 41,
-            "endLine": 42,
-            "from": "<p>撮影モードから他のモードに切り替えたあとは、電池電圧の安定保持のため、撮影モードにしていた時間（最大1分）と同じ時間だけ撮影体止状態となり、撮影モードに切り替えられません。</p>\n",
-            "to": "<p>撮影モードから他のモードに切り替えたあとは、電池電圧の安定保持のため、撮影モードにしていた時間（最大1分）と同じ時間だけ撮影休止状態となり、撮影モードに切り替えられません。</p>\n"
+            "startLine": 32,
+            "endLine": 34,
+            "from": "<h2 id=\"section-9-39\">撮影インターバル</h2>\n<p>撮影モードから他のモードに切り替えたあとは、電池電圧の安定保持のため、撮影モードにしていた時間（最大1分）と同じ時間だけ撮影体止状態となり、撮影モードに切り替えられません。</p>\n",
+            "to": "<h2 id=\"section-9-48\">撮影インターバル</h2>\n<p>撮影モードから他のモードに切り替えたあとは、電池電圧の安定保持のため、撮影モードにしていた時間（最大1分）と同じ時間だけ撮影休止状態となり、撮影モードに切り替えられません。</p>\n"
           },
           {
-            "startLine": 44,
-            "endLine": 47,
+            "startLine": 36,
+            "endLine": 39,
             "from": "<p>例） 撮影モードでの時間＝20秒動休止時間＝20秒</p>\n<p>撮影休止中に撮影モードに切り替えようとすると、</p>\n<p>「WAIT」表示と共に残り時間を表示します。</p>\n",
             "to": "<p>例）撮影モードでの時間＝20秒 → 休止時間＝20秒</p>\n<p>撮影休止中に撮影モードに切り替えようとすると、「WAIT」表示と共に残り時間を表示します。</p>\n<p>残り時間（秒）</p>\n"
           },
           {
-            "startLine": 48,
-            "endLine": 52,
-            "from": "<p>★撮影モード、カレンダーセットモード、ビジュアルDBセット</p>\n<p>モード、通信モードではアラーム・時報・タイマーの電子音は</p>\n<h2 id=\"section-9-63\">鳴りません。</h2>\n<p>913.</p>",
+            "startLine": 40,
+            "endLine": 44,
+            "from": "<p>★撮影モード、カレンダーセットモード、ビジュアルDBセット</p>\n<p>モード、通信モードではアラーム・時報・タイマーの電子音は</p>\n<h2 id=\"section-9-54\">鳴りません。</h2>\n<p>913.</p>",
             "to": "<p>★撮影モード、カレンダーセットモード、ビジュアルDBセットモード、通信モードではアラーム・時報・タイマーの電子音は鳴りません。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "10": {
-        "flowSHA256": "0d543fba0e06893c2383a1daba531e3198170fb5832641b788f3428e3ae70489",
+        "flowSHA256": "b9849852e5a484ff91082fec7575e95e25761d025226f3905c209d22aaaf5ee6",
         "edits": [
           {
             "startLine": 0,
@@ -1601,45 +1640,54 @@
             "to": "<h2 id=\"section-10-2\">1. ビジュアルDBモードに切り替える</h2>\n<p>撮影モードおよび時刻モードのときにDボタンを押します。</p>\n<p>→ 撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を含む16画像のサムネール画面になります。</p>\n"
           },
           {
-            "startLine": 13,
-            "endLine": 16,
-            "from": "<h2 id=\"section-10-13\">Eボタンまたはボタンを押します。</h2>\n<p>meEボタンを押すごとに1つずつ進み、⑧ボタンを</p>\n<p>押すごとに戻ります。</p>\n",
+            "startLine": 7,
+            "endLine": 8,
+            "from": "<h2 id=\"section-10-7\">2． 画像を選ぶ</h2>\n",
+            "to": "\n<h2 id=\"section-10-11\">2． 画像を選ぶ</h2>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 12,
+            "from": "<h2 id=\"section-10-9\">Eボタンまたはボタンを押します。</h2>\n<p>meEボタンを押すごとに1つずつ進み、⑧ボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<h2 id=\"section-10-13\">EボタンまたはBボタンを押します。</h2>\n<p>→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 17,
-            "endLine": 19,
-            "from": "<p>※© ボタンを押すと、16画像のサムネール画面</p>\n<p>を送ることができます。</p>\n",
-            "to": "<p>※Cボタンを押すと、16画像のサムネール画面を送ることができます。</p>\n"
+            "startLine": 13,
+            "endLine": 16,
+            "from": "<p>※© ボタンを押すと、16画像のサムネール画面</p>\n<p>を送ることができます。</p>\n<h2 id=\"section-10-15\">3. 選択画像表示に切り替える</h2>\n",
+            "to": "<p>※Cボタンを押すと、16画像のサムネール画面を送ることができます。</p>\n<h2 id=\"section-10-21\">3. 選択画像表示に切り替える</h2>\n"
           },
           {
-            "startLine": 22,
-            "endLine": 23,
+            "startLine": 17,
+            "endLine": 18,
             "from": "<p>® ボタンを押します。me 選択画像が大きく表示されます。</p>\n",
             "to": "<p>Fボタンを押します。→選択画像が大きく表示されます。</p>\n"
           },
           {
-            "startLine": 26,
+            "startLine": 19,
+            "endLine": 20,
+            "from": "<h2 id=\"section-10-21\">4. メモ表示に切り替える</h2>\n",
+            "to": "<h2 id=\"section-10-27\">4. メモ表示に切り替える</h2>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 26,
+            "from": "<p>©ボタンを押します。u→押すごとに画像のみと画像＋撮影日時表示が切り</p>\n<p>替わります。</p>\n<p>※メモが入力されているときは、メモと撮影日時</p>\n<p>表示に切り替わります。</p>\n<h2 id=\"section-10-28\">5. 時モードに戻す</h2>\n",
+            "to": "<p>Cボタンを押します。→押すごとに画像のみと画像＋撮影日時表示が切り替わります。</p>\n<p>※メモが入力されているときは、メモと撮影日時表示に切り替わります。</p>\n<p>01.</p>\n<p>6-29P</p>\n<h2 id=\"section-10-38\">5. 時刻モードに戻す</h2>\n"
+          },
+          {
+            "startLine": 27,
             "endLine": 30,
-            "from": "<p>©ボタンを押します。u→押すごとに画像のみと画像＋撮影日時表示が切り</p>\n<p>替わります。</p>\n<p>※メモが入力されているときは、メモと撮影日時</p>\n<p>表示に切り替わります。</p>\n",
-            "to": "<p>Cボタンを押します。→押すごとに画像のみと画像＋撮影日時表示が切り替わります。</p>\n<p>※メモが入力されているときは、メモと撮影日時表示に切り替わります。</p>\n"
-          },
-          {
-            "startLine": 33,
-            "endLine": 34,
-            "from": "<h2 id=\"section-10-38\">5. 時モードに戻す</h2>\n",
-            "to": "<h2 id=\"section-10-38\">5. 時刻モードに戻す</h2>\n"
-          },
-          {
-            "startLine": 35,
-            "endLine": 38,
-            "from": "<h2 id=\"section-10-40\">◎ ボタンを押します。</h2>\n<p>※ビジュアルDB モードで何もボタン操作をしな</p>\n<p>いと、約2分後時刻モードに戻ります。</p>",
+            "from": "<h2 id=\"section-10-30\">◎ ボタンを押します。</h2>\n<p>※ビジュアルDB モードで何もボタン操作をしな</p>\n<p>いと、約2分後時刻モードに戻ります。</p>",
             "to": "<h2 id=\"section-10-40\">Dボタンを押します。</h2>\n<p>※ビジュアルDB モードで何もボタン操作をしないと、約2分後時刻モードに戻ります。</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "11": {
-        "flowSHA256": "622b866eda04a72118817b0d53e26af2c02fd5acab6b970586686f4fc2f76b06",
+        "flowSHA256": "9a592247fe0868dca537ec9661363a9cf1b138996a552442b7b61f522d8750aa",
         "edits": [
           {
             "startLine": 1,
@@ -1654,47 +1702,56 @@
             "to": "<p>→撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を含む16画像のサムネール画面になります。</p>\n"
           },
           {
-            "startLine": 10,
-            "endLine": 11,
-            "from": "<h2 id=\"section-11-10\">® ボタンまたは®ボタンを押します。</h2>\n",
-            "to": "<h2 id=\"section-11-10\">EボタンまたはBボタンを押します。</h2>\n"
+            "startLine": 7,
+            "endLine": 9,
+            "from": "<h2 id=\"section-11-7\">2．画像を選ぶ</h2>\n<h2 id=\"section-11-8\">® ボタンまたは®ボタンを押します。</h2>\n",
+            "to": "\n<h2 id=\"section-11-9\">2．画像を選ぶ</h2>\n<h2 id=\"section-11-10\">EボタンまたはBボタンを押します。</h2>\n"
           },
           {
-            "startLine": 12,
-            "endLine": 15,
-            "from": "<p>⑧</p>\n<p>maボタンを押すごとに1つずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
+            "startLine": 10,
+            "endLine": 12,
+            "from": "<p>maボタンを押すごとに1つずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<p>→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 18,
-            "from": "<p>※©ボタンを押すと、16画像のサムネール画面</p>\n<p>を送ることができます。</p>\n",
-            "to": "<p>※Cボタンを押すと、16画像のサムネール画面を送ることができます。</p>\n"
+            "startLine": 13,
+            "endLine": 16,
+            "from": "<p>※©ボタンを押すと、16画像のサムネール画面</p>\n<p>を送ることができます。</p>\n<h2 id=\"section-11-15\">3. 選択画像表示に切り替える</h2>\n",
+            "to": "<p>※Cボタンを押すと、16画像のサムネール画面を送ることができます。</p>\n<h2 id=\"section-11-20\">3. 選択画像表示に切り替える</h2>\n"
           },
           {
-            "startLine": 21,
-            "endLine": 22,
+            "startLine": 17,
+            "endLine": 18,
             "from": "<p>F ボタンを押します。my 選択画像が大きく表示されます。</p>\n",
             "to": "<p>Fボタンを押します。→選択画像が大きく表示されます。</p>\n"
           },
           {
-            "startLine": 25,
-            "endLine": 28,
-            "from": "<h2 id=\"section-11-28\">® ボタンを約1秒間押し続けます。</h2>\n<p>※ NAME」はメモ入力へ、「DEL」は削除へ進み</p>\n<p>ます。</p>\n",
-            "to": "<h2 id=\"section-11-28\">Aボタンを約1秒間押し続けます。</h2>\n<p>※「NAME」はメモ入力へ、「DEL」は削除へ進みます。</p>\n"
+            "startLine": 19,
+            "endLine": 20,
+            "from": "<h2 id=\"section-11-21\">4. セットメニューを開く</h2>\n",
+            "to": "<h2 id=\"section-11-26\">4. セットメニューを開く</h2>\n"
+          },
+          {
+            "startLine": 21,
+            "endLine": 25,
+            "from": "<h2 id=\"section-11-23\">® ボタンを約1秒間押し続けます。</h2>\n<p>※ NAME」はメモ入力へ、「DEL」は削除へ進み</p>\n<p>ます。</p>\n<h2 id=\"section-11-26\">5.削除を選ぶ</h2>\n",
+            "to": "<h2 id=\"section-11-28\">Aボタンを約1秒間押し続けます。</h2>\n<p>※「NAME」はメモ入力へ、「DEL」は削除へ進みます。</p>\n<h2 id=\"section-11-31\">5.削除を選ぶ</h2>\n"
+          },
+          {
+            "startLine": 26,
+            "endLine": 29,
+            "from": "<h2 id=\"section-11-28\">ボタンまたは ボタンを押します。</h2>\n<p>1→「DEL」にカーソルを合わせます。</p>\n<h2 id=\"section-11-30\">6. 削除メニューを開く</h2>\n",
+            "to": "<h2 id=\"section-11-33\">EボタンまたはBボタンを押します。</h2>\n<p>→「DEL」にカーソルを合わせます。</p>\n<h2 id=\"section-11-36\">6. 削除メニューを開く</h2>\n"
           },
           {
             "startLine": 30,
-            "endLine": 32,
-            "from": "<h2 id=\"section-11-33\">ボタンまたは ボタンを押します。</h2>\n<p>1→「DEL」にカーソルを合わせます。</p>\n",
-            "to": "<h2 id=\"section-11-33\">EボタンまたはBボタンを押します。</h2>\n<p>→「DEL」にカーソルを合わせます。</p>\n"
-          },
-          {
-            "startLine": 35,
-            "endLine": 38,
-            "from": "<h2 id=\"section-11-38\">® ボタンを押します。</h2>\n<p>※ PAGE」は選択画像のみの削除へ、「ALL」は</p>\n<p>全画像削除へ進みます。</p>",
+            "endLine": 33,
+            "from": "<h2 id=\"section-11-32\">® ボタンを押します。</h2>\n<p>※ PAGE」は選択画像のみの削除へ、「ALL」は</p>\n<p>全画像削除へ進みます。</p>",
             "to": "<h2 id=\"section-11-38\">Fボタンを押します。</h2>\n<p>※「PAGE」は選択画像のみの削除へ、「ALL」は全画像削除へ進みます。</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "12": {
@@ -1872,7 +1929,7 @@
         ]
       },
       "15": {
-        "flowSHA256": "b2136e46015afe1203f832f6478cbe487df89b28a0280dbe211ae1a9fd5e4a3c",
+        "flowSHA256": "040156d829439465cfb3c5bc5aecab2bdaf6b0ba9eddc3cc0cff47fa9afdd398",
         "edits": [
           {
             "startLine": 2,
@@ -1881,47 +1938,56 @@
             "to": "<h2 id=\"section-15-3\">1. 撮影モードに切り替える</h2>\n<p>ビジュアルDBモードと通信モード以外のときにFボタンを約0.1秒間押します。</p>\n"
           },
           {
-            "startLine": 12,
+            "startLine": 7,
+            "endLine": 9,
+            "from": "<h2 id=\"section-15-8\">2．タイマー時間設定に切り替える</h2>\n<h2 id=\"section-15-9\">④ボタンを押します。</h2>\n",
+            "to": "\n<h2 id=\"section-15-13\">2．タイマー時間設定に切り替える</h2>\n<h2 id=\"section-15-14\">Aボタンを押します。</h2>\n"
+          },
+          {
+            "startLine": 10,
             "endLine": 13,
-            "from": "<h2 id=\"section-15-14\">④ボタンを押します。</h2>\n",
-            "to": "<h2 id=\"section-15-14\">Aボタンを押します。</h2>\n"
+            "from": "<p>H→Aボタンを押すごとに2秒と10秒が切り替わり</p>\n<p>ます。</p>\n<h2 id=\"section-15-13\">3.撮影する</h2>\n",
+            "to": "<p>→Aボタンを押すごとに2秒と10秒が切り替わります。</p>\n<h2 id=\"section-15-19\">3.撮影する</h2>\n"
           },
           {
             "startLine": 14,
-            "endLine": 16,
-            "from": "<p>H→Aボタンを押すごとに2秒と10秒が切り替わり</p>\n<p>ます。</p>\n",
-            "to": "<p>→Aボタンを押すごとに2秒と10秒が切り替わります。</p>\n"
+            "endLine": 20,
+            "from": "<p>F ボタン（シャッター）を押します。＝設定した時間後に撮影されます。</p>\n<p>※カウントダウン中に中止するにはFボタンを押</p>\n<p>します。タイマーがリセットされます。</p>\n<p>※ ボタンを押して撮影を開始する前に©ボタ</p>\n<p>ンを押すと、タイマーの設定が解除されます。</p>\n<h2 id=\"section-15-23\">コントラスト設定</h2>\n",
+            "to": "<p>Fボタン（シャッター）を押します。→設定した時間後に撮影されます。</p>\n<p>※カウントダウン中に中止するにはFボタンを押します。タイマーがリセットされます。</p>\n<p>※Fボタンを押して撮影を開始する前にCボタンを押すと、タイマーの設定が解除されます。</p>\n<h2 id=\"section-15-29\">コントラスト設定</h2>\n"
           },
           {
-            "startLine": 19,
-            "endLine": 24,
-            "from": "<p>F ボタン（シャッター）を押します。＝設定した時間後に撮影されます。</p>\n<p>※カウントダウン中に中止するにはFボタンを押</p>\n<p>します。タイマーがリセットされます。</p>\n<p>※ ボタンを押して撮影を開始する前に©ボタ</p>\n<p>ンを押すと、タイマーの設定が解除されます。</p>\n",
-            "to": "<p>Fボタン（シャッター）を押します。→設定した時間後に撮影されます。</p>\n<p>※カウントダウン中に中止するにはFボタンを押します。タイマーがリセットされます。</p>\n<p>※Fボタンを押して撮影を開始する前にCボタンを押すと、タイマーの設定が解除されます。</p>\n"
-          },
-          {
-            "startLine": 27,
-            "endLine": 30,
-            "from": "<h2 id=\"section-15-34\">7. コントラスト設定状態に切り替える</h2>\n<p>ビジュアルDBモードのサムネール画面の</p>\n<p>UNT &amp;</p>\n",
+            "startLine": 22,
+            "endLine": 23,
+            "from": "<h2 id=\"section-15-28\">7. コントラスト設定状態に切り替える</h2>\n",
             "to": "<h2 id=\"section-15-34\">1. コントラスト設定状態に切り替える</h2>\n<p>ビジュアルDBモードのサムネール画面のときにAボタンを押します。</p>\n"
           },
           {
-            "startLine": 31,
-            "endLine": 34,
-            "from": "<p>ときにAボタンを押します。</p>\n<p>⇒ 選択されていた画像が大きく表示され、設定値が</p>\n<p>表示されます。</p>\n",
-            "to": "<p>⇒ 選択されていた画像が大きく表示され、設定値が表示されます。</p>\n"
+            "startLine": 24,
+            "endLine": 29,
+            "from": "<p>ビジュアルDBモードのサムネール画面の</p>\n<p>ときにAボタンを押します。</p>\n<p>⇒ 選択されていた画像が大きく表示され、設定値が</p>\n<p>表示されます。</p>\n<h2 id=\"section-15-34\">2．設定する</h2>\n",
+            "to": "<p>⇒ 選択されていた画像が大きく表示され、設定値が表示されます。</p>\n<h2 id=\"section-15-41\">2．設定する</h2>\n"
           },
           {
-            "startLine": 36,
-            "endLine": 38,
+            "startLine": 30,
+            "endLine": 32,
             "from": "<p>Eボタンまたは B ボタンを押します。me ボタンを押すごとに1つずつ進み、ボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 41,
-            "endLine": 44,
+            "startLine": 33,
+            "endLine": 34,
+            "from": "<h2 id=\"section-15-40\">3. 設定を終わる</h2>\n",
+            "to": "<h2 id=\"section-15-47\">3. 設定を終わる</h2>\n"
+          },
+          {
+            "startLine": 35,
+            "endLine": 38,
             "from": "<p>Aボタンを押します。ma 設定値が消え、サムネール画面になります。</p>\n<p>※約15秒間何もしないと、自動的にサムネール表</p>\n<p>示に戻ります。</p>",
             "to": "<p>Aボタンを押します。→設定値が消え、サムネール画面になります。</p>\n<p>※約15秒間何もしないと、自動的にサムネール表示に戻ります。</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "16": {
@@ -2137,7 +2203,7 @@
         ]
       },
       "20": {
-        "flowSHA256": "096b7568bb254705a9de070d71dc99f0169ef979ecb60a0f4e7420a3393ce3c3",
+        "flowSHA256": "09912df14ef5a0f50253cfac7bf282b6f1543943d1266fbad5067e9be75e5fdb",
         "edits": [
           {
             "startLine": 0,
@@ -2165,28 +2231,37 @@
           },
           {
             "startLine": 14,
-            "endLine": 15,
-            "from": "<p>E ボタンまたは⑧ボタンを押します。</p>\n",
+            "endLine": 14,
+            "from": "",
             "to": "<p>EボタンまたはBボタンを押します。</p>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 25,
-            "from": "<p>⑧</p>\n<p>アラーム1</p>\n<p>アラーム2</p>\n<p>アラーム3</p>\n<p>時報</p>\n<p>アラーム4</p>\n<p>アラーム5</p>\n",
-            "to": "<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n"
-          },
-          {
-            "startLine": 29,
-            "endLine": 34,
-            "from": "<p>※自動的にアラームがオンとなり、アラームオン</p>\n<p>マークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのア</p>\n<p>ラームがオンのとき点灯します。</p>\n<p>※&quot;“ON”表示は選ばれているアラーム番号がオン</p>\n",
-            "to": "<p>※自動的にアラームがオンとなり、アラームオンマークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのアラームがオンのとき点灯します。</p>\n<p>※“ON”表示は選ばれているアラーム番号がオンのとき表示されます。</p>\n"
-          },
-          {
-            "startLine": 35,
-            "endLine": 36,
-            "from": "<p>のとき表示されます。</p>\n",
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>E ボタンまたは⑧ボタンを押します。</p>\n",
             "to": ""
+          },
+          {
+            "startLine": 17,
+            "endLine": 24,
+            "from": "<p>アラーム1</p>\n<p>アラーム2</p>\n<p>アラーム3</p>\n<p>時報</p>\n<p>アラーム4</p>\n<p>アラーム5</p>\n<h2 id=\"section-20-32\">2．セット状態にする</h2>\n",
+            "to": "<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n<h2 id=\"section-20-34\">2．セット状態にする</h2>\n<h2 id=\"section-20-35\">Aボタンを約1秒間押し続けます。</h2>\n"
+          },
+          {
+            "startLine": 25,
+            "endLine": 26,
+            "from": "<h2 id=\"section-20-34\">Aボタンを約1秒間押し続けます。</h2>\n",
+            "to": ""
+          },
+          {
+            "startLine": 27,
+            "endLine": 33,
+            "from": "<p>※自動的にアラームがオンとなり、アラームオン</p>\n<p>マークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのア</p>\n<p>ラームがオンのとき点灯します。</p>\n<p>※&quot;“ON”表示は選ばれているアラーム番号がオン</p>\n<p>のとき表示されます。</p>",
+            "to": "<p>※自動的にアラームがオンとなり、アラームオンマークが点灯します。</p>\n<p>※アラームオンマークは1～5のいずれかのアラームがオンのとき点灯します。</p>\n<p>※“ON”表示は選ばれているアラーム番号がオンのとき表示されます。</p>\n<p>アラームオンマーク</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "21": {
@@ -2243,53 +2318,48 @@
         ]
       },
       "22": {
-        "flowSHA256": "f260d26764eab3b1edfd881156cb111d315c3814e53b001e7769ff73bdc442df",
+        "flowSHA256": "a4fd1ce8938d041abef90f939ed4eb249c356230ff69009e999584c0459462f6",
         "edits": [
           {
             "startLine": 3,
-            "endLine": 4,
-            "from": "<p>⑤ポタンまたは@ボタンを押します。</p>\n",
+            "endLine": 3,
+            "from": "",
             "to": "<p>EボタンまたはBボタンを押します。</p>\n"
           },
           {
-            "startLine": 7,
-            "endLine": 15,
-            "from": "<p>アラーム2</p>\n<p>アラーム1</p>\n<p>アラーム3</p>\n<p>B</p>\n<p>⑤</p>\n<p>時報</p>\n<p>アラーム5</p>\n<p>アラーム4</p>\n",
-            "to": "<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n"
+            "startLine": 4,
+            "endLine": 5,
+            "from": "<p>⑤ポタンまたは@ボタンを押します。</p>\n",
+            "to": ""
           },
           {
-            "startLine": 16,
-            "endLine": 17,
-            "from": "<p>©ボタンを押します。</p>\n",
-            "to": "<p>Cボタンを押します。</p>\n"
+            "startLine": 6,
+            "endLine": 16,
+            "from": "<p>アラーム2</p>\n<p>アラーム1</p>\n<p>アラーム3</p>\n<p>B</p>\n<p>⑤</p>\n<p>時報</p>\n<p>アラーム5</p>\n<p>アラーム4</p>\n<h2 id=\"section-22-14\">2． オン／オフを切り替える</h2>\n<p>©ボタンを押します。</p>\n",
+            "to": "<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n<h2 id=\"section-22-15\">2． オン／オフを切り替える</h2>\n<p>Cボタンを押します。</p>\n"
           },
           {
             "startLine": 18,
             "endLine": 18,
             "from": "",
-            "to": "<p>＜アラーム＞</p>\n<p>＜時報＞</p>\n"
+            "to": "\n"
           },
           {
-            "startLine": 19,
-            "endLine": 19,
-            "from": "",
-            "to": "\n<p>ON表示</p>\n<p>ON表示</p>\n<p>時報オンマーク</p>\n<p>アラームオンマーク</p>\n"
-          },
-          {
-            "startLine": 24,
+            "startLine": 23,
             "endLine": 29,
-            "from": "<p>アラームモードで© ボタンを押し続けると、押している間電子音が聞けます。</p>\n<h2 id=\"section-22-26\">タイマーの使い方</h2>\n<p>タイマーは分単位で60分までセットでき、セットした時間を経過（タイムアップ）すると、10秒間の電子音とメモリーされている画像の点滅表示で知らせてくれま</p>\n<p>※撮影モードおよび通モード、カレンダーおよびビジュアルDB セット状態（表示が点滅中）では電子音は鳴りません。タイマーモードに切り替えるには時刻モードのときに◎ボタンを4回押します。</p>\n<h2 id=\"section-22-33\">1計測のしかた</h2>\n",
+            "from": "<p>アラームモードで© ボタンを押し続けると、押している間電子音が聞けます。</p>\n<h2 id=\"section-22-25\">タイマーの使い方</h2>\n<p>タイマーは分単位で60分までセットでき、セットした時間を経過（タイムアップ）すると、10秒間の電子音とメモリーされている画像の点滅表示で知らせてくれま</p>\n<p>※撮影モードおよび通モード、カレンダーおよびビジュアルDB セット状態（表示が点滅中）では電子音は鳴りません。タイマーモードに切り替えるには時刻モードのときに◎ボタンを4回押します。</p>\n<h2 id=\"section-22-32\">1計測のしかた</h2>\n<figure class=\"illustration float-right\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"図\" viewBox=\"487.256 147.381 84.122 94.376\" width=\"139.19\" height=\"156.16\"><image href=\"assets/wqv3-ja-22.png\" width=\"1\" height=\"1\" preserveAspectRatio=\"none\" transform=\"matrix(596.1599731 0.0000000 -0.0000000 419.5199890 0.0000000 0.0000000)\"/></svg></figure>\n",
             "to": "<p>アラームモードでCボタンを押し続けると、押している間電子音が聞けます。</p>\n<h2 id=\"section-22-33\">タイマーの使い方</h2>\n<p>タイマーは分単位で60分までセットでき、セットした時間を経過（タイムアップ）すると、10秒間の電子音とメモリーされている画像の点滅表示で知らせてくれます。</p>\n<p>※撮影モードおよび通信モード、カレンダーおよびビジュアルDB セット状態（表示が点滅中）では電子音は鳴りません。タイマーモードに切り替えるには時刻モードのときにDボタンを4回押します。</p>\n<h2 id=\"section-22-40\">■計測のしかた</h2>\n"
           },
           {
-            "startLine": 33,
-            "endLine": 37,
+            "startLine": 31,
+            "endLine": 35,
             "from": "<p>※ロスタイムがあるときは、計測中にEボタンを押</p>\n<p>してストップ後、もう一度ボタンを押します。</p>\n<p>●計測がストップしているときにボタンを押すと、</p>\n<p>計測前の時間に戻ります。（リセット）</p>\n",
-            "to": "<p>※ロスタイムがあるときは、計測中にEボタンを押してストップ後、もう一度Eボタンを押します。</p>\n<p>●計測がストップしているときにBボタンを押すと、計測前の時間に戻ります。（リセット）</p>\n"
+            "to": "<figure class=\"illustration float-right\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"図\" viewBox=\"487.256 147.381 84.122 94.376\" width=\"139.19\" height=\"156.16\"><image href=\"assets/wqv3-ja-22.png\" width=\"1\" height=\"1\" preserveAspectRatio=\"none\" transform=\"matrix(596.1599731 0.0000000 -0.0000000 419.5199890 0.0000000 0.0000000)\"/></svg></figure>\n<p>※ロスタイムがあるときは、計測中にEボタンを押してストップ後、もう一度Eボタンを押します。</p>\n<p>●計測がストップしているときにBボタンを押すと、計測前の時間に戻ります。（リセット）</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "23": {
@@ -2613,7 +2683,7 @@
         ]
       },
       "31": {
-        "flowSHA256": "003ee552fff6b318c6d31c313b295e54ddbc8977992a56e9a96c822a9e9cad2b",
+        "flowSHA256": "d1a80d4be75e072c9c7e83e959faec4b2305aa55357559d7c8907c577e2bb9a7",
         "edits": [
           {
             "startLine": 1,
@@ -2622,53 +2692,50 @@
             "to": "<h2 id=\"section-31-2\">1. 電池ブタをはずす</h2>\n<p>時計本体裏面にある電池ブタのみぞにコインなどを入れて矢印の位置（OPEN）まで回します。</p>\n"
           },
           {
-            "startLine": 5,
-            "endLine": 6,
+            "startLine": 4,
+            "endLine": 5,
             "from": "<p>ンなどを入れて矢印の位置（OPEN） まで回します。</p>\n",
             "to": ""
           },
           {
-            "startLine": 8,
-            "endLine": 9,
-            "from": "<h2 id=\"section-31-11\">2.</h2>\n",
+            "startLine": 6,
+            "endLine": 8,
+            "from": "<h2 id=\"section-31-9\">2.</h2>\n<h2 id=\"section-31-10\">2. 古い電池を取り出す</h2>\n",
+            "to": "<h2 id=\"section-31-12\">2. 古い電池を取り出す</h2>\n<p>※電池が取り出しにくいときは、時計本体を逆さにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないようにしてください。</p>\n<p>電池を取り出す際に板バネに触れますと、ケガや故障の原因になりますのでご注意ください。</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 15,
+            "from": "<p>※電池が取り出しにくいときは、時計本体を逆さ</p>\n<p>まにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないよ</p>\n<p>うにしてください。</p>\n<h2 id=\"section-31-16\">電池を取り出す際に板バネに触れますと、ケガ</h2>\n<h2 id=\"section-31-17\">や故障の原因になりますのでご注意ください。</h2>\n",
             "to": ""
           },
           {
-            "startLine": 10,
-            "endLine": 11,
-            "from": "<p>※電池が取り出しにくいときは、時計本体を逆さ</p>\n",
-            "to": "<p>※電池が取り出しにくいときは、時計本体を逆さにしてください。</p>\n"
-          },
-          {
-            "startLine": 15,
-            "endLine": 16,
-            "from": "<p>新しい電池の表裏をいた布でふいてから、</p>\n",
-            "to": "<p>新しい電池の表裏を乾いた布でふいてから、プラス（＋）を上にして入れます。</p>\n"
+            "startLine": 16,
+            "endLine": 17,
+            "from": "<h2 id=\"section-31-20\">3. 新しい電池を入れる</h2>\n",
+            "to": "<h2 id=\"section-31-18\">3. 新しい電池を入れる</h2>\n<p>新しい電池の表裏を乾いた布でふいてから、プラス（＋）を上にして入れます。</p>\n"
           },
           {
             "startLine": 18,
-            "endLine": 21,
-            "from": "<p>プラス（＋）を上にして入れます。</p>\n<p>※電池の表や裏をピンセットなどでつままないで</p>\n<p>ください。電池がショートして危険です。</p>\n",
+            "endLine": 22,
+            "from": "<p>新しい電池の表裏をいた布でふいてから、</p>\n<p>プラス（＋）を上にして入れます。</p>\n<p>※電池の表や裏をピンセットなどでつままないで</p>\n<p>ください。電池がショートして危険です。</p>\n",
             "to": "<p>※電池の表や裏をピンセットなどでつままないでください。電池がショートして危険です。</p>\n"
           },
           {
             "startLine": 24,
-            "endLine": 27,
-            "from": "<p>パッキンの汚れやゴミを取り除き、上下を確認し</p>\n<p>て凸部が電池ブタ側になるように入れてください。</p>\n<p>パツネン</p>\n",
-            "to": "<p>パッキンの汚れやゴミを取り除き、上下を確認して凸部が電池ブタ側になるように入れてください。</p>\n<p>パッキン</p>\n"
+            "endLine": 28,
+            "from": "<p>パッキンの汚れやゴミを取り除き、上下を確認し</p>\n<p>て凸部が電池ブタ側になるように入れてください。</p>\n<h2 id=\"section-31-30\">4. 電池ブタをしめる</h2>\n<p>電池プタを乗せ、みぞにコインなどを入れ、</p>\n",
+            "to": "<p>パッキンの汚れやゴミを取り除き、上下を確認して凸部が電池ブタ側になるように入れてください。</p>\n<h2 id=\"section-31-31\">4. 電池ブタをしめる</h2>\n<p>電池ブタを乗せ、みぞにコインなどを入れ、少し押しながら矢印の位置（CLOSE）まで回します。</p>\n"
           },
           {
-            "startLine": 28,
-            "endLine": 29,
-            "from": "<p>電池プタを乗せ、みぞにコインなどを入れ、</p>\n",
-            "to": "<p>電池ブタを乗せ、みぞにコインなどを入れ、少し押しながら矢印の位置（CLOSE）まで回します。</p>\n"
-          },
-          {
-            "startLine": 31,
-            "endLine": 32,
+            "startLine": 29,
+            "endLine": 30,
             "from": "<p>少し押しながら矢印の位置（CLOSE）まで回します。</p>\n",
             "to": ""
           }
+        ],
+        "notes": [
+          "Recovered the original battery removal instructions as selectable text and retained each original diagram label."
         ]
       },
       "32": {
@@ -2904,7 +2971,7 @@
         ]
       },
       "9": {
-        "flowSHA256": "95028ae87f34932a6e2304cdec9f75747d1b5bc2be6c5d4ed4d2c642f5069d96",
+        "flowSHA256": "f60129609d123386e1014750afdf7e9181e24852c0c05acb421e0ee8e9ad4141",
         "edits": [
           {
             "startLine": 0,
@@ -2919,60 +2986,55 @@
             "to": "<p>※残り枚数が0またはメモリー容量が足りない場合は、「MEMORY FULL」と表示されて撮影画像が保存できません。このようなときは、不要な画像を削除してから撮影してください。</p>\n"
           },
           {
+            "startLine": 7,
+            "endLine": 7,
+            "from": "",
+            "to": "\n<p>残り枚数のグラフ表示撮影場所 残り撮影時間</p>\n"
+          },
+          {
             "startLine": 8,
-            "endLine": 8,
-            "from": "",
-            "to": "<p>現在時刻</p>\n"
-          },
-          {
-            "startLine": 9,
-            "endLine": 9,
-            "from": "",
-            "to": "<p>残り枚数</p>\n<p>残り枚数のグラフ表示撮影場所 残り撮影時間</p>\n"
-          },
-          {
-            "startLine": 10,
-            "endLine": 14,
-            "from": "<p>※残り撮影時間：撮影モードでの残り撮影時間をグラフが青から赤に切り替わ</p>\n<p>ることで表示します。</p>\n<h2 id=\"section-9-14\">2. 被写体にレンズを向ける</h2>\n<h2 id=\"section-9-15\">時計上部にあるレンズを被写体に向けます。</h2>\n",
+            "endLine": 12,
+            "from": "<p>※残り撮影時間：撮影モードでの残り撮影時間をグラフが青から赤に切り替わ</p>\n<p>ることで表示します。</p>\n<h2 id=\"section-9-12\">2. 被写体にレンズを向ける</h2>\n<h2 id=\"section-9-13\">時計上部にあるレンズを被写体に向けます。</h2>\n",
             "to": "<p>※残り撮影時間：撮影モードでの残り撮影時間をグラフが青から赤に切り替わることで表示します。</p>\n<h2 id=\"section-9-19\">2. 被写体にレンズを向ける</h2>\n<h2 id=\"section-9-20\">時計上部にあるレンズを被写体に向けます。</h2>\n"
           },
           {
-            "startLine": 15,
-            "endLine": 16,
+            "startLine": 13,
+            "endLine": 14,
             "from": "<p>1表示を見ながら調整してください。</p>\n",
             "to": "<p>※表示を見ながら調整してください。</p>\n"
           },
           {
-            "startLine": 17,
-            "endLine": 18,
+            "startLine": 15,
+            "endLine": 16,
             "from": "<p>©ボタンを押すごとに、通常撮影と2倍デジタルズーム撮影が切り替わります。</p>\n",
             "to": "<p>Cボタンを押すごとに、通常撮影と2倍デジタルズーム撮影が切り替わります。</p>\n\n"
           },
           {
-            "startLine": 19,
-            "endLine": 22,
-            "from": "<h2 id=\"section-9-24\">3.撮影する</h2>\n<h2 id=\"section-9-25\">®ボタン（シャッター）を押します。</h2>\n<p>=撮影した画像をメモリーし、約3〜4秒間撮影した画像と撮影日時を表示します。</p>\n",
+            "startLine": 17,
+            "endLine": 20,
+            "from": "<h2 id=\"section-9-22\">3.撮影する</h2>\n<h2 id=\"section-9-23\">®ボタン（シャッター）を押します。</h2>\n<p>=撮影した画像をメモリーし、約3〜4秒間撮影した画像と撮影日時を表示します。</p>\n",
             "to": "<h2 id=\"section-9-31\">3.撮影する</h2>\n<h2 id=\"section-9-32\">Fボタン（シャッター）を押します。</h2>\n<p>→撮影した画像をメモリーし、約3～4秒間撮影した画像と撮影日時を表示します。</p>\n"
           },
           {
-            "startLine": 25,
-            "endLine": 26,
+            "startLine": 23,
+            "endLine": 24,
             "from": "<p>●手ぶれをおこさないように、ボタン（シャッター）は静かに押してください。</p>\n",
             "to": "<p>●手ぶれをおこさないように、Fボタン（シャッター）は静かに押してください。</p>\n"
           },
           {
-            "startLine": 27,
-            "endLine": 31,
-            "from": "<p>●撮影モードに切り替えた直後はCMOSセンサーの自動調軽を行なっています。その自動調中に撮影した画像にノイズが入ってしまう可能性がありますので、映し出される表示の明るさなどが安定してから撮影してください。</p>\n<p>●画像の並び替え順メモが入力されているときは、メモの先頭から比較して自動的に並び替えられます。並び替えられる順はアルファベット→数字→記号の順です。メモが入力されていないときは、メモ付の画像の後に撮影日時順に並び替えられま</p>\n<p>※通で送られてきた画像はソートされない場合があります。</p>\n<h2 id=\"section-9-42\">●撮影枚数について</h2>\n",
+            "startLine": 25,
+            "endLine": 29,
+            "from": "<p>●撮影モードに切り替えた直後はCMOSセンサーの自動調軽を行なっています。その自動調中に撮影した画像にノイズが入ってしまう可能性がありますので、映し出される表示の明るさなどが安定してから撮影してください。</p>\n<p>●画像の並び替え順メモが入力されているときは、メモの先頭から比較して自動的に並び替えられます。並び替えられる順はアルファベット→数字→記号の順です。メモが入力されていないときは、メモ付の画像の後に撮影日時順に並び替えられま</p>\n<p>※通で送られてきた画像はソートされない場合があります。</p>\n<h2 id=\"section-9-40\">●撮影枚数について</h2>\n",
             "to": "<p>●撮影モードに切り替えた直後はCMOSセンサーの自動調整を行なっています。その自動調整中に撮影した画像にノイズが入ってしまう可能性がありますので、映し出される表示の明るさなどが安定してから撮影してください。</p>\n\n<p>●画像の並び替え順　メモが入力されているときは、メモの先頭から比較して自動的に並び替えられます。並び替えられる順はアルファベット→数字→記号の順です。メモが入力されていないときは、メモ付の画像の後に撮影日時順に並び替えられます。</p>\n<p>※通信で送られてきた画像はソートされない場合があります。</p>\n<h2 id=\"section-9-50\">●撮影枚数について</h2>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "10": {
-        "flowSHA256": "78a4a5641327ef490f8add59a3373bddc34de057633ba3b85cca14f408af575c",
+        "flowSHA256": "9959b2f37447ab1fb3e7e2ee0b1900771572fa1636333fc77e48ab0b07771b67",
         "edits": [
           {
             "startLine": 0,
@@ -2993,32 +3055,27 @@
             "to": "<p>撮影休止中に撮影モードに切り替えようとすると、「WAIT」表示と共に残り時間を表示します。</p>\n<p>●画像サイズについて撮影時およびビジュアルDBモードで表示される画像は78✕72ドット（撮影日時を含むと78✕80ドット）ですが、実際にメモリーされている画像は176✕144ドット（176✕144pixels）ですので、パソコンやその他の機器にデータを転送した場合は、176x144ドットで表示されます。</p>\n<h2 id=\"section-10-20\">★撮影モード、カレンダーセットモード、ビジュアルDBセットモード、通信モードではアラーム・時報の電子音は鳴りません。</h2>\n\n<h2 id=\"section-10-25\">■画像を見る～ビジュアルDBモード〜</h2>\n<h2 id=\"section-10-26\">1. ビジュアルDBモードに切り替える</h2>\n<p>撮影モードおよび時刻モードのときにDボタンを押します。</p>\n"
           },
           {
-            "startLine": 17,
-            "endLine": 18,
-            "from": "<p>韯影枚数…</p>\n",
-            "to": "<p>撮影枚数…</p>\n"
+            "startLine": 13,
+            "endLine": 14,
+            "from": "<h2 id=\"section-10-27\">2. 画像を選ぶ</h2>\n",
+            "to": "\n<p>撮影枚数…</p>\n<p>D</p>\n<h2 id=\"section-10-38\">2. 画像を選ぶ</h2>\n"
           },
           {
-            "startLine": 19,
-            "endLine": 20,
-            "from": "<h2 id=\"section-10-33\">2. 画像を選ぶ</h2>\n",
-            "to": "<p>画像番号</p>\n<h2 id=\"section-10-38\">2. 画像を選ぶ</h2>\n"
-          },
-          {
-            "startLine": 21,
-            "endLine": 22,
+            "startLine": 15,
+            "endLine": 16,
             "from": "<p>ボタンまたは B ボタンを押します。= ⑤ボタンを押すごとに1つずつ進み、®ボタンを押すごとに戻ります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 25,
-            "endLine": 29,
-            "from": "<h2 id=\"section-10-42\">3. 選択画像表示に切り替える</h2>\n<p>© ボタンを押します。→ 選択画像が大きく表示されます。</p>\n<p>画像が鮮明に表示されるまで1～4秒間かかりま</p>\n<p>す。</p>",
+            "startLine": 19,
+            "endLine": 23,
+            "from": "<h2 id=\"section-10-36\">3. 選択画像表示に切り替える</h2>\n<p>© ボタンを押します。→ 選択画像が大きく表示されます。</p>\n<p>画像が鮮明に表示されるまで1～4秒間かかりま</p>\n<p>す。</p>",
             "to": "<h2 id=\"section-10-47\">3. 選択画像表示に切り替える</h2>\n<p>Cボタンを押します。→ 選択画像が大きく表示されます。</p>\n<p>画像が鮮明に表示されるまで1～4秒間かかります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "11": {
@@ -3193,63 +3250,64 @@
         ]
       },
       "14": {
-        "flowSHA256": "0ff4c21b4d0f18bac051bbe0d43adf7bbf48a91756d21cc306c38dd6df8f2fa3",
+        "flowSHA256": "56f4c73c19fe1af9bbc4875267ede15023723538014c2bfdb8fedac68cec6007",
         "edits": [
           {
             "startLine": 3,
-            "endLine": 9,
-            "from": "<p>◎ ボタンを押します。=→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※◎ ボタンは押し続けると早送りができます。</p>\n<p>※© ボタンを押すごとに、入力文字がアルファ</p>\n<h2 id=\"section-14-7\">1O</h2>\n<p>ベット、数字、記号の順に切り替わります。</p>\n<p>◎ ボタンを押して点滅箇所を移動させ、または ® ボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n",
-            "to": "<p>Dボタンを押します。→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※Dボタンは押し続けると早送りができます。</p>\n<p>※Cボタンを押すごとに、入力文字がアルファベット、数字、記号の順に切り替わります。</p>\n<p>Dボタンを押して点滅箇所を移動させ、EボタンまたはBボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n"
+            "endLine": 8,
+            "from": "<p>◎ ボタンを押します。=→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※◎ ボタンは押し続けると早送りができます。</p>\n<p>※© ボタンを押すごとに、入力文字がアルファベット、数字、記号の順に切り替わります。</p>\n<p>◎ ボタンを押して点滅箇所を移動させ、または ® ボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n<h2 id=\"section-14-10\">8. セットを終わる</h2>\n",
+            "to": "<p>Dボタンを押します。→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※Dボタンは押し続けると早送りができます。</p>\n<p>※Cボタンを押すごとに、入力文字がアルファベット、数字、記号の順に切り替わります。</p>\n<p>Dボタンを押して点滅箇所を移動させ、EボタンまたはBボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n<h2 id=\"section-14-11\">8. セットを終わる</h2>\n"
           },
           {
-            "startLine": 11,
-            "endLine": 12,
+            "startLine": 9,
+            "endLine": 10,
             "from": "<p>A ボタンまたはF ボタンを押します。「WAIT NOW SORTING」表示後、画像表示に戻ります。</p>\n",
             "to": "<p>AボタンまたはFボタンを押します。「WAIT NOW SORTING」表示後、画像表示に戻ります。</p>\n"
           },
           {
-            "startLine": 14,
-            "endLine": 15,
-            "from": "<h2 id=\"section-14-19\">撮影のための調整</h2>\n",
+            "startLine": 12,
+            "endLine": 13,
+            "from": "<h2 id=\"section-14-18\">撮影のための調整</h2>\n",
             "to": "\n<h2 id=\"section-14-20\">撮影のための調整</h2>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 19,
-            "from": "<h2 id=\"section-14-22\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-14-23\">通モード以外のときに ボタンを約0.1秒間押します。</h2>\n<p>鳥残り枚数を約1秒間表示後、被写体が写ります。</p>\n",
+            "startLine": 14,
+            "endLine": 17,
+            "from": "<h2 id=\"section-14-21\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-14-22\">通モード以外のときに ボタンを約0.1秒間押します。</h2>\n<p>鳥残り枚数を約1秒間表示後、被写体が写ります。</p>\n",
             "to": "<h2 id=\"section-14-23\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-14-24\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n<p>→残り枚数を約1秒間表示後、被写体が写ります。</p>\n"
           },
           {
-            "startLine": 26,
-            "endLine": 28,
-            "from": "<h2 id=\"section-14-32\">2. 撮影場所を切り替える</h2>\n<p>E ボタンまたはBボタンを押します。ル押すごとに以下の順に切り替わります。</p>\n",
-            "to": "<h2 id=\"section-14-33\">2. 撮影場所を切り替える</h2>\n<p>EボタンまたはBボタンを押します。→押すごとに以下の順に切り替わります。</p>\n"
+            "startLine": 18,
+            "endLine": 20,
+            "from": "<h2 id=\"section-14-25\">2. 撮影場所を切り替える</h2>\n<p>E ボタンまたはBボタンを押します。ル押すごとに以下の順に切り替わります。</p>\n",
+            "to": "\n<p>撮影場所残り撮影時間</p>\n<h2 id=\"section-14-33\">2. 撮影場所を切り替える</h2>\n<p>EボタンまたはBボタンを押します。→押すごとに以下の順に切り替わります。</p>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 29,
+            "startLine": 21,
+            "endLine": 21,
             "from": "",
             "to": "<p>＜屋内＞ ＜屋外＞ ＜薄暗い場所＞</p>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 30,
+            "startLine": 22,
+            "endLine": 22,
             "from": "",
             "to": "<p>OUTDOOR</p>\n"
           },
           {
-            "startLine": 31,
-            "endLine": 32,
+            "startLine": 23,
+            "endLine": 24,
             "from": "<p>※「DUSK」に切り替えたときは、画面の切り替えが多少遅くなります。</p>",
             "to": "<p>※「DUSK」に切り替えたときは、画面の切り替えが多少遅くなります。</p>\n<p class=\"source-note\">原本の図の「屋内」と「屋外」は入れ替わっています。OUTDOORは屋外、INDOORは屋内です。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "15": {
-        "flowSHA256": "2d92e82866178130a788a44cec5ddc85d19231a94dfa0d9950a96868e9f3beff",
+        "flowSHA256": "88d1078258f1b95e28b7fef0e48e792209246bdbbbf5a8d11be109a084293c44",
         "edits": [
           {
             "startLine": 0,
@@ -3258,68 +3316,63 @@
             "to": "<p>●画像の明るさ切り替え　画像の明るさ（ブライトネス）は自動的に調整されますが、逆光での撮影や背景が暗い場合の撮影時など、15段階で補正することができます。</p>\n<h2 id=\"section-15-4\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-5\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n"
           },
           {
-            "startLine": 13,
-            "endLine": 15,
-            "from": "<h2 id=\"section-15-16\">2.</h2>\n<p>④ ボタンを2回押します。</p>\n",
-            "to": "<p>Aボタンを2回押します。</p>\n"
+            "startLine": 5,
+            "endLine": 8,
+            "from": "<h2 id=\"section-15-8\">2．明るさ切り替えにする</h2>\n<h2 id=\"section-15-9\">2.</h2>\n<p>④ ボタンを2回押します。</p>\n",
+            "to": "\n<p>撮影場所残り撮影時間</p>\n"
+          },
+          {
+            "startLine": 9,
+            "endLine": 10,
+            "from": "<h2 id=\"section-15-12\">3. 明るさを切り替える</h2>\n",
+            "to": "<h2 id=\"section-15-15\">2．明るさ切り替えにする</h2>\n<p>Aボタンを2回押します。</p>\n<h2 id=\"section-15-19\">3. 明るさを切り替える</h2>\n"
+          },
+          {
+            "startLine": 11,
+            "endLine": 14,
+            "from": "<p>E ボタンまたはボタンを押します。ル ボタンを押すごとに明るくなり、ボタンを押すごとに暗くなります。</p>\n<p>※調撃はー7～土0～＋7の間でできます。</p>\n<p>※初期状態は15段階中の8段階（土0）です。</p>\n",
+            "to": "<p>EボタンまたはBボタンを押します。</p>\n<p>暗くなる</p>\n<p>→Eボタンを押すごとに明るくなり、Bボタンを押すごとに暗くなります。</p>\n<p>※調整は－7～±0～＋7の間でできます。</p>\n<p>※初期状態は15段階中の8段階（±0）です。</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 17,
+            "from": "<p>・一度切り替えた設定は、その撮影モードでのみ有効です。撮影場所の切り替えを行なった</p>\n<p>ときや他のモードに切り替えてから撮影モードに戻したときは、自動調に戻ります。</p>\n",
+            "to": "<p>明るくなる</p>\n<p>・一度切り替えた設定は、その撮影モードでのみ有効です。撮影場所の切り替えを行なったときや他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
           },
           {
             "startLine": 18,
             "endLine": 19,
-            "from": "<p>E ボタンまたはボタンを押します。</p>\n",
-            "to": "<p>EボタンまたはBボタンを押します。</p>\n"
-          },
-          {
-            "startLine": 20,
-            "endLine": 24,
-            "from": "<p>ル ボタンを押すごとに明るくなり、ボタンを押すごとに暗くなります。</p>\n<p>※調撃はー7～土0～＋7の間でできます。</p>\n<p>※初期状態は15段階中の8段階（土0）です。</p>\n<p>※ボタンを押してから明るさが切り替わるまで、</p>\n",
-            "to": "<p>→Eボタンを押すごとに明るくなり、Bボタンを押すごとに暗くなります。</p>\n<p>※調整は－7～±0～＋7の間でできます。</p>\n<p>※初期状態は15段階中の8段階（±0）です。</p>\n<p>※ボタンを押してから明るさが切り替わるまで、少し時間がかかります。</p>\n"
-          },
-          {
-            "startLine": 25,
-            "endLine": 28,
-            "from": "<p>少し時間がかかります。</p>\n<p>・一度切り替えた設定は、その撮影モードでのみ有効です。撮影場所の切り替えを行なった</p>\n<p>ときや他のモードに切り替えてから撮影モードに戻したときは、自動調に戻ります。</p>\n",
-            "to": "<p>・一度切り替えた設定は、その撮影モードでのみ有効です。撮影場所の切り替えを行なったときや他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
-          },
-          {
-            "startLine": 29,
-            "endLine": 30,
-            "from": "<h2 id=\"section-15-35\">1タイマー撮影</h2>\n",
+            "from": "<h2 id=\"section-15-26\">1タイマー撮影</h2>\n",
             "to": "\n<h2 id=\"section-15-36\">■タイマー撮影</h2>\n"
           },
           {
-            "startLine": 31,
-            "endLine": 33,
-            "from": "<h2 id=\"section-15-37\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-38\">通信モード以外のときに®ボタンを約0.1秒間押します。</h2>\n",
+            "startLine": 20,
+            "endLine": 22,
+            "from": "<h2 id=\"section-15-28\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-29\">通信モード以外のときに®ボタンを約0.1秒間押します。</h2>\n",
             "to": "<h2 id=\"section-15-38\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-39\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n"
           },
           {
-            "startLine": 38,
-            "endLine": 39,
-            "from": "<h2 id=\"section-15-44\">2．タイマー時間設定にする</h2>\n",
-            "to": "<h2 id=\"section-15-45\">2．タイマー時間設定にする</h2>\n"
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<h2 id=\"section-15-32\">2．タイマー時間設定にする</h2>\n",
+            "to": "\n<p>残り枚数…</p>\n<h2 id=\"section-15-45\">2．タイマー時間設定にする</h2>\n"
           },
           {
-            "startLine": 40,
-            "endLine": 41,
-            "from": "<p>A ボタンを押します。最初は2秒に設定されます。</p>\n",
-            "to": "<p>Aボタンを押します。最初は2秒に設定されます。</p>\n"
+            "startLine": 26,
+            "endLine": 29,
+            "from": "<p>A ボタンを押します。最初は2秒に設定されます。</p>\n<p>例）2秒</p>\n<h2 id=\"section-15-37\">3. タイマー時間を設定する</h2>\n",
+            "to": "<p>Aボタンを押します。最初は2秒に設定されます。</p>\n<h2 id=\"section-15-50\">3. タイマー時間を設定する</h2>\n"
           },
           {
-            "startLine": 42,
-            "endLine": 43,
-            "from": "<h2 id=\"section-15-49\">3. タイマー時間を設定する</h2>\n",
-            "to": "<h2 id=\"section-15-50\">3. タイマー時間を設定する</h2>\n"
-          },
-          {
-            "startLine": 44,
-            "endLine": 45,
-            "from": "<h2 id=\"section-15-51\">Eボタンまたは ⑧ボタンを押します。</h2>\n",
+            "startLine": 30,
+            "endLine": 31,
+            "from": "<h2 id=\"section-15-39\">Eボタンまたは ⑧ボタンを押します。</h2>\n",
             "to": "<h2 id=\"section-15-52\">Eボタンまたは Bボタンを押します。</h2>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "16": {
@@ -3475,7 +3528,7 @@
         ]
       },
       "20": {
-        "flowSHA256": "79de50efbc903cfed0cfb807c46fa79551568ca188c8a100efa7c86a65ddb613",
+        "flowSHA256": "41c0e4cfc8454af1b69172c90eb14a179c8276d77f7103b51fb000769af8c31c",
         "edits": [
           {
             "startLine": 0,
@@ -3491,30 +3544,37 @@
           },
           {
             "startLine": 9,
-            "endLine": 15,
-            "from": "<h2 id=\"section-20-14\">4. 送得する</h2>\n<p>時計同士を向け合い、ボタンを押します。=→相手の時計と同調すると、通が開始されます。A</p>\n<p>※通言を途中でやめるときはAボタンを押します。また、Dボタンを押すと直接時刻モードに戻り</p>\n<p>ます。</p>\n<p>送が成功すると、送／受言メニューに戻ります。</p>\n<p>＜送／受メニュー＞</p>\n",
-            "to": "<h2 id=\"section-20-15\">4. 送信する</h2>\n<p>時計同士を向け合い、Fボタンを押します。→相手の時計と同調すると、通信が開始されます。</p>\n<p>※通信を途中でやめるときはAボタンを押します。また、Dボタンを押すと直接時刻モードに戻ります。</p>\n<p>送信が成功すると、送信／受信メニューに戻ります。</p>\n<p>＜送信／受信メニュー＞</p>\n"
+            "endLine": 14,
+            "from": "<h2 id=\"section-20-14\">4. 送得する</h2>\n<p>時計同士を向け合い、ボタンを押します。=→相手の時計と同調すると、通が開始されます。</p>\n<p>※通言を途中でやめるときはAボタンを押します。また、Dボタンを押すと直接時刻モードに戻り</p>\n<p>ます。</p>\n<p>送が成功すると、送／受言メニューに戻ります。</p>\n",
+            "to": "<h2 id=\"section-20-15\">4. 送信する</h2>\n<p>時計同士を向け合い、Fボタンを押します。→相手の時計と同調すると、通信が開始されます。</p>\n<p>※通信を途中でやめるときはAボタンを押します。また、Dボタンを押すと直接時刻モードに戻ります。</p>\n<p>送信が成功すると、送信／受信メニューに戻ります。</p>\n"
           },
           {
-            "startLine": 17,
+            "startLine": 16,
+            "endLine": 18,
+            "from": "<h2 id=\"section-20-25\">■通信エラーについて</h2>\n<p>●何らかの原因で迷言または受信が失敗しました。もう一度最初からやり直してください。</p>\n",
+            "to": "<h2 id=\"section-20-28\">■通信エラーについて</h2>\n<p>●何らかの原因で送信または受信が失敗しました。もう一度最初からやり直してください。</p>\n"
+          },
+          {
+            "startLine": 20,
             "endLine": 20,
-            "from": "<h2 id=\"section-20-27\">■通信エラーについて</h2>\n<p>●何らかの原因で迷言または受信が失敗しました。もう一度最初からやり直してください。</p>\n<p>＜送言側＞＜佰側＞</p>\n",
-            "to": "<h2 id=\"section-20-28\">■通信エラーについて</h2>\n<p>●何らかの原因で送信または受信が失敗しました。もう一度最初からやり直してください。</p>\n<p>＜送信側＞＜受信側＞</p>\n"
+            "from": "",
+            "to": "<h2 id=\"section-20-36\">●受信側のメモリー枚数（容量）がいっぱいです。</h2>\n<h2 id=\"section-20-37\">不要なデータを削除してからやり直してください。</h2>\n"
           },
           {
-            "startLine": 23,
-            "endLine": 27,
-            "from": "<h2 id=\"section-20-35\">●受倍側のメモリー枚数（容量）がいっぱいです。</h2>\n<h2 id=\"section-20-36\">不要なデータを削除してからやり直してください。</h2>\n<p>●通告が途中で遮断されました。原因を確かめて正常に通できるようにしてください。</p>\n<h2 id=\"section-20-39\">※約25秒以内に回復しない場合は“ERROR&quot; 表示になります。</h2>\n",
-            "to": "<h2 id=\"section-20-36\">●受信側のメモリー枚数（容量）がいっぱいです。</h2>\n<h2 id=\"section-20-37\">不要なデータを削除してからやり直してください。</h2>\n<p>●通信が途中で遮断されました。原因を確かめて正常に通信できるようにしてください。</p>\n<h2 id=\"section-20-40\">※約25秒以内に回復しない場合は“ERROR” 表示になります。</h2>\n"
+            "startLine": 21,
+            "endLine": 25,
+            "from": "<h2 id=\"section-20-31\">●受倍側のメモリー枚数（容量）がいっぱいです。</h2>\n<h2 id=\"section-20-32\">不要なデータを削除してからやり直してください。</h2>\n<p>●通告が途中で遮断されました。原因を確かめて正常に通できるようにしてください。</p>\n<h2 id=\"section-20-35\">※約25秒以内に回復しない場合は“ERROR&quot; 表示になります。</h2>\n",
+            "to": "<p>●通信が途中で遮断されました。原因を確かめて正常に通信できるようにしてください。</p>\n<h2 id=\"section-20-40\">※約25秒以内に回復しない場合は“ERROR” 表示になります。</h2>\n"
           }
         ],
         "notes": [
           "Printed erratum: step 3 repeats the mode-entry/menu sentence from step 1. Omitted this duplicated sentence, retained the C-button instructions and five-second timeout, and marked the omission with a small gray source note.",
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "21": {
-        "flowSHA256": "3a88e518a970934d7c460d0d2da412976084dc2037c02aaf8fab916e2ddab0fb",
+        "flowSHA256": "5d444bb9541b5a503fdcfa10ca7b11b4ce6c7e9c4fadbe8928d414ef4a4a0324",
         "edits": [
           {
             "startLine": 0,
@@ -3542,25 +3602,26 @@
           },
           {
             "startLine": 15,
-            "endLine": 20,
-            "from": "<h2 id=\"section-21-25\">カレンダーモードに切り替えるには</h2>\n<p>時刻モードのときに©ボタンを押します。</p>\n<h2 id=\"section-21-27\">●表示の見方</h2>\n<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、もう一度◎ボタンを押します。</p>\n<p>土曜日（青地に日文字）</p>\n",
-            "to": "<h2 id=\"section-21-26\">カレンダーモードに切り替えるには</h2>\n<p>時刻モードのときにCボタンを押します。</p>\n<h2 id=\"section-21-28\">●表示の見方</h2>\n<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、もう一度Cボタンを押します。</p>\n<p>土曜日（青地に白文字）</p>\n"
+            "endLine": 19,
+            "from": "<h2 id=\"section-21-25\">カレンダーモードに切り替えるには</h2>\n<p>時刻モードのときに©ボタンを押します。</p>\n<h2 id=\"section-21-27\">●表示の見方</h2>\n<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、もう一度◎ボタンを押します。</p>\n",
+            "to": "<h2 id=\"section-21-26\">カレンダーモードに切り替えるには</h2>\n<p>時刻モードのときにCボタンを押します。</p>\n<h2 id=\"section-21-28\">●表示の見方</h2>\n<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、もう一度Cボタンを押します。</p>\n<p>土曜日（青地に白文字）</p>\n<p>日曜日（赤地に白文字）</p>\n"
           },
           {
-            "startLine": 22,
-            "endLine": 23,
-            "from": "<p>北日（点滅）</p>\n",
+            "startLine": 20,
+            "endLine": 20,
+            "from": "",
             "to": "<p>当日（点滅）</p>\n"
           },
           {
-            "startLine": 24,
-            "endLine": 25,
-            "from": "<h2 id=\"section-21-36\">●設定してあるその日の色に合わせて、時刻モードの曜日も色が替わります。</h2>\n",
+            "startLine": 21,
+            "endLine": 22,
+            "from": "<h2 id=\"section-21-33\">●設定してあるその日の色に合わせて、時刻モードの曜日も色が替わります。</h2>\n",
             "to": "<h2 id=\"section-21-37\">●設定してあるその日の色に合わせて、時刻モードの曜日も色が替わります。</h2>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "22": {
@@ -3611,7 +3672,7 @@
         ]
       },
       "23": {
-        "flowSHA256": "6ae13600838fe512f614712711c840b93732ce9462baec032267bbae3897eab2",
+        "flowSHA256": "a87c6ad3a2fe57ba5aa6f71c4495ddd3b089b6cd7f2d04f44c6371e964aa6227",
         "edits": [
           {
             "startLine": 2,
@@ -3621,71 +3682,60 @@
           },
           {
             "startLine": 5,
-            "endLine": 7,
-            "from": "<p>時刻モードのときに◎ボタンを3回押します。</p>\n<p>コアラームのセット</p>\n",
-            "to": "<p>時刻モードのときにDボタンを3回押します。</p>\n<p>■アラームのセット</p>\n"
+            "endLine": 6,
+            "from": "<p>時刻モードのときに◎ボタンを3回押します。</p>\n",
+            "to": "<p>時刻モードのときにDボタンを3回押します。</p>\n<p>■アラームのセット</p>\n<h2 id=\"section-23-9\">1. アラームを選ぶ</h2>\n<p>EボタンまたはBボタンを押します。</p>\n"
+          },
+          {
+            "startLine": 7,
+            "endLine": 10,
+            "from": "<p>コアラームのセット</p>\n<h2 id=\"section-23-10\">1. アラームを選ぶ</h2>\n<p>EボタンまたはBボタンを押します。＝押すごとに以下の順に切り替わります。</p>\n",
+            "to": "<p>→押すごとに以下の順に切り替わります。</p>\n"
           },
           {
             "startLine": 11,
             "endLine": 12,
-            "from": "<p>＝押すごとに以下の順に切り替わります。</p>\n",
-            "to": "<p>→押すごとに以下の順に切り替わります。</p>\n"
+            "from": "<h2 id=\"section-23-14\">2．セット状態にする</h2>\n",
+            "to": "\n<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n\n<h2 id=\"section-23-28\">2．セット状態にする</h2>\n"
           },
           {
             "startLine": 13,
             "endLine": 14,
-            "from": "<h2 id=\"section-23-15\">2．セット状態にする</h2>\n",
-            "to": "\n<p>アラームの選択順（Eボタンで進み、Bボタンで戻る）：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n\n<h2 id=\"section-23-28\">2．セット状態にする</h2>\n"
-          },
-          {
-            "startLine": 15,
-            "endLine": 16,
             "from": "<p>A ボタンを約1秒間押し続けます。=時が点滅します。</p>\n",
             "to": "<p>Aボタンを約1秒間押し続けます。→時が点滅します。</p>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 19,
-            "from": "<p>※“ON”表示は選ばれているアラーム番号がオン</p>\n",
-            "to": "<p>※“ON”表示は選ばれているアラーム番号がオンのとき表示されます。</p>\n"
-          },
-          {
-            "startLine": 20,
+            "startLine": 19,
             "endLine": 21,
-            "from": "<p>のとき表示されます。</p>\n",
-            "to": ""
-          },
-          {
-            "startLine": 24,
-            "endLine": 26,
-            "from": "<h2 id=\"section-23-30\">3. 時をセットする</h2>\n<p>Eボタンまたは ボタンを押します。= ⑤ボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n",
+            "from": "<h2 id=\"section-23-27\">3. 時をセットする</h2>\n<p>Eボタンまたは ボタンを押します。= ⑤ボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n",
             "to": "<h2 id=\"section-23-43\">3. 時をセットする</h2>\n<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 28,
-            "endLine": 29,
+            "startLine": 23,
+            "endLine": 24,
             "from": "<p>※時刻モードの現在時刻を24時間制表示にしているときは、アラームのセット時刻も24時間制</p>\n",
             "to": "<p>※時刻モードの現在時刻を24時間制表示にしているときは、アラームのセット時刻も24時間制表示になります。</p>\n\n"
           },
           {
-            "startLine": 30,
-            "endLine": 34,
-            "from": "<p>表示になります。</p>\n<p>分のセットに切り替える「a</p>\n<h2 id=\"section-23-42\">Dボタンを押します。</h2>\n<p>=分が点滅します。</p>\n",
+            "startLine": 25,
+            "endLine": 29,
+            "from": "<p>表示になります。</p>\n<p>分のセットに切り替える「a</p>\n<h2 id=\"section-23-39\">Dボタンを押します。</h2>\n<p>=分が点滅します。</p>\n",
             "to": "<p>4. 分のセットに切り替える</p>\n<h2 id=\"section-23-55\">Dボタンを押します。</h2>\n<p>→分が点滅します。</p>\n"
           },
           {
-            "startLine": 35,
-            "endLine": 37,
-            "from": "<h2 id=\"section-23-45\">5.分をセットする</h2>\n<p>E ボタンまたはBボタンを押します。=→ ボタンを押すごとに1つずつ進み、ボタンを押すごとに戻ります。</p>\n",
+            "startLine": 30,
+            "endLine": 32,
+            "from": "<h2 id=\"section-23-42\">5.分をセットする</h2>\n<p>E ボタンまたはBボタンを押します。=→ ボタンを押すごとに1つずつ進み、ボタンを押すごとに戻ります。</p>\n",
             "to": "<h2 id=\"section-23-58\">5.分をセットする</h2>\n<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "24": {
-        "flowSHA256": "204c33a81dfe8d1bd9fa313f02b3ff227c9d61cce0a929cdb590bac719851ace",
+        "flowSHA256": "a282fb52d609af606692c85db79c9e3fd2c2d8f3778b0481a9e007abb3d0b2b9",
         "edits": [
           {
             "startLine": 0,
@@ -3708,13 +3758,13 @@
           {
             "startLine": 8,
             "endLine": 9,
-            "from": "<p>ボタンまたは B ボタンを押します。時報マーク押すごとに以下の順に切り替わります。</p>\n",
+            "from": "<p>ボタンまたは B ボタンを押します。押すごとに以下の順に切り替わります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→押すごとに以下の順に切り替わります。</p>\n"
           },
           {
             "startLine": 10,
             "endLine": 15,
-            "from": "<p>※セット状態で表示を点滅させたまま約1分すると、自動的に点滅が止まります。</p>\n<h2 id=\"section-24-15\">2.</h2>\n<p>オン／オフを切り替える</p>\n<h2 id=\"section-24-17\">©ボタンを押します。</h2>\n<p>押すごとに、アラームまたは時報のオン／オフが切り替わります。</p>\n",
+            "from": "<p>※セット状態で表示を点滅させたまま約1分すると、自動的に点滅が止まります。</p>\n<h2 id=\"section-24-14\">2.</h2>\n<p>オン／オフを切り替える</p>\n<h2 id=\"section-24-16\">©ボタンを押します。</h2>\n<p>押すごとに、アラームまたは時報のオン／オフが切り替わります。</p>\n",
             "to": "<p>アラームの選択順：アラーム1 → アラーム2 → アラーム3 → アラーム4 → アラーム5 → 時報。</p>\n<h2 id=\"section-24-22\">2. オン／オフを切り替える</h2>\n<h2 id=\"section-24-24\">Cボタンを押します。</h2>\n<p>押すごとに、アラームまたは時報のオン／オフが切り替わります。＜時報＞＜アラーム＞</p>\n\n"
           },
           {
@@ -3726,7 +3776,7 @@
           {
             "startLine": 18,
             "endLine": 19,
-            "from": "<h2 id=\"section-24-22\">●鳴っているアラームを止めるには</h2>\n",
+            "from": "<h2 id=\"section-24-21\">●鳴っているアラームを止めるには</h2>\n",
             "to": "<h2 id=\"section-24-36\">●鳴っているアラームを止めるには</h2>\n"
           },
           {
@@ -3738,11 +3788,12 @@
         ],
         "notes": [
           "Restored reading order: finish alarm-time setup (step 6 and its timeout note) before the alarm/signal on-off procedure on the facing page.",
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "25": {
-        "flowSHA256": "1e6e589092130803ba97220fcde463941566ddc0ce959261dbcc5db1d37565d3",
+        "flowSHA256": "b8d3b322b047ffa19a10cd8fc1c06c710ba6da5cbaa0fcb9645773d0472e603b",
         "edits": [
           {
             "startLine": 1,
@@ -3754,77 +3805,54 @@
             "startLine": 3,
             "endLine": 4,
             "from": "<p>時刻モードのときに◎ボタンを4回押します。</p>\n",
-            "to": "<p>時刻モードのときにDボタンを4回押します。</p>\n"
+            "to": "<p>時刻モードのときにDボタンを4回押します。</p>\n<h2 id=\"section-25-5\">■計測のしかた</h2>\n"
           },
           {
             "startLine": 5,
-            "endLine": 5,
-            "from": "",
-            "to": "<p>時・分・現在時刻</p>\n"
+            "endLine": 9,
+            "from": "<h2 id=\"section-25-6\">■計測のしかた</h2>\n<p>・E ボタンを押すごとに計測がスタート/ストップします。</p>\n<p>●計測がストップしているときに B ボタンを押すと、0時間00分00秒0 （リセット表示）になります。</p>\n<p>●計測中に⑥ボタンを押すと、表示は止まりますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n",
+            "to": "<p>・Eボタンを押すごとに計測がスタート/ストップします。</p>\n<p>●計測がストップしているときに Bボタンを押すと、0時間00分00秒0 （リセット表示）になります。</p>\n<p>●計測中にBボタンを押すと、表示は止まりますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n<p>●通常の計測　E：スタート → E：ストップ → B：リセット。</p>\n"
           },
           {
-            "startLine": 6,
-            "endLine": 7,
-            "from": "<p>・E ボタンを押すごとに計測がスタート/ストップします。</p>\n",
-            "to": "<p>・Eボタンを押すごとに計測がスタート/ストップします。</p>\n"
-          },
-          {
-            "startLine": 9,
-            "endLine": 10,
-            "from": "<p>●計測がストップしているときに B ボタンを押すと、0時間00分00秒0 （リセット表示）になります。</p>\n",
-            "to": "<p>●計測がストップしているときに Bボタンを押すと、0時間00分00秒0 （リセット表示）になります。</p>\n"
-          },
-          {
-            "startLine": 11,
-            "endLine": 12,
-            "from": "<p>●計測中に⑥ボタンを押すと、表示は止まり</p>\n",
-            "to": "<p>●計測中にBボタンを押すと、表示は止まりますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n"
-          },
-          {
-            "startLine": 13,
-            "endLine": 14,
-            "from": "<p>ますが、内部では計測を続けるスプリットタイム（途中経過時間）計測となります。</p>\n",
-            "to": "<p>秒 1/10秒</p>\n<p>●通常の計測　E：スタート → E：ストップ → B：リセット。</p>\n"
-          },
-          {
-            "startLine": 15,
-            "endLine": 16,
+            "startLine": 10,
+            "endLine": 11,
             "from": "<p>積算計測….ロスタイムのある場合は、ストップ後リセットせずにボタンを押して再スタートすれば、表示タイムに引き続き計測をはじめます。</p>\n",
             "to": "<p>積算計測…ロスタイムのある場合は、ストップ後リセットせずにEボタンを押して再スタートすれば、表示タイムに引き続き計測をはじめます。</p>\n<p>●スプリットタイム計測</p>\n"
           },
           {
-            "startLine": 17,
-            "endLine": 17,
+            "startLine": 12,
+            "endLine": 12,
             "from": "",
             "to": "<p>E：スタート → B：スプリット計測 → B：スプリット解除 → E：ストップ → B：リセット。</p>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 22,
-            "from": "<p>計測中に◎ ボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-25-27\">時刻・カレンダーの合わせ方</h2>\n<h2 id=\"section-25-28\">■秒の合わせ方～30秒以内の遅れ／進みの修正～</h2>\n<p>月に1度くらいこの「合わせ」を行なっていただくと、時計はいつも正確です。</p>\n",
+            "startLine": 13,
+            "endLine": 17,
+            "from": "<p>計測中に◎ ボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-25-23\">時刻・カレンダーの合わせ方</h2>\n<h2 id=\"section-25-24\">■秒の合わせ方～30秒以内の遅れ／進みの修正～</h2>\n<p>月に1度くらいこの「合わせ」を行なっていただくと、時計はいつも正確です。</p>\n",
             "to": "<p>●1着・2着同時計測</p>\n<p>E：スタート → B：1着ゴール（1着タイム表示） → E：2着ゴール → B：2着タイム表示 → B：リセット。</p>\n\n<p>計測中にDボタンを押してモードを切り替えても計測は続いています。</p>\n<h2 id=\"section-25-45\">時刻・カレンダーの合わせ方</h2>\n<h2 id=\"section-25-46\">■秒の合わせ方～30秒以内の遅れ／進みの修正～</h2>\n<p>月に1度くらいこの「秒合わせ」を行なっていただくと、時計はいつも正確です。</p>\n"
           },
           {
-            "startLine": 23,
-            "endLine": 25,
-            "from": "<h2 id=\"section-25-31\">7. 時刻セット状態に切り替える</h2>\n<p>時刻モードでAボタンを約1秒間押し続けます。ルが点滅します。</p>\n",
+            "startLine": 18,
+            "endLine": 20,
+            "from": "<h2 id=\"section-25-27\">7. 時刻セット状態に切り替える</h2>\n<p>時刻モードでAボタンを約1秒間押し続けます。ルが点滅します。</p>\n",
             "to": "<h2 id=\"section-25-49\">1. 時刻セット状態に切り替える</h2>\n<p>時刻モードでAボタンを約1秒間押し続けます。→秒が点滅します。</p>\n"
           },
           {
-            "startLine": 26,
-            "endLine": 31,
-            "from": "<h2 id=\"section-25-36\">2. 秒を合わせる</h2>\n<h2 id=\"section-25-37\">時報に合わせて E ボタンを押します。</h2>\n<p>=→秒が00～29秒のときは切り捨てられ、30〜59秒のときは1分繰り上がって「OO秒」になります。</p>\n<p>※時報は｜時報サービス電話117番」が便利です。</p>\n<h2 id=\"section-25-41\">3. セットを終わる</h2>\n",
+            "startLine": 21,
+            "endLine": 26,
+            "from": "<h2 id=\"section-25-32\">2. 秒を合わせる</h2>\n<h2 id=\"section-25-33\">時報に合わせて E ボタンを押します。</h2>\n<p>=→秒が00～29秒のときは切り捨てられ、30〜59秒のときは1分繰り上がって「OO秒」になります。</p>\n<p>※時報は｜時報サービス電話117番」が便利です。</p>\n<h2 id=\"section-25-37\">3. セットを終わる</h2>\n",
             "to": "<h2 id=\"section-25-54\">2. 秒を合わせる</h2>\n<h2 id=\"section-25-55\">時報に合わせて Eボタンを押します。</h2>\n<p>→秒が00～29秒のときは切り捨てられ、30〜59秒のときは1分繰り上がって「00秒」になります。</p>\n<p>※時報は「時報サービス電話117番」が便利です。</p>\n<h2 id=\"section-25-59\">3. セットを終わる</h2>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 34,
+            "startLine": 27,
+            "endLine": 29,
             "from": "<p>Aボタンを押します。I→点滅が止まります。</p>\n<p>※合わせで表示を点滅させたまま約1分すると、自動的に点滅が止まります。</p>",
             "to": "<p>Aボタンを押します。→点滅が止まります。</p>\n<p>※秒合わせで表示を点滅させたまま約1分すると、自動的に点滅が止まります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "26": {
@@ -3993,54 +4021,54 @@
         ]
       },
       "30": {
-        "flowSHA256": "cae12e1b4af9335be5d1c88f1bef2af65c27ccf5b659eb58ea419aac25baef4a",
+        "flowSHA256": "d52e96f28f48a9f1da7a32da247bc45d497445e526fe5d0d68bc7f5197bacbea",
         "edits": [
           {
             "startLine": 0,
-            "endLine": 0,
-            "from": "",
-            "to": "\n\n"
-          },
-          {
-            "startLine": 1,
             "endLine": 2,
-            "from": "<h2 id=\"section-30-2\">1. 電池ブタをはずす</h2>\n",
-            "to": "<h2 id=\"section-30-4\">1. 電池ブタをはずす</h2>\n<p>時計本体裏面にある電池ブタのみぞにコインなどを入れて矢印の位置（OPEN）まで回します。</p>\n<p>ここまで回す</p>\n"
+            "from": "<h2 id=\"section-30-1\">電池交換のしかた</h2>\n<h2 id=\"section-30-2\">1. 電池ブタをはずす</h2>\n",
+            "to": "\n\n<p>電池交換のしかた</p>\n<h2 id=\"section-30-4\">1. 電池ブタをはずす</h2>\n<p>時計本体裏面にある電池ブタのみぞにコインなどを入れて矢印の位置（OPEN）まで回します。</p>\n"
           },
           {
             "startLine": 3,
             "endLine": 4,
             "from": "<p>時計本体裏面にある電池ブタのみぞにコインなどを入れて矢印の位置（OPEN）まで回します。</p>\n",
-            "to": ""
+            "to": "\n"
           },
           {
             "startLine": 5,
             "endLine": 7,
-            "from": "<h2 id=\"section-30-8\">2. 古い電池を取り出す</h2>\n<h2 id=\"section-30-9\">2.</h2>\n",
-            "to": "<p>コインなどを入れる</p>\n<h2 id=\"section-30-12\">2. 古い電池を取り出す</h2>\n"
+            "from": "<h2 id=\"section-30-9\">2. 古い電池を取り出す</h2>\n<h2 id=\"section-30-10\">2.</h2>\n",
+            "to": "<h2 id=\"section-30-12\">2. 古い電池を取り出す</h2>\n<p>※電池が取り出しにくいときは、時計本体を逆さにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないようにしてください。</p>\n<p>電池を取り出す際に板バネに触れますと、ケガや故障の原因になりますのでご注意ください。</p>\n"
           },
           {
-            "startLine": 10,
+            "startLine": 8,
             "endLine": 13,
-            "from": "<h2 id=\"section-30-14\">3. 新しい電池を入れる</h2>\n<h2 id=\"section-30-15\">新しい電池の表裏を乾いた布でふいてから、</h2>\n<p>バツキン</p>\n",
-            "to": "<h2 id=\"section-30-18\">3. 新しい電池を入れる</h2>\n<h2 id=\"section-30-19\">新しい電池の表裏を乾いた布でふいてから、プラス（＋）を上にして入れます。</h2>\n<p>パッキン</p>\n"
-          },
-          {
-            "startLine": 14,
-            "endLine": 15,
-            "from": "<p>プラス（＋）を上にして入れます。</p>\n",
+            "from": "<p>時計本体を逆さ</p>\n<p>※電池が取り出しにくいときは、まにすると電池が出てきます。</p>\n<p>※電池を取り出すときにパッキンをなくさないようにしてください。</p>\n<h2 id=\"section-30-17\">電池を取り出す際に板バネに触れますと、ケガ</h2>\n<h2 id=\"section-30-18\">や故障の原因になりますのでご注意ください。</h2>\n",
             "to": ""
           },
           {
-            "startLine": 21,
-            "endLine": 23,
-            "from": "<h2 id=\"section-30-27\">4. 電池ブタを閉める</h2>\n<h2 id=\"section-30-28\">電池ブタを乗せ、みぞにコインなどを入れ、</h2>\n",
+            "startLine": 14,
+            "endLine": 16,
+            "from": "<h2 id=\"section-30-21\">3. 新しい電池を入れる</h2>\n<h2 id=\"section-30-22\">新しい電池の表裏を乾いた布でふいてから、</h2>\n",
+            "to": "<h2 id=\"section-30-18\">3. 新しい電池を入れる</h2>\n<h2 id=\"section-30-19\">新しい電池の表裏を乾いた布でふいてから、プラス（＋）を上にして入れます。</h2>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<h2 id=\"section-30-24\">プラス（＋）を上にして入れます。</h2>\n",
+            "to": ""
+          },
+          {
+            "startLine": 22,
+            "endLine": 22,
+            "from": "",
             "to": "<h2 id=\"section-30-31\">4. 電池ブタを閉める</h2>\n<h2 id=\"section-30-32\">電池ブタを乗せ、みぞにコインなどを入れ、少し押しながら矢印の位置（CLOSE）まで回します。</h2>\n"
           },
           {
-            "startLine": 25,
+            "startLine": 23,
             "endLine": 26,
-            "from": "<p>少し押しながら矢印の位置（CLOSE）まで回します。</p>\n",
+            "from": "<h2 id=\"section-30-32\">4. 電池ブタを閉める</h2>\n<h2 id=\"section-30-33\">電池ブタを乗せ、みぞにコインなどを入れ、</h2>\n<p>少し押しながら矢印の位置（CLOSE）まで回します。</p>\n",
             "to": ""
           },
           {
@@ -4051,7 +4079,8 @@
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Recovered the original battery removal instructions as selectable text and retained each original diagram label."
         ]
       },
       "31": {

@@ -247,14 +247,14 @@ def scanned_figures(cache, page, data):
         boxes.append(fitz.Rect((x-30)*sx, (y-30)*sy, (x+width+30)*sx, (y+height+30)*sy) & page.rect)
     return merge_boxes(boxes, tolerance=3)
 
-def reviewed_scan_figures(identifier, number, page):
-    """Source-checked bounds for compound drawings with faint, missed labels."""
+def reviewed_scan_rects(identifier, number, page, field):
+    """Convert reviewed figure or mask coordinates to PDF points."""
     review = FIGURE_BOUNDS.get(identifier, {}).get(str(number))
     if not review:
         return None
     sx, sy = page.rect.width/review['width'], page.rect.height/review['height']
     return [fitz.Rect(x0*sx, y0*sy, x1*sx, y1*sy)
-            for x0,y0,x1,y1 in review['figures']]
+            for x0,y0,x1,y1 in review.get(field, ())]
 
 def native_figures(page):
     paths = []
@@ -331,7 +331,7 @@ def flow_items(lines, figures, page, single_column=False):
             ordered.pop(position);ordered.insert(first,figure)
     return ordered, normal, columns
 
-def render_flow(items, normal, columns, page, number, svgfile, language, raster=None):
+def render_flow(items, normal, columns, page, number, svgfile, language, raster=None, crop_masks=()):
     parts, paragraph, previous = [], [], None
     texts = LANG[language]
     def flush():
@@ -357,6 +357,11 @@ def render_flow(items, normal, columns, page, number, svgfile, language, raster=
             if raster:
                 transform=' '.join(f'{v:.7f}' for v in raster['transform'])
                 picture=f'<image href="assets/{raster["file"]}" width="1" height="1" preserveAspectRatio="none" transform="matrix({transform})"/>'
+                # Hide adjacent prose that already appears in the reflowed text.
+                for area in (box & mask for mask in crop_masks):
+                    if not area.is_empty:
+                        picture += (f'<rect x="{area.x0:.3f}" y="{area.y0:.3f}" '
+                                    f'width="{area.width:.3f}" height="{area.height:.3f}" fill="white"/>')
             else:
                 picture=f'<use href="assets/{svgfile}#page"/>'
             parts.append(f'<figure class="illustration{floating}"><svg xmlns="http://www.w3.org/2000/svg" '
@@ -409,13 +414,13 @@ def build(identifier, source, ocrroot, output):
             cache = ocrroot/identifier/f'page-{n:02}.json'
             data = json.loads(cache.read_text())
             lines = ocr_lines(data,page)
-            figures = reviewed_scan_figures(identifier,n,page)
+            figures = reviewed_scan_rects(identifier,n,page,'figures')
             if figures is None:
                 figures = scanned_figures(cache,page,data)
             raster_count = len(page.get_image_info())
         else:
             lines = native_lines(page, separate_labels=language in ('en', 'ru'))
-            figures = reviewed_scan_figures(identifier,n,page)
+            figures = reviewed_scan_rects(identifier,n,page,'figures')
             if figures is None:
                 figures,raster_count = native_figures(page)
             else:
@@ -454,7 +459,8 @@ def build(identifier, source, ocrroot, output):
                 previous=directory/f'{identifier}-{n:02}.svg'
                 if previous.exists():previous.unlink()
         items,normal,columns = flow_items(lines,figures,page,single_column=language=='fi')
-        body,headings = render_flow(items,normal,columns,page,n,f'{identifier}-{n:02}.svg',language,raster)
+        crop_masks = reviewed_scan_rects(identifier,n,page,'cropMasks') or ()
+        body,headings = render_flow(items,normal,columns,page,n,f'{identifier}-{n:02}.svg',language,raster,crop_masks)
         if identifier in PROOFREADING:
             body = proofread_manual(identifier, n, body)
             body, headings = reviewed_headings(body, n)

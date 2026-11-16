@@ -2115,7 +2115,7 @@
           [
             29,
             338,
-            110,
+            192,
             411
           ],
           [
@@ -2137,6 +2137,9 @@
           "0:4:3:1": "Wenn das stündliche Zeitsignal eingeschaltet",
           "0:4:6:5": "Knopfes (D) aufrufen können (Seite G-10).",
           "0:8:1:1": "1. Verwenden Sie den Knopf (B) oder (E) in",
+          "0:8:1:2": "dem Alarm-Modus, um den Alarm (1 bis 5)",
+          "0:8:1:3": "zu wählen, dessen Zeit Sie einstellen",
+          "0:9:1:1": "möchten.",
           "0:11:1:1": "",
           "0:14:1:1": "2. Nachdem Sie einen Alarm gewählt haben, halten Sie den Knopf (A)",
           "1:10001:1:1": "3. Verwenden Sie die Knöpfe (E) (+) und (B) (-), um die blinkende",
@@ -2169,10 +2172,10 @@
         "cropMasks": {
           "2": [
             [
-              102,
-              392,
-              110,
-              411
+              112,
+              338,
+              192,
+              385
             ]
           ],
           "4": [
