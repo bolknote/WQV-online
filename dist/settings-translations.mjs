@@ -7,6 +7,7 @@ const rows = {
   'Sunday': ['Воскресенье', '日曜日', 'Sonntag', 'Domingo', 'Sunnuntai'],
   'Back': ['Назад', '戻る', 'Zurück', 'Atrás', 'Takaisin'],
   'Close': ['Закрыть', '閉じる', 'Schließen', 'Cerrar', 'Sulje'],
+  'OK': ['ОК', 'OK', 'OK', 'Aceptar', 'OK'],
   'Calendar preview': ['Порядок дней недели', '曜日の並び', 'Reihenfolge der Wochentage', 'Orden de los días', 'Viikonpäivien järjestys'],
   'Use Settings to change the language and the first day of week.': ['В «Настройках» можно выбрать язык и первый день недели.', '「設定」で言語と週の最初の曜日を変更できます。', 'Unter Einstellungen lassen sich Sprache und erster Wochentag ändern.', 'En Configuración puede cambiar el idioma y el primer día de la semana.', 'Asetuksissa voit vaihtaa kielen ja viikon ensimmäisen päivän.'],
 };

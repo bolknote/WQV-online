@@ -108,13 +108,16 @@ test('system settings preserve app state, week order, dates and calendar bytes a
   await page.waitForFunction(() => document.querySelector('.calendar-weekdays span').dataset.weekday === '0');
   assert.equal(await calendarColumn(page,29), 4);
   assert.equal(await page.evaluate(async () => { const store = new (await import('./images.mjs')).LocalStore(); await store.open(); return JSON.stringify(await store.get('calendar')); }), original);
-  for (const language of ['en','ru','ja','de','es','fi']) {
+  const confirmationLabels = { en: 'OK', ru: 'ОК', ja: 'OK', de: 'OK', es: 'Aceptar', fi: 'OK' };
+  for (const [language, confirm] of Object.entries(confirmationLabels)) {
     await page.evaluate(async language => (await import('./i18n.mjs')).setLanguage(language), language);
     for (const width of [1024,390,320]) {
       await page.setViewportSize({width,height:900});
       await page.locator('#start-menu-button').click(); await page.locator('#start-options').click();
       for (const panel of ['calendar','language']) {
         await page.locator('#settings-'+panel).click();
+        const accept = panel === 'calendar' ? '#week-start-accept' : '#options-accept';
+        assert.equal(await page.locator(accept).textContent(), confirm, language + ' / ' + panel);
         assert.equal(await page.locator('#settings-window').evaluate(node=>node.scrollWidth<=node.clientWidth+1),true,language+' / '+width+' / '+panel);
         await page.locator('#settings-'+panel+'-panel [data-settings-back]').click();
       }

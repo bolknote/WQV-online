@@ -171,7 +171,7 @@ document.querySelectorAll('.tabs [role=tab]').forEach(button => button.addEventL
   const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : buttons.length - 1)) % buttons.length;
   switchTab(buttons[next].dataset.tab); buttons[next].focus();
 }));
-function showDialog(title, message, accept = 'OK', confirm = false) {
+function showDialog(title, message, accept = tr('OK'), confirm = false) {
   closeMenus();
   return new Promise(resolve => {
     const dialog = $('message-dialog'); $('dialog-title').textContent = title; $('dialog-message').textContent = message;

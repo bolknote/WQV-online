@@ -10,7 +10,7 @@ export function installSystemSettings({ closeMenus = () => {} } = {}) {
   appWindow.dataset.installed = 'true';
   screen.append(appWindow);
   appWindow.innerHTML = `
-    <header class="titlebar settings-titlebar"><span class="app-title"><svg class="icon" aria-hidden="true"><use href="./icons.svg#settings"/></svg><strong id="options-title" data-i18n="Settings">Settings</strong></span><button type="button" id="settings-close" class="window-close" aria-label="Close application" title="Close application" data-i18n-aria-label="Close application" data-i18n-title="Close application">×</button></header>
+    <header class="titlebar settings-titlebar"><span class="app-title"><svg class="icon" aria-hidden="true"><use href="./icons.svg#settings"/></svg><strong id="options-title" data-i18n="Settings">Settings</strong></span><button type="button" id="settings-close" class="window-close" aria-label="Close" title="Close" data-i18n-aria-label="Close" data-i18n-title="Close">×</button></header>
     <div class="dialog-body">
       <section id="settings-home">
         <div class="system-settings-grid">
@@ -25,7 +25,7 @@ export function installSystemSettings({ closeMenus = () => {} } = {}) {
             `<label class="language-choice" translate="no" lang="${code}"><input type="radio" name="display-language" value="${code}"><bdi>${name}</bdi></label>`,
           ).join('')}</div>
         </fieldset>
-        <div class="dialog-actions"><button type="button" class="settings-back" data-settings-back data-i18n="Back">Back</button><button type="button" id="options-accept">OK</button><button type="button" id="options-cancel" data-i18n="Cancel">Cancel</button></div>
+        <div class="dialog-actions"><button type="button" class="settings-back" data-settings-back data-i18n="Back">Back</button><button type="button" id="options-accept" data-i18n="OK">OK</button><button type="button" id="options-cancel" data-i18n="Cancel">Cancel</button></div>
       </section>
       <section id="settings-calendar-panel" hidden>
         <fieldset><legend data-i18n="First day of week">First day of week</legend>
@@ -33,7 +33,7 @@ export function installSystemSettings({ closeMenus = () => {} } = {}) {
           <label class="language-choice"><input type="radio" name="week-start" value="sun"><span data-i18n="Sunday">Sunday</span></label>
           <div class="settings-week-preview" id="settings-week-preview" role="img" data-i18n-aria-label="Calendar preview" aria-label="Calendar preview"></div>
         </fieldset>
-        <div class="dialog-actions"><button type="button" class="settings-back" data-settings-back data-i18n="Back">Back</button><button type="button" id="week-start-accept">OK</button><button type="button" id="week-start-cancel" data-i18n="Cancel">Cancel</button></div>
+        <div class="dialog-actions"><button type="button" class="settings-back" data-settings-back data-i18n="Back">Back</button><button type="button" id="week-start-accept" data-i18n="OK">OK</button><button type="button" id="week-start-cancel" data-i18n="Cancel">Cancel</button></div>
       </section>
     </div>`;
   const $ = id => appWindow.querySelector('#' + id);

@@ -6,12 +6,14 @@ const base = process.env.WQV_APP_URL || 'http://127.0.0.1:8765/';
 test('native dialogs, focus and shading stay within the visible LCD after resize', { timeout: 60000 }, async t => {
   const browser = await chromium.launch({ headless: true }); t.after(() => browser.close());
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await page.addInitScript(() => localStorage.setItem('wqv-online.language', 'es'));
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   for (const file of ['index.html', 'wqv2.html', 'wqv3.html', 'drivers.html']) {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(new URL(file, base).href);
     await page.locator('#help-top').click();
     await page.locator('#message-dialog.screen-dialog[open]').waitFor();
+    assert.equal(await page.locator('#dialog-accept').textContent(), 'Aceptar', file);
     for (const viewport of [{ width: 1280, height: 900 }, { width: 390, height: 700 }, { width: 320, height: 480 }]) {
       await page.setViewportSize(viewport);
       await page.waitForFunction(() => {

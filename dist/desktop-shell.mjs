@@ -16,7 +16,7 @@ export function installDesktopShell({ help, changed = () => {} } = {}) {
   return { closeMenus };
 }
 
-export function messageDialog(title, text, { confirm = false, accept = 'OK' } = {}) {
+export function messageDialog(title, text, { confirm = false, accept = tr('OK') } = {}) {
   const dialog = document.getElementById('message-dialog');
   document.getElementById('dialog-title').textContent = title;
   document.getElementById('dialog-message').textContent = text;
