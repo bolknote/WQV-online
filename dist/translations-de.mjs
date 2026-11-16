@@ -374,7 +374,7 @@ export const german = {
   "Damaged JPEG header.": "Beschädigter JPEG-Header.",
   "Truncated JPEG segment.": "Unvollständiges JPEG-Segment.",
   "Unsupported JPEG.": "JPEG-Format nicht unterstützt.",
-  "A baseline JPEG is required. Enable image preparation.": "Ein Baseline-JPEG wird benötigt. Aktivieren Sie die Bildaufbereitung.",
+  "A baseline JPEG is required.": "Ein Baseline-JPEG ist erforderlich.",
   "The JPEG has no baseline header.": "Das JPEG enthält keinen Baseline-Header.",
   "The JPEG has no image data.": "Das JPEG enthält keine Bilddaten.",
   "The WQV-3 needs a 176 × 144 baseline JPEG with 4:2:0 sampling.": "Die WQV-3 benötigt ein Baseline-JPEG mit 176 × 144 Pixeln und 4:2:0-Unterabtastung.",

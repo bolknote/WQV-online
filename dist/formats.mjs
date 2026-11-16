@@ -136,7 +136,7 @@ export function jpegInfo(jpeg) {
       if (data.length < 6 || data[0] !== 8 || data.length !== 6 + 3 * data[5]) throw new LocalizedError(tr("Unsupported JPEG."));
       found = { width: u16(data, 3), height: u16(data, 1), sampling: Array.from({ length: data[5] }, (_, n) => data[7 + 3 * n]) };
     } else if ([0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) {
-      throw new LocalizedError(tr("A baseline JPEG is required. Enable image preparation."));
+      throw new LocalizedError(tr("A baseline JPEG is required."));
     } else if (marker === 0xda) {
       if (!found) throw new LocalizedError(tr("The JPEG has no baseline header."));
       return found;

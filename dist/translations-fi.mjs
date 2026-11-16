@@ -374,7 +374,7 @@ export const finnish = Object.freeze({
   "Damaged JPEG header.": "JPEG-otsake on vioittunut.",
   "Truncated JPEG segment.": "JPEG-segmentti on katkennut.",
   "Unsupported JPEG.": "JPEG-muotoa ei tueta.",
-  "A baseline JPEG is required. Enable image preparation.": "Tarvitaan perustason JPEG-kuva. Ota kuvien valmistelu käyttöön.",
+  "A baseline JPEG is required.": "Tarvitaan perustason JPEG.",
   "The JPEG has no baseline header.": "JPEG-kuvasta puuttuu perustason otsake.",
   "The JPEG has no image data.": "JPEG-tiedostossa ei ole kuvatietoja.",
   "The WQV-3 needs a 176 × 144 baseline JPEG with 4:2:0 sampling.": "WQV-3 tarvitsee perustason JPEG-kuvan koossa 176 × 144 ja näytteistyksellä 4:2:0.",

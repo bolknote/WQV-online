@@ -374,7 +374,7 @@ export const japanese = {
   "Damaged JPEG header.": "JPEGヘッダーが破損しています。",
   "Truncated JPEG segment.": "JPEGセグメントが途中で切れています。",
   "Unsupported JPEG.": "未対応のJPEGです。",
-  "A baseline JPEG is required. Enable image preparation.": "ベースラインJPEGが必要です。「画像の準備」を有効にしてください。",
+  "A baseline JPEG is required.": "ベースラインJPEGが必要です。",
   "The JPEG has no baseline header.": "JPEGにベースラインヘッダーがありません。",
   "The JPEG has no image data.": "JPEGに画像データがありません。",
   "The WQV-3 needs a 176 × 144 baseline JPEG with 4:2:0 sampling.": "WQV-3には176 × 144、4:2:0のベースラインJPEGが必要です。",

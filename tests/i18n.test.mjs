@@ -1,6 +1,7 @@
 import test, { afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { LANGUAGE_KEY, readLanguage, getLanguage, setLanguage, onLanguageChange,
+import { readFileSync } from 'node:fs';
+import { LANGUAGE_KEY, languages, readLanguage, getLanguage, setLanguage, onLanguageChange,
   tr, quantity, locale, formatNumber, formatText, LocalizedError } from '../dist/i18n.mjs';
 import { russian } from '../dist/translations.mjs';
 import { japanese } from '../dist/translations-ja.mjs';
@@ -113,6 +114,38 @@ test('translations preserve every message substitution', () => {
   for (const dictionary of [russian, japanese, german, spanish, finnish, ...Object.values(extendedTranslations)]) for (const [english, translation] of Object.entries(dictionary)) {
     const placeholders = text => [...text.matchAll(/\{\d+\}/g)].map(match => match[0]).sort();
     assert.deepEqual(placeholders(translation), placeholders(english), english);
+  }
+});
+
+test('each interface catalog declares a message key only once', () => {
+  const files = [
+    'translations.mjs', 'translations-ja.mjs', 'translations-de.mjs',
+    'translations-es.mjs', 'translations-fi.mjs', 'translations-extended.mjs',
+  ];
+  for (const file of files) {
+    // The catalogs declare each quoted message key on its own line.
+    // Inspect the declarations because a loaded object has already discarded duplicates.
+    const source = readFileSync(new URL('../dist/' + file, import.meta.url), 'utf8');
+    const keys = new Set();
+    for (const [, quoted] of source.matchAll(/^  ("(?:[^"\\]|\\.)*"):/gm)) {
+      const key = JSON.parse(quoted);
+      assert.ok(!keys.has(key), file + ' repeats ' + JSON.stringify(key));
+      keys.add(key);
+    }
+    assert.ok(keys.size > 0, file + ' has no recognized message declarations');
+  }
+});
+
+test('connection instructions retain the IR → PC menu path in every language', () => {
+  const instructions = [
+    ['{0}. Select IR → PC on the {1}, then choose an operation.', 'USB', 'WQV-10'],
+    ['Select IR → PC and press F on WQV-1/2 now.'],
+  ];
+  for (const language of languages) {
+    setLanguage(language, { persist: false });
+    for (const [key, ...values] of instructions) {
+      assert.match(String(tr(key, ...values)), /IR → PC/, language + ': ' + key);
+    }
   }
 });
 

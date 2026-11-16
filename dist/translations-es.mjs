@@ -374,7 +374,7 @@ export const spanish = Object.freeze({
   "Damaged JPEG header.": "Cabecera JPEG dañada.",
   "Truncated JPEG segment.": "Segmento JPEG incompleto.",
   "Unsupported JPEG.": "JPEG no compatible.",
-  "A baseline JPEG is required. Enable image preparation.": "Se necesita un JPEG baseline. Activa la preparación de imágenes.",
+  "A baseline JPEG is required.": "Se necesita un JPEG de línea de base.",
   "The JPEG has no baseline header.": "El JPEG no tiene cabecera baseline.",
   "The JPEG has no image data.": "El JPEG no contiene datos de imagen.",
   "The WQV-3 needs a 176 × 144 baseline JPEG with 4:2:0 sampling.": "WQV-3 necesita un JPEG baseline de 176 × 144 con muestreo 4:2:0.",
