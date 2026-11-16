@@ -2,9 +2,8 @@
 
 Read photos from a Casio wrist camera in your browser. There are applications
 for WQV-1/2, WQV-3 and WQV-10, with photo uploads for the two colour models.
-Connect a USB infrared adapter through WebUSB or the
-KS-959 local helper. The interface takes its look from the Casio CASSIOPEIA
-handhelds and Pocket PC 2000.
+Connect a USB infrared adapter through WebUSB or a local USB helper.
+The interface takes its look from the Casio CASSIOPEIA handhelds and Pocket PC 2000.
 
 **[Open the app](https://bolknote.github.io/WQV-online/)**
 
@@ -27,16 +26,17 @@ original PDF when one is available. [Manual catalog](dist/manuals/manifest.json)
 ## What you need
 
 The tested watches are **Casio WQV-2, module 2220**, and **WQV-3, module 2411**,
-on macOS. WQV-3 was tested with Opera; WQV-2 PC downloads were checked with the
-native client on both adapters below.
+on macOS. WQV-3 was tested with Opera. WQV-2 PC downloads were checked with the
+native client on SigmaTel and KS-959 and in the web app on MA-620.
 
 | Adapter | USB ID | Connection |
 | --- | --- | --- |
 | SigmaTel STIr4200, often called “IrDA/USB Bridge” | `066f:4200` | Direct WebUSB |
 | KingSun KS-959, called “USB to IRDA” | `07d0:4959` | Local Python helper |
+| Mobile Action MA-620 | `0df7:0620` | [MA-620 C driver and USB Helper](#installing-a-c-driver) |
 
-Neither adapter needs a Windows virtual machine or a kernel driver. The page
-uses the USB ID to choose its driver and displays the name supplied by the device.
+The page uses the USB ID to choose its driver and displays the name supplied by
+the device.
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
@@ -80,13 +80,13 @@ the real compiled tables.
 `ma600-sir.c`, as described in Linux's MA600 Kconfig entry. Adding the MA-620
 reference source also saves `pl2303.c` and `pl2303.h`. The C dongle driver
 controls DTR/RTS, reset, command echo and SIR rates from 9600 to 115200 bit/s.
-USB initialization and speed changes are separate from testing a photo
-transfer. On a physical MA-620 connected to macOS, initialization, echoed
-commands and all five SIR speeds passed through USB Helper; the captured
-sequence is in `tests/fixtures/ma620-usb-hardware.json`. A photo transfer with
-this adapter has not yet been tested. The PL2303-only source initializes a
-serial port; it cannot configure
-an infrared transceiver by itself. An installed MA-620 driver takes precedence
+A physical MA-620 on macOS passed initialization, command echo and all five
+SIR speed changes through USB Helper. The [USB capture](tests/fixtures/ma620-usb-hardware.json)
+records these checks. In a separate transfer, the WQV-1/2 web app downloaded
+one photo from a WQV-2 in PC mode at 115200 bit/s through USB Helper.
+
+The PL2303-only source initializes the serial port. The MA-620 C driver also
+configures the infrared transceiver. An installed MA-620 driver takes precedence
 over a PL2303-only match. Other PL2303 serial devices are never sent MA600
 commands. Devices requiring endpoints on separate USB interfaces are not
 supported by this compatibility layer.
@@ -141,10 +141,9 @@ For a USB ID outside the bundled list, the new helper requires an explicit
 
 The compiler and driver runtime need a current Chromium browser with
 WebAssembly JSPI. Ten C sources pass browser compilation and USB-model
-tests. Earlier optical tests of the C drivers covered SigmaTel and KS-959;
-the new utility has not yet had a physical watch transfer. Packet-oriented
-USB-IrDA drivers cannot carry WQV-1/2's raw SUM16 framing. ARK3116T's macOS
-configuration problem is also unchanged.
+tests. Earlier optical tests of the C drivers covered SigmaTel and KS-959.
+Packet-oriented USB-IrDA drivers cannot carry WQV-1/2's raw SUM16 framing.
+On macOS, ARK3116T still fails at USB configuration.
 
 ### KingSun KS-959 setup
 
@@ -188,8 +187,8 @@ the watch. WQV-1/2 keeps its seconds unchanged. Reading time uses a separate
 connection and does not change the watch.
 
 The clock request and its completion were checked against Casio's original
-Palm program, with browser tests for both adapters. A physical WQV-2 check
-of clock setting is still pending.
+Palm program, with browser tests simulating SigmaTel and KS-959. A physical
+WQV-2 check of clock setting is still pending.
 
 ### OTHERS: receive one photo
 
@@ -200,8 +199,8 @@ of clock setting is still pending.
    the selected photo.
 
 This receiver uses the older WQV-1/2 SUM16 protocol. It has protocol and browser
-tests; a hardware check of OTHERS with WQV-2 is still pending. PC downloads of
-one photo and all five stored photos have worked with both adapters, producing
+tests. A hardware check of OTHERS with WQV-2 is still pending. PC downloads of
+one photo and all five stored photos through SigmaTel and KS-959 produced
 identical image files.
 
 WQV-1/2 transfers use **115200 bit/s**, including OTHERS. The SigmaTel driver
