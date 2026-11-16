@@ -583,7 +583,7 @@ export const german = {
   "Use computer time": "Computerzeit übernehmen",
   "Set": "Einstellen",
   "Synchronization": "Zeitabgleich",
-  "Set the computer's time at the start of the next minute to align the seconds.": "Senden Sie die Computerzeit zu Beginn der nächsten Minute, um die Sekunden abzugleichen.",
+  "At the start of the next minute, WQV Link sends the computer's time to the watch to synchronize the seconds.": "Zu Beginn der nächsten Minute sendet WQV Link die Computerzeit an die Uhr, um die Sekunden abzugleichen.",
   "Sync with computer": "Mit Computer abgleichen",
   "This may take up to one minute. Leave the watch in IR → PC mode.": "Dies kann bis zu einer Minute dauern. Lassen Sie die Uhr im Modus IR → PC.",
   "Holiday calendar": "Feiertagskalender",

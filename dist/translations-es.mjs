@@ -583,7 +583,7 @@ export const spanish = Object.freeze({
   "Use computer time": "Usar hora del ordenador",
   "Set": "Ajustar",
   "Synchronization": "Sincronización",
-  "Set the computer's time at the start of the next minute to align the seconds.": "Envía la hora del ordenador al reloj al inicio del próximo minuto para sincronizar los segundos.",
+  "At the start of the next minute, WQV Link sends the computer's time to the watch to synchronize the seconds.": "Envía la hora del ordenador al reloj al inicio del próximo minuto para sincronizar los segundos.",
   "Sync with computer": "Sincronizar con el ordenador",
   "This may take up to one minute. Leave the watch in IR → PC mode.": "Puede tardar hasta un minuto. Deja el reloj en modo IR → PC.",
   "Holiday calendar": "Calendario de festivos",

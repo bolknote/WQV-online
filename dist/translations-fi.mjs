@@ -583,7 +583,7 @@ export const finnish = Object.freeze({
   "Use computer time": "Käytä tietokoneen aikaa",
   "Set": "Aseta",
   "Synchronization": "Synkronointi",
-  "Set the computer's time at the start of the next minute to align the seconds.": "Synkronoi sekunnit asettamalla kelloon tietokoneen aika seuraavan minuutin alussa.",
+  "At the start of the next minute, WQV Link sends the computer's time to the watch to synchronize the seconds.": "Synkronoi sekunnit asettamalla kelloon tietokoneen aika seuraavan minuutin alussa.",
   "Sync with computer": "Synkronoi tietokoneen kanssa",
   "This may take up to one minute. Leave the watch in IR → PC mode.": "Tämä voi kestää minuutin. Jätä kello IR → PC -tilaan.",
   "Holiday calendar": "Pyhäpäiväkalenteri",
