@@ -40,6 +40,29 @@ test('manual catalog includes every available edition', () => {
   }
 });
 
+test('the English module 2220 guide includes the Viewer and first camera step as text', () => {
+  const source = readFileSync(new URL('wqv2-en.html', root), 'utf8');
+  assert.match(source, /<p>1\. Press F to enter the Camera Mode\.<\/p>/);
+  assert.match(source, /<p>• Pressing B or E while in the Timekeeping Mode displays the Viewer Screen/);
+  assert.match(source, /<p>Press D to return from the Viewer Screen to the Timekeeping Mode\.<\/p>/);
+  assert.match(source, /<p>• The maximum rest interval is 60 seconds\.<\/p>/);
+});
+
+test('module 2411 camera and calendar buttons are available as document text', () => {
+  const english = readFileSync(new URL('wqv3-en.html', root), 'utf8');
+  assert.match(english, /<p>2\. While viewing the image on the display, point the lens of the watch/);
+  assert.match(english, /<p>3\. Press F to release the shutter and record the image\.<\/p>/);
+  assert.match(english, /<p>• The maximum rest interval is 60 seconds\.<\/p>/);
+  assert.match(english, /<p>• Pressing B or E while in the Timekeeping Mode displays the Calendar screen/);
+  assert.match(english, /<p>• Press D to return from the Calendar screen/);
+  assert.match(english, /<p>• Pressing D while in the Camera Mode enters the VISUAL DATABANK Mode/);
+
+  const finnish = readFileSync(new URL('wqv3-fi.html', root), 'utf8');
+  assert.match(finnish, /<p>• Paina kellonaikatoiminnossa B- tai E-painiketta/);
+  assert.match(finnish, /<p>• Paina D-painiketta palataksesi kalenteriruudusta/);
+  assert.match(finnish, /<p>• Paina D-painiketta kameratoiminnossa\. Kello siirtyy VISUAL DATABANK/);
+});
+
 test('module 2412 setup, image deletion and IR steps are available as document text', () => {
   const source = readFileSync(new URL('wqv10-en.html', root), 'utf8');
   const page = number => source.match(new RegExp(`id="page-${number}"[\\s\\S]*?</section>`))[0];

@@ -16,6 +16,45 @@
         "notes": [
           "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged."
         ]
+      },
+      "2": {
+        "reviewed": true,
+        "flowSHA256": "6175e01e36fcb8e6cf33a6d9719fd05104cc36bc03a4b0734d3bb0372fed536e",
+        "edits": [
+          {
+            "startLine": 0,
+            "endLine": 0,
+            "from": "",
+            "to": "<h2 id=\"section-2-21\">GENERAL GUIDE</h2>\n"
+          },
+          {
+            "startLine": 13,
+            "endLine": 14,
+            "from": "<h2 id=\"section-2-21\">GENERAL GUIDE</h2>\n",
+            "to": "<h3 id=\"section-2-40\">Note</h3>\n<p>• All watch button operations are disabled while the record operation is in progress.</p>\n<p>• The watch stays in the Camera Mode for about one minute after you enter it. Then it automatically enters the VISUAL DATABANK Mode and displays the last image recorded. See “<a href=\"#section-2-58\">Camera Rest Interval</a>” for more information.</p>\n<p>• The message FULL appears on the display to indicate that memory is full. You will not be able to enter the Camera Mode while this message is displayed. If this happens, delete images you no longer need to make room for more images.</p>\n<h2 id=\"section-2-51\">Camera Mode Precautions</h2>\n<h3 id=\"section-2-52\">General</h3>\n<p>• Never touch the surface of the lens with your fingers.</p>\n<p>• Take care that you do not accidentally move the watch when you press F to release the shutter.</p>\n<p>• Insufficient lighting can result in poor images. Shoot in daylight whenever possible. At night, shoot indoors in a well-lit area.</p>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 21,
+            "from": "<h3 id=\"section-2-30\">Camera Mode</h3>\n",
+            "to": "<h3 id=\"section-2-30\">Camera Mode shortcuts</h3>\n"
+          },
+          {
+            "startLine": 23,
+            "endLine": 25,
+            "from": "<p>Press F.</p>\n<h2 id=\"section-2-36\">L</h2>\n",
+            "to": ""
+          },
+          {
+            "startLine": 26,
+            "endLine": 38,
+            "from": "<h3 id=\"section-2-40\">Note</h3>\n<p>• All watch button operations are disabled while the record operation is in progress.</p>\n<p>• The watch stays in the Camera Mode for about one minute after you</p>\n<h3 id=\"section-2-44\">enter it. Then it automatically enters the VISUAL DATABANK Mode</h3>\n<h3 id=\"section-2-45\">and displays the last image recorded. See “Camera Rest Interval” for</h3>\n<h3 id=\"section-2-46\">more information.</h3>\n<p>• The message FULL appears on the display to indicate that memory is full. You will not be able to enter the Camera Mode while this message is displayed. If this happens, delete images you no longer need to make room for more images.</p>\n<h2 id=\"section-2-51\">Camera Mode Precautions</h2>\n<h3 id=\"section-2-52\">General</h3>\n<p>• Never touch the surface of the lens with your fingers.</p>\n<p>• Take care that you do not accidentally move the watch when you press F to release the shutter.</p>\n<p>• Insufficient lighting can result in poor images. Shoot in daylight whenever possible. At night, shoot indoors in a well-lit area.</p>\n",
+            "to": ""
+          }
+        ],
+        "notes": [
+          "Recovered the mode-cycle and Viewer buttons, date display toggle, first camera step, and the WAIT message and limit. Rejoined the original camera notes."
+        ]
       }
     }
   },
@@ -1384,5 +1423,43 @@
       }
     },
     "adaptationNote": "В адаптированной версии исправлены ошибки распознавания и исходного перевода; операции и характеристики сверены с оригинальными руководствами CASIO."
+  },
+  "wqv3-en": {
+    "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
+    "pages": {
+      "2": {
+        "reviewed": true,
+        "flowSHA256": "d7b197ec519946cdfc06aa90f5d598921262d2c8e340a470605cc3eb91531789",
+        "edits": [
+          {
+            "startLine": 17,
+            "endLine": 27,
+            "from": "<h3 id=\"section-2-29\">Timekeeping Mode</h3>\n<p>• Pressing B or E while in the Timekeeping Mode displays the Calendar screen.</p>\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Illustration\" viewBox=\"325.500 134.300 189.500 62.900\" width=\"459.39\" height=\"152.48\"><use href=\"assets/wqv3-en-02.svg#page\"/></svg></figure>\n<p>• Press D to return from the Calendar screen to the Timekeeping Mode.</p>\n<p>Press F.</p>\n<h2 id=\"section-2-35\">L</h2>\n<h3 id=\"section-2-36\">Camera Mode</h3>\n<p>• Pressing F in any mode besides the VISUAL DATABANK Mode and the IR Mode enters the Camera Mode.</p>\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Illustration\" viewBox=\"326.000 338.000 203.500 53.000\" width=\"493.33\" height=\"128.48\"><use href=\"assets/wqv3-en-02.svg#page\"/></svg></figure>\n<p>• Pressing D while in the Camera Mode enters the VISUAL DATABANK Mode so you can view images you have just recorded.</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 29,
+            "endLine": 33,
+            "from": "<p>• The watch stays in the Camera Mode for about one minute after you</p>\n<h3 id=\"section-2-46\">enter it. Then it automatically enters the VISUAL DATABANK Mode</h3>\n<h3 id=\"section-2-47\">and displays the last image recorded. See “Camera Rest Interval” for</h3>\n<h3 id=\"section-2-48\">more information.</h3>\n",
+            "to": "<p>• The watch stays in the Camera Mode for about one minute after you enter it. Then it automatically enters the VISUAL DATABANK Mode and displays the last image recorded. See “<a href=\"#section-2-63\">Camera Rest Interval</a>” for more information.</p>\n"
+          },
+          {
+            "startLine": 39,
+            "endLine": 39,
+            "from": "",
+            "to": "<h3 id=\"section-2-29\">Timekeeping Mode</h3>\n<p>• Pressing B or E while in the Timekeeping Mode displays the Calendar screen.</p>\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Illustration\" viewBox=\"325.500 134.300 189.500 62.900\" width=\"459.39\" height=\"152.48\"><use href=\"assets/wqv3-en-02.svg#page\"/></svg></figure>\n<p>• Press D to return from the Calendar screen to the Timekeeping Mode.</p>\n<h3 id=\"section-2-36\">Camera Mode shortcuts</h3>\n<p>• Pressing F in any mode besides the VISUAL DATABANK Mode and the IR Mode enters the Camera Mode.</p>\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Illustration\" viewBox=\"326.000 338.000 203.500 53.000\" width=\"493.33\" height=\"128.48\"><use href=\"assets/wqv3-en-02.svg#page\"/></svg></figure>\n<p>• Pressing D while in the Camera Mode enters the VISUAL DATABANK Mode so you can view images you have just recorded.</p>\n"
+          },
+          {
+            "startLine": 45,
+            "endLine": 46,
+            "from": "<p>Though the size of images displayed by this watch is 120 × 120 dots, the size of the image stored in memory is 176 × 144 dots. This means that after you transfer images to your computer or another device, you can display them 176 × 144 dots.</p>",
+            "to": "<p>Though the size of images displayed by this watch is 120 × 120 dots, the size of the image stored in memory is 176 × 144 dots. This means that after you transfer images to your computer or another device, you can display them at 176 × 144 dots.</p>"
+          }
+        ],
+        "notes": [
+          "Recovered the full camera procedure, calendar and camera shortcuts, and the WAIT message and 60-second rest limit. Rejoined the automatic return to VISUAL DATABANK note."
+        ]
+      }
+    }
   }
 }

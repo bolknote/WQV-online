@@ -10,7 +10,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf",
     "sourceSHA256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
     "scanned": false,
-    "illustrations": 46,
+    "illustrations": 48,
     "headings": [
       {
         "id": "section-1-0",
@@ -53,47 +53,43 @@
         "text": "Auto Display Off"
       },
       {
-        "id": "section-2-1",
+        "id": "section-2-21",
         "text": "GENERAL GUIDE"
       },
       {
         "id": "section-2-2",
-        "text": "Timekeeping Mode"
-      },
-      {
-        "id": "section-2-4",
         "text": "CAMERA MODE"
       },
       {
-        "id": "section-2-16",
+        "id": "section-2-7",
+        "text": "To record an image"
+      },
+      {
+        "id": "section-2-40",
         "text": "Note"
       },
       {
-        "id": "section-2-20",
-        "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode"
-      },
-      {
-        "id": "section-2-21",
-        "text": "and displays the last image recorded. See “Camera Rest Interval” for"
-      },
-      {
-        "id": "section-2-22",
-        "text": "more information."
-      },
-      {
-        "id": "section-2-27",
+        "id": "section-2-51",
         "text": "Camera Mode Precautions"
       },
       {
-        "id": "section-2-28",
+        "id": "section-2-52",
         "text": "General"
       },
       {
-        "id": "section-2-34",
+        "id": "section-2-22",
+        "text": "Timekeeping Mode"
+      },
+      {
+        "id": "section-2-30",
+        "text": "Camera Mode shortcuts"
+      },
+      {
+        "id": "section-2-58",
         "text": "Camera Rest Interval"
       },
       {
-        "id": "section-2-43",
+        "id": "section-2-72",
         "text": "Alarm, Hourly Time Signal, Countdown Alarm Sounds"
       },
       {
@@ -1474,51 +1470,43 @@
         "text": "GENERAL GUIDE"
       },
       {
-        "id": "section-2-2",
+        "id": "section-2-3",
         "text": "CAMERA MODE"
       },
       {
-        "id": "section-2-5",
+        "id": "section-2-6",
         "text": "Note"
       },
       {
-        "id": "section-2-14",
+        "id": "section-2-15",
         "text": "To record an image"
       },
       {
-        "id": "section-2-23",
-        "text": "Timekeeping Mode"
-      },
-      {
-        "id": "section-2-26",
+        "id": "section-2-42",
         "text": "Note"
       },
       {
-        "id": "section-2-30",
-        "text": "enter it. Then it automatically enters the VISUAL DATABANK Mode"
-      },
-      {
-        "id": "section-2-31",
-        "text": "and displays the last image recorded. See “Camera Rest Interval” for"
-      },
-      {
-        "id": "section-2-32",
-        "text": "more information."
-      },
-      {
-        "id": "section-2-37",
+        "id": "section-2-53",
         "text": "Camera Mode Precautions"
       },
       {
-        "id": "section-2-38",
+        "id": "section-2-54",
         "text": "General"
       },
       {
-        "id": "section-2-47",
+        "id": "section-2-29",
+        "text": "Timekeeping Mode"
+      },
+      {
+        "id": "section-2-36",
+        "text": "Camera Mode shortcuts"
+      },
+      {
+        "id": "section-2-63",
         "text": "Camera Rest Interval"
       },
       {
-        "id": "section-2-56",
+        "id": "section-2-77",
         "text": "Displayed Image Size and Memory Image Size"
       },
       {
@@ -5249,7 +5237,7 @@
     "sourceURL": "https://www.perkko.fi/wp-content/uploads/simple-file-list/Casio-2411.pdf",
     "sourceSHA256": "a47ebd77e9860cf4ade28267552577dc05cfe3ad1ba07ef9e208a3aee059b100",
     "scanned": false,
-    "illustrations": 45,
+    "illustrations": 47,
     "headings": [
       {
         "id": "section-1-0",
@@ -5312,15 +5300,27 @@
         "text": "KELLON KÄYTTÖ"
       },
       {
-        "id": "section-4-3",
+        "id": "section-4-2",
+        "text": "Kalenterin avaaminen"
+      },
+      {
+        "id": "section-4-review-2",
+        "text": "Toiminnon vaihtaminen"
+      },
+      {
+        "id": "section-4-10",
+        "text": "Kameratoiminnon valinta"
+      },
+      {
+        "id": "section-4-17",
         "text": "KAMERATOIMINTO"
       },
       {
-        "id": "section-4-6",
+        "id": "section-4-20",
         "text": "Huomautus:"
       },
       {
-        "id": "section-4-13",
+        "id": "section-4-27",
         "text": "Kuvan taltioiminen"
       },
       {

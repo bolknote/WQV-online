@@ -136,17 +136,41 @@
       },
       "4": {
         "reviewed": true,
-        "flowSHA256": "42557650ddce06d16c3fe6cb2f5369e14aecbe003e75c6949c4f35577327d306",
+        "flowSHA256": "cc64028734dcb3f13a1120d86f9f726ce696074e3067001ac97ae2727d2df74e",
         "edits": [
           {
-            "startLine": 8,
-            "endLine": 9,
-            "from": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo ainoastaan vertailua varten tarkoitettu likimääräinen numero. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n",
-            "to": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo on ainoastaan vertailua varten tarkoitettu likimääräinen luku. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n"
+            "startLine": 1,
+            "endLine": 4,
+            "from": "<p>Paina D-painiketta toiminnon vaihtoa varten.</p>\n<h3 id=\"section-4-2\">Kellonaikatoiminto</h3>\n<p>•Paina B- tai E-painiketta kellonaikatoiminnolla valitaksesi kalenteriruudun.</p>\n",
+            "to": "<div class=\"manual-procedure\">\n<h3 id=\"section-4-2\">Kalenterin avaaminen</h3>\n<p>• Paina kellonaikatoiminnossa B- tai E-painiketta, niin kalenteriruutu avautuu.</p>\n"
+          },
+          {
+            "startLine": 5,
+            "endLine": 5,
+            "from": "",
+            "to": "<p>• Paina D-painiketta palataksesi kalenteriruudusta kellonaikatoimintoon.</p>\n</div>\n<h3>Toiminnon vaihtaminen</h3>\n<p>Paina D-painiketta vaihtaaksesi toimintoa.</p>\n"
+          },
+          {
+            "startLine": 6,
+            "endLine": 10,
+            "from": "<p>• Paina D-painiketta palataksesi kalenteriruudusta kellonaikatoiminnolle.</p>\n<p>Paina F-painiketta.</p>\n<h3 id=\"section-4-10\">Kameratoiminto</h3>\n<p>•Valitse kameratoiminto painamalla F millä toiminnolla tahansa paitsi VISUAL DATABANK- ja IR-toiminnolla.</p>\n",
+            "to": "<h3 id=\"section-4-10\">Kameratoiminnon valinta</h3>\n<p>• Avaa kameratoiminto painamalla F-painiketta. Kameratoimintoon ei voi siirtyä suoraan VISUAL DATABANK- tai IR-toiminnosta.</p>\n"
           },
           {
             "startLine": 11,
             "endLine": 12,
+            "from": "<p>•Painamalla D-painiketta kameratoiminnolla, VISUAL DATABANK-toiminto aktivoituu juuri taltioimiesi kuvien katselua varten.</p>\n",
+            "to": "<p>• Paina D-painiketta kameratoiminnossa. Kello siirtyy VISUAL DATABANK -toimintoon, jossa voit katsella juuri ottamiasi kuvia.</p>\n"
+          },
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo ainoastaan vertailua varten tarkoitettu likimääräinen numero. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n",
+            "to": "<p>• Yllä esitetty koskee myös jäljellä olevaa muistikapasiteettiarvoa. Tämä arvo ainoastaan vertailua varten tarkoitettu likimääräinen luku. Taltioitavien kuvien lukumäärä saattaa kuvanotto-olosuhteista riippuen olla näytön ilmaisemaa lukua pienempi.</p>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 21,
             "from": "<p>• Huomioi, että kameratoimin toa ei voi valita suoraan VISUAL DATABANK- ja IR-toiminnolta.</p>\n",
             "to": "<p>• Huomioi, että kameratoimintoa ei voi valita suoraan VISUAL DATABANK- ja IR-toiminnolta.</p>\n"
           }
@@ -154,7 +178,25 @@
         "notes": [
           "Native text and complete illustration labels checked against the Finnish page; button operations compared with the English module 2411 guide.",
           "Second proofreading pass: Finnish grammar, photographic terminology and instructions checked against the English module 2411 guide. Original picture artwork retained.",
-          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text."
+          "Dedicated crop audit, 2026-11-04: all illustration bounds checked against expanded PDF context. Watch outlines, F/B callouts and complete labels retained. Angle and alarm-state captions restored inside their original diagrams rather than clipped or duplicated in body text.",
+          "Restored calendar and camera mode button instructions as body text. The original screen drawings remain beside the relevant instructions."
+        ],
+        "figureTextCorrections": [
+          {
+            "box": [
+              398.7,
+              126,
+              457.2,
+              139.2
+            ],
+            "from": "aina B tai E.",
+            "to": "Paina B tai E.",
+            "origin": [
+              399.5,
+              136
+            ],
+            "fontSize": 9
+          }
         ]
       },
       "5": {
