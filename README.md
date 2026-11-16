@@ -29,9 +29,9 @@ WQV Link was tested on macOS with Casio WQV-2 and WQV-3 watches.
 
 WQV Link works with these tested USB infrared adapters.
 
-- SigmaTel STIr4200
-- KingSun KS-959
-- Mobile Action MA-620
+- SigmaTel STIr4200 (`066f:4200`)
+- KingSun KS-959 (`07d0:4959`)
+- Mobile Action MA-620 (`0df7:0620`)
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
