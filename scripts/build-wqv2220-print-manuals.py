@@ -27,7 +27,7 @@ def render_text(text, prefix, page_count):
 
 def render_figure(figure, caption):
     asset = figure['file']
-    if not re.fullmatch(r'wqv2-print/[a-zA-Z-]+-\d{2}-\d{2}\.png', asset):
+    if not re.fullmatch(r'wqv2-print/[a-zA-Z-]+-\d{2}-\d{2}\.(?:png|svg)', asset):
         raise ValueError(f'Unexpected figure path {asset}')
     if not (OUTPUT / 'assets' / asset).is_file():
         raise FileNotFoundError(asset)

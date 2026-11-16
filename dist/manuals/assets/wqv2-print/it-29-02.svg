@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="it" width="900" height="539" viewBox="0 0 900 539">
+  <title>Sequenze dei tasti del cronometro</title>
+  <rect width="900" height="539" fill="white"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#171717">
+    <text x="25" y="34" direction="ltr" text-anchor="start" font-size="28" font-weight="700">Tempo trascorso</text>
+    <path d="M 112 74 H 249 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="92" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="92" y="110" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Avvio</text>
+    <path d="M 291 74 H 428 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="271" y="110" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Interruzione</text>
+    <path d="M 470 74 H 607 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="450" y="110" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Ripresa</text>
+    <path d="M 649 74 H 786 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="629" y="110" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Interruzione</text>
+    <circle cx="808" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="81" text-anchor="middle" font-size="21">B</text>
+    <text x="808" y="110" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Azzeramento</text>
+    <text x="25" y="175" direction="ltr" text-anchor="start" font-size="28" font-weight="700">Tempo parziale</text>
+    <path d="M 112 215 H 249 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="92" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="222" text-anchor="middle" font-size="21">E</text>
+    <text x="92" y="251" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Avvio</text>
+    <path d="M 291 215 H 428 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="271" y="251" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Tempo</text>
+    <text x="271" y="275" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">parziale</text>
+    <path d="M 470 215 H 607 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="450" y="251" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Rilascio del</text>
+    <text x="450" y="275" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">tempo parziale</text>
+    <path d="M 649 215 H 786 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="222" text-anchor="middle" font-size="21">E</text>
+    <text x="629" y="251" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Interruzione</text>
+    <circle cx="808" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="808" y="251" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Azzeramento</text>
+    <text x="25" y="316" direction="ltr" text-anchor="start" font-size="28" font-weight="700">Due tempi di arrivo</text>
+    <path d="M 112 356 H 249 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="92" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="363" text-anchor="middle" font-size="21">E</text>
+    <text x="92" y="392" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Avvio</text>
+    <path d="M 291 356 H 428 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="271" y="392" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Tempo</text>
+    <text x="271" y="416" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">parziale</text>
+    <text x="271" y="441" direction="ltr" text-anchor="middle" font-size="21">Il primo arrivato</text>
+    <text x="271" y="463" direction="ltr" text-anchor="middle" font-size="21">taglia il traguardo.</text>
+    <path d="M 470 356 H 607 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="363" text-anchor="middle" font-size="21">E</text>
+    <text x="450" y="392" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Interruzione</text>
+    <text x="450" y="417" direction="ltr" text-anchor="middle" font-size="21">Il secondo arrivato</text>
+    <text x="450" y="439" direction="ltr" text-anchor="middle" font-size="21">taglia il traguardo.</text>
+    <text x="450" y="461" direction="ltr" text-anchor="middle" font-size="21">Registrazione del</text>
+    <text x="450" y="483" direction="ltr" text-anchor="middle" font-size="21">tempo del primo</text>
+    <text x="450" y="505" direction="ltr" text-anchor="middle" font-size="21">arrivato.</text>
+    <path d="M 649 356 H 786 m -11 -7 l 11 7 -11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="629" y="392" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Rilascio del</text>
+    <text x="629" y="416" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">tempo parziale</text>
+    <text x="629" y="441" direction="ltr" text-anchor="middle" font-size="21">Registrazione del</text>
+    <text x="629" y="463" direction="ltr" text-anchor="middle" font-size="21">tempo del secondo</text>
+    <text x="629" y="485" direction="ltr" text-anchor="middle" font-size="21">arrivato.</text>
+    <circle cx="808" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="808" y="392" direction="ltr" text-anchor="middle" font-size="24" font-weight="700">Azzeramento</text>
+  </g>
+</svg>

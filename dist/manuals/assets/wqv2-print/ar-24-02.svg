@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="ar" width="900" height="539" viewBox="0 0 900 539">
+  <title>تسلسل أزرار ساعة الإيقاف</title>
+  <rect width="900" height="539" fill="white"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#171717">
+    <text x="875" y="34" direction="rtl" text-anchor="start" font-size="28" font-weight="700">قياس الزمن المقطوع</text>
+    <path d="M 788 74 H 651 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="808" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="808" y="110" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">البدء</text>
+    <path d="M 609 74 H 472 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="629" y="110" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">الإيقاف</text>
+    <path d="M 430 74 H 293 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="450" y="110" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">إعادة البدء</text>
+    <path d="M 251 74 H 114 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="81" text-anchor="middle" font-size="21">E</text>
+    <text x="271" y="110" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">الإيقاف</text>
+    <circle cx="92" cy="74" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="81" text-anchor="middle" font-size="21">B</text>
+    <text x="92" y="110" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">المسح</text>
+    <text x="875" y="175" direction="rtl" text-anchor="start" font-size="28" font-weight="700">قياس الزمن الجزئي</text>
+    <path d="M 788 215 H 651 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="808" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="222" text-anchor="middle" font-size="21">E</text>
+    <text x="808" y="251" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">البدء</text>
+    <path d="M 609 215 H 472 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="629" y="251" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">بدء الجزئي</text>
+    <path d="M 430 215 H 293 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="450" y="251" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">نهاية الجزئي</text>
+    <path d="M 251 215 H 114 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="222" text-anchor="middle" font-size="21">E</text>
+    <text x="271" y="251" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">الإيقاف</text>
+    <circle cx="92" cy="215" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="222" text-anchor="middle" font-size="21">B</text>
+    <text x="92" y="251" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">المسح</text>
+    <text x="875" y="316" direction="rtl" text-anchor="start" font-size="28" font-weight="700">زمنا المركزين الأول والثاني</text>
+    <path d="M 788 356 H 651 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="808" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="808" y="363" text-anchor="middle" font-size="21">E</text>
+    <text x="808" y="392" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">البدء</text>
+    <path d="M 609 356 H 472 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="629" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="629" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="629" y="392" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">بدء الجزئي</text>
+    <text x="629" y="417" direction="rtl" text-anchor="middle" font-size="21">انتهاء المتسابق</text>
+    <text x="629" y="439" direction="rtl" text-anchor="middle" font-size="21">الأول.</text>
+    <path d="M 430 356 H 293 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="450" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="450" y="363" text-anchor="middle" font-size="21">E</text>
+    <text x="450" y="392" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">الإيقاف</text>
+    <text x="450" y="417" direction="rtl" text-anchor="middle" font-size="21">انتهاء المتسابق الثاني.</text>
+    <text x="450" y="439" direction="rtl" text-anchor="middle" font-size="21">الزمن القياسي</text>
+    <text x="450" y="461" direction="rtl" text-anchor="middle" font-size="21">للمتسابق الأول.</text>
+    <path d="M 251 356 H 114 m 11 -7 l -11 7 11 7" fill="none" stroke="#171717" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="271" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="271" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="271" y="392" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">نهاية الجزئي</text>
+    <text x="271" y="417" direction="rtl" text-anchor="middle" font-size="21">الزمن القياسي</text>
+    <text x="271" y="439" direction="rtl" text-anchor="middle" font-size="21">للمتسابق الثاني.</text>
+    <circle cx="92" cy="356" r="15" fill="none" stroke="#171717" stroke-width="2"/>
+    <text x="92" y="363" text-anchor="middle" font-size="21">B</text>
+    <text x="92" y="392" direction="rtl" text-anchor="middle" font-size="24" font-weight="700">المسح</text>
+  </g>
+</svg>

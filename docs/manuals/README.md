@@ -181,6 +181,9 @@ The caption character sequence is selectable text. The French sequence on
 F-18 and the IR startup diagram on F-29 were recovered from the photographs.
 The date-format diagrams for P-20 and Sw-19 use the complete drawings from
 P-9 and Sw-9 in the same editions, where both watch screens are visible.
+The stopwatch sequences on I-29, Sw-24 and A-24 were redrawn from the
+booklet diagrams. The reset label hidden by the Swedish binding was restored
+from the instructions on the same page.
 
 Two notes identify errors in the printed text. The Dutch D-16 places the ALM
 indicator on the right, where the other editions and the Dutch Viewer diagram

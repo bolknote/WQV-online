@@ -26,14 +26,14 @@ test('manual catalog includes every available edition', () => {
     assert.doesNotMatch(source, /<object|<embed|<script|onload=/i);
     const ids = [...source.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
     assert.equal(ids.length, new Set(ids).size, item.id + ': duplicate section ID');
-    for (const match of source.matchAll(/<(?:use|image) href="([^"#]+)(?:#page)?"/g)) {
-      const asset = new URL(match[1], root);
-      assert.ok(existsSync(asset), item.id + ': missing illustration ' + match[1]);
+    for (const [, element, filename] of source.matchAll(/<(use|image) href="([^"#]+)(?:#page)?"/g)) {
+      const asset = new URL(filename, root);
+      assert.ok(existsSync(asset), item.id + ': missing illustration ' + filename);
       if (asset.pathname.endsWith('.png')) {
         assert.deepEqual([...readFileSync(asset).subarray(0,8)],[137,80,78,71,13,10,26,10]);
       } else {
         const svg = readFileSync(asset, 'utf8');
-        assert.match(svg, /<svg id="page"/);
+        assert.match(svg, element === 'use' ? /<svg id="page"/ : /<svg\b/);
         assert.doesNotMatch(svg, /<script|<foreignObject|javascript:/i);
       }
     }
@@ -133,13 +133,26 @@ test('printed module 2220 editions retain the caption characters and the IR scre
   assert.match(french, /assets\/wqv2-print\/fr-29-03\.png/);
   assert.match(french, /id="page-30"[\s\S]*?<li value="6">[^<]*<\/li>\s*<\/ol>\s*<figure[^\n]+fr-30-03\.png/);
   const italian = readFileSync(new URL('wqv2-it.html', root), 'utf8');
-  assert.match(italian, /assets\/wqv2-print\/it-31-02\.png[\s\S]*?assets\/wqv2-print\/it-31-01\.png/);
+  const irStart = italian.slice(italian.indexOf('id="page-31"'), italian.indexOf('id="page-32"'));
+  assert.match(irStart, /assets\/wqv2-print\/it-31-02\.png/);
+  assert.doesNotMatch(irStart, /it-31-01\.png/);
   const arabic = readFileSync(new URL('wqv2-ar.html', root), 'utf8');
   const receive = arabic.slice(arabic.indexOf('id="page-27"'), arabic.indexOf('id="page-28"'));
   const menus = receive.indexOf('ar-27-01.png');
   const standby = receive.indexOf('ar-27-02.png');
   assert.ok(receive.indexOf('value="2"') < menus && menus < receive.indexOf('value="3"'));
   assert.ok(receive.indexOf('value="4"') < standby && standby < receive.indexOf('value="5"'));
+});
+
+test('redrawn stopwatch diagrams preserve all three button sequences', () => {
+  for (const [locale, figure] of [['it', 'it-29-02'], ['sv', 'sv-24-02'], ['ar', 'ar-24-02']]) {
+    const asset = `assets/wqv2-print/${figure}.svg`;
+    const page = readFileSync(new URL(`wqv2-${locale}.html`, root), 'utf8');
+    assert.ok(page.includes(asset), figure);
+    const svg = readFileSync(new URL(asset, root), 'utf8');
+    assert.equal([...svg.matchAll(/>([BE])<\/text>/g)].map(match => match[1]).join(''),
+      'EEEEB' + 'EBBEB' + 'EBEBB', figure);
+  }
 });
 
 test('printed date-format comparisons are included in the timekeeping procedures', () => {
