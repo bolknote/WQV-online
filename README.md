@@ -25,17 +25,13 @@ original PDF when one is available. [Manual catalog](dist/manuals/manifest.json)
 
 ## What you need
 
-The tested watches are **Casio WQV-2, module 2220**, and **WQV-3, module 2411**,
-on macOS. WQV-3 was tested with Opera.
+WQV Link was tested on macOS with Casio WQV-2 and WQV-3 watches.
 
-| Tested adapter | USB ID | Connection | Verified WQV-2 PC download |
-| --- | --- | --- | --- |
-| SigmaTel STIr4200, often called “IrDA/USB Bridge” | `066f:4200` | Direct WebUSB | Native client |
-| KingSun KS-959, called “USB to IRDA” | `07d0:4959` | Local Python helper | Native client |
-| Mobile Action MA-620 | `0df7:0620` | [MA-620 C driver and USB Helper](#installing-a-c-driver) | Web app |
+WQV Link works with these tested USB infrared adapters.
 
-The page uses the USB ID to choose its driver and displays the name supplied by
-the device.
+- SigmaTel STIr4200
+- KingSun KS-959
+- Mobile Action MA-620
 
 USB access needs a desktop browser with WebUSB, such as Chrome, Edge or Opera.
 Safari and Firefox cannot connect to the adapter. The app starts in English.
@@ -75,20 +71,11 @@ list below it. Regenerate these labels after changing a reference source with
 `node scripts/update-driver-usb-matches.mjs`; browser tests compare them with
 the real compiled tables.
 
-**MA-620 (`0df7:0620`)** combines the original PL2303 USB-serial driver with
-`ma600-sir.c`, as described in Linux's MA600 Kconfig entry. Adding the MA-620
-reference source also saves `pl2303.c` and `pl2303.h`. The C dongle driver
-controls DTR/RTS, reset, command echo and SIR rates from 9600 to 115200 bit/s.
-A physical MA-620 on macOS passed initialization, command echo and all five
-SIR speed changes through USB Helper. The [USB capture](tests/fixtures/ma620-usb-hardware.json)
-records these checks. In a separate transfer, the WQV-1/2 web app downloaded
-one photo from a WQV-2 in PC mode at 115200 bit/s through USB Helper.
+For **Mobile Action MA-620**, select the MA-620 reference source and connect
+through USB Helper.
 
-The PL2303-only source initializes the serial port. The MA-620 C driver also
-configures the infrared transceiver. An installed MA-620 driver takes precedence
-over a PL2303-only match. Other PL2303 serial devices are never sent MA600
-commands. Devices requiring endpoints on separate USB interfaces are not
-supported by this compatibility layer.
+Devices requiring endpoints on separate USB interfaces are not supported by
+this compatibility layer.
 
 WQV Link reads the USB match table exported by each compiled C driver and
 chooses an installed match when connecting. An exact USB ID takes precedence
