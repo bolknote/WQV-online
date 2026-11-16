@@ -26,14 +26,13 @@ original PDF when one is available. [Manual catalog](dist/manuals/manifest.json)
 ## What you need
 
 The tested watches are **Casio WQV-2, module 2220**, and **WQV-3, module 2411**,
-on macOS. WQV-3 was tested with Opera. WQV-2 PC downloads were checked with the
-native client on SigmaTel and KS-959 and in the web app on MA-620.
+on macOS. WQV-3 was tested with Opera.
 
-| Adapter | USB ID | Connection |
-| --- | --- | --- |
-| SigmaTel STIr4200, often called “IrDA/USB Bridge” | `066f:4200` | Direct WebUSB |
-| KingSun KS-959, called “USB to IRDA” | `07d0:4959` | Local Python helper |
-| Mobile Action MA-620 | `0df7:0620` | [MA-620 C driver and USB Helper](#installing-a-c-driver) |
+| Tested adapter | USB ID | Connection | Verified WQV-2 PC download |
+| --- | --- | --- | --- |
+| SigmaTel STIr4200, often called “IrDA/USB Bridge” | `066f:4200` | Direct WebUSB | Native client |
+| KingSun KS-959, called “USB to IRDA” | `07d0:4959` | Local Python helper | Native client |
+| Mobile Action MA-620 | `0df7:0620` | [MA-620 C driver and USB Helper](#installing-a-c-driver) | Web app |
 
 The page uses the USB ID to choose its driver and displays the name supplied by
 the device.
