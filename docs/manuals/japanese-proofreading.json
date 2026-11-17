@@ -3149,7 +3149,7 @@
             "startLine": 4,
             "endLine": 5,
             "from": "<p>© ボタンを押します。鳥押すごとに以下の順に表示が切り替わります。</p>\n",
-            "to": "<p>Cボタンを押します。→押すごとに以下の順に表示が切り替わります。</p>\n<p>サムネール画面選択画像表示</p>\n<p>2001.</p>\n<p>6-29</p>\n<p>メモ表示</p>\n<p>P 3:25</p>\n"
+            "to": "<p>Cボタンを押します。押すごとに、選択画像表示 → メモ表示 → サムネール画面 → 選択画像表示の順に切り替わります。</p>\n"
           },
           {
             "startLine": 6,
@@ -3195,8 +3195,10 @@
           }
         ],
         "notes": [
-          "Checked the crop against the original scan and retained the complete illustration callouts."
-        ]
+          "Checked the crop against the original scan and retained the complete illustration callouts.",
+          "Transcribed the three display states from the original C-button cycle and removed the detached diagram labels from the prose."
+        ],
+        "reviewed": true
       },
       "12": {
         "flowSHA256": "95fd1a0f29afc7f0274c7a462b34c935d3dc4ba5b616d3e23ba2e955b6213ca8",
@@ -3433,15 +3435,23 @@
           },
           {
             "startLine": 30,
-            "endLine": 31,
-            "from": "<h2 id=\"section-15-39\">Eボタンまたは ⑧ボタンを押します。</h2>\n",
-            "to": "<h2 id=\"section-15-52\">Eボタンまたは Bボタンを押します。</h2>\n"
+            "endLine": 32,
+            "from": "<h2 id=\"section-15-39\">Eボタンまたは ⑧ボタンを押します。</h2>\n<p>押すごとに以下の順に切り替わります。</p>\n",
+            "to": "<h2 id=\"section-15-52\">Eボタンまたは Bボタンを押します。</h2>\n<p>Eボタンを押すごとに、2秒 → 5秒 → 10秒 → 2秒の順に切り替わります。Bボタンでは逆の順に切り替わります。</p>\n"
+          },
+          {
+            "startLine": 33,
+            "endLine": 34,
+            "from": "<p>E</p>",
+            "to": ""
           }
         ],
         "notes": [
           "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
-          "Checked the crop against the original scan and retained the complete illustration callouts."
-        ]
+          "Checked the crop against the original scan and retained the complete illustration callouts.",
+          "Transcribed the arrows in the original timer setting diagram. E advances from 2 to 5 to 10 seconds, and B reverses the cycle."
+        ],
+        "reviewed": true
       },
       "16": {
         "flowSHA256": "bdc35b4b1a4f1e51da8bde85718090a3bae0b42713e7a11eecee938f9e26f778",

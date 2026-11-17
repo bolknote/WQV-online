@@ -99,6 +99,40 @@ test('the Russian module 2411 guide distinguishes the receive menu from receive 
   assert.match(source, /возвращаются в меню приёма из шага 3\. Чтобы снова включить ожидание снимка, нажмите F, как в шаге 4\./);
 });
 
+test('Russian guides distinguish opening a confirmation from confirming deletion or formatting', () => {
+  const cases = [
+    ['wqv2', 6, [4, 6], null],
+    ['wqv3', 6, [6, 7], null],
+    ['wqv10', 6, [5, 7], 3],
+  ];
+  for (const [model, number, deleteSteps, formatStep] of cases) {
+    const source = readFileSync(new URL(model + '-ru.html', root), 'utf8');
+    const page = source.split(`id="page-${number}"`)[1].split('</section>')[0];
+    for (const step of deleteSteps) {
+      const prompt = page.indexOf(`<p>${step}. Нажмите «F»`);
+      const choice = page.indexOf(`<p>${step + 1}. Если`, prompt);
+      assert.ok(prompt >= 0 && choice > prompt, model + ' step ' + step);
+      assert.match(page.slice(prompt, choice), /появится запрос на подтверждение удаления/);
+    }
+    if (formatStep) {
+      assert.ok(page.includes(`<p>${formatStep}. Нажмите «F». На экране появится запрос на подтверждение форматирования.</p>`));
+    }
+  }
+});
+
+test('the WQV-10 camera timer and image-view button sequences are readable as text', () => {
+  const editions = {
+    en: [/Press E to cycle through 2, 5, and 10 seconds.*B to cycle in reverse/, /Press C again.*image with text.*thumbnail screen/],
+    ru: [/«E».*2 → 5 → 10 → 2 секунды.*«B» — в обратном порядке/, /«C» ещё раз.*снимка с текстом к миниатюрам/],
+    de: [/Knopf \(E\).*2, 5 und 10 Sekunden.*Knopf \(B\).*umgekehrter Reihenfolge/, /Knopf \(C\) erneut.*Bild mit Text zur Thumbnail-Anzeige/],
+    ja: [/Eボタンを押すごとに、2秒 → 5秒 → 10秒 → 2秒.*Bボタンでは逆/, /Cボタンを押します。.*選択画像表示 → メモ表示 → サムネール画面 → 選択画像表示/],
+  };
+  for (const [language, patterns] of Object.entries(editions)) {
+    const source = readFileSync(new URL(`wqv10-${language}.html`, root), 'utf8');
+    for (const pattern of patterns) assert.match(source, pattern, language);
+  }
+});
+
 test('printed module 2220 editions preserve table rows and inline page links', () => {
   for (const item of catalog.filter(item => !item.sourceURL)) {
     const source = readFileSync(new URL(item.file, root), 'utf8');

@@ -1525,11 +1525,14 @@
           "1:10002:1:1": "",
           "1:10003:1:1": "",
           "1:10007:1:1": "1. Drücken Sie den Knopf (A) in dem Kamera-",
-          "1:10007:2:1": "2. Verwenden Sie den Knopf (E) oder (B), um",
+          "1:10007:2:1": "2. Drücken Sie den Knopf (E), um die Zeiten 2, 5 und 10 Sekunden der Reihe nach zu wählen.",
           "1:10010:1:1": "3. Drücken Sie den Knopf (F), um den",
           "1:10010:4:4": "drücken Sie den Knopf (A), (B) oder (E).",
           "0:12:1:2": "Innenbeleuchtung oder DUSK für Aufnahmen im Zwielicht oder unter",
-          "1:10001:1:1": "Aufnehmen eines Bildes unter Verwendung des Kamera-Timers"
+          "1:10001:1:1": "Aufnehmen eines Bildes unter Verwendung des Kamera-Timers",
+          "1:10007:2:2": "Mit dem Knopf (B) wechseln Sie in umgekehrter Reihenfolge.",
+          "1:10007:2:3": "",
+          "1:10010:3:4": "Countdowns abzubrechen."
         },
         "headings": [
           "Spezifizierung des Beleuchtungstyps",
@@ -1542,7 +1545,8 @@
           "G-16–G-17: OUTDOOR/INDOOR/DUSK; 2/5/10-second self-timer, A/B/E cancel, F immediate shutter.",
           "Clipped Beleuchtungstyp label restored from the section heading and English Lighting Type callout.",
           "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
-          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately."
+          "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
+          "Transcribed the E and B timing arrows and corrected the printed countdown wording against the module 2412 English and Japanese originals."
         ],
         "labelRepairs": {
           "1": [
@@ -1594,7 +1598,7 @@
         ],
         "corrections": {
           "0:30:6:1": "• Es kann von einer bis zu vier Sekunden",
-          "1:10003:1:2": "• Mit jedem Drücken des Knopfes (C) wird",
+          "1:10003:1:2": "• Drücken Sie den Knopf (C) erneut, um vom Bild mit Text zur Thumbnail-Anzeige zurückzukehren.",
           "1:10015:1:2": "• Sie können eine Einstellung für den Bildkontrast im Bereich von 1",
           "1:10016:1:2": "• Der Einstellvorgang für den Bildkontrast ist unterschiedlich von dem auf",
           "0:2:1:1": "VISUAL DATABANK™",
@@ -1611,7 +1615,10 @@
           "0:30:1:1": "2. Verwenden Sie die Knöpfe (B) und (E), um",
           "0:30:3:1": "3. Drücken Sie den Knopf (C), um die",
           "1:10001:1:3": "können Sie die Knöpfe (B) und (E)",
-          "1:10001:2:1": "4. Drücken Sie den Knopf (C) während der"
+          "1:10001:2:1": "4. Drücken Sie den Knopf (C) während der",
+          "1:10003:1:3": "Drücken Sie den Knopf (C) ein weiteres Mal, um das gewählte Bild wieder zu vergrößern.",
+          "1:10003:1:4": "",
+          "1:10003:1:5": ""
         },
         "headings": [
           "VISUAL DATABANK™",
@@ -1625,7 +1632,8 @@
           "Checked all German diagram labels against the full scan. Crop edges include complete words; missing source letters are explicitly restored, and incidental prose remains selectable outside the image.",
           "Second full readability review: checked complete HTML prose, procedure numbering, original illustration crops and labels against the scan; narrow-screen layout reviewed separately.",
           "Removed the comma separating a prepositional phrase from its main clause (Neben der Anzeige von Bildern).",
-          "Expanded-context crop audit, 2026-11-06: complete letter edges, button circles, watch cases and return arrows retained; neighbouring prose checked separately."
+          "Expanded-context crop audit, 2026-11-06: complete letter edges, button circles, watch cases and return arrows retained; neighbouring prose checked separately.",
+          "Transcribed the complete sequence controlled by C from the printed diagram."
         ],
         "cropMasks": {
           "3": [

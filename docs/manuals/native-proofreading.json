@@ -303,6 +303,12 @@
         "flowSHA256": "91fb1b055850a1b41514dd08524a762cd39e49443326bee5f19151a415ed7101",
         "edits": [
           {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>• The following shows compatibility of data communication between this watch and other CASIO Wrist Camera Models.</p>\n",
+            "to": "<p>• The watch can exchange images with the WQV-3 series (module 2411). The WQV-1 and WQV-2 (module 2220) use a different protocol.</p>\n"
+          },
+          {
             "startLine": 16,
             "endLine": 16,
             "from": "",
@@ -352,7 +358,8 @@
           }
         ],
         "notes": [
-          "Recovered the IR mode and watch-to-watch send steps. Named the watch icon in both procedures and distinguished the receive menu from receive standby."
+          "Recovered the IR mode and watch-to-watch send steps. Named the watch icon in both procedures and distinguished the receive menu from receive standby.",
+          "Made the original compatibility table readable as text."
         ]
       },
       "6": {
@@ -440,6 +447,39 @@
         ],
         "notes": [
           "Recovered calendar color and alarm settings and the stopwatch introduction. Rejoined wrapped steps and labels."
+        ]
+      },
+      "3": {
+        "reviewed": true,
+        "flowSHA256": "cfa6958a54142251378d05820ea399e51dd2513239a52baac6e3120614bcf882",
+        "edits": [
+          {
+            "startLine": 34,
+            "endLine": 36,
+            "from": "<p>1.In the Camera Mode, press A to display the camera timer screen.</p>\n<p>2.Use E and B to change the camera timer setting in the sequence shown below.</p>\n",
+            "to": "<p>1. In the Camera Mode, press A to display the camera timer screen.</p>\n<p>2. Press E to cycle through 2, 5, and 10 seconds in that order, or B to cycle in reverse.</p>\n"
+          },
+          {
+            "startLine": 39,
+            "endLine": 45,
+            "from": "<p>The number of seconds remaining is counted down on the display.</p>\n<p>• Pressing F while a countdown is in progress records the image and</p>\n<p>• cancels the remainder of the countdown. To stop a camera timer countdown and reset the timer start time to its</p>\n<p>• initial value, press A, B, or E. Pressing D while a camera timer countdown operation is in progress</p>\n<p>• changes to the VISUAL DATABANK Mode. The watch automatically exits the Camera Mode after about one</p>\n<p>• minute. If one minute elapses while camera timer operation is in progress, the timer operation continues until it is complete. The watch automatically returns to the VISUAL DATABANK Mode after recording the image.</p>\n",
+            "to": "<p>• The number of seconds remaining is counted down on the display.</p>\n<p>• Pressing F while a countdown is in progress records the image and cancels the remainder of the countdown.</p>\n<p>• To stop a camera timer countdown and reset the timer start time to its initial value, press A, B, or E.</p>\n<p>• Pressing D while a camera timer countdown operation is in progress changes to the VISUAL DATABANK Mode.</p>\n<p>• The watch automatically exits the Camera Mode after about one minute. If the timer is running when that minute elapses, it finishes the countdown and records the image before the watch returns to the VISUAL DATABANK Mode.</p>\n"
+          },
+          {
+            "startLine": 50,
+            "endLine": 53,
+            "from": "<p>1. In the Timekeeping Mode or the Camera Mode, press D to enter the VISUAL DATABANK Mode .</p>\n<p>A screen showing the number of images in memory appears for about</p>\n<p>• one second, followed by a four-image thumbnail screen. The last image you were viewing or the last image you recorded has a boundary around it on the thumbnail screen.</p>\n",
+            "to": "<p>1. In the Timekeeping Mode or the Camera Mode, press D to enter the VISUAL DATABANK Mode.</p>\n<p>• A screen showing the number of images in memory appears for about one second, followed by a four-image thumbnail screen. The last image you were viewing or the last image you recorded has a boundary around it on the thumbnail screen.</p>\n"
+          },
+          {
+            "startLine": 61,
+            "endLine": 63,
+            "from": "<p>4.While the enlarged version of the selected image is on the display, press C to display any text assigned to the image (if there is any).</p>\n<p>• Each press of C cycles through display settings in the sequence shown below.</p>\n",
+            "to": "<p>4. While the enlarged version of the selected image is on the display, press C to display any text assigned to the image (if there is any).</p>\n<p>• Press C again to go from the image with text to the thumbnail screen. Press C once more to enlarge the selected image.</p>\n"
+          }
+        ],
+        "notes": [
+          "Restored the original camera timer bullet boundaries, transcribed the E and B timing arrows and the C image-view cycle, and rejoined the text for the initial thumbnail display."
         ]
       }
     },
@@ -561,10 +601,10 @@
         "flowSHA256": "852fbd93b93ebee2febc52e702461e5f4d7b00279d7e5fa54240f3b2b8f3f7f6",
         "edits": [
           {
-            "startLine": 9,
+            "startLine": 8,
             "endLine": 11,
-            "from": "<p>5. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщения, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n<p>• Во время процесса удаления данных на экране находится сообщение WAIT DEL ALL (Подождите, данные удаляются). После завершения этой операции на экране появятся сообщение EMPTY (место свободно).</p>\n",
-            "to": "<p>5. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщение, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n<p>• Во время процесса удаления данных на экране находится сообщение WAIT DEL ALL (Подождите, данные удаляются). После завершения этой операции на экране появится сообщение EMPTY (место свободно).</p>\n"
+            "from": "<p>4. Нажмите кнопку «F» для подтверждения появившегося на экране сообщения.</p>\n<p>5. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщения, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n<p>• Во время процесса удаления данных на экране находится сообщение WAIT DEL ALL (Подождите, данные удаляются). После завершения этой операции на экране появятся сообщение EMPTY (место свободно).</p>\n",
+            "to": "<p>4. Нажмите «F». На экране появится запрос на подтверждение удаления.</p>\n<p>5. Если Вы действительно хотите удалить все изображения из памяти, нажмите кнопку «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщение, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n<p>• Во время процесса удаления данных на экране находится сообщение WAIT DEL ALL (Подождите, данные удаляются). После завершения этой операции на экране появится сообщение EMPTY (место свободно).</p>\n"
           },
           {
             "startLine": 12,
@@ -579,6 +619,12 @@
             "to": "<p>• Вы можете вернуться к исходному Режиму Памяти Изображений во время описанной ниже процедуры нажатием кнопки «А» в любой момент перед фактическим удалением изображения в п.5.</p>\n"
           },
           {
+            "startLine": 21,
+            "endLine": 22,
+            "from": "<p>6. Нажмите кнопку «F» и подтвердите сообщение, появившееся на экране.</p>\n",
+            "to": "<p>6. Нажмите «F». На экране появится запрос на подтверждение удаления.</p>\n"
+          },
+          {
             "startLine": 33,
             "endLine": 34,
             "from": "<p>1. В Режиме Текущего времени нажмите и удержите кнопку «А» в течение одной секунды до тех нор, пока значение секунд не замигает на экране. Мигающее значение можно изменять.</p>\n",
@@ -586,7 +632,8 @@
           }
         ],
         "notes": [
-          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged."
+          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged.",
+          "Separated opening the confirmation screen with F from confirming YES with F, following the module 2220 original."
         ]
       },
       "7": {
@@ -635,9 +682,22 @@
         "reviewed": true,
         "flowSHA256": "cc6303760236246deddbc694e23608c44c7ffda480b4c992b2a5285f764a447c",
         "notes": [
-          "2026-11-06: corrected native-text typos against the source."
+          "2026-11-06: corrected native-text typos against the source.",
+          "Corrected the Art mode name after two C presses and restored the B shortcut for highlighting NAME from the module 2220 Japanese guide."
         ],
         "edits": [
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>1. Для того чтобы выбрать режим слияния, нажмите дважды кнопку «С» в Режиме Камеры.</p>\n",
+            "to": "<p>1. В обычном режиме съёмки дважды нажмите кнопку «C», чтобы выбрать художественный режим.</p>\n"
+          },
+          {
+            "startLine": 28,
+            "endLine": 29,
+            "from": "<p>• Переведите стрелочный указатель к разделу NAME (название).</p>\n",
+            "to": "<p>• Убедитесь, что указатель стоит на NAME (название). Если выбран DEL, нажмите «B», чтобы перейти к NAME.</p>\n"
+          },
           {
             "startLine": 30,
             "endLine": 31,
@@ -650,7 +710,8 @@
         "reviewed": true,
         "flowSHA256": "e72ac5d5652c3310ca20ccb978fe90f841d7c1e7cafd04b4b8ace388d2a18039",
         "notes": [
-          "2026-11-06: corrected native-text typos against the source."
+          "2026-11-06: corrected native-text typos against the source.",
+          "Restored the order of the OK message, received image and return to the OTHERS menu, and the next F press required for standby."
         ],
         "edits": [
           {
@@ -664,6 +725,12 @@
             "endLine": 18,
             "from": "<p>• Но время операции передачи изображения экран будет отображать процесс обмена данными, как показано на рисунке.</p>\n<p>• Поcлe того, как завершится операция передачи данных, на экране немедленно появится сообщение ОК. Далее, часы возвращаются к показу изображения, выбранного в п.4. А</p>\n",
             "to": "<p>• Во время операции передачи изображения экран будет отображать процесс обмена данными, как показано на рисунке.</p>\n<p>• Поcлe того, как завершится операция передачи данных, на экране немедленно появится сообщение ОК. Далее, часы возвращаются к показу изображения, выбранного в п.4.</p>\n"
+          },
+          {
+            "startLine": 29,
+            "endLine": 30,
+            "from": "<p>• Следуя за принятым изображением, на экране появится сообщение ОК. Далее, часы вернутся в «Ждущий режим» приема, экран которого описан в п.З.</p>\n",
+            "to": "<p>• Сначала на экране на короткое время появится OK, затем принятый снимок. Часы вернутся в меню OTHERS, где выбран RECEIVE, как в шаге 3. Чтобы принять ещё один снимок, нажмите «F» для перехода в режим ожидания, как в шаге 4.</p>\n"
           }
         ]
       },
@@ -929,10 +996,16 @@
         "flowSHA256": "ed3994178adb1dce586303c528d03a5db8be41a129fcefa04484f68b1119bc61",
         "edits": [
           {
-            "startLine": 4,
+            "startLine": 3,
             "endLine": 5,
-            "from": "<p>7. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «В» или «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщения, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n",
-            "to": "<p>7. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «В» или «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщение, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n"
+            "from": "<p>6. Нажмите кнопку «F» для подтверждения появившегося на экране сообщения.</p>\n<p>7. Если Вы действительно хотите удалить все сообщения из памяти, нажмите кнопку «В» или «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщения, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n",
+            "to": "<p>6. Нажмите «F». На экране появится запрос на подтверждение удаления.</p>\n<p>7. Если Вы действительно хотите удалить все изображения из памяти, нажмите кнопку «В» или «Е» для перемещения стрелочного указателя к YES (Да) и затем, нажмите кнопку «F». Для того, чтобы отменить подтверждающее сообщение, не удаляя содержимого памяти, оставьте стрелочный указатель на NO (Нет) и нажмите на кнопку «F».</p>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>7. Нажмите кнопку «F» и подтвердите сообщение, появившееся на экране.</p>\n",
+            "to": "<p>7. Нажмите «F». На экране появится запрос на подтверждение удаления.</p>\n"
           },
           {
             "startLine": 27,
@@ -942,7 +1015,8 @@
           }
         ],
         "notes": [
-          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged."
+          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged.",
+          "Distinguished displaying the deletion confirmation from choosing YES. The F press and confirmation order match the module 2411 original."
         ]
       },
       "8": {
@@ -1052,9 +1126,15 @@
           },
           {
             "startLine": 12,
-            "endLine": 13,
-            "from": "<h3 id=\"section-10-30\">Шаг 1</h3>\n",
+            "endLine": 14,
+            "from": "<h3 id=\"section-10-30\">Шаг 1</h3>\n<p>Индикатор Когда уровень заряда батареи достигает критического уровня, на экране снижения заряда начинает</p>\n",
             "to": "<h3 id=\"section-10-32\">Шаг 1</h3>\n"
+          },
+          {
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>мигать индикатор. В это время перестают работать следующие функции:</p>\n",
+            "to": "<p>Когда уровень заряда батареи становится низким, на экране начинает мигать индикатор разряда. При этом недоступны следующие функции:</p>\n"
           },
           {
             "startLine": 19,
@@ -1082,7 +1162,8 @@
           }
         ],
         "notes": [
-          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged."
+          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged.",
+          "Rejoined the low-battery indicator instruction split by the figure and removed its stray caption fragment."
         ],
         "figureTextCorrections": [
           {
@@ -1202,9 +1283,16 @@
         "reviewed": true,
         "flowSHA256": "dbbd05e1cc7279201f305e1332cba886736b3d21683a03d2afc1670d000a3493",
         "notes": [
-          "Native-text/source review, 2026-11-06. Module-specific procedure and specification errors checked against the original guides."
+          "Native-text/source review, 2026-11-06. Module-specific procedure and specification errors checked against the original guides.",
+          "Corrected the spelling in the instruction for holding A until SET opens."
         ],
         "edits": [
+          {
+            "startLine": 29,
+            "endLine": 30,
+            "from": "<p>3. Нажмите и удержите кнопку «А» в течение одной секунды до тех пор, кока не появится меню установки (SET).</p>\n",
+            "to": "<p>3. Нажмите и удержите кнопку «А» в течение одной секунды до тех пор, пока не появится меню установки (SET).</p>\n"
+          },
           {
             "startLine": 40,
             "endLine": 42,
@@ -1334,20 +1422,33 @@
         "flowSHA256": "4272157e7c6df8a51e90c8a3114ef4e9d073c5bd9a887946befb486605ccf2c0",
         "edits": [
           {
-            "startLine": 18,
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<p>• Вы можете установить яркость на один из 15 уровней, от –7 до +7. По умолчанию</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 17,
             "endLine": 19,
-            "from": "<p>• После нажатия кнопок «В» или «Е» может потребоваться некоторое время, перед тем как изменения яркости отразятся на экране. Сделанная Вами установка яркости остается до тех пор, пока Вы не измените ее, или не выйдите из Режима Камеры. Яркость автоматически устанавливается в исходное состояние по умолчанию каждый раз, когда Вы входите в Режим Камеры.</p>\n",
-            "to": "<p>• После нажатия кнопок «В» или «Е» может потребоваться некоторое время, перед тем как изменения яркости отразятся на экране. Сделанная Вами установка яркости остается до тех пор, пока Вы не измените ее, или не выйдете из Режима Камеры. Яркость автоматически устанавливается в исходное состояние по умолчанию каждый раз, когда Вы входите в Режим Камеры.</p>\n"
+            "from": "<p>установлен уровень ±0.</p>\n<p>• После нажатия кнопок «В» или «Е» может потребоваться некоторое время, перед тем как изменения яркости отразятся на экране. Сделанная Вами установка яркости остается до тех пор, пока Вы не измените ее, или не выйдите из Режима Камеры. Яркость автоматически устанавливается в исходное состояние по умолчанию каждый раз, когда Вы входите в Режим Камеры.</p>\n",
+            "to": "<p>• Вы можете установить яркость на один из 15 уровней, от −7 до +7. По умолчанию установлен уровень ±0.</p>\n<p>• После нажатия кнопок «В» или «Е» может потребоваться некоторое время, перед тем как изменения яркости отразятся на экране. Сделанная Вами установка яркости остается до тех пор, пока Вы не измените ее, или не выйдете из Режима Камеры. Яркость автоматически устанавливается в исходное состояние по умолчанию каждый раз, когда Вы входите в Режим Камеры.</p>\n"
           },
           {
             "startLine": 28,
             "endLine": 30,
             "from": "<p>• Установленный тип освещения действует до тех пор, пока Вы его не измените или не выйдите из Режима Камеры. Каждый раз, когда Вы входите в Режим Камеры, по умолчанию устанавливается дневное освещение (OUTDOOR).</p>\n<p>• Для изменения типа освещения с INDOOR на DUSK требуется немного больше времени, чем для перехода между другими типами.</p>\n",
             "to": "<p>• Установленный тип освещения действует до тех пор, пока Вы его не измените или не выйдете из Режима Камеры. Каждый раз, когда Вы входите в Режим Камеры, по умолчанию устанавливается дневное освещение (OUTDOOR).</p>\n<p>• В режиме DUSK частота обновления экрана ниже, поэтому изменения изображения отображаются медленнее.</p>\n"
+          },
+          {
+            "startLine": 36,
+            "endLine": 37,
+            "from": "<p>2. Используйте кнопки «Е» и «В» для изменения стартового времени следующим образом: «Е» «В»</p>\n",
+            "to": "<p>2. Кнопка «E» переключает время по кругу (2 → 5 → 10 → 2 секунды), кнопка «B» — в обратном порядке. Начальное значение — 2 секунды.</p>\n"
           }
         ],
         "notes": [
-          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged."
+          "Source-checked native-text review, 2026-11-06: corrected extraction artifacts and printed terminology, button or specification errors against the original module guides. Original PDF unchanged.",
+          "Restored the direction of each camera timer button from the original diagram and the two-second initial value from the English and Japanese module 2412 manuals."
         ]
       },
       "10": {
@@ -1494,25 +1595,122 @@
           },
           {
             "startLine": 15,
-            "endLine": 16,
-            "from": "<p>4. При следующем нажатии кнопки «С» на экране появится даты записи и пояснительный текст (если он существует).</p>\n",
-            "to": "<p>4. Нажмите кнопку «С» ещё раз, чтобы показать прикреплённый к снимку текст, если он есть.</p>\n"
+            "endLine": 17,
+            "from": "<p>4. При следующем нажатии кнопки «С» на экране появится даты записи и пояснительный текст (если он существует).</p>\n<p>• Каждое нажатие кнопки «С» изменяет вид экрана следующим образом:</p>\n",
+            "to": "<p>4. Нажмите кнопку «С» ещё раз, чтобы показать прикреплённый к снимку текст, если он есть.</p>\n<p>• Нажмите «C» ещё раз, чтобы перейти от снимка с текстом к миниатюрам. Следующее нажатие «C» увеличит выбранный снимок.</p>\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Иллюстрация\" viewBox=\"32.000 432.000 353.000 27.000\" width=\"627.56\" height=\"48.00\"><use href=\"assets/wqv10-ru-05.svg#page\"/></svg></figure>\n"
           },
           {
-            "startLine": 17,
-            "endLine": 17,
-            "from": "",
-            "to": "<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Иллюстрация\" viewBox=\"32.000 432.000 353.000 27.000\" width=\"627.56\" height=\"48.00\"><use href=\"assets/wqv10-ru-05.svg#page\"/></svg></figure>\n"
+            "startLine": 24,
+            "endLine": 25,
+            "from": "<p>2. Используйте кнопки «В» и «Е» для того чтобы выделить раздел CONTRAST</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<p>(контраст), затем нажмите на кнопку «F».</p>\n",
+            "to": "<p>2. Кнопками «B» или «E» выберите CONTRAST (контраст), затем нажмите «F».</p>\n"
+          },
+          {
+            "startLine": 33,
+            "endLine": 34,
+            "from": "<p>5. При нажатие кнопки «А» часы выйдут из меню регулировки и вернутся к экрану, описанному в п.1.</p>\n",
+            "to": "<p>5. При нажатии кнопки «А» часы выйдут из меню регулировки и вернутся к экрану, описанному в п.1.</p>\n"
           },
           {
             "startLine": 36,
-            "endLine": 37,
-            "from": "<h3 id=\"section-5-84\">Как прикрепись к изображению сопровождающий текст</h3>\n",
+            "endLine": 38,
+            "from": "<h3 id=\"section-5-84\">Как прикрепись к изображению сопровождающий текст</h3>\n<p>1. В Режиме Памяти Изображений при помощи кнопок «Е» и «В» подведите рамку к</p>\n",
             "to": "<h3 id=\"section-5-84\">Как прикрепить к изображению сопровождающий текст</h3>\n"
+          },
+          {
+            "startLine": 40,
+            "endLine": 41,
+            "from": "<p>изображению, к которому Вы хотите прикрепить текст.</p>\n",
+            "to": "<p>1. В режиме Памяти изображений кнопками «E» и «B» подведите рамку к снимку, к которому хотите прикрепить текст.</p>\n"
+          },
+          {
+            "startLine": 42,
+            "endLine": 43,
+            "from": "<p>3. Нажмите и удержите кнопку «А» в течение одной секунды до тех пор, кока не появится меню установки.</p>\n",
+            "to": "<p>3. Нажмите и удержите кнопку «А» в течение одной секунды до тех пор, пока не появится меню установки.</p>\n"
           }
         ],
         "notes": [
-          "The printed “4.” after step 1 is a description of the automatic thumbnail display. The original 2412 guide shows date and time at step 3 and attached text at step 4."
+          "The printed “4.” after step 1 is a description of the automatic thumbnail display. The original 2412 guide shows date and time at step 3 and attached text at step 4.",
+          "Restored the C-button display sequence and rejoined the instructions for choosing CONTRAST and selecting the image to name."
+        ]
+      },
+      "6": {
+        "reviewed": true,
+        "flowSHA256": "aaec243225305a79ef39440d2bd550f35425ea12f69b569495e5d8354d60135e",
+        "edits": [
+          {
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<p>5. Нажмите кнопку «F» для того чтобы подтвердить выбранное сообщение.</p>\n",
+            "to": "<p>5. Нажмите «F». На экране появится запрос на подтверждение удаления.</p>\n"
+          },
+          {
+            "startLine": 29,
+            "endLine": 30,
+            "from": "<p>7. Нажмите кнопку «F» еще раз, для того чтобы подтвердить появившееся на экране сообщение.</p>\n",
+            "to": "<p>7. Нажмите «F» ещё раз. На экране появится запрос на подтверждение удаления.</p>\n"
+          },
+          {
+            "startLine": 40,
+            "endLine": 41,
+            "from": "<p>1. В режиме Памяти изображение нажмите и удержите кнопку «А» примерно 1 секунду</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 42,
+            "endLine": 43,
+            "from": "<p>до появления меню установки.</p>\n",
+            "to": "<p>1. В режиме Памяти изображений удерживайте «A» около секунды, пока не появится меню установки.</p>\n"
+          },
+          {
+            "startLine": 44,
+            "endLine": 45,
+            "from": "<p>3. Для того чтобы подтвердить появившееся сообщение, нажмите на кнопку «F».</p>\n",
+            "to": "<p>3. Нажмите «F». На экране появится запрос на подтверждение форматирования.</p>\n"
+          }
+        ],
+        "notes": [
+          "Recovered complete deletion and formatting steps. F opens the prompt before YES or NO is selected and confirmed."
+        ]
+      },
+      "7": {
+        "reviewed": true,
+        "flowSHA256": "8bbcfb050076bdee1f9cc23f0ff29fc2041ddc4dc4ca4c00f19577fe69f00a8d",
+        "edits": [
+          {
+            "startLine": 2,
+            "endLine": 3,
+            "from": "<p>Этот режим можно использовать для обмена данными между двумя часами или между часами и компьютером или другим аналогичным устройством. Вы можете осуществлять обмен данными только с часами серии WQV-3 (модуль 2411). С часами серии WQV- 1/WQV-2 (модуль 2220) Ваши часы не совместимы.</p>\n",
+            "to": "<p>Этот режим позволяет обмениваться данными между двумя часами, а также между часами и компьютером или другим устройством. WQV-10 может обмениваться снимками с часами серии WQV-3 (модуль 2411). Часы WQV-1 и WQV-2 (модуль 2220) используют другой протокол.</p>\n"
+          },
+          {
+            "startLine": 23,
+            "endLine": 24,
+            "from": "<p>• В это время принимающие часы входят в «Ждущий режим». В следующем разделе о</p>\n",
+            "to": ""
+          },
+          {
+            "startLine": 25,
+            "endLine": 26,
+            "from": "<p>нем рассказано более подробно.</p>\n",
+            "to": "<p>• Переведите принимающие часы в режим ожидания, как описано в следующем разделе.</p>\n"
+          },
+          {
+            "startLine": 40,
+            "endLine": 41,
+            "from": "<p>• Следуя за принятым изображением, на экране появится сообщение ОК. Далее, часы вернутся в меню приема.</p>\n",
+            "to": "<p>• На экране на короткое время появится OK, затем принятый снимок. После этого часы вернутся в меню приёма. Чтобы снова включить ожидание снимка, нажмите «F».</p>\n"
+          }
+        ],
+        "notes": [
+          "Clarified the original model compatibility statement and corrected the order of the IR receive result against the module 2412 references."
         ]
       }
     },
