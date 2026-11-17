@@ -133,7 +133,7 @@
         ]
       },
       "8": {
-        "flowSHA256": "f0af7c4a9b02e6a5f489266d648a927df169ee93756ee6cc383404aea60bc64d",
+        "flowSHA256": "8eeecf37ac88d4265bb94afb5869d56ca326a0e1b740646db54e0b4f9ec364e8",
         "edits": [
           {
             "startLine": 1,
@@ -151,44 +151,65 @@
             "startLine": 12,
             "endLine": 13,
             "from": "<p>通言モード</p>\n",
-            "to": "<p>通信モード</p>\n"
+            "to": "<p>通信モード</p>\n<p>モードマーク</p>\n<p>P-35</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 19,
-            "from": "<p>B ボタン：パソコン選択</p>\n<p>O ボタン：時刻モードへE ボタン：時計選択</p>\n<p>F ボタン：選択項目の決定</p>\n",
+            "startLine": 14,
+            "endLine": 18,
+            "from": "<p>P-35</p>\n<p>B ボタン：パソコン選択</p>\n<p>O ボタン：時刻モードへE ボタン：時計選択</p>\n<p>F ボタン：選択項目の決定</p>\n",
             "to": "<p>Bボタン：パソコン選択</p>\n<p>Dボタン：時刻モードへ　Eボタン：時計選択</p>\n<p>Fボタン：選択項目の決定</p>\n"
           },
           {
-            "startLine": 22,
-            "endLine": 25,
+            "startLine": 21,
+            "endLine": 24,
             "from": "<p>B ボタン：スプリット／リセットD ボタン：通信モードへ</p>\n<p>E ボタン：スタート／ストップ</p>\n<p>F ボタン：約0.1秒間押すと撮影モードへ</p>\n",
             "to": "<p>Bボタン：スプリット／リセットDボタン：通信モードへ</p>\n<p>Eボタン：スタート／ストップ</p>\n<p>Fボタン：約0.1秒間押すと撮影モードへ</p>\n"
           },
           {
-            "startLine": 28,
-            "endLine": 29,
-            "from": "<p>P-1S</p>\n",
-            "to": "<p>P-15</p>\n"
+            "startLine": 27,
+            "endLine": 27,
+            "from": "",
+            "to": "<p>P-15</p>\n<p>モードマーク</p>\n"
           },
           {
-            "startLine": 31,
-            "endLine": 34,
-            "from": "<p>A ボタン：約1秒間押し続けるとセットメニューB ボタン：画像選択（戻し）</p>\n<p>© ボタン：撮影日時やメモ表示切り替え</p>\n<p>D ボタン：アラームモードへE ボタン：画像選択（送り）F ボタン：約0.1秒間押すと撮影モードへ</p>\n",
+            "startLine": 28,
+            "endLine": 32,
+            "from": "<p>P-1S</p>\n<p>A ボタン：約1秒間押し続けるとセットメニューB ボタン：画像選択（戻し）</p>\n<p>© ボタン：撮影日時やメモ表示切り替え</p>\n<p>D ボタン：アラームモードへE ボタン：画像選択（送り）F ボタン：約0.1秒間押すと撮影モードへ</p>\n",
             "to": "<p>Aボタン：約1秒間押し続けるとセットメニューBボタン：画像選択（戻し）</p>\n<p>Cボタン：撮影日時やメモ表示切り替え</p>\n<p>Dボタン：アラームモードへEボタン：画像選択（送り）Fボタン：約0.1秒間押すと撮影モードへ</p>\n"
           },
           {
-            "startLine": 38,
-            "endLine": 40,
+            "startLine": 34,
+            "endLine": 34,
+            "from": "",
+            "to": "<p>モードマーク</p>\n"
+          },
+          {
+            "startLine": 35,
+            "endLine": 37,
             "from": "<p>Aボタン：約1秒間押し続けるとアラーム時刻セット®ボタン：アラーム・時報選択（戻し）</p>\n<p>©ボタン：オン／オフ</p>\n",
             "to": "<p>Aボタン：約1秒間押し続けるとアラーム時刻セット　Bボタン：アラーム・時報選択（戻し）</p>\n<p>Cボタン：オン／オフ</p>\n"
           },
           {
-            "startLine": 41,
-            "endLine": 43,
+            "startLine": 38,
+            "endLine": 40,
             "from": "<p>®ボタン：約0.1秒間押すと撮影モードへ</p>\n<p>※モードマークは「AL1」～「AL2」、「SIG」があります。</p>\n",
             "to": "<p>Fボタン：約0.1秒間押すと撮影モードへ</p>\n<p>※モードマークは「AL1」～「AL5」、「SIG」があります。</p>\n"
+          },
+          {
+            "startLine": 41,
+            "endLine": 41,
+            "from": "",
+            "to": "<p>P-32</p>\n<p>モードマーク</p>\n"
+          },
+          {
+            "startLine": 42,
+            "endLine": 43,
+            "from": "<p>P-32</p>\n",
+            "to": ""
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "9": {
@@ -441,7 +462,7 @@
         ]
       },
       "13": {
-        "flowSHA256": "a243222df611c3aa6d447f77d0c2f7c4f89f3f513df71f0b4b0c661311c8a022",
+        "flowSHA256": "a742ac62a97268e140fbab6023306ec3721c078b914481072373b8ccc36b38e0",
         "edits": [
           {
             "startLine": 2,
@@ -463,43 +484,50 @@
           },
           {
             "startLine": 18,
-            "endLine": 19,
-            "from": "<p>F ボタンを押します。</p>\n",
-            "to": "<p>Fボタンを押します。</p>\n"
+            "endLine": 18,
+            "from": "",
+            "to": "<p>Fボタンを押します。</p>\n<p>文字カーソル</p>\n"
           },
           {
-            "startLine": 21,
-            "endLine": 23,
-            "from": "<p>⇒表示窓下部に撮影日時が表示され、上部の1桁目</p>\n<p>で文字カーソルが点滅します。</p>\n",
+            "startLine": 19,
+            "endLine": 22,
+            "from": "<p>F ボタンを押します。</p>\n<p>⇒表示窓下部に撮影日時が表示され、上部の1桁目</p>\n<p>で文字カーソルが点滅します。</p>\n",
             "to": "<p>⇒表示窓下部に撮影日時が表示され、上部の1桁目で文字カーソルが点滅します。</p>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 32,
+            "startLine": 23,
+            "endLine": 24,
+            "from": "<h2 id=\"section-13-28\">5. 文字を入力する</h2>\n",
+            "to": "<p>2000.</p>\n<p>6.30</p>\n<p>PM 10:05</p>\n<h2 id=\"section-13-32\">5. 文字を入力する</h2>\n"
+          },
+          {
+            "startLine": 25,
+            "endLine": 28,
             "from": "<p>Eボタンまたはボタンを押します。m ボタンを押すごとに以下の順に1つずつ進み、</p>\n<p>® ボタンを押すごとに戻ります。</p>\n<p>⑧</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに以下の順に1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 34,
-            "endLine": 35,
-            "from": "<h2 id=\"section-13-40\">6. 入力箇所を進める</h2>\n",
+            "startLine": 30,
+            "endLine": 31,
+            "from": "<h2 id=\"section-13-36\">6. 入力箇所を進める</h2>\n",
             "to": "<p>文字の順（Eボタンで進み、Bボタンで戻る）：空白 → A～Z → 0～9 → &amp; → &#x27; → ( → ) → , → - → . → / → : → ? → _ → ~ → ・ → 空白。</p>\n<h2 id=\"section-13-51\">6. 入力箇所を進める</h2>\n"
           },
           {
-            "startLine": 36,
-            "endLine": 37,
+            "startLine": 32,
+            "endLine": 33,
             "from": "<p>◎ ボタンを押します。</p>\n",
             "to": "<p>Dボタンを押します。</p>\n"
           },
           {
-            "startLine": 38,
-            "endLine": 39,
+            "startLine": 34,
+            "endLine": 35,
             "from": "<p>※© ボタンを押すと前の桁に戻ります。</p>",
             "to": "<p>※Cボタンを押すと前の桁に戻ります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "14": {
@@ -565,7 +593,7 @@
         ]
       },
       "15": {
-        "flowSHA256": "11e76bf469fdc9affa383fb780bc63e2935d48e9014b86686cbbb6a7923ad70a",
+        "flowSHA256": "255c951542fcd25e18f15583ea501388ec622aeddaed45ef991c416101734806",
         "edits": [
           {
             "startLine": 2,
@@ -577,41 +605,48 @@
             "startLine": 8,
             "endLine": 9,
             "from": "<h2 id=\"section-15-10\">ボタンまたは⑧ボタンを押します。</h2>\n",
-            "to": "<h2 id=\"section-15-10\">EボタンまたはBボタンを押します。</h2>\n"
+            "to": "<h2 id=\"section-15-10\">EボタンまたはBボタンを押します。</h2>\n<p>暗くなる</p>\n"
           },
           {
-            "startLine": 11,
-            "endLine": 13,
+            "startLine": 10,
+            "endLine": 12,
             "from": "<p>mEボタンを押すごとに明るくなり、ボタンを押</p>\n<p>すごとに暗くなります。</p>\n",
             "to": "<p>→Eボタンを押すごとに明るくなり、Bボタンを押すごとに暗くなります。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 18,
+            "startLine": 14,
+            "endLine": 16,
             "from": "<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替え</p>\n<p>てから撮影モードに戻したときは、自動調整に戻ります。</p>\n",
-            "to": "<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
+            "to": "<p>明るくなる</p>\n<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
           },
           {
-            "startLine": 24,
-            "endLine": 25,
-            "from": "<h2 id=\"section-15-31\">通モード以外のときにボタンを約0.1秒間押します。</h2>\n",
-            "to": "<h2 id=\"section-15-31\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n"
+            "startLine": 17,
+            "endLine": 18,
+            "from": "<h2 id=\"section-15-22\">■撮影パターン切り替え</h2>\n",
+            "to": "<h2 id=\"section-15-24\">■撮影パターン切り替え</h2>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 29,
-            "from": "",
-            "to": "<h2 id=\"section-15-36\">Cボタンを押します。</h2>\n<p>左半分に写る</p>\n"
+            "startLine": 21,
+            "endLine": 23,
+            "from": "<h2 id=\"section-15-28\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-29\">通モード以外のときにボタンを約0.1秒間押します。</h2>\n",
+            "to": "<h2 id=\"section-15-30\">1. 撮影モードに切り替える</h2>\n<h2 id=\"section-15-31\">通信モード以外のときにFボタンを約0.1秒間押します。</h2>\n"
           },
           {
-            "startLine": 30,
-            "endLine": 35,
-            "from": "<h2 id=\"section-15-37\">©ボタンを押します。</h2>\n<p>→◎ボタンを押すごとに、以下の順に撮影パターン</p>\n<p>が切り替わります。</p>\n<p>※ツーショット撮影に切り替わると、最初の画像</p>\n<p>は左半分用となります。</p>\n",
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<h2 id=\"section-15-33\">2. 撮影パターンを切り替える</h2>\n",
+            "to": "<h2 id=\"section-15-35\">2. 撮影パターンを切り替える</h2>\n<h2 id=\"section-15-36\">Cボタンを押します。</h2>\n<p>左半分に写る</p>\n"
+          },
+          {
+            "startLine": 28,
+            "endLine": 33,
+            "from": "<h2 id=\"section-15-35\">©ボタンを押します。</h2>\n<p>→◎ボタンを押すごとに、以下の順に撮影パターン</p>\n<p>が切り替わります。</p>\n<p>※ツーショット撮影に切り替わると、最初の画像</p>\n<p>は左半分用となります。</p>\n",
             "to": "<p>→Cボタンを押すごとに、以下の順に撮影パターンが切り替わります。</p>\n<p>※ツーショット撮影に切り替わると、最初の画像は左半分用となります。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "16": {
@@ -833,7 +868,7 @@
         ]
       },
       "19": {
-        "flowSHA256": "247c60c764c40eaed2173af0812750200d007ba3b7acf6231d2298f3430b384c",
+        "flowSHA256": "5bb30a07c928ad852d9c22c0b6ec96343a3fbce4bf8d3e5ae7e0dffb98c38408",
         "edits": [
           {
             "startLine": 2,
@@ -845,38 +880,53 @@
             "startLine": 7,
             "endLine": 8,
             "from": "<p>● ボタンを押すごとにスタート／ストップします。</p>\n",
-            "to": "<p>●Eボタンを押すごとにスタート／ストップします。</p>\n"
+            "to": "<p>●Eボタンを押すごとにスタート／ストップします。</p>\n<p>リセット</p>\n"
           },
           {
-            "startLine": 11,
-            "endLine": 15,
+            "startLine": 10,
+            "endLine": 14,
             "from": "<p>※ロスタイムがあるときは、計測中にボタンを押し</p>\n<p>てストップ後、もう一度ボタンを押します。</p>\n<p>●計測がストップしているときに ⑧ボタンを押すと、</p>\n<p>計測前の時間に戻ります。（リセット）</p>\n",
-            "to": "<p>※ロスタイムがあるときは、計測中にEボタンを押してストップ後、もう一度Eボタンを押します。</p>\n<p>●計測がストップしているときに Bボタンを押すと、計測前の時間に戻ります。（リセット）</p>\n"
+            "to": "<p>※ロスタイムがあるときは、計測中にEボタンを押してストップ後、もう一度Eボタンを押します。</p>\n<p>●計測がストップしているときに Bボタンを押すと、計測前の時間に戻ります。（リセット）</p>\n<p>分秒</p>\n<p>スタート／ストップ</p>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 19,
-            "from": "<h2 id=\"section-19-23\">また、”&quot;TMR&quot;の点滅表示を止めるときもいずれかのボタンを押します。</h2>\n",
+            "startLine": 15,
+            "endLine": 16,
+            "from": "<h2 id=\"section-19-19\">また、”&quot;TMR&quot;の点滅表示を止めるときもいずれかのボタンを押します。</h2>\n",
             "to": "<h2 id=\"section-19-23\">また、&quot;TMR&quot;の点滅表示を止めるときもいずれかのボタンを押します。</h2>\n"
           },
           {
-            "startLine": 23,
-            "endLine": 25,
-            "from": "<h2 id=\"section-19-29\">®ボタンを約1秒間押し続けます。</h2>\n<p>身分が点滅します。</p>\n",
-            "to": "<h2 id=\"section-19-29\">Aボタンを約1秒間押し続けます。</h2>\n<p>→分が点滅します。</p>\n"
+            "startLine": 17,
+            "endLine": 19,
+            "from": "<h2 id=\"section-19-22\">■タイマー時間のセット</h2>\n<h2 id=\"section-19-23\">1. セット状態にする</h2>\n",
+            "to": "<h2 id=\"section-19-26\">■タイマー時間のセット</h2>\n<h2 id=\"section-19-27\">1. セット状態にする</h2>\n"
           },
           {
-            "startLine": 27,
-            "endLine": 29,
+            "startLine": 20,
+            "endLine": 23,
+            "from": "<h2 id=\"section-19-25\">®ボタンを約1秒間押し続けます。</h2>\n<p>身分が点滅します。</p>\n<h2 id=\"section-19-27\">2.分をセットする</h2>\n",
+            "to": "<h2 id=\"section-19-29\">Aボタンを約1秒間押し続けます。</h2>\n<p>→分が点滅します。</p>\n<h2 id=\"section-19-31\">2.分をセットする</h2>\n"
+          },
+          {
+            "startLine": 24,
+            "endLine": 26,
             "from": "<p>E ボタンまたはボタンを押します。ma⑤ボタンを押すごとに1つずつ進み、ボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 33,
+            "startLine": 27,
+            "endLine": 28,
+            "from": "<h2 id=\"section-19-33\">3.セットを終わる</h2>\n",
+            "to": "<h2 id=\"section-19-37\">3.セットを終わる</h2>\n"
+          },
+          {
+            "startLine": 29,
+            "endLine": 30,
             "from": "<p>Aボタンを押します。1身点滅が止まります。</p>\n",
             "to": "<p>Aボタンを押します。→点滅が止まります。</p>\n"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "20": {
@@ -919,7 +969,7 @@
         ]
       },
       "21": {
-        "flowSHA256": "2ead22ebd75087799faff5589d570eaaed4facdeb9dd406c5ac1dda903425716",
+        "flowSHA256": "3167e91cc46b15cc80a03328465b394e3f5c88c25017878c22b9866377c6f5a1",
         "edits": [
           {
             "startLine": 2,
@@ -940,26 +990,27 @@
             "to": "<h2 id=\"section-21-18\">3. 送信または受信を選ぶ</h2>\n<p>Bボタンを押して「SEND」（送信）、またはEボタンを押して「RECEIVE」（受信）を選び、Fボタンを押します。→送信のときは画像選択に、受信のときは受信待機状態になります。</p>\n<p>※最初は「SEND」になりますので、Eボタンを押した後のみBボタンを押します。</p>\n<p>※通信を途中でやめるときはAボタンを押します。</p>\n<p>また、Dボタンを押すと直接時刻モードに戻ります。</p>\n<p>＜送信の場合＞画像選択になります。</p>\n<p>＜受信の場合＞受信待機状態になります。</p>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 31,
-            "from": "<h2 id=\"section-21-35\">4. 送待する画像を選ぶ</h2>\n<p>～送居の場合のみ～</p>\n",
-            "to": "<h2 id=\"section-21-35\">4. 送信する画像を選ぶ</h2>\n<p>～送信の場合のみ～</p>\n"
+            "startLine": 28,
+            "endLine": 30,
+            "from": "<h2 id=\"section-21-34\">4. 送待する画像を選ぶ</h2>\n<p>～送居の場合のみ～</p>\n",
+            "to": "<p>SEND</p>\n<h2 id=\"section-21-35\">4. 送信する画像を選ぶ</h2>\n<p>～送信の場合のみ～</p>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 35,
+            "startLine": 31,
+            "endLine": 34,
             "from": "<p>送信のときはボタンまたは Bボタンを</p>\n<p>押して、画像を選びます。1→ ボタンを押すごとに1つずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<p>送信のときはEボタンまたはBボタンを押して、画像を選びます。→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 36,
-            "endLine": 37,
+            "startLine": 35,
+            "endLine": 36,
             "from": "<p>※時計同士の送信は1枚ずつとなります。</p>",
             "to": "<p>※時計同士の送信は1枚ずつとなります。</p>\n<p class=\"source-note\">時計同士の通信ではOTHERSを選びます。原本のPCを含む記載を、英語版の手順に合わせて明確にしました。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "22": {
@@ -1398,7 +1449,7 @@
         ]
       },
       "5": {
-        "flowSHA256": "d5684142ddec0427b30f4f5b7c844702f6c4e5e7aea62677139356202c3f9837",
+        "flowSHA256": "e28b99b1a9cb466313c8b851be0469b0eecfe2d5ae4f81930a9ba5f62e62286a",
         "edits": [
           {
             "startLine": 0,
@@ -1411,10 +1462,17 @@
             "endLine": 19,
             "from": "<p>表示を点灯させるには、ボタンを押します。</p>\n<p>ウェイクアップ画面を約2秒間表示後、時刻とカレンダー</p>\n<p>を表示します。</p>\n",
             "to": "<p>表示を点灯させるには、Fボタンを押します。</p>\n<p>ウェイクアップ画面を約2秒間表示後、時刻とカレンダーを表示します。</p>\n"
+          },
+          {
+            "startLine": 20,
+            "endLine": 21,
+            "from": "<p>※設定のしかたは44ページをご覧ください。なお、撮影画像がないときや、設定した画像が消去されているときには、&quot;CASIO&quot;の文字が表示されます。</p>",
+            "to": "<p>※設定のしかたは44ページをご覧ください。なお、撮影画像がないときや、設定した画像が消去されているときには、&quot;CASIO&quot;の文字が表示されます。</p>\n\n<p>本書では、表示例を見やすくするために、ドット表示を使用しておりませんので、表示の大きさや表示位置が多少異なることがあります。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Restored the note about the appearance of display examples as selectable text."
         ]
       },
       "6": {
@@ -1805,7 +1863,7 @@
         ]
       },
       "13": {
-        "flowSHA256": "e1cf8c646558f14294c16438b409c1743db439991f831a5bc370f7beb59b4fb6",
+        "flowSHA256": "ebb23cc5f98118a8ac481694cc24df3973c5588d428e707fb1bb946d79c362a0",
         "edits": [
           {
             "startLine": 3,
@@ -1814,60 +1872,67 @@
             "to": "<p>Aボタンを約1秒間押し続けます。</p>\n<p>※「NAME」はメモ入力へ、「DEL」は削除へ進みます。</p>\n"
           },
           {
-            "startLine": 9,
-            "endLine": 14,
-            "from": "<p>E ボタンまたは ボタンを押してカーソルを「NAME」に合わせてから、F ボタン</p>\n<p>B</p>\n<p>を押します。</p>\n<p>⇒ 表示窓下部に撮影日時が表示され、上部の1桁目</p>\n<p>で文字カーソルが点滅します。</p>\n",
+            "startLine": 7,
+            "endLine": 7,
+            "from": "",
+            "to": "<p>文字カーソル</p>\n"
+          },
+          {
+            "startLine": 8,
+            "endLine": 12,
+            "from": "<p>E ボタンまたは ボタンを押してカーソルを「NAME」に合わせてから、F ボタン</p>\n<p>を押します。</p>\n<p>⇒ 表示窓下部に撮影日時が表示され、上部の1桁目</p>\n<p>で文字カーソルが点滅します。</p>\n",
             "to": "<p>EボタンまたはBボタンを押してカーソルを「NAME」に合わせてから、Fボタンを押します。</p>\n<p>⇒ 表示窓下部に撮影日時が表示され、上部の1桁目で文字カーソルが点滅します。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 17,
+            "startLine": 13,
+            "endLine": 14,
             "from": "<p>文字を入力する</p>\n",
-            "to": "\n<p>6. 文字を入力する</p>\n"
+            "to": "<p>01. 6-30 P 10:58</p>\n\n<p>6. 文字を入力する</p>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 20,
+            "startLine": 15,
+            "endLine": 17,
             "from": "<p>ボタンまたは⑥ボタンを押します。me ボタンを押すごとに以下の順に1つずつ進み、</p>\n<p>ボタンを押すごとに戻ります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに以下の順に1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 21,
-            "endLine": 21,
+            "startLine": 18,
+            "endLine": 18,
             "from": "",
             "to": "<p>文字の順（Eボタンで進み、Bボタンで戻る）：空白 → A～Z → 0～9 → &amp; → &#x27; → ( → ) → , → - → . → / → : → ? → _ → ~ → ・ → 空白。</p>\n"
           },
           {
-            "startLine": 22,
-            "endLine": 23,
-            "from": "<h2 id=\"section-13-26\">7. 入力箇所を進める</h2>\n",
+            "startLine": 19,
+            "endLine": 20,
+            "from": "<h2 id=\"section-13-23\">7. 入力箇所を進める</h2>\n",
             "to": "\n<h2 id=\"section-13-39\">7. 入力箇所を進める</h2>\n"
           },
           {
-            "startLine": 24,
-            "endLine": 28,
-            "from": "<p>◎ ボタンを押します。me→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※© ボタンを押すと前の桁に戻ります。</p>\n<p>◎または©ボタンを押して点滅箇所を移動させ、Eまたはボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n<h2 id=\"section-13-33\">8. セットを終わる</h2>\n",
+            "startLine": 21,
+            "endLine": 25,
+            "from": "<p>◎ ボタンを押します。me→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※© ボタンを押すと前の桁に戻ります。</p>\n<p>◎または©ボタンを押して点滅箇所を移動させ、Eまたはボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n<h2 id=\"section-13-30\">8. セットを終わる</h2>\n",
             "to": "<p>Dボタンを押します。→点滅箇所（入力箇所）が次の桁に進みます。</p>\n<p>※Cボタンを押すと前の桁に戻ります。</p>\n<p>DボタンまたはCボタンを押して点滅箇所を移動させ、EボタンまたはBボタンを押して入力する操作を繰り返して名前や電話番号等を入力します。</p>\n<h2 id=\"section-13-46\">8. セットを終わる</h2>\n"
           },
           {
-            "startLine": 29,
-            "endLine": 30,
-            "from": "<h2 id=\"section-13-35\">④ボタンを押します。</h2>\n",
+            "startLine": 26,
+            "endLine": 27,
+            "from": "<h2 id=\"section-13-32\">④ボタンを押します。</h2>\n",
             "to": "<h2 id=\"section-13-48\">Aボタンを押します。</h2>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 34,
-            "from": "<h2 id=\"section-13-38\">メモ表示切り替え</h2>\n<p>© ボタンを押すごとに画像のみ表示と画像＋メモ表示が切り替わります。</p>",
+            "startLine": 29,
+            "endLine": 31,
+            "from": "<h2 id=\"section-13-35\">メモ表示切り替え</h2>\n<p>© ボタンを押すごとに画像のみ表示と画像＋メモ表示が切り替わります。</p>",
             "to": "<h2 id=\"section-13-51\">メモ表示切り替え</h2>\n<p>Cボタンを押すごとに画像のみ表示と画像＋メモ表示が切り替わります。</p>"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "14": {
-        "flowSHA256": "5a88c12a18ebecf4846485f81be20cc891f590ff8cbc6c1aea6aeb45157cd21c",
+        "flowSHA256": "976c28ac4f65407affe42ff434f87a5df6d049d005cb3054c5c8cc58bf05905b",
         "edits": [
           {
             "startLine": 2,
@@ -1903,29 +1968,24 @@
             "startLine": 28,
             "endLine": 29,
             "from": "<h2 id=\"section-14-38\">2.明るさを切り替える</h2>\n",
-            "to": "<h2 id=\"section-14-45\">2.明るさを切り替える</h2>\n"
+            "to": "<h2 id=\"section-14-45\">2.明るさを切り替える</h2>\n<p>EボタンまたはBボタンを押します。</p>\n<p>暗くなる</p>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 35,
-            "from": "<p>meボタンを押すごとに明るくなり、ボタンを押</p>\n<p>B</p>\n<p>すごとに暗くなります。</p>\n",
+            "startLine": 30,
+            "endLine": 33,
+            "from": "<p>EボタンまたはBボタンを押します。</p>\n<p>meボタンを押すごとに明るくなり、ボタンを押</p>\n<p>すごとに暗くなります。</p>\n",
             "to": "<p>→Eボタンを押すごとに明るくなり、Bボタンを押すごとに暗くなります。</p>\n"
           },
           {
-            "startLine": 36,
+            "startLine": 34,
             "endLine": 38,
-            "from": "<p>※ボタンを押してから明るさが切り替わるまで、</p>\n<p>少し時間がかかります。</p>\n",
-            "to": "<p>※ボタンを押してから明るさが切り替わるまで、少し時間がかかります。</p>\n"
-          },
-          {
-            "startLine": 40,
-            "endLine": 42,
-            "from": "<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替え</p>\n<p>てから撮影モードに戻したときは、自動調整に戻ります。</p>\n",
-            "to": "<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
+            "from": "<p>※ボタンを押してから明るさが切り替わるまで、</p>\n<p>少し時間がかかります。</p>\n<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替え</p>\n<p>てから撮影モードに戻したときは、自動調整に戻ります。</p>\n",
+            "to": "<p>※ボタンを押してから明るさが切り替わるまで、少し時間がかかります。</p>\n<p>明るくなる</p>\n<p>インジケーター</p>\n<p>●一度切り替えた設定は、その撮影モードでのみ有効です。他のモードに切り替えてから撮影モードに戻したときは、自動調整に戻ります。</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "15": {
@@ -2132,7 +2192,7 @@
         ]
       },
       "19": {
-        "flowSHA256": "9f828ab63178e4286d59ec58f056fe502f8b3c7ae6ec30c6b71212573492fac8",
+        "flowSHA256": "a0ca6fb330cc93fe40c3adcec7b519249d078ad9065571413b0a2dbf395372cd",
         "edits": [
           {
             "startLine": 2,
@@ -2144,62 +2204,59 @@
             "startLine": 4,
             "endLine": 5,
             "from": "<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、◎ ボタンを押します。</p>\n",
-            "to": "<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、Dボタンを押します。</p>\n"
+            "to": "<p>カレンダーモードに切り替えると、当日が点滅表示されます。なお、時刻モードの表示に戻すには、Dボタンを押します。</p>\n<p>日曜日（反転表示）</p>\n<p>年・月</p>\n"
           },
           {
-            "startLine": 11,
-            "endLine": 13,
-            "from": "<p>カレンダーモードで®ボタンを押すごとに1カ月ずつ進み、ボタンを押すごとに1カ月ずつ戻ります。</p>\n<p>※E・®ボタンとも、押し続けると早送りができます。</p>\n",
-            "to": "<p>カレンダーモードでEボタンを押すごとに1カ月ずつ進み、Bボタンを押すごとに1カ月ずつ戻ります。</p>\n<p>※E・Bボタンとも、押し続けると早送りができます。</p>\n"
+            "startLine": 7,
+            "endLine": 10,
+            "from": "<h2 id=\"section-19-10\">●月のサーチ</h2>\n<p>カレンダーモードで®ボタンを押すごとに1カ月ずつ進み、ボタンを押すごとに1カ月ずつ戻ります。</p>\n<p>※E・®ボタンとも、押し続けると早送りができます。</p>\n",
+            "to": "<p>当日（点滅）</p>\n<h2 id=\"section-19-13\">●月のサーチ</h2>\n<p>カレンダーモードでEボタンを押すごとに1カ月ずつ進み、Bボタンを押すごとに1カ月ずつ戻ります。</p>\n<p>※E・Bボタンとも、押し続けると早送りができます。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 17,
-            "from": "<h2 id=\"section-19-21\">本日設定のしかた</h2>\n",
+            "startLine": 13,
+            "endLine": 14,
+            "from": "<h2 id=\"section-19-18\">本日設定のしかた</h2>\n",
             "to": "<h2 id=\"section-19-21\">休日設定のしかた</h2>\n"
           },
           {
-            "startLine": 18,
-            "endLine": 22,
-            "from": "<p>※パソコン上での設定のしかたは、付属のCD-ROMに納められている説明書をご覧</p>\n<p>ください。</p>\n<h2 id=\"section-19-26\">1。休日設定状態に切り替える</h2>\n<p>カレンダーモードでAボタンを約1秒間押</p>\n",
+            "startLine": 15,
+            "endLine": 19,
+            "from": "<p>※パソコン上での設定のしかたは、付属のCD-ROMに納められている説明書をご覧</p>\n<p>ください。</p>\n<h2 id=\"section-19-23\">1。休日設定状態に切り替える</h2>\n<p>カレンダーモードでAボタンを約1秒間押</p>\n",
             "to": "<p>※パソコン上での設定のしかたは、付属のCD-ROMに納められている説明書をご覧ください。</p>\n<h2 id=\"section-19-26\">1. 休日設定状態に切り替える</h2>\n<p>カレンダーモードでAボタンを約1秒間押し続けます。</p>\n"
           },
           {
-            "startLine": 23,
-            "endLine": 25,
-            "from": "<p>しけます。</p>\n<p>11日が早く点滅します。</p>\n",
-            "to": "<p>→1日が早く点滅します。</p>\n"
+            "startLine": 20,
+            "endLine": 24,
+            "from": "<p>しけます。</p>\n<p>11日が早く点滅します。</p>\n<h2 id=\"section-19-28\">2． 設定したい日を点滅させる</h2>\n<h2 id=\"section-19-29\">2.</h2>\n",
+            "to": "<p>→1日が早く点滅します。</p>\n<h2 id=\"section-19-31\">2． 設定したい日を点滅させる</h2>\n"
           },
           {
-            "startLine": 26,
-            "endLine": 27,
-            "from": "<h2 id=\"section-19-32\">2.</h2>\n",
-            "to": ""
-          },
-          {
-            "startLine": 28,
-            "endLine": 31,
-            "from": "<h2 id=\"section-19-34\">E ボタンまたは Bボタンを押します。</h2>\n<p>mAボタンを押すごとに1日ずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
+            "startLine": 25,
+            "endLine": 28,
+            "from": "<h2 id=\"section-19-31\">E ボタンまたは Bボタンを押します。</h2>\n<p>mAボタンを押すごとに1日ずつ進み、Bボタンを</p>\n<p>押すごとに戻ります。</p>\n",
             "to": "<h2 id=\"section-19-34\">Eボタンまたは Bボタンを押します。</h2>\n<p>→Eボタンを押すごとに1日ずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 33,
-            "from": "<p>※・⑧ボタンとも、押し続けると早送りができます。</p>\n",
-            "to": "<p>※E・Bボタンとも、押し続けると早送りができます。</p>\n"
+            "startLine": 29,
+            "endLine": 31,
+            "from": "<p>※・⑧ボタンとも、押し続けると早送りができます。</p>\n<h2 id=\"section-19-37\">3. 休日を設定する</h2>\n",
+            "to": "<p>※E・Bボタンとも、押し続けると早送りができます。</p>\n<h2 id=\"section-19-40\">3. 休日を設定する</h2>\n"
           },
           {
-            "startLine": 35,
-            "endLine": 37,
+            "startLine": 32,
+            "endLine": 34,
             "from": "<p>F ボタンを押します。</p>\n<p>すごとに休日設定をオン／オフできます。</p>\n",
             "to": "<p>Fボタンを押します。</p>\n<p>→押すごとに休日設定をオン／オフできます。</p>\n"
           },
           {
-            "startLine": 38,
-            "endLine": 40,
+            "startLine": 35,
+            "endLine": 37,
             "from": "<p>※・ボタンとも、押し続けると早送りができ</p>\n<p>ます。</p>",
             "to": "<p>※E・Bボタンとも、押し続けると早送りができます。</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "20": {
@@ -2627,7 +2684,7 @@
         ]
       },
       "30": {
-        "flowSHA256": "0ff05aaed7f712aeb761e4b791fcce6df9ae9cbd16e1ecd03e6edad60183aab6",
+        "flowSHA256": "1654012e44beba17193bdd3467ebccf328fd2df6360ce05b249650696f011924",
         "edits": [
           {
             "startLine": 2,
@@ -2679,7 +2736,8 @@
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "31": {
@@ -3079,7 +3137,7 @@
         ]
       },
       "11": {
-        "flowSHA256": "2d6027288b16fddffd9883160cd66606be66e7918114c982135b26c38707a804",
+        "flowSHA256": "8375d8598e0d096b5d6b169315f4bbe4d4f0db1839bba3fa66d2b51bb9729315",
         "edits": [
           {
             "startLine": 0,
@@ -3091,44 +3149,53 @@
             "startLine": 4,
             "endLine": 5,
             "from": "<p>© ボタンを押します。鳥押すごとに以下の順に表示が切り替わります。</p>\n",
-            "to": "<p>Cボタンを押します。→押すごとに以下の順に表示が切り替わります。</p>\n"
+            "to": "<p>Cボタンを押します。→押すごとに以下の順に表示が切り替わります。</p>\n<p>サムネール画面選択画像表示</p>\n<p>2001.</p>\n<p>6-29</p>\n<p>メモ表示</p>\n<p>P 3:25</p>\n"
           },
           {
-            "startLine": 12,
-            "endLine": 14,
-            "from": "<h2 id=\"section-11-14\">ボタンまたは ボタンを押します。</h2>\n<p>メモ表示でも E ボタンを押すごとに1つずつ進み、⑧ボタンを押すごとに戻ります。</p>\n",
-            "to": "<h2 id=\"section-11-14\">EボタンまたはBボタンを押します。</h2>\n<p>メモ表示でも Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
+            "startLine": 6,
+            "endLine": 11,
+            "from": "<p>サムネール画面選択画像表示</p>\n<p>メモ表示</p>\n<h2 id=\"section-11-10\">5. 画像を選ぶ</h2>\n<h2 id=\"section-11-11\">ボタンまたは ボタンを押します。</h2>\n<p>メモ表示でも E ボタンを押すごとに1つずつ進み、⑧ボタンを押すごとに戻ります。</p>\n",
+            "to": "<h2 id=\"section-11-13\">5. 画像を選ぶ</h2>\n<h2 id=\"section-11-14\">EボタンまたはBボタンを押します。</h2>\n<p>メモ表示でも Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 16,
-            "endLine": 18,
-            "from": "<h2 id=\"section-11-19\">6. 時モードに戻す</h2>\n<h2 id=\"section-11-20\">◎ボタンを押します。</h2>\n",
+            "startLine": 13,
+            "endLine": 15,
+            "from": "<h2 id=\"section-11-16\">6. 時モードに戻す</h2>\n<h2 id=\"section-11-17\">◎ボタンを押します。</h2>\n",
             "to": "<h2 id=\"section-11-19\">6. 時刻モードに戻す</h2>\n<h2 id=\"section-11-20\">Dボタンを押します。</h2>\n"
           },
           {
-            "startLine": 21,
-            "endLine": 25,
-            "from": "<h2 id=\"section-11-26\">7. ビジュアルDBモードに切り替える</h2>\n<p>時刻モードのときにボタンを1回押します。</p>\n<p>&quot;→撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を</p>\n<p>含む4画像のサムネール画面になります。</p>\n",
-            "to": "<h2 id=\"section-11-26\">1. ビジュアルDBモードに切り替える</h2>\n<p>時刻モードのときにDボタンを1回押します。</p>\n<p>→撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を含む4画像のサムネール画面になります。</p>\n"
+            "startLine": 17,
+            "endLine": 22,
+            "from": "<h2 id=\"section-11-22\">■画像を削除する</h2>\n<h2 id=\"section-11-23\">7. ビジュアルDBモードに切り替える</h2>\n<p>時刻モードのときにボタンを1回押します。</p>\n<p>&quot;→撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を</p>\n<p>含む4画像のサムネール画面になります。</p>\n",
+            "to": "<h2 id=\"section-11-25\">■画像を削除する</h2>\n<h2 id=\"section-11-26\">1. ビジュアルDBモードに切り替える</h2>\n<p>時刻モードのときにDボタンを1回押します。</p>\n<p>→撮影枚数を約1秒間表示後、前回最後に見た画像または撮影した直後の画像を含む4画像のサムネール画面になります。</p>\n"
           },
           {
-            "startLine": 29,
+            "startLine": 25,
+            "endLine": 26,
+            "from": "<h2 id=\"section-11-30\">2.． 画像を選ぶ</h2>\n",
+            "to": "<p>画像番号</p>\n<h2 id=\"section-11-34\">2. 画像を選ぶ</h2>\n"
+          },
+          {
+            "startLine": 27,
             "endLine": 30,
-            "from": "<h2 id=\"section-11-34\">2.． 画像を選ぶ</h2>\n",
-            "to": "<h2 id=\"section-11-34\">2. 画像を選ぶ</h2>\n"
-          },
-          {
-            "startLine": 31,
-            "endLine": 34,
-            "from": "<h2 id=\"section-11-36\">Eボタンまたは ボタンを押します。</h2>\n<p>B</p>\n<p>= ⑤ボタンを押すごとに1つずつ進み、ボタンを押すごとに戻ります。</p>\n",
+            "from": "<h2 id=\"section-11-32\">Eボタンまたは ボタンを押します。</h2>\n<p>B</p>\n<p>= ⑤ボタンを押すごとに1つずつ進み、ボタンを押すごとに戻ります。</p>\n",
             "to": "<h2 id=\"section-11-36\">EボタンまたはBボタンを押します。</h2>\n<p>→Eボタンを押すごとに1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 37,
-            "endLine": 39,
-            "from": "<h2 id=\"section-11-43\">©ボタンを押します。</h2>\n<p>=→選択画像が大きく表示されます。</p>",
+            "startLine": 31,
+            "endLine": 32,
+            "from": "<h2 id=\"section-11-37\">3. 選択画像表示に切り替える</h2>\n",
+            "to": "<h2 id=\"section-11-41\">3. 選択画像表示に切り替える</h2>\n"
+          },
+          {
+            "startLine": 33,
+            "endLine": 35,
+            "from": "<h2 id=\"section-11-39\">©ボタンを押します。</h2>\n<p>=→選択画像が大きく表示されます。</p>",
             "to": "<h2 id=\"section-11-43\">Cボタンを押します。</h2>\n<p>→選択画像が大きく表示されます。</p>"
           }
+        ],
+        "notes": [
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "12": {
@@ -3182,7 +3249,7 @@
         ]
       },
       "13": {
-        "flowSHA256": "93e5014394cc3355b2001d43da1064b5741038c54a4af718e0996d474fcc9a2e",
+        "flowSHA256": "81250a07848e96caabe895c7395e8fc2086cedec350e77905c49fb4901c70570",
         "edits": [
           {
             "startLine": 1,
@@ -3216,37 +3283,38 @@
           },
           {
             "startLine": 19,
-            "endLine": 25,
-            "from": "<h2 id=\"section-13-24\">4. セットメニューを開く</h2>\n<p>A ボタンを約1秒間押し続けます。</p>\n<p>※「DELETE」は削除、「NAME」はメモ入力へ、</p>\n<p>ICONTRAST」はコントラスト設定へ、IFORMAT」はフォーマットへ進みます。</p>\n<h2 id=\"section-13-29\">5.INAME」を選ぶ</h2>\n<p>Eボタンまたはボタンを押して「NAME」</p>\n",
-            "to": "<h2 id=\"section-13-25\">4. セットメニューを開く</h2>\n<p>Aボタンを約1秒間押し続けます。</p>\n<p>※「DELETE」は削除、「NAME」はメモ入力へ、「CONTRAST」はコントラスト設定へ、「FORMAT」はフォーマットへ進みます。</p>\n<h2 id=\"section-13-30\">5. 「NAME」を選ぶ</h2>\n<p>EボタンまたはBボタンを押して「NAME」を選んでから、Fボタンを押します。</p>\n"
+            "endLine": 24,
+            "from": "<h2 id=\"section-13-24\">4. セットメニューを開く</h2>\n<p>A ボタンを約1秒間押し続けます。</p>\n<p>※「DELETE」は削除、「NAME」はメモ入力へ、</p>\n<p>ICONTRAST」はコントラスト設定へ、IFORMAT」はフォーマットへ進みます。</p>\n<h2 id=\"section-13-29\">5.INAME」を選ぶ</h2>\n",
+            "to": "<h2 id=\"section-13-25\">4. セットメニューを開く</h2>\n<p>Aボタンを約1秒間押し続けます。</p>\n<p>※「DELETE」は削除、「NAME」はメモ入力へ、「CONTRAST」はコントラスト設定へ、「FORMAT」はフォーマットへ進みます。</p>\n<h2 id=\"section-13-30\">5. 「NAME」を選ぶ</h2>\n<p>EボタンまたはBボタンを押して「NAME」を選んでから、Fボタンを押します。</p>\n<p>文字カーソル</p>\n"
           },
           {
-            "startLine": 27,
-            "endLine": 30,
-            "from": "<p>を選んでから、ボタンを押します。</p>\n<p>B</p>\n<p>=→表示窓下部に撮影日時が表示され、上部の1桁目で文字カーソルが点滅します。</p>\n",
+            "startLine": 25,
+            "endLine": 28,
+            "from": "<p>Eボタンまたはボタンを押して「NAME」を選んでから、ボタンを押します。</p>\n<p>B</p>\n<p>=→表示窓下部に撮影日時が表示され、上部の1桁目で文字カーソルが点滅します。</p>\n",
             "to": "<p>→表示窓下部に撮影日時が表示され、上部の1桁目で文字カーソルが点滅します。</p>\n"
           },
           {
-            "startLine": 32,
-            "endLine": 33,
-            "from": "<h2 id=\"section-13-39\">6. 文字を入力する</h2>\n",
-            "to": "<h2 id=\"section-13-40\">6. 文字を入力する</h2>\n"
+            "startLine": 29,
+            "endLine": 30,
+            "from": "<h2 id=\"section-13-37\">6. 文字を入力する</h2>\n",
+            "to": "<p>2001. 6-30.P 10:58</p>\n<h2 id=\"section-13-40\">6. 文字を入力する</h2>\n"
           },
           {
-            "startLine": 34,
-            "endLine": 35,
+            "startLine": 31,
+            "endLine": 32,
             "from": "<p>⑤ボタンまたは ボタンを押します。→ ボタンを押すごとに以下の順に1つずつ進み、ボタンを押すごとに戻ります。</p>\n",
             "to": "<p>EボタンまたはBボタンを押します。→Eボタンを押すごとに以下の順に1つずつ進み、Bボタンを押すごとに戻ります。</p>\n"
           },
           {
-            "startLine": 36,
-            "endLine": 37,
+            "startLine": 33,
+            "endLine": 34,
             "from": "<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"図\" viewBox=\"310.000 324.000 262.000 70.000\" width=\"444.92\" height=\"118.87\"><image href=\"assets/wqv10-ja-13.png\" width=\"1\" height=\"1\" preserveAspectRatio=\"none\" transform=\"matrix(596.1599731 0.0000000 -0.0000000 419.5199890 0.0000000 0.0000000)\"/></svg></figure>",
             "to": "\n<p>文字の順（Eボタンで進み、Bボタンで戻る）：空白 → A～Z → 0～9 → &amp; → &#x27; → ( → ) → , → - → . → / → : → ? → _ → ~ → ・ → 空白。</p>\n\n<figure class=\"illustration\"><svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"図\" viewBox=\"310.000 324.000 262.000 70.000\" width=\"444.92\" height=\"118.87\"><image href=\"assets/wqv10-ja-13.png\" width=\"1\" height=\"1\" preserveAspectRatio=\"none\" transform=\"matrix(596.1599731 0.0000000 -0.0000000 419.5199890 0.0000000 0.0000000)\"/></svg></figure>\n\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "14": {
@@ -3496,7 +3564,7 @@
         ]
       },
       "19": {
-        "flowSHA256": "752e6055a3b8c34bc0ea6e68091f4cea74142dc7b040a96392ecff6509fd7719",
+        "flowSHA256": "50b5776911fb79b0137380e57ecb43877752c47f8f9235bd95adeaef5d3d4a19",
         "edits": [
           {
             "startLine": 1,
@@ -3506,25 +3574,26 @@
           },
           {
             "startLine": 7,
-            "endLine": 14,
-            "from": "<p>RECEVE</p>\n<p>受言が成功すると、受画像を約1秒間表</p>\n<p>示し、送／受メニューに戻ります。</p>\n<p>送側の操作</p>\n<h2 id=\"section-19-15\">1. 通信モードに切り替える</h2>\n<h2 id=\"section-19-16\">時刻モードのときに◎ボタンを2回押します。</h2>\n<p>→モード表示を約1秒間表示後、通メニューが表示されます。</p>\n",
+            "endLine": 13,
+            "from": "<p>受言が成功すると、受画像を約1秒間表</p>\n<p>示し、送／受メニューに戻ります。</p>\n<p>送側の操作</p>\n<h2 id=\"section-19-14\">1. 通信モードに切り替える</h2>\n<h2 id=\"section-19-15\">時刻モードのときに◎ボタンを2回押します。</h2>\n<p>→モード表示を約1秒間表示後、通メニューが表示されます。</p>\n",
             "to": "<p>RECEIVE</p>\n<p>受信が成功すると、受信画像を約1秒間表示し、送信／受信メニューに戻ります。</p>\n\n<p>送信側の操作</p>\n<h2 id=\"section-19-16\">1. 通信モードに切り替える</h2>\n<h2 id=\"section-19-17\">時刻モードのときにDボタンを2回押します。</h2>\n<p>→モード表示を約1秒間表示後、通信メニューが表示されます。</p>\n"
           },
           {
-            "startLine": 15,
-            "endLine": 17,
+            "startLine": 14,
+            "endLine": 16,
             "from": "<p>※本機はWQV-3シリーズとの通も可能です。そのときの通信メニューは時計を選んでください。</p>\n<p>※本機はWQV-1シリーズおよびWQV-2とは言できません。</p>\n",
             "to": "<p>※本機はWQV-3シリーズとの通信も可能です。そのときの通信メニューは時計を選んでください。</p>\n<p>※本機はWQV-1シリーズおよびWQV-2とは通信できません。</p>\n"
           },
           {
-            "startLine": 20,
-            "endLine": 25,
-            "from": "<h2 id=\"section-19-26\">2. 時計同士のモードに切り替える</h2>\n<h2 id=\"section-19-27\">® ボタンまたは⑧ボタンを押して時計を選び、® ボタンを押し</h2>\n<p>ます。</p>\n<p>ル時計同士の送／受備メニューになります。このまま「SEND」（送）が反転表示されている状態が、送待機状態です。</p>\n<p>※通信を途中でやめるときは④ボタンを押します。また、© ボタンを押すと直接時刻モードに戻ります。</p>\n",
+            "startLine": 19,
+            "endLine": 24,
+            "from": "<h2 id=\"section-19-25\">2. 時計同士のモードに切り替える</h2>\n<h2 id=\"section-19-26\">® ボタンまたは⑧ボタンを押して時計を選び、® ボタンを押し</h2>\n<p>ます。</p>\n<p>ル時計同士の送／受備メニューになります。このまま「SEND」（送）が反転表示されている状態が、送待機状態です。</p>\n<p>※通信を途中でやめるときは④ボタンを押します。また、© ボタンを押すと直接時刻モードに戻ります。</p>\n",
             "to": "<h2 id=\"section-19-27\">2. 時計同士のモードに切り替える</h2>\n<h2 id=\"section-19-28\">EボタンまたはBボタンを押して時計を選び、Fボタンを押します。</h2>\n<p>→時計同士の送信／受信メニューになります。このまま「SEND」（送信）が反転表示されている状態が、送信待機状態です。</p>\n<p>※通信を途中でやめるときはAボタンを押します。また、Dボタンを押すと直接時刻モードに戻ります。</p>\n<p>＜送信待機状態＞</p>\n<p>時計</p>\n"
           }
         ],
         "notes": [
-          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow."
+          "2026-11-06: source-context crop audit; removed false text/header fragments, retained complete button circles and connected diagrams. Previous reviewed text retained and rebased to the new illustration flow.",
+          "Checked the crop against the original scan and retained the complete illustration callouts."
         ]
       },
       "20": {
