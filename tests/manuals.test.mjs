@@ -82,6 +82,40 @@ test('the Russian module 2412 image viewer uses four steps in order', () => {
   assert.match(procedure, /4\. Нажмите кнопку «С» ещё раз, чтобы показать прикреплённый к снимку текст/);
 });
 
+test('English time setting starts with A and identifies the model-specific navigation buttons', () => {
+  for (const [model, navigation] of [
+    ['wqv2', 'Each press of D moves'],
+    ['wqv3', 'Use C and D to cycle'],
+  ]) {
+    const source = readFileSync(new URL(model + '-en.html', root), 'utf8');
+    const procedure = source.split('>To set the time and date</h3>')[1].split('<h3')[0];
+    const steps = [...procedure.matchAll(/<p>\d+\. ([^<]+)<\/p>/g)].map(match => match[1]);
+    assert.equal(steps.length, 3, model);
+    assert.match(steps[0], /hold down A for about one second until the seconds digits start to flash/);
+    assert.match(steps[1], /use E \(\+\) and B \(–\) to change it/);
+    assert.match(steps[2], /press A to exit/);
+    assert.ok(procedure.indexOf(navigation) > procedure.indexOf(steps[0]), model);
+    assert.ok(procedure.indexOf(navigation) < procedure.indexOf(steps[1]), model);
+  }
+});
+
+test('Russian troubleshooting tables preserve the watch messages and the original column order', () => {
+  const wqv3 = readFileSync(new URL('wqv3-ru.html', root), 'utf8');
+  assert.match(wqv3, /<td>WATCH SEND NG [^<]*<br>WATCH RECEIVE NG [^<]*<\/td>/);
+  for (const message of ['PLAY ERROR', 'REC ERROR', 'IR COM ERROR', 'WAIT SET NG']) {
+    assert.ok(wqv3.includes('<td>' + message + '</td>'), message);
+  }
+  const wqv10 = readFileSync(new URL('wqv10-ru.html', root), 'utf8');
+  assert.match(wqv10, /<td>ERROR SEND [^<]*<br>ERROR RECEIVE [^<]*<\/td>/);
+  assert.ok(wqv10.includes('<td>MEMORY FULL</td>'));
+  const page = wqv10.split('id="page-11"')[1].split('</section>')[0];
+  const [troubleshooting, specifications] = page.split('>Технические характеристики</h2>');
+  assert.match(troubleshooting, /пяти минут[^<]*часы автоматически вернутся в исходный режим обмена данными\.<\/p>/);
+  const rows = troubleshooting.match(/<tbody>(.*?)<\/tbody>/s)[1];
+  assert.equal([...rows.matchAll(/<tr>/g)].length, 8);
+  assert.match(specifications, /±15 секунд в месяц/);
+});
+
 test('module 2412 setup, image deletion and IR steps are available as document text', () => {
   const source = readFileSync(new URL('wqv10-en.html', root), 'utf8');
   const page = number => source.match(new RegExp(`id="page-${number}"[\\s\\S]*?</section>`))[0];

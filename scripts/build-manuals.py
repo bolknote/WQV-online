@@ -395,6 +395,25 @@ def render_flow(items, normal, columns, page, number, svgfile, language, raster=
     flush()
     return '\n'.join(parts), headings
 
+def format_diagrams(body, language, low_contrast):
+    remaining = set(low_contrast)
+    def format_figure(match):
+        figure, drawing, closing = match.groups()
+        viewbox = re.search(r'viewBox="([^"]+)"', drawing)[1]
+        if viewbox in remaining:
+            figure = figure.replace('class="illustration', 'class="illustration contrast-ink', 1)
+            remaining.remove(viewbox)
+        width = float(re.search(r' width="([\d.]+)"', drawing)[1])
+        if language == 'fi' or width > 280:
+            label = LANG[language]['illustration']
+            drawing = (f'<div class="diagram-viewport" tabindex="0" role="region" '
+                       f'aria-label="{label}">{drawing}</div>')
+        return figure + drawing + closing
+    body = re.sub(r'(<figure[^>]*>)(<svg[\s\S]*?</svg>)(</figure>)', format_figure, body)
+    if remaining:
+        raise ValueError(f'Reviewed low-contrast diagrams have changed: {sorted(remaining)}')
+    return body
+
 def build(identifier, source, ocrroot, output):
     model, language = identifier.split('-')
     directory = output/'assets'
@@ -464,9 +483,8 @@ def build(identifier, source, ocrroot, output):
         if identifier in PROOFREADING:
             body = proofread_manual(identifier, n, body)
             body, headings = reviewed_headings(body, n)
-        if language == 'fi':
-            body = re.sub(r'(<figure[^>]*>)(<svg[\s\S]*?</svg>)(</figure>)',
-                r'\1<div class="diagram-viewport" tabindex="0" role="region" aria-label="Kuva">\2</div>\3', body)
+        page_review = (review or {}).get('pages', {}).get(str(n), {})
+        body = format_diagrams(body, language, page_review.get('lowContrastDiagrams', ()))
         allheadings.extend(headings)
         if language != 'ja':
             for line in lines:

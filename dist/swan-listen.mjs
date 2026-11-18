@@ -104,7 +104,8 @@ function renderAutoTune(summary = autoSummary) {
 function render() {
   const ready = Boolean(adapter?.opened), running = busy && active?.status === 'running',
     replayMode = physicalMode ? step().replayTrigger ?? 'manual' : $('replay-timing').value;
-  document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
+  const language = getLanguage() === 'ru' ? 'ru' : 'en';
+  document.documentElement.lang = language; $('language').value = language;
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   if (syncMode) {
     document.title = 'WQV Link · SWAN signal / replay';

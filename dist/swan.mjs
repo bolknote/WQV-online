@@ -73,7 +73,8 @@ function restore() {
 function selected() { return active && (! $('attempts').value || active.id === $('attempts').value) ? active : attempts.find(item => item.id === $('attempts').value); }
 function render() {
   const opened = Boolean(adapter?.opened), running = busy && active?.status === 'running';
-  document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
+  const language = getLanguage() === 'ru' ? 'ru' : 'en';
+  document.documentElement.lang = language; $('language').value = language;
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   $('step-heading').textContent = `${index + 1}. ${t(SWAN_PLAN[index].label)}`;
   $('step-note').textContent = t(SWAN_PLAN[index].watchPresent ? 'Restart IR → SWAN → RECEIVE. Face the watch toward SigmaTel at 5–10 cm. Leave the final RECEIVE activation until recording has started.' : 'Keep the watch out of the IR path for this control. Its purpose is to record adapter echo and background bytes.');

@@ -388,7 +388,7 @@ function applyLanguage() {
   if (!supported) $('compatibility').textContent = tr('This browser has no WebUSB. Open the page in Chrome, Edge or an Opera version with WebUSB.');
 }
 installDesktopShell({ help: () => messageDialog('WQV-1/2 · WQV Link',
-  [tr('Connect a SigmaTel STIr4200 or KingSun KS-959, then choose Current photo or All photos. Start reading on the computer before activating IR → PC and pressing F on WQV-1/2.\n\nPhotos are stored in this browser’s WQV-1/2 album. Save PNG images or original BIN records, open BIN backups, or export the album as a ZIP.\n\nKS-959 uses the local USB helper. SigmaTel connects directly through WebUSB.'),
+  [tr('Connect a SigmaTel STIr4200, KingSun KS-959 or Mobile Action MA-620, then choose Current photo or All photos. Start reading on the computer before activating IR → PC and pressing F on WQV-1/2.\n\nPhotos are stored in this browser’s WQV-1/2 album. Save PNG images or original BIN records, open BIN backups, or export the album as a ZIP.\n\nKS-959 and MA-620 use the local USB helper. SigmaTel connects directly through WebUSB.'),
     tr('In OTHERS mode, choose Receive photo. Open OTHERS → SEND on WQV-1/2 and choose a photo. Start receiving on the computer before pressing F on the watch to send it.'),
     tr('In PC mode, the Clock tab reads the watch time and sets the date, hours and minutes. Setting keeps the watch seconds unchanged. Start on the computer before activating PC mode on WQV-1/2.')].join('\n\n')), changed: applyLanguage });
 if (!supported) $('compatibility').hidden = false;

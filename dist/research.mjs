@@ -183,7 +183,8 @@ function render() {
   const pcRemote = discovery && selectedWatchMode === 'pc-remote';
   const swanReceive = (passive || serial) && selectedWatchMode === 'swan-receive';
   const manualSerial = serial && selectedSerialTransmission === 'manual';
-  document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
+  const language = getLanguage() === 'ru' ? 'ru' : 'en';
+  document.documentElement.lang = language; $('language').value = language;
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   for (const option of RESEARCH_MODES) $('mode-' + option).setAttribute('aria-pressed', String(mode === option));
   for (const id of [...RESEARCH_MODES.map(option => 'mode-' + option), 'watch-mode', 'listen-baud', 'serial-probe', 'serial-transmission']) $(id).disabled = !store || busy || ready;

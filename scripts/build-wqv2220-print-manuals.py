@@ -36,8 +36,10 @@ def render_figure(figure, caption):
     shown_height = shown_width * height / width
     wrapper = ('<div class="diagram-viewport" tabindex="0" role="region" '
                f'aria-label="{html.escape(caption)}">')
+    labels = figure.get('referenceArtwork', {}).get('labels', [])
+    description = '. '.join([caption, *labels])
     picture = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{html.escape(caption)}" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{html.escape(description)}" '
         f'viewBox="0 0 {width} {height}" width="{shown_width:.1f}" height="{shown_height:.1f}">'
         f'<image href="assets/{asset}" width="{width}" height="{height}"/></svg>'
     )

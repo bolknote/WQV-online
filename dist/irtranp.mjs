@@ -133,7 +133,8 @@ function status(key, detail = '', error = false) {
   $('status').textContent = t(key) + (detail ? '\n' + detail : ''); $('status').classList.toggle('error', error);
 }
 function render() {
-  document.documentElement.lang = getLanguage(); $('language').value = getLanguage();
+  const language = getLanguage() === 'ru' ? 'ru' : 'en';
+  document.documentElement.lang = language; $('language').value = language;
   for (const element of document.querySelectorAll('[data-text]')) element.textContent = t(element.dataset.text);
   for (const element of document.querySelectorAll('[data-placeholder]')) element.placeholder = t(element.dataset.placeholder);
   const opened = Boolean(adapter?.opened), exporting = Boolean(suiteUI?.editing),

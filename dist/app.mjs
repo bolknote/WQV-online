@@ -44,7 +44,7 @@ if (profile.colourCalendar) {
 }
 function modelLabels(root = document) {
   const labels = { name: profile.name, module: tr('{0} / module {1}', profile.name, profile.module),
-    send: tr('Send to {0}', profile.name), download: tr('Download photos from the {0}', profile.name) };
+    send: tr('Send to {0}', profile.name), download: tr('Download photos from the {0} or import an image from your computer.', profile.name) };
   for (const node of root.querySelectorAll('[data-watch-text]')) node.textContent = labels[node.dataset.watchText];
   if (root === document) $('watch-guide').textContent = manualLabel(profile.id, getLanguage()) || tr('User’s Guide');
 }
@@ -182,7 +182,7 @@ function showDialog(title, message, accept = tr('OK'), confirm = false) {
     dialog.showModal(); (confirm ? $('dialog-cancel') : $('dialog-accept')).focus();
   });
 }
-const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200 or KingSun KS-959, choose the same mode here and on the watch, and keep their infrared windows 5–10 cm apart. KS-959 uses the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. The other modes exchange one photo per connection. Prepare USB first, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls.", profile.name));
+const help = () => showDialog('WQV Link 0.2 · CASSIOPEIA', tr("{0} / WebUSB.\n\nConnect a SigmaTel STIr4200, KingSun KS-959 or Mobile Action MA-620, choose the same mode here and on the watch, and keep their infrared windows 5–10 cm apart. KS-959 and MA-620 use the local USB helper.\n\nPC: photos, remote browsing, clock and calendar. The other modes exchange one photo per connection. Prepare USB first, then follow the transfer window.\n\nPhotos and calendar backups stay in this browser. Each watch model has its own album. Open User’s Guide from Start for the watch controls.", profile.name));
 for (const id of ['help-top', 'help-menu', 'help-menu-bar']) $(id).addEventListener('click', help);
 
 installSystemSettings({ closeMenus });

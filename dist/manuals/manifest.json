@@ -10,7 +10,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/22/2220/qw2220_EN.pdf",
     "sourceSHA256": "1739d5ff6b4452ab5f432734d53efffb386f452630ee32d76a3f124e84d184d5",
     "scanned": false,
-    "illustrations": 52,
+    "illustrations": 53,
     "headings": [
       {
         "id": "section-1-0",
@@ -409,7 +409,7 @@
     "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2220.pdf",
     "sourceSHA256": "a84079c8f717e59e3c64e091862ac7b556b36d44a02e0139a22c2d601f016073",
     "scanned": false,
-    "illustrations": 45,
+    "illustrations": 43,
     "headings": [
       {
         "id": "section-1-1",
@@ -1431,7 +1431,7 @@
     "sourceURL": "https://www.casio.com/content/dam/casio/global/support/manuals/watches/pdf/24/2411/qw2411_EN.pdf",
     "sourceSHA256": "b23d4a3363700236002e93a4660514966de011fd5899903e02b5a1a2fe48cb6c",
     "scanned": false,
-    "illustrations": 49,
+    "illustrations": 50,
     "headings": [
       {
         "id": "section-1-0",
@@ -1642,8 +1642,12 @@
         "text": "TIMEKEEPING"
       },
       {
+        "id": "section-5-restored-84",
+        "text": "Note"
+      },
+      {
         "id": "section-5-78",
-        "text": "To reset the second’s count to zero"
+        "text": "To reset the seconds count to zero"
       },
       {
         "id": "section-5-86",
@@ -1739,11 +1743,7 @@
       },
       {
         "id": "section-7-62",
-        "text": "Keep batteries out of the reach of small children. If accidentally"
-      },
-      {
-        "id": "section-7-63",
-        "text": "swallowed, immediately contact a physician."
+        "text": "Keep batteries out of the reach of small children. If accidentally swallowed, immediately contact a physician."
       },
       {
         "id": "section-7-110",
@@ -1786,7 +1786,7 @@
     "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2411.pdf",
     "sourceSHA256": "379d849e02f1648fd1f1e555da12f54c51c0701967c64642f60af5c1fd34846b",
     "scanned": false,
-    "illustrations": 44,
+    "illustrations": 40,
     "headings": [
       {
         "id": "section-1-1",
@@ -3215,7 +3215,7 @@
     "sourceURL": "https://i-watch.ru/image/catalog/info/instruktsii/casio/2412.pdf",
     "sourceSHA256": "ddedd75a4783767ff2ddad9f6528193ca189b6de3a2c809e7e020188b9fd3947",
     "scanned": false,
-    "illustrations": 48,
+    "illustrations": 45,
     "headings": [
       {
         "id": "section-1-1",
@@ -3558,12 +3558,12 @@
         "text": "Операция автовозврата"
       },
       {
-        "id": "section-11-2",
-        "text": "Технические характеристики"
-      },
-      {
         "id": "section-11-8",
         "text": "Возможные неисправности и способы их устранения"
+      },
+      {
+        "id": "section-11-2",
+        "text": "Технические характеристики"
       },
       {
         "id": "section-11-13",
